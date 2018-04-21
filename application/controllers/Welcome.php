@@ -20,7 +20,7 @@ class Welcome extends CI_Controller {
 	 */
 	public function index()
 	{	
-		$this->load->view('welcome_message');
+		$this->mod_user->chk_status();
 	}
 	
 	
