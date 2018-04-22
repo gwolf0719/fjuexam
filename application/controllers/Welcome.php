@@ -21,6 +21,11 @@ class Welcome extends CI_Controller {
 	public function index()
 	{	
 		$this->mod_user->chk_status();
+		$data=array(
+			"title"=>"首頁",
+			"path"=>"index"
+		);
+		$this->load->view("layout",$data);
 	}
 	
 	

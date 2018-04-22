@@ -16,7 +16,8 @@ class Mod_user extends CI_Model {
     function do_login($user_id){
         $data = array(
             "user_id"=>$user_id,
-            "login"=>TRUE
+            "login"=>TRUE,
+            "year"=>date("Y")-1911,
         );
         $this->session->set_userdata($data);
     }

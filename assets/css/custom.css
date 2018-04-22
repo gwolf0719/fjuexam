@@ -1,9 +1,16 @@
 main.container{
-    margin-top: 100px;
+    margin-top: 70px;
 }
+
+
+/* 登入專用開始 */
  #login_form {
     border-radius: 15px;
     border: 1px solid #999;
     padding: 30px;
     margin-top: 80px;
  }
+/* 登入專用結束 */
+.system_tool button{
+    border: 1px solid #fff;
+}
