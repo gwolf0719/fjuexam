@@ -8,10 +8,14 @@
         margin:100px auto;
         line-height:75%;
     }
+    img{
+        max-width:100%;
+    }
 </style>
 
 <div class="row">
-    <div class="col-sm "> <a href="./designated/index"><div class="box">指考</div></a> </div>
-    <div class="col-sm "> <div class="box">英聽</div> </div>
-    <div class="col-sm "> <div class="box">學測</div> </div>
+
+    <div class="col-sm "> <a href="./designated/index"><img src="assets/images/means_test.png" alt=""></a> </div>
+    <div class="col-sm "> <a href=""><img src="assets/images/eng.png" alt=""></a> </div>
+    <div class="col-sm "> <a href=""><img src="assets/images/learn_test.png" alt=""></a> </div>
 </div>

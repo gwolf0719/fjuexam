@@ -1,10 +1,18 @@
+<style>
+    img{
+        max-width:100%;
+    }
+    .cube{
+        margin:80px auto;
+    }
+</style>
 <div class="row">
     <div class="input-group col-sm-3">
 
         <div class="input-group-prepend">
             <span class="input-group-text" id="inputGroup-sizing-default">學年度</span>
         </div>
-        <input type="text" class="form-control" aria-label="Default" aria-describedby="inputGroup-sizing-default" value="<?=$this->session->userdata('year')?>" readonly>
+        <input type="text" class="form-control" aria-label="Default" aria-describedby="inputGroup-sizing-default" value="<?=$this->session->userdata('year'); ?>" readonly>
         
         
         
@@ -13,16 +21,21 @@
 </div>
 <div class="row">
     
-    <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4">
-        <a href="./designated/a_1">A-1 考區試場資料</a>    
+    <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4 cube">
+        <a href="./designated/a_1">
+            <img src="assets/images/a1.png" alt="">
+        </a>    
+    </div>
+    <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4 cube">
+        <a href="./designated/a">
+            <img src="assets/images/a2.png" alt="">
+        </a>    
     
     </div>
-    <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4">
-        <a href="./designated/a">A-2 本校單位資料</a>    
-    
-    </div>
-    <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4">
-        <a href="./designated/a">A-3 工作人員資料</a>    
+    <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4 cube">
+        <a href="./designated/a">
+            <img src="assets/images/a3.png" alt="">
+        </a>    
     
     </div>
     
