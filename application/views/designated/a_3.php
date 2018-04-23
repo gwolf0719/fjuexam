@@ -67,7 +67,6 @@ img{
                 "member_unit":member_unit,
                 "member_title":member_title,
                 "member_phone":member_phone,
-                "member_title":member_title,
                 "order_meal":member_meal,
                 "meal":meal,
             },
@@ -139,7 +138,7 @@ img{
     </div>
 
     <div class="col-sm-8" style="text-align: center;">
-        <img src="assets/images/a2_title.png" alt="" style="width: 20%;">
+        <img src="assets/images/a3_title.png" alt="" style="width: 20%;">
     </div>
 
     <div class="input-group col-sm-2">

@@ -26,6 +26,9 @@ class Api extends CI_Controller
         echo json_encode($json_arr);
     }
 
+    /**
+     * a相關api.
+     */
     public function add_school_unit()
     {
         $this->load->model('mod_school_unit');
@@ -164,6 +167,81 @@ class Api extends CI_Controller
             $json_arr['requred'] = $this->getpost->report_requred($requred);
         } else {
             $this->mod_staff->remove_once($data['sn']);
+            $json_arr['sys_code'] = '200';
+            $json_arr['sys_msg'] = '刪除成功';
+        }
+        echo json_encode($json_arr);
+    }
+
+    /**
+     * b相關api.
+     */
+    public function add_task()
+    {
+        $this->load->model('mod_task');
+        $getpost = array('area', 'job_code', 'job_title', 'name', 'phone', 'start_date', 'number', 'trial_start', 'trial_end', 'section', 'price', 'lunch', 'note', 'class');
+        $requred = array('area', 'job_code', 'job_title', 'name', 'phone', 'start_date', 'number', 'trial_start', 'trial_end', 'section', 'price', 'lunch', 'note', 'class');
+        $data = $this->getpost->getpost_array($getpost, $requred);
+        if ($data == false) {
+            $json_arr['sys_code'] = '000';
+            $json_arr['sys_msg'] = '資料不足';
+            $json_arr['requred'] = $this->getpost->report_requred($requred);
+        } else {
+            $this->mod_task->add_once($data);
+            $json_arr['sys_code'] = '200';
+            $json_arr['sys_msg'] = '資料新增完成';
+        }
+        echo json_encode($json_arr);
+    }
+
+    public function edit_task()
+    {
+        $this->load->model('mod_task');
+        $getpost = array('sn', 'area', 'job_code', 'job_title', 'name', 'phone', 'start_date', 'number', 'trial_start', 'trial_end', 'section', 'price', 'lunch', 'note', 'class');
+        $requred = array('sn', 'area', 'job_code', 'job_title', 'name', 'phone', 'start_date', 'number', 'trial_start', 'trial_end', 'section', 'price', 'lunch', 'note', 'class');
+        $data = $this->getpost->getpost_array($getpost, $requred);
+        if ($data == false) {
+            $json_arr['sys_code'] = '000';
+            $json_arr['sys_msg'] = '資料不足';
+            $json_arr['requred'] = $this->getpost->report_requred($requred);
+        } else {
+            $this->mod_task->update_once($data['sn'], $data);
+            $json_arr['sys_code'] = '200';
+            $json_arr['sys_msg'] = '資料編輯完成';
+        }
+        echo json_encode($json_arr);
+    }
+
+    public function get_once_task()
+    {
+        $this->load->model('mod_task');
+        $getpost = array('sn');
+        $requred = array('sn');
+        $data = $this->getpost->getpost_array($getpost, $requred);
+        if ($data == false) {
+            $json_arr['sys_code'] = '000';
+            $json_arr['sys_msg'] = '資料不足';
+            $json_arr['requred'] = $this->getpost->report_requred($requred);
+        } else {
+            $json_arr['info'] = $this->mod_task->get_once($data['sn']);
+            $json_arr['sys_code'] = '200';
+            $json_arr['sys_msg'] = '資料處理完成';
+        }
+        echo json_encode($json_arr);
+    }
+
+    public function remove_once_task()
+    {
+        $this->load->model('mod_task');
+        $getpost = array('sn');
+        $requred = array('sn');
+        $data = $this->getpost->getpost_array($getpost, $requred);
+        if ($data == false) {
+            $json_arr['sys_code'] = '000';
+            $json_arr['sys_msg'] = '資料不足';
+            $json_arr['requred'] = $this->getpost->report_requred($requred);
+        } else {
+            $this->mod_task->remove_once($data['sn']);
             $json_arr['sys_code'] = '200';
             $json_arr['sys_msg'] = '刪除成功';
         }

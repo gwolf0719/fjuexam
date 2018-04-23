@@ -172,6 +172,98 @@ class Designated extends CI_Controller
             $this->load->view('layout', $data);
         }
     }
+
+    /**
+     * 考區任務編組.
+     */
+    public function b()
+    {
+        $this->mod_user->chk_status();
+        $data = array(
+            'title' => '考區任務編組',
+            'path' => 'designated/b',
+            'path_text' => ' > 指考主選單 > 考區任務編組',
+        );
+        $this->load->view('layout', $data);
+    }
+
+    public function b_1()
+    {
+        $this->load->model('mod_exam_area');
+        $this->load->model('mod_task');
+        $this->mod_user->chk_status();
+        $data = array(
+            'title' => '考區任務編組',
+            'path' => 'designated/b_1',
+            'path_text' => ' > 指考主選單 > 考區任務編組 > 考區',
+            'field' => $this->mod_task->get_field(),
+            'datalist' => $this->mod_task->get_list('考區'),
+        );
+        $this->load->view('layout', $data);
+    }
+
+    public function b_2()
+    {
+        $this->load->model('mod_exam_area');
+        $this->load->model('mod_task');
+        $this->mod_user->chk_status();
+        $data = array(
+            'title' => '考區任務編組',
+            'path' => 'designated/b_2',
+            'path_text' => ' > 指考主選單 > 考區任務編組 > 第一分區',
+            'field' => $this->mod_task->get_field(),
+            'datalist' => $this->mod_task->get_list('第一分區'),
+        );
+        $this->load->view('layout', $data);
+    }
+
+    public function b_3()
+    {
+        $this->load->model('mod_exam_area');
+        $this->load->model('mod_task');
+        $this->mod_user->chk_status();
+        $data = array(
+            'title' => '考區任務編組',
+            'path' => 'designated/b_3',
+            'path_text' => ' > 指考主選單 > 考區任務編組 > 第二分區',
+            'field' => $this->mod_task->get_field(),
+            'datalist' => $this->mod_task->get_list('第二分區'),
+        );
+        $this->load->view('layout', $data);
+    }
+
+    public function b_4()
+    {
+        $this->load->model('mod_exam_area');
+        $this->load->model('mod_task');
+        $this->mod_user->chk_status();
+        $data = array(
+            'title' => '考區任務編組',
+            'path' => 'designated/b_4',
+            'path_text' => ' > 指考主選單 > 考區任務編組 > 第三分區',
+            'field' => $this->mod_task->get_field(),
+            'datalist' => $this->mod_task->get_list('第三分區'),
+        );
+        $this->load->view('layout', $data);
+    }
+
+    public function b_5()
+    {
+        $this->load->model('mod_exam_area');
+        $this->load->model('mod_task');
+        $this->mod_user->chk_status();
+        $data = array(
+            'title' => '預覽任務編組表',
+            'path' => 'designated/b_5',
+            'path_text' => ' > 指考主選單 > 考區任務編組 > 預覽任務編組表',
+            'all' => $this->mod_task->get_list(),
+            'b1' => $this->mod_task->get_list('考區'),
+            'b2' => $this->mod_task->get_list('第一分區'),
+            'b3' => $this->mod_task->get_list('第二分區'),
+            'b4' => $this->mod_task->get_list('第三分區'),
+        );
+        $this->load->view('layout', $data);
+    }
 }
 
 /* End of file Designated.php */

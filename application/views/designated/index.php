@@ -29,27 +29,27 @@
         </a>    
     </div>
     <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4 cube">
-        <a href="">
+        <a href="./designated/b">
             <img src="assets/images/b.png" alt="">
         </a>
     </div>
     <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4 cube">
-        <a href="">
+        <a href="./designated/c">
             <img src="assets/images/c.png" alt="">
         </a>
     </div>
     <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4 cube">
-        <a href="">
+        <a href="./designated/d">
             <img src="assets/images/d.png" alt="">
         </a>
     </div>
     <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4 cube">
-        <a href="">
+        <a href="./designated/e">
             <img src="assets/images/e.png" alt="">
         </a>
     </div>
     <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4 cube">
-        <a href="">
+        <a href="./designated/f">
             <img src="assets/images/f.png" alt="">
         </a>
     </div>
