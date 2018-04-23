@@ -42,7 +42,7 @@ img{
     height: 50px;
     padding: 5px 0px;
     font-size: 25px;
-    margin: 0px 15%;
+    margin: 0px 10%;
 }
 </style>
 <script>
@@ -75,7 +75,7 @@ img{
     </div>
     
 </div>
-<div class="row" style="position: relative;top: 20px;left: 25px;">
+<div class="row" style="position: relative;top: 20px;left: 10px;">
     <div style="width:95%;margin:0 auto">
         <div class="tab active" area="0"><div class="W50 ball">B</div><div class="W50 tab_text">ALL</div></div>
         <div class="tab" area="1"><div class="W50 ball">B1</div><div class="W50 tab_text">考區</div></div>
