@@ -14,7 +14,7 @@
 <div class="row">
     
     <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4">
-        <a href="./designated/a">A-1 考區試場資料</a>    
+        <a href="./designated/a_1">A-1 考區試場資料</a>    
     
     </div>
     <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4">
