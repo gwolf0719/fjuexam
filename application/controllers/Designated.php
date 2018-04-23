@@ -74,6 +74,7 @@ class Designated extends CI_Controller
             fclose($file);
             unlink($file_name);
             // print_r(fgetcsv($file));
+            redirect('designated/a_1');
         } else {
             $data = array(
                 'title' => '考區試場資料',
@@ -115,12 +116,58 @@ class Designated extends CI_Controller
             fclose($file);
             unlink($file_name);
             //  print_r(fgetcsv($file));
+            redirect('designated/a_2');
         } else {
             $data = array(
                 'title' => '本校單位資料',
                 'path' => 'designated/a_2',
                 'path_text' => ' > 指考主選單 > 資料匯入作業 > 本校單位資料',
                 'datalist' => $this->mod_school_unit->year_get_list(),
+            );
+            $this->load->view('layout', $data);
+        }
+    }
+
+    public function a_3()
+    {
+        $this->load->model('mod_staff');
+        $this->mod_user->chk_status();
+        if (isset($_FILES['file'])) { // 如果有接收到上傳檔案資料
+            // print_r($_FILES);
+            $file = $_FILES['file']['tmp_name'];
+            $file_name = './tmp/'.time().'.csv';
+            copy($file, $file_name);
+            $file = fopen($file_name, 'r');
+            $datas = array();
+            fgetcsv($file);
+            // print_r(fgetcsv($file));
+            while (!feof($file)) {
+                $data = fgetcsv($file);
+                $datas[] = array(
+                    'year' => $this->session->userdata('year'),
+                    'member_code' => $data[0],
+                    'member_name' => $data[1],
+                    'member_unit' => $data[2],
+                    'member_phone' => $data[3],
+                    'member_title' => $data[4],
+                    'order_meal' => $data[5],
+                    'meal' => $data[6],
+                 );
+                // print_r($datas);
+            }
+            // echo json_encode($datas);
+
+            $this->mod_staff->import($datas);
+            fclose($file);
+            unlink($file_name);
+            redirect('designated/a_3');
+            //  print_r(fgetcsv($file));
+        } else {
+            $data = array(
+                'title' => '工作人員資料',
+                'path' => 'designated/a_3',
+                'path_text' => ' > 指考主選單 > 資料匯入作業 > 工作人員資料',
+                'datalist' => $this->mod_staff->year_get_list(),
             );
             $this->load->view('layout', $data);
         }

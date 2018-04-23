@@ -27,13 +27,13 @@
         </a>    
     </div>
     <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4 cube">
-        <a href="./designated/a">
+        <a href="./designated/a_2">
             <img src="assets/images/a2.png" alt="">
         </a>    
     
     </div>
     <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4 cube">
-        <a href="./designated/a">
+        <a href="./designated/a_3">
             <img src="assets/images/a3.png" alt="">
         </a>    
     

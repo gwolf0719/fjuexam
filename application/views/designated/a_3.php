@@ -9,6 +9,7 @@ img{
 }
 </style>
 <script>
+
     $("body").on("click","#Upload",function(){
         if(confirm("注意！舊資料會全部刪除，新資料將匯入")){
             $("#form").submit();
@@ -18,32 +19,57 @@ img{
     $("body").on("click","tr",function(){
         var sn = $(this).attr("sn");
         $.ajax({
-            url: 'api/get_once_school_unit',
+            url: 'api/get_once_staff',
             data:{
                 "sn":sn,
             },
             dataType:"json"
         }).done(function(data){
             $("#sn").val(sn);
-            $("#company_name_01").val(data.info.company_name_01);
-            $("#company_name_02").val(data.info.company_name_02);
-            $("#department").val(data.info.department);
-            $("#code").val(data.info.code);
+            $("#member_code").val(data.info.member_code);
+            $("#member_name").val(data.info.member_name);
+            $("#member_unit").val(data.info.member_unit);
+            $("#member_title").val(data.info.member_title);
+            $("#member_phone").val(data.info.member_phone);
+            $("#order_meal").val(data.info.order_meal);
+            $("#meal").val(data.info.meal);
+            console.log(data.info.order_meal);
+            if(data.info.order_meal == "y"){
+                $("#order_meal").prop("checked",true);
+            }else{
+                $("#order_meal").prop("checked",false);
+            }
         })
     })
+
+    var member_meal = "n";
+    $("#order_meal").change(function() {
+        if (this.checked) {
+            member_meal = "y";
+        } else {
+            member_meal = "n";
+        }
+    });    
     
     $("body").on("click","#add",function(){
-        var company_name_01 = $("#company_name_01").val();
-        var company_name_02 = $("#company_name_02").val();
-        var department = $("#department").val();
-        var code = $("#code").val();
+        var member_code = $("#member_code").val();
+        var member_name = $("#member_name").val();
+        var member_unit = $("#member_unit").val();
+        var member_title = $("#member_title").val();
+        var member_phone = $("#member_phone").val();
+        var order_meal = $("#order_meal").val();
+        var meal = $("#meal").val();
         $.ajax({
-            url: 'api/add_school_unit',
+            url: 'api/add_staff',
             data:{
-                "company_name_01":company_name_01,
-                "company_name_02":company_name_02,
-                "department":department,
-                "code":code,
+                "member_code":member_code,
+                "member_name":member_name,
+                "member_unit":member_unit,
+                "member_title":member_title,
+                "member_phone":member_phone,
+                "member_title":member_title,
+                "order_meal":member_meal,
+                "meal":meal,
             },
             dataType:"json"
         }).done(function(data){
@@ -55,18 +81,25 @@ img{
     })
     $("body").on("click","#send",function(){
         var sn = $("#sn").val();
-        var company_name_01 = $("#company_name_01").val();
-        var company_name_02 = $("#company_name_02").val();
-        var department = $("#department").val();
-        var code = $("#code").val();
+        var member_code = $("#member_code").val();
+        var member_name = $("#member_name").val();
+        var member_unit = $("#member_unit").val();
+        var member_title = $("#member_title").val();
+        var member_phone = $("#member_phone").val();
+        var order_meal = $("#order_meal").val();
+        var meal = $("#meal").val();
         $.ajax({
-            url: 'api/edit_school_unit',
+            url: 'api/edit_staff',
             data:{
                 "sn":sn,
-                "company_name_01":company_name_01,
-                "company_name_02":company_name_02,
-                "department":department,
-                "code":code,
+                "member_code":member_code,
+                "member_name":member_name,
+                "member_unit":member_unit,
+                "member_title":member_title,
+                "member_phone":member_phone,
+                "member_title":member_title,
+                "order_meal":member_meal,
+                "meal":meal,
             },
             dataType:"json"
         }).done(function(data){
@@ -81,7 +114,7 @@ img{
         if(confirm("是否確定要刪除？")){
             var sn = $("#sn").val();
             $.ajax({
-                url: 'api/remove_once_school_unit',
+                url: 'api/remove_once_staff',
                 data:{
                     "sn":sn,
                 },
@@ -125,10 +158,13 @@ img{
                 <tr>
                     <th>序號</th>
                     <th>年度</th>
-                    <th>單位名稱1</th>
-                    <th>單位名稱2</th>
-                    <th>部門</th>
-                    <th>代號</th>
+                    <th>工作人員代碼</th>
+                    <th>姓名</th>
+                    <th>單位別</th>
+                    <th>職稱</th>
+                    <th>聯絡電話</th>
+                    <th>訂餐需求</th>
+                    <th>餐別</th>
                 </tr>
             </thead>
             <tbody>
@@ -136,11 +172,13 @@ img{
                 <tr sn="<?=$v['sn']; ?>" data-toggle="modal" data-target="#exampleModal_insert">
                     <td><?=$k + 1; ?></td>
                     <td><?=$v['year']; ?></td>
-                    <td><?=$v['company_name_01']; ?></td>
-                    <td><?=$v['company_name_02']; ?></td>
-                    <td><?=$v['department']; ?></td>
-                    <td><?=$v['code']; ?></td>
-                    
+                    <td><?=$v['member_code']; ?></td>
+                    <td><?=$v['member_name']; ?></td>
+                    <td><?=$v['member_unit']; ?></td>
+                    <td><?=$v['member_phone']; ?></td>
+                    <td><?=$v['member_title']; ?></td>
+                    <td><?=$v['order_meal']; ?></td>
+                    <td><?=$v['meal']; ?></td>
                 </tr>
             <?php endforeach; ?>
             </tbody>
@@ -186,7 +224,7 @@ img{
   <div class="modal-dialog" role="document">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLabel">本校單位匯入作業</h5>
+        <h5 class="modal-title" id="exampleModalLabel">工作人員匯入作業</h5>
         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>
@@ -196,22 +234,37 @@ img{
             <div class="col-md-12 col-sm-12 col-xs-12">      
                 <form method="POST" enctype="multipart/form-data"  action="" id="form" class="page_form">                                            
                     <div class="form-group">
-                        <label for="company_name_01">單位名稱1</label>
-                        <input type="text" class="" id="company_name_01">
+                        <label for="member_code">工作人員代碼</label>
+                        <input type="text" class="" id="member_code">
                         <input type="hidden" class="" id="sn">
                     </div>   
                     <div class="form-group">
-                        <label for="company_name_02">單位名稱2</label>
-                        <input type="text" class="" id="company_name_02">
+                        <label for="member_name">姓名</label>
+                        <input type="text" class="" id="member_name">
                     </div>                   
                     <div class="form-group">
-                        <label for="company_name_01">部門</label>
-                        <input type="text" class="" id="department">
+                        <label for="member_unit">單位別</label>
+                        <input type="text" class="" id="member_unit">
                     </div>                   
                     <div class="form-group">
-                        <label for="company_name_01">代號</label>
-                        <input type="text" class="" id="code">
+                        <label for="member_title">職稱</label>
+                        <input type="text" class="" id="member_title">
                     </div>  
+                    <div class="form-group">
+                        <label for="member_phone">聯絡電話</label>
+                        <input type="text" class="" id="member_phone">
+                    </div>  
+                    <div class="form-group">
+                        <label for="order_meal">訂餐需求</label>
+                        <input type="checkbox" class="" id="order_meal">需訂餐
+                    </div>                      
+                    <div class="form-group">
+                        <label for="meal">餐別</label>
+                        <select name="meal" id="meal">
+                            <option value="葷">葷</option>
+                            <option value="素">素</option>
+                        </select>
+                    </div>                      
                     <div class="form-group">
                         <div class="col-md-6 col-sm-6 col-xs-12 col-md-offset-3">
                             <button class="btn btn-primary" type="button" id="add">新增</button>
