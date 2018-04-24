@@ -264,6 +264,46 @@ class Designated extends CI_Controller
         );
         $this->load->view('layout', $data);
     }
+
+    /**
+     * F 考程設定
+     */
+    function f(){
+        $this->mod_user->chk_status();
+        $data = array(
+            'title' => '考程設定',
+            'path' => 'designated/f',
+            'path_text' => ' > 指考主選單 > 考程設定',
+        );
+        $this->load->view('layout', $data);
+    }
+    function f_1(){
+        $this->mod_user->chk_status();
+        $data = array(
+            'title' => '考試日期與時間',
+            'path' => 'designated/f_1',
+            'path_text' => ' > 指考主選單 > 考程設定 > 考試日期與時間',
+        );
+        $this->load->view('layout', $data);
+    }
+    function f_2(){
+        $this->mod_user->chk_status();
+        $data = array(
+            'title' => '考試科目',
+            'path' => 'designated/f_2',
+            'path_text' => ' > 指考主選單 > 考程設定 > 考試科目',
+        );
+        $this->load->view('layout', $data);
+    }
+    function f_3(){
+        $this->mod_user->chk_status();
+        $data = array(
+            'title' => '預覽考程表',
+            'path' => 'designated/f_3',
+            'path_text' => ' > 指考主選單 > 預覽考程表',
+        );
+        $this->load->view('layout', $data);
+    }
 }
 
 /* End of file Designated.php */
