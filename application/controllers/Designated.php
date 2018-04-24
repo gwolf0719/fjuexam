@@ -270,6 +270,7 @@ class Designated extends CI_Controller
      */
     function f(){
         $this->mod_user->chk_status();
+        
         $data = array(
             'title' => '考程設定',
             'path' => 'designated/f',
@@ -279,28 +280,151 @@ class Designated extends CI_Controller
     }
     function f_1(){
         $this->mod_user->chk_status();
+        $this->load->model("mod_exam_datetime");
+        $year = $this->session->userdata("year");
+       
+        if($this->mod_exam_datetime->chk_once($year)){
+            $datetime_info = $this->mod_exam_datetime->get_once($year);
+        }else{
+            $datetime_info = array(
+                "day_1"=>date("Y")."/07/01",
+                "day_2"=>date("Y")."/07/02",
+                "day_3"=>date("Y")."/07/03",
+                "course_1_start"=>"08:40",
+                "course_1_end"=>"10:00",
+                "course_2_start"=>"10:50",
+                "course_2_end"=>"12:00",
+                "course_3_start"=>"14:00",
+                "course_3_end"=>"15:20",
+                "course_4_start"=>"16:01",
+                "course_4_end"=>"17:30",
+                'pre_1'=>"08:25",
+                'pre_2'=>"10:45",
+                'pre_3'=>"13:55",
+                'pre_4'=>"16:05",
+            );
+        }
         $data = array(
             'title' => '考試日期與時間',
             'path' => 'designated/f_1',
             'path_text' => ' > 指考主選單 > 考程設定 > 考試日期與時間',
+            "datetime_info"=>$datetime_info
         );
         $this->load->view('layout', $data);
     }
+    function f_1_act(){
+        $this->load->model("mod_exam_datetime");
+        $year = $this->session->userdata("year");
+        $data = $_POST;
+        $data['year']=$year;
+        
+        if($this->mod_exam_datetime->chk_once($year)){
+            $this->mod_exam_datetime->update_once($year,$data);
+        }else{
+            $this->mod_exam_datetime->add_once($data);
+        }
+        redirect("./designated/f_1");
+    }
     function f_2(){
         $this->mod_user->chk_status();
+        $this->load->model("mod_exam_datetime");
+        $year = $this->session->userdata("year");
+        $datetime_info = $this->mod_exam_datetime->get_once($year);
+        if($this->mod_exam_datetime->chk_course($year)){
+            $course = $this->mod_exam_datetime->get_course($year);
+        }else{
+            $course = array(
+                "1-1"=>"未安排",
+                "1-2"=>"未安排",
+                "1-3"=>"未安排",
+                "1-4"=>"未安排",
+                "2-1"=>"未安排",
+                "2-2"=>"未安排",
+                "2-3"=>"未安排",
+                "2-4"=>"未安排",
+                "3-1"=>"未安排",
+                "3-2"=>"未安排",
+                "3-3"=>"未安排",
+                "3-4"=>"未安排",
+                "4-1"=>"未安排",
+                "4-2"=>"未安排",
+                "4-3"=>"未安排",
+                "4-4"=>"未安排",
+            );
+        }
         $data = array(
             'title' => '考試科目',
             'path' => 'designated/f_2',
             'path_text' => ' > 指考主選單 > 考程設定 > 考試科目',
+            "datetime_info"=>$datetime_info,
+            "course"=>$course
         );
         $this->load->view('layout', $data);
     }
+    function f_2_act(){
+        $this->load->model("mod_exam_datetime");
+        $year = $this->session->userdata("year");
+        
+        
+        $this->mod_exam_datetime->clean_course($year);
+        $this->mod_exam_datetime->setting_course($year,$_POST);
+        redirect("./designated/f_2");
+    }
     function f_3(){
         $this->mod_user->chk_status();
+        $this->load->model("mod_exam_datetime");
+        $year = $this->session->userdata("year");
+
+        if($this->mod_exam_datetime->chk_once($year)){
+            $datetime_info = $this->mod_exam_datetime->get_once($year);
+        }else{
+            $datetime_info = array(
+                "day_1"=>date("Y")."/07/01",
+                "day_2"=>date("Y")."/07/02",
+                "day_3"=>date("Y")."/07/03",
+                "course_1_start"=>"08:40",
+                "course_1_end"=>"10:00",
+                "course_2_start"=>"10:50",
+                "course_2_end"=>"12:00",
+                "course_3_start"=>"14:00",
+                "course_3_end"=>"15:20",
+                "course_4_start"=>"16:01",
+                "course_4_end"=>"17:30",
+                'pre_1'=>"08:25",
+                'pre_2'=>"10:45",
+                'pre_3'=>"13:55",
+                'pre_4'=>"16:05",
+            );
+        }
+
+        if($this->mod_exam_datetime->chk_course($year)){
+            $course = $this->mod_exam_datetime->get_course($year);
+        }else{
+            $course = array(
+                "1-1"=>"未安排",
+                "1-2"=>"未安排",
+                "1-3"=>"未安排",
+                "1-4"=>"未安排",
+                "2-1"=>"未安排",
+                "2-2"=>"未安排",
+                "2-3"=>"未安排",
+                "2-4"=>"未安排",
+                "3-1"=>"未安排",
+                "3-2"=>"未安排",
+                "3-3"=>"未安排",
+                "3-4"=>"未安排",
+                "4-1"=>"未安排",
+                "4-2"=>"未安排",
+                "4-3"=>"未安排",
+                "4-4"=>"未安排",
+            );
+        }
         $data = array(
             'title' => '預覽考程表',
             'path' => 'designated/f_3',
             'path_text' => ' > 指考主選單 > 預覽考程表',
+            "course"=>$course,
+            "datetime_info"=>$datetime_info
         );
         $this->load->view('layout', $data);
     }

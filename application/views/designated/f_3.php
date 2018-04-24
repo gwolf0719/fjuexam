@@ -36,14 +36,14 @@ td{
             </tr>
             <tr>
                 <td>科目</td>
-                <td rowspan="2">8:35</td>
-                <td rowspan="2">8:40 ~ 10:00 </td>
-                <td rowspan="2">10:45 </td>
-                <td rowspan="2">10:50 ~ 12:00 </td>
-                <td rowspan="2">8:35</td>
-                <td rowspan="2">8:40 ~ 10:00 </td>
-                <td rowspan="2">10:45 </td>
-                <td rowspan="2">10:50 ~ 12:00 </td>
+                <td rowspan="2"><?=$datetime_info['pre_1']?></td>
+                <td rowspan="2"><?=$datetime_info['course_1_start']?> ~ <?=$datetime_info['course_1_end']?> </td>
+                <td rowspan="2"><?=$datetime_info['pre_2']?></td>
+                <td rowspan="2"><?=$datetime_info['course_2_start']?> ~ <?=$datetime_info['course_2_end']?> </td>
+                <td rowspan="2"><?=$datetime_info['pre_3']?></td>
+                <td rowspan="2"><?=$datetime_info['course_3_start']?> ~ <?=$datetime_info['course_3_end']?> </td>
+                <td rowspan="2"><?=$datetime_info['pre_4']?></td>
+                <td rowspan="2"><?=$datetime_info['course_4_start']?> ~ <?=$datetime_info['course_4_end']?> </td>
             </tr>
             <tr>
                 <td style="text-align:left">日期</td>
@@ -51,37 +51,37 @@ td{
 
 
             <tr>
-                <td>2018/07/01</td>
+                <td><?=$datetime_info['day_1']?></td>
                 <td rowspan="3">預<br>備<br>鈴</td>
-                <td>物理</td>
+                <td><?=$course['1_1']?></td>
                 <td rowspan="3">預<br>備<br>鈴</td>
-                <td>物理</td>
+                <td><?=$course['1_2']?></td>
                 <td rowspan="3">預<br>備<br>鈴</td>
-                <td>物理</td>
+                <td><?=$course['1_3']?></td>
                 <td rowspan="3">預<br>備<br>鈴</td>
-                <td>物理</td>
+                <td><?=$course['1_4']?></td>
             </tr>
             <tr>
-                <td>2018/07/02</td>
+                <td><?=$datetime_info['day_2']?></td>
                 <!-- <td></td> -->
-                <td>物理</td>
+                <td><?=$course['2_1']?></td>
                 <!-- <td></td> -->
-                <td>物理</td>
+                <td><?=$course['2_2']?></td>
                 <!-- <td></td> -->
-                <td>物理</td>
+                <td><?=$course['2_3']?></td>
                 <!-- <td></td> -->
-                <td>物理</td>
+                <td><?=$course['2_4']?></td>
             </tr>
             <tr>
-                <td>2018/07/03</td>
+                <td><?=$datetime_info['day_3']?></td>
                 <!-- <td></td> -->
-                <td>物理</td>
+                <td><?=$course['3_1']?></td>
                 <!-- <td></td> -->
-                <td>物理</td>
+                <td><?=$course['3_2']?></td>
                 <!-- <td></td> -->
-                <td>物理</td>
+                <td><?=$course['3_3']?></td>
                 <!-- <td></td> -->
-                <td>物理</td>
+                <td><?=$course['3_4']?></td>
             </tr>
         </table>
 
