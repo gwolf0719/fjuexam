@@ -21,7 +21,7 @@
     </div>
     
 </div>
-<div class="row">
+<div class="row" style="">
     
     <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4 cube">
         <a href="./designated/a">
@@ -34,19 +34,19 @@
         </a>
     </div>
     <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4 cube">
-        <a href="./designated/c">
+        <!-- <a href="./designated/c"> -->
             <img src="assets/images/c.png" alt="">
-        </a>
+        <!-- </a> -->
     </div>
     <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4 cube">
-        <a href="./designated/d">
+        <!-- <a href="./designated/d"> -->
             <img src="assets/images/d.png" alt="">
-        </a>
+        <!-- </a> -->
     </div>
     <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4 cube">
-        <a href="./designated/e">
+        <!-- <a href="./designated/e"> -->
             <img src="assets/images/e.png" alt="">
-        </a>
+        <!-- </a> -->
     </div>
     <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4 cube">
         <a href="./designated/f">
