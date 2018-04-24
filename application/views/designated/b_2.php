@@ -2,7 +2,7 @@
 @media (min-width: 1200px){
     .container {
         max-width: 100%;
-        width:90%;
+        width:100%;
     }
 }
 img{
@@ -10,13 +10,49 @@ img{
 }
 .form{
     position: absolute;
-    bottom: 0px;
-    width: 90%;
-    margin: 0 auto;
+    width: 100%;
+    bottom:0px;
+    border-top: 1px solid;
+    left: 15px;
+    background: #f2f2f2;
+    padding: 50px 0px;
+}
 }
 .table{
     height: auto;
     overflow: auto;
+}
+.cube{
+    background: #e2eed3;
+    margin: 0px 10px;
+    width: 23%;
+    padding: 20px;
+    border-radius: 10px;
+    float: left;
+}
+label {
+    display: inline-block;
+    margin-bottom: .5rem;
+    margin: 0px 5%;
+    width:25%;
+    text-align:right;
+}
+.form-control {
+    display: block;
+    width: 65%;
+    padding: .375rem .75rem;
+    font-size: 1rem;
+    line-height: 1.5;
+    color: #495057;
+    background-color: #fff;
+    background-clip: padding-box;
+    border: 1px solid #ced4da;
+    border-radius: .25rem;
+    transition: border-color .15s ease-in-out,box-shadow .15s ease-in-out;
+}
+.form-group {
+    margin-bottom: 1rem;
+    padding-right:10%;
 }
 </style>
 <script>
@@ -172,7 +208,7 @@ img{
     </div>
     
 </div>
-<div class="row table">
+<div class="row table" style="height: auto;overflow: auto;margin: 20px auto;">
     
    <div class="col-12" style="margin-top: 10px;">
         <table class="table table-hover" id="">
@@ -224,80 +260,80 @@ img{
 <div class="row form" style="">
     <div class="col-md-12 col-sm-12 col-xs-12">      
         <form method="POST" enctype="multipart/form-data"  action="" id="form" class="">                                            
-            <div class="col-md-3 col-sm-3 col-xs-3" style="float:left">
+            <div class="col-md-3 col-sm-3 col-xs-3 cube">
                 <div class="form-group">
-                    <label for="job_code" class="col-md-6 col-sm-6 col-xs-6"  style="float:left;">職員代碼</label>
+                    <label for="job_code" class=""  style="float:left;">職員代碼</label>
                     <input type="hidden" id="sn">
-                    <input type="text" class="form-control col-md-6 col-sm-6 col-xs-6" id="job_code">
+                    <input type="text" class="form-control" id="job_code">
                 </div>  
                 <div class="form-group">
-                    <label for="job_title" class="col-md-6 col-sm-6 col-xs-6"  style="float:left;">職稱</label>
-                    <input type="text" class="form-control col-md-6 col-sm-6 col-xs-6" id="job_title">
+                    <label for="job_title" class=""  style="float:left;">職稱</label>
+                    <input type="text" class="form-control" id="job_title">
                 </div>                  
                 <div class="form-group">
-                    <label for="member_name" class="col-md-6 col-sm-6 col-xs-6"  style="float:left;">姓名</label>
-                    <input type="text" class="form-control col-md-6 col-sm-6 col-xs-6" id="name">
+                    <label for="member_name" class=""  style="float:left;">姓名</label>
+                    <input type="text" class="form-control" id="name">
                 </div>                  
             </div>
-            <div class="col-md-3 col-sm-3 col-xs-3" style="float:left">
+            <div class="col-md-3 col-sm-3 col-xs-3 cube">
                 <div class="form-group">
-                    <label for="start_date" class="col-md-6 col-sm-6 col-xs-6"  style="float:left;">執行日</label>
-                    <input type="text" class="form-control col-md-6 col-sm-6 col-xs-6" id="start_date">
+                    <label for="start_date" class=""  style="float:left;">執行日</label>
+                    <input type="text" class="form-control" id="start_date">
                 </div>  
                 <div class="form-group">
-                    <label for="trial_start" class="col-md-6 col-sm-6 col-xs-6"  style="float:left;">試場起號</label>
-                    <select class="form-control col-md-6 col-sm-6 col-xs-6" id="trial_start">
+                    <label for="trial_start" class=""  style="float:left;">試場起號</label>
+                    <select class="form-control" id="trial_start">
                         <?php foreach ($field as $k => $v): ?>
                             <option value="<?=$v['field']; ?>"><?=$v['field']; ?></option>
                         <?php endforeach; ?>
                     </select>
                 </div>                  
                 <div class="form-group">
-                    <label for="trial_end" class="col-md-6 col-sm-6 col-xs-6"  style="float:left;">試場迄號</label>
-                    <select class="form-control col-md-6 col-sm-6 col-xs-6" id="trial_end">
+                    <label for="trial_end" class=""  style="float:left;">試場迄號</label>
+                    <select class="form-control" id="trial_end">
                         <?php foreach ($field as $k => $v): ?>
                             <option value="<?=$v['field']; ?>"><?=$v['field']; ?></option>
                         <?php endforeach; ?>
                     </select>
                 </div>                  
             </div>    
-            <div class="col-md-3 col-sm-3 col-xs-3" style="float:left">
+            <div class="col-md-3 col-sm-3 col-xs-3 cube">
                 <div class="form-group">
-                    <label for="start_date" class="col-md-6 col-sm-6 col-xs-6"  style="float:left;">任務編號</label>
-                    <input type="text" class="form-control col-md-6 col-sm-6 col-xs-6" id="number">
+                    <label for="start_date" class=""  style="float:left;">任務編號</label>
+                    <input type="text" class="form-control" id="number">
                 </div>  
                 <div class="form-group">
-                    <label for="trial_start" class="col-md-6 col-sm-6 col-xs-6"  style="float:left;">聯絡電話</label>
-                    <input type="text" class="form-control col-md-6 col-sm-6 col-xs-6" id="phone">
+                    <label for="trial_start" class=""  style="float:left;">聯絡電話</label>
+                    <input type="text" class="form-control" id="phone">
                 </div>                  
             </div>                        
-            <div class="col-md-3 col-sm-3 col-xs-3" style="float:left">
+            <div class="col-md-3 col-sm-3 col-xs-3 cube" style="float:left">
                 <div class="form-group">
-                    <label for="start_date" class="col-md-6 col-sm-6 col-xs-6"  style="float:left;">節數</label>
-                    <input type="text" class="form-control col-md-6 col-sm-6 col-xs-6" id="section">
+                    <label for="start_date" class=""  style="float:left;">節數</label>
+                    <input type="text" class="form-control" id="section">
                 </div>  
                 <div class="form-group">
-                    <label for="trial_start" class="col-md-6 col-sm-6 col-xs-6"  style="float:left;">單價</label>
-                    <input type="text" class="form-control col-md-6 col-sm-6 col-xs-6" id="price">
+                    <label for="trial_start" class=""  style="float:left;">單價</label>
+                    <input type="text" class="form-control" id="price">
                 </div>                  
                 <div class="form-group">
-                    <label for="trial_end" class="col-md-6 col-sm-6 col-xs-6"  style="float:left;">午餐</label>
-                    <input type="text" class="form-control col-md-6 col-sm-6 col-xs-6" id="lunch">
+                    <label for="trial_end" class=""  style="float:left;">午餐</label>
+                    <input type="text" class="form-control" id="lunch">
                 </div>   
                 <div class="form-group">
-                    <label for="trial_end" class="col-md-6 col-sm-6 col-xs-6"  style="float:left;">總計</label>
-                    <input type="text" class="form-control col-md-6 col-sm-6 col-xs-6" id="total">
+                    <label for="trial_end" class=""  style="float:left;">總計</label>
+                    <input type="text" class="form-control" id="total">
                 </div>                                  
             </div>     
-            <div class="col-md-6 col-sm-6 col-xs-6" style="float:left">             
-                <div class="form-group">
-                    <div class="col-md-6 col-sm-6 col-xs-6 col-md-offset-3">
-                        <label for="note" class="col-md-4 col-sm-4 col-xs-4"  style="float:left;">備註</label>
-                        <textarea name="note" id="note" class="form-control col-md-8 col-sm-8 col-xs-8"></textarea>
+            <div class="col-md-6 col-sm-6 col-xs-6 " style="float:left;margin: 20px auto;">             
+                <div class="">
+                    <div class="">
+                        <label for="note" class="" style="float:left;text-align:left;width: 5%;">備註</label>
+                        <textarea name="note" id="note" class="" style="width:300px"></textarea>
                     </div>
                 </div>                  
             </div> 
-            <div class="col-md-6 col-sm-6 col-xs-6" style="float:left">             
+            <div class="col-md-6 col-sm-6 col-xs-6" style="float:left;margin: 20px auto;">             
                 <div class="form-group" style="text-align:right">
                     <div class="">
                         <button class="btn btn-primary" type="button" id="add">新增</button>
@@ -305,88 +341,7 @@ img{
                         <button type="button" class="btn btn-success" id="send">儲存</button>
                     </div>
                 </div>                  
-            </div>                   
-                    
+            </div>                         
         </form>
     </div>
 </div>  
-
-
-<!-- Modal start-->
-<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-  <div class="modal-dialog" role="document">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLabel">資料匯入</h5>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
-      </div>
-      <div class="modal-body">
-        <form method="POST" enctype="multipart/form-data"  action="" id="form" class="page_form">
-                  
-            <div class="input-group mb-3">
-            <div class="custom-file">
-                <input type="file" class="custom-file-input" id="inputGroupFile02" name="file">
-                <label class="custom-file-label" for="inputGroupFile02">請選擇檔案</label>
-            </div>
-            <div class="input-group-append">
-                <span class="input-group-text" id="Upload">Upload</span>
-            </div>
-            </div>
-            
-
-        </form>
-      </div>
-      
-    </div>
-  </div>
-</div>
-<!-- Modal end-->
-<!-- Modal start-->
-<div class="modal fade" id="exampleModal_insert" tabindex="-1" role="dialog" aria-labelledby="exampleModal_insertLabel" aria-hidden="true">
-  <div class="modal-dialog" role="document">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLabel">考區</h5>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
-      </div>
-      <div class="modal-body">
-        <div class="row">
-            <div class="col-md-12 col-sm-12 col-xs-12">      
-                <form method="POST" enctype="multipart/form-data"  action="" id="form" class="page_form">                                            
-                    <div class="form-group">
-                        <label for="company_name_01">單位名稱1</label>
-                        <input type="text" class="" id="company_name_01">
-                        
-                    </div>   
-                    <div class="form-group">
-                        <label for="company_name_02">單位名稱2</label>
-                        <input type="text" class="" id="company_name_02">
-                    </div>                   
-                    <div class="form-group">
-                        <label for="company_name_01">部門</label>
-                        <input type="text" class="" id="department">
-                    </div>                   
-                    <div class="form-group">
-                        <label for="company_name_01">代號</label>
-                        <input type="text" class="" id="code">
-                    </div>  
-                    <div class="form-group">
-                        <div class="col-md-6 col-sm-6 col-xs-12 col-md-offset-3">
-                            <button class="btn btn-primary" type="button" id="add">新增</button>
-                            <button type="button" class="btn btn-primary" id="remove">刪除</button>
-                            <button type="button" class="btn btn-success" id="send">儲存</button>
-                        </div>
-                    </div>                      
-                </form>
-            </div>
-        </div>    
-      </div>
-      
-    </div>
-  </div>
-</div>
-<!-- Modal end-->

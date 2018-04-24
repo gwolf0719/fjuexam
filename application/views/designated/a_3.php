@@ -7,6 +7,36 @@
 img{
     max-width:100%;
 }
+
+.form{
+    width: 100%;
+    left: 15px;
+    background: #f2f2f2;
+    position: absolute;
+    padding: 50px 0px;
+    border-top: 1px solid;
+}
+label {
+    display: inline-block;
+    margin-bottom: .5rem;
+    margin: 0px 5%;
+    width: 30%;
+    text-align: right;
+    float: left;
+}
+.form-control {
+    display: block;
+    width: 60%;
+    padding: .375rem .75rem;
+    font-size: 1rem;
+    line-height: 1.5;
+    color: #495057;
+    background-color: #fff;
+    background-clip: padding-box;
+    border: 1px solid #ced4da;
+    border-radius: .25rem;
+    transition: border-color .15s ease-in-out,box-shadow .15s ease-in-out;
+}
 </style>
 <script>
 
@@ -149,15 +179,14 @@ img{
     </div>
     
 </div>
-<div class="row">
-    
+<div class="row" style="height: 700px;overflow: auto;margin: 50px auto;">
    <div class="col-12" style="margin-top: 10px;">
         <table class="table table-hover" id="">
             <thead>
                 <tr>
                     <th>序號</th>
                     <th>年度</th>
-                    <th>工作人員代碼</th>
+                    <th>工作人員代碼</th>    
                     <th>姓名</th>
                     <th>單位別</th>
                     <th>職稱</th>
@@ -168,7 +197,7 @@ img{
             </thead>
             <tbody>
             <?php foreach ($datalist as $k => $v): ?>
-                <tr sn="<?=$v['sn']; ?>" data-toggle="modal" data-target="#exampleModal_insert">
+                <tr sn="<?=$v['sn']; ?>">
                     <td><?=$k + 1; ?></td>
                     <td><?=$v['year']; ?></td>
                     <td><?=$v['member_code']; ?></td>
@@ -183,8 +212,56 @@ img{
             </tbody>
         </table>
      </div>
-    
 </div>
+<div class="row form" style="">
+    <div class="col-md-12 col-sm-12 col-xs-12">      
+        <form method="POST" enctype="multipart/form-data"  action="" id="form" class="page_form">     
+            <div class="col-md-3 col-sm-3 col-xs-3 cube">                                       
+                <div class="form-group">
+                    <label for="member_code">工作人員代碼</label>
+                    <input type="text" class="form-control" id="member_code">
+                    <input type="hidden" class="" id="sn">
+                </div>   
+                <div class="form-group">
+                    <label for="member_name">姓名</label>
+                    <input type="text" class="form-control" id="member_name">
+                </div>                   
+                <div class="form-group">
+                    <label for="member_unit">單位別</label>
+                    <input type="text" class="form-control" id="member_unit">
+                </div>                   
+                <div class="form-group">
+                    <label for="member_title">職稱</label>
+                    <input type="text" class="form-control" id="member_title">
+                </div>  
+                <div class="form-group">
+                    <label for="member_phone">聯絡電話</label>
+                    <input type="text" class="form-control" id="member_phone">
+                </div>  
+                <div class="form-group">
+                    <label for="order_meal">訂餐需求</label>
+                    <input type="checkbox" class="form-control" id="order_meal"><span>需訂餐</span>
+                </div>                      
+                <div class="form-group">
+                    <label for="meal">餐別</label>
+                    <select name="meal" id="meal" class="form-control">
+                        <option value="葷">葷</option>
+                        <option value="素">素</option>
+                    </select>
+                </div>  
+            </div>
+            <div class="col-md-12 col-sm-12 col-xs-12 cube">                    
+                <div class="form-group" style="text-align: right;">
+                    <div class="col-md-6 col-sm-6 col-xs-12 col-md-offset-3">
+                        <button class="btn btn-primary" type="button" id="add">新增</button>
+                        <button type="button" class="btn btn-primary" id="remove">刪除</button>
+                        <button type="button" class="btn btn-success" id="send">儲存</button>
+                    </div>
+                </div>    
+            </div>                  
+        </form>
+    </div>
+</div>  
 
 
 <!-- Modal start-->
@@ -218,65 +295,4 @@ img{
   </div>
 </div>
 <!-- Modal end-->
-<!-- Modal start-->
-<div class="modal fade" id="exampleModal_insert" tabindex="-1" role="dialog" aria-labelledby="exampleModal_insertLabel" aria-hidden="true">
-  <div class="modal-dialog" role="document">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLabel">工作人員匯入作業</h5>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
-      </div>
-      <div class="modal-body">
-        <div class="row">
-            <div class="col-md-12 col-sm-12 col-xs-12">      
-                <form method="POST" enctype="multipart/form-data"  action="" id="form" class="page_form">                                            
-                    <div class="form-group">
-                        <label for="member_code">工作人員代碼</label>
-                        <input type="text" class="" id="member_code">
-                        <input type="hidden" class="" id="sn">
-                    </div>   
-                    <div class="form-group">
-                        <label for="member_name">姓名</label>
-                        <input type="text" class="" id="member_name">
-                    </div>                   
-                    <div class="form-group">
-                        <label for="member_unit">單位別</label>
-                        <input type="text" class="" id="member_unit">
-                    </div>                   
-                    <div class="form-group">
-                        <label for="member_title">職稱</label>
-                        <input type="text" class="" id="member_title">
-                    </div>  
-                    <div class="form-group">
-                        <label for="member_phone">聯絡電話</label>
-                        <input type="text" class="" id="member_phone">
-                    </div>  
-                    <div class="form-group">
-                        <label for="order_meal">訂餐需求</label>
-                        <input type="checkbox" class="" id="order_meal">需訂餐
-                    </div>                      
-                    <div class="form-group">
-                        <label for="meal">餐別</label>
-                        <select name="meal" id="meal">
-                            <option value="葷">葷</option>
-                            <option value="素">素</option>
-                        </select>
-                    </div>                      
-                    <div class="form-group">
-                        <div class="col-md-6 col-sm-6 col-xs-12 col-md-offset-3">
-                            <button class="btn btn-primary" type="button" id="add">新增</button>
-                            <button type="button" class="btn btn-primary" id="remove">刪除</button>
-                            <button type="button" class="btn btn-success" id="send">儲存</button>
-                        </div>
-                    </div>                      
-                </form>
-            </div>
-        </div>    
-      </div>
-      
-    </div>
-  </div>
-</div>
-<!-- Modal end-->
+
