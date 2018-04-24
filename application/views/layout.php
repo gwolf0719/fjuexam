@@ -28,7 +28,15 @@
 
     <script>
       $(function(){
-        
+        $("body").on("click","#back",function(){
+            history.go(-1);
+        })
+        $("body").on("click","#home",function(){
+            location.href="./";
+        })
+        $("body").on("click","#logout",function(){
+            location.href="./logout";
+        })
       })
     </script>
     
@@ -52,14 +60,12 @@
         <div class="system_tool">
 
             <?php if($path != "index"):?>    
-                <button type="button" class="btn btn-primary">回上頁</button>
-                <button type="button" class="btn btn-primary">主選單</button>
+                <button type="button" class="btn btn-primary" id="back">回上頁</button>
+                <button type="button" class="btn btn-primary" id="home">主選單</button>
             <?php endif;?>
             
-            <button type="button" class="btn btn-primary">登出</button>
+            <button type="button" class="btn btn-primary" id="logout">登出</button>
              
-           
-            
         </div>
         
       </div>
