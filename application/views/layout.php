@@ -52,7 +52,7 @@
         <ul class="navbar-nav mr-auto">
             <?php if(isset($path_text)):?>
                 <li class="nav-item active">
-                    <a class="nav-link" href="#"><?=$path_text?> </a>
+                    <a class="nav-link" ><?=$path_text?> </a>
                 </li>
             <?php endif;?>
           

@@ -3,7 +3,7 @@
         text-align:center;
     }
     .box img{
-        max-width:75%;
+        max-width: 400px;
     }
 </style>
 
