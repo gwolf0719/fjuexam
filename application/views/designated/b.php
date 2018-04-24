@@ -2,9 +2,12 @@
     img{
         max-width:100%;
     }
-    .cube{
-        padding:50px;
-    }
+    @media (min-width: 1200px){
+        .container {
+            max-width: 100%;
+            width: 100%;
+        }
+    }    
 </style>
 <div class="row">
     <div class="input-group col-sm-3">
@@ -19,7 +22,7 @@
     </div>
     
 </div>
-<div class="row">
+<div class="row" style="padding:80px 0px;">
     
     <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4 cube">
         <a href="./designated/b_1">

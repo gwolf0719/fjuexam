@@ -1,19 +1,36 @@
 <style>
-@media (min-width: 1200px){
-    .container {
-        max-width: 1440px;
+    @media (min-width: 1200px){
+        .container {
+            max-width: 100%;
+            width: 100%;
+        }
     }
-}
 img{
     max-width:100%;
 }
+
 .form{
+    position: relative;
     width: 100%;
-    left: 15px;
-    background: #f2f2f2;
-    position: absolute;
-    padding: 50px 0px;
+    margin: 0 auto;
     border-top: 1px solid;
+    background: #f2f2f2;
+    padding: 20px 0px;
+    left: -15px;
+    display:none;
+    float: left;
+    height: auto;    
+}
+.up{
+    cursor: pointer;
+    z-index: 9999;
+    width: 100%;
+    text-align: center;
+}
+.bottom{
+    position: absolute;
+    bottom: 0px;
+    width:100%;
 }
 label {
     display: inline-block;
@@ -106,6 +123,10 @@ label {
         })
     })  
 
+    $("body").on("click",".up",function(){
+        $(".form").slideToggle();
+    })    
+
     $("body").on("click","#remove",function(){
         if(confirm("是否確定要刪除？")){
             var sn = $("#sn").val();
@@ -135,7 +156,7 @@ label {
     </div>
 
     <div class="col-sm-8" style="text-align: center;">
-        <img src="assets/images/a2_title.png" alt="" style="width: 20%;">
+        <img src="assets/images/a2_title.png" alt="" style="width: 15%;">
     </div>
 
     <div class="input-group col-sm-2">
@@ -146,8 +167,7 @@ label {
     </div>
     
 </div>
-<div class="row" style="height: 700px;overflow: auto;margin: 50px auto;">
-    
+<div class="row" style="height: 50vh;overflow: auto;">
    <div class="col-12" style="margin-top: 10px;">
         <table class="table table-hover" id="">
             <thead>
@@ -177,40 +197,45 @@ label {
      </div>
 </div>
 
-<div class="row form" style="">
-    <div class="col-md-12 col-sm-12 col-xs-12">      
-        <form method="POST" enctype="multipart/form-data"  action="" id="form" class="">                                            
-            <div class="col-md-3 col-sm-3 col-xs-3 cube">
-                <div class="form-group">
-                    <label for="company_name_01">單位名稱1</label>
-                    <input type="text" class="form-control" id="company_name_01">
-                    <input type="hidden" class="" id="sn">
-                </div>   
-                <div class="form-group">
-                    <label for="company_name_02">單位名稱2</label>
-                    <input type="text" class="form-control" id="company_name_02">
-                </div>                   
-                <div class="form-group">
-                    <label for="company_name_01">部門</label>
-                    <input type="text" class="form-control" id="department">
-                </div>                   
-                <div class="form-group">
-                    <label for="company_name_01">代號</label>
-                    <input type="text" class="form-control" id="code">
-                </div>              
-            </div>
-            <div class="col-md-12 col-sm-12 col-xs-12">             
-                <div class="form-group" style="text-align:right">
-                    <div class="">
-                        <button class="btn btn-primary" type="button" id="add">新增</button>
-                        <button type="button" class="btn btn-primary" id="remove">刪除</button>
-                        <button type="button" class="btn btn-success" id="send">儲存</button>
-                    </div>
-                </div>                  
-            </div>                         
-        </form>
+<div class="bottom">
+    <div class="up">
+        <img src="assets/images/upup.png" alt="" >
     </div>
-</div>  
+    <div class="row form" style="">
+        <div class="col-md-12 col-sm-12 col-xs-12">      
+            <form method="POST" enctype="multipart/form-data"  action="" id="form" class="">                                            
+                <div class="col-md-3 col-sm-3 col-xs-3 cube">
+                    <div class="form-group">
+                        <label for="company_name_01">單位名稱1</label>
+                        <input type="text" class="form-control" id="company_name_01">
+                        <input type="hidden" class="" id="sn">
+                    </div>   
+                    <div class="form-group">
+                        <label for="company_name_02">單位名稱2</label>
+                        <input type="text" class="form-control" id="company_name_02">
+                    </div>                   
+                    <div class="form-group">
+                        <label for="company_name_01">部門</label>
+                        <input type="text" class="form-control" id="department">
+                    </div>                   
+                    <div class="form-group">
+                        <label for="company_name_01">代號</label>
+                        <input type="text" class="form-control" id="code">
+                    </div>              
+                </div>
+                <div class="col-md-12 col-sm-12 col-xs-12">             
+                    <div class="form-group" style="text-align:right">
+                        <div class="">
+                            <button class="btn btn-primary" type="button" id="add">新增</button>
+                            <button type="button" class="btn btn-primary" id="remove">刪除</button>
+                            <button type="button" class="btn btn-success" id="send">儲存</button>
+                        </div>
+                    </div>                  
+                </div>                         
+            </form>
+        </div>
+    </div>  
+</div>
 
 
 <!-- Modal start-->

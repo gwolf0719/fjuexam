@@ -5,6 +5,12 @@
     .cube{
         margin:25px auto;
     }
+    @media (min-width: 1200px){
+        .container {
+            max-width: 100%;
+            width: 100%;
+        }
+    }    
 </style>
 <div class="row">
     <div class="input-group col-sm-3">

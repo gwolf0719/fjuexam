@@ -1,9 +1,10 @@
 <style>
-@media (min-width: 1200px){
-    .container {
-        max-width: 1440px;
+    @media (min-width: 1200px){
+        .container {
+            max-width: 100%;
+            width: 100%;
+        }
     }
-}
 img{
     max-width:100%;
 }
@@ -27,7 +28,7 @@ img{
     </div>
 
     <div class="col-sm-8" style="text-align: center;">
-        <img src="assets/images/a1_title.png" alt="" style="width: 20%;">
+        <img src="assets/images/a1_title.png" alt="" style="width: 15%;">
     </div>
 
     <div class="input-group col-sm-2">

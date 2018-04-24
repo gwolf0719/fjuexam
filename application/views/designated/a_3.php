@@ -1,20 +1,36 @@
 <style>
-@media (min-width: 1200px){
-    .container {
-        max-width: 1440px;
+    @media (min-width: 1200px){
+        .container {
+            max-width: 100%;
+            width: 100%;
+        }
     }
-}
 img{
     max-width:100%;
 }
 
 .form{
+    position: relative;
     width: 100%;
-    left: 15px;
-    background: #f2f2f2;
-    position: absolute;
-    padding: 50px 0px;
+    margin: 0 auto;
     border-top: 1px solid;
+    background: #f2f2f2;
+    padding: 20px 0px;
+    left: -15px;
+    display:none;
+    float: left;
+    height: auto;    
+}
+.up{
+    cursor: pointer;
+    z-index: 9999;
+    width: 100%;
+    text-align: center;
+}
+.bottom{
+    position: absolute;
+    bottom: 0px;
+    width:100%;
 }
 label {
     display: inline-block;
@@ -155,7 +171,10 @@ label {
                 }      
             })
         }
-    })    
+    })  
+    $("body").on("click",".up",function(){
+        $(".form").slideToggle();
+    })      
 </script>
 <div class="row">
     <div class="input-group col-sm-2">
@@ -168,7 +187,7 @@ label {
     </div>
 
     <div class="col-sm-8" style="text-align: center;">
-        <img src="assets/images/a3_title.png" alt="" style="width: 20%;">
+        <img src="assets/images/a3_title.png" alt="" style="width: 15%;">
     </div>
 
     <div class="input-group col-sm-2">
@@ -179,7 +198,7 @@ label {
     </div>
     
 </div>
-<div class="row" style="height: 700px;overflow: auto;margin: 50px auto;">
+<div class="row" style="height: 50vh;overflow: auto;">
    <div class="col-12" style="margin-top: 10px;">
         <table class="table table-hover" id="">
             <thead>
@@ -213,56 +232,61 @@ label {
         </table>
      </div>
 </div>
-<div class="row form" style="">
-    <div class="col-md-12 col-sm-12 col-xs-12">      
-        <form method="POST" enctype="multipart/form-data"  action="" id="form" class="page_form">     
-            <div class="col-md-3 col-sm-3 col-xs-3 cube">                                       
-                <div class="form-group">
-                    <label for="member_code">工作人員代碼</label>
-                    <input type="text" class="form-control" id="member_code">
-                    <input type="hidden" class="" id="sn">
-                </div>   
-                <div class="form-group">
-                    <label for="member_name">姓名</label>
-                    <input type="text" class="form-control" id="member_name">
-                </div>                   
-                <div class="form-group">
-                    <label for="member_unit">單位別</label>
-                    <input type="text" class="form-control" id="member_unit">
-                </div>                   
-                <div class="form-group">
-                    <label for="member_title">職稱</label>
-                    <input type="text" class="form-control" id="member_title">
-                </div>  
-                <div class="form-group">
-                    <label for="member_phone">聯絡電話</label>
-                    <input type="text" class="form-control" id="member_phone">
-                </div>  
-                <div class="form-group">
-                    <label for="order_meal">訂餐需求</label>
-                    <input type="checkbox" class="form-control" id="order_meal"><span>需訂餐</span>
-                </div>                      
-                <div class="form-group">
-                    <label for="meal">餐別</label>
-                    <select name="meal" id="meal" class="form-control">
-                        <option value="葷">葷</option>
-                        <option value="素">素</option>
-                    </select>
-                </div>  
-            </div>
-            <div class="col-md-12 col-sm-12 col-xs-12 cube">                    
-                <div class="form-group" style="text-align: right;">
-                    <div class="col-md-6 col-sm-6 col-xs-12 col-md-offset-3">
-                        <button class="btn btn-primary" type="button" id="add">新增</button>
-                        <button type="button" class="btn btn-primary" id="remove">刪除</button>
-                        <button type="button" class="btn btn-success" id="send">儲存</button>
-                    </div>
-                </div>    
-            </div>                  
-        </form>
+<div class="bottom">
+   <div class="up">
+        <img src="assets/images/upup.png" alt="" >
     </div>
-</div>  
+    <div class="row form" style="">
+        <div class="col-md-12 col-sm-12 col-xs-12">      
+            <form method="POST" enctype="multipart/form-data"  action="" id="form" class="page_form">     
+                <div class="col-md-3 col-sm-3 col-xs-3 cube">                                       
+                    <div class="form-group">
+                        <label for="member_code">工作人員代碼</label>
+                        <input type="text" class="form-control" id="member_code">
+                        <input type="hidden" class="" id="sn">
+                    </div>   
+                    <div class="form-group">
+                        <label for="member_name">姓名</label>
+                        <input type="text" class="form-control" id="member_name">
+                    </div>                   
+                    <div class="form-group">
+                        <label for="member_unit">單位別</label>
+                        <input type="text" class="form-control" id="member_unit">
+                    </div>                   
+                    <div class="form-group">
+                        <label for="member_title">職稱</label>
+                        <input type="text" class="form-control" id="member_title">
+                    </div>  
+                    <div class="form-group">
+                        <label for="member_phone">聯絡電話</label>
+                        <input type="text" class="form-control" id="member_phone">
+                    </div>  
+                    <div class="form-group">
+                        <label for="order_meal">訂餐需求</label>
+                        <input type="checkbox" class="form-control" id="order_meal"><span>需訂餐</span>
+                    </div>                      
+                    <div class="form-group">
+                        <label for="meal">餐別</label>
+                        <select name="meal" id="meal" class="form-control">
+                            <option value="葷">葷</option>
+                            <option value="素">素</option>
+                        </select>
+                    </div>  
+                </div>
+                <div class="col-md-12 col-sm-12 col-xs-12 cube">                    
+                    <div class="form-group" style="text-align: right;">
+                        <div class="">
+                            <button class="btn btn-primary" type="button" id="add">新增</button>
+                            <button type="button" class="btn btn-primary" id="remove">刪除</button>
+                            <button type="button" class="btn btn-success" id="send">儲存</button>
+                        </div>
+                    </div>    
+                </div>                  
+            </form>
+        </div>
+    </div>  
 
+</div>
 
 <!-- Modal start-->
 <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">

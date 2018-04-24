@@ -9,20 +9,22 @@ img{
     max-width:100%;
 }
 .form{
-    position: absolute;
+    position: relative;
     width: 100%;
-    bottom:0px;
+    margin: 0 auto;
     border-top: 1px solid;
-    left: 15px;
     background: #f2f2f2;
     padding: 50px 0px;
+    left: -15px;
+    display:none;
+    float: left;
+    height: auto;    
 }
 }
 .table{
     height: auto;
     overflow: auto;
 }
-
 .cube{
     background: #e2eed3;
     margin: 0px 10px;
@@ -54,6 +56,17 @@ label {
 .form-group {
     margin-bottom: 1rem;
     padding-right:10%;
+}
+.up{
+    cursor: pointer;
+    z-index: 9999;
+    width: 100%;
+    text-align: center;
+}
+.bottom{
+    position: absolute;
+    bottom: 0px;
+    width:100%;
 }
 </style>
 <script>
@@ -193,6 +206,9 @@ label {
             })
         }
     })    
+    $("body").on("click",".up",function(){
+        $(".form").slideToggle();
+    })
 </script>
 <div class="row">
     <div class="input-group col-sm-2">
@@ -205,7 +221,7 @@ label {
     </div>
 
     <div class="col-sm-8" style="text-align: center;">
-        <img src="assets/images/b4_title.png" alt="" style="width: 20%;">
+        <img src="assets/images/b4_title.png" alt="" style="width: 15%;">
     </div>
     
 </div>
@@ -258,91 +274,98 @@ label {
         </table>
      </div>
 </div>
-<div class="row form" style="">
-    <div class="col-md-12 col-sm-12 col-xs-12">      
-        <form method="POST" enctype="multipart/form-data"  action="" id="form" class="">                                            
-            <div class="col-md-3 col-sm-3 col-xs-3 cube">
-                <div class="form-group">
-                    <label for="job_code" class=""  style="float:left;">職員代碼</label>
-                    <input type="hidden" id="sn">
-                    <input type="text" class="form-control" id="job_code">
-                </div>  
-                <div class="form-group">
-                    <label for="job_title" class=""  style="float:left;">職稱</label>
-                    <input type="text" class="form-control" id="job_title">
-                </div>                  
-                <div class="form-group">
-                    <label for="member_name" class=""  style="float:left;">姓名</label>
-                    <input type="text" class="form-control" id="name">
-                </div>                  
-            </div>
-            <div class="col-md-3 col-sm-3 col-xs-3 cube">
-                <div class="form-group">
-                    <label for="start_date" class=""  style="float:left;">執行日</label>
-                    <input type="text" class="form-control" id="start_date">
-                </div>  
-                <div class="form-group">
-                    <label for="trial_start" class=""  style="float:left;">試場起號</label>
-                    <select class="form-control" id="trial_start">
-                        <?php foreach ($field as $k => $v): ?>
-                            <option value="<?=$v['field']; ?>"><?=$v['field']; ?></option>
-                        <?php endforeach; ?>
-                    </select>
-                </div>                  
-                <div class="form-group">
-                    <label for="trial_end" class=""  style="float:left;">試場迄號</label>
-                    <select class="form-control" id="trial_end">
-                        <?php foreach ($field as $k => $v): ?>
-                            <option value="<?=$v['field']; ?>"><?=$v['field']; ?></option>
-                        <?php endforeach; ?>
-                    </select>
-                </div>                  
-            </div>    
-            <div class="col-md-3 col-sm-3 col-xs-3 cube">
-                <div class="form-group">
-                    <label for="start_date" class=""  style="float:left;">任務編號</label>
-                    <input type="text" class="form-control" id="number">
-                </div>  
-                <div class="form-group">
-                    <label for="trial_start" class=""  style="float:left;">聯絡電話</label>
-                    <input type="text" class="form-control" id="phone">
-                </div>                  
-            </div>                        
-            <div class="col-md-3 col-sm-3 col-xs-3 cube" style="float:left">
-                <div class="form-group">
-                    <label for="start_date" class=""  style="float:left;">節數</label>
-                    <input type="text" class="form-control" id="section">
-                </div>  
-                <div class="form-group">
-                    <label for="trial_start" class=""  style="float:left;">單價</label>
-                    <input type="text" class="form-control" id="price">
-                </div>                  
-                <div class="form-group">
-                    <label for="trial_end" class=""  style="float:left;">午餐</label>
-                    <input type="text" class="form-control" id="lunch">
-                </div>   
-                <div class="form-group">
-                    <label for="trial_end" class=""  style="float:left;">總計</label>
-                    <input type="text" class="form-control" id="total">
-                </div>                                  
-            </div>     
-            <div class="col-md-6 col-sm-6 col-xs-6 " style="float:left;margin: 20px auto;">             
-                <div class="">
-                    <div class="">
-                        <label for="note" class="" style="float:left;text-align:left;width: 5%;">備註</label>
-                        <textarea name="note" id="note" class="" style="width:300px"></textarea>
-                    </div>
-                </div>                  
-            </div> 
-            <div class="col-md-6 col-sm-6 col-xs-6" style="float:left;margin: 20px auto;">             
-                <div class="form-group" style="text-align:right">
-                    <div class="">
-                        <button class="btn btn-primary" type="button" id="add">新增</button>
-                        <button type="button" class="btn btn-primary" id="remove">刪除</button>
-                        <button type="button" class="btn btn-success" id="send">儲存</button>
-                    </div>
-                </div>                  
-            </div>                         
-        </form>
+
+<div class="bottom">
+    <div class="up">
+        <img src="assets/images/upup.png" alt="" >
     </div>
-</div>  
+    <div class="row form" style="">
+        <div class="col-md-12 col-sm-12 col-xs-12 border">      
+            <form method="POST" enctype="multipart/form-data"  action="" id="form" class="">                                            
+                <div class="col-md-3 col-sm-3 col-xs-3 cube">
+                    <div class="form-group">
+                        <label for="job_code" class=""  style="float:left;">職員代碼</label>
+                        <input type="hidden" id="sn">
+                        <input type="text" class="form-control" id="job_code">
+                    </div>  
+                    <div class="form-group">
+                        <label for="job_title" class=""  style="float:left;">職稱</label>
+                        <input type="text" class="form-control" id="job_title">
+                    </div>                  
+                    <div class="form-group">
+                        <label for="member_name" class=""  style="float:left;">姓名</label>
+                        <input type="text" class="form-control" id="name">
+                    </div>                  
+                </div>
+                <div class="col-md-3 col-sm-3 col-xs-3 cube">
+                    <div class="form-group">
+                        <label for="start_date" class=""  style="float:left;">執行日</label>
+                        <input type="text" class="form-control" id="start_date">
+                    </div>  
+                    <div class="form-group">
+                        <label for="trial_start" class=""  style="float:left;">試場起號</label>
+                        <select class="form-control" id="trial_start">
+                            <?php foreach ($field as $k => $v): ?>
+                                <option value="<?=$v['field']; ?>"><?=$v['field']; ?></option>
+                            <?php endforeach; ?>
+                        </select>
+                    </div>                  
+                    <div class="form-group">
+                        <label for="trial_end" class=""  style="float:left;">試場迄號</label>
+                        <select class="form-control" id="trial_end">
+                            <?php foreach ($field as $k => $v): ?>
+                                <option value="<?=$v['field']; ?>"><?=$v['field']; ?></option>
+                            <?php endforeach; ?>
+                        </select>
+                    </div>                  
+                </div>    
+                <div class="col-md-3 col-sm-3 col-xs-3 cube">
+                    <div class="form-group">
+                        <label for="start_date" class=""  style="float:left;">任務編號</label>
+                        <input type="text" class="form-control" id="number">
+                    </div>  
+                    <div class="form-group">
+                        <label for="trial_start" class=""  style="float:left;">聯絡電話</label>
+                        <input type="text" class="form-control" id="phone">
+                    </div>                  
+                </div>                        
+                <div class="col-md-3 col-sm-3 col-xs-3 cube" style="float:left">
+                    <div class="form-group">
+                        <label for="start_date" class=""  style="float:left;">節數</label>
+                        <input type="text" class="form-control" id="section">
+                    </div>  
+                    <div class="form-group">
+                        <label for="trial_start" class=""  style="float:left;">單價</label>
+                        <input type="text" class="form-control" id="price">
+                    </div>                  
+                    <div class="form-group">
+                        <label for="trial_end" class=""  style="float:left;">午餐</label>
+                        <input type="text" class="form-control" id="lunch">
+                    </div>   
+                    <div class="form-group">
+                        <label for="trial_end" class=""  style="float:left;">總計</label>
+                        <input type="text" class="form-control" id="total">
+                    </div>                                  
+                </div>     
+                <div class="col-md-6 col-sm-6 col-xs-6 " style="float:left;margin: 20px auto;">             
+                    <div class="">
+                        <div class="">
+                            <label for="note" class="" style="float:left;text-align:left;width: 5%;">備註</label>
+                            <textarea name="note" id="note" class="" style="width:300px"></textarea>
+                        </div>
+                    </div>                  
+                </div> 
+                <div class="col-md-6 col-sm-6 col-xs-6" style="float:left;margin: 20px auto;">             
+                    <div class="form-group" style="text-align:right">
+                        <div class="">
+                            <button class="btn btn-primary" type="button" id="add">新增</button>
+                            <button type="button" class="btn btn-primary" id="remove">刪除</button>
+                            <button type="button" class="btn btn-success" id="send">儲存</button>
+                        </div>
+                    </div>                  
+                </div>                         
+            </form>
+        </div>
+    </div> 
+</div> 
+
