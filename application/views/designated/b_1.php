@@ -35,9 +35,9 @@ img{
 }
 label {
     display: inline-block;
-    margin-bottom: .5rem;
     margin: 0px 5%;
     width:25%;
+    line-height:40px;
     text-align:right;
 }
 .form-control {
@@ -209,6 +209,30 @@ label {
     $("body").on("click",".up",function(){
         $(".form").slideToggle();
     })
+
+    /**
+    新增職務
+     */
+     $("body").on("click","#new_job",function(){
+         var job = prompt("請輸入職務名稱");
+         
+         if(job == null){
+             alert("動作取消");
+         }else{
+             if(job == ""){
+                 alert("需要輸入內容");
+             }else{
+                 $.getJSON("./api/job_add",{
+                     job:job,
+                     area:"考區"
+                 },function(data){
+                     alert(data.sys_msg);
+                     location.reload();
+                 })
+             }
+         }
+         
+     })
 </script>
 <div class="row">
     <div class="input-group col-sm-2">
@@ -255,7 +279,7 @@ label {
                     <td><?=$k + 1; ?></td>
                     <td><?=$v['year']; ?></td>
                     <td><?=$v['area']; ?></td>
-                    <td></td>
+                    <td><?=$v['job']; ?></td>
                     <td><?=$v['job_code']; ?></td>
                     <td><?=$v['job_title']; ?></td>
                     <td><?=$v['name']; ?></td>
@@ -280,7 +304,28 @@ label {
         <img src="assets/images/upup.png" alt="" >
     </div>
     <div class="row form" style="">
-        <div class="col-md-12 col-sm-12 col-xs-12 border">      
+        
+        <!-- 職務選擇開始 -->
+        <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4 ">
+            <div class="row">
+                <div for=""  class="col-2">職務</div>
+                    
+                <select class="form-control col-6" id="">
+                        <?php foreach ($jobs as $k => $v): ?>
+                            <option value="<?=$v; ?>"><?=$v; ?></option>
+                        <?php endforeach; ?>
+                    </select>
+                <div class="col-4">
+                    <button type="button" class="btn btn-primary" id="assign">指派</button>
+                    <button class="btn btn-primary" type="button" id="new_job">新增職務</button>
+                </div>
+            
+            </div>
+                
+        </div>
+        <!-- 職務選擇結束 -->
+        
+        <div class="col-md-12 col-sm-12 col-xs-12 ">      
             <form method="POST" enctype="multipart/form-data"  action="" id="form" class="">                                            
                 <div class="col-md-3 col-sm-3 col-xs-3 cube">
                     <div class="form-group">

@@ -192,12 +192,17 @@ class Designated extends CI_Controller
         $this->load->model('mod_exam_area');
         $this->load->model('mod_task');
         $this->mod_user->chk_status();
+        $year = $this->session->userdata("year");
+        $jobs = $this->mod_task->get_job_list($year);
+        
+
         $data = array(
             'title' => '考區任務編組',
             'path' => 'designated/b_1',
             'path_text' => ' > 指考主選單 > 考區任務編組 > 考區',
             'field' => $this->mod_task->get_field(),
             'datalist' => $this->mod_task->get_list('考區'),
+            "jobs"=>$jobs
         );
         $this->load->view('layout', $data);
     }
