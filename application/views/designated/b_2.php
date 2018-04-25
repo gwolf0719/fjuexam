@@ -59,7 +59,7 @@ label {
 }
 .up{
     cursor: pointer;
-    z-index: 9999;
+    z-index: 1;
     width: 100%;
     text-align: center;
     position: relative;
@@ -213,10 +213,61 @@ label {
                 }      
             })
         }
-    })    
+    })   
+
     $("body").on("click",".up",function(){
         $(".form").slideToggle();
     })
+
+    $("body").on("click","#assign",function(){
+         $("#search_job").text($("#job").val());
+     })
+
+     $("body").on("click","#search_btn",function(){
+        $.post("./api/get_name",{
+            job_code:$("#search_job_code").val(),
+        },function(data){
+            if(data.sys_code == "200"){
+                $("#search_name").val(data.info.member_name);
+            }
+        },"json")     
+     })
+
+     $("body").on("click","#sure",function(){
+        $.post("./api/assignment",{
+            job_code:$("#search_job_code").val(),
+            job:$("#search_job").text(),
+            area:"第一分區"
+        },function(data){
+            if(data.sys_code == "200"){
+                location.reload();
+            }
+        },"json")           
+     })
+
+    /**
+    新增職務
+     */
+     $("body").on("click","#new_job",function(){
+         var job = prompt("請輸入職務名稱");
+         
+         if(job == null){
+             alert("動作取消");
+         }else{
+             if(job == ""){
+                 alert("需要輸入內容");
+             }else{
+                 $.getJSON("./api/job_add",{
+                     job:job,
+                     area:"第一分區"
+                 },function(data){
+                     alert(data.sys_msg);
+                     location.reload();
+                 })
+             }
+         }
+         
+     })    
 </script>
 <div class="row">
     <div class="input-group col-sm-2">
@@ -263,7 +314,7 @@ label {
                     <td><?=$k + 1; ?></td>
                     <td><?=$v['year']; ?></td>
                     <td><?=$v['area']; ?></td>
-                    <td></td>
+                    <td><?=$v['job']; ?></td>
                     <td><?=$v['job_code']; ?></td>
                     <td><?=$v['job_title']; ?></td>
                     <td><?=$v['name']; ?></td>
@@ -288,6 +339,22 @@ label {
         <img src="assets/images/upup.png" alt="" >
     </div>
     <div class="row form" style="">
+        <!-- 職務選擇開始 -->
+        <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4" style="margin:20px 0px 20px 25px">
+            <div class="row">
+                <div for=""  class="col-2" style="display: inline-block;line-height:40px;text-align:right;">職務</div>
+                <select class="form-control col-6" id="job">
+                        <?php foreach ($jobs as $k => $v): ?>
+                            <option value="<?=$v; ?>"><?=$v; ?></option>
+                        <?php endforeach; ?>
+                    </select>
+                <div class="col-4">
+                    <button type="button" class="btn btn-primary" id="assign" data-toggle="modal" data-target="#exampleModal">指派</button>
+                    <button class="btn btn-primary" type="button" id="new_job">新增職務</button>
+                </div>
+            </div>
+        </div>
+        <!-- 職務選擇結束 -->        
         <div class="col-md-12 col-sm-12 col-xs-12 border">      
             <form method="POST" enctype="multipart/form-data"  action="" id="form" class="">                                            
                 <div class="col-md-3 col-sm-3 col-xs-3 cube">
@@ -376,4 +443,43 @@ label {
         </div>
     </div> 
 </div> 
-
+<!-- Modal start-->
+<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModal" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header" style="border-bottom: none;">
+        <h5 class="modal-title" id="exampleModalLabel" style="">指派職務</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <div class="row">
+            <div class="col-md-12 col-sm-12 col-xs-12">      
+                <form method="POST" enctype="multipart/form-data"  action="" id="form" class="page_form">                                            
+                    <div style="width: 255px;margin: 0 auto;">
+                        <div>
+                            <p>職務：<span id="search_job"></span></p>
+                        </div>         
+                        <div>
+                            <p>職員代碼<input type="text" class="" id="search_job_code" style="margin-left: 10px;"></p>
+                        </div>  
+                        <div>
+                            <p>職員姓名<input type="text" class="" id="search_name" style="margin-left: 10px;"></p>
+                        </div>                          
+                    </div>       
+                    <div class="" style="text-align: center;border-bottom: 1px solid #f2f2f2;padding: 20px 0px;">
+                        <button class="btn btn-primary" type="button" id="search_btn">搜尋</button>
+                    </div>       
+                    <div class="" style="text-align: right;margin: 20px;">
+                        <button type="button" class="btn btn-primary" id="sure">確定指派</button>
+                        <button type="button" class="btn btn-success" id="">取消</button>
+                    </div>                                                                                                   
+                </form>
+            </div>
+        </div>    
+      </div>
+    </div>
+  </div>
+</div>
+<!-- Modal end-->

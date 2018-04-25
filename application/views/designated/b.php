@@ -9,7 +9,7 @@
         }
     }    
     .cube{
-        margin:80px auto;
+        margin:20px auto;
     }
     .cube img{
         max-width:65%;

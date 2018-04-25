@@ -5,30 +5,43 @@ defined('BASEPATH') or exit('No direct script access allowed');
 class Mod_task extends CI_Model
 {
     /**
-     * 取得職務列表
+     * 取得職務列表.
      */
-    function get_job_list($year){
-        $this->db->where("year",$year);
-        $this->db->select("job");
+    public function get_job_list($year)
+    {
+        $this->db->where('year', $year);
+        $this->db->select('job');
         $this->db->distinct();
         $res = array();
-        foreach ($this->db->get("district_task")->result_array() as $key => $value) {
-            # code...
+        foreach ($this->db->get('district_task')->result_array() as $key => $value) {
+            // code...
             $res[] = $value['job'];
         }
-        return $res ;
+
+        return $res;
+    }
+
+    public function chk_once($job_code)
+    {
+        $this->db->where('job_code', $job_code);
+        if ($this->db->count_all_results('district_task') == 0) {
+            return false;
+        } else {
+            return true;
+        }
     }
 
     /**
-     * 建立新職務
+     * 建立新職務.
      */
-    function add_job($year,$job,$area){
+    public function add_job($year, $job, $area)
+    {
         $data = array(
-            "year"=>$year,
-            "job"=>$job,
-            "area"=>$area
+            'year' => $year,
+            'job' => $job,
+            'area' => $area,
         );
-        $this->db->insert("district_task",$data);
+        $this->db->insert('district_task', $data);
     }
 
     public function get_list($area = '')
@@ -76,6 +89,24 @@ class Mod_task extends CI_Model
         $this->db->select('field');
 
         return $this->db->get('exam_area')->result_array();
+    }
+
+    // 取得姓名
+    public function get_name($job_code)
+    {
+        $this->db->where('member_code', $job_code);
+        $this->db->select('member_name');
+
+        return $this->db->get('staff_member')->row_array();
+    }
+
+    // 用代號取得完整資料
+    public function get_once_info($job_code)
+    {
+        $this->db->where('member_code', $job_code);
+        $this->db->select('member_name,member_title,member_code,member_phone');
+
+        return $this->db->get('staff_member')->row_array();
     }
 }
 

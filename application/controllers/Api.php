@@ -143,6 +143,7 @@ class Api extends CI_Controller
         $getpost = array('sn');
         $requred = array('sn');
         $data = $this->getpost->getpost_array($getpost, $requred);
+
         if ($data == false) {
             $json_arr['sys_code'] = '000';
             $json_arr['sys_msg'] = '資料不足';
@@ -179,17 +180,22 @@ class Api extends CI_Controller
     public function add_task()
     {
         $this->load->model('mod_task');
-        $getpost = array('area', 'job_code', 'job_title', 'name', 'phone', 'start_date', 'number', 'trial_start', 'trial_end', 'section', 'price', 'lunch', 'note', 'class');
-        $requred = array('area', 'job_code', 'job_title', 'name', 'phone', 'start_date', 'number', 'trial_start', 'trial_end', 'section', 'price', 'lunch', 'note', 'class');
+        $getpost = array('area', 'job_code', 'job_title', 'name', 'phone', 'start_date', 'number', 'trial_start', 'trial_end', 'section', 'price', 'lunch', 'note');
+        $requred = array('area', 'job_code', 'job_title', 'name', 'phone', 'start_date', 'number', 'trial_start', 'trial_end', 'section', 'price', 'lunch');
         $data = $this->getpost->getpost_array($getpost, $requred);
         if ($data == false) {
             $json_arr['sys_code'] = '000';
             $json_arr['sys_msg'] = '資料不足';
             $json_arr['requred'] = $this->getpost->report_requred($requred);
         } else {
-            $this->mod_task->add_once($data);
-            $json_arr['sys_code'] = '200';
-            $json_arr['sys_msg'] = '資料新增完成';
+            if (!$this->mod_task->chk_once($data['job_code'])) {
+                $this->mod_task->add_once($data);
+                $json_arr['sys_code'] = '200';
+                $json_arr['sys_msg'] = '資料新增完成';
+            } else {
+                $json_arr['sys_code'] = '500';
+                $json_arr['sys_msg'] = '職員代碼重複';
+            }
         }
         echo json_encode($json_arr);
     }
@@ -197,17 +203,22 @@ class Api extends CI_Controller
     public function edit_task()
     {
         $this->load->model('mod_task');
-        $getpost = array('sn', 'area', 'job_code', 'job_title', 'name', 'phone', 'start_date', 'number', 'trial_start', 'trial_end', 'section', 'price', 'lunch', 'note', 'class');
-        $requred = array('sn', 'area', 'job_code', 'job_title', 'name', 'phone', 'start_date', 'number', 'trial_start', 'trial_end', 'section', 'price', 'lunch', 'note', 'class');
+        $getpost = array('sn', 'area', 'job_code', 'job_title', 'name', 'phone', 'start_date', 'number', 'trial_start', 'trial_end', 'section', 'price', 'lunch', 'note');
+        $requred = array('sn', 'area', 'job_code', 'job_title', 'name', 'phone', 'start_date', 'number', 'trial_start', 'trial_end', 'section', 'price', 'lunch', 'note');
         $data = $this->getpost->getpost_array($getpost, $requred);
         if ($data == false) {
             $json_arr['sys_code'] = '000';
             $json_arr['sys_msg'] = '資料不足';
             $json_arr['requred'] = $this->getpost->report_requred($requred);
         } else {
-            $this->mod_task->update_once($data['sn'], $data);
-            $json_arr['sys_code'] = '200';
-            $json_arr['sys_msg'] = '資料編輯完成';
+            if (!$this->mod_task->chk_once($data['job_code'])) {
+                $this->mod_task->update_once($data['sn'], $data);
+                $json_arr['sys_code'] = '200';
+                $json_arr['sys_msg'] = '資料編輯完成';
+            } else {
+                $json_arr['sys_code'] = '500';
+                $json_arr['sys_msg'] = '職員代碼重複';
+            }
         }
         echo json_encode($json_arr);
     }
@@ -247,45 +258,122 @@ class Api extends CI_Controller
         }
         echo json_encode($json_arr);
     }
-    /**
-     * 新增職務 ＠James
-     */
-    function job_add(){
+
+    public function get_name()
+    {
         $this->load->model('mod_task');
-        $getpost = array('job',"area");
-        $requred = array('job',"area");
+        $getpost = array('job_code');
+        $requred = array('job_code');
         $data = $this->getpost->getpost_array($getpost, $requred);
         if ($data == false) {
             $json_arr['sys_code'] = '000';
             $json_arr['sys_msg'] = '資料不足';
             $json_arr['requred'] = $this->getpost->report_requred($requred);
         } else {
-            $year = $this->session->userdata("year");
-            $this->mod_task->add_job($year,$data['job'],$data['area']);
+            $json_arr['info'] = $this->mod_task->get_name($data['job_code']);
+            $json_arr['sys_code'] = '200';
+            $json_arr['sys_msg'] = '搜尋成功';
+        }
+        echo json_encode($json_arr);
+    }
+
+    //確定指派
+    public function assignment()
+    {
+        $this->load->model('mod_task');
+        $getpost = array('job_code', 'job', 'area');
+        $requred = array('job_code', 'job', 'area');
+        $data = $this->getpost->getpost_array($getpost, $requred);
+        if ($data == false) {
+            $json_arr['sys_code'] = '000';
+            $json_arr['sys_msg'] = '資料不足';
+            $json_arr['requred'] = $this->getpost->report_requred($requred);
+        } else {
+            if (!$this->mod_task->chk_once($data['job_code'])) {
+                $info = $this->mod_task->get_once_info($data['job_code']);
+                $sql_data = array(
+                        'job_code' => $info['member_code'],
+                        'phone' => $info['member_phone'],
+                        'name' => $info['member_name'],
+                        'job' => $data['job'],
+                        'job_title' => $info['member_title'],
+                        'area' => $data['area'],
+                    );
+                $this->mod_task->add_once($sql_data);
+                $json_arr['sys_code'] = '200';
+                $json_arr['sys_msg'] = '指派成功';
+            } else {
+                $json_arr['sys_code'] = '500';
+                $json_arr['sys_msg'] = '職員代碼重複';
+            }
+        }
+        echo json_encode($json_arr);
+    }
+
+    /**
+     * 新增職務 ＠James.
+     */
+    public function job_add()
+    {
+        $this->load->model('mod_task');
+        $getpost = array('job', 'area');
+        $requred = array('job', 'area');
+        $data = $this->getpost->getpost_array($getpost, $requred);
+        if ($data == false) {
+            $json_arr['sys_code'] = '000';
+            $json_arr['sys_msg'] = '資料不足';
+            $json_arr['requred'] = $this->getpost->report_requred($requred);
+        } else {
+            $year = $this->session->userdata('year');
+            $this->mod_task->add_job($year, $data['job'], $data['area']);
             $json_arr['sys_code'] = '200';
             $json_arr['sys_msg'] = '資料處理完成';
         }
         echo json_encode($json_arr);
     }
 
-
     /**
-     * 切換學年度
+     * 切換學年度.
      */
-    function ch_year(){
-        $year = $this->input->get("year");
-        if($year != ""){
-            if($year > 100 && $year < 200){
-                $this->session->set_userdata("year",$year);
+    public function ch_year()
+    {
+        $year = $this->input->get('year');
+        if ($year != '') {
+            if ($year > 100 && $year < 200) {
+                $this->session->set_userdata('year', $year);
                 $json_arr['sys_code'] = '200';
                 $json_arr['sys_msg'] = '資料處理完成';
-            }else{
+            } else {
                 $json_arr['sys_code'] = '000';
                 $json_arr['sys_msg'] = '資料格式有誤請輸入民國年';
             }
-        }else{
+        } else {
             $json_arr['sys_code'] = '000';
             $json_arr['sys_msg'] = '資料不足';
+        }
+        echo json_encode($json_arr);
+    }
+
+    //儲存課程
+    public function add_act()
+    {
+        $this->load->model('mod_exam_datetime');
+        $getpost = array('day_1', 'day_2', 'day_3', 'pre_1', 'pre_2', 'pre_3', 'pre_4', 'course_1_start', 'course_1_end', 'course_2_start', 'course_2_end', 'course_3_start', 'course_3_end', 'course_4_start', 'course_4_end');
+        $requred = array('day_1', 'day_2', 'day_3', 'pre_1', 'pre_2', 'pre_3', 'pre_4', 'course_1_start', 'course_1_end', 'course_2_start', 'course_2_end', 'course_3_start', 'course_3_end', 'course_4_start', 'course_4_end');
+        $data = $this->getpost->getpost_array($getpost, $requred);
+        $year = $this->session->userdata('year');
+        if ($data == false) {
+            $json_arr['sys_code'] = '000';
+            $json_arr['sys_msg'] = '資料不足';
+            $json_arr['requred'] = $this->getpost->report_requred($requred);
+        } else {
+            if ($this->mod_exam_datetime->chk_once($year)) {
+                $this->mod_exam_datetime->update_once($year, $data);
+            } else {
+                $this->mod_exam_datetime->add_once($data);
+            }
+            $json_arr['sys_code'] = '200';
+            $json_arr['sys_msg'] = '儲存成功';
         }
         echo json_encode($json_arr);
     }

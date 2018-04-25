@@ -11,10 +11,15 @@ img{
 </style>
 <script>
     $("body").on("click","#Upload",function(){
-        if(confirm("注意！舊資料會全部刪除，新資料將匯入")){
-            $("#form").submit();
-        }
-        
+        var files = $('input[name="file"]').prop('files');
+        if(files.length == 0){
+            alert('請先選擇文件');
+            return;
+        }else{
+            if(confirm("注意！舊資料會全部刪除，新資料將匯入")){
+                $("#form").submit();
+            }
+        }        
     })
 </script>
 <div class="row">
@@ -116,8 +121,8 @@ img{
                   
             <div class="input-group mb-3">
             <div class="custom-file">
-                <input type="file" class="custom-file-input" id="inputGroupFile02" name="file">
-                <label class="custom-file-label" for="inputGroupFile02">請選擇檔案</label>
+                <input type="file" class="" id="inputGroupFile02" name="file">
+                <!-- <label class="custom-file-label" for="inputGroupFile02">請選擇檔案</label> -->
             </div>
             <div class="input-group-append">
                 <span class="input-group-text" id="Upload">Upload</span>
