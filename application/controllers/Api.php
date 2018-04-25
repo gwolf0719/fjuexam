@@ -247,6 +247,48 @@ class Api extends CI_Controller
         }
         echo json_encode($json_arr);
     }
+    /**
+     * 新增職務 ＠James
+     */
+    function job_add(){
+        $this->load->model('mod_task');
+        $getpost = array('job',"area");
+        $requred = array('job',"area");
+        $data = $this->getpost->getpost_array($getpost, $requred);
+        if ($data == false) {
+            $json_arr['sys_code'] = '000';
+            $json_arr['sys_msg'] = '資料不足';
+            $json_arr['requred'] = $this->getpost->report_requred($requred);
+        } else {
+            $year = $this->session->userdata("year");
+            $this->mod_task->add_job($year,$data['job'],$data['area']);
+            $json_arr['sys_code'] = '200';
+            $json_arr['sys_msg'] = '資料處理完成';
+        }
+        echo json_encode($json_arr);
+    }
+
+
+    /**
+     * 切換學年度
+     */
+    function ch_year(){
+        $year = $this->input->get("year");
+        if($year != ""){
+            if($year > 100 && $year < 200){
+                $this->session->set_userdata("year",$year);
+                $json_arr['sys_code'] = '200';
+                $json_arr['sys_msg'] = '資料處理完成';
+            }else{
+                $json_arr['sys_code'] = '000';
+                $json_arr['sys_msg'] = '資料格式有誤請輸入民國年';
+            }
+        }else{
+            $json_arr['sys_code'] = '000';
+            $json_arr['sys_msg'] = '資料不足';
+        }
+        echo json_encode($json_arr);
+    }
 }
 
 /* End of file Api.php */

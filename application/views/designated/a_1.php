@@ -31,7 +31,7 @@ img{
         <img src="assets/images/a1_title.png" alt="" style="width: 15%;">
     </div>
 
-    <div class="input-group col-sm-2">
+    <div class="input-group col-sm-2 ">
 
         <button type="button" class="btn btn-primary "  data-toggle="modal" data-target="#exampleModal"  >匯入資料</button>
         

@@ -1,18 +1,9 @@
 <style>
-    @media (min-width: 1200px){
-        .container {
-            max-width: 100%;
-            width: 100%;
-        }
-    }
     img{
         max-width:100%;
     }
     .cube{
         margin:80px auto;
-    }
-    .cube img{
-        max-width:65%;
     }
 </style>
 <div class="row">
@@ -30,20 +21,20 @@
 </div>
 <div class="row">
     
-    <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4 cube text-center">
-        <a href="./designated/a_1">
-            <img src="assets/images/a1.png" alt="">
+    <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4 cube">
+        <a href="./designated/f_1">
+            <img src="assets/images/f1.png" alt="">
         </a>    
     </div>
-    <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4 cube text-center">
-        <a href="./designated/a_2">
-            <img src="assets/images/a2.png" alt="">
+    <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4 cube">
+        <a href="./designated/f_2">
+            <img src="assets/images/f2.png" alt="">
         </a>    
     
     </div>
-    <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4 cube text-center">
-        <a href="./designated/a_3">
-            <img src="assets/images/a3.png" alt="">
+    <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4 cube">
+        <a href="./designated/f_3">
+            <img src="assets/images/f3.png" alt="">
         </a>    
     
     </div>

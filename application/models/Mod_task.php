@@ -4,11 +4,38 @@ defined('BASEPATH') or exit('No direct script access allowed');
 
 class Mod_task extends CI_Model
 {
-    public function get_list($class = '')
+    /**
+     * 取得職務列表
+     */
+    function get_job_list($year){
+        $this->db->where("year",$year);
+        $this->db->select("job");
+        $this->db->distinct();
+        $res = array();
+        foreach ($this->db->get("district_task")->result_array() as $key => $value) {
+            # code...
+            $res[] = $value['job'];
+        }
+        return $res ;
+    }
+
+    /**
+     * 建立新職務
+     */
+    function add_job($year,$job,$area){
+        $data = array(
+            "year"=>$year,
+            "job"=>$job,
+            "area"=>$area
+        );
+        $this->db->insert("district_task",$data);
+    }
+
+    public function get_list($area = '')
     {
         $this->db->where('year', $this->session->userdata('year'));
-        if ($class != '') {
-            $this->db->where('class', $class);
+        if ($area != '') {
+            $this->db->where('area', $area);
         }
 
         return $this->db->get('district_task')->result_array();
