@@ -62,6 +62,8 @@ label {
     z-index: 9999;
     width: 100%;
     text-align: center;
+    position: relative;
+    top: 25px;
 }
 .bottom{
     position: absolute;
@@ -74,10 +76,15 @@ label {
         if(confirm("注意！舊資料會全部刪除，新資料將匯入")){
             $("#form").submit();
         }
-        
     })
     $("body").on("click","tr",function(){
         var sn = $(this).attr("sn");
+        $(".form").addClass("upup");
+        if($(".form").hasClass("upup")){
+            $(".form").slideDown();
+        }else{
+            $(".form").slideUp();
+        }
         $.ajax({
             url: 'api/get_once_task',
             data:{

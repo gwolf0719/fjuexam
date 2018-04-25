@@ -285,7 +285,6 @@ label {
             </form>
         </div>
     </div>  
-
 </div>
 
 <!-- Modal start-->
