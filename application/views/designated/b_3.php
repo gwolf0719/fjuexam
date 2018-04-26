@@ -282,7 +282,7 @@ label {
     </div>
     
 </div>
-<div class="row table" style="height: auto;overflow: auto;margin: 20px auto;">
+<div class="row" style="height: 700px;overflow: auto;margin: 20px auto;">
     
    <div class="col-12" style="margin-top: 10px;">
         <table class="table table-hover" id="">
