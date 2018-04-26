@@ -216,7 +216,7 @@ label {
     </div>
     <div class="row form" style="">
         <div class="col-md-12 col-sm-12 col-xs-12">      
-            <form method="POST" enctype="multipart/form-data"  action="" id="form" class="">                                            
+            <form method="POST"  class="">                                            
                 <div class="col-md-3 col-sm-3 col-xs-3 cube">
                     <div class="form-group">
                         <label for="company_name_01">單位名稱1</label>
@@ -256,7 +256,7 @@ label {
   <div class="modal-dialog" role="document">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLabel">資料匯入</h5>
+        <h5 class="modal-title" id="exampleModalLabel">本校單位資料匯入</h5>
         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>

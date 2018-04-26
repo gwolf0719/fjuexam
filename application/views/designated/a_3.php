@@ -251,7 +251,7 @@ label {
     </div>
     <div class="row form" style="">
         <div class="col-md-12 col-sm-12 col-xs-12">      
-            <form method="POST" enctype="multipart/form-data"  action="" id="form" class="page_form">     
+            <form method="POST" class="page_form">     
                 <div class="col-md-3 col-sm-3 col-xs-3 cube">                                       
                     <div class="form-group">
                         <label for="member_code">工作人員代碼</label>
