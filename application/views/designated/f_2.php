@@ -38,6 +38,7 @@
                 }
             }
         })
+        
         $("body").on("click","#save",function(){
             if(confirm("是否確定修改？")){
                 $("form").submit();
