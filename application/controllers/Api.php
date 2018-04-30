@@ -281,8 +281,8 @@ class Api extends CI_Controller
     public function assignment()
     {
         $this->load->model('mod_task');
-        $getpost = array('job_code', 'job', 'area');
-        $requred = array('job_code', 'job', 'area');
+        $getpost = array('sn', 'job_code', 'job', 'area');
+        $requred = array('sn', 'job_code', 'job', 'area');
         $data = $this->getpost->getpost_array($getpost, $requred);
         if ($data == false) {
             $json_arr['sys_code'] = '000';
@@ -299,12 +299,12 @@ class Api extends CI_Controller
                         'job_title' => $info['member_title'],
                         'area' => $data['area'],
                     );
-                $this->mod_task->add_once($sql_data);
+                $this->mod_task->update_once($data['sn'], $sql_data);
                 $json_arr['sys_code'] = '200';
                 $json_arr['sys_msg'] = '指派成功';
             } else {
                 $json_arr['sys_code'] = '500';
-                $json_arr['sys_msg'] = '職員代碼重複';
+                $json_arr['sys_msg'] = '該職員已經有指派職務';
             }
         }
         echo json_encode($json_arr);
@@ -358,8 +358,8 @@ class Api extends CI_Controller
     public function add_act()
     {
         $this->load->model('mod_exam_datetime');
-        $getpost = array('day_1', 'day_2', 'day_3', 'pre_1', 'pre_2', 'pre_3', 'pre_4', 'course_1_start', 'course_1_end', 'course_2_start', 'course_2_end', 'course_3_start', 'course_3_end', 'course_4_start', 'course_4_end');
-        $requred = array('day_1', 'day_2', 'day_3', 'pre_1', 'pre_2', 'pre_3', 'pre_4', 'course_1_start', 'course_1_end', 'course_2_start', 'course_2_end', 'course_3_start', 'course_3_end', 'course_4_start', 'course_4_end');
+        $getpost = array('year', 'day_1', 'day_2', 'day_3', 'pre_1', 'pre_2', 'pre_3', 'pre_4', 'course_1_start', 'course_1_end', 'course_2_start', 'course_2_end', 'course_3_start', 'course_3_end', 'course_4_start', 'course_4_end');
+        $requred = array('year', 'day_1', 'day_2', 'day_3', 'pre_1', 'pre_2', 'pre_3', 'pre_4', 'course_1_start', 'course_1_end', 'course_2_start', 'course_2_end', 'course_3_start', 'course_3_end', 'course_4_start', 'course_4_end');
         $data = $this->getpost->getpost_array($getpost, $requred);
         $year = $this->session->userdata('year');
         if ($data == false) {

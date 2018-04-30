@@ -113,27 +113,29 @@ label {
         })
     })
     $("body").on("click","#send",function(){
-        var sn = $("#sn").val();
-        var company_name_01 = $("#company_name_01").val();
-        var company_name_02 = $("#company_name_02").val();
-        var department = $("#department").val();
-        var code = $("#code").val();
-        $.ajax({
-            url: 'api/edit_school_unit',
-            data:{
-                "sn":sn,
-                "company_name_01":company_name_01,
-                "company_name_02":company_name_02,
-                "department":department,
-                "code":code,
-            },
-            dataType:"json"
-        }).done(function(data){
-            if(data.sys_code == "200"){
+        if(confirm("確定儲存修改資料")){
+            var sn = $("#sn").val();
+            var company_name_01 = $("#company_name_01").val();
+            var company_name_02 = $("#company_name_02").val();
+            var department = $("#department").val();
+            var code = $("#code").val();
+            $.ajax({
+                url: 'api/edit_school_unit',
+                data:{
+                    "sn":sn,
+                    "company_name_01":company_name_01,
+                    "company_name_02":company_name_02,
+                    "department":department,
+                    "code":code,
+                },
+                dataType:"json"
+            }).done(function(data){
                 alert(data.sys_msg);
-                location.reload();
-            }      
-        })
+                if(data.sys_code == "200"){
+                    location.reload();
+                }      
+            })
+        }
     })  
 
     $("body").on("click",".up",function(){
@@ -240,8 +242,8 @@ label {
                     <div class="form-group" style="text-align:right">
                         <div class="">
                             <button class="btn btn-primary" type="button" id="add">新增</button>
-                            <button type="button" class="btn btn-primary" id="remove">刪除</button>
-                            <button type="button" class="btn btn-success" id="send">儲存</button>
+                            <button type="button" class="btn btn-primary" id="send">修改</button>
+                            <button type="button" class="btn btn-danger" id="remove">刪除</button>
                         </div>
                     </div>                  
                 </div>                         

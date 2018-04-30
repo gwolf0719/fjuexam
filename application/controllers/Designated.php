@@ -303,9 +303,9 @@ class Designated extends CI_Controller
             $datetime_info = $this->mod_exam_datetime->get_once($year);
         } else {
             $datetime_info = array(
-                'day_1' => date('Y').'/07/01',
-                'day_2' => date('Y').'/07/02',
-                'day_3' => date('Y').'/07/03',
+                'day_1' => '1911' + $this->session->userdata('year').'/07/01',
+                'day_2' => '1911' + $this->session->userdata('year').'/07/02',
+                'day_3' => '1911' + $this->session->userdata('year').'/07/03',
                 'course_1_start' => '08:40',
                 'course_1_end' => '10:00',
                 'course_2_start' => '10:50',
@@ -354,22 +354,22 @@ class Designated extends CI_Controller
             $course = $this->mod_exam_datetime->get_course($year);
         } else {
             $course = array(
-                '1-1' => '未安排',
-                '1-2' => '未安排',
-                '1-3' => '未安排',
-                '1-4' => '未安排',
-                '2-1' => '未安排',
-                '2-2' => '未安排',
-                '2-3' => '未安排',
-                '2-4' => '未安排',
-                '3-1' => '未安排',
-                '3-2' => '未安排',
-                '3-3' => '未安排',
-                '3-4' => '未安排',
-                '4-1' => '未安排',
-                '4-2' => '未安排',
-                '4-3' => '未安排',
-                '4-4' => '未安排',
+                '1_1' => '未安排',
+                '1_2' => '未安排',
+                '1_3' => '未安排',
+                '1_4' => '未安排',
+                '2_1' => '未安排',
+                '2_2' => '未安排',
+                '2_3' => '未安排',
+                '2_4' => '未安排',
+                '3_1' => '未安排',
+                '3_2' => '未安排',
+                '3_3' => '未安排',
+                '3_4' => '未安排',
+                '4_1' => '未安排',
+                '4_2' => '未安排',
+                '4_3' => '未安排',
+                '4_4' => '未安排',
             );
         }
         $data = array(

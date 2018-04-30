@@ -8,7 +8,10 @@
 img{
     max-width:100%;
 }
-
+#order_meal{
+    margin: 0 5px;
+    vertical-align: baseline;
+}
 .form{
     position: relative;
     width: 100%;
@@ -84,12 +87,13 @@ label {
             },
             dataType:"json"
         }).done(function(data){
+            console.log(data.info);
             $("#sn").val(sn);
             $("#member_code").val(data.info.member_code);
             $("#member_name").val(data.info.member_name);
             $("#member_unit").val(data.info.member_unit);
-            $("#member_title").val(data.info.member_title);
             $("#member_phone").val(data.info.member_phone);
+            $("#member_title").val(data.info.member_title);
             $("#order_meal").val(data.info.order_meal);
             $("#meal").val(data.info.meal);
             console.log(data.info.order_meal);
@@ -138,34 +142,35 @@ label {
         })
     })
     $("body").on("click","#send",function(){
-        var sn = $("#sn").val();
-        var member_code = $("#member_code").val();
-        var member_name = $("#member_name").val();
-        var member_unit = $("#member_unit").val();
-        var member_title = $("#member_title").val();
-        var member_phone = $("#member_phone").val();
-        var order_meal = $("#order_meal").val();
-        var meal = $("#meal").val();
-        $.ajax({
-            url: 'api/edit_staff',
-            data:{
-                "sn":sn,
-                "member_code":member_code,
-                "member_name":member_name,
-                "member_unit":member_unit,
-                "member_title":member_title,
-                "member_phone":member_phone,
-                "member_title":member_title,
-                "order_meal":member_meal,
-                "meal":meal,
-            },
-            dataType:"json"
-        }).done(function(data){
-            if(data.sys_code == "200"){
+        if(confirm("確定儲存修改資料？")){
+            var sn = $("#sn").val();
+            var member_code = $("#member_code").val();
+            var member_name = $("#member_name").val();
+            var member_unit = $("#member_unit").val();
+            var member_title = $("#member_title").val();
+            var member_phone = $("#member_phone").val();
+            var order_meal = $("#order_meal").val();
+            var meal = $("#meal").val();
+            $.ajax({
+                url: 'api/edit_staff',
+                data:{
+                    "sn":sn,
+                    "member_code":member_code,
+                    "member_name":member_name,
+                    "member_unit":member_unit,
+                    "member_title":member_title,
+                    "member_phone":member_phone,
+                    "order_meal":member_meal,
+                    "meal":meal,
+                },
+                dataType:"json"
+            }).done(function(data){
                 alert(data.sys_msg);
-                location.reload();
-            }      
-        })
+                if(data.sys_code == "200"){
+                    location.reload();
+                }      
+            })
+        }
     })  
 
     $("body").on("click","#remove",function(){
@@ -235,8 +240,8 @@ label {
                     <td><?=$v['member_code']; ?></td>
                     <td><?=$v['member_name']; ?></td>
                     <td><?=$v['member_unit']; ?></td>
-                    <td><?=$v['member_phone']; ?></td>
                     <td><?=$v['member_title']; ?></td>
+                    <td><?=$v['member_phone']; ?></td>
                     <td><?=$v['order_meal']; ?></td>
                     <td><?=$v['meal']; ?></td>
                 </tr>
@@ -276,7 +281,7 @@ label {
                     </div>  
                     <div class="form-group">
                         <label for="order_meal">訂餐需求</label>
-                        <input type="checkbox" class="form-control" id="order_meal"><span>需訂餐</span>
+                        <input type="checkbox" class="" id="order_meal"><span>需訂餐</span>
                     </div>                      
                     <div class="form-group">
                         <label for="meal">餐別</label>
@@ -290,8 +295,8 @@ label {
                     <div class="form-group" style="text-align: right;">
                         <div class="">
                             <button class="btn btn-primary" type="button" id="add">新增</button>
-                            <button type="button" class="btn btn-primary" id="remove">刪除</button>
-                            <button type="button" class="btn btn-success" id="send">儲存</button>
+                            <button type="button" class="btn btn-primary" id="send">修改</button>
+                            <button type="button" class="btn btn-danger" id="remove">刪除</button>
                         </div>
                     </div>    
                 </div>                  

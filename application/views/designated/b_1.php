@@ -11,15 +11,13 @@ img{
 .form{
     position: relative;
     width: 100%;
-    margin: 0 auto;
     border-top: 1px solid;
     background: #f2f2f2;
     padding: 50px 0px;
     left: -15px;
-    display:none;
+    display: none;
     float: left;
-    height: auto;    
-}
+    height: auto;
 }
 .table{
     height: auto;
@@ -63,10 +61,20 @@ label {
     width: 100%;
     text-align: center;
     position: relative;
-    top: 25px;
+    overflow: hidden;
+    height:25px;
+}
+.up.active{
+    cursor: pointer;
+    z-index: 1;
+    width: 100%;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+    height:56px;
 }
 .bottom{
-    position: absolute;
+    /* position: fixed; */
     bottom: 0px;
     width:100%;
 }
@@ -153,47 +161,49 @@ label {
         })
     })
     $("body").on("click","#send",function(){
-        var sn = $("#sn").val();
-        var area = "考區";
-        var job_code = $("#job_code").val();
-        var job_title = $("#job_title").val();
-        var name = $("#name").val();
-        var start_date = $("#start_date").val();
-        var trial_start = $("#trial_start").val();
-        var trial_end = $("#trial_end").val();        
-        var number = $("#number").val();
-        var section = $("#section").val();
-        var price = $("#price").val();        
-        var lunch = $("#lunch").val();
-        var phone = $("#phone").val();        
-        var note = $("textarea[name='note']").val();
-        var cla = "考區";
-        $.ajax({
-            url: 'api/edit_task',
-            data:{
-                "sn":sn,
-                "area":area,
-                "job_code":job_code,
-                "job_title":job_title,
-                "name":name,
-                "start_date":start_date,
-                "trial_start":trial_start,
-                "trial_end":trial_end,
-                "number":number,                
-                "section":section,
-                "price":price,
-                "lunch":lunch,
-                "phone":phone,                
-                "note":note,
-                "class":cla,  
-            },
-            dataType:"json"
-        }).done(function(data){
-                alert(data.sys_msg);
-            if(data.sys_code == "200"){
-                location.reload();
-            }      
-        })
+        if(confirm("確定儲存修改資料？")){
+            var sn = $("#sn").val();
+            var area = "考區";
+            var job_code = $("#job_code").val();
+            var job_title = $("#job_title").val();
+            var name = $("#name").val();
+            var start_date = $("#start_date").val();
+            var trial_start = $("#trial_start").val();
+            var trial_end = $("#trial_end").val();        
+            var number = $("#number").val();
+            var section = $("#section").val();
+            var price = $("#price").val();        
+            var lunch = $("#lunch").val();
+            var phone = $("#phone").val();        
+            var note = $("textarea[name='note']").val();
+            var cla = "考區";
+            $.ajax({
+                url: 'api/edit_task',
+                data:{
+                    "sn":sn,
+                    "area":area,
+                    "job_code":job_code,
+                    "job_title":job_title,
+                    "name":name,
+                    "start_date":start_date,
+                    "trial_start":trial_start,
+                    "trial_end":trial_end,
+                    "number":number,                
+                    "section":section,
+                    "price":price,
+                    "lunch":lunch,
+                    "phone":phone,                
+                    "note":note,
+                    "class":cla,  
+                },
+                dataType:"json"
+            }).done(function(data){
+                    alert(data.sys_msg);
+                if(data.sys_code == "200"){
+                    location.reload();
+                }      
+            })
+        }
     })  
 
     $("body").on("click","#remove",function(){
@@ -214,6 +224,7 @@ label {
         }
     })    
     $("body").on("click",".up",function(){
+        $(this).toggleClass("active");
         $(".form").slideToggle();
     })
 
@@ -259,11 +270,14 @@ label {
      })
 
      $("body").on("click","#sure",function(){
+         console.log($("#sn").val());
         $.post("./api/assignment",{
+            sn:$("#sn").val(),
             job_code:$("#search_job_code").val(),
             job:$("#search_job").text(),
             area:"考區"
         },function(data){
+            alert(data.sys_msg);
             if(data.sys_code == "200"){
                 location.reload();
             }
@@ -285,7 +299,7 @@ label {
     </div>
     
 </div>
-<div class="row" style="height: 700px;overflow: auto;margin: 20px auto;">
+<div class="row">
     
    <div class="col-12" style="margin-top: 10px;">
         <table class="table table-hover" id="">
@@ -437,8 +451,8 @@ label {
                     <div class="form-group" style="text-align:right">
                         <div class="">
                             <button class="btn btn-primary" type="button" id="add">新增</button>
-                            <button type="button" class="btn btn-primary" id="remove">刪除</button>
-                            <button type="button" class="btn btn-success" id="send">儲存</button>
+                            <button type="button" class="btn btn-primary" id="send">修改</button>
+                            <button type="button" class="btn btn-danger" id="remove">刪除</button>
                         </div>
                     </div>                  
                 </div>                         

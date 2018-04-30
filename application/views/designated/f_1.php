@@ -19,6 +19,7 @@
             $.ajax({
                 url: 'api/add_act',
                 data:{
+                    "year":$("#year").val(),
                     "day_1":$("#day_1").val(),
                     "day_2":$("#day_2").val(),
                     "day_3":$("#day_3").val(),
@@ -68,6 +69,7 @@
         <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6" style="padding:20px;">
             <div class="row table-form" class="">
                 <div class="col-3 text-right">第一天</div>
+                <input type="hidden" class="col-6" id="year" name="year" value="<?=$_SESSION['year']; ?>">
                 <input type="text" class="col-6" id="day_1" name="day_1" value="<?=$datetime_info['day_1']; ?>">
                 <div class="col-3 "></div>
             </div>

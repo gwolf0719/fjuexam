@@ -75,6 +75,14 @@ class Mod_task extends CI_Model
         return true;
     }
 
+    public function update_job($sn, $sql_data)
+    {
+        $this->db->where('sn', $sn);
+        $this->db->update('district_task', $sql_data);
+
+        return true;
+    }
+
     public function remove_once($sn)
     {
         $this->db->where('sn', $sn);
