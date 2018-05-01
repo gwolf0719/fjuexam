@@ -8,16 +8,12 @@
 img{
     max-width:100%;
 }
-.form{
-    position: relative;
-    width: 100%;
+.boxs{
     border-top: 1px solid;
     background: #f2f2f2;
     padding: 50px 0px;
-    left: -15px;
     display: none;
     float: left;
-    height: auto;
 }
 .table{
     height: auto;
@@ -33,23 +29,22 @@ img{
 }
 label {
     display: inline-block;
-    margin: 0px 5%;
-    width:25%;
-    line-height:40px;
-    text-align:right;
+    line-height: 40px;
+    text-align: center;
+    width: 35%;
 }
 .form-control {
     display: block;
-    width: 65%;
+    width: 50%;
     padding: .375rem .75rem;
     font-size: 1rem;
     line-height: 1.5;
     color: #495057;
     background-color: #fff;
-    background-clip: padding-box;
+    background-clip: padding-boxs;
     border: 1px solid #ced4da;
     border-radius: .25rem;
-    transition: border-color .15s ease-in-out,box-shadow .15s ease-in-out;
+    transition: border-color .15s ease-in-out,boxs-shadow .15s ease-in-out;
 }
 .form-group {
     margin-bottom: 1rem;
@@ -88,11 +83,11 @@ label {
     })
     $("body").on("click","tr",function(){
         var sn = $(this).attr("sn");
-        $(".form").addClass("upup");
-        if($(".form").hasClass("upup")){
-            $(".form").slideDown();
+        $(".boxs").addClass("upup");
+        if($(".boxs").hasClass("upup")){
+            $(".boxs").slideDown();
         }else{
-            $(".form").slideUp();
+            $(".boxs").slideUp();
         }             
         $.ajax({
             url: 'api/get_once_task',
@@ -226,7 +221,7 @@ label {
     })    
     $("body").on("click",".up",function(){
         $(this).toggleClass("active");
-        $(".form").slideToggle();
+        $(".boxs").slideToggle();
     })
 
     /**
@@ -297,7 +292,7 @@ label {
     </div>
     
 </div>
-<div class="row" style="height: 700px;overflow: auto;margin: 20px auto;">
+<div class="row" style="">
     
    <div class="col-12" style="margin-top: 10px;">
         <table class="table table-hover" id="">
@@ -351,24 +346,24 @@ label {
     <div class="up">
         <img src="assets/images/upup.png" alt="" >
     </div>
-    <div class="row form" style="">
+    <div class="row boxs" style="">
         <!-- 職務選擇開始 -->
         <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4" style="margin:20px 0px 20px 25px">
             <div class="row">
                 <div for=""  class="col-2" style="display: inline-block;line-height:40px;text-align:right;">職務</div>
-                <select class="form-control col-6" id="job">
+                <select class="form-control col-4" id="job">
                         <?php foreach ($jobs as $k => $v): ?>
                             <option value="<?=$v; ?>"><?=$v; ?></option>
                         <?php endforeach; ?>
                     </select>
-                <div class="col-4">
+                <div class="col-6">
                     <button type="button" class="btn btn-primary" id="assign" data-toggle="modal" data-target="#exampleModal">指派</button>
                     <button class="btn btn-primary" type="button" id="new_job">新增職務</button>
                 </div>
             </div>
         </div>
         <!-- 職務選擇結束 -->       
-        <div class="col-md-12 col-sm-12 col-xs-12 border">      
+        <div class="col-md-12 col-sm-12 col-xs-12">      
             <form method="POST" enctype="multipart/form-data"  action="" id="form" class="">                                            
                 <div class="col-md-3 col-sm-3 col-xs-3 cube">
                     <div class="form-group">
@@ -438,7 +433,7 @@ label {
                 <div class="col-md-6 col-sm-6 col-xs-6 " style="float:left;margin: 20px auto;">             
                     <div class="">
                         <div class="">
-                            <label for="note" class="" style="float:left;text-align:left;width: 5%;">備註</label>
+                            <label for="note" class="" style="float:left;text-align:left;width: 15%;text-align:center">備註</label>
                             <textarea name="note" id="note" class="" style="width:300px"></textarea>
                         </div>
                     </div>                  
