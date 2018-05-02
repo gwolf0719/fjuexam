@@ -18,7 +18,7 @@ img{
     background: #f2f2f2;
     padding: 50px 0px;
     display: none;
-    float: left;
+    height:573px;
 }
 .table{
     height: auto;
@@ -55,13 +55,26 @@ label {
     margin-bottom: 1rem;
     padding-right:10%;
 }
+.to_up{
+    position: fixed;
+    bottom: 0;
+    left: 47%;
+}
+
+.down{
+    margin: 0 auto;
+    text-align: center;
+}
+.to_down{
+    transform: rotate(180deg);
+}
 .up{
     cursor: pointer;
     z-index: 1;
     width: 100%;
     text-align: center;
     position: relative;
-    overflow: hidden;
+    /* overflow: hidden; */
     height:25px;
 }
 .up.active{
@@ -105,6 +118,7 @@ $(function(){
         $("html, body").animate({
         scrollTop: $("body").height()
         }, 1000);         
+        $(".to_up").hide();
         $(".boxs").addClass("upup");
         if($(".boxs").hasClass("upup")){
             $(".boxs").slideDown();
@@ -182,6 +196,7 @@ $(function(){
         if(confirm("確定儲存修改資料？")){
             var sn = $("#sn").val();
             var area = "考區";
+            var job = $("#member_job_title").val();
             var job_code = $("#job_code").val();
             var job_title = $("#job_title").val();
             var name = $("#name").val();
@@ -202,6 +217,7 @@ $(function(){
                     "area":area,
                     "job_code":job_code,
                     "job_title":job_title,
+                    "job":job,
                     "name":name,
                     "start_date":start_date,
                     "trial_start":trial_start,
@@ -244,11 +260,16 @@ $(function(){
     $("body").on("click",".up",function(){
        $("html, body").animate({
         scrollTop: $("body").height()
-        }, 1000); 
-        $(".boxs").slideToggle();
+        }, 1000);
+        $(this).hide();
+        $(".boxs").show();
     })
 
-   
+    $("body").on("click",".down",function(){
+        $('.up').show();
+        $('.to_up').show();
+        $(".boxs").hide();
+    })    
 
 
     /**
@@ -280,27 +301,32 @@ $(function(){
          $("#search_job").text($("#job").val());
      })
 
-     $("body").on("click","#search_btn",function(){
-        $.post("./api/get_name",{
-            job_code:$("#search_job_code").val(),
-        },function(data){
-            if(data.sys_code == "200"){
-                $("#search_name").val(data.info.member_name);
-            }
-        },"json")     
-     })
+    //  $("body").on("click","#search_btn",function(){
+    //     $.post("./api/get_name",{
+    //         job_code:$("#search_job_code").val(),
+    //     },function(data){
+    //         if(data.sys_code == "200"){
+    //             $("#search_name").val(data.info.member_name);
+    //         }
+    //     },"json")     
+    //  })
 
      $("body").on("click","#sure",function(){
-         console.log($("#sn").val());
+         var code = $(".typeahead").val().substr(0,4);
         $.post("./api/assignment",{
-            sn:$("#sn").val(),
-            job_code:$("#search_job_code").val(),
+            job_code:code,
             job:$("#search_job").text(),
-            area:"考區"
+            area:"考區",
         },function(data){
+            console.log(data);
             alert(data.sys_msg);
             if(data.sys_code == "200"){
-                location.reload();
+                $('#exampleModal').modal('hide');
+                $("#member_job_title").val($("#search_job").text());
+                $("#job_code").val(data.info.member_code);
+                $("#job_title").val(data.info.member_title);
+                $("#name").val(data.info.member_name);
+                $("#phone").val(data.info.member_phone);
             }
         },"json")           
      })
@@ -374,10 +400,12 @@ $(function(){
 
 <div class="bottom">
     <div class="up">
-        <img src="assets/images/upup.png" alt="" >
+        <img src="assets/images/upup.png" alt="" class="to_up">
     </div>
     <div class="row boxs">
-        
+        <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4 down">
+            <img src="assets/images/upup.png" alt="" class="to_down">
+        </div>         
         <!-- 職務選擇開始 -->
         <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4" style="margin:20px 0px 20px 25px">
             <div class="row">
@@ -393,14 +421,15 @@ $(function(){
                 </div>
             </div>
         </div>
+       
         <!-- 職務選擇結束 -->
-        
         <div class="col-md-12 col-sm-12 col-xs-12 ">      
             <form method="POST" enctype="multipart/form-data"  action="" id="form" class="">                                            
                 <div class="col-md-3 col-sm-3 col-xs-3 cube">
                     <div class="form-group">
                         <label for="job_code" class=""  style="float:left;">職員代碼</label>
                         <input type="hidden" id="sn">
+                        <input type="hidden" id="member_job_title">
                         <input type="text" class="form-control" id="job_code">
                     </div>  
                     <div class="form-group">
@@ -473,7 +502,7 @@ $(function(){
                 <div class="col-md-6 col-sm-6 col-xs-6" style="float:left;margin: 20px auto;">             
                     <div class="form-group" style="text-align:right">
                         <div class="">
-                            <button class="btn btn-primary" type="button" id="add">新增</button>
+                            <!-- <button class="btn btn-primary" type="button" id="add">新增</button> -->
                             <button type="button" class="btn btn-primary" id="send">修改</button>
                             <button type="button" class="btn btn-danger" id="remove">刪除</button>
                         </div>

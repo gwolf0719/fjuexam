@@ -13,7 +13,7 @@ img{
     background: #f2f2f2;
     padding: 50px 0px;
     display: none;
-    float: left;
+    height:573px;
 }
 .table{
     height: auto;
@@ -50,13 +50,25 @@ label {
     margin-bottom: 1rem;
     padding-right:10%;
 }
+.to_up{
+    position: fixed;
+    bottom: 0;
+    left: 47%;
+}
+.down{
+    margin: 0 auto;
+    text-align: center;
+}
+.to_down{
+    transform: rotate(180deg);
+}
 .up{
     cursor: pointer;
     z-index: 1;
     width: 100%;
     text-align: center;
     position: relative;
-    overflow: hidden;
+    /* overflow: hidden; */
     height:25px;
 }
 .up.active{
@@ -75,6 +87,18 @@ label {
 }
 </style>
 <script>
+    /**自動完成 */
+    var data ;
+    $.getJSON("./api/get_member_info",function(data){
+        data = data.info;
+        console.log(data);
+        var $input = $(".typeahead");
+            $input.typeahead({
+            source: data,
+            autoSelect: true
+        });
+    })
+
     $("body").on("click","#Upload",function(){
         if(confirm("注意！舊資料會全部刪除，新資料將匯入")){
             $("#form").submit();
@@ -86,6 +110,7 @@ label {
         $("html, body").animate({
             scrollTop: $("body").height()
         }, 1000);           
+        $(".to_up").hide();
         $(".boxs").addClass("upup");
         if($(".boxs").hasClass("upup")){
             $(".boxs").slideDown();
@@ -163,6 +188,7 @@ label {
         if(confirm("是否確定要修改？")){
             var sn = $("#sn").val();
             var area = "第二分區";
+            var job = $("#member_job_title").val();
             var job_code = $("#job_code").val();
             var job_title = $("#job_title").val();
             var name = $("#name").val();
@@ -181,6 +207,7 @@ label {
                 data:{
                     "sn":sn,
                     "area":area,
+                    "job":job,
                     "job_code":job_code,
                     "job_title":job_title,
                     "name":name,
@@ -223,11 +250,18 @@ label {
         }
     })    
     $("body").on("click",".up",function(){
-        $("html, body").animate({
-            scrollTop: $("body").height()
-        }, 1000);           
-        $(".boxs").slideToggle();
+       $("html, body").animate({
+        scrollTop: $("body").height()
+        }, 1000);
+        $(this).hide();
+        $(".boxs").show();
     })
+
+    $("body").on("click",".down",function(){
+        $('.up').show();
+        $('.to_up').show();
+        $(".boxs").hide();
+    })    
 
     /**
     新增職務
@@ -257,27 +291,22 @@ label {
          $("#search_job").text($("#job").val());
      })
 
-     $("body").on("click","#search_btn",function(){
-        $.post("./api/get_name",{
-            job_code:$("#search_job_code").val(),
-        },function(data){
-            if(data.sys_code == "200"){
-                $("#search_name").val(data.info.member_name);
-            }
-        },"json")     
-     })
-
-     $("body").on("click","#sure",function(){
-         console.log($("#sn").val());
+    $("body").on("click","#sure",function(){
+         var code = $(".typeahead").val().substr(0,4);
         $.post("./api/assignment",{
-            sn:$("#sn").val(),
-            job_code:$("#search_job_code").val(),
+            job_code:code,
             job:$("#search_job").text(),
-            area:"第二分區"
+            area:"第二分區",
         },function(data){
+            console.log(data);
             alert(data.sys_msg);
             if(data.sys_code == "200"){
-                location.reload();
+                $('#exampleModal').modal('hide');
+                $("#member_job_title").val($("#search_job").text());
+                $("#job_code").val(data.info.member_code);
+                $("#job_title").val(data.info.member_title);
+                $("#name").val(data.info.member_name);
+                $("#phone").val(data.info.member_phone);
             }
         },"json")           
      })
@@ -349,9 +378,12 @@ label {
 
 <div class="bottom">
     <div class="up">
-        <img src="assets/images/upup.png" alt="" >
+        <img src="assets/images/upup.png" alt="" class="to_up">
     </div>
     <div class="row boxs" style="">
+        <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4 down">
+            <img src="assets/images/upup.png" alt="" class="to_down">
+        </div>      
         <!-- 職務選擇開始 -->
         <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4" style="margin:20px 0px 20px 25px">
             <div class="row">
@@ -374,6 +406,7 @@ label {
                     <div class="form-group">
                         <label for="job_code" class=""  style="float:left;">職員代碼</label>
                         <input type="hidden" id="sn">
+                        <input type="hidden" id="member_job_title">
                         <input type="text" class="form-control" id="job_code">
                     </div>  
                     <div class="form-group">
@@ -446,7 +479,7 @@ label {
                 <div class="col-md-6 col-sm-6 col-xs-6" style="float:left;margin: 20px auto;">             
                     <div class="form-group" style="text-align:right">
                         <div class="">
-                            <button class="btn btn-primary" type="button" id="add">新增</button>
+                            <!-- <button class="btn btn-primary" type="button" id="add">新增</button> -->
                             <button type="button" class="btn btn-primary" id="send">修改</button>
                             <button type="button" class="btn btn-danger" id="remove">刪除</button>
                         </div>
@@ -470,20 +503,14 @@ label {
         <div class="row">
             <div class="col-md-12 col-sm-12 col-xs-12">      
                 <form method="POST" enctype="multipart/form-data"  action="" id="form" class="page_form">                                            
-                    <div style="width: 255px;margin: 0 auto;">
+                     <div style="width: 255px;margin: 0 auto;">
                         <div>
                             <p>職務：<span id="search_job"></span></p>
                         </div>         
                         <div>
-                            <p>職員代碼<input type="text" class="" id="search_job_code" style="margin-left: 10px;"></p>
+                            <p>關鍵字<input type="text" class="typeahead" ></p>
                         </div>  
-                        <div>
-                            <p>職員姓名<input type="text" class="" id="search_name" style="margin-left: 10px;"></p>
-                        </div>                          
-                    </div>       
-                    <div class="" style="text-align: center;border-bottom: 1px solid #f2f2f2;padding: 20px 0px;">
-                        <button class="btn btn-primary" type="button" id="search_btn">搜尋</button>
-                    </div>       
+                    </div>      
                     <div class="" style="text-align: right;margin: 20px;">
                         <button type="button" class="btn btn-primary" id="sure">確定指派</button>
                         <button type="button" class="btn btn-success" id="">取消</button>

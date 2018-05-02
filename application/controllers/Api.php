@@ -203,8 +203,8 @@ class Api extends CI_Controller
     public function edit_task()
     {
         $this->load->model('mod_task');
-        $getpost = array('sn', 'area', 'job_code', 'job_title', 'name', 'phone', 'start_date', 'number', 'trial_start', 'trial_end', 'section', 'price', 'lunch', 'note');
-        $requred = array('sn', 'area', 'job_code', 'job_title', 'name', 'phone', 'start_date', 'number', 'trial_start', 'trial_end', 'section', 'price', 'lunch', 'note');
+        $getpost = array('sn', 'area', 'job', 'job_code', 'job_title', 'name', 'phone', 'start_date', 'number', 'trial_start', 'trial_end', 'section', 'price', 'lunch', 'note');
+        $requred = array('sn', 'area', 'job', 'job_code', 'job_title', 'name', 'phone', 'start_date', 'number', 'trial_start', 'trial_end', 'section', 'price', 'lunch', 'note');
         $data = $this->getpost->getpost_array($getpost, $requred);
         if ($data == false) {
             $json_arr['sys_code'] = '000';
@@ -262,16 +262,16 @@ class Api extends CI_Controller
     public function get_member_info()
     {
         $this->load->model('mod_task');
-        
-            $res = $this->mod_task->get_member_info();
-            foreach ($res as $key => $value) {
-                // $json_arr['info'][$key]['sn'] = $value['sn'];
-                $json_arr['info'][$key]['id'] = $value['member_code'];
-                $json_arr['info'][$key]['name'] = $value['member_code']." - ".$value['member_name'];
-            }
-            $json_arr['sys_code'] = '200';
-            $json_arr['sys_msg'] = '搜尋成功';
-        
+
+        $res = $this->mod_task->get_member_info();
+        foreach ($res as $key => $value) {
+            // $json_arr['info'][$key]['sn'] = $value['sn'];
+            $json_arr['info'][$key]['id'] = $value['member_code'];
+            $json_arr['info'][$key]['name'] = $value['member_code'].' - '.$value['member_name'];
+        }
+        $json_arr['sys_code'] = '200';
+        $json_arr['sys_msg'] = '搜尋成功';
+
         echo json_encode($json_arr);
     }
 
@@ -279,8 +279,8 @@ class Api extends CI_Controller
     public function assignment()
     {
         $this->load->model('mod_task');
-        $getpost = array('sn', 'job_code', 'job', 'area');
-        $requred = array('sn', 'job_code', 'job', 'area');
+        $getpost = array('job_code', 'job', 'area');
+        $requred = array('job_code', 'job', 'area');
         $data = $this->getpost->getpost_array($getpost, $requred);
         if ($data == false) {
             $json_arr['sys_code'] = '000';
@@ -288,18 +288,9 @@ class Api extends CI_Controller
             $json_arr['requred'] = $this->getpost->report_requred($requred);
         } else {
             if (!$this->mod_task->chk_once($data['job_code'])) {
-                $info = $this->mod_task->get_once_info($data['job_code']);
-                $sql_data = array(
-                        'job_code' => $info['member_code'],
-                        'phone' => $info['member_phone'],
-                        'name' => $info['member_name'],
-                        'job' => $data['job'],
-                        'job_title' => $info['member_title'],
-                        'area' => $data['area'],
-                    );
-                $this->mod_task->update_once($data['sn'], $sql_data);
+                $json_arr['info'] = $this->mod_task->get_once_info($data['job_code']);
                 $json_arr['sys_code'] = '200';
-                $json_arr['sys_msg'] = '指派成功';
+                $json_arr['sys_msg'] = '資料處理完成';
             } else {
                 $json_arr['sys_code'] = '500';
                 $json_arr['sys_msg'] = '該職員已經有指派職務';
