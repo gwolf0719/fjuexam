@@ -16,7 +16,7 @@ img{
 .boxs{
     border-top: 1px solid;
     background: #f2f2f2;
-    padding: 50px 0px;
+    padding: 0px 0px 50px;
     display: none;
     height:573px;
 }
