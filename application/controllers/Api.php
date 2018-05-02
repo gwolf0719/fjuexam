@@ -259,18 +259,23 @@ class Api extends CI_Controller
         echo json_encode($json_arr);
     }
 
-    public function get_name()
+    public function get_member_info()
     {
         $this->load->model('mod_task');
-        $getpost = array('job_code');
-        $requred = array('job_code');
+        $getpost = array('code');
+        $requred = array('code');
         $data = $this->getpost->getpost_array($getpost, $requred);
         if ($data == false) {
             $json_arr['sys_code'] = '000';
             $json_arr['sys_msg'] = '資料不足';
             $json_arr['requred'] = $this->getpost->report_requred($requred);
         } else {
-            $json_arr['info'] = $this->mod_task->get_name($data['job_code']);
+            $res = $this->mod_task->get_member_info($data['code']);
+            foreach ($res as $key => $value) {
+                // $json_arr['info'][$key]['sn'] = $value['sn'];
+                $json_arr['info'][$key]['id'] = $value['member_code'];
+                $json_arr['info'][$key]['name'] = $value['member_name'];
+            }
             $json_arr['sys_code'] = '200';
             $json_arr['sys_msg'] = '搜尋成功';
         }

@@ -1,9 +1,14 @@
+
 <style>
 @media (min-width: 1200px){
     .container {
         max-width: 100%;
         width:100%;
     }
+}
+.typeahead{
+    z-index: 1051;
+    margin-left:10px;
 }
 img{
     max-width:100%;
@@ -82,6 +87,9 @@ label {
     })
     $("body").on("click","tr",function(){
         var sn = $(this).attr("sn");
+        $("html, body").animate({
+        scrollTop: $("body").height()
+        }, 1000);         
         $(".boxs").addClass("upup");
         if($(".boxs").hasClass("upup")){
             $(".boxs").slideDown();
@@ -219,10 +227,20 @@ label {
         }
     })    
     $("body").on("click",".up",function(){
-        $(this).toggleClass("active");
+       $("html, body").animate({
+        scrollTop: $("body").height()
+        }, 1000); 
         $(".boxs").slideToggle();
     })
 
+    // $.get("example_collection.json", function(data){
+        var arr = [{id: "someId1", name: "Display name 1"}];
+        // console.log(arr);
+        $(".typeahead").typeahead({
+            source: arr,
+            autoSelect: true
+        });
+    // },'json');
 
 
     /**
@@ -279,6 +297,7 @@ label {
         },"json")           
      })
 </script>
+
 <div class="row">
     <div class="input-group col-sm-2">
 
@@ -474,15 +493,15 @@ label {
                             <p>職務：<span id="search_job"></span></p>
                         </div>         
                         <div>
-                            <p>職員代碼<input type="text" class="" id="search_job_code" style="margin-left: 10px;"></p>
+                            <p>關鍵字<input type="text" class="typeahead" data-provide="typeahead"></p>
                         </div>  
-                        <div>
+                        <!-- <div>
                             <p>職員姓名<input type="text" class="" id="search_name" style="margin-left: 10px;"></p>
-                        </div>                          
+                        </div>                           -->
                     </div>       
-                    <div class="" style="text-align: center;border-bottom: 1px solid #f2f2f2;padding: 20px 0px;">
+                    <!-- <div class="" style="text-align: center;border-bottom: 1px solid #f2f2f2;padding: 20px 0px;">
                         <button class="btn btn-primary" type="button" id="search_btn">搜尋</button>
-                    </div>       
+                    </div>        -->
                     <div class="" style="text-align: right;margin: 20px;">
                         <button type="button" class="btn btn-primary" id="sure">確定指派</button>
                         <button type="button" class="btn btn-success" id="">取消</button>
@@ -495,4 +514,5 @@ label {
   </div>
 </div>
 <!-- Modal end-->
+
 

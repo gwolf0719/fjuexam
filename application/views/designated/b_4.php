@@ -83,6 +83,9 @@ label {
     })
     $("body").on("click","tr",function(){
         var sn = $(this).attr("sn");
+        $("html, body").animate({
+            scrollTop: $("body").height()
+        }, 1000);           
         $(".boxs").addClass("upup");
         if($(".boxs").hasClass("upup")){
             $(".boxs").slideDown();
@@ -220,7 +223,9 @@ label {
         }
     })    
     $("body").on("click",".up",function(){
-        $(this).toggleClass("active");
+        $("html, body").animate({
+            scrollTop: $("body").height()
+        }, 1000);  
         $(".boxs").slideToggle();
     })
 
