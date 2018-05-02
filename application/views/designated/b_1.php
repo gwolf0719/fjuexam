@@ -79,7 +79,22 @@ label {
     width:100%;
 }
 </style>
+
 <script>
+$(function(){
+    /**自動完成 */
+    var data ;
+    $.getJSON("./api/get_member_info",function(data){
+        data = data.info;
+        console.log(data);
+        var $input = $(".typeahead");
+            $input.typeahead({
+            source: data,
+            autoSelect: true
+        });
+    })
+    
+
     $("body").on("click","#Upload",function(){
         if(confirm("注意！舊資料會全部刪除，新資料將匯入")){
             $("#form").submit();
@@ -233,14 +248,7 @@ label {
         $(".boxs").slideToggle();
     })
 
-    // $.get("example_collection.json", function(data){
-        var arr = [{id: "someId1", name: "Display name 1"}];
-        // console.log(arr);
-        $(".typeahead").typeahead({
-            source: arr,
-            autoSelect: true
-        });
-    // },'json');
+   
 
 
     /**
@@ -296,6 +304,7 @@ label {
             }
         },"json")           
      })
+});
 </script>
 
 <div class="row">
@@ -493,7 +502,7 @@ label {
                             <p>職務：<span id="search_job"></span></p>
                         </div>         
                         <div>
-                            <p>關鍵字<input type="text" class="typeahead" data-provide="typeahead"></p>
+                            <p>關鍵字<input type="text" class="typeahead" ></p>
                         </div>  
                         <!-- <div>
                             <p>職員姓名<input type="text" class="" id="search_name" style="margin-left: 10px;"></p>

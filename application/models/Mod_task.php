@@ -100,13 +100,15 @@ class Mod_task extends CI_Model
     }
 
     // 取得姓名
-    public function get_member_info($code)
+    public function get_member_info()
     {
-        $this->db->like('member_code', $code);
-        $this->db->or_like('member_name', $code);
-        $this->db->select('sn,member_code,member_name');
 
-        return $this->db->get('staff_member')->result_array();
+        $this->db->distinct();
+        $this->db->select('member_code,member_name');
+        
+        $data = $this->db->get('staff_member')->result_array();
+        // echo $this->db->last_query();
+        return $data;
     }
 
     // 用代號取得完整資料
