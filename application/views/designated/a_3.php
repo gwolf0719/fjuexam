@@ -60,7 +60,7 @@ label {
 }
 </style>
 <script>
-
+$(function(){
     $("body").on("click","#Upload",function(){
         var files = $('input[name="file"]').prop('files');//获取到文件列表
         if(files.length == 0){
@@ -75,6 +75,7 @@ label {
     $("body").on("click","tr",function(){
         var sn = $(this).attr("sn");
         $(".form").addClass("upup");
+        $("#member_code").attr("readonly",true);
         if($(".form").hasClass("upup")){
             $(".form").slideDown();
         }else{
@@ -88,6 +89,11 @@ label {
             dataType:"json"
         }).done(function(data){
             console.log(data.info);
+            if(data.info.order_meal == "y"){
+                $("#order_meal").prop("checked",true);
+            }else{
+                $("#order_meal").prop("checked",false);
+            }
             $("#sn").val(sn);
             $("#member_code").val(data.info.member_code);
             $("#member_name").val(data.info.member_name);
@@ -96,24 +102,32 @@ label {
             $("#member_title").val(data.info.member_title);
             $("#order_meal").val(data.info.order_meal);
             $("#meal").val(data.info.meal);
-            console.log(data.info.order_meal);
-            if(data.info.order_meal == "y"){
-                $("#order_meal").prop("checked",true);
-            }else{
-                $("#order_meal").prop("checked",false);
-            }
         })
     })
 
-    var member_meal = "n";
+    
     $("#order_meal").change(function() {
         if (this.checked) {
-            member_meal = "y";
+            $(this).val("y");
         } else {
-            member_meal = "n";
+            $(this).val("n");
         }
     });    
+
     
+    
+    $("body").on("click","#add_info",function(){
+        $(this).hide();
+        $("#add").show();
+        $("#no").show();
+    })
+
+    $("body").on("click","#no",function(){
+        $(this).hide();
+        $("#add").hide();
+        $("#add_info").show();
+    })
+
     $("body").on("click","#add",function(){
         var member_code = $("#member_code").val();
         var member_name = $("#member_name").val();
@@ -130,13 +144,13 @@ label {
                 "member_unit":member_unit,
                 "member_title":member_title,
                 "member_phone":member_phone,
-                "order_meal":member_meal,
+                "order_meal":$("#order_meal").val(),
                 "meal":meal,
             },
             dataType:"json"
         }).done(function(data){
-            if(data.sys_code == "200"){
                 alert(data.sys_msg);
+            if(data.sys_code == "200"){
                 location.reload();
             }      
         })
@@ -160,7 +174,7 @@ label {
                     "member_unit":member_unit,
                     "member_title":member_title,
                     "member_phone":member_phone,
-                    "order_meal":member_meal,
+                    "order_meal":$("#order_meal").val(),
                     "meal":meal,
                 },
                 dataType:"json"
@@ -193,6 +207,7 @@ label {
     $("body").on("click",".up",function(){
         $(".form").slideToggle();
     })      
+})
 </script>
 <div class="row">
     <div class="input-group col-sm-2">
@@ -294,7 +309,9 @@ label {
                 <div class="col-md-12 col-sm-12 col-xs-12 cube">                    
                     <div class="form-group" style="text-align: right;">
                         <div class="">
-                            <button class="btn btn-primary" type="button" id="add">新增</button>
+                            <button class="btn btn-primary" type="button" id="add" style="display:none">確定</button>
+                            <button class="btn btn-danger" type="button" id="no" style="display:none">取消</button>
+                            <button class="btn btn-primary" type="button" id="add_info">新增</button>
                             <button type="button" class="btn btn-primary" id="send">修改</button>
                             <button type="button" class="btn btn-danger" id="remove">刪除</button>
                         </div>

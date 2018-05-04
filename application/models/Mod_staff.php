@@ -11,6 +11,16 @@ class Mod_staff extends CI_Model
         $this->db->insert_batch('staff_member', $datas);
     }
 
+    public function chk_once($member_code)
+    {
+        $this->db->where('member_code', $member_code);
+        if ($this->db->count_all_results('staff_member') == 0) {
+            return false;
+        } else {
+            return true;
+        }
+    }
+
     public function year_get_list()
     {
         return $this->db->where('year', $this->session->userdata('year'))->get('staff_member')->result_array();

@@ -53,7 +53,7 @@ label {
 .to_up{
     position: fixed;
     bottom: 0;
-    left: 47%;
+    left: 48%;
 }
 .down{
     margin: 0 auto;
@@ -107,6 +107,7 @@ label {
     })
     $("body").on("click","tr",function(){
         var sn = $(this).attr("sn");
+        $("#job_code").attr("readonly",true);
         $("html, body").animate({
             scrollTop: $("body").height()
         }, 1000);           
@@ -125,9 +126,9 @@ label {
             dataType:"json"
         }).done(function(data){
             $("#sn").val(sn);
-            console.log(data.info);
+            $("#job").val(data.info.job)
             $("#job_code").val(data.info.job_code)
-            $("#job_title").val(data.info.job_title)
+            $("#job_title").val(data.info.job)
             $("#name").val(data.info.name)
             $("#start_date").val(data.info.start_date)
             $("#trial_start").val(data.info.trial_start)
@@ -139,6 +140,23 @@ label {
             $("#phone").val(data.info.phone)
             $("#note").val(data.info.note)
         })
+    })
+
+    $("body").on("click","#add_info",function(){
+        $(this).hide();
+        $("#add").show();
+        $("#no").show();
+    })
+
+    $("body").on("click","#no",function(){
+        $(this).hide();
+        $("#add").hide();
+        $("#add_info").show();
+    })    
+
+    $("body").on("change","#job",function(){
+        $("#job_title").val($(this).val());
+        $("#member_job_title").val($(this).val());
     })
     
     $("body").on("click","#add",function(){
@@ -288,6 +306,7 @@ label {
      })   
 
      $("body").on("click","#assign",function(){
+         $(".typeahead").val("");
          $("#search_job").text($("#job").val());
      })
 
@@ -310,6 +329,27 @@ label {
             }
         },"json")           
      })
+
+    /**
+    取消職務
+     */
+    $("body").on("click","#cancel_job",function(){
+        if(confirm("是否要取消職務？")){
+            var sn = $("#sn").val();
+            $.ajax({
+                url: 'api/cancel_job',
+                data:{
+                    "sn":sn,
+                },
+                dataType:"json"
+            }).done(function(data){
+                alert(data.sys_msg);
+                if(data.sys_code == "200"){
+                    location.reload();
+                }      
+            })            
+        }
+    }) 
 </script>
 <div class="row">
     <div class="input-group col-sm-2">
@@ -326,7 +366,7 @@ label {
     </div>
     
 </div>
-<div class="row" style="">
+<div class="row" style="height:700px;overflow: auto;">
     
    <div class="col-12" style="margin-top: 10px;">
         <table class="table table-hover" id="">
@@ -358,7 +398,7 @@ label {
                     <td><?=$v['area']; ?></td>
                     <td><?=$v['job']; ?></td>
                     <td><?=$v['job_code']; ?></td>
-                    <td><?=$v['job_title']; ?></td>
+                    <td><?=$v['job']; ?></td>
                     <td><?=$v['name']; ?></td>
                     <td><?=$v['start_date']; ?></td>
                     <td><?=$v['trial_start']; ?></td>
@@ -396,6 +436,7 @@ label {
                 <div class="col-6">
                     <button type="button" class="btn btn-primary" id="assign" data-toggle="modal" data-target="#exampleModal">指派</button>
                     <button class="btn btn-primary" type="button" id="new_job">新增職務</button>
+                    <button class="btn btn-danger" type="button" id="cancel_job">取消職務</button>
                 </div>
             </div>
         </div>
@@ -479,7 +520,9 @@ label {
                 <div class="col-md-6 col-sm-6 col-xs-6" style="float:left;margin: 20px auto;">             
                     <div class="form-group" style="text-align:right">
                         <div class="">
-                            <!-- <button class="btn btn-primary" type="button" id="add">新增</button> -->
+                            <button class="btn btn-primary" type="button" id="add" style="display:none">確定</button>
+                            <button class="btn btn-danger" type="button" id="no" style="display:none">取消</button>
+                            <button class="btn btn-primary" type="button" id="add_info">新增</button>
                             <button type="button" class="btn btn-primary" id="send">修改</button>
                             <button type="button" class="btn btn-danger" id="remove">刪除</button>
                         </div>
@@ -513,7 +556,7 @@ label {
                     </div>      
                     <div class="" style="text-align: right;margin: 20px;">
                         <button type="button" class="btn btn-primary" id="sure">確定指派</button>
-                        <button type="button" class="btn btn-success" id="">取消</button>
+                        <button type="button" class="btn btn-success" data-dismiss="modal" aria-label="Close" id="">取消</button>
                     </div>                                                                                                   
                 </form>
             </div>

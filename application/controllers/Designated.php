@@ -372,6 +372,7 @@ class Designated extends CI_Controller
                 '4_4' => '未安排',
             );
         }
+
         $data = array(
             'title' => '考試科目',
             'path' => 'designated/f_2',

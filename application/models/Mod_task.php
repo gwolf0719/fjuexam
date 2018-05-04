@@ -32,6 +32,19 @@ class Mod_task extends CI_Model
     }
 
     /**
+     * 檢查職務.
+     */
+    public function chk_job($job)
+    {
+        $this->db->where('job', $job);
+        if ($this->db->count_all_results('district_task') == 0) {
+            return false;
+        } else {
+            return true;
+        }
+    }
+
+    /**
      * 建立新職務.
      */
     public function add_job($year, $job, $area)
@@ -50,6 +63,7 @@ class Mod_task extends CI_Model
         if ($area != '') {
             $this->db->where('area', $area);
         }
+        $this->db->order_by('sn', 'asc');
 
         return $this->db->get('district_task')->result_array();
     }
@@ -102,10 +116,9 @@ class Mod_task extends CI_Model
     // 取得姓名
     public function get_member_info()
     {
-
         $this->db->distinct();
         $this->db->select('member_code,member_name');
-        
+
         $data = $this->db->get('staff_member')->result_array();
         // echo $this->db->last_query();
         return $data;

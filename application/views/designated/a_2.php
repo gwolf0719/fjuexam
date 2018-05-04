@@ -57,6 +57,7 @@ label {
 }
 </style>
 <script>
+
     $("body").on("click","#Upload",function(){
         var files = $('input[name="file"]').prop('files');//获取到文件列表
         if(files.length == 0){
@@ -68,6 +69,7 @@ label {
             }
         }      
     })
+
     $("body").on("click","tr",function(){
         var sn = $(this).attr("sn");
         $(".form").addClass("upup");
@@ -90,6 +92,18 @@ label {
             $("#code").val(data.info.code);
         })
     })
+
+    $("body").on("click","#add_info",function(){
+        $(this).hide();
+        $("#add").show();
+        $("#no").show();
+    })
+
+    $("body").on("click","#no",function(){
+        $(this).hide();
+        $("#add").hide();
+        $("#add_info").show();
+    })
     
     $("body").on("click","#add",function(){
         var company_name_01 = $("#company_name_01").val();
@@ -106,8 +120,8 @@ label {
             },
             dataType:"json"
         }).done(function(data){
-            if(data.sys_code == "200"){
                 alert(data.sys_msg);
+            if(data.sys_code == "200"){
                 location.reload();
             }      
         })
@@ -241,7 +255,9 @@ label {
                 <div class="col-md-12 col-sm-12 col-xs-12">             
                     <div class="form-group" style="text-align:right">
                         <div class="">
-                            <button class="btn btn-primary" type="button" id="add">新增</button>
+                            <button class="btn btn-primary" type="button" id="add" style="display:none">確定</button>
+                            <button class="btn btn-danger" type="button" id="no" style="display:none">取消</button>
+                            <button class="btn btn-primary" type="button" id="add_info">新增</button>
                             <button type="button" class="btn btn-primary" id="send">修改</button>
                             <button type="button" class="btn btn-danger" id="remove">刪除</button>
                         </div>
@@ -276,52 +292,6 @@ label {
             </div>
             </div>
         </form>
-      </div>
-    </div>
-  </div>
-</div>
-<!-- Modal end-->
-<!-- Modal start-->
-<div class="modal fade" id="exampleModal_insert" tabindex="-1" role="dialog" aria-labelledby="exampleModal_insertLabel" aria-hidden="true">
-  <div class="modal-dialog" role="document">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLabel">本校單位匯入作業</h5>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
-      </div>
-      <div class="modal-body">
-        <div class="row">
-            <div class="col-md-12 col-sm-12 col-xs-12">      
-                <form method="POST" enctype="multipart/form-data"  action="" id="form" class="page_form">                                            
-                    <div class="form-group">
-                        <label for="company_name_01">單位名稱1</label>
-                        <input type="text" class="form-control" id="company_name_01">
-                        <input type="hidden" class="" id="sn">
-                    </div>   
-                    <div class="form-group">
-                        <label for="company_name_02">單位名稱2</label>
-                        <input type="text" class="form-control" id="company_name_02">
-                    </div>                   
-                    <div class="form-group">
-                        <label for="company_name_01">部門</label>
-                        <input type="text" class="form-control" id="department">
-                    </div>                   
-                    <div class="form-group">
-                        <label for="company_name_01">代號</label>
-                        <input type="text" class="form-control" id="code">
-                    </div>  
-                    <div class="form-group">
-                        <div class="col-md-6 col-sm-6 col-xs-12 col-md-offset-3">
-                            <button class="btn btn-primary" type="button" id="add">新增</button>
-                            <button type="button" class="btn btn-primary" id="remove">刪除</button>
-                            <button type="button" class="btn btn-success" id="send">儲存</button>
-                        </div>
-                    </div>                      
-                </form>
-            </div>
-        </div>    
       </div>
     </div>
   </div>
