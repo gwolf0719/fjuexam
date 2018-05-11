@@ -99,10 +99,10 @@ img{
                     <th>執行日</th>
                     <th>試場起號</th>
                     <th>試場迄號</th>
-                    <th>任務編號</th>
+                    <!-- <th>任務編號</th>
                     <th>節數</th>
                     <th>單價</th>
-                    <th>午餐</th>
+                    <th>午餐</th> -->
                     <th>聯絡電話</th>
                     <th>備註</th>
                 </tr>
@@ -120,10 +120,10 @@ img{
                     <td><?=$v['start_date']; ?></td>
                     <td><?=$v['trial_start']; ?></td>
                     <td><?=$v['trial_end']; ?></td>
-                    <td><?=$v['number']; ?></td>
+                    <!-- <td><?=$v['number']; ?></td>
                     <td><?=$v['section']; ?></td>
                     <td><?=$v['price']; ?></td>
-                    <td><?=$v['lunch']; ?></td>
+                    <td><?=$v['lunch']; ?></td> -->
                     <td><?=$v['phone']; ?></td>
                     <td><?=$v['note']; ?></td>
                 </tr>
@@ -147,10 +147,10 @@ img{
                     <th>執行日</th>
                     <th>試場起號</th>
                     <th>試場迄號</th>
-                    <th>任務編號</th>
+                    <!-- <th>任務編號</th>
                     <th>節數</th>
                     <th>單價</th>
-                    <th>午餐</th>
+                    <th>午餐</th> -->
                     <th>聯絡電話</th>
                     <th>備註</th>
                 </tr>
@@ -168,10 +168,10 @@ img{
                     <td><?=$v['start_date']; ?></td>
                     <td><?=$v['trial_start']; ?></td>
                     <td><?=$v['trial_end']; ?></td>
-                    <td><?=$v['number']; ?></td>
+                    <!-- <td><?=$v['number']; ?></td>
                     <td><?=$v['section']; ?></td>
                     <td><?=$v['price']; ?></td>
-                    <td><?=$v['lunch']; ?></td>
+                    <td><?=$v['lunch']; ?></td> -->
                     <td><?=$v['phone']; ?></td>
                     <td><?=$v['note']; ?></td>
                 </tr>
@@ -195,10 +195,10 @@ img{
                     <th>執行日</th>
                     <th>試場起號</th>
                     <th>試場迄號</th>
-                    <th>任務編號</th>
+                    <!-- <th>任務編號</th>
                     <th>節數</th>
                     <th>單價</th>
-                    <th>午餐</th>
+                    <th>午餐</th> -->
                     <th>聯絡電話</th>
                     <th>備註</th>
                 </tr>
@@ -216,10 +216,10 @@ img{
                     <td><?=$v['start_date']; ?></td>
                     <td><?=$v['trial_start']; ?></td>
                     <td><?=$v['trial_end']; ?></td>
-                    <td><?=$v['number']; ?></td>
+                    <!-- <td><?=$v['number']; ?></td>
                     <td><?=$v['section']; ?></td>
                     <td><?=$v['price']; ?></td>
-                    <td><?=$v['lunch']; ?></td>
+                    <td><?=$v['lunch']; ?></td> -->
                     <td><?=$v['phone']; ?></td>
                     <td><?=$v['note']; ?></td>
                 </tr>
@@ -243,10 +243,10 @@ img{
                     <th>執行日</th>
                     <th>試場起號</th>
                     <th>試場迄號</th>
-                    <th>任務編號</th>
+                    <!-- <th>任務編號</th>
                     <th>節數</th>
                     <th>單價</th>
-                    <th>午餐</th>
+                    <th>午餐</th> -->
                     <th>聯絡電話</th>
                     <th>備註</th>
                 </tr>
@@ -264,10 +264,10 @@ img{
                     <td><?=$v['start_date']; ?></td>
                     <td><?=$v['trial_start']; ?></td>
                     <td><?=$v['trial_end']; ?></td>
-                    <td><?=$v['number']; ?></td>
+                    <!-- <td><?=$v['number']; ?></td>
                     <td><?=$v['section']; ?></td>
                     <td><?=$v['price']; ?></td>
-                    <td><?=$v['lunch']; ?></td>
+                    <td><?=$v['lunch']; ?></td> -->
                     <td><?=$v['phone']; ?></td>
                     <td><?=$v['note']; ?></td>
                 </tr>
@@ -291,10 +291,10 @@ img{
                     <th>執行日</th>
                     <th>試場起號</th>
                     <th>試場迄號</th>
-                    <th>任務編號</th>
+                    <!-- <th>任務編號</th>
                     <th>節數</th>
                     <th>單價</th>
-                    <th>午餐</th>
+                    <th>午餐</th> -->
                     <th>聯絡電話</th>
                     <th>備註</th>
                 </tr>
@@ -312,10 +312,10 @@ img{
                     <td><?=$v['start_date']; ?></td>
                     <td><?=$v['trial_start']; ?></td>
                     <td><?=$v['trial_end']; ?></td>
-                    <td><?=$v['number']; ?></td>
+                    <!-- <td><?=$v['number']; ?></td>
                     <td><?=$v['section']; ?></td>
                     <td><?=$v['price']; ?></td>
-                    <td><?=$v['lunch']; ?></td>
+                    <td><?=$v['lunch']; ?></td> -->
                     <td><?=$v['phone']; ?></td>
                     <td><?=$v['note']; ?></td>
                 </tr>

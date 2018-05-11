@@ -95,6 +95,8 @@ label {
 
     $("body").on("click","#add_info",function(){
         $(this).hide();
+        $("#send").hide();
+        $("#remove").hide();
         $("#add").show();
         $("#no").show();
     })
@@ -103,6 +105,8 @@ label {
         $(this).hide();
         $("#add").hide();
         $("#add_info").show();
+        $("#send").show();
+        $("#remove").show();        
     })
     
     $("body").on("click","#add",function(){
@@ -203,10 +207,10 @@ label {
                 <tr>
                     <th>序號</th>
                     <th>年度</th>
-                    <th>單位名稱1</th>
-                    <th>單位名稱2</th>
-                    <th>部門</th>
-                    <th>代號</th>
+                    <th>部別</th>
+                    <th>代碼</th>                    
+                    <th>單位名稱一</th>
+                    <th>單位名稱二</th>
                 </tr>
             </thead>
             <tbody>
@@ -214,10 +218,10 @@ label {
                 <tr sn="<?=$v['sn']; ?>">
                     <td><?=$k + 1; ?></td>
                     <td><?=$v['year']; ?></td>
-                    <td><?=$v['company_name_01']; ?></td>
-                    <td><?=$v['company_name_02']; ?></td>
                     <td><?=$v['department']; ?></td>
                     <td><?=$v['code']; ?></td>
+                    <td><?=$v['company_name_01']; ?></td>
+                    <td><?=$v['company_name_02']; ?></td>
                     
                 </tr>
             <?php endforeach; ?>
@@ -233,24 +237,24 @@ label {
     <div class="row form" style="">
         <div class="col-md-12 col-sm-12 col-xs-12">      
             <form method="POST"  class="">                                            
-                <div class="col-md-3 col-sm-3 col-xs-3 cube">
+                <div class="col-md-3 col-sm-3 col-xs-3 cube">          
                     <div class="form-group">
-                        <label for="company_name_01">單位名稱1</label>
+                        <label for="company_name_01">部別</label>
+                        <input type="text" class="form-control" id="department">
+                    </div>                   
+                    <div class="form-group">
+                        <label for="company_name_01">代碼</label>
+                        <input type="text" class="form-control" id="code">
+                    </div>      
+                    <div class="form-group">
+                        <label for="company_name_01">單位名稱一</label>
                         <input type="text" class="form-control" id="company_name_01">
                         <input type="hidden" class="" id="sn">
                     </div>   
                     <div class="form-group">
-                        <label for="company_name_02">單位名稱2</label>
+                        <label for="company_name_02">單位名稱二</label>
                         <input type="text" class="form-control" id="company_name_02">
-                    </div>                   
-                    <div class="form-group">
-                        <label for="company_name_01">部門</label>
-                        <input type="text" class="form-control" id="department">
-                    </div>                   
-                    <div class="form-group">
-                        <label for="company_name_01">代號</label>
-                        <input type="text" class="form-control" id="code">
-                    </div>              
+                    </div>                 
                 </div>
                 <div class="col-md-12 col-sm-12 col-xs-12">             
                     <div class="form-group" style="text-align:right">

@@ -185,8 +185,8 @@ class Api extends CI_Controller
     public function add_task()
     {
         $this->load->model('mod_task');
-        $getpost = array('area', 'job_code', 'job_title', 'name', 'phone', 'start_date', 'number', 'trial_start', 'trial_end', 'section', 'price', 'lunch', 'note');
-        $requred = array('area', 'job_code', 'job_title', 'name', 'phone', 'start_date', 'number', 'trial_start', 'trial_end', 'section', 'price', 'lunch');
+        $getpost = array('area', 'job_code', 'job_title', 'name', 'phone', 'start_date', 'trial_start', 'trial_end', 'section', 'price', 'lunch', 'note');
+        $requred = array('area', 'job_code', 'job_title', 'name', 'phone', 'start_date', 'trial_start', 'trial_end', 'section', 'price', 'lunch');
         $data = $this->getpost->getpost_array($getpost, $requred);
         if ($data == false) {
             $json_arr['sys_code'] = '000';
@@ -208,8 +208,8 @@ class Api extends CI_Controller
     public function edit_task()
     {
         $this->load->model('mod_task');
-        $getpost = array('sn', 'area', 'job', 'job_code', 'job_title', 'name', 'phone', 'start_date', 'number', 'trial_start', 'trial_end', 'section', 'price', 'lunch', 'note');
-        $requred = array('sn', 'area', 'job', 'job_code', 'job_title', 'name', 'phone', 'start_date', 'number', 'trial_start', 'trial_end', 'section', 'price', 'lunch', 'note');
+        $getpost = array('sn', 'area', 'job', 'job_code', 'job_title', 'name', 'phone', 'start_date', 'trial_start', 'trial_end', 'section', 'price', 'lunch', 'note');
+        $requred = array('sn', 'area', 'job', 'job_code', 'job_title', 'name', 'phone', 'start_date', 'trial_start', 'trial_end', 'section', 'price', 'lunch', 'note');
         $data = $this->getpost->getpost_array($getpost, $requred);
         if ($data == false) {
             $json_arr['sys_code'] = '000';
@@ -335,7 +335,7 @@ class Api extends CI_Controller
             $json_arr['sys_msg'] = '資料不足';
             $json_arr['requred'] = $this->getpost->report_requred($requred);
         } else {
-            if (!$this->mod_task->chk_job($data['job'])) {
+            if (!$this->mod_task->chk_job($data['job'], $data['area'])) {
                 $year = $this->session->userdata('year');
                 $this->mod_task->add_job($year, $data['job'], $data['area']);
                 $json_arr['sys_code'] = '200';

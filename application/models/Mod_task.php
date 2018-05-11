@@ -31,12 +31,23 @@ class Mod_task extends CI_Model
         }
     }
 
+    public function chk_job_code($job_code)
+    {
+        $this->db->where('job_code', $job_code);
+        if ($this->db->count_all_results('district_task') == 0) {
+            return false;
+        } else {
+            return true;
+        }
+    }
+
     /**
      * 檢查職務.
      */
-    public function chk_job($job)
+    public function chk_job($job, $area)
     {
         $this->db->where('job', $job);
+        $this->db->where('area', $area);
         if ($this->db->count_all_results('district_task') == 0) {
             return false;
         } else {

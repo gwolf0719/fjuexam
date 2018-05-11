@@ -118,6 +118,8 @@ $(function(){
     
     $("body").on("click","#add_info",function(){
         $(this).hide();
+        $("#send").hide();
+        $("#remove").hide();
         $("#add").show();
         $("#no").show();
     })
@@ -126,6 +128,8 @@ $(function(){
         $(this).hide();
         $("#add").hide();
         $("#add_info").show();
+        $("#send").show();
+        $("#remove").show();        
     })
 
     $("body").on("click","#add",function(){
@@ -238,9 +242,9 @@ $(function(){
                 <tr>
                     <th>序號</th>
                     <th>年度</th>
-                    <th>工作人員代碼</th>    
+                    <th>人員代碼</th>    
                     <th>姓名</th>
-                    <th>單位別</th>
+                    <th>單位</th>
                     <th>職稱</th>
                     <th>聯絡電話</th>
                     <th>訂餐需求</th>
@@ -274,7 +278,7 @@ $(function(){
             <form method="POST" class="page_form">     
                 <div class="col-md-3 col-sm-3 col-xs-3 cube">                                       
                     <div class="form-group">
-                        <label for="member_code">工作人員代碼</label>
+                        <label for="member_code">人員代碼</label>
                         <input type="text" class="form-control" id="member_code">
                         <input type="hidden" class="" id="sn">
                     </div>   
@@ -283,7 +287,7 @@ $(function(){
                         <input type="text" class="form-control" id="member_name">
                     </div>                   
                     <div class="form-group">
-                        <label for="member_unit">單位別</label>
+                        <label for="member_unit">單位</label>
                         <input type="text" class="form-control" id="member_unit">
                     </div>                   
                     <div class="form-group">

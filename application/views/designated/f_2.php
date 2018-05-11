@@ -25,7 +25,7 @@
             var arr = [];
             var no_use = [];
             $(".course").each(function(){
-                if($(this).val() == "未安排"){
+                if($(this).val() == ""){
                     no_use.push($(this).val());
                 }else{
                     arr.push($(this).val());
@@ -48,7 +48,7 @@
 
 </script>
 <?php 
-$course_arr = ['未安排', '物理', '化學', '生物', '數學乙', '國文', '英文', '數學甲', '歷史', '地理', '公民與社會'];
+$course_arr = ['', '物理', '化學', '生物', '數學乙', '國文', '英文', '數學甲', '歷史', '地理', '公民與社會'];
 // print_r($course_arr);
 ?>
 <div class="row">

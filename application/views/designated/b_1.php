@@ -16,9 +16,7 @@ img{
 .boxs{
     border-top: 1px solid;
     background: #f2f2f2;
-    padding: 0px 0px 50px;
-    display: none;
-    height:573px;
+    padding: 0px 0px 20px;
 }
 .table{
     height: auto;
@@ -55,7 +53,7 @@ label {
     margin-bottom: 1rem;
     padding-right:10%;
 }
-.to_up{
+/* .to_up{
     position: fixed;
     bottom: 0;
     left: 48%;
@@ -85,7 +83,7 @@ label {
     position: relative;
     overflow: hidden;
     height:56px;
-}
+} */
 .bottom{
     /* position: fixed; */
     bottom: 0px;
@@ -99,11 +97,11 @@ $(function(){
     var data ;
     $.getJSON("./api/get_member_info",function(data){
         data = data.info;
-        console.log(data);
+        // console.log(data);
         var $input = $(".typeahead");
             $input.typeahead({
             source: data,
-            autoSelect: true
+            autoSelect: true,
         });
     })
     
@@ -119,13 +117,13 @@ $(function(){
         $("html, body").animate({
         scrollTop: $("body").height()
         }, 1000);         
-        $(".to_up").hide();
-        $(".boxs").addClass("upup");
-        if($(".boxs").hasClass("upup")){
-            $(".boxs").slideDown();
-        }else{
-            $(".boxs").slideUp();
-        }
+        // $(".to_up").hide();
+        // $(".boxs").addClass("upup");
+        // if($(".boxs").hasClass("upup")){
+        //     $(".boxs").slideDown();
+        // }else{
+        //     $(".boxs").slideUp();
+        // }
         $.ajax({
             url: 'api/get_once_task',
             data:{
@@ -152,6 +150,8 @@ $(function(){
 
     $("body").on("click","#add_info",function(){
         $(this).hide();
+        $("#send").hide();
+        $("#remove").hide();
         $("#add").show();
         $("#no").show();
     })
@@ -160,12 +160,14 @@ $(function(){
         $(this).hide();
         $("#add").hide();
         $("#add_info").show();
+        $("#send").show();
+        $("#remove").show();        
     })
 
-    $("body").on("change","#job",function(){
-        $("#job_title").val($(this).val());
-        $("#member_job_title").val($(this).val());
-    })
+    // $("body").on("change","#job",function(){
+    //     $("#job_title").val($(this).val());
+    //     $("#member_job_title").val($(this).val());
+    // })
     
     $("body").on("click","#add",function(){
         var area = "考區";
@@ -174,8 +176,7 @@ $(function(){
         var name = $("#name").val();
         var start_date = $("#start_date").val();
         var trial_start = $("#trial_start").val();
-        var trial_end = $("#trial_end").val();        
-        var number = $("#number").val();
+        var trial_end = $("#trial_end").val();   
         var section = $("#section").val();
         var price = $("#price").val();        
         var lunch = $("#lunch").val();
@@ -192,8 +193,7 @@ $(function(){
                 "name":name,
                 "start_date":start_date,
                 "trial_start":trial_start,
-                "trial_end":trial_end,
-                "number":number,                
+                "trial_end":trial_end,        
                 "section":section,
                 "price":price,
                 "lunch":lunch,
@@ -220,8 +220,7 @@ $(function(){
             var name = $("#name").val();
             var start_date = $("#start_date").val();
             var trial_start = $("#trial_start").val();
-            var trial_end = $("#trial_end").val();        
-            var number = $("#number").val();
+            var trial_end = $("#trial_end").val();  
             var section = $("#section").val();
             var price = $("#price").val();        
             var lunch = $("#lunch").val();
@@ -239,8 +238,7 @@ $(function(){
                     "name":name,
                     "start_date":start_date,
                     "trial_start":trial_start,
-                    "trial_end":trial_end,
-                    "number":number,                
+                    "trial_end":trial_end,             
                     "section":section,
                     "price":price,
                     "lunch":lunch,
@@ -268,26 +266,27 @@ $(function(){
                 },
                 dataType:"json"
             }).done(function(data){
-                alert(data.sys_msg);
+                // alert(data.sys_msg);
                 if(data.sys_code == "200"){
+                    alert(data.sys_msg);
                     location.reload();
-                }      
+                }
             })
         }
     })    
-    $("body").on("click",".up",function(){
-       $("html, body").animate({
-        scrollTop: $("body").height()
-        }, 1000);
-        $(this).hide();
-        $(".boxs").show();
-    })
+    // $("body").on("click",".up",function(){
+    //    $("html, body").animate({
+    //     scrollTop: $("body").height()
+    //     }, 1000);
+    //     $(this).hide();
+    //     $(".boxs").show();
+    // })
 
-    $("body").on("click",".down",function(){
-        $('.up').show();
-        $('.to_up').show();
-        $(".boxs").hide();
-    })    
+    // $("body").on("click",".down",function(){
+    //     $('.up').show();
+    //     $('.to_up').show();
+    //     $(".boxs").hide();
+    // })    
 
 
     /**
@@ -347,16 +346,20 @@ $(function(){
             job:$("#search_job").text(),
             area:"考區",
         },function(data){
-            console.log(data);
-            alert(data.sys_msg);
-            if(data.sys_code == "200"){
-                $('#exampleModal').modal('hide');
-                $("#member_job_title").val($("#search_job").text());
-                $("#job_code").val(data.info.member_code);
-                $("#job_title").val(data.info.member_title);
-                $("#name").val(data.info.member_name);
-                $("#phone").val(data.info.member_phone);
+            if(data.info != null){
+                alert(data.sys_msg);
+                if(data.sys_code == "200"){
+                    $('#exampleModal').modal('hide');
+                    $("#member_job_title").val($("#search_job").text());
+                    $("#job_code").val(data.info.member_code);
+                    $("#job_title").val(data.info.member_title);
+                    $("#name").val(data.info.member_name);
+                    $("#phone").val(data.info.member_phone);
+                }
+            }else{
+                alert("查無此人");
             }
+
         },"json")           
      })
 });
@@ -393,10 +396,9 @@ $(function(){
                     <th>執行日</th>
                     <th>試場起號</th>
                     <th>試場迄號</th>
-                    <th>任務編號</th>
-                    <th>節數</th>
+                    <!-- <th>節數</th>
                     <th>單價</th>
-                    <th>午餐</th>
+                    <th>便當</th> -->
                     <th>聯絡電話</th>
                     <th>備註</th>
                 </tr>
@@ -409,15 +411,14 @@ $(function(){
                     <td><?=$v['area']; ?></td>
                     <td><?=$v['job']; ?></td>
                     <td><?=$v['job_code']; ?></td>
-                    <td><?=$v['job']; ?></td>
+                    <td><?=$v['job_title']; ?></td>
                     <td><?=$v['name']; ?></td>
                     <td><?=$v['start_date']; ?></td>
                     <td><?=$v['trial_start']; ?></td>
                     <td><?=$v['trial_end']; ?></td>
-                    <td><?=$v['number']; ?></td>
-                    <td><?=$v['section']; ?></td>
+                    <!-- <td><?=$v['section']; ?></td>
                     <td><?=$v['price']; ?></td>
-                    <td><?=$v['lunch']; ?></td>
+                    <td><?=$v['lunch']; ?></td> -->
                     <td><?=$v['phone']; ?></td>
                     <td><?=$v['note']; ?></td>
                 </tr>
@@ -428,13 +429,13 @@ $(function(){
 </div>
 
 <div class="bottom">
-    <div class="up">
+    <!-- <div class="up">
         <img src="assets/images/upup.png" alt="" class="to_up">
-    </div>
+    </div> -->
     <div class="row boxs">
-        <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4 down">
+        <!-- <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4 down">
             <img src="assets/images/upup.png" alt="" class="to_down">
-        </div>         
+        </div>          -->
         <!-- 職務選擇開始 -->
         <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4" style="margin:20px 0px 20px 25px">
             <div class="row">
@@ -447,7 +448,7 @@ $(function(){
                 <div class="col-6">
                     <button type="button" class="btn btn-primary" id="assign" data-toggle="modal" data-target="#exampleModal">指派</button>
                     <button class="btn btn-primary" type="button" id="new_job">新增職務</button>
-                    <button class="btn btn-danger" type="button" id="cancel_job">取消職務</button>
+                    <!-- <button class="btn btn-danger" type="button" id="cancel_job">取消職務</button> -->
                 </div>
             </div>
         </div>
@@ -479,6 +480,7 @@ $(function(){
                     <div class="form-group">
                         <label for="trial_start" class=""  style="float:left;">試場起號</label>
                         <select class="form-control" id="trial_start">
+                            <option value="">請選擇</option>
                             <?php foreach ($field as $k => $v): ?>
                                 <option value="<?=$v['field']; ?>"><?=$v['field']; ?></option>
                             <?php endforeach; ?>
@@ -487,6 +489,7 @@ $(function(){
                     <div class="form-group">
                         <label for="trial_end" class=""  style="float:left;">試場迄號</label>
                         <select class="form-control" id="trial_end">
+                            <option value="">請選擇</option>
                             <?php foreach ($field as $k => $v): ?>
                                 <option value="<?=$v['field']; ?>"><?=$v['field']; ?></option>
                             <?php endforeach; ?>
@@ -494,10 +497,10 @@ $(function(){
                     </div>                  
                 </div>    
                 <div class="col-md-3 col-sm-3 col-xs-3 cube">
-                    <div class="form-group">
+                    <!-- <div class="form-group">
                         <label for="start_date" class=""  style="float:left;">任務編號</label>
                         <input type="text" class="form-control" id="number">
-                    </div>  
+                    </div>   -->
                     <div class="form-group">
                         <label for="trial_start" class=""  style="float:left;">聯絡電話</label>
                         <input type="text" class="form-control" id="phone">
@@ -513,7 +516,7 @@ $(function(){
                         <input type="text" class="form-control" id="price">
                     </div>                  
                     <div class="form-group">
-                        <label for="trial_end" class=""  style="float:left;">午餐</label>
+                        <label for="trial_end" class=""  style="float:left;">便當</label>
                         <input type="text" class="form-control" id="lunch">
                     </div>   
                     <div class="form-group">

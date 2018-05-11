@@ -54,8 +54,8 @@ img{
                     <th>分區</th>
                     <th>分區名稱</th>
                     <th>試場</th>
-                    <th>准考證起</th>
-                    <th>准考證迄</th>
+                    <th>考生應試號起</th>
+                    <th>考生應試號迄</th>
                     <th>應試人數</th>
                     <th>物理</th>
                     <th>化學</th>
@@ -68,8 +68,8 @@ img{
                     <th>地理</th>
                     <th>公民與社會</th>
                     <th>冷氣試場</th>
-                    <th>地址</th>
-                    <th>樓層別</th>
+                    <!-- <th>地址</th>
+                    <th>樓層別</th> -->
                 </tr>
             </thead>
             <tbody>
@@ -94,8 +94,8 @@ img{
                     <td><?=$v['subject_09']; ?></td>
                     <td><?=$v['subject_10']; ?></td>
                     <td></td>
-                    <td><?=$v['addr']; ?></td>
-                    <td><?=$v['floor']; ?></td>
+                    <!-- <td><?=$v['addr']; ?></td>
+                    <td><?=$v['floor']; ?></td> -->
                     
                 </tr>
             <?php endforeach; ?>
