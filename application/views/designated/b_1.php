@@ -198,10 +198,7 @@ $(function(){
                 "name":name,
                 "start_date":start_date,
                 "trial_start":trial_start,
-                "trial_end":trial_end,        
-                "section":section,
-                "price":price,
-                "lunch":lunch,
+                "trial_end":trial_end,     
                 "phone":phone,                
                 "note":note,
                 "class":cla,      
@@ -235,9 +232,6 @@ $(function(){
             var start_date = $("#start_date").val();
             var trial_start = $("#trial_start").val();
             var trial_end = $("#trial_end").val();  
-            var section = $("#section").val();
-            var price = $("#price").val();        
-            var lunch = $("#lunch").val();
             var phone = $("#phone").val();        
             var note = $("textarea[name='note']").val();
             var cla = "考區";

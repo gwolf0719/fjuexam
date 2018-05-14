@@ -417,6 +417,27 @@ class Api extends CI_Controller
         }
         echo json_encode($json_arr);
     }
+
+    /**
+     * C 相關api.
+     */
+    public function get_once_part()
+    {
+        $this->load->model('mod_part_info');
+        $getpost = array('sn');
+        $requred = array('sn');
+        $data = $this->getpost->getpost_array($getpost, $requred);
+        if ($data == false) {
+            $json_arr['sys_code'] = '000';
+            $json_arr['sys_msg'] = '資料不足';
+            $json_arr['requred'] = $this->getpost->report_requred($requred);
+        } else {
+            $json_arr['info'] = $this->mod_part_info->get_once($data['sn']);
+            $json_arr['sys_code'] = '200';
+            $json_arr['sys_msg'] = '資料處理完成';
+        }
+        echo json_encode($json_arr);
+    }
 }
 
 /* End of file Api.php */
