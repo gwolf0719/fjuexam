@@ -177,13 +177,18 @@ $(function(){
         var start_date = $("#start_date").val();
         var trial_start = $("#trial_start").val();
         var trial_end = $("#trial_end").val();   
-        var section = $("#section").val();
-        var price = $("#price").val();        
-        var lunch = $("#lunch").val();
         var phone = $("#phone").val();        
         var note = $("textarea[name='note']").val();
-        console.log(note);
         var cla = "考區";
+        var section = $("#section").val();
+        var salary_section = $("#salary_section").val();
+        var lunch_price = $("#lunch_price").val();
+        var lunch_count = $("#lunch_count").val();
+        var lunch_fee = $("#lunch_fee").val();
+        var total = $("#total").val();
+        var price = $("#price").val();
+        var day_count = $("#day_count").val();
+        var one_day_salary = $("#one_day_salary").val();        
         $.ajax({
             url: 'api/add_task',
             data:{
@@ -199,7 +204,16 @@ $(function(){
                 "lunch":lunch,
                 "phone":phone,                
                 "note":note,
-                "class":cla,             
+                "class":cla,      
+                "section":section,  
+                "salary_section":salary_section,  
+                "lunch_price":lunch_price,  
+                "lunch_count":lunch_count,  
+                "lunch_fee":lunch_fee,  
+                "total":total,  
+                "price":price,  
+                "day_count":day_count,  
+                "one_day_salary":one_day_salary,                         
             },
             dataType:"json"
         }).done(function(data){
@@ -227,6 +241,15 @@ $(function(){
             var phone = $("#phone").val();        
             var note = $("textarea[name='note']").val();
             var cla = "考區";
+            var section = $("#section").val();
+            var salary_section = $("#salary_section").val();
+            var lunch_price = $("#lunch_price").val();
+            var lunch_count = $("#lunch_count").val();
+            var lunch_fee = $("#lunch_fee").val();
+            var total = $("#total").val();
+            var price = $("#price").val();
+            var day_count = $("#day_count").val();
+            var one_day_salary = $("#one_day_salary").val();
             $.ajax({
                 url: 'api/edit_task',
                 data:{
@@ -239,12 +262,18 @@ $(function(){
                     "start_date":start_date,
                     "trial_start":trial_start,
                     "trial_end":trial_end,             
-                    "section":section,
-                    "price":price,
-                    "lunch":lunch,
                     "phone":phone,                
                     "note":note,
                     "class":cla,  
+                    "section":section,  
+                    "salary_section":salary_section,  
+                    "lunch_price":lunch_price,  
+                    "lunch_count":lunch_count,  
+                    "lunch_fee":lunch_fee,  
+                    "total":total,  
+                    "price":price,  
+                    "day_count":day_count,  
+                    "one_day_salary":one_day_salary,  
                 },
                 dataType:"json"
             }).done(function(data){
@@ -274,19 +303,6 @@ $(function(){
             })
         }
     })    
-    // $("body").on("click",".up",function(){
-    //    $("html, body").animate({
-    //     scrollTop: $("body").height()
-    //     }, 1000);
-    //     $(this).hide();
-    //     $(".boxs").show();
-    // })
-
-    // $("body").on("click",".down",function(){
-    //     $('.up').show();
-    //     $('.to_up').show();
-    //     $(".boxs").hide();
-    // })    
 
 
     /**
@@ -362,6 +378,42 @@ $(function(){
 
         },"json")           
      })
+
+     $("body").on("change","#calculation",function(){
+         if($(this).val() == "by_section"){
+             $(".by_section").show();
+             $(".by_day").hide();
+         }else{
+             $(".by_section").hide();
+             $(".by_day").show();             
+         }
+         $("#section").val("0");
+         $("#lunch_price").val("0");
+         $("#lunch_count").val("0");
+         $("#total").val("0");
+         $("#price").val("0");
+         $("#day_count").val("0");
+     })
+
+     $("body").on("change",".section_count",function(){
+        if($("#calculation").val() == "by_section"){
+            //以節計算
+            var price = $("#section").val() * $("#salary_section").val();
+            $("#price").val(price);
+            var lunch_price = $("#lunch_count").val() * $("#lunch_fee").val();
+            $("#lunch_price").val(lunch_price);
+            var total = price + lunch_price;
+            $("#total").val(total);
+        }else{
+            //以天計算
+            var price = $("#day_count").val() * $("#one_day_salary").val();
+            $("#price").val(price);
+            var lunch_price = $("#lunch_count").val() * $("#lunch_fee").val();
+            $("#lunch_price").val(lunch_price);
+            var total = price + lunch_price;
+            $("#total").val(total);            
+        }
+     })
 });
 </script>
 
@@ -396,9 +448,6 @@ $(function(){
                     <th>執行日</th>
                     <th>試場起號</th>
                     <th>試場迄號</th>
-                    <!-- <th>節數</th>
-                    <th>單價</th>
-                    <th>便當</th> -->
                     <th>聯絡電話</th>
                     <th>備註</th>
                 </tr>
@@ -416,9 +465,6 @@ $(function(){
                     <td><?=$v['start_date']; ?></td>
                     <td><?=$v['trial_start']; ?></td>
                     <td><?=$v['trial_end']; ?></td>
-                    <!-- <td><?=$v['section']; ?></td>
-                    <td><?=$v['price']; ?></td>
-                    <td><?=$v['lunch']; ?></td> -->
                     <td><?=$v['phone']; ?></td>
                     <td><?=$v['note']; ?></td>
                 </tr>
@@ -471,6 +517,10 @@ $(function(){
                         <label for="member_name" class=""  style="float:left;">姓名</label>
                         <input type="text" class="form-control" id="name">
                     </div>                  
+                    <div class="form-group">
+                        <label for="trial_start" class=""  style="float:left;">聯絡電話</label>
+                        <input type="text" class="form-control" id="phone">
+                    </div>  
                 </div>
                 <div class="col-md-3 col-sm-3 col-xs-3 cube">
                     <div class="form-group">
@@ -496,32 +546,54 @@ $(function(){
                         </select>
                     </div>                  
                 </div>    
-                <div class="col-md-3 col-sm-3 col-xs-3 cube">
-                    <!-- <div class="form-group">
-                        <label for="start_date" class=""  style="float:left;">任務編號</label>
-                        <input type="text" class="form-control" id="number">
-                    </div>   -->
+                <div class="col-md-3 col-sm-3 col-xs-3 cube" style="height:266px;">
                     <div class="form-group">
-                        <label for="trial_start" class=""  style="float:left;">聯絡電話</label>
-                        <input type="text" class="form-control" id="phone">
-                    </div>                  
-                </div>                        
-                <div class="col-md-3 col-sm-3 col-xs-3 cube" style="float:left">
-                    <div class="form-group">
-                        <label for="start_date" class=""  style="float:left;">節數</label>
-                        <input type="text" class="form-control" id="section">
+                        <label for="order_meal">訂餐需求</label>
+                        <input type="checkbox" class="" id="order_meal"><span>需訂餐</span>
                     </div>  
                     <div class="form-group">
-                        <label for="trial_start" class=""  style="float:left;">單價</label>
-                        <input type="text" class="form-control" id="price">
+                        <label for="trial_end" class=""  style="float:left;">計算方式</label>
+                        <select class="form-control" id="calculation">
+                            <option value="by_section">以節計算</option>
+                            <option value="by_day">以天計算</option>
+                        </select>
+                    </div>      
+                    <div class="by_section">
+                        <div class="form-group">
+                            <label for="start_date" class=""  style="float:left;">節數</label>
+                            <input type="text" class="form-control section_count" id="section" value="0">
+                            <input type="hidden" class="form-control" id="salary_section" value="<?=$fees_info['salary_section']; ?>">
+                        </div>   
+                        <div class="form-group">
+                            <label for="start_date" class=""  style="float:left;">便當數</label>
+                            <input type="text" class="form-control section_count" id="lunch_count" value="0">
+                            <input type="hidden" class="form-control" id="lunch_fee" value="<?=$fees_info['lunch_fee']; ?>">
+                        </div>                                                  
+                    </div>         
+                    <div class="by_day" style="display:none">
+                        <div class="form-group">
+                            <label for="start_date" class=""  style="float:left;">天數</label>
+                            <input type="text" class="form-control section_count" id="day_count" value="0">
+                            <input type="hidden" class="form-control" id="one_day_salary" value="<?=$fees_info['one_day_salary']; ?>">
+                        </div>                                            
+                    </div>                                           
+                </div>                        
+                <div class="col-md-3 col-sm-3 col-xs-3 cube" style="float:left">
+                    <!-- <div class="form-group">
+                        <label for="start_date" class=""  style="float:left;">節數</label>
+                        <input type="text" class="form-control" id="section">
+                    </div>   -->
+                    <div class="form-group">
+                        <label for="trial_start" class=""  style="float:left;">薪資費</label>
+                        <input type="text" class="form-control" id="price" value="0">
                     </div>                  
                     <div class="form-group">
-                        <label for="trial_end" class=""  style="float:left;">便當</label>
-                        <input type="text" class="form-control" id="lunch">
+                        <label for="trial_end" class=""  style="float:left;">便當費</label>
+                        <input type="text" class="form-control" id="lunch_price" value="<?=$fees_info['lunch_fee']; ?>">
                     </div>   
                     <div class="form-group">
                         <label for="trial_end" class=""  style="float:left;">總計</label>
-                        <input type="text" class="form-control" id="total">
+                        <input type="text" class="form-control" id="total" value="0">
                     </div>                                  
                 </div>     
                 <div class="col-md-6 col-sm-6 col-xs-6 " style="float:left;margin: 20px auto;">             

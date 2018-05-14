@@ -9,7 +9,7 @@
         max-width:100%;
     }
     .cube{
-        margin:80px auto;
+        margin:30px auto;
     }
     .cube img{
         max-width:65%;
@@ -45,7 +45,16 @@
         <a href="./designated/a_3">
             <img src="assets/images/a3.png" alt="">
         </a>    
-    
     </div>
+
+    <!-- <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4 cube text-center">
+        <a href="./designated/a_4">
+            <img src="assets/images/a4.png" alt="">
+        </a>    
+    </div>
+
+    <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4 cube text-center"></div>
+
+    <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4 cube text-center"></div> -->
     
 </div>

@@ -185,8 +185,8 @@ class Api extends CI_Controller
     public function add_task()
     {
         $this->load->model('mod_task');
-        $getpost = array('area', 'job_code', 'job_title', 'name', 'phone', 'start_date', 'trial_start', 'trial_end', 'section', 'price', 'lunch', 'note');
-        $requred = array('area', 'job_code', 'job_title', 'name', 'phone', 'start_date', 'trial_start', 'trial_end', 'section', 'price', 'lunch');
+        $getpost = array('area', 'job_code', 'job_title', 'name', 'phone', 'start_date', 'trial_start', 'trial_end', 'note', 'section', 'salary_section', 'lunch_count', 'lunch_fee', 'day_count', 'one_day_salary', 'price', 'lunch_price', 'total');
+        $requred = array('area', 'job_code', 'job_title', 'name', 'phone', 'start_date', 'trial_start', 'trial_end', 'note', 'section', 'salary_section', 'lunch_count', 'lunch_fee', 'day_count', 'one_day_salary', 'price', 'lunch_price', 'total');
         $data = $this->getpost->getpost_array($getpost, $requred);
         if ($data == false) {
             $json_arr['sys_code'] = '000';
@@ -208,8 +208,8 @@ class Api extends CI_Controller
     public function edit_task()
     {
         $this->load->model('mod_task');
-        $getpost = array('sn', 'area', 'job', 'job_code', 'job_title', 'name', 'phone', 'start_date', 'trial_start', 'trial_end', 'section', 'price', 'lunch', 'note');
-        $requred = array('sn', 'area', 'job', 'job_code', 'job_title', 'name', 'phone', 'start_date', 'trial_start', 'trial_end', 'section', 'price', 'lunch', 'note');
+        $getpost = array('sn', 'area', 'job_code', 'job_title', 'name', 'phone', 'start_date', 'trial_start', 'trial_end', 'note', 'section', 'salary_section', 'lunch_count', 'lunch_fee', 'day_count', 'one_day_salary', 'price', 'lunch_price', 'total');
+        $requred = array('sn', 'area', 'job_code', 'job_title', 'name', 'phone', 'start_date', 'trial_start', 'trial_end', 'note', 'section', 'salary_section', 'lunch_count', 'lunch_fee', 'day_count', 'one_day_salary', 'price', 'lunch_price', 'total');
         $data = $this->getpost->getpost_array($getpost, $requred);
         if ($data == false) {
             $json_arr['sys_code'] = '000';
@@ -387,6 +387,30 @@ class Api extends CI_Controller
                 $this->mod_exam_datetime->update_once($year, $data);
             } else {
                 $this->mod_exam_datetime->add_once($data);
+            }
+            $json_arr['sys_code'] = '200';
+            $json_arr['sys_msg'] = '儲存成功';
+        }
+        echo json_encode($json_arr);
+    }
+
+    //儲存考科
+    public function add_fee()
+    {
+        $this->load->model('mod_exam_fees');
+        $getpost = array('year', 'one_day_salary', 'salary_section', 'lunch_fee');
+        $requred = array('year', 'one_day_salary', 'salary_section', 'lunch_fee');
+        $data = $this->getpost->getpost_array($getpost, $requred);
+        $year = $this->session->userdata('year');
+        if ($data == false) {
+            $json_arr['sys_code'] = '000';
+            $json_arr['sys_msg'] = '資料不足';
+            $json_arr['requred'] = $this->getpost->report_requred($requred);
+        } else {
+            if ($this->mod_exam_fees->chk_once($year)) {
+                $this->mod_exam_fees->update_once($year, $data);
+            } else {
+                $this->mod_exam_fees->add_once($data);
             }
             $json_arr['sys_code'] = '200';
             $json_arr['sys_msg'] = '儲存成功';
