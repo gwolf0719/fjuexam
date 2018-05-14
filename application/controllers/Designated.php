@@ -397,14 +397,26 @@ class Designated extends CI_Controller
     public function c_1()
     {
         $this->load->model('mod_part_info');
+        $this->load->model('mod_part_addr');
         $this->mod_user->chk_status();
         $year = $this->session->userdata('year');
+
+        if ($this->mod_part_addr->chk_once($year)) {
+            $addr_info = $this->mod_part_addr->get_once($year);
+        } else {
+            $addr_info = array(
+                'part_addr_1' => '',
+                'part_addr_2' => '',
+                'part_addr_3' => '',
+            );
+        }     
 
         $data = array(
             'title' => '第一分區',
             'path' => 'designated/c_1',
             'path_text' => ' > 指考主選單 > 試場分配 > 第一分區',
             'datalist' => $this->mod_part_info->get_list('2501'),
+            'addr_info'=>$addr_info
         );
         $this->load->view('layout', $data);
     }
@@ -412,14 +424,26 @@ class Designated extends CI_Controller
     public function c_2()
     {
         $this->load->model('mod_part_info');
+        $this->load->model('mod_part_addr');
         $this->mod_user->chk_status();
         $year = $this->session->userdata('year');
+
+        if ($this->mod_part_addr->chk_once($year)) {
+            $addr_info = $this->mod_part_addr->get_once($year);
+        } else {
+            $addr_info = array(
+                'part_addr_1' => '',
+                'part_addr_2' => '',
+                'part_addr_3' => '',
+            );
+        }     
 
         $data = array(
             'title' => '第二分區',
             'path' => 'designated/c_2',
             'path_text' => ' > 指考主選單 > 試場分配 > 第二分區',
             'datalist' => $this->mod_part_info->get_list('2502'),
+            'addr_info'=>$addr_info
         );
         $this->load->view('layout', $data);
     }
@@ -427,18 +451,54 @@ class Designated extends CI_Controller
     public function c_3()
     {
         $this->load->model('mod_part_info');
+        $this->load->model('mod_part_addr');
         $this->mod_user->chk_status();
         $year = $this->session->userdata('year');
+
+        if ($this->mod_part_addr->chk_once($year)) {
+            $addr_info = $this->mod_part_addr->get_once($year);
+        } else {
+            $addr_info = array(
+                'part_addr_1' => '',
+                'part_addr_2' => '',
+                'part_addr_3' => '',
+            );
+        }        
 
         $data = array(
             'title' => '第三分區',
             'path' => 'designated/c_3',
             'path_text' => ' > 指考主選單 > 試場分配 > 第三分區',
             'datalist' => $this->mod_part_info->get_list('2503'),
+            'addr_info'=>$addr_info
         );
         $this->load->view('layout', $data);
     }
 
+    public function c_4()
+    {
+        $this->mod_user->chk_status();
+        $this->load->model('mod_part_addr');
+        $year = $this->session->userdata('year');
+
+        if ($this->mod_part_addr->chk_once($year)) {
+            $addr_info = $this->mod_part_addr->get_once($year);
+        } else {
+            $addr_info = array(
+                'part_addr_1' => '',
+                'part_addr_2' => '',
+                'part_addr_3' => '',
+            );
+        }
+
+        $data = array(
+            'title' => '分區地址',
+            'path' => 'designated/c_4',
+            'path_text' => ' > 指考主選單 > 分區地址',
+            'addr_info' => $addr_info,
+        );
+        $this->load->view('layout', $data);
+    }
     /**
      * F 考程設定.
      */

@@ -18,12 +18,12 @@
         $("body").on("click","#save",function(){
             if(confirm("是否儲存?")){
                 $.ajax({
-                    url: 'api/add_fee',
+                    url: 'api/save_addr',
                     data:{
                         "year":$("#year").val(),
-                        "one_day_salary":$("#one_day_salary").val(),
-                        "salary_section":$("#salary_section").val(),
-                        "lunch_fee":$("#lunch_fee").val()
+                        "part_addr_1":$("#part_addr_1").val(),
+                        "part_addr_2":$("#part_addr_2").val(),
+                        "part_addr_3":$("#part_addr_3").val()
                     },
                     dataType:"json"
                 }).done(function(data){
@@ -57,19 +57,19 @@
     
         <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6" style="padding:20px;">
             <div class="row table-form" class="">
-                <div class="col-3 text-right">一日薪資</div>
+                <div class="col-3 text-right">第一分區地址</div>
                 <input type="hidden" class="col-6" id="year" name="year" value="<?=$_SESSION['year']; ?>">
-                <input type="text" class="col-6" id="one_day_salary" name="one_day_salary" value="<?=$fees_info['one_day_salary']; ?>">
+                <input type="text" class="col-6" id="part_addr_1" name="part_addr_1" value="<?=$addr_info['part_addr_1']?>">
                 <div class="col-3 "></div>
             </div>
             <div class="row table-form" class="">
-                <div class="col-3 text-right">一節薪資</div>
-                <input type="text" class="col-6" id="salary_section" name="salary_section" value="<?=$fees_info['salary_section']; ?>">
+                <div class="col-3 text-right">第二分區地址</div>
+                <input type="text" class="col-6" id="part_addr_2" name="part_addr_2" value="<?=$addr_info['part_addr_2']?>">
                 <div class="col-3 "></div>
             </div>
             <div class="row table-form" class="">
-                <div class="col-3 text-right">便當費</div>
-                <input type="text" class="col-6" id="lunch_fee" name="lunch_fee" value="<?=$fees_info['lunch_fee'];?>">
+                <div class="col-3 text-right">第三分區地址</div>
+                <input type="text" class="col-6" id="part_addr_3" name="part_addr_3" value="<?=$addr_info['part_addr_3']?>">
                 <div class="col-3 "></div>
             </div>
         </div>

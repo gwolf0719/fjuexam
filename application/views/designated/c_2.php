@@ -82,7 +82,6 @@ $(function(){
             $("#start").val(data.info.start);
             $("#end").val(data.info.end);
             $("#floor").val(data.info.floor);
-            $("#addr").val(data.info.addr);
             $("#number").val(data.info.number);
             $("#section").val(data.info.section);
             $("#note").val(data.info.note);
@@ -128,7 +127,7 @@ $(function(){
     </div>
 
     <div class="col-sm-8" style="text-align: center;">
-        <img src="assets/images/b1_title.png" alt="" style="width: 15%;">
+        <img src="assets/images/c2_title.png" alt="" style="width: 15%;">
     </div>
     
 </div>
@@ -213,7 +212,7 @@ $(function(){
                     </div>                 
                     <div class="form-group">
                         <label for="addr" class="" style="float:left;">考試地址</label>
-                        <input type="text" class="form-control" id="addr">
+                        <input type="text" class="form-control" id="addr" value="<?=$addr_info['part_addr_1']?>" readonly>
                     </div>  
                     <div class="form-group">
                         <label for="floor" class="" style="float:left;">樓層別</label>
