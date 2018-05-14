@@ -30,6 +30,14 @@ class Mod_part_info extends CI_Model
     {
         return $this->db->where('sn', $sn)->get('part_info')->row_array();
     }
+
+    public function update_once($sn, $data)
+    {
+        $this->db->where('sn', $sn);
+        $this->db->update('part_info', $data);
+
+        return true;
+    }
 }
 
 /* End of file Mod_exam_area.php */

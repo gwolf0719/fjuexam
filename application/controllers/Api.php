@@ -438,6 +438,24 @@ class Api extends CI_Controller
         }
         echo json_encode($json_arr);
     }
+
+    public function save_part()
+    {
+        $this->load->model('mod_part_info');
+        $getpost = array('sn', 'section', 'addr', 'floor', 'note');
+        $requred = array('sn', 'section', 'addr', 'floor', 'note');
+        $data = $this->getpost->getpost_array($getpost, $requred);
+        if ($data == false) {
+            $json_arr['sys_code'] = '000';
+            $json_arr['sys_msg'] = '資料不足';
+            $json_arr['requred'] = $this->getpost->report_requred($requred);
+        } else {
+            $this->mod_part_info->update_once($data['sn'], $data);
+            $json_arr['sys_code'] = '200';
+            $json_arr['sys_msg'] = '資料儲存完成';
+        }
+        echo json_encode($json_arr);
+    }
 }
 
 /* End of file Api.php */
