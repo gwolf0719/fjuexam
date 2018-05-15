@@ -4,6 +4,13 @@ defined('BASEPATH') or exit('No direct script access allowed');
 
 class Mod_task extends CI_Model
 {
+    public function import($area)
+    {
+        // 先清除當年資料
+        $this->db->where('year', $this->session->userdata('year'))->delete('district_task');
+        $this->db->insert_batch('district_task', $area);
+    }
+
     /**
      * 取得職務列表.
      */

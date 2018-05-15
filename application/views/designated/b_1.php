@@ -482,7 +482,7 @@ $(function(){
                 <div for=""  class="col-2" style="display: inline-block;line-height:40px;text-align:right;">職務</div>
                 <select class="form-control col-4" id="job">
                         <?php foreach ($jobs as $k => $v): ?>
-                            <option value="<?=$v; ?>"><?=$v; ?></option>
+                            <option value="<?=$v['job']; ?>"><?=$v['job']; ?></option>
                         <?php endforeach; ?>
                     </select>
                 <div class="col-6">
@@ -601,9 +601,9 @@ $(function(){
                 <div class="col-md-6 col-sm-6 col-xs-6" style="float:left;margin: 20px auto;">             
                     <div class="form-group" style="text-align:right">
                         <div class="">
-                            <button class="btn btn-primary" type="button" id="add" style="display:none">確定</button>
+                            <!-- <button class="btn btn-primary" type="button" id="add" style="display:none">確定</button>
                             <button class="btn btn-danger" type="button" id="no" style="display:none">取消</button>
-                            <button class="btn btn-primary" type="button" id="add_info">新增</button>
+                            <button class="btn btn-primary" type="button" id="add_info">新增</button> -->
                             <button type="button" class="btn btn-primary" id="send">修改</button>
                             <button type="button" class="btn btn-danger" id="remove">刪除</button>
                         </div>
