@@ -68,8 +68,6 @@ img{
                     <th>地理</th>
                     <th>公民與社會</th>
                     <th>冷氣試場</th>
-                    <!-- <th>地址</th>
-                    <th>樓層別</th> -->
                 </tr>
             </thead>
             <tbody>
@@ -93,9 +91,7 @@ img{
                     <td><?=$v['subject_08']; ?></td>
                     <td><?=$v['subject_09']; ?></td>
                     <td><?=$v['subject_10']; ?></td>
-                    <td></td>
-                    <!-- <td><?=$v['addr']; ?></td>
-                    <td><?=$v['floor']; ?></td> -->
+                    <td><?=$v['air_test_field']; ?></td>
                     
                 </tr>
             <?php endforeach; ?>

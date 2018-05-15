@@ -65,8 +65,7 @@ class Designated extends CI_Controller
                     'subject_08' => $data[13],
                     'subject_09' => $data[14],
                     'subject_10' => $data[15],
-                    'addr' => $data[16],
-                    'floor' => $data[17],
+                    'air_test_field' => $data[16],
                 );
                 $datas_part[] = array(
                     'year' => $this->session->userdata('year'),
@@ -76,8 +75,6 @@ class Designated extends CI_Controller
                     'start' => $data[3],
                     'end' => $data[4],
                     'number' => $data[5],
-                    'addr' => $data[16],
-                    'floor' => $data[17],
                 );
             }
             // echo json_encode($datas);
@@ -409,14 +406,14 @@ class Designated extends CI_Controller
                 'part_addr_2' => '',
                 'part_addr_3' => '',
             );
-        }     
+        }
 
         $data = array(
             'title' => '第一分區',
             'path' => 'designated/c_1',
             'path_text' => ' > 指考主選單 > 試場分配 > 第一分區',
             'datalist' => $this->mod_part_info->get_list('2501'),
-            'addr_info'=>$addr_info
+            'addr_info' => $addr_info,
         );
         $this->load->view('layout', $data);
     }
@@ -436,14 +433,14 @@ class Designated extends CI_Controller
                 'part_addr_2' => '',
                 'part_addr_3' => '',
             );
-        }     
+        }
 
         $data = array(
             'title' => '第二分區',
             'path' => 'designated/c_2',
             'path_text' => ' > 指考主選單 > 試場分配 > 第二分區',
             'datalist' => $this->mod_part_info->get_list('2502'),
-            'addr_info'=>$addr_info
+            'addr_info' => $addr_info,
         );
         $this->load->view('layout', $data);
     }
@@ -463,14 +460,14 @@ class Designated extends CI_Controller
                 'part_addr_2' => '',
                 'part_addr_3' => '',
             );
-        }        
+        }
 
         $data = array(
             'title' => '第三分區',
             'path' => 'designated/c_3',
             'path_text' => ' > 指考主選單 > 試場分配 > 第三分區',
             'datalist' => $this->mod_part_info->get_list('2503'),
-            'addr_info'=>$addr_info
+            'addr_info' => $addr_info,
         );
         $this->load->view('layout', $data);
     }
@@ -499,6 +496,7 @@ class Designated extends CI_Controller
         );
         $this->load->view('layout', $data);
     }
+
     /**
      * F 考程設定.
      */
