@@ -15,7 +15,7 @@
         max-width:65%;
     }
 </style>
-<script>
+<!-- <script>
 $(function(){
     $(window).on("load",function(){
         var arr = <?php print_r($datalist); ?>;
@@ -25,7 +25,7 @@ $(function(){
         }
     })
 })
-</script>
+</script> -->
 <div class="row">
     <div class="input-group col-sm-3">
 

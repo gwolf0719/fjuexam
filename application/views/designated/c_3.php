@@ -62,6 +62,16 @@ label {
 
 <script>
 $(function(){
+
+    $(window).on("load",function(){
+        var addr = $("#addr").val();
+        // console.log(arr);
+        if(addr == ""){
+            alert("目前 C3 考試地址尚未填寫資料，請先填寫資料再進行操作");
+            location.href="./designated/c_4";
+        }
+    })
+
     $("body").on("click","tr",function(){
         var sn = $(this).attr("sn");
         $("html, body").animate({
@@ -158,11 +168,11 @@ $(function(){
                     <td><?=$v['part']; ?></td>
                     <td><?=$v['part_name']; ?></td>
                     <td><?=$v['field']; ?></td>
-                    <td><?=$v['section']; ?></td>
+                    <td><?=$v['test_section']; ?></td>
                     <td><?=$v['start']; ?></td>
                     <td><?=$v['end']; ?></td>
                     <td><?=$v['number']; ?></td>
-                    <td><?=$v['addr']; ?></td>
+                    <td><?=$addr_info['part_addr_3']; ?></td>
                     <td><?=$v['floor']; ?></td>
                     <td><?=$v['note']; ?></td>
                 </tr>                    
@@ -194,7 +204,7 @@ $(function(){
                 <div class="col-md-3 col-sm-3 col-xs-3 cube">
                     <div class="form-group">
                         <label for="section" class=""  style="float:left;">考試節數</label>
-                        <input type="text" class="form-control" id="section">
+                        <input type="text" class="form-control" id="section" readonly>
                     </div>  
                     <div class="form-group">
                         <label for="start" class=""  style="float:left;">考生應試號起</label>
@@ -212,7 +222,7 @@ $(function(){
                     </div>                 
                     <div class="form-group">
                         <label for="addr" class="" style="float:left;">考試地址</label>
-                        <input type="text" class="form-control" id="addr" value="<?=$addr_info['part_addr_1']?>" readonly>
+                        <input type="text" class="form-control" id="addr" value="<?=$addr_info['part_addr_1']; ?>" readonly>
                     </div>  
                     <div class="form-group">
                         <label for="floor" class="" style="float:left;">樓層別</label>

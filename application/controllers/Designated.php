@@ -47,6 +47,14 @@ class Designated extends CI_Controller
             fgetcsv($file);
             while (!feof($file)) {
                 $data = fgetcsv($file);
+                $arr = array();
+                array_push($arr, $data['6'], $data['7'], $data['8'], $data['9'], $data['10'], $data['11'], $data['12'], $data['13'], $data['14'], $data['15']);
+                foreach ($arr as $k => $v) {
+                    if ($v == '0') {
+                        unset($arr[$k]);
+                    }
+                }
+
                 $datas[] = array(
                     'year' => $this->session->userdata('year'),
                     'part' => $data[0],
@@ -72,6 +80,7 @@ class Designated extends CI_Controller
                     'part' => $data[0],
                     'part_name' => $data[1],
                     'field' => $data[2],
+                    'test_section' => count($arr),
                     'start' => $data[3],
                     'end' => $data[4],
                     'number' => $data[5],
@@ -381,12 +390,13 @@ class Designated extends CI_Controller
      */
     public function c()
     {
+        $this->load->model('mod_part_info');
         $this->mod_user->chk_status();
-
         $data = array(
             'title' => '試場分配',
             'path' => 'designated/c',
             'path_text' => ' > 指考主選單 > 試場分配',
+            'datalist' => $this->mod_part_info->get_list(),
         );
         $this->load->view('layout', $data);
     }
