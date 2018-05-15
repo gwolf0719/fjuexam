@@ -58,9 +58,9 @@
         </a>
     </div>
     <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4 cube text-center">
-        <!-- <a href="./designated/d"> -->
+        <a href="./designated/d">
             <img src="assets/images/d.png" alt="">
-        <!-- </a> -->
+        </a>
     </div>
     <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4 cube text-center">
         <!-- <a href="./designated/e"> -->

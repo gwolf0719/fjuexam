@@ -479,6 +479,32 @@ class Api extends CI_Controller
         }
         echo json_encode($json_arr);
     }
+
+    /**
+     * D 相關api.
+     */
+    public function save_trial()
+    {
+        $this->load->model('mod_trial');
+        $getpost = array('sn', 'supervisor_1', 'supervisor_1_code', 'supervisor_2', 'supervisor_2_code', 'trial_staff', 'trial_staff_code', 'note');
+        $requred = array('sn', 'supervisor_1', 'supervisor_1_code', 'supervisor_2', 'supervisor_2_code', 'trial_staff', 'trial_staff_code', 'note');
+        $data = $this->getpost->getpost_array($getpost, $requred);
+        if ($data == false) {
+            $json_arr['sys_code'] = '000';
+            $json_arr['sys_msg'] = '資料不足';
+            $json_arr['requred'] = $this->getpost->report_requred($requred);
+        } else {
+            $data['year'] = $this->session->userdata('year');
+            if ($this->mod_trial->chk_once($data['sn'])) {
+                $this->mod_trial->update_once($data['sn'], $data);
+            } else {
+                $this->mod_trial->add_once($data);
+            }
+            $json_arr['sys_code'] = '200';
+            $json_arr['sys_msg'] = '資料儲存完成';
+        }
+        echo json_encode($json_arr);
+    }
 }
 
 /* End of file Api.php */

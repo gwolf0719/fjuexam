@@ -36,6 +36,7 @@ class Designated extends CI_Controller
     {
         $this->load->model('mod_exam_area');
         $this->load->model('mod_part_info');
+        $this->load->model('mod_trial');
         $this->mod_user->chk_status();
         if (isset($_FILES['file'])) { // 如果有接收到上傳檔案資料
             // print_r($_FILES);
@@ -85,11 +86,23 @@ class Designated extends CI_Controller
                     'end' => $data[4],
                     'number' => $data[5],
                 );
+
+                $datas_assign[] = array(
+                    'year' => $this->session->userdata('year'),
+                    'supervisor_1' => '',
+                    'supervisor_1_code' => '',
+                    'supervisor_2' => '',
+                    'supervisor_2_code' => '',
+                    'trial_staff_code' => '',
+                    'trial_staff' => '',
+                    'note' => '',
+                );
             }
             // echo json_encode($datas);
 
             $this->mod_exam_area->import($datas);
             $this->mod_part_info->import($datas_part);
+            $this->mod_trial->import($datas_assign);
             fclose($file);
             unlink($file_name);
             // print_r(fgetcsv($file));
@@ -194,45 +207,60 @@ class Designated extends CI_Controller
 
     public function a_4()
     {
-        $this->load->model('mod_staff');
+        $this->load->model('mod_area');
+        $this->load->model('mod_part');
         $this->mod_user->chk_status();
-        if (isset($_FILES['file'])) { // 如果有接收到上傳檔案資料
-            // print_r($_FILES);
-            $file = $_FILES['file']['tmp_name'];
+
+        if (isset($_FILES['inputGroupFile01'])) { // 如果有接收到上傳檔案資料
+            $file = $_FILES['inputGroupFile01']['tmp_name'];
             $file_name = './tmp/'.time().'.csv';
             copy($file, $file_name);
             $file = fopen($file_name, 'r');
             $datas = array();
             fgetcsv($file);
-            // print_r(fgetcsv($file));
             while (!feof($file)) {
                 $data = fgetcsv($file);
-                $datas[] = array(
+                $area[] = array(
                     'year' => $this->session->userdata('year'),
-                    'member_code' => $data[0],
-                    'member_name' => $data[1],
-                    'member_unit' => $data[2],
-                    'member_phone' => $data[3],
-                    'member_title' => $data[4],
-                    'order_meal' => $data[5],
-                    'meal' => $data[6],
+                    'job' => $data[0],
+                    'status' => '1',
                  );
-                // print_r($datas);
             }
-            // echo json_encode($datas);
+            echo json_encode($datas);
 
-            $this->mod_staff->import($datas);
+            $this->mod_area->import($area);
             fclose($file);
             unlink($file_name);
-            redirect('designated/a_3');
-            //  print_r(fgetcsv($file));
+            print_r(fgetcsv($file));
+            redirect('designated/a_4');
+        } elseif (isset($_FILES['inputGroupFile02'])) {
+            $file = $_FILES['inputGroupFile02']['tmp_name'];
+            $file_name = './tmp/'.time().'.csv';
+            copy($file, $file_name);
+            $file = fopen($file_name, 'r');
+            $datas = array();
+            fgetcsv($file);
+            while (!feof($file)) {
+                $data = fgetcsv($file);
+                $part[] = array(
+                    'year' => $this->session->userdata('year'),
+                    'job' => $data[0],
+                    'status' => '1',
+                 );
+            }
+            echo json_encode($datas);
+
+            $this->mod_part->import($part);
+            fclose($file);
+            unlink($file_name);
+            print_r(fgetcsv($file));
+            redirect('designated/a_4');
         } else {
             $data = array(
-                'title' => '職務資料',
-                'path' => 'designated/a_4',
-                'path_text' => ' > 指考主選單 > 資料匯入作業 > 職務資料',
-                'datalist' => $this->mod_staff->year_get_list(),
-            );
+                    'title' => '職務資料',
+                    'path' => 'designated/a_4',
+                    'path_text' => ' > 指考主選單 > 資料匯入作業 > 職務資料',
+                );
             $this->load->view('layout', $data);
         }
     }
@@ -503,6 +531,80 @@ class Designated extends CI_Controller
             'path' => 'designated/c_4',
             'path_text' => ' > 指考主選單 > 分區地址',
             'addr_info' => $addr_info,
+        );
+        $this->load->view('layout', $data);
+    }
+
+    /**
+     * d 試場分配.
+     */
+    public function d()
+    {
+        $this->load->model('mod_part_info');
+        $this->mod_user->chk_status();
+        $data = array(
+            'title' => '試場人員指派',
+            'path' => 'designated/d',
+            'path_text' => ' > 指考主選單 > 試場人員指派',
+            'datalist' => $this->mod_part_info->get_list(),
+        );
+        $this->load->view('layout', $data);
+    }
+
+    public function d_1()
+    {
+        $this->load->model('mod_part_info');
+        $this->load->model('mod_trial');
+        $this->mod_user->chk_status();
+        $year = $this->session->userdata('year');
+        // $part = $this->mod_part_info->get_list('2501');
+        // $assign = $this->mod_trial->get_list($year)
+        // $arr = array(
+        //     "field"=>$
+        // );
+        $assign = $this->mod_trial->get_list('2501');
+        $data = array(
+            'title' => '第一分區',
+            'path' => 'designated/d_1',
+            'path_text' => ' > 指考主選單 > 試場分配 > 第一分區',
+            'assign' => $assign,
+        );
+        $this->load->view('layout', $data);
+    }
+
+    public function d_2()
+    {
+        $this->load->model('mod_part_info');
+        $this->load->model('mod_trial');
+        $this->mod_user->chk_status();
+        $year = $this->session->userdata('year');
+        // $part = $this->mod_part_info->get_list('2501');
+        // $assign = $this->mod_trial->get_list($year)
+        // $arr = array(
+        //     "field"=>$
+        // );
+        $assign = $this->mod_trial->get_list('2502');
+        $data = array(
+            'title' => '第二分區',
+            'path' => 'designated/d_2',
+            'path_text' => ' > 指考主選單 > 試場分配 > 第二分區',
+            'assign' => $assign,
+        );
+        $this->load->view('layout', $data);
+    }
+
+    public function d_3()
+    {
+        $this->load->model('mod_part_info');
+        $this->load->model('mod_trial');
+        $this->mod_user->chk_status();
+        $year = $this->session->userdata('year');
+        $assign = $this->mod_trial->get_list('2503');
+        $data = array(
+            'title' => '第三分區',
+            'path' => 'designated/d_3',
+            'path_text' => ' > 指考主選單 > 試場分配 > 第三分區',
+            'assign' => $assign,
         );
         $this->load->view('layout', $data);
     }

@@ -59,17 +59,17 @@
             <div class="row table-form" class="">
                 <div class="col-3 text-right">第一分區地址</div>
                 <input type="hidden" class="col-6" id="year" name="year" value="<?=$_SESSION['year']; ?>">
-                <input type="text" class="col-6" id="part_addr_1" name="part_addr_1" value="<?=$addr_info['part_addr_1']?>">
+                <input type="text" class="col-6" id="part_addr_1" name="part_addr_1" value="<?=$addr_info['part_addr_1']; ?>">
                 <div class="col-3 "></div>
             </div>
             <div class="row table-form" class="">
                 <div class="col-3 text-right">第二分區地址</div>
-                <input type="text" class="col-6" id="part_addr_2" name="part_addr_2" value="<?=$addr_info['part_addr_2']?>">
+                <input type="text" class="col-6" id="part_addr_2" name="part_addr_2" value="<?=$addr_info['part_addr_2']; ?>">
                 <div class="col-3 "></div>
             </div>
             <div class="row table-form" class="">
                 <div class="col-3 text-right">第三分區地址</div>
-                <input type="text" class="col-6" id="part_addr_3" name="part_addr_3" value="<?=$addr_info['part_addr_3']?>">
+                <input type="text" class="col-6" id="part_addr_3" name="part_addr_3" value="<?=$addr_info['part_addr_3'];?>">
                 <div class="col-3 "></div>
             </div>
         </div>
