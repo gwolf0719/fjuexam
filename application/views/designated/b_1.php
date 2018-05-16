@@ -122,19 +122,14 @@ $(function(){
             $("#form").submit();
         }
     })
+
     $("body").on("click","tr",function(){
         var sn = $(this).attr("sn");
         $("#job_code").attr("readonly",true);
         $("html, body").animate({
         scrollTop: $("body").height()
-        }, 1000);         
-        // $(".to_up").hide();
-        // $(".boxs").addClass("upup");
-        // if($(".boxs").hasClass("upup")){
-        //     $(".boxs").slideDown();
-        // }else{
-        //     $(".boxs").slideUp();
-        // }
+        }, 1000);      
+        
         $.ajax({
             url: 'api/get_once_task',
             data:{
@@ -168,20 +163,43 @@ $(function(){
             $("#lunch").val(data.info.lunch)
             $("#phone").val(data.info.phone)
             $("#note").val(data.info.note)
-            $("#day_count").val(data.info.day_count);
+
+            if(data.info.day_count != ""){
+                $("#day_count").val(data.info.day_count);
+            }else{
+                $("#day_count").val("0");
+            }
+
+            if(data.info.salary_total != ""){
+                $("#salary_total").val(data.info.salary_total);
+            }else{
+                $("#salary_total").val("0");
+            }
+
             if(data.info.one_day_salary != ""){
                 $("#one_day_salary").val(data.info.one_day_salary);
             }else{
                 $("#one_day_salary").val(<?=$fees_info['one_day_salary']; ?>)
             }
-            $("#salary_total").val(data.info.salary_total);
-            $("#lunch_total").val(data.info.lunch_total);
+            
+            if(data.info.lunch_total != ""){
+                $("#lunch_total").val(data.info.lunch_total);
+            }else{
+                $("#lunch_total").val("0");
+            }
+
             if(data.info.lunch_price != ""){
                 $("#lunch_price").val(data.info.lunch_price);
             }else{
                 $("#lunch_price").val(<?=$fees_info['lunch_fee']; ?>)
             }
-            $("#total").val(data.info.total);         
+
+            if(data.info.total != ""){
+                $("#total").val(data.info.total);
+            }else{
+                $("#total").val("0");
+            }
+
             if(data.info.order_meal == "y"){
                 $("#order_meal").prop("checked",true);
                 $("#lunch_price").attr("readonly",false);
@@ -554,18 +572,17 @@ $(function(){
                         <input type="text" class="form-control" id="trial_end" readonly>
                     </div>                
                 </div>    
-                <div class="col-md-3 col-sm-3 col-xs-3 cube" style="height:266px;">
+                <div class="col-md-3 col-sm-3 col-xs-3 cube" style="height:100px;">
                     <div class="form-group">
                         <label for="order_meal">訂餐需求</label>
                         <input type="checkbox" class="" name="need" id="order_meal"><span>需訂餐</span>
                     </div>  
-                    <div class="form-group">
+                    <!-- <div class="form-group">
                         <label for="trial_end" class=""  style="float:left;">計算方式</label>
                         <select class="form-control" id="calculation">
-                            <!-- <option value="by_section">以節計算</option> -->
                             <option value="by_day">以天計算</option>
                         </select>
-                    </div>      
+                    </div>       -->
                     <!-- <div class="by_section">
                         <div class="form-group">
                             <label for="start_date" class=""  style="float:left;">節數</label>
