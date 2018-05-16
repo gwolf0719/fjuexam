@@ -175,16 +175,18 @@ class Designated extends CI_Controller
             // print_r(fgetcsv($file));
             while (!feof($file)) {
                 $data = fgetcsv($file);
-                $datas[] = array(
-                    'year' => $this->session->userdata('year'),
-                    'member_code' => $data[0],
-                    'member_name' => $data[1],
-                    'member_unit' => $data[2],
-                    'member_phone' => $data[3],
-                    'member_title' => $data[4],
-                    'order_meal' => $data[5],
-                    'meal' => $data[6],
-                 );
+                if ($data[0] != '') {
+                    $datas[] = array(
+                        'year' => $this->session->userdata('year'),
+                        'member_code' => $data[0],
+                        'member_name' => $data[1],
+                        'member_unit' => $data[2],
+                        'member_title' => $data[3],
+                        'member_phone' => $data[4],
+                        'order_meal' => $data[5],
+                        'meal' => $data[6],
+                    );
+                }
                 // print_r($datas);
             }
             // echo json_encode($datas);
@@ -193,7 +195,7 @@ class Designated extends CI_Controller
             fclose($file);
             unlink($file_name);
             redirect('designated/a_3');
-            //  print_r(fgetcsv($file));
+            print_r(fgetcsv($file));
         } else {
             $data = array(
                 'title' => '工作人員資料',
@@ -208,6 +210,7 @@ class Designated extends CI_Controller
     public function a_4()
     {
         $this->load->model('mod_task');
+        $this->load->model('mod_exam_area');
         $this->mod_user->chk_status();
 
         if (isset($_FILES['inputGroupFile01'])) { // 如果有接收到上傳檔案資料
@@ -217,6 +220,8 @@ class Designated extends CI_Controller
             $file = fopen($file_name, 'r');
             $datas = array();
             fgetcsv($file);
+            $start = $this->mod_exam_area->get_min_start();
+            $end = $this->mod_exam_area->get_max_end();
             while (!feof($file)) {
                 $data = fgetcsv($file);
                 $area[] = array(
@@ -226,30 +231,25 @@ class Designated extends CI_Controller
                     'job_code' => '',
                     'job_title' => '',
                     'name' => '',
-                    'start_date' => '',
-                    'trial_start' => '',
-                    'trial_end' => '',
+                    'trial_start' => $start['field'],
+                    'trial_end' => $end['field'],
                     'number' => '',
                     'phone' => '',
                     'note' => '',
-                    'section' => '',
-                    'salary_section' => '',
-                    'lunch_count' => '',
-                    'lunch_fee' => '',
+                    'do_date' => '',
+                    'order_meal' => '',
                     'day_count' => '',
                     'one_day_salary' => '',
-                    'price' => '',
+                    'salary_total' => '',
                     'lunch_price' => '',
+                    'lunch_total' => '',
                     'total' => '',
                     'status' => '1',
                  );
             }
-            echo json_encode($datas);
-
             $this->mod_task->import($area);
             fclose($file);
             unlink($file_name);
-            print_r(fgetcsv($file));
             redirect('designated/a_4');
         } elseif (isset($_FILES['inputGroupFile02'])) {
             $file = $_FILES['inputGroupFile02']['tmp_name'];
@@ -258,6 +258,12 @@ class Designated extends CI_Controller
             $file = fopen($file_name, 'r');
             $datas = array();
             fgetcsv($file);
+            $start_1 = $this->mod_exam_area->get_min_start('2501');
+            $end_1 = $this->mod_exam_area->get_max_end('2501');
+            $start_2 = $this->mod_exam_area->get_min_start('2502');
+            $end_2 = $this->mod_exam_area->get_max_end('2502');
+            $start_3 = $this->mod_exam_area->get_min_start('2503');
+            $end_3 = $this->mod_exam_area->get_max_end('2503');
             while (!feof($file)) {
                 $data = fgetcsv($file);
                 $area_1[] = array(
@@ -267,20 +273,17 @@ class Designated extends CI_Controller
                     'job_code' => '',
                     'job_title' => '',
                     'name' => '',
-                    'start_date' => '',
-                    'trial_start' => '',
-                    'trial_end' => '',
+                    'trial_start' => $start_1['field'],
+                    'trial_end' => $end_1['field'],
                     'number' => '',
                     'phone' => '',
                     'note' => '',
-                    'section' => '',
-                    'salary_section' => '',
-                    'lunch_count' => '',
-                    'lunch_fee' => '',
+                    'do_date' => '',
                     'day_count' => '',
                     'one_day_salary' => '',
-                    'price' => '',
+                    'salary_total' => '',
                     'lunch_price' => '',
+                    'lunch_total' => '',
                     'total' => '',
                     'status' => '1',
                  );
@@ -291,20 +294,17 @@ class Designated extends CI_Controller
                     'job_code' => '',
                     'job_title' => '',
                     'name' => '',
-                    'start_date' => '',
-                    'trial_start' => '',
-                    'trial_end' => '',
+                    'trial_start' => $start_2['field'],
+                    'trial_end' => $end_2['field'],
                     'number' => '',
                     'phone' => '',
                     'note' => '',
-                    'section' => '',
-                    'salary_section' => '',
-                    'lunch_count' => '',
-                    'lunch_fee' => '',
+                    'do_date' => '',
                     'day_count' => '',
                     'one_day_salary' => '',
-                    'price' => '',
+                    'salary_total' => '',
                     'lunch_price' => '',
+                    'lunch_total' => '',
                     'total' => '',
                     'status' => '1',
                  );
@@ -315,29 +315,26 @@ class Designated extends CI_Controller
                     'job_code' => '',
                     'job_title' => '',
                     'name' => '',
-                    'start_date' => '',
-                    'trial_start' => '',
-                    'trial_end' => '',
+                    'trial_start' => $start_3['field'],
+                    'trial_end' => $end_3['field'],
                     'number' => '',
                     'phone' => '',
                     'note' => '',
-                    'section' => '',
-                    'salary_section' => '',
-                    'lunch_count' => '',
-                    'lunch_fee' => '',
+                    'do_date' => '',
                     'day_count' => '',
                     'one_day_salary' => '',
-                    'price' => '',
+                    'salary_total' => '',
                     'lunch_price' => '',
+                    'lunch_total' => '',
                     'total' => '',
                     'status' => '1',
                  );
             }
-            echo json_encode($datas);
+            // echo json_encode($datas);
 
-            $this->mod_task->import($area_1);
-            $this->mod_task->import($area_2);
-            $this->mod_task->import($area_3);
+            $this->mod_task->import_1($area_1);
+            $this->mod_task->import_2($area_2);
+            $this->mod_task->import_3($area_3);
             fclose($file);
             unlink($file_name);
             print_r(fgetcsv($file));
@@ -371,10 +368,10 @@ class Designated extends CI_Controller
         $this->load->model('mod_exam_area');
         $this->load->model('mod_task');
         $this->load->model('mod_exam_fees');
-        $this->load->model('mod_area');
+        $this->load->model('mod_exam_datetime');
         $this->mod_user->chk_status();
         $year = $this->session->userdata('year');
-        $jobs = $this->mod_area->get_list($year);
+        $jobs = $this->mod_task->get_job_list($year, '考區');
         if ($this->mod_exam_fees->chk_once($year)) {
             $fees_info = $this->mod_exam_fees->get_once($year);
         } else {
@@ -382,6 +379,15 @@ class Designated extends CI_Controller
                 'one_day_salary' => '0',
                 'salary_section' => '0',
                 'lunch_fee' => '0',
+            );
+        }
+        if ($this->mod_exam_datetime->chk_once($year)) {
+            $datetime_info = $this->mod_exam_datetime->get_once($year);
+        } else {
+            $datetime_info = array(
+                'day_1' => '07/01',
+                'day_2' => '07/02',
+                'day_3' => '07/03',
             );
         }
         $data = array(
@@ -392,7 +398,9 @@ class Designated extends CI_Controller
             'datalist' => $this->mod_task->get_list('考區'),
             'jobs' => $jobs,
             'fees_info' => $fees_info,
+            'datetime_info' => $datetime_info,
         );
+
         $this->load->view('layout', $data);
     }
 
@@ -401,9 +409,11 @@ class Designated extends CI_Controller
         $this->load->model('mod_exam_area');
         $this->load->model('mod_task');
         $this->load->model('mod_exam_fees');
+        $this->load->model('mod_exam_datetime');
+        $this->load->model('mod_part');
         $this->mod_user->chk_status();
         $year = $this->session->userdata('year');
-        $jobs = $this->mod_task->get_job_list($year);
+        $jobs = $this->mod_task->get_job_list($year, '第一分區');
         if ($this->mod_exam_fees->chk_once($year)) {
             $fees_info = $this->mod_exam_fees->get_once($year);
         } else {
@@ -413,14 +423,24 @@ class Designated extends CI_Controller
                 'lunch_fee' => '0',
             );
         }
+
+        if ($this->mod_exam_datetime->chk_once($year)) {
+            $datetime_info = $this->mod_exam_datetime->get_once($year);
+        } else {
+            $datetime_info = array(
+                'day_1' => '07/01',
+                'day_2' => '07/02',
+                'day_3' => '07/03',
+            );
+        }
         $data = array(
             'title' => '考區任務編組',
             'path' => 'designated/b_2',
             'path_text' => ' > 指考主選單 > 考區任務編組 > 第一分區',
-            'field' => $this->mod_task->get_field(),
             'datalist' => $this->mod_task->get_list('第一分區'),
             'jobs' => $jobs,
             'fees_info' => $fees_info,
+            'datetime_info' => $datetime_info,
         );
         $this->load->view('layout', $data);
     }
@@ -430,9 +450,11 @@ class Designated extends CI_Controller
         $this->load->model('mod_exam_area');
         $this->load->model('mod_task');
         $this->load->model('mod_exam_fees');
+        $this->load->model('mod_part');
+        $this->load->model('mod_exam_datetime');
         $this->mod_user->chk_status();
         $year = $this->session->userdata('year');
-        $jobs = $this->mod_task->get_job_list($year);
+        $jobs = $this->mod_task->get_job_list($year, '第二分區');
         if ($this->mod_exam_fees->chk_once($year)) {
             $fees_info = $this->mod_exam_fees->get_once($year);
         } else {
@@ -442,14 +464,23 @@ class Designated extends CI_Controller
                 'lunch_fee' => '0',
             );
         }
+        if ($this->mod_exam_datetime->chk_once($year)) {
+            $datetime_info = $this->mod_exam_datetime->get_once($year);
+        } else {
+            $datetime_info = array(
+                'day_1' => '07/01',
+                'day_2' => '07/02',
+                'day_3' => '07/03',
+            );
+        }
         $data = array(
             'title' => '考區任務編組',
             'path' => 'designated/b_3',
             'path_text' => ' > 指考主選單 > 考區任務編組 > 第二分區',
-            'field' => $this->mod_task->get_field(),
             'datalist' => $this->mod_task->get_list('第二分區'),
             'jobs' => $jobs,
             'fees_info' => $fees_info,
+            'datetime_info' => $datetime_info,
         );
         $this->load->view('layout', $data);
     }
@@ -458,10 +489,12 @@ class Designated extends CI_Controller
     {
         $this->load->model('mod_exam_area');
         $this->load->model('mod_task');
+        $this->load->model('mod_part');
+        $this->load->model('mod_exam_datetime');
         $this->load->model('mod_exam_fees');
         $this->mod_user->chk_status();
         $year = $this->session->userdata('year');
-        $jobs = $this->mod_task->get_job_list($year);
+        $jobs = $this->mod_task->get_job_list($year, '第三分區');
         if ($this->mod_exam_fees->chk_once($year)) {
             $fees_info = $this->mod_exam_fees->get_once($year);
         } else {
@@ -471,14 +504,23 @@ class Designated extends CI_Controller
                 'lunch_fee' => '0',
             );
         }
+        if ($this->mod_exam_datetime->chk_once($year)) {
+            $datetime_info = $this->mod_exam_datetime->get_once($year);
+        } else {
+            $datetime_info = array(
+                'day_1' => '07/01',
+                'day_2' => '07/02',
+                'day_3' => '07/03',
+            );
+        }
         $data = array(
             'title' => '考區任務編組',
             'path' => 'designated/b_4',
             'path_text' => ' > 指考主選單 > 考區任務編組 > 第三分區',
-            'field' => $this->mod_task->get_field(),
             'datalist' => $this->mod_task->get_list('第三分區'),
             'jobs' => $jobs,
             'fees_info' => $fees_info,
+            'datetime_info' => $datetime_info,
         );
         $this->load->view('layout', $data);
     }
@@ -645,11 +687,6 @@ class Designated extends CI_Controller
         $this->load->model('mod_trial');
         $this->mod_user->chk_status();
         $year = $this->session->userdata('year');
-        // $part = $this->mod_part_info->get_list('2501');
-        // $assign = $this->mod_trial->get_list($year)
-        // $arr = array(
-        //     "field"=>$
-        // );
         $assign = $this->mod_trial->get_list('2501');
         $data = array(
             'title' => '第一分區',

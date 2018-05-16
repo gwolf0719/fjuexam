@@ -94,25 +94,25 @@ $(function(){
     })
 
     $("body").on("click","#sure1",function(){
-        var code = $("#number_1").val().substr(0,4);
-        var name = $("#number_1").val().substr(7,8);
-        $("#supervisor_1").val(name);
-        $("#supervisor_1_code").val(code);
+        var code = $("#number_1").val().split("-");
+        var name = $("#number_1").val().split("-");
+        $("#supervisor_1").val(name[1]);
+        $("#supervisor_1_code").val(code[0]);
         $('#exampleModal1').modal('hide');
     })
 
     $("body").on("click","#sure2",function(){
-        var code = $("#number_2").val().substr(0,4);
-        var name = $("#number_2").val().substr(7,8);
-        $("#supervisor_2").val(name);
-        $("#supervisor_2_code").val(code);
+        var code = $("#number_2").val().split("-");
+        var name = $("#number_2").val().split("-");
+        $("#supervisor_2").val(name[1]);
+        $("#supervisor_2_code").val(code[0]);
         $('#exampleModal2').modal('hide');
     })
 
     $("body").on("click","#sure3",function(){
-        var code = $("#number_3").val().substr(0,4);
-        var name = $("#number_3").val().substr(7,8);
-        $("#trial_staff").val(name);
+        var code = $("#number_3").val().split("-")
+        var name = $("#number_3").val().split("-");
+        $("#trial_staff").val(name[1]);
         $('#exampleModal3').modal('hide');
     })
 
