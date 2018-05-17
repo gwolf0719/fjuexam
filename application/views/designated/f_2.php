@@ -34,7 +34,7 @@
             var nary=arr.sort();
             for(var i=0;i<arr.length;i++){
                 if (nary[i]==nary[i+1]){
-                    alert("数组重复内容："+nary[i]);
+                    alert("内容重複："+nary[i]);
                 }
             }
         })

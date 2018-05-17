@@ -734,6 +734,47 @@ class Designated extends CI_Controller
         $this->load->view('layout', $data);
     }
 
+    public function d_4()
+    {
+        $this->load->model('mod_exam_area');
+        $this->load->model('mod_task');
+        $this->load->model('mod_exam_fees');
+        $this->load->model('mod_exam_datetime');
+        $this->mod_user->chk_status();
+        $year = $this->session->userdata('year');
+        $jobs = $this->mod_task->get_job_list($year, '考區');
+        if ($this->mod_exam_fees->chk_once($year)) {
+            $fees_info = $this->mod_exam_fees->get_once($year);
+        } else {
+            $fees_info = array(
+                'one_day_salary' => '0',
+                'salary_section' => '0',
+                'lunch_fee' => '0',
+            );
+        }
+        if ($this->mod_exam_datetime->chk_once($year)) {
+            $datetime_info = $this->mod_exam_datetime->get_once($year);
+        } else {
+            $datetime_info = array(
+                'day_1' => '07/01',
+                'day_2' => '07/02',
+                'day_3' => '07/03',
+            );
+        }
+        $data = array(
+            'title' => '考區任務編組',
+            'path' => 'designated/d_4',
+            'path_text' => ' > 指考主選單 > 考區任務編組 > 考區',
+            'field' => $this->mod_task->get_field(),
+            'datalist' => $this->mod_task->get_list('考區'),
+            'jobs' => $jobs,
+            'fees_info' => $fees_info,
+            'datetime_info' => $datetime_info,
+        );
+
+        $this->load->view('layout', $data);
+    }
+
     /**
      * F 考程設定.
      */
