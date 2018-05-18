@@ -88,8 +88,9 @@ $(function(){
             },
             dataType:"json"
         }).done(function(data){
-            console.log(data.info);
-            if(data.info.order_meal == "y"){
+            // console.log(data.info);
+            console.log(data.info.order_meal.toUpperCase());
+            if(data.info.order_meal.toUpperCase() == "Y"){
                 $("#order_meal").prop("checked",true);
             }else{
                 $("#order_meal").prop("checked",false);
@@ -108,9 +109,9 @@ $(function(){
     
     $("#order_meal").change(function() {
         if (this.checked) {
-            $(this).val("y");
+            $(this).val("Y");
         } else {
-            $(this).val("n");
+            $(this).val("N");
         }
     });    
 

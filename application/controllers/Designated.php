@@ -251,7 +251,7 @@ class Designated extends CI_Controller
             $this->mod_task->import($area);
             fclose($file);
             unlink($file_name);
-            redirect('designated/a_4');
+            redirect('designated/b_5');
         } elseif (isset($_FILES['inputGroupFile02'])) {
             $file = $_FILES['inputGroupFile02']['tmp_name'];
             $file_name = './tmp/'.time().'.csv';
@@ -339,12 +339,17 @@ class Designated extends CI_Controller
             fclose($file);
             unlink($file_name);
             print_r(fgetcsv($file));
-            redirect('designated/a_4');
+            redirect('designated/b_5');
         } else {
             $data = array(
                     'title' => '職務資料',
                     'path' => 'designated/a_4',
                     'path_text' => ' > 指考主選單 > 資料匯入作業 > 職務資料',
+                    'all' => $this->mod_task->get_list(),
+                    'b1' => $this->mod_task->get_list('考區'),
+                    'b2' => $this->mod_task->get_list('第一分區'),
+                    'b3' => $this->mod_task->get_list('第二分區'),
+                    'b4' => $this->mod_task->get_list('第三分區'),
                 );
             $this->load->view('layout', $data);
         }

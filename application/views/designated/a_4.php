@@ -1,15 +1,16 @@
 <style>
-    @media (min-width: 1200px){
-        .container {
-            max-width: 100%;
-            width: 100%;
-        }
+@media (min-width: 1200px){
+    .container {
+        max-width: 100%;
+        width: 100%;
     }
+}
 img{
     max-width:100%;
 }
 </style>
 <script>
+$(function(){
     $("body").on("click","#Upload1",function(){
         var files = $("input[name='inputGroupFile01']").prop('files');
         console.log(files);
@@ -19,6 +20,7 @@ img{
         }else{
             if(confirm("注意！舊資料會全部刪除，新資料將匯入")){
                 $("#form1").submit();
+                // location.href="./designated/b_5";
             }
         }        
     })
@@ -31,9 +33,12 @@ img{
         }else{
             if(confirm("注意！舊資料會全部刪除，新資料將匯入")){
                 $("#form2").submit();
+                // location.href="./designated/b_5";
             }
         }        
     })    
+
+})
 </script>
 <div class="row">
     <div class="input-group col-sm-2">
@@ -58,8 +63,6 @@ img{
     </div>    
     
 </div>
-
-
 
 <!-- Modal start-->
 <div class="modal fade" id="area" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
