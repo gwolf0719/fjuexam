@@ -136,10 +136,10 @@ class Designated extends CI_Controller
                 $datas[] = array(
                      'sn' => uniqid(),
                      'year' => $this->session->userdata('year'),
-                     'department' => $data[1],
-                     'code' => $data[2],
-                     'company_name_01' => $data[3],
-                     'company_name_02' => $data[4],
+                     'department' => $data[0],
+                     'code' => $data[1],
+                     'company_name_01' => $data[2],
+                     'company_name_02' => $data[3],
                  );
                 // print_r($datas);
             }
@@ -251,7 +251,7 @@ class Designated extends CI_Controller
             $this->mod_task->import($area);
             fclose($file);
             unlink($file_name);
-            redirect('designated/b_5');
+            redirect('designated/a_4');
         } elseif (isset($_FILES['inputGroupFile02'])) {
             $file = $_FILES['inputGroupFile02']['tmp_name'];
             $file_name = './tmp/'.time().'.csv';
@@ -339,7 +339,7 @@ class Designated extends CI_Controller
             fclose($file);
             unlink($file_name);
             print_r(fgetcsv($file));
-            redirect('designated/b_5');
+            redirect('designated/a_4');
         } else {
             $data = array(
                     'title' => '職務資料',
