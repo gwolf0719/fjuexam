@@ -259,9 +259,9 @@ label {
                 <div class="col-md-12 col-sm-12 col-xs-12">             
                     <div class="form-group" style="text-align:right">
                         <div class="">
-                            <button class="btn btn-primary" type="button" id="add" style="display:none">確定</button>
+                            <!-- <button class="btn btn-primary" type="button" id="add" style="display:none">確定</button>
                             <button class="btn btn-danger" type="button" id="no" style="display:none">取消</button>
-                            <button class="btn btn-primary" type="button" id="add_info">新增</button>
+                            <button class="btn btn-primary" type="button" id="add_info">新增</button> -->
                             <button type="button" class="btn btn-primary" id="send">修改</button>
                             <button type="button" class="btn btn-danger" id="remove">刪除</button>
                         </div>
