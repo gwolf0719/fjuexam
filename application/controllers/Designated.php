@@ -113,6 +113,7 @@ class Designated extends CI_Controller
                 'path' => 'designated/a_1',
                 'path_text' => ' > 指考主選單 > 資料匯入作業 > 考區試場資料',
                 'datalist' => $this->mod_exam_area->year_get_list(),
+                'between' => $this->mod_exam_area->get_max_filed(),
             );
             $this->load->view('layout', $data);
         }

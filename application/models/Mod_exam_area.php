@@ -37,6 +37,22 @@ class Mod_exam_area extends CI_Model
 
         return $this->db->get('exam_area')->row_array();
     }
+
+    public function get_max_filed()
+    {
+        $this->db->select('subject_01,subject_02,subject_03,subject_04,subject_05,subject_06,subject_07,subject_08,subject_09,subject_10');
+        $this->db->where('year', $this->session->userdata('year'));
+        $this->db->where('field >=', '210118');
+        $this->db->where('field <=', '210120');
+
+        $data = $this->db->get('exam_area')->result_array();
+        foreach ($data as $k => $v) {
+            //取出該區間沒有巡堂得值;
+            $no = array_count_values($v);
+        }
+
+        return $count = 10 - $no[0];
+    }
 }
 
 /* End of file Mod_exam_area.php */
