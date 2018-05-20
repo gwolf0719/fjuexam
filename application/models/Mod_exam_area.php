@@ -38,12 +38,12 @@ class Mod_exam_area extends CI_Model
         return $this->db->get('exam_area')->row_array();
     }
 
-    public function get_max_filed()
+    public function get_max_filed($start, $end)
     {
         $this->db->select('subject_01,subject_02,subject_03,subject_04,subject_05,subject_06,subject_07,subject_08,subject_09,subject_10');
         $this->db->where('year', $this->session->userdata('year'));
-        $this->db->where('field >=', '210118');
-        $this->db->where('field <=', '210120');
+        $this->db->where('field >=', $start);
+        $this->db->where('field <=', $end);
 
         $data = $this->db->get('exam_area')->result_array();
         foreach ($data as $k => $v) {

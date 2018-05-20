@@ -37,6 +37,7 @@ class Designated extends CI_Controller
         $this->load->model('mod_exam_area');
         $this->load->model('mod_part_info');
         $this->load->model('mod_trial');
+        $this->load->model('mod_patrol');
         $this->mod_user->chk_status();
         if (isset($_FILES['file'])) { // 如果有接收到上傳檔案資料
             // print_r($_FILES);
@@ -97,12 +98,32 @@ class Designated extends CI_Controller
                     'trial_staff' => '',
                     'note' => '',
                 );
+                $datas_trial[] = array(
+                    'year' => $this->session->userdata('year'),
+                    'trial_staff_code' => '',
+                    'trial_staff_name' => '',
+                    'start' => '',
+                    'end' => '',
+                    'section' => '',
+                    'note' => '',
+                );
+                $datas_patrol[] = array(
+                    'year' => $this->session->userdata('year'),
+                    'patrol_staff_code' => '',
+                    'patrol_staff_name' => '',
+                    'start' => '',
+                    'end' => '',
+                    'section' => '',
+                    'note' => '',
+                );
             }
             // echo json_encode($datas);
 
             $this->mod_exam_area->import($datas);
             $this->mod_part_info->import($datas_part);
             $this->mod_trial->import($datas_assign);
+            $this->mod_trial->import_trial($datas_trial);
+            $this->mod_patrol->import($datas_patrol);
             fclose($file);
             unlink($file_name);
             // print_r(fgetcsv($file));
@@ -113,7 +134,6 @@ class Designated extends CI_Controller
                 'path' => 'designated/a_1',
                 'path_text' => ' > 指考主選單 > 資料匯入作業 > 考區試場資料',
                 'datalist' => $this->mod_exam_area->year_get_list(),
-                'between' => $this->mod_exam_area->get_max_filed(),
             );
             $this->load->view('layout', $data);
         }
@@ -696,9 +716,9 @@ class Designated extends CI_Controller
         $year = $this->session->userdata('year');
         $assign = $this->mod_trial->get_list('2501');
         $data = array(
-            'title' => '第一分區',
+            'title' => '監視人員指派',
             'path' => 'designated/d_1',
-            'path_text' => ' > 指考主選單 > 試場分配 > 第一分區',
+            'path_text' => ' > 指考主選單 > 試場人員指派 > 監視人員指派',
             'assign' => $assign,
         );
         $this->load->view('layout', $data);
@@ -710,33 +730,35 @@ class Designated extends CI_Controller
         $this->load->model('mod_trial');
         $this->mod_user->chk_status();
         $year = $this->session->userdata('year');
-        // $part = $this->mod_part_info->get_list('2501');
-        // $assign = $this->mod_trial->get_list($year)
-        // $arr = array(
-        //     "field"=>$
-        // );
-        $assign = $this->mod_trial->get_list('2502');
+        $part1 = $this->mod_trial->get_trial_list('2501');
+        $part2 = $this->mod_trial->get_trial_list('2502');
+        $part3 = $this->mod_trial->get_trial_list('2503');
         $data = array(
-            'title' => '第二分區',
+            'title' => '試務人員指派',
             'path' => 'designated/d_2',
-            'path_text' => ' > 指考主選單 > 試場分配 > 第二分區',
-            'assign' => $assign,
+            'path_text' => ' > 指考主選單 > 試場人員指派 > 試務人員指派',
+            'part1' => $part1,
+            'part2' => $part2,
+            'part3' => $part3,
         );
         $this->load->view('layout', $data);
     }
 
     public function d_3()
     {
-        $this->load->model('mod_part_info');
-        $this->load->model('mod_trial');
+        $this->load->model('mod_patrol');
         $this->mod_user->chk_status();
         $year = $this->session->userdata('year');
-        $assign = $this->mod_trial->get_list('2503');
+        $part1 = $this->mod_patrol->get_patrol_list('2501');
+        $part2 = $this->mod_patrol->get_patrol_list('2502');
+        $part3 = $this->mod_patrol->get_patrol_list('2503');
         $data = array(
-            'title' => '第三分區',
+            'title' => '巡場人員指派',
             'path' => 'designated/d_3',
-            'path_text' => ' > 指考主選單 > 試場分配 > 第三分區',
-            'assign' => $assign,
+            'path_text' => ' > 指考主選單 > 試場人員指派 > 巡場人員指派',
+            'part1' => $part1,
+            'part2' => $part2,
+            'part3' => $part3,
         );
         $this->load->view('layout', $data);
     }

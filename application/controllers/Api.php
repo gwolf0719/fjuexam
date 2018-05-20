@@ -505,6 +505,105 @@ class Api extends CI_Controller
         }
         echo json_encode($json_arr);
     }
-}
 
+    public function get_max_filed()
+    {
+        $this->load->model('mod_exam_area');
+        $getpost = array('start', 'end');
+        $requred = array('start', 'end');
+        $data = $this->getpost->getpost_array($getpost, $requred);
+        if ($data == false) {
+            $json_arr['sys_code'] = '000';
+            $json_arr['sys_msg'] = '資料不足';
+            $json_arr['requred'] = $this->getpost->report_requred($requred);
+        } else {
+            $json_arr['section'] = $this->mod_exam_area->get_max_filed($data['start'], $data['end']);
+            $json_arr['sys_code'] = '200';
+            $json_arr['sys_msg'] = '資料處理完成';
+        }
+        echo json_encode($json_arr);
+    }
+
+    public function save_trial_staff()
+    {
+        $this->load->model('mod_trial');
+        $getpost = array('sn', 'trial_staff_code', 'trial_staff_name', 'start', 'end', 'section', 'note');
+        $requred = array('sn', 'trial_staff_code', 'trial_staff_name', 'start', 'end', 'section');
+        $data = $this->getpost->getpost_array($getpost, $requred);
+        if ($data == false) {
+            $json_arr['sys_code'] = '000';
+            $json_arr['sys_msg'] = '資料不足';
+            $json_arr['requred'] = $this->getpost->report_requred($requred);
+        } else {
+            $data['year'] = $this->session->userdata('year');
+            if ($this->mod_trial->chk_trial($data['sn'])) {
+                $this->mod_trial->update_trial($data['sn'], $data);
+            } else {
+                $this->mod_trial->add_trial($data);
+            }
+            $json_arr['sys_code'] = '200';
+            $json_arr['sys_msg'] = '資料儲存完成';
+        }
+        echo json_encode($json_arr);
+    }
+
+    public function get_once_trial()
+    {
+        $this->load->model('mod_trial');
+        $getpost = array('sn');
+        $requred = array('sn');
+        $data = $this->getpost->getpost_array($getpost, $requred);
+        if ($data == false) {
+            $json_arr['sys_code'] = '000';
+            $json_arr['sys_msg'] = '資料不足';
+            $json_arr['requred'] = $this->getpost->report_requred($requred);
+        } else {
+            $json_arr['info'] = $this->mod_trial->get_once_trial($data['sn']);
+            $json_arr['sys_code'] = '200';
+            $json_arr['sys_msg'] = '資料處理完成';
+        }
+        echo json_encode($json_arr);
+    }
+
+    public function save_patrol_staff()
+    {
+        $this->load->model('mod_patrol');
+        $getpost = array('sn', 'patrol_staff_code', 'patrol_staff_name', 'start', 'end', 'section', 'note');
+        $requred = array('sn', 'patrol_staff_code', 'patrol_staff_name', 'start', 'end', 'section');
+        $data = $this->getpost->getpost_array($getpost, $requred);
+        if ($data == false) {
+            $json_arr['sys_code'] = '000';
+            $json_arr['sys_msg'] = '資料不足';
+            $json_arr['requred'] = $this->getpost->report_requred($requred);
+        } else {
+            $data['year'] = $this->session->userdata('year');
+            if ($this->mod_patrol->chk_once($data['sn'])) {
+                $this->mod_patrol->update_once($data['sn'], $data);
+            } else {
+                $this->mod_patrol->add_once($data);
+            }
+            $json_arr['sys_code'] = '200';
+            $json_arr['sys_msg'] = '資料儲存完成';
+        }
+        echo json_encode($json_arr);
+    }
+
+    public function get_once_patrol()
+    {
+        $this->load->model('mod_patrol');
+        $getpost = array('sn');
+        $requred = array('sn');
+        $data = $this->getpost->getpost_array($getpost, $requred);
+        if ($data == false) {
+            $json_arr['sys_code'] = '000';
+            $json_arr['sys_msg'] = '資料不足';
+            $json_arr['requred'] = $this->getpost->report_requred($requred);
+        } else {
+            $json_arr['info'] = $this->mod_patrol->get_once($data['sn']);
+            $json_arr['sys_code'] = '200';
+            $json_arr['sys_msg'] = '資料處理完成';
+        }
+        echo json_encode($json_arr);
+    }
+}
 /* End of file Api.php */

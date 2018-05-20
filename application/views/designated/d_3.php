@@ -67,6 +67,32 @@ label {
     bottom: 0px;
     width:100%;
 }
+.tab{
+    width: 18%;
+    float: left;
+    text-align: center;
+    background: #e2e2e2;
+    height: 70px;
+    padding-top: 14px;
+    margin: 10px;
+    cursor:pointer;
+    border-radius: 10px 10px 0px 0px;
+}
+.tab.active{
+    background:#a97eb8;
+}
+.part{
+    display:none;
+}
+.W50{
+    width:50%;
+    float:left;
+}
+.tab_text{
+    text-align: center;
+    padding: 10px 0px;
+    font-size: 21px;
+}
 </style>
 
 <script>
@@ -93,29 +119,26 @@ $(function(){
         });
     })
 
-    $("body").on("click","#sure1",function(){
-        var code = $("#number_1").val().substr(0,4);
-        var name = $("#number_1").val().substr(7,8);
-        $("#supervisor_1").val(name);
-        $("#supervisor_1_code").val(code);
-        $('#exampleModal1').modal('hide');
-    })
-
-    $("body").on("click","#sure2",function(){
-        var code = $("#number_2").val().substr(0,4);
-        var name = $("#number_2").val().substr(7,8);
-        $("#supervisor_2").val(name);
-        $("#supervisor_2_code").val(code);
-        $('#exampleModal2').modal('hide');
-    })
 
     $("body").on("click","#sure3",function(){
-        var code = $("#number_3").val().substr(0,4);
-        var name = $("#number_3").val().substr(7,8);
-        $("#trial_staff").val(name);
-        $('#exampleModal3').modal('hide');
+        var code = $(".typeahead").val().split("-");
+        console.log(code);
+        console.log(name);
+        $("#patrol_staff_name").val(code[1]);
+        $('#exampleModal').modal('hide');
     })
 
+    $(".part").eq(0).show();
+    $("body").on("click",".tab",function(){
+        var $this = $(this);
+         //點擊先做還原動作
+        $(".tab").removeClass("active");
+        $(".part").hide();
+        // 點擊到的追加active以及打開相對應table
+        $this.addClass("active");
+        var area = $this.attr("area");
+        $("#part"+area).show()
+    })
 
     $("body").on("click","tr",function(){
         var sn = $(this).attr("sn");
@@ -123,7 +146,7 @@ $(function(){
         scrollTop: $("body").height()
         }, 1000);         
         $.ajax({
-            url: 'api/get_once_part',
+            url: 'api/get_once_patrol',
             data:{
                 "sn":sn,
             },
@@ -131,37 +154,50 @@ $(function(){
         }).done(function(data){
             console.log(data.info);
             $("#sn").val(sn);
-            $("#field").val(data.info.field);
+            $("#patrol_staff_code").val(data.info.patrol_staff_code);
+            $("#patrol_staff_name").val(data.info.patrol_staff_name);
             $("#start").val(data.info.start);
             $("#end").val(data.info.end);
-            $("#floor").val(data.info.floor);
-            $("#number").val(data.info.number);
-            $("#section").val(data.info.test_section);
-            // $("#note").val(data.info.note);
+            $("#section").val(data.info.section);
+            $("#note").val(data.info.note);
         })
+    })
+
+    $("body").on("change",".field",function(){
+        var start = $("#start").val();
+        var end = $("#end").val();
+        $.ajax({
+            url: 'api/get_max_filed',
+            data:{
+                "start":start,
+                "end":end,
+            },
+            dataType:"json"
+        }).done(function(data){
+            console.log(data);
+            $("#section").val(data.section);
+        })   
     })
 
     $("body").on("click","#send",function(){
         if(confirm("是否要儲存?")){
             var sn = $("#sn").val();
-            var supervisor_1 = $("#supervisor_1").val();
-            var supervisor_1_code = $("#supervisor_1_code").val();
-            var supervisor_2 = $("#supervisor_2").val();
-            var supervisor_2_code = $("#supervisor_2_code").val();          
-            var trial_staff = $("#trial_staff").val();
-            var trial_staff_code = $("#trial_staff_code").val();
+            var patrol_staff_code = $("#patrol_staff_code").val();
+            var patrol_staff_name = $("#patrol_staff_name").val();
+            var start = $("#start").val();
+            var end = $("#end").val();          
+            var section = $("#section").val();
             var note = $("textarea[name='note']").val();
             console.log(sn);
             $.ajax({
-                url: 'api/save_trial',
+                url: 'api/save_patrol_staff',
                 data:{
                     "sn":sn,
-                    "supervisor_1":supervisor_1,
-                    "supervisor_1_code":supervisor_1_code,
-                    "supervisor_2":supervisor_2,
-                    "supervisor_2_code":supervisor_2_code,                    
-                    "trial_staff":trial_staff,
-                    "trial_staff_code":trial_staff_code,
+                    "patrol_staff_code":patrol_staff_code,
+                    "patrol_staff_name":patrol_staff_name,
+                    "start":start,
+                    "end":end,                    
+                    "section":section,
                     "note":note
                 },
                 dataType:"json"
@@ -187,105 +223,145 @@ $(function(){
     </div>
 
     <div class="col-sm-8" style="text-align: center;">
-        <img src="assets/images/d3_title.png" alt="" style="width: 15%;">
+        <img src="assets/images/d2_title.png" alt="" style="width: 15%;">
     </div>
     
 </div>
-
-<div class="row" style="height:700px;overflow: auto;">
+<div class="row" style="position: relative;top: 20px;left: 10px;">
+    <div style="width:95%;margin:0 auto">
+        <div class="tab active" area="1"><div class="tab_text">第一分區</div></div>
+        <div class="tab" area="2"><div class="tab_text">第二分區</div></div>
+        <div class="tab" area="3"><div class="tab_text">第三分區</div></div>
+    </div>
+</div>
+<div class="row part" id="part1" style="height:700px;overflow: auto;">
    <div class="col-12" style="margin-top: 10px;">
         <table class="table table-hover" id="">
             <thead>
                 <tr>
                     <th>序號</th>
-                    <th>試場</th>
-                    <th>考試節數</th>
-                    <th>考生應試號起</th>
-                    <th>考生應試號迄</th>
-                    <th>應試人數</th>
-                    <th>樓層別</th>
-                    <th>監試人員一</th>
-                    <th>監試人員二</th>
-                    <th>試務人員編號</th>
-                    <th>試務人員</th>
+                    <th>巡場人員編號</th>
+                    <th>巡場人員</th>
+                    <th>試場號起</th>
+                    <th>試場號迄</th>
+                    <th>最大試節數</th>
                     <th>備註</th>                    
                 </tr>
             </thead>
             <tbody>
-            <?php foreach ($assign as $k => $v): ?>
+            <?php foreach ($part1 as $k => $v): ?>
                 <tr sn="<?=$v['sn']; ?>">
                     <td><?=$k + 1; ?></td>
-                    <td><?=$v['field']; ?></td>
-                    <td><?=$v['test_section']; ?></td>
+                    <td><?=$v['patrol_staff_code']; ?></td>
+                    <td><?=$v['patrol_staff_name']; ?></td>
                     <td><?=$v['start']; ?></td>
                     <td><?=$v['end']; ?></td>                   
-                    <td><?=$v['number']; ?></td>
-                    <td><?=$v['floor']; ?></td>
-                    <td><?=$v['supervisor_1']; ?></td>
-                    <td><?=$v['supervisor_2']; ?></td>
-                    <td><?=$v['trial_staff_code']; ?></td>
-                    <td><?=$v['trial_staff']; ?></td>                       
-                    <td><?=$v['note']; ?></td>
+                    <td><?=$v['section']; ?></td>
+                    <td><?=$v['note']; ?></td>    
                 </tr>                    
             <?php endforeach; ?>         
             </tbody>
         </table>
      </div>
 </div>
-
+<div class="row part" id="part2" style="height:700px;overflow: auto;">
+   <div class="col-12" style="margin-top: 10px;">
+        <table class="table table-hover" id="">
+            <thead>
+                <tr>
+                    <th>序號</th>
+                    <th>巡場人員編號</th>
+                    <th>巡場人員</th>
+                    <th>試場號起</th>
+                    <th>試場號迄</th>
+                    <th>最大試節數</th>
+                    <th>備註</th>                    
+                </tr>
+            </thead>
+            <tbody>
+            <?php foreach ($part2 as $k => $v): ?>
+                <tr sn="<?=$v['sn']; ?>">
+                    <td><?=$k + 1; ?></td>
+                    <td><?=$v['patrol_staff_code']; ?></td>
+                    <td><?=$v['patrol_staff_name']; ?></td>
+                    <td><?=$v['start']; ?></td>
+                    <td><?=$v['end']; ?></td>                   
+                    <td><?=$v['section']; ?></td>
+                    <td><?=$v['note']; ?></td>    
+                </tr>                    
+            <?php endforeach; ?>         
+            </tbody>
+        </table>
+     </div>
+</div>
+<div class="row part" id="part3" style="height:700px;overflow: auto;">
+   <div class="col-12" style="margin-top: 10px;">
+        <table class="table table-hover" id="">
+            <thead>
+                <tr>
+                    <th>序號</th>
+                    <th>巡場人員編號</th>
+                    <th>巡場人員</th>
+                    <th>試場號起</th>
+                    <th>試場號迄</th>
+                    <th>最大試節數</th>
+                    <th>備註</th>                    
+                </tr>
+            </thead>
+            <tbody>
+            <?php foreach ($part3 as $k => $v): ?>
+                <tr sn="<?=$v['sn']; ?>">
+                    <td><?=$k + 1; ?></td>
+                    <td><?=$v['patrol_staff_code']; ?></td>
+                    <td><?=$v['patrol_staff_name']; ?></td>
+                    <td><?=$v['start']; ?></td>
+                    <td><?=$v['end']; ?></td>                   
+                    <td><?=$v['section']; ?></td>
+                    <td><?=$v['note']; ?></td>    
+                </tr>                    
+            <?php endforeach; ?>         
+            </tbody>
+        </table>
+     </div>
+</div>
 <div class="bottom">
     <div class="row boxs">
         <div class="col-md-12 col-sm-12 col-xs-12 ">      
             <form method="POST" enctype="multipart/form-data"  action="" id="form" class="">                                            
+            
+                <div class="col-md-3 col-sm-3 col-xs-3 cube" style="height:150px;">
+                    <div class="form-group" style="width: 100%;float: left;">
+                        <label for="floor" class="" style="float:left;">巡場人員</label>
+                        <input type="text" class="form-control" id="patrol_staff_code" style="width: 20%;float: left;" placeholder="分配編號">
+                        <input type="text" class="form-control" id="patrol_staff_name" style="width: 25%;float: left;margin-left: 5px;">
+                        <button type="button" class="btn btn-primary assgin" data-toggle="modal" data-target="#exampleModal" style="float:left;width:15%;margin-left:5px;">指派</button>
+                    </div>                                                                          
+                </div>    
                 <div class="col-md-3 col-sm-3 col-xs-3 cube">           
                     <div class="form-group">
-                        <label for="field" class=""  style="float:left;">試場</label>
-                        <input type="text" class="form-control" id="field" readonly>
+                        <label for="field" class=""  style="float:left;">試場號起</label>
                         <input type="hidden" class="form-control" id="sn">
+                        <select name="start" id="start" class="field form-control">
+                            <option value="">請選擇</option>
+                            <?php foreach ($part1 as $k => $v): ?>
+                                <option value="<?=$v['field']; ?>"><?=$v['field']; ?></option>                 
+                            <?php endforeach; ?>                               
+                        </select>
                     </div>     
                     <div class="form-group">
-                        <label for="section" class=""  style="float:left;">考試節數</label>
-                        <input type="text" class="form-control" id="section" readonly>
+                        <label for="section" class=""  style="float:left;">試場號迄</label>
+                        <select name="end" id="end" class="field form-control">
+                            <option value="">請選擇</option>
+                            <?php foreach ($part1 as $k => $v): ?>
+                                <option value="<?=$v['field']; ?>"><?=$v['field']; ?></option>                 
+                            <?php endforeach; ?>                               
+                        </select>
                     </div>  
                     <div class="form-group">
-                        <label for="start" class=""  style="float:left;">考生應試號起</label>
-                        <input type="text" class="form-control" id="start" readonly>
-                    </div>                  
-                    <div class="form-group">
-                        <label for="end" class=""  style="float:left;">考生應試號迄</label>
-                        <input type="text" class="form-control" id="end" readonly>
-                    </div>                        
-                </div>              
-                <div class="col-md-3 col-sm-3 col-xs-3 cube">
-                    <div class="form-group">
-                        <label for="number" class="" style="float:left;">應試人數</label>
-                        <input type="text" class="form-control" id="number" readonly>
-                    </div>      
-                    <div class="form-group">
-                        <label for="floor" class="" style="float:left;">樓層別</label>
-                        <input type="text" class="form-control" id="floor" readonly>
-                    </div>                                                       
-                </div>     
-                <div class="col-md-3 col-sm-3 col-xs-3 cube">
-                    <div class="form-group" style="width: 100%;float: left;">
-                        <label for="number" class="" style="float:left;">監試人員一</label>
-                        <input type="text" class="form-control" id="supervisor_1" style="width: 40%;float: left;">
-                        <input type="hidden" class="form-control" id="supervisor_1_code">
-                        <button type="button" class="btn btn-primary assgin" data-toggle="modal" data-target="#exampleModal1" style="float:left;width:15%;margin-left:5px;">指派</button>
-                    </div>      
-                    <div class="form-group" style="width: 100%;float: left;">
-                        <label for="floor" class="" style="float:left;">監試人員二</label>
-                        <input type="text" class="form-control" id="supervisor_2" style="width: 40%;float: left;">
-                        <input type="hidden" class="form-control" id="supervisor_2_code">
-                        <button type="button" class="btn btn-primary assgin" data-toggle="modal" data-target="#exampleModal2" style="float:left;width:15%;margin-left:5px;">指派</button>
-                    </div>    
-                    <div class="form-group" style="width: 100%;float: left;">
-                        <label for="floor" class="" style="float:left;">試務人員</label>
-                        <input type="text" class="form-control" id="trial_staff_code" style="width: 20%;float: left;" placeholder="分配編號">
-                        <input type="text" class="form-control" id="trial_staff" style="width: 25%;float: left;margin-left: 5px;">
-                        <button type="button" class="btn btn-primary assgin" data-toggle="modal" data-target="#exampleModal3" style="float:left;width:15%;margin-left:5px;">指派</button>
-                    </div>                                                                          
-                </div>                    
+                        <label for="start" class=""  style="float:left;">節數</label>
+                        <input type="text" class="form-control" id="section" readonly>
+                    </div>                                  
+                </div>                                              
                 <div class="col-md-6 col-sm-6 col-xs-6 " style="float:left;margin: 20px auto;">             
                     <div class="">
                         <div class="">
@@ -305,8 +381,9 @@ $(function(){
         </div>
     </div> 
 </div> 
+
 <!-- Modal start-->
-<div class="modal fade" id="exampleModal1" tabindex="-1" role="dialog" aria-labelledby="exampleModal" aria-hidden="true">
+<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModal" aria-hidden="true">
   <div class="modal-dialog" role="document">
     <div class="modal-content">
       <div class="modal-header" style="border-bottom: none;">
@@ -321,69 +398,7 @@ $(function(){
                 <form method="POST" enctype="multipart/form-data"  action="" id="form" class="page_form">                                            
                     <div style="width: 255px;margin: 0 auto;">       
                         <div>
-                            <p>關鍵字<input type="text" class="typeahead" id="number_1"></p>
-                        </div>
-                    </div>       
-                    <div class="" style="text-align: right;margin: 20px;">
-                        <button type="button" class="btn btn-primary" id="sure1">確定指派</button>
-                        <button type="button" class="btn btn-success" data-dismiss="modal" aria-label="Close" id="">取消</button>
-                    </div>                                                                                                   
-                </form>
-            </div>
-        </div>    
-      </div>
-    </div>
-  </div>
-</div>
-<!-- Modal end-->
-<!-- Modal start-->
-<div class="modal fade" id="exampleModal2" tabindex="-1" role="dialog" aria-labelledby="exampleModal" aria-hidden="true">
-  <div class="modal-dialog" role="document">
-    <div class="modal-content">
-      <div class="modal-header" style="border-bottom: none;">
-        <h5 class="modal-title" id="exampleModalLabel" style="">指派職務</h5>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
-      </div>
-      <div class="modal-body">
-        <div class="row">
-            <div class="col-md-12 col-sm-12 col-xs-12">      
-                <form method="POST" enctype="multipart/form-data"  action="" id="form" class="page_form">                                            
-                    <div style="width: 255px;margin: 0 auto;">       
-                        <div>
-                            <p>關鍵字<input type="text" class="typeahead" id="number_2"></p>
-                        </div>
-                    </div>       
-                    <div class="" style="text-align: right;margin: 20px;">
-                        <button type="button" class="btn btn-primary" id="sure2">確定指派</button>
-                        <button type="button" class="btn btn-success" data-dismiss="modal" aria-label="Close" id="">取消</button>
-                    </div>                                                                                                   
-                </form>
-            </div>
-        </div>    
-      </div>
-    </div>
-  </div>
-</div>
-<!-- Modal end-->
-<!-- Modal start-->
-<div class="modal fade" id="exampleModal3" tabindex="-1" role="dialog" aria-labelledby="exampleModal" aria-hidden="true">
-  <div class="modal-dialog" role="document">
-    <div class="modal-content">
-      <div class="modal-header" style="border-bottom: none;">
-        <h5 class="modal-title" id="exampleModalLabel" style="">指派職務</h5>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
-      </div>
-      <div class="modal-body">
-        <div class="row">
-            <div class="col-md-12 col-sm-12 col-xs-12">      
-                <form method="POST" enctype="multipart/form-data"  action="" id="form" class="page_form">                                            
-                    <div style="width: 255px;margin: 0 auto;">       
-                        <div>
-                            <p>關鍵字<input type="text" class="typeahead" id="number_3"></p>
+                            <p>關鍵字<input type="text" class="typeahead" id="number"></p>
                         </div>
                     </div>       
                     <div class="" style="text-align: right;margin: 20px;">
