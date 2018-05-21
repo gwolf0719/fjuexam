@@ -623,5 +623,62 @@ class Api extends CI_Controller
         }
         echo json_encode($json_arr);
     }
+
+    public function get_staff_member()
+    {
+        $this->load->model('mod_staff');
+        $getpost = array('code');
+        $requred = array('code');
+        $data = $this->getpost->getpost_array($getpost, $requred);
+
+        if ($data == false) {
+            $json_arr['sys_code'] = '000';
+            $json_arr['sys_msg'] = '資料不足';
+            $json_arr['requred'] = $this->getpost->report_requred($requred);
+        } else {
+            $json_arr['info'] = $this->mod_staff->get_staff_member($data['code']);
+            $json_arr['sys_code'] = '200';
+            $json_arr['sys_msg'] = '資料處理完成';
+        }
+        echo json_encode($json_arr);
+    }
+
+    public function save_trial_staff_for_list()
+    {
+        $this->load->model('mod_trial');
+        $getpost = array('sn', 'calculation', 'do_date', 'count', 'salary', 'salary_total', 'lunch_price', 'lunch_total', 'total');
+        $requred = array('sn', 'calculation', 'count', 'salary', 'salary_total', 'lunch_price', 'lunch_total', 'total');
+        $data = $this->getpost->getpost_array($getpost, $requred);
+        if ($data == false) {
+            $json_arr['sys_code'] = '000';
+            $json_arr['sys_msg'] = '資料不足';
+            $json_arr['requred'] = $this->getpost->report_requred($requred);
+        } else {
+            $data['year'] = $this->session->userdata('year');
+            $this->mod_trial->update_trial($data['sn'], $data);
+            $json_arr['sys_code'] = '200';
+            $json_arr['sys_msg'] = '資料修改完成';
+        }
+        echo json_encode($json_arr);
+    }
+
+    public function save_patrol_staff_for_list()
+    {
+        $this->load->model('mod_patrol');
+        $getpost = array('sn', 'calculation', 'do_date', 'count', 'salary', 'salary_total', 'lunch_price', 'lunch_total', 'total');
+        $requred = array('sn', 'calculation', 'count', 'salary', 'salary_total', 'lunch_price', 'lunch_total', 'total');
+        $data = $this->getpost->getpost_array($getpost, $requred);
+        if ($data == false) {
+            $json_arr['sys_code'] = '000';
+            $json_arr['sys_msg'] = '資料不足';
+            $json_arr['requred'] = $this->getpost->report_requred($requred);
+        } else {
+            $data['year'] = $this->session->userdata('year');
+            $this->mod_patrol->update_once($data['sn'], $data);
+            $json_arr['sys_code'] = '200';
+            $json_arr['sys_msg'] = '資料修改完成';
+        }
+        echo json_encode($json_arr);
+    }
 }
 /* End of file Api.php */

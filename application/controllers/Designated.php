@@ -804,6 +804,88 @@ class Designated extends CI_Controller
         $this->load->view('layout', $data);
     }
 
+    public function d_5()
+    {
+        $this->load->model('mod_trial');
+        $this->load->model('mod_exam_datetime');
+        $this->load->model('mod_exam_fees');
+        $this->mod_user->chk_status();
+        $year = $this->session->userdata('year');
+        $part1 = $this->mod_trial->get_trial_list('2501');
+        $part2 = $this->mod_trial->get_trial_list('2502');
+        $part3 = $this->mod_trial->get_trial_list('2503');
+        if ($this->mod_exam_fees->chk_once($year)) {
+            $fees_info = $this->mod_exam_fees->get_once($year);
+        } else {
+            $fees_info = array(
+                'one_day_salary' => '0',
+                'salary_section' => '0',
+                'lunch_fee' => '0',
+            );
+        }
+        if ($this->mod_exam_datetime->chk_once($year)) {
+            $datetime_info = $this->mod_exam_datetime->get_once($year);
+        } else {
+            $datetime_info = array(
+                'day_1' => '07/01',
+                'day_2' => '07/02',
+                'day_3' => '07/03',
+            );
+        }
+        $data = array(
+            'title' => '試務人員列表',
+            'path' => 'designated/d_5',
+            'path_text' => ' > 指考主選單 > 試場人員指派 > 試務人員列表',
+            'part1' => $part1,
+            'part2' => $part2,
+            'part3' => $part3,
+            'fees_info' => $fees_info,
+            'datetime_info' => $datetime_info,
+        );
+        $this->load->view('layout', $data);
+    }
+
+    public function d_6()
+    {
+        $this->load->model('mod_patrol');
+        $this->load->model('mod_exam_datetime');
+        $this->load->model('mod_exam_fees');
+        $this->mod_user->chk_status();
+        $year = $this->session->userdata('year');
+        $part1 = $this->mod_patrol->get_patrol_list('2501');
+        $part2 = $this->mod_patrol->get_patrol_list('2502');
+        $part3 = $this->mod_patrol->get_patrol_list('2503');
+        if ($this->mod_exam_fees->chk_once($year)) {
+            $fees_info = $this->mod_exam_fees->get_once($year);
+        } else {
+            $fees_info = array(
+                'one_day_salary' => '0',
+                'salary_section' => '0',
+                'lunch_fee' => '0',
+            );
+        }
+        if ($this->mod_exam_datetime->chk_once($year)) {
+            $datetime_info = $this->mod_exam_datetime->get_once($year);
+        } else {
+            $datetime_info = array(
+                'day_1' => '07/01',
+                'day_2' => '07/02',
+                'day_3' => '07/03',
+            );
+        }
+        $data = array(
+            'title' => '巡場人員列表',
+            'path' => 'designated/d_6',
+            'path_text' => ' > 指考主選單 > 試場人員指派 > 巡場人員列表',
+            'part1' => $part1,
+            'part2' => $part2,
+            'part3' => $part3,
+            'fees_info' => $fees_info,
+            'datetime_info' => $datetime_info,
+        );
+        $this->load->view('layout', $data);
+    }
+
     /**
      * F 考程設定.
      */

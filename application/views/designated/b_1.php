@@ -200,7 +200,7 @@ $(function(){
                 $("#total").val("0");
             }
 
-            if(data.info.order_meal == "y"){
+            if(data.info.order_meal.toUpperCase() == "Y"){
                 $("#order_meal").prop("checked",true);
                 $("#lunch_price").attr("readonly",false);
             }else{

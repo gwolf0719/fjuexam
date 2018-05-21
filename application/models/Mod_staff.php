@@ -31,6 +31,11 @@ class Mod_staff extends CI_Model
         return $this->db->where('sn', $sn)->get('staff_member')->row_array();
     }
 
+    public function get_staff_member($code)
+    {
+        return $this->db->where('member_code', $code)->get('staff_member')->row_array();
+    }
+
     public function add_once($data)
     {
         $data['year'] = $this->session->userdata('year');
