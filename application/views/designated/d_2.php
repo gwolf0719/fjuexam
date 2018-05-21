@@ -122,8 +122,7 @@ $(function(){
 
     $("body").on("click","#sure3",function(){
         var code = $(".typeahead").val().split("-");
-        console.log(code);
-        console.log(name);
+        $("#trial_staff_code").val(code[0]);
         $("#trial_staff_name").val(code[1]);
         $('#exampleModal').modal('hide');
     })
@@ -137,7 +136,22 @@ $(function(){
         // 點擊到的追加active以及打開相對應table
         $this.addClass("active");
         var area = $this.attr("area");
-        $("#part"+area).show()
+        $("#part"+area).show();
+        var part = $(this).attr("part");
+        $.ajax({
+            url: 'api/get_patrol_list',
+            data:{
+                "part":part,
+            },
+            dataType:"json"
+        }).done(function(data){
+            var html = "";
+            $.each(data.info,function(k,v){
+                html += '<option value="'+v.field+'">' + v.field + '</option>'; 
+            }) 
+            $("#start").html(html); 
+            $("#end").html(html); 
+        })            
     })
 
     $("body").on("click","tr",function(){
@@ -154,6 +168,7 @@ $(function(){
         }).done(function(data){
             console.log(data.info);
             $("#sn").val(sn);
+            $("#allocation_code").val(data.info.allocation_code);
             $("#trial_staff_code").val(data.info.trial_staff_code);
             $("#trial_staff_name").val(data.info.trial_staff_code);
             $("#start").val(data.info.start);
@@ -161,6 +176,21 @@ $(function(){
             $("#section").val(data.info.section);
             $("#note").val(data.info.note);
         })
+        var part = $(this).attr("part");
+        $.ajax({
+            url: 'api/get_patrol_list',
+            data:{
+                "part":part,
+            },
+            dataType:"json"
+        }).done(function(data){
+            var html = "";
+            $.each(data.info,function(k,v){
+                html += '<option value="'+v.field+'">' + v.field + '</option>'; 
+            }) 
+            $("#start").html(html); 
+            $("#end").html(html); 
+        })                
     })
 
     $("body").on("change",".field",function(){
@@ -182,6 +212,7 @@ $(function(){
     $("body").on("click","#send",function(){
         if(confirm("是否要儲存?")){
             var sn = $("#sn").val();
+            var allocation_code = $("#allocation_code").val();
             var trial_staff_code = $("#trial_staff_code").val();
             var trial_staff_name = $("#trial_staff_name").val();
             var start = $("#start").val();
@@ -193,6 +224,7 @@ $(function(){
                 url: 'api/save_trial_staff',
                 data:{
                     "sn":sn,
+                    "allocation_code":allocation_code,
                     "trial_staff_code":trial_staff_code,
                     "trial_staff_name":trial_staff_name,
                     "start":start,
@@ -228,10 +260,10 @@ $(function(){
     
 </div>
 <div class="row" style="position: relative;top: 20px;left: 10px;">
-    <div style="width:95%;margin:0 auto">
-        <div class="tab active" area="1"><div class="tab_text">第一分區</div></div>
-        <div class="tab" area="2"><div class="tab_text">第二分區</div></div>
-        <div class="tab" area="3"><div class="tab_text">第三分區</div></div>
+    <div style="width:95%;margin:5px auto;z-index:9999">
+        <div class="tab active" area="1" part="2501"><div class="tab_text">第一分區</div></div>
+        <div class="tab" area="2" part="2502"><div class="tab_text">第二分區</div></div>
+        <div class="tab" area="3" part="2503"><div class="tab_text">第三分區</div></div>
     </div>
 </div>
 <div class="row part" id="part1" style="height:700px;overflow: auto;">
@@ -250,9 +282,9 @@ $(function(){
             </thead>
             <tbody>
             <?php foreach ($part1 as $k => $v): ?>
-                <tr sn="<?=$v['sn']; ?>">
+                <tr sn="<?=$v['sn']; ?>" part="2501">
                     <td><?=$k + 1; ?></td>
-                    <td><?=$v['trial_staff_code']; ?></td>
+                    <td><?=$v['allocation_code']; ?></td>
                     <td><?=$v['trial_staff_name']; ?></td>
                     <td><?=$v['start']; ?></td>
                     <td><?=$v['end']; ?></td>                   
@@ -280,9 +312,9 @@ $(function(){
             </thead>
             <tbody>
             <?php foreach ($part2 as $k => $v): ?>
-                <tr sn="<?=$v['sn']; ?>">
+                <tr sn="<?=$v['sn']; ?>" part="2502">
                     <td><?=$k + 1; ?></td>
-                    <td><?=$v['trial_staff_code']; ?></td>
+                    <td><?=$v['allocation_code']; ?></td>
                     <td><?=$v['trial_staff_name']; ?></td>
                     <td><?=$v['start']; ?></td>
                     <td><?=$v['end']; ?></td>                   
@@ -310,9 +342,9 @@ $(function(){
             </thead>
             <tbody>
             <?php foreach ($part3 as $k => $v): ?>
-                <tr sn="<?=$v['sn']; ?>">
+                <tr sn="<?=$v['sn']; ?>" part="2503">
                     <td><?=$k + 1; ?></td>
-                    <td><?=$v['trial_staff_code']; ?></td>
+                    <td><?=$v['allocation_code']; ?></td>
                     <td><?=$v['trial_staff_name']; ?></td>
                     <td><?=$v['start']; ?></td>
                     <td><?=$v['end']; ?></td>                   
@@ -332,7 +364,8 @@ $(function(){
                 <div class="col-md-3 col-sm-3 col-xs-3 cube" style="height:150px;">
                     <div class="form-group" style="width: 100%;float: left;">
                         <label for="floor" class="" style="float:left;">試務人員</label>
-                        <input type="text" class="form-control" id="trial_staff_code" style="width: 20%;float: left;" placeholder="分配編號">
+                        <input type="text" class="form-control" id="allocation_code" style="width: 20%;float: left;" placeholder="分配編號">
+                        <input type="hidden" class="form-control" id="trial_staff_code" style="width: 20%;float: left;" placeholder="">
                         <input type="text" class="form-control" id="trial_staff_name" style="width: 25%;float: left;margin-left: 5px;">
                         <button type="button" class="btn btn-primary assgin" data-toggle="modal" data-target="#exampleModal" style="float:left;width:15%;margin-left:5px;">指派</button>
                     </div>                                                                          
@@ -342,19 +375,13 @@ $(function(){
                         <label for="field" class=""  style="float:left;">試場號起</label>
                         <input type="hidden" class="form-control" id="sn">
                         <select name="start" id="start" class="field form-control">
-                            <option value="">請選擇</option>
-                            <?php foreach ($part1 as $k => $v): ?>
-                                <option value="<?=$v['field']; ?>"><?=$v['field']; ?></option>                 
-                            <?php endforeach; ?>                               
+
                         </select>
                     </div>     
                     <div class="form-group">
                         <label for="section" class=""  style="float:left;">試場號迄</label>
                         <select name="end" id="end" class="field form-control">
-                            <option value="">請選擇</option>
-                            <?php foreach ($part1 as $k => $v): ?>
-                                <option value="<?=$v['field']; ?>"><?=$v['field']; ?></option>                 
-                            <?php endforeach; ?>                               
+
                         </select>
                     </div>  
                     <div class="form-group">
