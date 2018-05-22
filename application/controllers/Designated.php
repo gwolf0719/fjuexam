@@ -998,7 +998,8 @@ class Designated extends CI_Controller
 
         $this->mod_exam_datetime->clean_course($year);
         $this->mod_exam_datetime->setting_course($year, $_POST);
-        redirect('./designated/f_2');
+
+        // redirect('./designated/f_2');
     }
 
     public function f_3()

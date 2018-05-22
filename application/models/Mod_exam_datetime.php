@@ -43,13 +43,11 @@ class Mod_exam_datetime extends CI_Model
 
     public function setting_course($year, $data)
     {
-        foreach ($data as $k => $v) {
-            $new_data = array(
-                'year' => $year,
-                'course' => $k,
-                'course_name' => $v,
-            );
-            $this->db->insert('exam_course', $new_data);
+        $new_data = array();
+        foreach ($data['course'] as $k => $v) {
+            $new_data['year'] = $year;
+            $new_data['course'] = $v['course'];
+            print_r($new_data);
         }
     }
 

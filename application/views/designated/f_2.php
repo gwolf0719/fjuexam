@@ -41,7 +41,37 @@
         
         $("body").on("click","#save",function(){
             if(confirm("是否確定修改？")){
-                $("form").submit();
+                var year = $("#year").val();
+                var course = [];
+                $(".course").each(function(){
+                    course.push({"course":$(this).attr("id")});
+                })
+                var course_name = [];
+                $(".course").each(function(){
+                    course_name.push({"course_name":$(this).val()});
+                })    
+                var subject = [];
+                $(".course").each(function(){
+                    subject.push({"subject":$(this).find(":selected").attr("subject")});
+                })    
+                var date = [];
+                $(".course").each(function(){
+                    date.push({"date":$(this).find(":selected").attr("date")});
+                })     
+                $.ajax({
+                    url: 'api/add_course',
+                    data:{
+                        "year":year,
+                        "course":course,
+                        "course_name":course_name,
+                        "subject":subject,
+                        "date":date
+                    },
+                    dataType:"json"
+                }).done(function(data){
+ 
+                })     
+                // console.log($("#1_1").find(":selected").attr("subject"));
             }
         })
     })
@@ -49,7 +79,7 @@
 </script>
 <?php 
 $course_arr = ['', '物理', '化學', '生物', '數學乙', '國文', '英文', '數學甲', '歷史', '地理', '公民與社會'];
-// print_r($course_arr);
+// print_r($this->config->item('course'));
 ?>
 <div class="row">
     <div class="input-group col-sm-2">
@@ -66,7 +96,7 @@ $course_arr = ['', '物理', '化學', '生物', '數學乙', '國文', '英文'
     </div>
     
 </div>
-<form action="./designated/f_2_act" method="POST">
+<form action="" method="POST">
 <div class="row">
     
     <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4" style="padding:20px;">
@@ -75,9 +105,11 @@ $course_arr = ['', '物理', '化學', '生物', '數學乙', '國文', '英文'
         </div>
         <div class="row table-form" >
             <div class="col-4 text-right">上午第一節</div>
+            <input type="hidden" name="" id="year" value="<?=$this->session->userdata('year'); ?>">
             <select name="1_1" id="1_1" class="col-8 course" name="上午第一節">
-                <?php foreach ($course_arr as $k => $v):?>
-                    <option value="<?=$v; ?>" 
+                <?php foreach ($this->config->item('course') as $k => $v):?>
+                
+                    <option value="<?=$v; ?>" subject="<?=$k; ?>" date="<?=$datetime_info['day_1']; ?>"
                         <?php if ($course['1_1'] == $v) {
     echo 'selected';
 }  ?> ><?=$v; ?>                    
@@ -88,8 +120,8 @@ $course_arr = ['', '物理', '化學', '生物', '數學乙', '國文', '英文'
         <div class="row table-form" >
             <div class="col-4 text-right">上午第二節</div>
             <select name="1_2" id="1_2" class="col-8 course" name="上午第二節">
-                <?php foreach ($course_arr as $k => $v):?>
-                    <option value="<?=$v; ?>" <?php if ($course['1_2'] == $v) {
+                <?php foreach ($this->config->item('course') as $k => $v):?>
+                    <option value="<?=$v; ?>"  subject="<?=$k; ?>" date="<?=$datetime_info['day_1']; ?>"  <?php if ($course['1_2'] == $v) {
     echo 'selected';
 }  ?> ><?=$v; ?></option>
                 <?php endforeach; ?>
@@ -98,8 +130,8 @@ $course_arr = ['', '物理', '化學', '生物', '數學乙', '國文', '英文'
         <div class="row table-form" >
             <div class="col-4 text-right">下午第一節</div>
             <select name="1_3" id="1_3" class="col-8 course" name="下午第一節">
-                <?php foreach ($course_arr as $k => $v):?>
-                    <option value="<?=$v; ?>" <?php if ($course['1_3'] == $v) {
+                <?php foreach ($this->config->item('course') as $k => $v):?>
+                    <option value="<?=$v; ?>"  subject="<?=$k; ?>" date="<?=$datetime_info['day_1']; ?>"  <?php if ($course['1_3'] == $v) {
     echo 'selected';
 }  ?> ><?=$v; ?></option>
                 <?php endforeach; ?>
@@ -108,8 +140,8 @@ $course_arr = ['', '物理', '化學', '生物', '數學乙', '國文', '英文'
         <div class="row table-form" >
             <div class="col-4 text-right">下午第二節</div>
             <select name="1_4" id="1_4" class="col-8 course" name="下午第二節">
-                <?php foreach ($course_arr as $k => $v):?>
-                    <option value="<?=$v; ?>" <?php if ($course['1_4'] == $v) {
+                <?php foreach ($this->config->item('course') as $k => $v):?>
+                    <option value="<?=$v; ?>"  subject="<?=$k; ?>" date="<?=$datetime_info['day_1']; ?>"  <?php if ($course['1_4'] == $v) {
     echo 'selected';
 }  ?> ><?=$v; ?></option>
                 <?php endforeach; ?>
@@ -124,8 +156,8 @@ $course_arr = ['', '物理', '化學', '生物', '數學乙', '國文', '英文'
         <div class="row table-form" >
             <div class="col-4 text-right">上午第一節</div>
             <select name="2_1" id="2_1" class="col-8 course" name="上午第一節">
-                <?php foreach ($course_arr as $k => $v):?>
-                    <option value="<?=$v; ?>" <?php if ($course['2_1'] == $v) {
+                <?php foreach ($this->config->item('course') as $k => $v):?>
+                    <option value="<?=$v; ?>"  subject="<?=$k; ?>" date="<?=$datetime_info['day_2']; ?>"  <?php if ($course['2_1'] == $v) {
     echo 'selected';
 }  ?> ><?=$v; ?></option>
                 <?php endforeach; ?>
@@ -134,8 +166,8 @@ $course_arr = ['', '物理', '化學', '生物', '數學乙', '國文', '英文'
         <div class="row table-form" >
             <div class="col-4 text-right">上午第二節</div>
             <select name="2_2" id="2_2" class="col-8 course" name="上午第二節">
-                <?php foreach ($course_arr as $k => $v):?>
-                    <option value="<?=$v; ?>" <?php if ($course['2_2'] == $v) {
+                <?php foreach ($this->config->item('course') as $k => $v):?>
+                    <option value="<?=$v; ?>"  subject="<?=$k; ?>" date="<?=$datetime_info['day_2']; ?>"  <?php if ($course['2_2'] == $v) {
     echo 'selected';
 }  ?> ><?=$v; ?></option>
                 <?php endforeach; ?>
@@ -144,8 +176,8 @@ $course_arr = ['', '物理', '化學', '生物', '數學乙', '國文', '英文'
         <div class="row table-form" >
             <div class="col-4 text-right">下午第一節</div>
             <select name="2_3" id="2_3" class="col-8 course" name="下午第一節">
-                <?php foreach ($course_arr as $k => $v):?>
-                    <option value="<?=$v; ?>" <?php if ($course['2_3'] == $v) {
+                <?php foreach ($this->config->item('course') as $k => $v):?>
+                    <option value="<?=$v; ?>"  subject="<?=$k; ?>" date="<?=$datetime_info['day_2']; ?>"  <?php if ($course['2_3'] == $v) {
     echo 'selected';
 }  ?> ><?=$v; ?></option>
                 <?php endforeach; ?>
@@ -154,8 +186,8 @@ $course_arr = ['', '物理', '化學', '生物', '數學乙', '國文', '英文'
         <div class="row table-form" >
             <div class="col-4 text-right">下午第二節</div>
             <select name="2_4" id="2_4" class="col-8 course" name="下午第二節">
-                <?php foreach ($course_arr as $k => $v):?>
-                    <option value="<?=$v; ?>" <?php if ($course['2_4'] == $v) {
+                <?php foreach ($this->config->item('course') as $k => $v):?>
+                    <option value="<?=$v; ?>"  subject="<?=$k; ?>" date="<?=$datetime_info['day_2']; ?>"  <?php if ($course['2_4'] == $v) {
     echo 'selected';
 }  ?> ><?=$v; ?></option>
                 <?php endforeach; ?>
@@ -170,8 +202,8 @@ $course_arr = ['', '物理', '化學', '生物', '數學乙', '國文', '英文'
         <div class="row table-form" >
             <div class="col-4 text-right">上午第一節</div>
             <select name="3_1" id="3_1" class="col-8 course" name="上午第一節">
-                <?php foreach ($course_arr as $k => $v):?>
-                    <option value="<?=$v; ?>" <?php if ($course['3_1'] == $v) {
+                <?php foreach ($this->config->item('course') as $k => $v):?>
+                    <option value="<?=$v; ?>"  subject="<?=$k; ?>" date="<?=$datetime_info['day_3']; ?>"  <?php if ($course['3_1'] == $v) {
     echo 'selected';
 }  ?> ><?=$v; ?></option>
                 <?php endforeach; ?>
@@ -180,8 +212,8 @@ $course_arr = ['', '物理', '化學', '生物', '數學乙', '國文', '英文'
         <div class="row table-form" >
             <div class="col-4 text-right">上午第二節</div>
             <select name="3_2" id="3_2" class="col-8 course" name="上午第二節">
-                <?php foreach ($course_arr as $k => $v):?>
-                    <option value="<?=$v; ?>" <?php if ($course['3_2'] == $v) {
+                <?php foreach ($this->config->item('course') as $k => $v):?>
+                    <option value="<?=$v; ?>"  subject="<?=$k; ?>" date="<?=$datetime_info['day_3']; ?>"  <?php if ($course['3_2'] == $v) {
     echo 'selected';
 }  ?> ><?=$v; ?></option>
                 <?php endforeach; ?>
@@ -190,8 +222,8 @@ $course_arr = ['', '物理', '化學', '生物', '數學乙', '國文', '英文'
         <div class="row table-form" >
             <div class="col-4 text-right">下午第一節</div>
             <select name="3_3" id="3_3" class="col-8 course" name="下午第一節">
-                <?php foreach ($course_arr as $k => $v):?>
-                    <option value="<?=$v; ?>" <?php if ($course['3_3'] == $v) {
+                <?php foreach ($this->config->item('course') as $k => $v):?>
+                    <option value="<?=$v; ?>"  subject="<?=$k; ?>" date="<?=$datetime_info['day_3']; ?>"  <?php if ($course['3_3'] == $v) {
     echo 'selected';
 }  ?> ><?=$v; ?></option>
                 <?php endforeach; ?>
@@ -200,8 +232,8 @@ $course_arr = ['', '物理', '化學', '生物', '數學乙', '國文', '英文'
         <div class="row table-form" >
             <div class="col-4 text-right">下午第二節</div>
             <select name="3_4" id="3_4" class="col-8 course" name="下午第二節">
-                <?php foreach ($course_arr as $k => $v):?>
-                    <option value="<?=$v; ?>" <?php if ($course['3_4'] == $v) {
+                <?php foreach ($this->config->item('course') as $k => $v):?>
+                    <option value="<?=$v; ?>"  subject="<?=$k; ?>" date="<?=$datetime_info['day_3']; ?>"  <?php if ($course['3_4'] == $v) {
     echo 'selected';
 }  ?> ><?=$v; ?></option>
                 <?php endforeach; ?>

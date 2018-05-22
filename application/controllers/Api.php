@@ -394,7 +394,26 @@ class Api extends CI_Controller
         echo json_encode($json_arr);
     }
 
-    //儲存考科
+    public function add_course()
+    {
+        $this->load->model('mod_exam_datetime');
+        $getpost = array('year', 'course', 'course_name', 'date', 'subject');
+        $requred = array('year', 'course', 'course_name', 'date', 'subject');
+        $data = $this->getpost->getpost_array($getpost, $requred);
+        $year = $this->session->userdata('year');
+        if ($data == false) {
+            $json_arr['sys_code'] = '000';
+            $json_arr['sys_msg'] = '資料不足';
+            $json_arr['requred'] = $this->getpost->report_requred($requred);
+        } else {
+            $year = $this->session->userdata('year');
+            $this->mod_exam_datetime->clean_course($year);
+            $this->mod_exam_datetime->setting_course($year, $data);
+        }
+        // echo json_encode($json_arr);
+    }
+
+    //儲存價格
     public function add_fee()
     {
         $this->load->model('mod_exam_fees');
