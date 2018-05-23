@@ -40,10 +40,13 @@
             }
         })
 
+
+        /**取得預設填寫資料開始 */
         var load_json  = <?=$course;?>;
         $.each(load_json,function(k,v){
             $("#"+v['course']).val(v['subject']);
         })
+        /**取得預設填寫資料結束 */
         
         $("body").on("click","#save",function(){
             if(confirm("是否確定修改？")){
@@ -60,6 +63,7 @@
                     "data":data
                 },function(data){
                     console.log(data);
+                    alert(data.sys_msg);
                 },"json")
                 
             }
