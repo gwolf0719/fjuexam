@@ -397,10 +397,11 @@ class Api extends CI_Controller
     public function add_course()
     {
         $this->load->model('mod_exam_datetime');
-        $getpost = array('year', 'course', 'course_name', 'date', 'subject');
-        $requred = array('year', 'course', 'course_name', 'date', 'subject');
+        // echo json_encode($_POST);
+        $getpost = array('data');
+        $requred = array('data');
         $data = $this->getpost->getpost_array($getpost, $requred);
-        $year = $this->session->userdata('year');
+        
         if ($data == false) {
             $json_arr['sys_code'] = '000';
             $json_arr['sys_msg'] = '資料不足';
@@ -408,9 +409,11 @@ class Api extends CI_Controller
         } else {
             $year = $this->session->userdata('year');
             $this->mod_exam_datetime->clean_course($year);
-            $this->mod_exam_datetime->setting_course($year, $data);
+            $this->mod_exam_datetime->setting_course($year, $data['data']);
+            $json_arr['sys_code'] = '200';
+            $json_arr['sys_msg'] = 'Success';
         }
-        // echo json_encode($json_arr);
+        echo json_encode($json_arr);
     }
 
     //儲存價格

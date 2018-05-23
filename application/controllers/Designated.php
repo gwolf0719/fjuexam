@@ -958,49 +958,30 @@ class Designated extends CI_Controller
         $this->load->model('mod_exam_datetime');
         $year = $this->session->userdata('year');
         $datetime_info = $this->mod_exam_datetime->get_once($year);
-        if ($this->mod_exam_datetime->chk_course($year)) {
-            $course = $this->mod_exam_datetime->get_course($year);
-        } else {
-            $course = array(
-                '1_1' => '',
-                '1_2' => '',
-                '1_3' => '',
-                '1_4' => '',
-                '2_1' => '',
-                '2_2' => '',
-                '2_3' => '',
-                '2_4' => '',
-                '3_1' => '',
-                '3_2' => '',
-                '3_3' => '',
-                '3_4' => '',
-                '4_1' => '',
-                '4_2' => '',
-                '4_3' => '',
-                '4_4' => '',
-            );
-        }
+        
+        $course = $this->mod_exam_datetime->get_course($year);
 
         $data = array(
             'title' => '考試科目',
             'path' => 'designated/f_2',
             'path_text' => ' > 指考主選單 > 考程設定 > 考試科目',
             'datetime_info' => $datetime_info,
-            'course' => $course,
+            'course' => json_encode($course),
         );
         $this->load->view('layout', $data);
     }
 
-    public function f_2_act()
-    {
-        $this->load->model('mod_exam_datetime');
-        $year = $this->session->userdata('year');
+    // public function f_2_act()
+    // {
+    //     $this->load->model('mod_exam_datetime');
+    //     $year = $this->session->userdata('year');
 
-        $this->mod_exam_datetime->clean_course($year);
-        $this->mod_exam_datetime->setting_course($year, $_POST);
+    //     $this->mod_exam_datetime->clean_course($year);
+        
+    //     $this->mod_exam_datetime->setting_course($year, $_POST);
 
-        // redirect('./designated/f_2');
-    }
+    //     // redirect('./designated/f_2');
+    // }
 
     public function f_3()
     {

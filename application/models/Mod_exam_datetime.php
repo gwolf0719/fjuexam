@@ -35,12 +35,15 @@ class Mod_exam_datetime extends CI_Model
     }
     public function setting_course($year, $data)
     {
+        
         $new_data = array();
-        foreach ($data['course'] as $k => $v) {
-            $new_data['year'] = $year;
-            $new_data['course'] = $v['course'];
-            print_r($new_data);
+        foreach ($data as $k => $v) {
+            
+            $new_data[$k] = $v;
+            $new_data[$k]['year'] = $year;
         }
+        
+        $this->db->insert_batch("exam_course",$new_data);
     }
     public function chk_course($year)
     {
@@ -54,12 +57,12 @@ class Mod_exam_datetime extends CI_Model
     public function get_course($year)
     {
         $this->db->where('year', $year);
-        $res = array();
-        foreach ($this->db->get('exam_course')->result_array() as $key => $value) {
-            // code...
-            $res[$value['course']] = $value['course_name'];
-        }
-        return $res;
+        // $res = array();
+        // foreach ($this->db->get('exam_course')->result_array() as $key => $value) {
+        //     // code...
+        //     $res[$value['course']] = $value['course_name'];
+        // }
+        return $this->db->get('exam_course')->result_array();
     }
 }
 /* End of file Mod_exam_datetime.php */
