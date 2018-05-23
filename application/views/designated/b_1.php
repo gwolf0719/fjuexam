@@ -29,6 +29,7 @@ img{
     padding: 20px;
     border-radius: 10px;
     float: left;
+    height: 266px;
 }
 label {
     display: inline-block;
@@ -52,6 +53,8 @@ label {
 .form-group {
     margin-bottom: 1rem;
     padding-right:10%;
+    float: left;
+    width: 100%;
 }
 /* .to_up{
     position: fixed;
@@ -89,6 +92,14 @@ label {
     bottom: 0px;
     width:100%;
 }
+.chbox{
+    vertical-align: sub;
+    padding: 0px 3px;
+}
+.W50{
+    width:50%;
+    float:left;
+}
 </style>
 
 <script>
@@ -111,19 +122,14 @@ $(function(){
             $("#form").submit();
         }
     })
+
     $("body").on("click","tr",function(){
         var sn = $(this).attr("sn");
         $("#job_code").attr("readonly",true);
         $("html, body").animate({
         scrollTop: $("body").height()
-        }, 1000);         
-        // $(".to_up").hide();
-        // $(".boxs").addClass("upup");
-        // if($(".boxs").hasClass("upup")){
-        //     $(".boxs").slideDown();
-        // }else{
-        //     $(".boxs").slideUp();
-        // }
+        }, 1000);      
+        
         $.ajax({
             url: 'api/get_once_task',
             data:{
@@ -131,10 +137,22 @@ $(function(){
             },
             dataType:"json"
         }).done(function(data){
+            var chk = data.info.do_date.split(",")
+            var lenght = data.info.do_date.split(",").length;
+            for(i=1;i<=lenght;i++){
+                if(chk[i-1] != undefined){
+                    $('input:checkbox[name="day"]').eq(i-1).prop("checked",true);
+                }
+            }
+            if(data.info.do_date == ""){
+                $('input:checkbox[name="day"]').eq(0).prop("checked",false);
+                $('input:checkbox[name="day"]').eq(1).prop("checked",false);
+                $('input:checkbox[name="day"]').eq(2).prop("checked",false);
+            }
             $("#sn").val(sn);
             $("#job").val(data.info.job)
             $("#job_code").val(data.info.job_code)
-            $("#job_title").val(data.info.job)
+            $("#job_title").val(data.info.job_title)
             $("#name").val(data.info.name)
             $("#start_date").val(data.info.start_date)
             $("#trial_start").val(data.info.trial_start)
@@ -145,6 +163,50 @@ $(function(){
             $("#lunch").val(data.info.lunch)
             $("#phone").val(data.info.phone)
             $("#note").val(data.info.note)
+
+            if(data.info.day_count != ""){
+                $("#day_count").val(data.info.day_count);
+            }else{
+                $("#day_count").val("0");
+            }
+
+            if(data.info.salary_total != ""){
+                $("#salary_total").val(data.info.salary_total);
+            }else{
+                $("#salary_total").val("0");
+            }
+
+            if(data.info.one_day_salary != ""){
+                $("#one_day_salary").val(data.info.one_day_salary);
+            }else{
+                $("#one_day_salary").val(<?=$fees_info['one_day_salary']; ?>)
+            }
+            
+            if(data.info.lunch_total != ""){
+                $("#lunch_total").val(data.info.lunch_total);
+            }else{
+                $("#lunch_total").val("0");
+            }
+
+            if(data.info.lunch_price != ""){
+                $("#lunch_price").val(data.info.lunch_price);
+            }else{
+                $("#lunch_price").val(<?=$fees_info['lunch_fee']; ?>)
+            }
+
+            if(data.info.total != ""){
+                $("#total").val(data.info.total);
+            }else{
+                $("#total").val("0");
+            }
+
+            if(data.info.order_meal.toUpperCase() == "Y"){
+                $("#order_meal").prop("checked",true);
+                $("#lunch_price").attr("readonly",false);
+            }else{
+                $("#order_meal").prop("checked",false);
+                $("#lunch_price").attr("readonly",true);
+            }
         })
     })
 
@@ -168,59 +230,17 @@ $(function(){
     //     $("#job_title").val($(this).val());
     //     $("#member_job_title").val($(this).val());
     // })
+
+    $("#order_meal").change(function() {
+        if (this.checked) {
+            $(this).val("y");
+            $("#lunch_price").attr("readonly",false);
+        } else {
+            $(this).val("n");
+            $("#lunch_price").attr("readonly",true);
+        }
+    });    
     
-    $("body").on("click","#add",function(){
-        var area = "考區";
-        var job_code = $("#job_code").val();
-        var job_title = $("#job_title").val();
-        var name = $("#name").val();
-        var start_date = $("#start_date").val();
-        var trial_start = $("#trial_start").val();
-        var trial_end = $("#trial_end").val();   
-        var phone = $("#phone").val();        
-        var note = $("textarea[name='note']").val();
-        var cla = "考區";
-        var section = $("#section").val();
-        var salary_section = $("#salary_section").val();
-        var lunch_price = $("#lunch_price").val();
-        var lunch_count = $("#lunch_count").val();
-        var lunch_fee = $("#lunch_fee").val();
-        var total = $("#total").val();
-        var price = $("#price").val();
-        var day_count = $("#day_count").val();
-        var one_day_salary = $("#one_day_salary").val();        
-        $.ajax({
-            url: 'api/add_task',
-            data:{
-                "area":area,
-                "job_code":job_code,
-                "job_title":job_title,
-                "name":name,
-                "start_date":start_date,
-                "trial_start":trial_start,
-                "trial_end":trial_end,     
-                "phone":phone,                
-                "note":note,
-                "class":cla,      
-                "section":section,  
-                "salary_section":salary_section,  
-                "lunch_price":lunch_price,  
-                "lunch_count":lunch_count,  
-                "lunch_fee":lunch_fee,  
-                "total":total,  
-                "price":price,  
-                "day_count":day_count,  
-                "one_day_salary":one_day_salary,                         
-            },
-            dataType:"json"
-        }).done(function(data){
-            alert(data.sys_msg);
-            if(data.sys_code == "200"){
-                // alert(data.sys_msg);
-                location.reload();
-            }      
-        })
-    })
     $("body").on("click","#send",function(){
         if(confirm("確定儲存修改資料？")){
             var sn = $("#sn").val();
@@ -229,21 +249,20 @@ $(function(){
             var job_code = $("#job_code").val();
             var job_title = $("#job_title").val();
             var name = $("#name").val();
-            var start_date = $("#start_date").val();
             var trial_start = $("#trial_start").val();
             var trial_end = $("#trial_end").val();  
             var phone = $("#phone").val();        
             var note = $("textarea[name='note']").val();
             var cla = "考區";
-            var section = $("#section").val();
-            var salary_section = $("#salary_section").val();
-            var lunch_price = $("#lunch_price").val();
-            var lunch_count = $("#lunch_count").val();
-            var lunch_fee = $("#lunch_fee").val();
-            var total = $("#total").val();
-            var price = $("#price").val();
+            var arr = $('input:checkbox:checked[name="day"]').map(function() { return $(this).val(); }).get();
+            var do_date = arr.join(",");
             var day_count = $("#day_count").val();
             var one_day_salary = $("#one_day_salary").val();
+            var salary_total = $("#salary_total").val();
+            var lunch_price = $("#lunch_price").val();
+            var lunch_total = $("#lunch_total").val();
+            var total = $("#total").val();
+            var order_meal = $("#order_meal").val();
             $.ajax({
                 url: 'api/edit_task',
                 data:{
@@ -253,21 +272,19 @@ $(function(){
                     "job_title":job_title,
                     "job":job,
                     "name":name,
-                    "start_date":start_date,
                     "trial_start":trial_start,
                     "trial_end":trial_end,             
                     "phone":phone,                
                     "note":note,
                     "class":cla,  
-                    "section":section,  
-                    "salary_section":salary_section,  
-                    "lunch_price":lunch_price,  
-                    "lunch_count":lunch_count,  
-                    "lunch_fee":lunch_fee,  
-                    "total":total,  
-                    "price":price,  
+                    "do_date":do_date,
+                    "order_meal":order_meal,
                     "day_count":day_count,  
-                    "one_day_salary":one_day_salary,  
+                    "one_day_salary":one_day_salary,
+                    "salary_total":salary_total,  
+                    "lunch_price":lunch_price,  
+                    "lunch_total":lunch_total,  
+                    "total":total,  
                 },
                 dataType:"json"
             }).done(function(data){
@@ -350,13 +367,14 @@ $(function(){
 
 
      $("body").on("click","#sure",function(){
-         var code = $(".typeahead").val().substr(0,4);
+        var code = $(".typeahead").val().split("-");
         $.post("./api/assignment",{
-            job_code:code,
+            job_code:code[0],
             job:$("#search_job").text(),
             area:"考區",
         },function(data){
-            if(data.info != null){
+            // console.log(data.info);
+            if(data.info != undefined){
                 alert(data.sys_msg);
                 if(data.sys_code == "200"){
                     $('#exampleModal').modal('hide');
@@ -365,29 +383,51 @@ $(function(){
                     $("#job_title").val(data.info.member_title);
                     $("#name").val(data.info.member_name);
                     $("#phone").val(data.info.member_phone);
+                    if(data.info.order_meal == "y"){
+                        $("#order_meal").prop("checked",true);
+                    }
                 }
-            }else{
-                alert("查無此人");
             }
-
         },"json")           
      })
 
-     $("body").on("change","#calculation",function(){
-         if($(this).val() == "by_section"){
-             $(".by_section").show();
-             $(".by_day").hide();
-         }else{
-             $(".by_section").hide();
-             $(".by_day").show();             
-         }
-         $("#section").val("0");
-         $("#lunch_price").val("0");
-         $("#lunch_count").val("0");
-         $("#total").val("0");
-         $("#price").val("0");
-         $("#day_count").val("0");
-     })
+    $('input:checkbox[name="day"]').click(function(){
+        var arr_lenght = $('input:checkbox:checked[name="day"]').map(function() { return $(this).val(); }).get().length;
+        $("#day_count").val(arr_lenght);
+        var day_total = $("#one_day_salary").val() * arr_lenght;
+        $("#salary_total").val(day_total);
+        var total = parseInt($("#salary_total").val()) + parseInt($("#lunch_total").val());
+        $("#total").val(total);
+    })
+
+    $('input:checkbox[name="need"]').change(function(){
+        if($(this).prop("checked") == true){
+            var lunch_total = 0 - $("#day_count").val() * $("#lunch_price").val();
+            $("#lunch_total").val(lunch_total);
+            var total = parseInt($("#salary_total").val()) + parseInt($("#lunch_total").val());
+            $("#total").val(total);
+        }else{
+            $("#lunch_total").val(0);
+            var lunch = (parseInt($("#lunch_price").val()) * parseInt($("#day_count").val()));
+            var total = parseInt($("#total").val()) + lunch;
+            $("#total").val(total);            
+        }
+    })
+
+    $("body").on("keyup","#one_day_salary",function(){
+        var day_total = $(this).val() * $("#day_count").val();
+        $("#salary_total").val(day_total);
+        var total = parseInt($("#lunch_total").val()) + day_total;
+        $("#total").val(total)
+    })
+
+    $("body").on("keyup","#lunch_price",function(){
+        var lunch_total = 0 - $(this).val() * $("#day_count").val();
+        $("#lunch_total").val(lunch_total);
+        var total = parseInt($("#salary_total").val()) + lunch_total;
+        console.log(total);
+        $("#total").val(total)
+    })
 
      $("body").on("change",".section_count",function(){
         if($("#calculation").val() == "by_section"){
@@ -456,7 +496,7 @@ $(function(){
                     <td><?=$v['job_code']; ?></td>
                     <td><?=$v['job_title']; ?></td>
                     <td><?=$v['name']; ?></td>
-                    <td><?=$v['start_date']; ?></td>
+                    <td><?=$v['do_date']; ?></td>
                     <td><?=$v['trial_start']; ?></td>
                     <td><?=$v['trial_end']; ?></td>
                     <td><?=$v['phone']; ?></td>
@@ -519,40 +559,31 @@ $(function(){
                 <div class="col-md-3 col-sm-3 col-xs-3 cube">
                     <div class="form-group">
                         <label for="start_date" class=""  style="float:left;">執行日</label>
-                        <input type="text" class="form-control" id="start_date">
+                        <input type="checkbox" class="chbox" id="" name="day" value="<?=mb_substr($datetime_info['day_1'], 5, 8, 'utf-8'); ?>"><span class="chbox"><?=mb_substr($datetime_info['day_1'], 5, 8, 'utf-8'); ?> </span>
+                        <input type="checkbox" class="chbox" id="" name="day" value="<?=mb_substr($datetime_info['day_2'], 5, 8, 'utf-8'); ?>"><span class="chbox"><?=mb_substr($datetime_info['day_2'], 5, 8, 'utf-8'); ?> </span>
+                        <input type="checkbox" class="chbox" id="" name="day" value="<?=mb_substr($datetime_info['day_3'], 5, 8, 'utf-8'); ?>"><span class="chbox"><?=mb_substr($datetime_info['day_3'], 5, 8, 'utf-8'); ?> </span>
                     </div>  
                     <div class="form-group">
                         <label for="trial_start" class=""  style="float:left;">試場起號</label>
-                        <select class="form-control" id="trial_start">
-                            <option value="">請選擇</option>
-                            <?php foreach ($field as $k => $v): ?>
-                                <option value="<?=$v['field']; ?>"><?=$v['field']; ?></option>
-                            <?php endforeach; ?>
-                        </select>
+                        <input type="text" class="form-control" id="trial_start" readonly>
                     </div>                  
                     <div class="form-group">
                         <label for="trial_end" class=""  style="float:left;">試場迄號</label>
-                        <select class="form-control" id="trial_end">
-                            <option value="">請選擇</option>
-                            <?php foreach ($field as $k => $v): ?>
-                                <option value="<?=$v['field']; ?>"><?=$v['field']; ?></option>
-                            <?php endforeach; ?>
-                        </select>
-                    </div>                  
+                        <input type="text" class="form-control" id="trial_end" readonly>
+                    </div>                
                 </div>    
-                <div class="col-md-3 col-sm-3 col-xs-3 cube" style="height:266px;">
+                <div class="col-md-3 col-sm-3 col-xs-3 cube" style="height:100px;">
                     <div class="form-group">
                         <label for="order_meal">訂餐需求</label>
-                        <input type="checkbox" class="" id="order_meal"><span>需訂餐</span>
+                        <input type="checkbox" class="" name="need" id="order_meal"><span>需訂餐</span>
                     </div>  
-                    <div class="form-group">
+                    <!-- <div class="form-group">
                         <label for="trial_end" class=""  style="float:left;">計算方式</label>
                         <select class="form-control" id="calculation">
-                            <option value="by_section">以節計算</option>
                             <option value="by_day">以天計算</option>
                         </select>
-                    </div>      
-                    <div class="by_section">
+                    </div>       -->
+                    <!-- <div class="by_section">
                         <div class="form-group">
                             <label for="start_date" class=""  style="float:left;">節數</label>
                             <input type="text" class="form-control section_count" id="section" value="0">
@@ -570,20 +601,33 @@ $(function(){
                             <input type="text" class="form-control section_count" id="day_count" value="0">
                             <input type="hidden" class="form-control" id="one_day_salary" value="<?=$fees_info['one_day_salary']; ?>">
                         </div>                                            
-                    </div>                                           
+                    </div>                                            -->
                 </div>                        
                 <div class="col-md-3 col-sm-3 col-xs-3 cube" style="float:left">
-                    <!-- <div class="form-group">
-                        <label for="start_date" class=""  style="float:left;">節數</label>
-                        <input type="text" class="form-control" id="section">
-                    </div>   -->
                     <div class="form-group">
-                        <label for="trial_start" class=""  style="float:left;">薪資費</label>
-                        <input type="text" class="form-control" id="price" value="0">
+                        <label for="start_date" class=""  style="float:left;">天數</label>
+                        <!-- <input type="text" class="form-control" id="section"> -->
+                        <input type="text" class="form-control" id="day_count" value="0" readonly>
+                    </div>  
+                    <div class="form-group" style="padding: 0% 3%;">
+                        <div class="W50">
+                            <label for="trial_start" class=""  style="float:left;width: 50%;">薪資單價</label>
+                            <input type="text" class="form-control" id="one_day_salary" value="<?=$fees_info['one_day_salary']; ?>">                        
+                        </div>
+                        <div class="W50">
+                            <label for="trial_start" class=""  style="float:left;width: 50%;">薪資總計</label>
+                            <input type="text" class="form-control" id="salary_total" value="0" readonly>                      
+                        </div>                        
                     </div>                  
-                    <div class="form-group">
-                        <label for="trial_end" class=""  style="float:left;">便當費</label>
-                        <input type="text" class="form-control" id="lunch_price" value="<?=$fees_info['lunch_fee']; ?>">
+                    <div class="form-group" style="padding: 0% 3%;">
+                        <div class="W50">
+                            <label for="trial_start" class=""  style="float:left;width: 50%;">便當費 </label>
+                                <input type="text" class="form-control" id="lunch_price" value="<?=$fees_info['lunch_fee']; ?>">                       
+                        </div>
+                        <div class="W50">
+                            <label for="trial_start" class=""  style="float:left;width: 50%;">便當總計</label>
+                            <input type="text" class="form-control" id="lunch_total" value="0" readonly>                      
+                        </div>        
                     </div>   
                     <div class="form-group">
                         <label for="trial_end" class=""  style="float:left;">總計</label>
