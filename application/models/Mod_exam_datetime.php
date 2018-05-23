@@ -2,6 +2,47 @@
 defined('BASEPATH') or exit('No direct script access allowed');
 class Mod_exam_datetime extends CI_Model
 {
+    /**
+     * 由試場起迄號得知使用日期
+     * start 開始考場 end 結束考場
+     * res 陣列 1=>第一天,2=>第二天,3=>第三天 
+     * true 有
+     * flase 沒有
+     */
+    function room_use_day($start,$end){
+        $year  = $this->session->userdata("year");
+        // 取得每日考科
+        $day = array();
+        for($i=1;$i<=3;$i++){
+            foreach ($this->db->select('subject')->where('year',$year)->where('day',$i)->get('exam_course')->result_array() as $key => $value) {
+                # code...
+                if($value['subject'] != "subject_00"){
+                    $day[$i][] = $value['subject'];
+                }
+            }
+        }
+        // 確認每一天
+        $res = array();
+
+        for($i=1;$i<=3;$i++){
+            $where = array(
+                'field <='=>$end,
+                'field >='=>$start
+            );
+            foreach($day[$i] as $k=>$v){
+                $where[$v] = 0;
+            }
+            if($this->db->where($where)->count_all_results('exam_area') == 0){
+                $res[$i] = true;    
+            }else{
+                $res[$i] = false;
+            }
+        }
+        
+        
+        return $res;
+    }
+
     public function chk_once($year)
     {
         $this->db->where('year', $year);
@@ -57,11 +98,8 @@ class Mod_exam_datetime extends CI_Model
     public function get_course($year)
     {
         $this->db->where('year', $year);
-        // $res = array();
-        // foreach ($this->db->get('exam_course')->result_array() as $key => $value) {
-        //     // code...
-        //     $res[$value['course']] = $value['course_name'];
-        // }
+        
+        
         return $this->db->get('exam_course')->result_array();
     }
 }
