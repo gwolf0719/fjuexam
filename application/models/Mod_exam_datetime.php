@@ -25,17 +25,20 @@ class Mod_exam_datetime extends CI_Model
         $res = array();
 
         for($i=1;$i<=3;$i++){
+            // 搜尋條件
             $where = array(
                 'field <='=>$end,
                 'field >='=>$start
             );
+            // 將考科送入搜尋條件
             foreach($day[$i] as $k=>$v){
                 $where[$v] = 0;
             }
+            // 如果有就true 沒有的話就 flase
             if($this->db->where($where)->count_all_results('exam_area') == 0){
-                $res[$i] = true;    
+                $res[] = true;    
             }else{
-                $res[$i] = false;
+                $res[] = false;
             }
         }
         
