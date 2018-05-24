@@ -401,7 +401,7 @@ class Api extends CI_Controller
         $getpost = array('data');
         $requred = array('data');
         $data = $this->getpost->getpost_array($getpost, $requred);
-        
+
         if ($data == false) {
             $json_arr['sys_code'] = '000';
             $json_arr['sys_msg'] = '資料不足';
@@ -699,6 +699,25 @@ class Api extends CI_Controller
             $this->mod_patrol->update_once($data['sn'], $data);
             $json_arr['sys_code'] = '200';
             $json_arr['sys_msg'] = '資料修改完成';
+        }
+        echo json_encode($json_arr);
+    }
+
+    public function room_use_day()
+    {
+        $this->load->model('mod_exam_datetime');
+        $getpost = array('start', 'end');
+        $requred = array('start', 'end');
+        $data = $this->getpost->getpost_array($getpost, $requred);
+        if ($data == false) {
+            $json_arr['sys_code'] = '000';
+            $json_arr['sys_msg'] = '資料不足';
+            $json_arr['requred'] = $this->getpost->report_requred($requred);
+        } else {
+            $data['year'] = $this->session->userdata('year');
+            $json_arr['day'] = $res = $this->mod_exam_datetime->room_use_day($data['start'], $data['end']);
+            $json_arr['sys_code'] = '200';
+            $json_arr['sys_msg'] = '日期取得完成';
         }
         echo json_encode($json_arr);
     }

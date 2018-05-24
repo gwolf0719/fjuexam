@@ -101,18 +101,7 @@ $(function(){
     $("body").on("click","tr",function(){
         var sn = $(this).attr("sn");
         var code = $(this).attr("code");
-        if($("#calculation").val() == null){
-            $("#day_count").show();    
-            $("#one_day_salary").show();
-            $("#day_salary_total").show();
-            $("#day_lunch_total").show();
-            $("#day_total").show();
-            $("#section_count").hide();   
-            $("#salary_section").hide()  
-            $("#section_salary_total").hide();
-            $("#section_lunch_total").hide();
-            $("#section_total").hide();               
-        }
+
         $("html, body").animate({
             scrollTop: $("body").height()
         }, 1000 );
@@ -128,41 +117,86 @@ $(function(){
             $("#trial_end").val(data.info.end);
             $("#note").val(data.info.note);    
             $("#section_count").val(data.info.section);
-            $("#calculation").val(data.info.calculation)
-            if(data.info.calculation == "by_day"){
-                $("#day_count").show();    
-                $("#one_day_salary").show();
-                $("#day_salary_total").show();
-                $("#day_lunch_total").show();
-                $("#day_total").show();
-                $("#section_count").hide();   
-                $("#salary_section").hide()  
-                $("#section_salary_total").hide();
-                $("#section_lunch_total").hide();
-                $("#section_total").hide();       
-                $("#day_count").val(data.info.count);    
-                $("#one_day_salary").val(data.info.salary);
-                $("#day_salary_total").val(data.info.salary_total);
-                $("#day_lunch_total").val(data.info.lunch_total);
-                $("#day_total").val(data.info.total);                             
-            }else if(data.info.calculation == "by_section"){
-                $("#day_count").hide();    
-                $("#one_day_salary").hide();
-                $("#day_salary_total").hide();
-                $("#day_lunch_total").hide();
-                $("#day_total").hide();
-                $("#section_count").show();   
-                $("#salary_section").show()  
-                $("#section_salary_total").show();
-                $("#section_lunch_total").show();
-                $("#section_total").show();       
-                $("#section_count").val(data.info.count);    
-                $("#salary_section").val(data.info.salary);
-                $("#section_salary_total").val(data.info.salary_total);
-                $("#section_lunch_total").val(data.info.lunch_total);
-                $("#section_total").val(data.info.total);    
-            }    
+            switch(data.info.calculation) {
+                case "by_section":
+                    $("#calculation").val("by_section");
+                    $("#day_count").hide();    
+                    $("#one_day_salary").hide();
+                    $("#day_salary_total").hide();
+                    $("#day_lunch_total").hide();
+                    $("#day_total").hide();
+                    $("#section_count").show();   
+                    $("#salary_section").show()  
+                    $("#section_salary_total").show();
+                    $("#section_lunch_total").show();
+                    $("#section_total").show();       
+                    $("#section_count").val(data.info.count);    
+                    $("#salary_section").val(data.info.salary);
+                    $("#section_salary_total").val(data.info.salary_total);
+                    $("#section_lunch_total").val(data.info.lunch_total);
+                    $("#section_total").val(data.info.total);   
+                    break;
+                case "by_day":
+                    $("#calculation").val("by_day");
+                    $("#day_count").show();    
+                    $("#one_day_salary").show();
+                    $("#day_salary_total").show();
+                    $("#day_lunch_total").show();
+                    $("#day_total").show();
+                    $("#section_count").hide();   
+                    $("#salary_section").hide()  
+                    $("#section_salary_total").hide();
+                    $("#section_lunch_total").hide();
+                    $("#section_total").hide();       
+                    $("#day_count").val(data.info.count);    
+                    $("#one_day_salary").val(data.info.salary);
+                    $("#day_salary_total").val(data.info.salary_total);
+                    $("#day_lunch_total").val(data.info.lunch_total);
+                    $("#day_total").val(data.info.total); 
+                    break;
+                case "":
+                    $("#calculation").val("by_day");
+                    $("#day_count").show();    
+                    $("#one_day_salary").show();
+                    $("#day_salary_total").show();
+                    $("#day_lunch_total").show();
+                    $("#day_total").show();
+                    $("#section_count").hide();   
+                    $("#salary_section").hide()  
+                    $("#section_salary_total").hide();
+                    $("#section_lunch_total").hide();
+                    $("#section_total").hide();                      
+                    break;
+                    
+            }            
+
+            //開始讀取天數
+            $.ajax({
+                url: 'api/room_use_day',
+                data:{
+                    "start":data.info.start,
+                    "end":data.info.end,
+                },
+                dataType:"json"
+            }).done(function(data){
+                $('input:checkbox[name="day"]').eq(0).prop("checked",data.day[0]);
+                $('input:checkbox[name="day"]').eq(1).prop("checked",data.day[1]);
+                $('input:checkbox[name="day"]').eq(2).prop("checked",data.day[2]); 
+                var day_count = $('input:checkbox:checked[name="day"]').map(function() { return $(this).val(); }).get().length;
+                $("#day_count").val(day_count);
+                var day_salary_total = parseInt($("#one_day_salary").val() ) * parseInt($("#day_count").val());
+                $("#day_salary_total").val(day_salary_total);
+                if($("#order_meal").val() == "N"){
+                    $("#day_total").val(day_salary_total);
+                }else{
+                    var day_lunch_total = 0 - parseInt($("#lunch_price").val()) * parseInt($("#day_count").val());
+                    $("#day_lunch_total").val(day_lunch_total);
+                    var day_total = parseInt($("#day_salary_total").val()) + parseInt($("#day_lunch_total").val());
+                    $("#day_total").val(day_total);
+                }
+            })                   
         })  
+        //取得職員資料
         $.ajax({
             url: 'api/get_staff_member',
             data:{
@@ -183,97 +217,10 @@ $(function(){
                 $("#order_meal").prop("checked",false);
                 $("#lunch_price").attr("readonly",true);
             }         
-        })               
+        })    
+                
     })
-
-    // $("body").on("click","tr",function(){
-    //     var sn = $(this).attr("sn");
-    //     $("#job_code").attr("readonly",true);
-    //     $("html, body").animate({
-    //     scrollTop: $("body").height()
-    //     }, 1000);      
-        
-    //     $.ajax({
-    //         url: 'api/get_once_task',
-    //         data:{
-    //             "sn":sn,
-    //         },
-    //         dataType:"json"
-    //     }).done(function(data){
-    //         var chk = data.info.do_date.split(",")
-    //         var lenght = data.info.do_date.split(",").length;
-    //         for(i=1;i<=lenght;i++){
-    //             if(chk[i-1] != undefined){
-    //                 $('input:checkbox[name="day"]').eq(i-1).prop("checked",true);
-    //             }
-    //         }
-    //         if(data.info.do_date == ""){
-    //             $('input:checkbox[name="day"]').eq(0).prop("checked",false);
-    //             $('input:checkbox[name="day"]').eq(1).prop("checked",false);
-    //             $('input:checkbox[name="day"]').eq(2).prop("checked",false);
-    //         }
-    //         $("#sn").val(sn);
-    //         $("#job").val(data.info.job)
-    //         $("#job_code").val(data.info.job_code)
-    //         $("#job_title").val(data.info.job_title)
-    //         $("#name").val(data.info.name)
-    //         $("#start_date").val(data.info.start_date)
-    //         $("#trial_start").val(data.info.trial_start)
-    //         $("#trial_end").val(data.info.trial_end)
-    //         $("#number").val(data.info.number)
-    //         $("#section").val(data.info.section)
-    //         $("#price").val(data.info.price)
-    //         $("#lunch").val(data.info.lunch)
-    //         $("#phone").val(data.info.phone)
-    //         $("#note").val(data.info.note)
-
-    //         if(data.info.day_count != ""){
-    //             $("#day_count").val(data.info.day_count);
-    //         }else{
-    //             $("#day_count").val("0");
-    //         }
-
-    //         if(data.info.salary_total != ""){
-    //             $("#salary_total").val(data.info.salary_total);
-    //         }else{
-    //             $("#salary_total").val("0");
-    //         }
-
-    //         if(data.info.one_day_salary != ""){
-    //             $("#one_day_salary").val(data.info.one_day_salary);
-    //         }else{
-    //             $("#one_day_salary").val(<?=$fees_info['one_day_salary']; ?>)
-    //         }
-            
-    //         if(data.info.lunch_total != ""){
-    //             $("#lunch_total").val(data.info.lunch_total);
-    //         }else{
-    //             $("#lunch_total").val("0");
-    //         }
-
-    //         if(data.info.lunch_price != ""){
-    //             $("#lunch_price").val(data.info.lunch_price);
-    //         }else{
-    //             $("#lunch_price").val(<?=$fees_info['lunch_fee']; ?>)
-    //         }
-
-    //         if(data.info.total != ""){
-    //             $("#total").val(data.info.total);
-    //         }else{
-    //             $("#total").val("0");
-    //         }
-
-    //         if(data.info.order_meal == "y"){
-    //             $("#order_meal").prop("checked",true);
-    //             $("#lunch_price").attr("readonly",false);
-    //         }else{
-    //             $("#order_meal").prop("checked",false);
-    //             $("#lunch_price").attr("readonly",true);
-    //         }
-    //     })
-    // })
-
-
+    
 
     $("#order_meal").change(function() {
         if (this.checked) {
@@ -334,25 +281,6 @@ $(function(){
             })
         }
     })  
-
-    // $("body").on("click","#remove",function(){
-    //     if(confirm("是否確定要刪除？")){
-    //         var sn = $("#sn").val();
-    //         $.ajax({
-    //             url: 'api/remove_once_task',
-    //             data:{
-    //                 "sn":sn,
-    //             },
-    //             dataType:"json"
-    //         }).done(function(data){
-    //             // alert(data.sys_msg);
-    //             if(data.sys_code == "200"){
-    //                 alert(data.sys_msg);
-    //                 location.reload();
-    //             }
-    //         })
-    //     }
-    // })    
 
     $(".part").eq(0).show();
     $("body").on("click",".tab",function(){
@@ -576,9 +504,9 @@ $(function(){
                 <div class="col-md-3 col-sm-3 col-xs-3 cube">
                     <div class="form-group">
                         <label for="start_date" class=""  style="float:left;">執行日</label>
-                        <input type="checkbox" class="chbox" id="" name="day" value="<?=mb_substr($datetime_info['day_1'], 5, 8, 'utf-8'); ?>"><span class="chbox"><?=mb_substr($datetime_info['day_1'], 5, 8, 'utf-8'); ?> </span>
-                        <input type="checkbox" class="chbox" id="" name="day" value="<?=mb_substr($datetime_info['day_2'], 5, 8, 'utf-8'); ?>"><span class="chbox"><?=mb_substr($datetime_info['day_2'], 5, 8, 'utf-8'); ?> </span>
-                        <input type="checkbox" class="chbox" id="" name="day" value="<?=mb_substr($datetime_info['day_3'], 5, 8, 'utf-8'); ?>"><span class="chbox"><?=mb_substr($datetime_info['day_3'], 5, 8, 'utf-8'); ?> </span>
+                        <input type="checkbox" class="chbox" id="" name="day" disabled value="<?=mb_substr($datetime_info['day_1'], 5, 8, 'utf-8'); ?>"><span class="chbox"><?=mb_substr($datetime_info['day_1'], 5, 8, 'utf-8'); ?> </span>
+                        <input type="checkbox" class="chbox" id="" name="day" disabled value="<?=mb_substr($datetime_info['day_2'], 5, 8, 'utf-8'); ?>"><span class="chbox"><?=mb_substr($datetime_info['day_2'], 5, 8, 'utf-8'); ?> </span>
+                        <input type="checkbox" class="chbox" id="" name="day" disabled value="<?=mb_substr($datetime_info['day_3'], 5, 8, 'utf-8'); ?>"><span class="chbox"><?=mb_substr($datetime_info['day_3'], 5, 8, 'utf-8'); ?> </span>
                     </div>  
                     <div class="form-group">
                         <label for="trial_start" class=""  style="float:left;">試場起號</label>

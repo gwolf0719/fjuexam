@@ -119,41 +119,85 @@ $(function(){
             $("#trial_end").val(data.info.end);
             $("#note").val(data.info.note);    
             $("#section_count").val(data.info.section);
-            $("#calculation").val(data.info.calculation)
-            if(data.info.calculation == "by_day"){
-                $("#day_count").show();    
-                $("#one_day_salary").show();
-                $("#day_salary_total").show();
-                $("#day_lunch_total").show();
-                $("#day_total").show();
-                $("#section_count").hide();   
-                $("#salary_section").hide()  
-                $("#section_salary_total").hide();
-                $("#section_lunch_total").hide();
-                $("#section_total").hide();       
-                $("#day_count").val(data.info.count);    
-                $("#one_day_salary").val(data.info.salary);
-                $("#day_salary_total").val(data.info.salary_total);
-                $("#day_lunch_total").val(data.info.lunch_total);
-                $("#day_total").val(data.info.total);                             
-            }else if(data.info.calculation == "by_section"){
-                $("#day_count").hide();    
-                $("#one_day_salary").hide();
-                $("#day_salary_total").hide();
-                $("#day_lunch_total").hide();
-                $("#day_total").hide();
-                $("#section_count").show();   
-                $("#salary_section").show()  
-                $("#section_salary_total").show();
-                $("#section_lunch_total").show();
-                $("#section_total").show();       
-                $("#section_count").val(data.info.count);    
-                $("#salary_section").val(data.info.salary);
-                $("#section_salary_total").val(data.info.salary_total);
-                $("#section_lunch_total").val(data.info.lunch_total);
-                $("#section_total").val(data.info.total);    
-            }    
+            switch(data.info.calculation) {
+                case "by_section":
+                    $("#calculation").val("by_section");
+                    $("#day_count").hide();    
+                    $("#one_day_salary").hide();
+                    $("#day_salary_total").hide();
+                    $("#day_lunch_total").hide();
+                    $("#day_total").hide();
+                    $("#section_count").show();   
+                    $("#salary_section").show()  
+                    $("#section_salary_total").show();
+                    $("#section_lunch_total").show();
+                    $("#section_total").show();       
+                    $("#section_count").val(data.info.count);    
+                    $("#salary_section").val(data.info.salary);
+                    $("#section_salary_total").val(data.info.salary_total);
+                    $("#section_lunch_total").val(data.info.lunch_total);
+                    $("#section_total").val(data.info.total);   
+                    break;
+                case "by_day":
+                    $("#calculation").val("by_day");
+                    $("#day_count").show();    
+                    $("#one_day_salary").show();
+                    $("#day_salary_total").show();
+                    $("#day_lunch_total").show();
+                    $("#day_total").show();
+                    $("#section_count").hide();   
+                    $("#salary_section").hide()  
+                    $("#section_salary_total").hide();
+                    $("#section_lunch_total").hide();
+                    $("#section_total").hide();       
+                    $("#day_count").val(data.info.count);    
+                    $("#one_day_salary").val(data.info.salary);
+                    $("#day_salary_total").val(data.info.salary_total);
+                    $("#day_lunch_total").val(data.info.lunch_total);
+                    $("#day_total").val(data.info.total); 
+                    break;
+                case "":
+                    $("#calculation").val("by_day");
+                    $("#day_count").show();    
+                    $("#one_day_salary").show();
+                    $("#day_salary_total").show();
+                    $("#day_lunch_total").show();
+                    $("#day_total").show();
+                    $("#section_count").hide();   
+                    $("#salary_section").hide()  
+                    $("#section_salary_total").hide();
+                    $("#section_lunch_total").hide();
+                    $("#section_total").hide();                      
+                    break;
+                    
+            }                             
+            //開始讀取天數
+            $.ajax({
+                url: 'api/room_use_day',
+                data:{
+                    "start":data.info.start,
+                    "end":data.info.end,
+                },
+                dataType:"json"
+            }).done(function(data){
+                $('input:checkbox[name="day"]').eq(0).prop("checked",data.day[0]);
+                $('input:checkbox[name="day"]').eq(1).prop("checked",data.day[1]);
+                $('input:checkbox[name="day"]').eq(2).prop("checked",data.day[2]); 
+                var day_count = $('input:checkbox:checked[name="day"]').map(function() { return $(this).val(); }).get().length;
+                $("#day_count").val(day_count);
+                var day_salary_total = parseInt($("#one_day_salary").val() ) * parseInt($("#day_count").val());
+                $("#day_salary_total").val(day_salary_total);
+                if($("#order_meal").val() == "N"){
+                    $("#day_total").val(day_salary_total);
+                }else{
+                    var day_lunch_total = 0 - parseInt($("#lunch_price").val()) * parseInt($("#day_count").val());
+                    $("#day_lunch_total").val(day_lunch_total);
+                    var day_total = parseInt($("#day_salary_total").val()) + parseInt($("#day_lunch_total").val());
+                    $("#day_total").val(day_total);
+                }
+            })               
         })  
+        //取得職員資料        
         $.ajax({
             url: 'api/get_staff_member',
             data:{
