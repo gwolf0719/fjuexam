@@ -23,14 +23,14 @@ img{
     overflow: auto;
 }
 .cube{
-    background: #e2eed3;
+    background: #dacddf;
     margin: 0px 10px;
     padding: 20px;
     border-radius: 10px;
     float: left;
     flex: 0 0 30%;
     max-width: 32%;    
-    height: 256px;
+    height: auto;
 }
 .cube1{
     margin: 0px 10px;
@@ -44,13 +44,13 @@ label {
     display: inline-block;
     line-height: 40px;
     text-align: center;
-    width: 35%;
+    width: 25%;
 }
 .form-control {
     display: block;
-    width: 50%;
+    width: 65%;
     padding: .375rem .75rem;
-    font-size: 1rem;
+    font-size: 14px;
     line-height: 1.5;
     color: #495057;
     background-color: #fff;
@@ -61,7 +61,7 @@ label {
 }
 .form-group {
     margin-bottom: 1rem;
-    padding-right:10%;
+    padding-right:0%;
 }
 .bottom{
     bottom: 0px;
@@ -256,12 +256,12 @@ $(function(){
     </div>
 
     <div class="col-sm-8" style="text-align: center;">
-        <img src="assets/images/d2_title.png" alt="" style="width: 15%;">
+        <img src="assets/images/d3_title.png" alt="" style="width: 15%;">
     </div>
     
 </div>
 <div class="row" style="position: relative;top: 20px;left: 10px;">
-    <div style="width:95%;margin:5px auto;z-index:9999">
+    <div style="width:95%;margin:5px auto;z-index:0">
         <div class="tab active" area="1" part="2501"><div class="tab_text">第一分區</div></div>
         <div class="tab" area="2" part="2502"><div class="tab_text">第二分區</div></div>
         <div class="tab" area="3" part="2503"><div class="tab_text">第三分區</div></div>
@@ -362,14 +362,14 @@ $(function(){
         <div class="col-md-12 col-sm-12 col-xs-12 ">      
             <form method="POST" enctype="multipart/form-data"  action="" id="form" class="">                                            
             
-                <div class="col-md-3 col-sm-3 col-xs-3 cube" style="height:150px;">
+                <div class="col-md-3 col-sm-3 col-xs-3 cube" style="background:#afccf0">
                     <div class="form-group" style="width: 100%;float: left;">
                         <label for="floor" class="" style="float:left;">巡場人員</label>
                         <input type="hidden" class="form-control" id="sn">
-                        <input type="text" class="form-control" id="allocation_code" style="width: 20%;float: left;" placeholder="分配編號">
+                        <input type="text" class="form-control" id="allocation_code" style="width: 25%;float: left;" placeholder="巡場人員編號">
                         <input type="hidden" class="form-control" id="patrol_staff_code" style="width: 20%;float: left;" placeholder="">
                         <input type="text" class="form-control" id="patrol_staff_name" style="width: 25%;float: left;margin-left: 5px;">
-                        <button type="button" class="btn btn-primary assgin" data-toggle="modal" data-target="#exampleModal" style="float:left;width:15%;margin-left:5px;">指派</button>
+                        <button type="button" class="btn btn-primary assgin" data-toggle="modal" data-target="#exampleModal" style="float:left;width:15%;margin-left:5px;background:#346a90;border:unset">指派</button>
                     </div>                                                                          
                 </div>    
                 <div class="col-md-3 col-sm-3 col-xs-3 cube">           

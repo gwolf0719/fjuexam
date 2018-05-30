@@ -42,9 +42,9 @@ $(function(){
 <div class="row" >
     <input type="hidden" arr="<?php print_r($datalist); ?>" id="arr">
     <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4 cube text-center">
-        <!-- <a href="./designated/d_1"> -->
+        <a href="./designated/d_1">
             <img src="assets/images/d1.png" alt="">
-        <!-- </a>     -->
+        </a>    
     </div>
     <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4 cube text-center">
         <a href="./designated/d_2">

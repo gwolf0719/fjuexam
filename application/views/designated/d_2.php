@@ -23,14 +23,14 @@ img{
     overflow: auto;
 }
 .cube{
-    background: #e2eed3;
+    background: #dacddf;
     margin: 0px 10px;
     padding: 20px;
     border-radius: 10px;
     float: left;
     flex: 0 0 30%;
-    max-width: 32%;    
-    height: 256px;
+    max-width: 35%;    
+    height: auto;
 }
 .cube1{
     margin: 0px 10px;
@@ -44,24 +44,23 @@ label {
     display: inline-block;
     line-height: 40px;
     text-align: center;
-    width: 35%;
+    width: 25%;
 }
 .form-control {
     display: block;
-    width: 50%;
+    width: 75%;
     padding: .375rem .75rem;
     font-size: 1rem;
     line-height: 1.5;
     color: #495057;
     background-color: #fff;
-    background-clip: padding-boxs;
     border: 1px solid #ced4da;
     border-radius: .25rem;
     transition: border-color .15s ease-in-out,boxs-shadow .15s ease-in-out;
 }
 .form-group {
     margin-bottom: 1rem;
-    padding-right:10%;
+    padding-right:0%;
 }
 .bottom{
     bottom: 0px;
@@ -92,6 +91,23 @@ label {
     text-align: center;
     padding: 10px 0px;
     font-size: 21px;
+}
+.table thead th {
+    vertical-align: middle;
+    border-bottom: 0;
+
+}
+
+.table td, .table th {
+    padding: .75rem;
+    vertical-align: top;
+    border-top: 0;
+}
+.bt{
+    border-top: 1px solid #dee2e6!important;
+}
+.bb{
+    border-bottom: 1px solid #dee2e6!important;
 }
 </style>
 
@@ -137,21 +153,22 @@ $(function(){
         $this.addClass("active");
         var area = $this.attr("area");
         $("#part"+area).show();
-        var part = $(this).attr("part");
-        $.ajax({
-            url: 'api/get_patrol_list',
-            data:{
-                "part":part,
-            },
-            dataType:"json"
-        }).done(function(data){
-            var html = "";
-            $.each(data.info,function(k,v){
-                html += '<option value="'+v.field+'">' + v.field + '</option>'; 
-            }) 
-            $("#start").html(html); 
-            $("#end").html(html); 
-        })            
+        // var part = $(this).attr("part");
+        // var eng = $(this).attr("eng");
+        // $.ajax({
+        //     url: 'api/get_patrol_list',
+        //     data:{
+        //         "part":part,
+        //     },
+        //     dataType:"json"
+        // }).done(function(data){
+        //     var html = "";
+        //     $.each(data.info,function(k,v){
+        //         html += '<option value="'+v.field+'">' + v.field + '</option>'; 
+        //     }) 
+        //     $("#"+eng+"_start").html(html); 
+        //     $("#"+eng+"_end").html(html); 
+        // })            
     })
 
     $("body").on("click","tr",function(){
@@ -171,9 +188,15 @@ $(function(){
             $("#allocation_code").val(data.info.allocation_code);
             $("#trial_staff_code").val(data.info.trial_staff_code);
             $("#trial_staff_name").val(data.info.trial_staff_code);
-            $("#start").val(data.info.start);
-            $("#end").val(data.info.end);
-            $("#section").val(data.info.section);
+            $("#first_start").val(data.info.first_start);
+            $("#first_end").val(data.info.first_end);
+            $("#first_section").val(data.info.first_section);
+            $("#second_start").val(data.info.second_start);
+            $("#second_end").val(data.info.second_end);
+            $("#second_section").val(data.info.second_section);        
+            $("#third_start").val(data.info.third_start);
+            $("#third_end").val(data.info.third_end);
+            $("#third_section").val(data.info.third_section);                   
             $("#note").val(data.info.note);
         })
         var part = $(this).attr("part");
@@ -193,9 +216,9 @@ $(function(){
         })                
     })
 
-    $("body").on("change",".field",function(){
-        var start = $("#start").val();
-        var end = $("#end").val();
+    $("body").on("change",".field1",function(){
+        var start = $("#first_start").val();
+        var end = $("#first_end").val();
         $.ajax({
             url: 'api/get_max_filed',
             data:{
@@ -205,9 +228,41 @@ $(function(){
             dataType:"json"
         }).done(function(data){
             console.log(data);
-            $("#section").val(data.section);
+            $("#first_section").val(data.section);
         })   
     })
+
+    $("body").on("change",".field2",function(){
+        var start = $("#second_start").val();
+        var end = $("#second_end").val();
+        $.ajax({
+            url: 'api/get_max_filed',
+            data:{
+                "start":start,
+                "end":end,
+            },
+            dataType:"json"
+        }).done(function(data){
+            console.log(data);
+            $("#second_section").val(data.section);
+        })   
+    })  
+
+    $("body").on("change",".field3",function(){
+        var start = $("#third_start").val();
+        var end = $("#third_end").val();
+        $.ajax({
+            url: 'api/get_max_filed',
+            data:{
+                "start":start,
+                "end":end,
+            },
+            dataType:"json"
+        }).done(function(data){
+            console.log(data);
+            $("#third_section").val(data.section);
+        })   
+    })        
 
     $("body").on("click","#send",function(){
         if(confirm("是否要儲存?")){
@@ -215,9 +270,15 @@ $(function(){
             var allocation_code = $("#allocation_code").val();
             var trial_staff_code = $("#trial_staff_code").val();
             var trial_staff_name = $("#trial_staff_name").val();
-            var start = $("#start").val();
-            var end = $("#end").val();          
-            var section = $("#section").val();
+            var first_start = $("#first_start").val();
+            var first_end = $("#first_end").val();          
+            var first_section = $("#first_section").val();
+            var second_start = $("#second_start").val();
+            var second_end = $("#second_end").val();          
+            var second_section = $("#second_section").val();            
+            var third_start = $("#third_start").val();
+            var third_end = $("#third_end").val();          
+            var third_section = $("#third_section").val();            
             var note = $("textarea[name='note']").val();
             console.log(sn);
             $.ajax({
@@ -227,9 +288,15 @@ $(function(){
                     "allocation_code":allocation_code,
                     "trial_staff_code":trial_staff_code,
                     "trial_staff_name":trial_staff_name,
-                    "start":start,
-                    "end":end,                    
-                    "section":section,
+                    "first_start":first_start,
+                    "first_end":first_end,                    
+                    "first_section":first_section,
+                    "second_start":second_start,
+                    "second_end":second_end,                    
+                    "second_section":second_section,                    
+                    "third_start":third_start,
+                    "third_end":third_end,                    
+                    "third_section":third_section,                    
                     "note":note
                 },
                 dataType:"json"
@@ -261,95 +328,146 @@ $(function(){
 </div>
 <div class="row" style="position: relative;top: 20px;left: 10px;">
     <div style="width:95%;margin:5px auto;z-index:9999">
-        <div class="tab active" area="1" part="2501"><div class="tab_text">第一分區</div></div>
-        <div class="tab" area="2" part="2502"><div class="tab_text">第二分區</div></div>
-        <div class="tab" area="3" part="2503"><div class="tab_text">第三分區</div></div>
+        <div class="tab active" area="1" part="2501" eng="first"><div class="tab_text">第一分區</div></div>
+        <div class="tab" area="2" part="2502" eng="second"><div class="tab_text">第二分區</div></div>
+        <div class="tab" area="3" part="2503" eng="third"><div class="tab_text">第三分區</div></div>
     </div>
 </div>
 <div class="row part" id="part1" style="height:700px;overflow: auto;">
    <div class="col-12" style="margin-top: 10px;">
-        <table class="table table-hover" id="">
+        <table class="table table-hover" id="" style="text-align:center">
             <thead>
                 <tr>
-                    <th>序號</th>
-                    <th>試務人員編號</th>
-                    <th>試務人員</th>
-                    <th>試場號起</th>
-                    <th>試場號迄</th>
-                    <th>最大試節數</th>
-                    <th>備註</th>                    
+                    <th rowspan="2">序號</th>
+                    <th rowspan="2">管卷人員編號</th>
+                    <th rowspan="2">管卷人員</th>
+                    <th colspan="3" class="bb">第一天</th>
+                    <th colspan="3" class="bb">第二天</th>
+                    <th colspan="3" class="bb">第三天</th>    
+                    <th rowspan="2">備註</th>   
                 </tr>
+                <tr>
+                    <td>試場號起</td>
+                    <td>試場號迄</td>
+                    <td>最大試節數</td>
+                    <td>試場號起</td>
+                    <td>試場號迄</td>
+                    <td>最大試節數</td> 
+                    <td>試場號起</td>
+                    <td>試場號迄</td>
+                    <td>最大試節數</td>   
+                </tr>     
             </thead>
             <tbody>
-            <?php foreach ($part1 as $k => $v): ?>
-                <tr sn="<?=$v['sn']; ?>" part="2501">
-                    <td><?=$k + 1; ?></td>
-                    <td><?=$v['allocation_code']; ?></td>
-                    <td><?=$v['trial_staff_name']; ?></td>
-                    <td><?=$v['start']; ?></td>
-                    <td><?=$v['end']; ?></td>                   
-                    <td><?=$v['section']; ?></td>
-                    <td><?=$v['note']; ?></td>    
-                </tr>                    
-            <?php endforeach; ?>         
+                <?php foreach ($part1 as $k => $v): ?>
+                    <tr sn="<?=$v['sn']; ?>" part="2502">
+                        <td class="bt"><?=$k + 1; ?></td>
+                        <td class="bt"><?=$v['allocation_code']; ?></td>
+                        <td class="bt"><?=$v['trial_staff_name']; ?></td>
+                        <td class="bt"><?=$v['first_start']; ?></td>
+                        <td class="bt"><?=$v['first_end']; ?></td>                   
+                        <td class="bt"><?=$v['first_section']; ?></td>
+                        <td class="bt"><?=$v['second_start']; ?></td>
+                        <td class="bt"><?=$v['second_end']; ?></td>                   
+                        <td class="bt"><?=$v['second_section']; ?></td>
+                        <td class="bt"><?=$v['third_start']; ?></td>
+                        <td class="bt"><?=$v['third_end']; ?></td>                   
+                        <td class="bt"><?=$v['third_section']; ?></td>                                          
+                        <td class="bt"><?=$v['note']; ?></td>    
+                    </tr>                    
+                <?php endforeach; ?>         
             </tbody>
         </table>
      </div>
 </div>
 <div class="row part" id="part2" style="height:700px;overflow: auto;">
    <div class="col-12" style="margin-top: 10px;">
-        <table class="table table-hover" id="">
+        <table class="table table-hover" id="" style="text-align:center">
             <thead>
                 <tr>
-                    <th>序號</th>
-                    <th>試務人員編號</th>
-                    <th>試務人員</th>
-                    <th>試場號起</th>
-                    <th>試場號迄</th>
-                    <th>最大試節數</th>
-                    <th>備註</th>                    
+                    <th rowspan="2">序號</th>
+                    <th rowspan="2">管卷人員編號</th>
+                    <th rowspan="2">管卷人員</th>
+                    <th colspan="3" class="bb">第一天</th>
+                    <th colspan="3" class="bb">第二天</th>
+                    <th colspan="3" class="bb">第三天</th>    
+                    <th rowspan="2">備註</th>   
                 </tr>
+                <tr>
+                    <td>試場號起</td>
+                    <td>試場號迄</td>
+                    <td>最大試節數</td>
+                    <td>試場號起</td>
+                    <td>試場號迄</td>
+                    <td>最大試節數</td> 
+                    <td>試場號起</td>
+                    <td>試場號迄</td>
+                    <td>最大試節數</td>   
+                </tr>   
             </thead>
             <tbody>
-            <?php foreach ($part2 as $k => $v): ?>
-                <tr sn="<?=$v['sn']; ?>" part="2502">
-                    <td><?=$k + 1; ?></td>
-                    <td><?=$v['allocation_code']; ?></td>
-                    <td><?=$v['trial_staff_name']; ?></td>
-                    <td><?=$v['start']; ?></td>
-                    <td><?=$v['end']; ?></td>                   
-                    <td><?=$v['section']; ?></td>
-                    <td><?=$v['note']; ?></td>    
-                </tr>                    
-            <?php endforeach; ?>         
+                <?php foreach ($part2 as $k => $v): ?>
+                    <tr sn="<?=$v['sn']; ?>" part="2502">
+                        <td class="bt"><?=$k + 1; ?></td>
+                        <td class="bt"><?=$v['allocation_code']; ?></td>
+                        <td class="bt"><?=$v['trial_staff_name']; ?></td>
+                        <td class="bt"><?=$v['first_start']; ?></td>
+                        <td class="bt"><?=$v['first_end']; ?></td>                   
+                        <td class="bt"><?=$v['first_section']; ?></td>
+                        <td class="bt"><?=$v['second_start']; ?></td>
+                        <td class="bt"><?=$v['second_end']; ?></td>                   
+                        <td class="bt"><?=$v['second_section']; ?></td>
+                        <td class="bt"><?=$v['third_start']; ?></td>
+                        <td class="bt"><?=$v['third_end']; ?></td>                   
+                        <td class="bt"><?=$v['third_section']; ?></td>                                              
+                        <td class="bt"><?=$v['note']; ?></td>   
+                    </tr>                    
+                <?php endforeach; ?>         
             </tbody>
         </table>
      </div>
 </div>
 <div class="row part" id="part3" style="height:700px;overflow: auto;">
    <div class="col-12" style="margin-top: 10px;">
-        <table class="table table-hover" id="">
+        <table class="table table-hover" id="" style="text-align:center">
             <thead>
                 <tr>
-                    <th>序號</th>
-                    <th>試務人員編號</th>
-                    <th>試務人員</th>
-                    <th>試場號起</th>
-                    <th>試場號迄</th>
-                    <th>最大試節數</th>
-                    <th>備註</th>                    
+                    <th rowspan="2">序號</th>
+                    <th rowspan="2">管卷人員編號</th>
+                    <th rowspan="2">管卷人員</th>
+                    <th colspan="3" class="bb">第一天</th>
+                    <th colspan="3" class="bb">第二天</th>
+                    <th colspan="3" class="bb">第三天</th>    
+                    <th rowspan="2">備註</th>   
                 </tr>
+                <tr>
+                    <td>試場號起</td>
+                    <td>試場號迄</td>
+                    <td>最大試節數</td>
+                    <td>試場號起</td>
+                    <td>試場號迄</td>
+                    <td>最大試節數</td> 
+                    <td>試場號起</td>
+                    <td>試場號迄</td>
+                    <td>最大試節數</td>   
+                </tr>                 
             </thead>
             <tbody>
             <?php foreach ($part3 as $k => $v): ?>
                 <tr sn="<?=$v['sn']; ?>" part="2503">
-                    <td><?=$k + 1; ?></td>
-                    <td><?=$v['allocation_code']; ?></td>
-                    <td><?=$v['trial_staff_name']; ?></td>
-                    <td><?=$v['start']; ?></td>
-                    <td><?=$v['end']; ?></td>                   
-                    <td><?=$v['section']; ?></td>
-                    <td><?=$v['note']; ?></td>    
+                    <td class="bt"><?=$k + 1; ?></td>
+                    <td class="bt"><?=$v['allocation_code']; ?></td>
+                    <td class="bt"><?=$v['trial_staff_name']; ?></td>
+                    <td class="bt"><?=$v['first_start']; ?></td>
+                    <td class="bt"><?=$v['first_end']; ?></td>                   
+                    <td class="bt"><?=$v['first_section']; ?></td>
+                    <td class="bt"><?=$v['second_start']; ?></td>
+                    <td class="bt"><?=$v['second_end']; ?></td>                   
+                    <td class="bt"><?=$v['second_section']; ?></td>
+                    <td class="bt"><?=$v['third_start']; ?></td>
+                    <td class="bt"><?=$v['third_end']; ?></td>                   
+                    <td class="bt"><?=$v['third_section']; ?></td>                                              
+                    <td class="bt"><?=$v['note']; ?></td>   
                 </tr>                    
             <?php endforeach; ?>         
             </tbody>
@@ -360,72 +478,88 @@ $(function(){
     <div class="row boxs">
         <div class="col-md-12 col-sm-12 col-xs-12 ">      
             <form method="POST" enctype="multipart/form-data"  action="" id="form" class="">                                            
-                <div class="col-md-3 col-sm-3 col-xs-3 cube" style="height:150px;">
+                <div class="col-md-3 col-sm-3 col-xs-3 cube" style="background:#afccf0">
                     <div class="form-group" style="width: 100%;float: left;">
-                        <label for="floor" class="" style="float:left;">試務人員</label>
-                        <input type="text" class="form-control" id="allocation_code" style="width: 20%;float: left;" placeholder="分配編號">
+                        <label for="floor" class="" style="float:left;">管卷人員</label>
+                        <input type="text" class="form-control" id="allocation_code" style="width: 28%;float: left;" placeholder="管卷人員編號">
                         <input type="hidden" class="form-control" id="trial_staff_code" style="width: 20%;float: left;" placeholder="">
-                        <input type="text" class="form-control" id="trial_staff_name" style="width: 25%;float: left;margin-left: 5px;">
-                        <button type="button" class="btn btn-primary assgin" data-toggle="modal" data-target="#exampleModal" style="float:left;width:15%;margin-left:5px;">指派</button>
+                        <input type="text" class="form-control" id="trial_staff_name" style="width: 24%;float: left;margin-left: 5px;">
+                        <button type="button" class="btn btn-primary assgin" data-toggle="modal" data-target="#exampleModal" style="float:left;width:20%;margin-left:5px;background:#346a90;border:unset">指派</button>
                     </div>                                                                          
                 </div>    
-                <div class="col-md-3 col-sm-3 col-xs-3 cube">           
+                <div class="col-md-3 col-sm-3 col-xs-3 cube" style="max-width: 20%;">           
                     <div class="form-group">
                         <label for="field" class=""  style="float:left;">試場號起</label>
                         <input type="hidden" class="form-control" id="sn">
-                        <select name="start" id="start" class="field form-control">
-
+                        <select name="start" id="first_start" class="field1 form-control">
+                            <option value="">請選擇</option>
+                            <?php foreach ($part1 as $k => $v): ?>
+                                <option value="<?=$v['field']; ?>"><?=$v['field']; ?></option>               
+                            <?php endforeach; ?>    
                         </select>
                     </div>     
                     <div class="form-group">
                         <label for="section" class=""  style="float:left;">試場號迄</label>
-                        <select name="end" id="end" class="field form-control">
-
+                        <select name="end" id="first_end" class="field1 form-control">
+                            <option value="">請選擇</option>
+                            <?php foreach ($part1 as $k => $v): ?>
+                                <option value="<?=$v['field']; ?>"><?=$v['field']; ?></option>               
+                            <?php endforeach; ?>  
                         </select>
                     </div>  
                     <div class="form-group">
                         <label for="start" class=""  style="float:left;">節數</label>
-                        <input type="text" class="form-control" id="section" readonly>
+                        <input type="text" class="form-control" id="first_section" readonly>
                     </div>                                  
-                </div>   
-                <div class="col-md-3 col-sm-3 col-xs-3 cube">           
+                </div>  
+                <div class="col-md-3 col-sm-3 col-xs-3 cube" style="max-width: 20%;">           
                     <div class="form-group">
                         <label for="field" class=""  style="float:left;">試場號起</label>
                         <input type="hidden" class="form-control" id="sn">
-                        <select name="start" id="start" class="field form-control">
-
+                        <select name="start" id="second_start" class="field2 form-control">
+                            <option value="">請選擇</option>
+                            <?php foreach ($part2 as $k => $v): ?>
+                                <option value="<?=$v['field']; ?>"><?=$v['field']; ?></option>               
+                            <?php endforeach; ?>  
                         </select>
                     </div>     
                     <div class="form-group">
                         <label for="section" class=""  style="float:left;">試場號迄</label>
-                        <select name="end" id="end" class="field form-control">
-
+                        <select name="end" id="second_end" class="field2 form-control">
+                            <option value="">請選擇</option>
+                            <?php foreach ($part2 as $k => $v): ?>
+                                <option value="<?=$v['field']; ?>"><?=$v['field']; ?></option>               
+                            <?php endforeach; ?>  
                         </select>
                     </div>  
                     <div class="form-group">
                         <label for="start" class=""  style="float:left;">節數</label>
-                        <input type="text" class="form-control" id="section" readonly>
+                        <input type="text" class="form-control" id="second_section" readonly>
                     </div>                                  
-                </div>   
-                <div class="col-md-3 col-sm-3 col-xs-3 cube">           
+                </div>  
+                <div class="col-md-3 col-sm-3 col-xs-3 cube" style="max-width: 20%;">           
                     <div class="form-group">
                         <label for="field" class=""  style="float:left;">試場號起</label>
                         <input type="hidden" class="form-control" id="sn">
-                        <select name="start" id="start" class="field form-control">
-
+                        <select name="start" id="third_start" class="field3 form-control">
+                            <?php foreach ($part3 as $k => $v): ?>
+                                <option value="<?=$v['field']; ?>"><?=$v['field']; ?></option>               
+                            <?php endforeach; ?>  
                         </select>
                     </div>     
                     <div class="form-group">
                         <label for="section" class=""  style="float:left;">試場號迄</label>
-                        <select name="end" id="end" class="field form-control">
-
+                        <select name="end" id="third_end" class="field3 form-control">
+                            <?php foreach ($part3 as $k => $v): ?>
+                                <option value="<?=$v['field']; ?>"><?=$v['field']; ?></option>               
+                            <?php endforeach; ?>  
                         </select>
                     </div>  
                     <div class="form-group">
                         <label for="start" class=""  style="float:left;">節數</label>
-                        <input type="text" class="form-control" id="section" readonly>
+                        <input type="text" class="form-control" id="third_section" readonly>
                     </div>                                  
-                </div>                                                                              
+                </div>                                                                                                          
                 <div class="col-md-6 col-sm-6 col-xs-6 " style="float:left;margin: 20px auto;">             
                     <div class="">
                         <div class="">

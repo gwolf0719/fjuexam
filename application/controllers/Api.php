@@ -508,8 +508,8 @@ class Api extends CI_Controller
     public function save_trial()
     {
         $this->load->model('mod_trial');
-        $getpost = array('sn', 'supervisor_1', 'supervisor_1_code', 'supervisor_2', 'supervisor_2_code', 'trial_staff', 'trial_staff_code', 'note');
-        $requred = array('sn', 'supervisor_1', 'supervisor_1_code', 'supervisor_2', 'supervisor_2_code', 'trial_staff', 'trial_staff_code');
+        $getpost = array('sn', 'supervisor_1', 'supervisor_1_code', 'supervisor_2', 'supervisor_2_code', 'trial_staff_code_1', 'trial_staff_code_2', 'note');
+        $requred = array('sn', 'supervisor_1', 'supervisor_1_code', 'supervisor_2', 'supervisor_2_code', 'trial_staff_code_1', 'trial_staff_code_2');
         $data = $this->getpost->getpost_array($getpost, $requred);
         if ($data == false) {
             $json_arr['sys_code'] = '000';
@@ -549,8 +549,8 @@ class Api extends CI_Controller
     public function save_trial_staff()
     {
         $this->load->model('mod_trial');
-        $getpost = array('sn', 'allocation_code', 'trial_staff_code', 'trial_staff_name', 'start', 'end', 'section', 'note');
-        $requred = array('sn', 'allocation_code', 'trial_staff_code', 'trial_staff_name', 'start', 'end', 'section');
+        $getpost = array('sn', 'allocation_code', 'trial_staff_code', 'trial_staff_name', 'first_start', 'first_end', 'first_section', 'second_start', 'second_end', 'second_section', 'third_start', 'third_end', 'third_section', 'note');
+        $requred = array('sn', 'allocation_code', 'trial_staff_code', 'trial_staff_name', 'first_start', 'first_end', 'first_section', 'second_start', 'second_end', 'second_section', 'third_start', 'third_end', 'third_section');
         $data = $this->getpost->getpost_array($getpost, $requred);
         if ($data == false) {
             $json_arr['sys_code'] = '000';
