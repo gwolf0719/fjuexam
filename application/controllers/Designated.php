@@ -734,9 +734,9 @@ class Designated extends CI_Controller
         $part2 = $this->mod_trial->get_trial_list('2502');
         $part3 = $this->mod_trial->get_trial_list('2503');
         $data = array(
-            'title' => '試務人員指派',
+            'title' => '管卷人員指派',
             'path' => 'designated/d_2',
-            'path_text' => ' > 指考主選單 > 試場人員指派 > 試務人員指派',
+            'path_text' => ' > 指考主選單 > 試場人員指派 > 管卷人員指派',
             'part1' => $part1,
             'part2' => $part2,
             'part3' => $part3,
@@ -833,9 +833,9 @@ class Designated extends CI_Controller
             );
         }
         $data = array(
-            'title' => '試務人員列表',
+            'title' => '管卷人員列表',
             'path' => 'designated/d_5',
-            'path_text' => ' > 指考主選單 > 試場人員指派 > 試務人員列表',
+            'path_text' => ' > 指考主選單 > 試場人員指派 > 管卷人員列表',
             'part1' => $part1,
             'part2' => $part2,
             'part3' => $part3,
@@ -958,7 +958,7 @@ class Designated extends CI_Controller
         $this->load->model('mod_exam_datetime');
         $year = $this->session->userdata('year');
         $datetime_info = $this->mod_exam_datetime->get_once($year);
-        
+
         $course = $this->mod_exam_datetime->get_course($year);
 
         $data = array(
@@ -977,7 +977,7 @@ class Designated extends CI_Controller
     //     $year = $this->session->userdata('year');
 
     //     $this->mod_exam_datetime->clean_course($year);
-        
+
     //     $this->mod_exam_datetime->setting_course($year, $_POST);
 
     //     // redirect('./designated/f_2');

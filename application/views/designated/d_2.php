@@ -360,7 +360,6 @@ $(function(){
     <div class="row boxs">
         <div class="col-md-12 col-sm-12 col-xs-12 ">      
             <form method="POST" enctype="multipart/form-data"  action="" id="form" class="">                                            
-            
                 <div class="col-md-3 col-sm-3 col-xs-3 cube" style="height:150px;">
                     <div class="form-group" style="width: 100%;float: left;">
                         <label for="floor" class="" style="float:left;">試務人員</label>
@@ -388,7 +387,45 @@ $(function(){
                         <label for="start" class=""  style="float:left;">節數</label>
                         <input type="text" class="form-control" id="section" readonly>
                     </div>                                  
-                </div>                                              
+                </div>   
+                <div class="col-md-3 col-sm-3 col-xs-3 cube">           
+                    <div class="form-group">
+                        <label for="field" class=""  style="float:left;">試場號起</label>
+                        <input type="hidden" class="form-control" id="sn">
+                        <select name="start" id="start" class="field form-control">
+
+                        </select>
+                    </div>     
+                    <div class="form-group">
+                        <label for="section" class=""  style="float:left;">試場號迄</label>
+                        <select name="end" id="end" class="field form-control">
+
+                        </select>
+                    </div>  
+                    <div class="form-group">
+                        <label for="start" class=""  style="float:left;">節數</label>
+                        <input type="text" class="form-control" id="section" readonly>
+                    </div>                                  
+                </div>   
+                <div class="col-md-3 col-sm-3 col-xs-3 cube">           
+                    <div class="form-group">
+                        <label for="field" class=""  style="float:left;">試場號起</label>
+                        <input type="hidden" class="form-control" id="sn">
+                        <select name="start" id="start" class="field form-control">
+
+                        </select>
+                    </div>     
+                    <div class="form-group">
+                        <label for="section" class=""  style="float:left;">試場號迄</label>
+                        <select name="end" id="end" class="field form-control">
+
+                        </select>
+                    </div>  
+                    <div class="form-group">
+                        <label for="start" class=""  style="float:left;">節數</label>
+                        <input type="text" class="form-control" id="section" readonly>
+                    </div>                                  
+                </div>                                                                              
                 <div class="col-md-6 col-sm-6 col-xs-6 " style="float:left;margin: 20px auto;">             
                     <div class="">
                         <div class="">
