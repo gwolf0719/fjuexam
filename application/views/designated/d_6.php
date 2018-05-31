@@ -23,7 +23,7 @@ img{
     overflow: auto;
 }
 .cube{
-    background: #e2eed3;
+    background: #dacddf;
     margin: 0px 10px;
     width: 23%;
     padding: 20px;
@@ -81,6 +81,9 @@ label {
     text-align: center;
     padding: 10px 0px;
     font-size: 21px;
+}
+tr{
+    cursor:pointer;
 }
 </style>
 
@@ -170,16 +173,17 @@ $(function(){
                     $("#section_total").hide();                      
                     break;
                     
-            }                             
+            }                          
             //開始讀取天數
             $.ajax({
                 url: 'api/room_use_day',
                 data:{
-                    "start":data.info.start,
-                    "end":data.info.end,
+                    "start":$("#trial_start").val(),
+                    "end":$("#trial_end").val(),
                 },
                 dataType:"json"
             }).done(function(data){
+                console.log(data.day);
                 $('input:checkbox[name="day"]').eq(0).prop("checked",data.day[0]);
                 $('input:checkbox[name="day"]').eq(1).prop("checked",data.day[1]);
                 $('input:checkbox[name="day"]').eq(2).prop("checked",data.day[2]); 
@@ -220,96 +224,7 @@ $(function(){
             }         
         })               
     })
-
-    // $("body").on("click","tr",function(){
-    //     var sn = $(this).attr("sn");
-    //     $("#job_code").attr("readonly",true);
-    //     $("html, body").animate({
-    //     scrollTop: $("body").height()
-    //     }, 1000);      
-        
-    //     $.ajax({
-    //         url: 'api/get_once_task',
-    //         data:{
-    //             "sn":sn,
-    //         },
-    //         dataType:"json"
-    //     }).done(function(data){
-    //         var chk = data.info.do_date.split(",")
-    //         var lenght = data.info.do_date.split(",").length;
-    //         for(i=1;i<=lenght;i++){
-    //             if(chk[i-1] != undefined){
-    //                 $('input:checkbox[name="day"]').eq(i-1).prop("checked",true);
-    //             }
-    //         }
-    //         if(data.info.do_date == ""){
-    //             $('input:checkbox[name="day"]').eq(0).prop("checked",false);
-    //             $('input:checkbox[name="day"]').eq(1).prop("checked",false);
-    //             $('input:checkbox[name="day"]').eq(2).prop("checked",false);
-    //         }
-    //         $("#sn").val(sn);
-    //         $("#job").val(data.info.job)
-    //         $("#job_code").val(data.info.job_code)
-    //         $("#job_title").val(data.info.job_title)
-    //         $("#name").val(data.info.name)
-    //         $("#start_date").val(data.info.start_date)
-    //         $("#trial_start").val(data.info.trial_start)
-    //         $("#trial_end").val(data.info.trial_end)
-    //         $("#number").val(data.info.number)
-    //         $("#section").val(data.info.section)
-    //         $("#price").val(data.info.price)
-    //         $("#lunch").val(data.info.lunch)
-    //         $("#phone").val(data.info.phone)
-    //         $("#note").val(data.info.note)
-
-    //         if(data.info.day_count != ""){
-    //             $("#day_count").val(data.info.day_count);
-    //         }else{
-    //             $("#day_count").val("0");
-    //         }
-
-    //         if(data.info.salary_total != ""){
-    //             $("#salary_total").val(data.info.salary_total);
-    //         }else{
-    //             $("#salary_total").val("0");
-    //         }
-
-    //         if(data.info.one_day_salary != ""){
-    //             $("#one_day_salary").val(data.info.one_day_salary);
-    //         }else{
-    //             $("#one_day_salary").val(<?=$fees_info['one_day_salary']; ?>)
-    //         }
-            
-    //         if(data.info.lunch_total != ""){
-    //             $("#lunch_total").val(data.info.lunch_total);
-    //         }else{
-    //             $("#lunch_total").val("0");
-    //         }
-
-    //         if(data.info.lunch_price != ""){
-    //             $("#lunch_price").val(data.info.lunch_price);
-    //         }else{
-    //             $("#lunch_price").val(<?=$fees_info['lunch_fee']; ?>)
-    //         }
-
-    //         if(data.info.total != ""){
-    //             $("#total").val(data.info.total);
-    //         }else{
-    //             $("#total").val("0");
-    //         }
-
-    //         if(data.info.order_meal == "y"){
-    //             $("#order_meal").prop("checked",true);
-    //             $("#lunch_price").attr("readonly",false);
-    //         }else{
-    //             $("#order_meal").prop("checked",false);
-    //             $("#lunch_price").attr("readonly",true);
-    //         }
-    //     })
-    // })
-
     
-
     $("#order_meal").change(function() {
         if (this.checked) {
             $(this).val("y");
@@ -370,24 +285,6 @@ $(function(){
         }
     })  
 
-    // $("body").on("click","#remove",function(){
-    //     if(confirm("是否確定要刪除？")){
-    //         var sn = $("#sn").val();
-    //         $.ajax({
-    //             url: 'api/remove_once_task',
-    //             data:{
-    //                 "sn":sn,
-    //             },
-    //             dataType:"json"
-    //         }).done(function(data){
-    //             // alert(data.sys_msg);
-    //             if(data.sys_code == "200"){
-    //                 alert(data.sys_msg);
-    //                 location.reload();
-    //             }
-    //         })
-    //     }
-    // })    
 
     $(".part").eq(0).show();
     $("body").on("click",".tab",function(){
@@ -593,19 +490,19 @@ $(function(){
                         <label for="job_code" class=""  style="float:left;">職員代碼</label>
                         <input type="hidden" id="sn">
                         <input type="hidden" id="member_job_title">
-                        <input type="text" class="form-control" id="job_code">
+                        <input type="text" class="form-control" id="job_code" readonly>
                     </div>  
                     <div class="form-group">
                         <label for="job_title" class=""  style="float:left;">職稱</label>
-                        <input type="text" class="form-control" id="job_title">
+                        <input type="text" class="form-control" id="job_title" readonly>
                     </div>                  
                     <div class="form-group">
                         <label for="member_name" class=""  style="float:left;">姓名</label>
-                        <input type="text" class="form-control" id="name">
+                        <input type="text" class="form-control" id="name" readonly>
                     </div>                  
                     <div class="form-group">
                         <label for="trial_start" class=""  style="float:left;">聯絡電話</label>
-                        <input type="text" class="form-control" id="phone">
+                        <input type="text" class="form-control" id="phone" readonly>
                     </div>  
                 </div>
                 <div class="col-md-3 col-sm-3 col-xs-3 cube">

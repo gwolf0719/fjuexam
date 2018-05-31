@@ -11,7 +11,9 @@
         margin-left:0px;
         padding-left:0px;
     }
-   
+   tr{
+        cursor:pointer;
+    }
 </style>
 <script>
     $(function(){
@@ -69,7 +71,7 @@
             </div>
             <div class="row table-form" class="">
                 <div class="col-3 text-right">第三分區地址</div>
-                <input type="text" class="col-6" id="part_addr_3" name="part_addr_3" value="<?=$addr_info['part_addr_3'];?>">
+                <input type="text" class="col-6" id="part_addr_3" name="part_addr_3" value="<?=$addr_info['part_addr_3']; ?>">
                 <div class="col-3 "></div>
             </div>
         </div>

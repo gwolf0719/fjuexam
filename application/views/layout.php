@@ -77,6 +77,6 @@
         <?php $this->load->view($path); ?>
 
 
-    </main><!-- /.container -->
+    </main>
  </body>
 </html>

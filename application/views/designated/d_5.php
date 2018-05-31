@@ -3,8 +3,12 @@
 @media (min-width: 1200px){
     .container {
         max-width: 100%;
-        width:100%;
+        width:100%!important;
     }
+}
+.container {
+    max-width: 1680px;
+    width: 1680px!important;
 }
 .typeahead{
     z-index: 1051;
@@ -22,26 +26,32 @@ img{
     height: auto;
     overflow: auto;
 }
+.W14{
+    width:14%;
+}
+.W20{
+    width:20%;
+}
 .cube{
-    background: #e2eed3;
+    background: #dacddf;
     margin: 0px 10px;
-    width: 23%;
     padding: 20px;
     border-radius: 10px;
     float: left;
-    height: 266px;
+    height: auto;
 }
 label {
     display: inline-block;
     line-height: 40px;
     text-align: center;
     width: 35%;
+    font-size:14px;
 }
 .form-control {
     display: block;
     width: 50%;
     padding: .375rem .75rem;
-    font-size: 1rem;
+    font-size: 14px;
     line-height: 1.5;
     color: #495057;
     background-color: #fff;
@@ -52,7 +62,7 @@ label {
 }
 .form-group {
     margin-bottom: 1rem;
-    padding-right:10%;
+    padding-right:0%;
     float: left;
     width: 100%;
 }
@@ -82,6 +92,27 @@ label {
     padding: 10px 0px;
     font-size: 21px;
 }
+.table thead th {
+    vertical-align: middle;
+    border-bottom: 0;
+
+}
+
+.table td, .table th {
+    padding: .75rem;
+    vertical-align: top;
+    border-top: 0;
+}
+.bt{
+    border-top: 1px solid #dee2e6!important;
+}
+.bb{
+    border-bottom: 1px solid #dee2e6!important;
+}
+tr{
+    cursor:pointer;
+}
+</style>
 </style>
 
 <script>
@@ -113,10 +144,19 @@ $(function(){
             dataType:"json"
         }).done(function(data){
             $("#sn").val(sn);
-            $("#trial_start").val(data.info.start);
-            $("#trial_end").val(data.info.end);
+            $("#first_start").val(data.info.first_start);
+            $("#first_end").val(data.info.first_end);
+            $("#first_section").val(data.info.first_section);
+            $("#second_start").val(data.info.second_start);
+            $("#second_end").val(data.info.second_end);
+            $("#second_section").val(data.info.second_section); 
+            $("#third_start").val(data.info.third_start);
+            $("#third_end").val(data.info.third_end);
+            $("#third_section").val(data.info.third_section);                        
             $("#note").val(data.info.note);    
-            $("#section_count").val(data.info.section);
+            var section_count = parseInt(data.info.first_section) + parseInt(data.info.second_section) + parseInt(data.info.third_section);
+            var day_arr = [data.info.first_section,data.info.second_section,data.info.third_section];
+            var uses_day_count = day_arr.length;
             switch(data.info.calculation) {
                 case "by_section":
                     $("#calculation").val("by_section");
@@ -165,36 +205,23 @@ $(function(){
                     $("#salary_section").hide()  
                     $("#section_salary_total").hide();
                     $("#section_lunch_total").hide();
-                    $("#section_total").hide();                      
+                    $("#section_total").hide();    
+                    $("#section_count").val(data.info.count);                       
+                    $("#day_count").val(uses_day_count);    
+                    var day_salary_total = parseInt($("#one_day_salary").val() ) * parseInt($("#day_count").val());
+                    $("#day_salary_total").val(day_salary_total);
+                    if($("#order_meal").val() == "N"){
+                        $("#day_total").val(day_salary_total);
+                    }else{
+                        var day_lunch_total = 0 - parseInt($("#lunch_price").val()) * parseInt($("#day_count").val());
+                        $("#day_lunch_total").val(day_lunch_total);
+                        var day_total = parseInt($("#day_salary_total").val()) + parseInt($("#day_lunch_total").val());
+                        $("#day_total").val(day_total);
+                    }                                                         
                     break;
                     
-            }            
-
-            //開始讀取天數
-            $.ajax({
-                url: 'api/room_use_day',
-                data:{
-                    "start":data.info.start,
-                    "end":data.info.end,
-                },
-                dataType:"json"
-            }).done(function(data){
-                $('input:checkbox[name="day"]').eq(0).prop("checked",data.day[0]);
-                $('input:checkbox[name="day"]').eq(1).prop("checked",data.day[1]);
-                $('input:checkbox[name="day"]').eq(2).prop("checked",data.day[2]); 
-                var day_count = $('input:checkbox:checked[name="day"]').map(function() { return $(this).val(); }).get().length;
-                $("#day_count").val(day_count);
-                var day_salary_total = parseInt($("#one_day_salary").val() ) * parseInt($("#day_count").val());
-                $("#day_salary_total").val(day_salary_total);
-                if($("#order_meal").val() == "N"){
-                    $("#day_total").val(day_salary_total);
-                }else{
-                    var day_lunch_total = 0 - parseInt($("#lunch_price").val()) * parseInt($("#day_count").val());
-                    $("#day_lunch_total").val(day_lunch_total);
-                    var day_total = parseInt($("#day_salary_total").val()) + parseInt($("#day_lunch_total").val());
-                    $("#day_total").val(day_total);
-                }
-            })                   
+            }  
+                          
         })  
         //取得職員資料
         $.ajax({
@@ -244,6 +271,7 @@ $(function(){
             var lunch_price;
             var lunch_total;
             var total;
+            var note = $("textarea[name='note']").val();
             if(calculation == "by_section"){
                 count = $("#section_count").val();
                 salary = $("#salary_section").val();
@@ -271,6 +299,7 @@ $(function(){
                     "lunch_price":lunch_price,  
                     "lunch_total":lunch_total,  
                     "total":total,  
+                    "note":note
                 },
                 dataType:"json"
             }).done(function(data){
@@ -330,6 +359,8 @@ $(function(){
             $("#section_salary_total").show();
             $("#section_lunch_total").show();
             $("#section_total").show();   
+            var section_count = parseInt($("#first_section").val()) + parseInt($("#second_section").val()) + parseInt($("#third_section").val());
+            $("#section_count").val(section_count);
             var section_salary_total =  $("#section_count").val() * $("#salary_section").val();
             $("#section_salary_total").val(section_salary_total);
             $('input:checkbox[name="day"]').click(function(){
@@ -388,28 +419,45 @@ $(function(){
 </div>
 <div class="row part" id="part1" style="height:700px;overflow: auto;">
    <div class="col-12" style="margin-top: 10px;">
-        <table class="table table-hover" id="">
+        <table class="table table-hover" id="" style="text-align:center;">
             <thead>
                 <tr>
-                    <th>序號</th>
-                    <th>巡場人員編號</th>
-                    <th>巡場人員</th>
-                    <th>試場號起</th>
-                    <th>試場號迄</th>
-                    <th>最大試節數</th>
-                    <th>備註</th>                    
+                    <th rowspan="2">序號</th>
+                    <th rowspan="2">管卷人員編號</th>
+                    <th rowspan="2">管卷人員</th>
+                    <th colspan="3" class="bb">第一天</th>
+                    <th colspan="3" class="bb">第二天</th>
+                    <th colspan="3" class="bb">第三天</th>    
+                    <th rowspan="2">備註</th>   
                 </tr>
+                <tr>
+                    <td>試場號起</td>
+                    <td>試場號迄</td>
+                    <td>最大試節數</td>
+                    <td>試場號起</td>
+                    <td>試場號迄</td>
+                    <td>最大試節數</td> 
+                    <td>試場號起</td>
+                    <td>試場號迄</td>
+                    <td>最大試節數</td>   
+                </tr>     
             </thead>
             <tbody>
             <?php foreach ($part1 as $k => $v): ?>
                 <tr sn="<?=$v['sn']; ?>" code="<?=$v['trial_staff_code']; ?>">
-                    <td><?=$k + 1; ?></td>
-                    <td><?=$v['allocation_code']; ?></td>
-                    <td><?=$v['trial_staff_name']; ?></td>
-                    <td><?=$v['start']; ?></td>
-                    <td><?=$v['end']; ?></td>                   
-                    <td><?=$v['section']; ?></td>
-                    <td><?=$v['note']; ?></td>    
+                    <td class="bt"><?=$k + 1; ?></td>
+                    <td class="bt"><?=$v['allocation_code']; ?></td>
+                    <td class="bt"><?=$v['trial_staff_name']; ?></td>
+                    <td class="bt"><?=$v['first_start']; ?></td>
+                    <td class="bt"><?=$v['first_end']; ?></td>                   
+                    <td class="bt"><?=$v['first_section']; ?></td>
+                    <td class="bt"><?=$v['second_start']; ?></td>
+                    <td class="bt"><?=$v['second_end']; ?></td>                   
+                    <td class="bt"><?=$v['second_section']; ?></td>
+                    <td class="bt"><?=$v['third_start']; ?></td>
+                    <td class="bt"><?=$v['third_end']; ?></td>                   
+                    <td class="bt"><?=$v['third_section']; ?></td>                                          
+                    <td class="bt"><?=$v['note']; ?></td>   
                 </tr>                    
             <?php endforeach; ?>         
             </tbody>
@@ -418,28 +466,45 @@ $(function(){
 </div>
 <div class="row part" id="part2" style="height:700px;overflow: auto;">
    <div class="col-12" style="margin-top: 10px;">
-        <table class="table table-hover" id="">
+        <table class="table table-hover" id="" style="text-align:center;">
             <thead>
                 <tr>
-                    <th>序號</th>
-                    <th>巡場人員編號</th>
-                    <th>巡場人員</th>
-                    <th>試場號起</th>
-                    <th>試場號迄</th>
-                    <th>最大試節數</th>
-                    <th>備註</th>                    
+                    <th rowspan="2">序號</th>
+                    <th rowspan="2">管卷人員編號</th>
+                    <th rowspan="2">管卷人員</th>
+                    <th colspan="3" class="bb">第一天</th>
+                    <th colspan="3" class="bb">第二天</th>
+                    <th colspan="3" class="bb">第三天</th>    
+                    <th rowspan="2">備註</th>   
                 </tr>
+                <tr>
+                    <td>試場號起</td>
+                    <td>試場號迄</td>
+                    <td>最大試節數</td>
+                    <td>試場號起</td>
+                    <td>試場號迄</td>
+                    <td>最大試節數</td> 
+                    <td>試場號起</td>
+                    <td>試場號迄</td>
+                    <td>最大試節數</td>   
+                </tr>     
             </thead>
             <tbody>
             <?php foreach ($part2 as $k => $v): ?>
                 <tr sn="<?=$v['sn']; ?>" code="<?=$v['trial_staff_code']; ?>">
-                    <td><?=$k + 1; ?></td>
-                    <td><?=$v['allocation_code']; ?></td>
-                    <td><?=$v['trial_staff_name']; ?></td>
-                    <td><?=$v['start']; ?></td>
-                    <td><?=$v['end']; ?></td>                   
-                    <td><?=$v['section']; ?></td>
-                    <td><?=$v['note']; ?></td>    
+                    <td class="bt"><?=$k + 1; ?></td>
+                    <td class="bt"><?=$v['allocation_code']; ?></td>
+                    <td class="bt"><?=$v['trial_staff_name']; ?></td>
+                    <td class="bt"><?=$v['first_start']; ?></td>
+                    <td class="bt"><?=$v['first_end']; ?></td>                   
+                    <td class="bt"><?=$v['first_section']; ?></td>
+                    <td class="bt"><?=$v['second_start']; ?></td>
+                    <td class="bt"><?=$v['second_end']; ?></td>                   
+                    <td class="bt"><?=$v['second_section']; ?></td>
+                    <td class="bt"><?=$v['third_start']; ?></td>
+                    <td class="bt"><?=$v['third_end']; ?></td>                   
+                    <td class="bt"><?=$v['third_section']; ?></td>                                          
+                    <td class="bt"><?=$v['note']; ?></td>    
                 </tr>                    
             <?php endforeach; ?>         
             </tbody>
@@ -448,28 +513,45 @@ $(function(){
 </div>
 <div class="row part" id="part3" style="height:700px;overflow: auto;">
    <div class="col-12" style="margin-top: 10px;">
-        <table class="table table-hover" id="">
+        <table class="table table-hover" id="" style="text-align:center;">
             <thead>
                 <tr>
-                    <th>序號</th>
-                    <th>巡場人員編號</th>
-                    <th>巡場人員</th>
-                    <th>試場號起</th>
-                    <th>試場號迄</th>
-                    <th>最大試節數</th>
-                    <th>備註</th>                    
+                    <th rowspan="2">序號</th>
+                    <th rowspan="2">管卷人員編號</th>
+                    <th rowspan="2">管卷人員</th>
+                    <th colspan="3" class="bb">第一天</th>
+                    <th colspan="3" class="bb">第二天</th>
+                    <th colspan="3" class="bb">第三天</th>    
+                    <th rowspan="2">備註</th>   
                 </tr>
+                <tr>
+                    <td>試場號起</td>
+                    <td>試場號迄</td>
+                    <td>最大試節數</td>
+                    <td>試場號起</td>
+                    <td>試場號迄</td>
+                    <td>最大試節數</td> 
+                    <td>試場號起</td>
+                    <td>試場號迄</td>
+                    <td>最大試節數</td>   
+                </tr>     
             </thead>
             <tbody>
             <?php foreach ($part3 as $k => $v): ?>
                 <tr sn="<?=$v['sn']; ?>" code="<?=$v['trial_staff_code']; ?>">
-                    <td><?=$k + 1; ?></td>
-                    <td><?=$v['allocation_code']; ?></td>
-                    <td><?=$v['trial_staff_name']; ?></td>
-                    <td><?=$v['start']; ?></td>
-                    <td><?=$v['end']; ?></td>                   
-                    <td><?=$v['section']; ?></td>
-                    <td><?=$v['note']; ?></td>    
+                    <td class="bt"><?=$k + 1; ?></td>
+                    <td class="bt"><?=$v['allocation_code']; ?></td>
+                    <td class="bt"><?=$v['trial_staff_name']; ?></td>
+                    <td class="bt"><?=$v['first_start']; ?></td>
+                    <td class="bt"><?=$v['first_end']; ?></td>                   
+                    <td class="bt"><?=$v['first_section']; ?></td>
+                    <td class="bt"><?=$v['second_start']; ?></td>
+                    <td class="bt"><?=$v['second_end']; ?></td>                   
+                    <td class="bt"><?=$v['second_section']; ?></td>
+                    <td class="bt"><?=$v['third_start']; ?></td>
+                    <td class="bt"><?=$v['third_end']; ?></td>                   
+                    <td class="bt"><?=$v['third_section']; ?></td>                                          
+                    <td class="bt"><?=$v['note']; ?></td>    
                 </tr>                    
             <?php endforeach; ?>         
             </tbody>
@@ -481,7 +563,7 @@ $(function(){
     <div class="row boxs">
         <div class="col-md-12 col-sm-12 col-xs-12" style="margin: 50px auto 0px;">      
             <form method="POST" enctype="multipart/form-data"  action="" id="form" class="">                                            
-                <div class="col-md-3 col-sm-3 col-xs-3 cube">
+                <div class="col-md-3 col-sm-3 col-xs-3 cube W14">
                     <div class="form-group">
                         <label for="job_code" class=""  style="float:left;">職員代碼</label>
                         <input type="hidden" id="sn">
@@ -501,23 +583,49 @@ $(function(){
                         <input type="text" class="form-control" id="phone">
                     </div>  
                 </div>
-                <div class="col-md-3 col-sm-3 col-xs-3 cube">
-                    <div class="form-group">
-                        <label for="start_date" class=""  style="float:left;">執行日</label>
-                        <input type="checkbox" class="chbox" id="" name="day" disabled value="<?=mb_substr($datetime_info['day_1'], 5, 8, 'utf-8'); ?>"><span class="chbox"><?=mb_substr($datetime_info['day_1'], 5, 8, 'utf-8'); ?> </span>
-                        <input type="checkbox" class="chbox" id="" name="day" disabled value="<?=mb_substr($datetime_info['day_2'], 5, 8, 'utf-8'); ?>"><span class="chbox"><?=mb_substr($datetime_info['day_2'], 5, 8, 'utf-8'); ?> </span>
-                        <input type="checkbox" class="chbox" id="" name="day" disabled value="<?=mb_substr($datetime_info['day_3'], 5, 8, 'utf-8'); ?>"><span class="chbox"><?=mb_substr($datetime_info['day_3'], 5, 8, 'utf-8'); ?> </span>
-                    </div>  
+                <div class="col-md-3 col-sm-3 col-xs-3 cube W14">
                     <div class="form-group">
                         <label for="trial_start" class=""  style="float:left;">試場起號</label>
-                        <input type="text" class="form-control" id="trial_start" readonly>
+                        <input type="text" class="form-control" id="first_start" readonly>
                     </div>                  
                     <div class="form-group">
                         <label for="trial_end" class=""  style="float:left;">試場迄號</label>
-                        <input type="text" class="form-control" id="trial_end" readonly>
-                    </div>                
+                        <input type="text" class="form-control" id="first_end" readonly>
+                    </div>     
+                    <div class="form-group">
+                        <label for="trial_end" class=""  style="float:left;">最大節數</label>
+                        <input type="text" class="form-control" id="first_section" readonly>
+                    </div>                                    
                 </div>    
-                <div class="col-md-3 col-sm-3 col-xs-3 cube" style="height:150px;">
+                <div class="col-md-3 col-sm-3 col-xs-3 cube W14">
+                    <div class="form-group">
+                        <label for="trial_start" class=""  style="float:left;">試場起號</label>
+                        <input type="text" class="form-control" id="second_start" readonly>
+                    </div>                  
+                    <div class="form-group">
+                        <label for="trial_end" class=""  style="float:left;">試場迄號</label>
+                        <input type="text" class="form-control" id="second_end" readonly>
+                    </div>     
+                    <div class="form-group">
+                        <label for="trial_end" class=""  style="float:left;">最大節數</label>
+                        <input type="text" class="form-control" id="second_section" readonly>
+                    </div>                                    
+                </div>    
+                <div class="col-md-3 col-sm-3 col-xs-3 cube W14">
+                    <div class="form-group">
+                        <label for="trial_start" class=""  style="float:left;">試場起號</label>
+                        <input type="text" class="form-control" id="third_start" readonly>
+                    </div>                  
+                    <div class="form-group">
+                        <label for="trial_end" class=""  style="float:left;">試場迄號</label>
+                        <input type="text" class="form-control" id="third_end" readonly>
+                    </div>     
+                    <div class="form-group">
+                        <label for="trial_end" class=""  style="float:left;">最大節數</label>
+                        <input type="text" class="form-control" id="third_section" readonly>
+                    </div>                                    
+                </div>                                    
+                <div class="col-md-3 col-sm-3 col-xs-3 cube W14">
                     <div class="form-group">
                         <label for="order_meal">訂餐需求</label>
                         <input type="checkbox" class="" name="need" id="order_meal" disabled><span>需訂餐</span>
@@ -530,7 +638,7 @@ $(function(){
                         </select>
                     </div>                                             
                 </div>                        
-                <div class="col-md-3 col-sm-3 col-xs-3 cube" style="float:left">
+                <div class="col-md-3 col-sm-3 col-xs-3 cube W20">
                     <div class="form-group">
                         <label for="start_date" class=""  style="float:left;">天數/節數</label>
                         <input type="text" class="form-control" id="day_count" readonly>

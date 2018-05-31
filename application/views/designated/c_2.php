@@ -58,6 +58,9 @@ label {
     bottom: 0px;
     width:100%;
 }
+tr{
+    cursor:pointer;
+}
 </style>
 
 <script>

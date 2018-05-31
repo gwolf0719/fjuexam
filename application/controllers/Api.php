@@ -528,6 +528,29 @@ class Api extends CI_Controller
         echo json_encode($json_arr);
     }
 
+    public function save_trial_for_price()
+    {
+        $this->load->model('mod_trial');
+        $getpost = array('sn', 'first_member_day_count', 'first_member_one_day_salary', 'first_member_day_salary_total', 'first_member_lunch_price', 'first_member_day_lunch_total', 'first_member_day_total', 'second_member_day_count', 'second_member_one_day_salary', 'second_member_day_salary_total', 'second_member_lunch_price', 'second_member_day_lunch_total', 'second_member_day_total');
+        $requred = array('sn', 'first_member_day_count', 'first_member_one_day_salary', 'first_member_day_salary_total', 'first_member_lunch_price', 'first_member_day_lunch_total', 'first_member_day_total', 'second_member_day_count', 'second_member_one_day_salary', 'second_member_day_salary_total', 'second_member_lunch_price', 'second_member_day_lunch_total', 'second_member_day_total');
+        $data = $this->getpost->getpost_array($getpost, $requred);
+        if ($data == false) {
+            $json_arr['sys_code'] = '000';
+            $json_arr['sys_msg'] = '資料不足';
+            $json_arr['requred'] = $this->getpost->report_requred($requred);
+        } else {
+            $data['year'] = $this->session->userdata('year');
+            if ($this->mod_trial->chk_once($data['sn'])) {
+                $this->mod_trial->update_once($data['sn'], $data);
+            } else {
+                $this->mod_trial->add_once($data);
+            }
+            $json_arr['sys_code'] = '200';
+            $json_arr['sys_msg'] = '資料儲存完成';
+        }
+        echo json_encode($json_arr);
+    }
+
     public function get_max_filed()
     {
         $this->load->model('mod_exam_area');
@@ -569,6 +592,24 @@ class Api extends CI_Controller
         echo json_encode($json_arr);
     }
 
+    public function get_once_assign()
+    {
+        $this->load->model('mod_trial');
+        $getpost = array('sn');
+        $requred = array('sn');
+        $data = $this->getpost->getpost_array($getpost, $requred);
+        if ($data == false) {
+            $json_arr['sys_code'] = '000';
+            $json_arr['sys_msg'] = '資料不足';
+            $json_arr['requred'] = $this->getpost->report_requred($requred);
+        } else {
+            $json_arr['info'] = $this->mod_trial->get_once_assign($data['sn']);
+            $json_arr['sys_code'] = '200';
+            $json_arr['sys_msg'] = '資料處理完成';
+        }
+        echo json_encode($json_arr);
+    }
+
     public function get_once_trial()
     {
         $this->load->model('mod_trial');
@@ -581,6 +622,26 @@ class Api extends CI_Controller
             $json_arr['requred'] = $this->getpost->report_requred($requred);
         } else {
             $json_arr['info'] = $this->mod_trial->get_once_trial($data['sn']);
+            $json_arr['sys_code'] = '200';
+            $json_arr['sys_msg'] = '資料處理完成';
+        }
+        echo json_encode($json_arr);
+    }
+
+    public function get_field_start_end()
+    {
+        $this->load->model('mod_part');
+        $this->load->model('mod_trial');
+        $getpost = array('part');
+        $requred = array('part');
+        $data = $this->getpost->getpost_array($getpost, $requred);
+        if ($data == false) {
+            $json_arr['sys_code'] = '000';
+            $json_arr['sys_msg'] = '資料不足';
+            $json_arr['requred'] = $this->getpost->report_requred($requred);
+        } else {
+            $json_arr['max'] = $this->mod_trial->get_max_field($data['part']);
+            $json_arr['min'] = $this->mod_trial->get_min_field($data['part']);
             $json_arr['sys_code'] = '200';
             $json_arr['sys_msg'] = '資料處理完成';
         }
@@ -668,7 +729,7 @@ class Api extends CI_Controller
     public function save_trial_staff_for_list()
     {
         $this->load->model('mod_trial');
-        $getpost = array('sn', 'calculation', 'do_date', 'count', 'salary', 'salary_total', 'lunch_price', 'lunch_total', 'total');
+        $getpost = array('sn', 'calculation', 'do_date', 'count', 'salary', 'salary_total', 'lunch_price', 'lunch_total', 'total', 'note');
         $requred = array('sn', 'calculation', 'count', 'salary', 'salary_total', 'lunch_price', 'lunch_total', 'total');
         $data = $this->getpost->getpost_array($getpost, $requred);
         if ($data == false) {

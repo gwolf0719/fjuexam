@@ -44,6 +44,9 @@ img{
     font-size: 25px;
     margin: 0px 10%;
 }
+tr{
+    cursor:pointer;
+}
 </style>
 <script>
     $(function(){

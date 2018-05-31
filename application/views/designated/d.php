@@ -58,9 +58,9 @@ $(function(){
         </a>   
     </div>
     <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4 cube text-center">
-        <!-- <a href="./designated/d_4"> -->
+        <a href="./designated/d_4">
             <img src="assets/images/d4.png" alt="">
-        <!-- </a>     -->
+        </a>    
     </div>
     <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4 cube text-center">
         <a href="./designated/d_5">

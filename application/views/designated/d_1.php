@@ -66,6 +66,35 @@ label {
     bottom: 0px;
     width:100%;
 }
+.tab{
+    width: 18%;
+    float: left;
+    text-align: center;
+    background: #e2e2e2;
+    height: 70px;
+    padding-top: 14px;
+    margin: 10px;
+    cursor:pointer;
+    border-radius: 10px 10px 0px 0px;
+}
+.tab.active{
+    background:#a97eb8;
+}
+.part{
+    display:none;
+}
+.W50{
+    width:50%;
+    float:left;
+}
+.tab_text{
+    text-align: center;
+    padding: 10px 0px;
+    font-size: 21px;
+}
+tr{
+    cursor:pointer;
+}
 </style>
 
 <script>
@@ -92,6 +121,18 @@ $(function(){
         });
     })
 
+    $(".part").eq(0).show();
+    $("body").on("click",".tab",function(){
+        var $this = $(this);
+         //點擊先做還原動作
+        $(".tab").removeClass("active");
+        $(".part").hide();
+        // 點擊到的追加active以及打開相對應table
+        $this.addClass("active");
+        var area = $this.attr("area");
+        $("#part"+area).show();         
+    })
+
     $("body").on("click","#sure1",function(){
         var code = $("#number_1").val().split("-");
         var name = $("#number_1").val().split("-");
@@ -108,16 +149,9 @@ $(function(){
         $('#exampleModal2').modal('hide');
     })
 
-    $("body").on("click","#sure3",function(){
-        var code = $("#number_3").val().split("-")
-        var name = $("#number_3").val().split("-");
-        $("#trial_staff").val(name[1]);
-        $('#exampleModal3').modal('hide');
-    })
-
-
     $("body").on("click","tr",function(){
         var sn = $(this).attr("sn");
+        var part = $(this).attr("part");
         $("html, body").animate({
         scrollTop: $("body").height()
         }, 1000);         
@@ -128,7 +162,6 @@ $(function(){
             },
             dataType:"json"
         }).done(function(data){
-            console.log(data.info);
             $("#sn").val(sn);
             $("#field").val(data.info.field);
             $("#start").val(data.info.start);
@@ -136,7 +169,40 @@ $(function(){
             $("#floor").val(data.info.floor);
             $("#number").val(data.info.number);
             $("#section").val(data.info.test_section);
-            // $("#note").val(data.info.note);
+            $("#trial_staff_code_1").val();
+            //監試人員編號第一碼產生
+            var c1;
+            switch(part) {
+                case "2501":
+                    var c1 = "1";
+                    break;
+                case "2052":
+                    var c1 = "2";
+                    break;
+                case "2053":
+                    var c1 = "3";
+                    break;
+            }      
+            //監試人員編號第二碼產生
+            var c2 = data.info.field.substring(3,6);
+            $("#trial_staff_code_1").val(c1+c2+"1");
+            $("#trial_staff_code_2").val(c1+c2+"2");
+
+            //取得監試人員資料
+            $.ajax({
+                url: 'api/get_once_assign',
+                data:{
+                    "sn":sn,
+                },
+                dataType:"json"
+            }).done(function(data){
+                console.log(data.info);
+            $("#supervisor_1").val(data.info.supervisor_1);
+            $("#supervisor_2").val(data.info.supervisor_2); 
+            $("#supervisor_1_code").val(data.info.supervisor_1_code);
+            $("#supervisor_2_code").val(data.info.supervisor_2_code);          
+            $("#note").val(data.info.note);            
+            })            
         })
     })
 
@@ -147,8 +213,8 @@ $(function(){
             var supervisor_1_code = $("#supervisor_1_code").val();
             var supervisor_2 = $("#supervisor_2").val();
             var supervisor_2_code = $("#supervisor_2_code").val();          
-            var trial_staff = $("#trial_staff").val();
-            var trial_staff_code = $("#trial_staff_code").val();
+            var trial_staff_code_1 = $("#trial_staff_code_1").val();
+            var trial_staff_code_2 = $("#trial_staff_code_2").val();
             var note = $("textarea[name='note']").val();
             console.log(sn);
             $.ajax({
@@ -159,8 +225,8 @@ $(function(){
                     "supervisor_1_code":supervisor_1_code,
                     "supervisor_2":supervisor_2,
                     "supervisor_2_code":supervisor_2_code,                    
-                    "trial_staff":trial_staff,
-                    "trial_staff_code":trial_staff_code,
+                    "trial_staff_code_1":trial_staff_code_1,
+                    "trial_staff_code_2":trial_staff_code_2,
                     "note":note
                 },
                 dataType:"json"
@@ -190,8 +256,14 @@ $(function(){
     </div>
     
 </div>
-
-<div class="row" style="height:700px;overflow: auto;">
+<div class="row" style="position: relative;top: 20px;left: 10px;">
+    <div style="width:95%;margin:5px auto;z-index:9999">
+        <div class="tab active" area="1" part="2501" eng="first"><div class="tab_text">第一分區</div></div>
+        <div class="tab" area="2" part="2502" eng="second"><div class="tab_text">第二分區</div></div>
+        <div class="tab" area="3" part="2503" eng="third"><div class="tab_text">第三分區</div></div>
+    </div>
+</div>
+<div class="row part" id="part1" style="height:700px;overflow: auto;">
    <div class="col-12" style="margin-top: 10px;">
         <table class="table table-hover" id="">
             <thead>
@@ -203,16 +275,16 @@ $(function(){
                     <th>考生應試號迄</th>
                     <th>應試人數</th>
                     <th>樓層別</th>
+                    <th>監試人員一編號</th>
                     <th>監試人員一</th>
+                    <th>監試人員二編號</th>                    
                     <th>監試人員二</th>
-                    <th>試務人員編號</th>
-                    <th>試務人員</th>
                     <th>備註</th>                    
                 </tr>
             </thead>
             <tbody>
-            <?php foreach ($assign as $k => $v): ?>
-                <tr sn="<?=$v['sn']; ?>">
+            <?php foreach ($part1 as $k => $v): ?>
+                <tr sn="<?=$v['sn']; ?>" part="2501">
                     <td><?=$k + 1; ?></td>
                     <td><?=$v['field']; ?></td>
                     <td><?=$v['test_section']; ?></td>
@@ -220,10 +292,92 @@ $(function(){
                     <td><?=$v['end']; ?></td>                   
                     <td><?=$v['number']; ?></td>
                     <td><?=$v['floor']; ?></td>
+                    <td><?=$v['trial_staff_code_1']; ?></td>
                     <td><?=$v['supervisor_1']; ?></td>
-                    <td><?=$v['supervisor_2']; ?></td>
-                    <td><?=$v['trial_staff_code']; ?></td>
-                    <td><?=$v['trial_staff']; ?></td>                       
+                    <td><?=$v['trial_staff_code_2']; ?></td>      
+                    <td><?=$v['supervisor_2']; ?></td>                 
+                    <td><?=$v['note']; ?></td>
+                </tr>                    
+            <?php endforeach; ?>         
+            </tbody>
+        </table>
+     </div>
+</div>
+
+<div class="row part" id="part2" style="height:700px;overflow: auto;">
+   <div class="col-12" style="margin-top: 10px;">
+        <table class="table table-hover" id="">
+            <thead>
+                <tr>
+                    <th>序號</th>
+                    <th>試場</th>
+                    <th>考試節數</th>
+                    <th>考生應試號起</th>
+                    <th>考生應試號迄</th>
+                    <th>應試人數</th>
+                    <th>樓層別</th>
+                    <th>監試人員一編號</th>
+                    <th>監試人員一</th>
+                    <th>監試人員二編號</th>                    
+                    <th>監試人員二</th>
+                    <th>備註</th>                    
+                </tr>
+            </thead>
+            <tbody>
+            <?php foreach ($part2 as $k => $v): ?>
+                <tr sn="<?=$v['sn']; ?>" part="2502">
+                    <td><?=$k + 1; ?></td>
+                    <td><?=$v['field']; ?></td>
+                    <td><?=$v['test_section']; ?></td>
+                    <td><?=$v['start']; ?></td>
+                    <td><?=$v['end']; ?></td>                   
+                    <td><?=$v['number']; ?></td>
+                    <td><?=$v['floor']; ?></td>
+                    <td><?=$v['trial_staff_code_1']; ?></td>
+                    <td><?=$v['supervisor_1']; ?></td>
+                    <td><?=$v['trial_staff_code_2']; ?></td>      
+                    <td><?=$v['supervisor_2']; ?></td>                 
+                    <td><?=$v['note']; ?></td>
+                </tr>                    
+            <?php endforeach; ?>         
+            </tbody>
+        </table>
+     </div>
+</div>
+
+<div class="row part" id="part3" style="height:700px;overflow: auto;">
+   <div class="col-12" style="margin-top: 10px;">
+        <table class="table table-hover" id="">
+            <thead>
+                <tr>
+                    <th>序號</th>
+                    <th>試場</th>
+                    <th>考試節數</th>
+                    <th>考生應試號起</th>
+                    <th>考生應試號迄</th>
+                    <th>應試人數</th>
+                    <th>樓層別</th>
+                    <th>監試人員一編號</th>
+                    <th>監試人員一</th>
+                    <th>監試人員二編號</th>                    
+                    <th>監試人員二</th>
+                    <th>備註</th>                    
+                </tr>
+            </thead>
+            <tbody>
+            <?php foreach ($part3 as $k => $v): ?>
+                <tr sn="<?=$v['sn']; ?>" part="2503">
+                    <td><?=$k + 1; ?></td>
+                    <td><?=$v['field']; ?></td>
+                    <td><?=$v['test_section']; ?></td>
+                    <td><?=$v['start']; ?></td>
+                    <td><?=$v['end']; ?></td>                   
+                    <td><?=$v['number']; ?></td>
+                    <td><?=$v['floor']; ?></td>
+                    <td><?=$v['trial_staff_code_1']; ?></td>
+                    <td><?=$v['supervisor_1']; ?></td>
+                    <td><?=$v['trial_staff_code_2']; ?></td>      
+                    <td><?=$v['supervisor_2']; ?></td>                 
                     <td><?=$v['note']; ?></td>
                 </tr>                    
             <?php endforeach; ?>         

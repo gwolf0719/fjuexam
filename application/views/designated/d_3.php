@@ -93,6 +93,9 @@ label {
     padding: 10px 0px;
     font-size: 21px;
 }
+tr{
+    cursor:pointer;
+}
 </style>
 
 <script>

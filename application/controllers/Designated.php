@@ -714,12 +714,16 @@ class Designated extends CI_Controller
         $this->load->model('mod_trial');
         $this->mod_user->chk_status();
         $year = $this->session->userdata('year');
-        $assign = $this->mod_trial->get_list('2501');
+        $part1 = $this->mod_trial->get_list('2501');
+        $part2 = $this->mod_trial->get_list('2502');
+        $part3 = $this->mod_trial->get_list('2503');
         $data = array(
             'title' => '監視人員指派',
             'path' => 'designated/d_1',
             'path_text' => ' > 指考主選單 > 試場人員指派 > 監視人員指派',
-            'assign' => $assign,
+            'part1' => $part1,
+            'part2' => $part2,
+            'part3' => $part3,
         );
         $this->load->view('layout', $data);
     }
@@ -765,13 +769,15 @@ class Designated extends CI_Controller
 
     public function d_4()
     {
-        $this->load->model('mod_exam_area');
-        $this->load->model('mod_task');
-        $this->load->model('mod_exam_fees');
+        $this->load->model('mod_part_info');
+        $this->load->model('mod_trial');
         $this->load->model('mod_exam_datetime');
+        $this->load->model('mod_exam_fees');
         $this->mod_user->chk_status();
         $year = $this->session->userdata('year');
-        $jobs = $this->mod_task->get_job_list($year, '考區');
+        $part1 = $this->mod_trial->get_list('2501');
+        $part2 = $this->mod_trial->get_list('2502');
+        $part3 = $this->mod_trial->get_list('2503');
         if ($this->mod_exam_fees->chk_once($year)) {
             $fees_info = $this->mod_exam_fees->get_once($year);
         } else {
@@ -791,16 +797,15 @@ class Designated extends CI_Controller
             );
         }
         $data = array(
-            'title' => '考區任務編組',
+            'title' => '監視人員列表',
             'path' => 'designated/d_4',
-            'path_text' => ' > 指考主選單 > 考區任務編組 > 考區',
-            'field' => $this->mod_task->get_field(),
-            'datalist' => $this->mod_task->get_list('考區'),
-            'jobs' => $jobs,
+            'path_text' => ' > 指考主選單 > 試場人員指派 > 監視人員列表',
+            'part1' => $part1,
+            'part2' => $part2,
+            'part3' => $part3,
             'fees_info' => $fees_info,
             'datetime_info' => $datetime_info,
         );
-
         $this->load->view('layout', $data);
     }
 

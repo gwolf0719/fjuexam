@@ -109,6 +109,9 @@ label {
 .bb{
     border-bottom: 1px solid #dee2e6!important;
 }
+tr{
+    cursor:pointer;
+}
 </style>
 
 <script>
@@ -152,23 +155,7 @@ $(function(){
         // 點擊到的追加active以及打開相對應table
         $this.addClass("active");
         var area = $this.attr("area");
-        $("#part"+area).show();
-        // var part = $(this).attr("part");
-        // var eng = $(this).attr("eng");
-        // $.ajax({
-        //     url: 'api/get_patrol_list',
-        //     data:{
-        //         "part":part,
-        //     },
-        //     dataType:"json"
-        // }).done(function(data){
-        //     var html = "";
-        //     $.each(data.info,function(k,v){
-        //         html += '<option value="'+v.field+'">' + v.field + '</option>'; 
-        //     }) 
-        //     $("#"+eng+"_start").html(html); 
-        //     $("#"+eng+"_end").html(html); 
-        // })            
+        $("#part"+area).show();           
     })
 
     $("body").on("click","tr",function(){

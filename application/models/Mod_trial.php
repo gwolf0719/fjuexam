@@ -100,11 +100,34 @@ class Mod_trial extends CI_Model
         return true;
     }
 
+    public function get_once_assign($sn)
+    {
+        return $this->db->where('sn', $sn)->get('trial_assign')->row_array();
+    }
+
     public function add_trial($data)
     {
         $this->db->insert('trial_staff', $data);
 
         return true;
+    }
+
+    public function get_min_field($part)
+    {
+        $this->db->where('part', $part);
+        $this->db->order_by('field', 'asc');
+        $this->db->select('field');
+
+        return $this->db->get('part_info')->row_array();
+    }
+
+    public function get_max_field($part)
+    {
+        $this->db->where('part', $part);
+        $this->db->order_by('field', 'desc');
+        $this->db->select('field');
+
+        return $this->db->get('part_info')->row_array();
     }
 }
 

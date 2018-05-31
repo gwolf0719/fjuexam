@@ -8,6 +8,9 @@
 img{
     max-width:100%;
 }
+tr{
+    cursor:pointer;
+}
 </style>
 <script>
     $("body").on("click","#Upload",function(){

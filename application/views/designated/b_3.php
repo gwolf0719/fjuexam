@@ -56,39 +56,8 @@ label {
     float: left;
     width: 100%;
 }
-/* .to_up{
-    position: fixed;
-    bottom: 0;
-    left: 48%;
-}
 
-.down{
-    margin: 0 auto;
-    text-align: center;
-}
-.to_down{
-    transform: rotate(180deg);
-}
-.up{
-    cursor: pointer;
-    z-index: 1;
-    width: 100%;
-    text-align: center;
-    position: relative;
-    /* overflow: hidden; */
-    height:25px;
-}
-.up.active{
-    cursor: pointer;
-    z-index: 1;
-    width: 100%;
-    text-align: center;
-    position: relative;
-    overflow: hidden;
-    height:56px;
-} */
 .bottom{
-    /* position: fixed; */
     bottom: 0px;
     width:100%;
 }
@@ -99,6 +68,9 @@ label {
 .W50{
     width:50%;
     float:left;
+}
+tr{
+    cursor:pointer;
 }
 </style>
 
