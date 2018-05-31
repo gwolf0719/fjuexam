@@ -28,14 +28,11 @@ class Mod_patrol extends CI_Model
 
     public function get_patrol_list($part = '')
     {
-        $this->db->select('*');
         if ($part != '') {
             $this->db->where('part', $part);
         }
-        $this->db->from('part_info');
-        $this->db->join('patrol_staff', 'part_info.sn = patrol_staff.sn');
 
-        return $this->db->get()->result_array();
+        return $this->db->get('patrol_staff')->result_array();
     }
 
     public function get_once($sn)

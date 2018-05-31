@@ -505,6 +505,24 @@ class Api extends CI_Controller
     /**
      * D 相關api.
      */
+    public function get_part()
+    {
+        $this->load->model('mod_exam_area');
+        $getpost = array('part');
+        $requred = array('part');
+        $data = $this->getpost->getpost_array($getpost, $requred);
+        if ($data == false) {
+            $json_arr['sys_code'] = '000';
+            $json_arr['sys_msg'] = '資料不足';
+            $json_arr['requred'] = $this->getpost->report_requred($requred);
+        } else {
+            $json_arr['part'] = $this->mod_exam_area->get_part($data['part']);
+            $json_arr['sys_code'] = '200';
+            $json_arr['sys_msg'] = '資料處理完成';
+        }
+        echo json_encode($json_arr);
+    }
+
     public function save_trial()
     {
         $this->load->model('mod_trial');
@@ -569,11 +587,30 @@ class Api extends CI_Controller
         echo json_encode($json_arr);
     }
 
+    public function add_trial_staff()
+    {
+        $this->load->model('mod_trial');
+        $getpost = array('part', 'allocation_code', 'trial_staff_code', 'trial_staff_name', 'first_start', 'first_end', 'first_section', 'second_start', 'second_end', 'second_section', 'third_start', 'third_end', 'third_section', 'note');
+        $requred = array('part', 'allocation_code', 'trial_staff_code', 'trial_staff_name', 'first_start', 'first_end', 'first_section', 'second_start', 'second_end', 'second_section', 'third_start', 'third_end', 'third_section');
+        $data = $this->getpost->getpost_array($getpost, $requred);
+        if ($data == false) {
+            $json_arr['sys_code'] = '000';
+            $json_arr['sys_msg'] = '資料不足';
+            $json_arr['requred'] = $this->getpost->report_requred($requred);
+        } else {
+            $data['year'] = $this->session->userdata('year');
+            $this->mod_trial->add_trial($data);
+            $json_arr['sys_code'] = '200';
+            $json_arr['sys_msg'] = '資料儲存完成';
+        }
+        echo json_encode($json_arr);
+    }
+
     public function save_trial_staff()
     {
         $this->load->model('mod_trial');
-        $getpost = array('sn', 'allocation_code', 'trial_staff_code', 'trial_staff_name', 'first_start', 'first_end', 'first_section', 'second_start', 'second_end', 'second_section', 'third_start', 'third_end', 'third_section', 'note');
-        $requred = array('sn', 'allocation_code', 'trial_staff_code', 'trial_staff_name', 'first_start', 'first_end', 'first_section', 'second_start', 'second_end', 'second_section', 'third_start', 'third_end', 'third_section');
+        $getpost = array('sn', 'part', 'allocation_code', 'trial_staff_code', 'trial_staff_name', 'first_start', 'first_end', 'first_section', 'second_start', 'second_end', 'second_section', 'third_start', 'third_end', 'third_section', 'note', 'order_meal');
+        $requred = array('sn', 'part', 'allocation_code', 'trial_staff_code', 'trial_staff_name', 'first_start', 'first_end', 'first_section', 'second_start', 'second_end', 'second_section', 'third_start', 'third_end', 'third_section', 'order_meal');
         $data = $this->getpost->getpost_array($getpost, $requred);
         if ($data == false) {
             $json_arr['sys_code'] = '000';
@@ -648,11 +685,11 @@ class Api extends CI_Controller
         echo json_encode($json_arr);
     }
 
-    public function save_patrol_staff()
+    public function add_patrol_staff()
     {
         $this->load->model('mod_patrol');
-        $getpost = array('sn', 'allocation_code', 'patrol_staff_code', 'patrol_staff_name', 'start', 'end', 'section', 'note');
-        $requred = array('sn', 'allocation_code', 'patrol_staff_code', 'patrol_staff_name', 'start', 'end', 'section');
+        $getpost = array('part', 'allocation_code', 'patrol_staff_code', 'patrol_staff_name', 'start', 'end', 'section', 'note');
+        $requred = array('part', 'allocation_code', 'patrol_staff_code', 'patrol_staff_name', 'start', 'end', 'section');
         $data = $this->getpost->getpost_array($getpost, $requred);
         if ($data == false) {
             $json_arr['sys_code'] = '000';
@@ -660,11 +697,26 @@ class Api extends CI_Controller
             $json_arr['requred'] = $this->getpost->report_requred($requred);
         } else {
             $data['year'] = $this->session->userdata('year');
-            if ($this->mod_patrol->chk_once($data['sn'])) {
-                $this->mod_patrol->update_once($data['sn'], $data);
-            } else {
-                $this->mod_patrol->add_once($data);
-            }
+            $this->mod_patrol->add_once($data);
+            $json_arr['sys_code'] = '200';
+            $json_arr['sys_msg'] = '資料儲存完成';
+        }
+        echo json_encode($json_arr);
+    }
+
+    public function save_patrol_staff()
+    {
+        $this->load->model('mod_patrol');
+        $getpost = array('sn', 'part', 'allocation_code', 'patrol_staff_code', 'patrol_staff_name', 'start', 'end', 'section', 'note');
+        $requred = array('sn', 'part', 'allocation_code', 'patrol_staff_name', 'start', 'end', 'section');
+        $data = $this->getpost->getpost_array($getpost, $requred);
+        if ($data == false) {
+            $json_arr['sys_code'] = '000';
+            $json_arr['sys_msg'] = '資料不足';
+            $json_arr['requred'] = $this->getpost->report_requred($requred);
+        } else {
+            $data['year'] = $this->session->userdata('year');
+            $this->mod_patrol->update_once($data['sn'], $data);
             $json_arr['sys_code'] = '200';
             $json_arr['sys_msg'] = '資料儲存完成';
         }
@@ -729,8 +781,8 @@ class Api extends CI_Controller
     public function save_trial_staff_for_list()
     {
         $this->load->model('mod_trial');
-        $getpost = array('sn', 'calculation', 'do_date', 'count', 'salary', 'salary_total', 'lunch_price', 'lunch_total', 'total', 'note');
-        $requred = array('sn', 'calculation', 'count', 'salary', 'salary_total', 'lunch_price', 'lunch_total', 'total');
+        $getpost = array('sn', 'calculation', 'do_date', 'count', 'salary', 'salary_total', 'lunch_price', 'lunch_total', 'total', 'note', 'order_meal');
+        $requred = array('sn', 'calculation', 'count', 'salary', 'salary_total', 'lunch_price', 'lunch_total', 'total', 'order_meal');
         $data = $this->getpost->getpost_array($getpost, $requred);
         if ($data == false) {
             $json_arr['sys_code'] = '000';
@@ -748,8 +800,8 @@ class Api extends CI_Controller
     public function save_patrol_staff_for_list()
     {
         $this->load->model('mod_patrol');
-        $getpost = array('sn', 'calculation', 'do_date', 'count', 'salary', 'salary_total', 'lunch_price', 'lunch_total', 'total');
-        $requred = array('sn', 'calculation', 'count', 'salary', 'salary_total', 'lunch_price', 'lunch_total', 'total');
+        $getpost = array('sn', 'calculation', 'do_date', 'count', 'salary', 'salary_total', 'lunch_price', 'lunch_total', 'total', 'order_meal');
+        $requred = array('sn', 'calculation', 'count', 'salary', 'salary_total', 'lunch_price', 'lunch_total', 'total', 'order_meal');
         $data = $this->getpost->getpost_array($getpost, $requred);
         if ($data == false) {
             $json_arr['sys_code'] = '000';

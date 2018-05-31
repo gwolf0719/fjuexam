@@ -131,7 +131,7 @@ $(function(){
     
     $("body").on("click","tr",function(){
         var sn = $(this).attr("sn");
-        var code = $(this).attr("code");
+        
 
         $("html, body").animate({
             scrollTop: $("body").height()
@@ -153,10 +153,17 @@ $(function(){
             $("#third_start").val(data.info.third_start);
             $("#third_end").val(data.info.third_end);
             $("#third_section").val(data.info.third_section);                        
-            $("#note").val(data.info.note);    
+            $("#note").val(data.info.note);   
+            console.log(data.info.order_meal); 
+            if(data.info.order_meal == "N" || data.info.order_meal == ""){
+                $("#order_meal").prop("checked",false);
+            }else{
+                $("#order_meal").prop("checked",true);
+            }              
             var section_count = parseInt(data.info.first_section) + parseInt(data.info.second_section) + parseInt(data.info.third_section);
             var day_arr = [data.info.first_section,data.info.second_section,data.info.third_section];
             var uses_day_count = day_arr.length;
+            console.log(data.info.calculation);
             switch(data.info.calculation) {
                 case "by_section":
                     $("#calculation").val("by_section");
@@ -208,22 +215,16 @@ $(function(){
                     $("#section_total").hide();    
                     $("#section_count").val(data.info.count);                       
                     $("#day_count").val(uses_day_count);    
-                    var day_salary_total = parseInt($("#one_day_salary").val() ) * parseInt($("#day_count").val());
+                    var day_salary_total = parseInt($("#one_day_salary").val()) * parseInt($("#day_count").val());
                     $("#day_salary_total").val(day_salary_total);
-                    if($("#order_meal").val() == "N"){
-                        $("#day_total").val(day_salary_total);
-                    }else{
-                        var day_lunch_total = 0 - parseInt($("#lunch_price").val()) * parseInt($("#day_count").val());
-                        $("#day_lunch_total").val(day_lunch_total);
-                        var day_total = parseInt($("#day_salary_total").val()) + parseInt($("#day_lunch_total").val());
-                        $("#day_total").val(day_total);
-                    }                                                         
+                    $("#day_total").val($("#day_salary_total").val());                                               
                     break;
                     
             }  
                           
         })  
         //取得職員資料
+        var code = $(this).attr("code");
         $.ajax({
             url: 'api/get_staff_member',
             data:{
@@ -231,19 +232,11 @@ $(function(){
             },
             dataType:"json"
         }).done(function(data){
+            console.log(data.info);
             $("#job_code").val(data.info.member_code);
             $("#job_title").val(data.info.member_title);
             $("#name").val(data.info.member_name);
-            $("#phone").val(data.info.member_phone);
-            $("#order_meal").val(data.info.order_meal);
-            if(data.info.order_meal.toUpperCase() == "Y"){
-                $("#order_meal").prop("checked",true);
-                $("#lunch_price").attr("readonly",false);
-            }else{
-                
-                $("#order_meal").prop("checked",false);
-                $("#lunch_price").attr("readonly",true);
-            }         
+            $("#phone").val(data.info.member_phone);     
         })    
                 
     })
@@ -299,7 +292,8 @@ $(function(){
                     "lunch_price":lunch_price,  
                     "lunch_total":lunch_total,  
                     "total":total,  
-                    "note":note
+                    "note":note,
+                    "order_meal":$("#order_meal").val()
                 },
                 dataType:"json"
             }).done(function(data){
@@ -325,25 +319,61 @@ $(function(){
     })
 
     $("body").on("keyup","#one_day_salary",function(){
-        var day_total = $(this).val() * $("#day_count").val();
-        $("#salary_total").val(day_total);
-        var total = parseInt($("#lunch_total").val()) + day_total;
-        $("#total").val(total)
+        console.log($(this).val());
+        var day_salary_total = parseInt($(this).val()) * parseInt($("#day_count").val());
+        $("#day_salary_total").val(day_salary_total);
+        if($("#order_meal").val() == "N"){
+            $("#day_total").val(day_salary_total);
+        }else{
+            var day_lunch_total = 0 - parseInt($("#lunch_price").val()) * parseInt($("#day_count").val());
+            $("#day_lunch_total").val(day_lunch_total);
+            var day_total = day_salary_total + day_lunch_total;
+            $("#day_total").val(day_total);
+        }
     })
 
     $("body").on("keyup","#salary_section",function(){
-        var day_total = $(this).val() * $("#count").val();
-        $("#salary_total").val(day_total);
-        var total = parseInt($("#lunch_total").val()) + day_total;
-        $("#total").val(total)
+        console.log($(this).val());
+        var section_salary_total = parseInt($(this).val()) * parseInt($("#section_count").val());
+        $("#section_salary_total").val(section_salary_total);
+        if($("#order_meal").val() == "N"){
+            $("#section_total").val(section_salary_total);
+        }else{
+            var section_lunch_total = 0 - parseInt($("#lunch_price").val()) * parseInt($("#day_count").val());
+            $("#section_lunch_total").val(section_lunch_total);
+            var section_total = section_salary_total + section_lunch_total;
+            $("#section_total").val(section_total);
+        }
     })
 
     $("body").on("keyup","#lunch_price",function(){
         var lunch_total = 0 - $(this).val() * $("#day_count").val();
-        $("#lunch_total").val(lunch_total);
-        var total = parseInt($("#salary_total").val()) + lunch_total;
-        console.log(total);
-        $("#total").val(total)
+        $("#day_lunch_total").val(lunch_total);
+        $("#section_lunch_total").val(lunch_total);
+        var day_total = parseInt($("#day_salary_total").val()) + parseInt($("#day_lunch_total").val());
+        var section_total = parseInt($("#section_salary_total").val()) + parseInt($("#section_lunch_total").val());
+        $("#day_total").val(day_total);
+        $("#section_total").val(section_total);
+    })
+
+    $("body").on("change","#order_meal",function(){
+        if($(this).prop("checked") == false){
+            $("#day_total").val($("#day_salary_total").val());
+            $("#section_total").val($("#section_salary_total").val());
+        }else{
+            //節數
+            var section_salary_total = parseInt($("#salary_section").val()) * parseInt($("#section_count").val());
+            var section_lunch_total = 0 - parseInt($("#lunch_price").val()) * parseInt($("#day_count").val());
+            $("#section_lunch_total").val(section_lunch_total);
+            var section_total = section_salary_total + section_lunch_total;
+            $("#section_total").val(section_total);
+            // 天數
+            var day_salary_total = parseInt($("#one_day_salary").val()) * parseInt($("#day_count").val());
+            var day_lunch_total = 0 - parseInt($("#lunch_price").val()) * parseInt($("#day_count").val());
+            $("#day_lunch_total").val(day_lunch_total);
+            var day_total = day_salary_total + day_lunch_total;
+            $("#day_total").val(day_total);            
+        }
     })
  
      $("body").on("change","#calculation",function(){
@@ -363,17 +393,25 @@ $(function(){
             $("#section_count").val(section_count);
             var section_salary_total =  $("#section_count").val() * $("#salary_section").val();
             $("#section_salary_total").val(section_salary_total);
-            $('input:checkbox[name="day"]').click(function(){
-                if($("#order_meal").val() == "Y"){
-                    var arr_lenght = $('input:checkbox:checked[name="day"]').map(function() { return $(this).val(); }).get().length;
-                    var section_lunch_total = $("#lunch_price").val() * arr_lenght;
-                    $("#section_lunch_total").val(section_lunch_total);
-                    var section_total = parseInt($("#section_salary_total").val()) - parseInt($("#section_lunch_total").val());
-                    $("#section_total").val(section_total);    
-                }
-            })
-            var section_total = parseInt($("#section_salary_total").val()) - parseInt($("#section_lunch_total").val());
+            var section_total = parseInt($("#section_salary_total").val()) + parseInt($("#section_lunch_total").val());
             $("#section_total").val(section_total);
+            if($("#order_meal").prop("checked") == false){
+                $("#day_total").val($("#day_salary_total").val());
+                $("#section_total").val($("#section_salary_total").val());
+            }else{
+                //節數
+                var section_salary_total = parseInt($("#salary_section").val()) * parseInt($("#section_count").val());
+                var section_lunch_total = 0 - parseInt($("#lunch_price").val()) * parseInt($("#day_count").val());
+                $("#section_lunch_total").val(section_lunch_total);
+                var section_total = section_salary_total + section_lunch_total;
+                $("#section_total").val(section_total);
+                // 天數
+                var day_salary_total = parseInt($("#one_day_salary").val()) * parseInt($("#day_count").val());
+                var day_lunch_total = 0 - parseInt($("#lunch_price").val()) * parseInt($("#day_count").val());
+                $("#day_lunch_total").val(day_lunch_total);
+                var day_total = day_salary_total + day_lunch_total;
+                $("#day_total").val(day_total);            
+            }            
         }else{
             //以天計算
             $("#day_count").show();    
@@ -386,9 +424,23 @@ $(function(){
             $("#section_salary_total").hide();
             $("#section_lunch_total").hide();
             $("#section_total").hide();          
-            $('input:checkbox[name="day"]').click(function(){
-                var arr_lenght = $('input:checkbox:checked[name="day"]').map(function() { return $(this).val(); }).get().length;
-            })               
+            if($("#order_meal").prop("checked") == false){
+                $("#day_total").val($("#day_salary_total").val());
+                $("#section_total").val($("#section_salary_total").val());
+            }else{
+                //節數
+                var section_salary_total = parseInt($("#salary_section").val()) * parseInt($("#section_count").val());
+                var section_lunch_total = 0 - parseInt($("#lunch_price").val()) * parseInt($("#day_count").val());
+                $("#section_lunch_total").val(section_lunch_total);
+                var section_total = section_salary_total + section_lunch_total;
+                $("#section_total").val(section_total);
+                // 天數
+                var day_salary_total = parseInt($("#one_day_salary").val()) * parseInt($("#day_count").val());
+                var day_lunch_total = 0 - parseInt($("#lunch_price").val()) * parseInt($("#day_count").val());
+                $("#day_lunch_total").val(day_lunch_total);
+                var day_total = day_salary_total + day_lunch_total;
+                $("#day_total").val(day_total);            
+            }                
         }
      })
 
@@ -411,7 +463,7 @@ $(function(){
     
 </div>
 <div class="row" style="position: relative;top: 20px;left: 10px;">
-    <div style="width:95%;margin:5px auto;z-index:9999">
+    <div style="width:95%;margin:5px auto;">
         <div class="tab active" area="1" part="2501"><div class="tab_text">第一分區</div></div>
         <div class="tab" area="2" part="2502"><div class="tab_text">第二分區</div></div>
         <div class="tab" area="3" part="2503"><div class="tab_text">第三分區</div></div>
@@ -584,6 +636,7 @@ $(function(){
                     </div>  
                 </div>
                 <div class="col-md-3 col-sm-3 col-xs-3 cube W14">
+                    <p style="text-align:center">第一天 <?=$datetime_info['day_1']; ?></p>
                     <div class="form-group">
                         <label for="trial_start" class=""  style="float:left;">試場起號</label>
                         <input type="text" class="form-control" id="first_start" readonly>
@@ -598,6 +651,7 @@ $(function(){
                     </div>                                    
                 </div>    
                 <div class="col-md-3 col-sm-3 col-xs-3 cube W14">
+                <p style="text-align:center">第二天 <?=$datetime_info['day_2']; ?></p>
                     <div class="form-group">
                         <label for="trial_start" class=""  style="float:left;">試場起號</label>
                         <input type="text" class="form-control" id="second_start" readonly>
@@ -612,6 +666,7 @@ $(function(){
                     </div>                                    
                 </div>    
                 <div class="col-md-3 col-sm-3 col-xs-3 cube W14">
+                <p style="text-align:center">第三天 <?=$datetime_info['day_3']; ?></p>
                     <div class="form-group">
                         <label for="trial_start" class=""  style="float:left;">試場起號</label>
                         <input type="text" class="form-control" id="third_start" readonly>
@@ -628,7 +683,7 @@ $(function(){
                 <div class="col-md-3 col-sm-3 col-xs-3 cube W14">
                     <div class="form-group">
                         <label for="order_meal">訂餐需求</label>
-                        <input type="checkbox" class="" name="need" id="order_meal" disabled><span>需訂餐</span>
+                        <input type="checkbox" class="" name="need" id="order_meal"><span>需訂餐</span>
                     </div>  
                     <div class="form-group">
                         <label for="trial_end" class=""  style="float:left;">計算方式</label>
@@ -641,8 +696,8 @@ $(function(){
                 <div class="col-md-3 col-sm-3 col-xs-3 cube W20">
                     <div class="form-group">
                         <label for="start_date" class=""  style="float:left;">天數/節數</label>
-                        <input type="text" class="form-control" id="day_count" readonly>
-                        <input type="text" class="form-control" style="display:none" id="section_count" readonly> 
+                        <input type="text" class="form-control" id="day_count" readonly value="0">
+                        <input type="text" class="form-control" style="display:none" id="section_count" readonly value="0"> 
                     </div>  
                     <div class="form-group" style="padding: 0% 3%;">
                         <div class="W50">
@@ -669,8 +724,8 @@ $(function(){
                     </div>   
                     <div class="form-group">
                         <label for="trial_end" class=""  style="float:left;">總計</label>
-                        <input type="text" class="form-control" id="day_total" value="0">
-                        <input type="text" class="form-control" id="section_total" style="display:none" value="0">
+                        <input type="text" class="form-control" id="day_total" value="0" readonly>
+                        <input type="text" class="form-control" id="section_total" style="display:none" value="0" readonly>
                     </div>                                  
                 </div>     
                 <div class="col-md-6 col-sm-6 col-xs-6 " style="float:left;margin: 20px auto;">             

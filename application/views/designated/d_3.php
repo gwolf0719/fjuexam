@@ -141,15 +141,17 @@ $(function(){
         var area = $this.attr("area");
         $("#part"+area).show();
         var part = $(this).attr("part");
+        $("#part").val(part);
         $.ajax({
-            url: 'api/get_patrol_list',
+            url: 'api/get_part',
             data:{
                 "part":part,
             },
             dataType:"json"
         }).done(function(data){
             var html = "";
-            $.each(data.info,function(k,v){
+            $.each(data.part,function(k,v){
+
                 html += '<option value="'+v.field+'">' + v.field + '</option>'; 
             }) 
             $("#start").html(html); 
@@ -160,6 +162,7 @@ $(function(){
 
     $("body").on("click","tr",function(){
         var sn = $(this).attr("sn");
+        var part = $(this).attr("part");
         $("html, body").animate({
         scrollTop: $("body").height()
         }, 1000);         
@@ -170,31 +173,18 @@ $(function(){
             },
             dataType:"json"
         }).done(function(data){
-            console.log(data.info);
+            console.log(data.info.start);
             $("#sn").val(sn);
+            $("#part").val(part);
             $("#allocation_code").val(data.info.allocation_code);
             $("#patrol_staff_code").val(data.info.patrol_staff_code);
             $("#patrol_staff_name").val(data.info.patrol_staff_name);
             $("#start").val(data.info.start);
-            $("#end").val(data.info.end);
+            $("#end").val(data.info.end);            
             $("#section").val(data.info.section);
             $("#note").val(data.info.note);              
         })
-        var part = $(this).attr("part");
-        $.ajax({
-            url: 'api/get_patrol_list',
-            data:{
-                "part":part,
-            },
-            dataType:"json"
-        }).done(function(data){
-            var html = "";
-            $.each(data.info,function(k,v){
-                html += '<option value="'+v.field+'">' + v.field + '</option>'; 
-            }) 
-            $("#start").html(html); 
-            $("#end").html(html); 
-        })          
+               
     })
 
     $("body").on("change",".field",function(){
@@ -216,6 +206,7 @@ $(function(){
     $("body").on("click","#send",function(){
         if(confirm("是否要儲存?")){
             var sn = $("#sn").val();
+            var part = $("#part").val();
             var allocation_code = $("#allocation_code").val();
             var patrol_staff_code = $("#patrol_staff_code").val();
             var patrol_staff_name = $("#patrol_staff_name").val();
@@ -228,6 +219,7 @@ $(function(){
                 url: 'api/save_patrol_staff',
                 data:{
                     "sn":sn,
+                    "part":part,
                     "allocation_code":allocation_code,
                     "patrol_staff_code":patrol_staff_code,
                     "patrol_staff_name":patrol_staff_name,
@@ -245,6 +237,40 @@ $(function(){
             })
         }
     })
+
+    $("body").on("click","#add",function(){
+        if($("#sn").val() != ""){
+            alert("目前處於編輯狀態，請先送出此筆資料再進行新增")
+        }else{
+            var part = $("#part").val();
+            var allocation_code = $("#allocation_code").val();
+            var patrol_staff_code = $("#patrol_staff_code").val();
+            var patrol_staff_name = $("#patrol_staff_name").val();
+            var start = $("#start").val();
+            var end = $("#end").val();          
+            var section = $("#section").val();
+            var note = $("textarea[name='note']").val();
+            $.ajax({
+                url: 'api/add_patrol_staff',
+                data:{
+                    "part":part,
+                    "allocation_code":allocation_code,
+                    "patrol_staff_code":patrol_staff_code,
+                    "patrol_staff_name":patrol_staff_name,
+                    "start":start,
+                    "end":end,                    
+                    "section":section,
+                    "note":note
+                },
+                dataType:"json"
+            }).done(function(data){
+                alert(data.sys_msg);
+                if(data.sys_code == "200"){
+                    location.reload();
+                }
+            })
+        }
+    })    
 });
 </script>
 
@@ -264,7 +290,7 @@ $(function(){
     
 </div>
 <div class="row" style="position: relative;top: 20px;left: 10px;">
-    <div style="width:95%;margin:5px auto;z-index:0">
+    <div style="width:95%;margin:5px auto;">
         <div class="tab active" area="1" part="2501"><div class="tab_text">第一分區</div></div>
         <div class="tab" area="2" part="2502"><div class="tab_text">第二分區</div></div>
         <div class="tab" area="3" part="2503"><div class="tab_text">第三分區</div></div>
@@ -286,7 +312,7 @@ $(function(){
             </thead>
             <tbody>
             <?php foreach ($part1 as $k => $v): ?>
-                <tr sn="<?=$v['sn']; ?>" part="2501">
+                <tr sn="<?=$v['sn']; ?>" part="<?=$v['part']; ?>">
                     <td><?=$k + 1; ?></td>
                     <td><?=$v['allocation_code']; ?></td>
                     <td><?=$v['patrol_staff_name']; ?></td>
@@ -316,7 +342,7 @@ $(function(){
             </thead>
             <tbody>
             <?php foreach ($part2 as $k => $v): ?>
-                <tr sn="<?=$v['sn']; ?>" part="2502">
+                <tr sn="<?=$v['sn']; ?>" part="<?=$v['part']; ?>">
                     <td><?=$k + 1; ?></td>
                     <td><?=$v['allocation_code']; ?></td>
                     <td><?=$v['patrol_staff_name']; ?></td>
@@ -346,7 +372,7 @@ $(function(){
             </thead>
             <tbody>
             <?php foreach ($part3 as $k => $v): ?>
-                <tr sn="<?=$v['sn']; ?>" part="2503">
+                <tr sn="<?=$v['sn']; ?>" part="<?=$v['part']; ?>">
                     <td><?=$k + 1; ?></td>
                     <td><?=$v['allocation_code']; ?></td>
                     <td><?=$v['patrol_staff_name']; ?></td>
@@ -369,6 +395,7 @@ $(function(){
                     <div class="form-group" style="width: 100%;float: left;">
                         <label for="floor" class="" style="float:left;">巡場人員</label>
                         <input type="hidden" class="form-control" id="sn">
+                        <input type="hidden" class="form-control" id="part" value="2501">
                         <input type="text" class="form-control" id="allocation_code" style="width: 25%;float: left;" placeholder="巡場人員編號">
                         <input type="hidden" class="form-control" id="patrol_staff_code" style="width: 20%;float: left;" placeholder="">
                         <input type="text" class="form-control" id="patrol_staff_name" style="width: 25%;float: left;margin-left: 5px;">
@@ -380,13 +407,17 @@ $(function(){
                         <div class="form-group">
                             <label for="field" class=""  style="float:left;">試場號起</label>
                             <select name="start" id="start" class="field form-control">
-                                <option value="">請選擇</option>                             
+                                <?php foreach ($part as $k => $v): ?>
+                                    <option value="<?=$v['field']; ?>"><?=$v['field']; ?></option>   
+                                <?php endforeach; ?>                              
                             </select>
                         </div>     
                         <div class="form-group">
                             <label for="section" class=""  style="float:left;">試場號迄</label>
                             <select name="end" id="end" class="field form-control">
-                                <option value="">請選擇</option>                           
+                                <?php foreach ($part as $k => $v): ?>
+                                    <option value="<?=$v['field']; ?>"><?=$v['field']; ?></option>   
+                                <?php endforeach; ?>                          
                             </select>
                         </div>  
                     </div>                              
@@ -406,7 +437,8 @@ $(function(){
                 <div class="col-md-6 col-sm-6 col-xs-6" style="float:left;margin: 20px auto;">             
                     <div class="form-group" style="text-align:right">
                         <div class="">
-                            <button type="button" class="btn btn-primary" id="send">儲存</button>
+                            <button type="button" class="btn btn-primary" id="add">新增</button>
+                            <button type="button" class="btn btn-primary" id="send" style="background:#346a90">儲存</button>
                         </div>
                     </div>                  
                 </div>                         

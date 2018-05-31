@@ -120,8 +120,24 @@ $(function(){
             $("#sn").val(sn);
             $("#trial_start").val(data.info.start);
             $("#trial_end").val(data.info.end);
-            $("#note").val(data.info.note);    
-            $("#section_count").val(data.info.section);
+            $("#note").val(data.info.note);   
+            if(data.info.order_meal == "N" || data.info.order_meal == ""){
+                $("#order_meal").prop("checked",false);
+            }else{
+                $("#order_meal").prop("checked",true);
+            }                 
+            //取得節數
+            $.ajax({
+                url: 'api/get_max_filed',
+                data:{
+                    "start":data.info.start,
+                    "end":data.info.end,
+                },
+                dataType:"json"
+            }).done(function(data){
+                console.log(data.section);  
+                $("#section_count").val(data.section);   
+            })                
             switch(data.info.calculation) {
                 case "by_section":
                     $("#calculation").val("by_section");
@@ -183,7 +199,6 @@ $(function(){
                 },
                 dataType:"json"
             }).done(function(data){
-                console.log(data.day);
                 $('input:checkbox[name="day"]').eq(0).prop("checked",data.day[0]);
                 $('input:checkbox[name="day"]').eq(1).prop("checked",data.day[1]);
                 $('input:checkbox[name="day"]').eq(2).prop("checked",data.day[2]); 
@@ -201,7 +216,7 @@ $(function(){
                 }
             })               
         })  
-        //取得職員資料        
+        //取得職員資料     
         $.ajax({
             url: 'api/get_staff_member',
             data:{
@@ -212,35 +227,31 @@ $(function(){
             $("#job_code").val(data.info.member_code);
             $("#job_title").val(data.info.member_title);
             $("#name").val(data.info.member_name);
-            $("#phone").val(data.info.member_phone);
-            $("#order_meal").val(data.info.order_meal);
-            if(data.info.order_meal.toUpperCase() == "Y"){
-                $("#order_meal").prop("checked",true);
-                $("#lunch_price").attr("readonly",false);
-            }else{
-                
-                $("#order_meal").prop("checked",false);
-                $("#lunch_price").attr("readonly",true);
-            }         
-        })               
+            $("#phone").val(data.info.member_phone);       
+        })       
+
+
+      
     })
     
     $("#order_meal").change(function() {
         if (this.checked) {
-            $(this).val("y");
+            $(this).val("Y");
             $("#lunch_price").attr("readonly",false);
         } else {
-            $(this).val("n");
+            $(this).val("N");
             $("#lunch_price").attr("readonly",true);
         }
     });    
     
     $("body").on("click","#send",function(){
+        console.log($("#order_meal").val());
         if(confirm("確定儲存修改資料？")){
             var sn = $("#sn").val();
             var arr = $('input:checkbox:checked[name="day"]').map(function() { return $(this).val(); }).get();
             var do_date = arr.join(",");  
             var calculation = $("#calculation").val();
+            var order_meal = $("#order_meal").val();
             var count;
             var salary;
             var salary_total;
@@ -274,6 +285,7 @@ $(function(){
                     "lunch_price":lunch_price,  
                     "lunch_total":lunch_total,  
                     "total":total,  
+                    "order_meal":order_meal
                 },
                 dataType:"json"
             }).done(function(data){
@@ -285,6 +297,20 @@ $(function(){
         }
     })  
 
+    $("input[name='day']").change(function(){
+        var arr = $('input:checkbox:checked[name="day"]').map(function() { return $(this).val(); }).get().length;
+        $("#day_count").val(arr);
+        var day_salary_total = parseInt($("#one_day_salary").val()) * parseInt(arr);
+        $("#day_salary_total").val(day_salary_total);
+        if($("#order_meal").val() == "N"){
+            $("#day_total").val(day_salary_total);
+        }else{
+            var day_lunch_total = 0 - parseInt($("#lunch_price").val()) * parseInt($("#day_count").val());
+            $("#day_lunch_total").val(day_lunch_total);
+            var day_total = day_salary_total + day_lunch_total;
+            $("#day_total").val(day_total);
+        }        
+    })
 
     $(".part").eq(0).show();
     $("body").on("click",".tab",function(){
@@ -300,30 +326,67 @@ $(function(){
     })
 
     $("body").on("keyup","#one_day_salary",function(){
-        var day_total = $(this).val() * $("#day_count").val();
-        $("#salary_total").val(day_total);
-        var total = parseInt($("#lunch_total").val()) + day_total;
-        $("#total").val(total)
+        console.log($(this).val());
+        var day_salary_total = parseInt($(this).val()) * parseInt($("#day_count").val());
+        $("#day_salary_total").val(day_salary_total);
+        if($("#order_meal").val() == "N"){
+            $("#day_total").val(day_salary_total);
+        }else{
+            var day_lunch_total = 0 - parseInt($("#lunch_price").val()) * parseInt($("#day_count").val());
+            $("#day_lunch_total").val(day_lunch_total);
+            var day_total = day_salary_total + day_lunch_total;
+            $("#day_total").val(day_total);
+        }
     })
 
     $("body").on("keyup","#salary_section",function(){
-        var day_total = $(this).val() * $("#count").val();
-        $("#salary_total").val(day_total);
-        var total = parseInt($("#lunch_total").val()) + day_total;
-        $("#total").val(total)
+        console.log($(this).val());
+        var section_salary_total = parseInt($(this).val()) * parseInt($("#section_count").val());
+        $("#section_salary_total").val(section_salary_total);
+        if($("#order_meal").val() == "N"){
+            $("#section_total").val(section_salary_total);
+        }else{
+            var section_lunch_total = 0 - parseInt($("#lunch_price").val()) * parseInt($("#day_count").val());
+            $("#section_lunch_total").val(section_lunch_total);
+            var section_total = section_salary_total + section_lunch_total;
+            $("#section_total").val(section_total);
+        }
     })
 
     $("body").on("keyup","#lunch_price",function(){
         var lunch_total = 0 - $(this).val() * $("#day_count").val();
-        $("#lunch_total").val(lunch_total);
-        var total = parseInt($("#salary_total").val()) + lunch_total;
-        console.log(total);
-        $("#total").val(total)
+        $("#day_lunch_total").val(lunch_total);
+        $("#section_lunch_total").val(lunch_total);
+        var day_total = parseInt($("#day_salary_total").val()) + parseInt($("#day_lunch_total").val());
+        var section_total = parseInt($("#section_salary_total").val()) + parseInt($("#section_lunch_total").val());
+        $("#day_total").val(day_total);
+        $("#section_total").val(section_total);
+    })
+
+    $("body").on("change","#order_meal",function(){
+        if($(this).prop("checked") == false){
+            $("#day_total").val($("#day_salary_total").val());
+            $("#section_total").val($("#section_salary_total").val());
+        }else{
+            //節數
+            var section_salary_total = parseInt($("#salary_section").val()) * parseInt($("#section_count").val());
+            var section_lunch_total = 0 - parseInt($("#lunch_price").val()) * parseInt($("#day_count").val());
+            $("#section_lunch_total").val(section_lunch_total);
+            var section_total = section_salary_total + section_lunch_total;
+            $("#section_total").val(section_total);
+            // 天數
+            var day_salary_total = parseInt($("#one_day_salary").val()) * parseInt($("#day_count").val());
+            var day_lunch_total = 0 - parseInt($("#lunch_price").val()) * parseInt($("#day_count").val());
+            $("#day_lunch_total").val(day_lunch_total);
+            var day_total = day_salary_total + day_lunch_total;
+            $("#day_total").val(day_total);            
+        }
     })
  
      $("body").on("change","#calculation",function(){
         if($("#calculation").val() == "by_section"){
             //以節計算
+             
             $("#day_count").hide();    
             $("#one_day_salary").hide();
             $("#day_salary_total").hide();
@@ -336,17 +399,25 @@ $(function(){
             $("#section_total").show();   
             var section_salary_total =  $("#section_count").val() * $("#salary_section").val();
             $("#section_salary_total").val(section_salary_total);
-            $('input:checkbox[name="day"]').click(function(){
-                if($("#order_meal").val() == "Y"){
-                    var arr_lenght = $('input:checkbox:checked[name="day"]').map(function() { return $(this).val(); }).get().length;
-                    var section_lunch_total = $("#lunch_price").val() * arr_lenght;
-                    $("#section_lunch_total").val(section_lunch_total);
-                    var section_total = parseInt($("#section_salary_total").val()) - parseInt($("#section_lunch_total").val());
-                    $("#section_total").val(section_total);    
-                }
-            })
-            var section_total = parseInt($("#section_salary_total").val()) - parseInt($("#section_lunch_total").val());
+            var section_total = parseInt($("#section_salary_total").val()) + parseInt($("#section_lunch_total").val());
             $("#section_total").val(section_total);
+            if($("#order_meal").prop("checked") == false){
+                $("#day_total").val($("#day_salary_total").val());
+                $("#section_total").val($("#section_salary_total").val());
+            }else{
+                //節數
+                var section_salary_total = parseInt($("#salary_section").val()) * parseInt($("#section_count").val());
+                var section_lunch_total = 0 - parseInt($("#lunch_price").val()) * parseInt($("#day_count").val());
+                $("#section_lunch_total").val(section_lunch_total);
+                var section_total = section_salary_total + section_lunch_total;
+                $("#section_total").val(section_total);
+                // 天數
+                var day_salary_total = parseInt($("#one_day_salary").val()) * parseInt($("#day_count").val());
+                var day_lunch_total = 0 - parseInt($("#lunch_price").val()) * parseInt($("#day_count").val());
+                $("#day_lunch_total").val(day_lunch_total);
+                var day_total = day_salary_total + day_lunch_total;
+                $("#day_total").val(day_total);            
+            }            
         }else{
             //以天計算
             $("#day_count").show();    
@@ -359,9 +430,23 @@ $(function(){
             $("#section_salary_total").hide();
             $("#section_lunch_total").hide();
             $("#section_total").hide();          
-            $('input:checkbox[name="day"]').click(function(){
-                var arr_lenght = $('input:checkbox:checked[name="day"]').map(function() { return $(this).val(); }).get().length;
-            })               
+            if($("#order_meal").prop("checked") == false){
+                $("#day_total").val($("#day_salary_total").val());
+                $("#section_total").val($("#section_salary_total").val());
+            }else{
+                //節數
+                var section_salary_total = parseInt($("#salary_section").val()) * parseInt($("#section_count").val());
+                var section_lunch_total = 0 - parseInt($("#lunch_price").val()) * parseInt($("#day_count").val());
+                $("#section_lunch_total").val(section_lunch_total);
+                var section_total = section_salary_total + section_lunch_total;
+                $("#section_total").val(section_total);
+                // 天數
+                var day_salary_total = parseInt($("#one_day_salary").val()) * parseInt($("#day_count").val());
+                var day_lunch_total = 0 - parseInt($("#lunch_price").val()) * parseInt($("#day_count").val());
+                $("#day_lunch_total").val(day_lunch_total);
+                var day_total = day_salary_total + day_lunch_total;
+                $("#day_total").val(day_total);            
+            }                
         }
      })
 
@@ -384,7 +469,7 @@ $(function(){
     
 </div>
 <div class="row" style="position: relative;top: 20px;left: 10px;">
-    <div style="width:95%;margin:5px auto;z-index:9999">
+    <div style="width:95%;margin:5px auto;">
         <div class="tab active" area="1" part="2501"><div class="tab_text">第一分區</div></div>
         <div class="tab" area="2" part="2502"><div class="tab_text">第二分區</div></div>
         <div class="tab" area="3" part="2503"><div class="tab_text">第三分區</div></div>
@@ -524,7 +609,7 @@ $(function(){
                 <div class="col-md-3 col-sm-3 col-xs-3 cube" style="height:150px;">
                     <div class="form-group">
                         <label for="order_meal">訂餐需求</label>
-                        <input type="checkbox" class="" name="need" id="order_meal" disabled><span>需訂餐</span>
+                        <input type="checkbox" class="" name="need" id="order_meal" value="N"><span>需訂餐</span>
                     </div>  
                     <div class="form-group">
                         <label for="trial_end" class=""  style="float:left;">計算方式</label>

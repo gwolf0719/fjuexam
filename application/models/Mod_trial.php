@@ -57,14 +57,12 @@ class Mod_trial extends CI_Model
 
     public function get_trial_list($part = '')
     {
-        $this->db->select('*');
+        $this->db->where('year', $this->session->userdata('year'));
         if ($part != '') {
             $this->db->where('part', $part);
         }
-        $this->db->from('part_info');
-        $this->db->join('trial_staff', 'part_info.sn = trial_staff.sn');
 
-        return $this->db->get()->result_array();
+        return $this->db->get('trial_staff')->result_array();
     }
 
     public function get_once($sn)

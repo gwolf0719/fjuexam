@@ -257,7 +257,7 @@ $(function(){
     
 </div>
 <div class="row" style="position: relative;top: 20px;left: 10px;">
-    <div style="width:95%;margin:5px auto;z-index:9999">
+    <div style="width:95%;margin:5px auto;">
         <div class="tab active" area="1" part="2501" eng="first"><div class="tab_text">第一分區</div></div>
         <div class="tab" area="2" part="2502" eng="second"><div class="tab_text">第二分區</div></div>
         <div class="tab" area="3" part="2503" eng="third"><div class="tab_text">第三分區</div></div>

@@ -138,7 +138,6 @@ $(function(){
         });
     })
 
-
     $("body").on("click","#sure3",function(){
         var code = $(".typeahead").val().split("-");
         $("#trial_staff_code").val(code[0]);
@@ -148,18 +147,38 @@ $(function(){
 
     $(".part").eq(0).show();
     $("body").on("click",".tab",function(){
+        var part = $(this).attr("part");
+        console.log(part);
         var $this = $(this);
+        $("#part").val(part);
          //點擊先做還原動作
         $(".tab").removeClass("active");
         $(".part").hide();
         // 點擊到的追加active以及打開相對應table
         $this.addClass("active");
         var area = $this.attr("area");
-        $("#part"+area).show();           
+        $("#part"+area).show();   
+
+        $.ajax({
+            url: 'api/get_part',
+            data:{
+                "part":part,
+            },
+            dataType:"json"
+        }).done(function(data){
+            var html = "";
+            $.each(data.part,function(k,v){
+
+                html += '<option value="'+v.field+'">' + v.field + '</option>'; 
+            }) 
+            $(".field").html(html); 
+        })                          
     })
+ 
 
     $("body").on("click","tr",function(){
         var sn = $(this).attr("sn");
+        var part = $(this).attr("part");
         $("html, body").animate({
         scrollTop: $("body").height()
         }, 1000);         
@@ -172,9 +191,10 @@ $(function(){
         }).done(function(data){
             console.log(data.info);
             $("#sn").val(sn);
+            $("#part").val(part);
             $("#allocation_code").val(data.info.allocation_code);
             $("#trial_staff_code").val(data.info.trial_staff_code);
-            $("#trial_staff_name").val(data.info.trial_staff_code);
+            $("#trial_staff_name").val(data.info.trial_staff_name);
             $("#first_start").val(data.info.first_start);
             $("#first_end").val(data.info.first_end);
             $("#first_section").val(data.info.first_section);
@@ -254,6 +274,7 @@ $(function(){
     $("body").on("click","#send",function(){
         if(confirm("是否要儲存?")){
             var sn = $("#sn").val();
+            var part = $("#part").val();
             var allocation_code = $("#allocation_code").val();
             var trial_staff_code = $("#trial_staff_code").val();
             var trial_staff_name = $("#trial_staff_name").val();
@@ -272,6 +293,7 @@ $(function(){
                 url: 'api/save_trial_staff',
                 data:{
                     "sn":sn,
+                    "part":part,
                     "allocation_code":allocation_code,
                     "trial_staff_code":trial_staff_code,
                     "trial_staff_name":trial_staff_name,
@@ -295,6 +317,53 @@ $(function(){
             })
         }
     })
+
+    $("body").on("click","#add",function(){
+        if($("#sn").val() != ""){
+            alert("目前處於編輯狀態，請先送出此筆資料，在進行新增");
+        }else{
+            var sn = $("#sn").val();
+            var part = $("#part").val();
+            var allocation_code = $("#allocation_code").val();
+            var trial_staff_code = $("#trial_staff_code").val();
+            var trial_staff_name = $("#trial_staff_name").val();
+            var first_start = $("#first_start").val();
+            var first_end = $("#first_end").val();          
+            var first_section = $("#first_section").val();
+            var second_start = $("#second_start").val();
+            var second_end = $("#second_end").val();          
+            var second_section = $("#second_section").val();            
+            var third_start = $("#third_start").val();
+            var third_end = $("#third_end").val();          
+            var third_section = $("#third_section").val();            
+            var note = $("textarea[name='note']").val();
+            $.ajax({
+                url: 'api/add_trial_staff',
+                data:{
+                    "part":part,
+                    "allocation_code":allocation_code,
+                    "trial_staff_code":trial_staff_code,
+                    "trial_staff_name":trial_staff_name,
+                    "first_start":first_start,
+                    "first_end":first_end,                    
+                    "first_section":first_section,
+                    "second_start":second_start,
+                    "second_end":second_end,                    
+                    "second_section":second_section,                    
+                    "third_start":third_start,
+                    "third_end":third_end,                    
+                    "third_section":third_section,                    
+                    "note":note
+                },
+                dataType:"json"
+            }).done(function(data){
+                alert(data.sys_msg);
+                if(data.sys_code == "200"){
+                    location.reload();
+                }
+            })
+        }
+    })    
 });
 </script>
 
@@ -314,7 +383,7 @@ $(function(){
     
 </div>
 <div class="row" style="position: relative;top: 20px;left: 10px;">
-    <div style="width:95%;margin:5px auto;z-index:9999">
+    <div style="width:95%;margin:5px auto;">
         <div class="tab active" area="1" part="2501" eng="first"><div class="tab_text">第一分區</div></div>
         <div class="tab" area="2" part="2502" eng="second"><div class="tab_text">第二分區</div></div>
         <div class="tab" area="3" part="2503" eng="third"><div class="tab_text">第三分區</div></div>
@@ -347,7 +416,7 @@ $(function(){
             </thead>
             <tbody>
                 <?php foreach ($part1 as $k => $v): ?>
-                    <tr sn="<?=$v['sn']; ?>" part="2502">
+                    <tr sn="<?=$v['sn']; ?>" part="<?=$v['part']; ?>">
                         <td class="bt"><?=$k + 1; ?></td>
                         <td class="bt"><?=$v['allocation_code']; ?></td>
                         <td class="bt"><?=$v['trial_staff_name']; ?></td>
@@ -394,7 +463,7 @@ $(function(){
             </thead>
             <tbody>
                 <?php foreach ($part2 as $k => $v): ?>
-                    <tr sn="<?=$v['sn']; ?>" part="2502">
+                    <tr sn="<?=$v['sn']; ?>" part="<?=$v['part']; ?>">
                         <td class="bt"><?=$k + 1; ?></td>
                         <td class="bt"><?=$v['allocation_code']; ?></td>
                         <td class="bt"><?=$v['trial_staff_name']; ?></td>
@@ -441,7 +510,7 @@ $(function(){
             </thead>
             <tbody>
             <?php foreach ($part3 as $k => $v): ?>
-                <tr sn="<?=$v['sn']; ?>" part="2503">
+                <tr sn="<?=$v['sn']; ?>" part="<?=$v['part']; ?>">
                     <td class="bt"><?=$k + 1; ?></td>
                     <td class="bt"><?=$v['allocation_code']; ?></td>
                     <td class="bt"><?=$v['trial_staff_name']; ?></td>
@@ -469,27 +538,27 @@ $(function(){
                     <div class="form-group" style="width: 100%;float: left;">
                         <label for="floor" class="" style="float:left;">管卷人員</label>
                         <input type="text" class="form-control" id="allocation_code" style="width: 28%;float: left;" placeholder="管卷人員編號">
+                        <input type="hidden" class="form-control" id="part" style="" placeholder="" value="2501">
                         <input type="hidden" class="form-control" id="trial_staff_code" style="width: 20%;float: left;" placeholder="">
                         <input type="text" class="form-control" id="trial_staff_name" style="width: 24%;float: left;margin-left: 5px;">
                         <button type="button" class="btn btn-primary assgin" data-toggle="modal" data-target="#exampleModal" style="float:left;width:20%;margin-left:5px;background:#346a90;border:unset">指派</button>
                     </div>                                                                          
                 </div>    
-                <div class="col-md-3 col-sm-3 col-xs-3 cube" style="max-width: 20%;">           
+                <div class="col-md-3 col-sm-3 col-xs-3 cube" style="max-width: 20%;"> 
+                    <p style="text-align:center">第一天 <?=$datetime_info['day_1']; ?></p>          
                     <div class="form-group">
                         <label for="field" class=""  style="float:left;">試場號起</label>
                         <input type="hidden" class="form-control" id="sn">
-                        <select name="start" id="first_start" class="field1 form-control">
-                            <option value="">請選擇</option>
-                            <?php foreach ($part1 as $k => $v): ?>
+                        <select name="start" id="first_start" class="field field1 form-control">
+                            <?php foreach ($part as $k => $v): ?>
                                 <option value="<?=$v['field']; ?>"><?=$v['field']; ?></option>               
                             <?php endforeach; ?>    
                         </select>
                     </div>     
                     <div class="form-group">
                         <label for="section" class=""  style="float:left;">試場號迄</label>
-                        <select name="end" id="first_end" class="field1 form-control">
-                            <option value="">請選擇</option>
-                            <?php foreach ($part1 as $k => $v): ?>
+                        <select name="end" id="first_end" class="field field1 form-control">
+                            <?php foreach ($part as $k => $v): ?>
                                 <option value="<?=$v['field']; ?>"><?=$v['field']; ?></option>               
                             <?php endforeach; ?>  
                         </select>
@@ -499,22 +568,21 @@ $(function(){
                         <input type="text" class="form-control" id="first_section" readonly>
                     </div>                                  
                 </div>  
-                <div class="col-md-3 col-sm-3 col-xs-3 cube" style="max-width: 20%;">           
+                <div class="col-md-3 col-sm-3 col-xs-3 cube" style="max-width: 20%;">     
+                <p style="text-align:center">第二天 <?=$datetime_info['day_2']; ?></p>          
                     <div class="form-group">
                         <label for="field" class=""  style="float:left;">試場號起</label>
                         <input type="hidden" class="form-control" id="sn">
-                        <select name="start" id="second_start" class="field2 form-control">
-                            <option value="">請選擇</option>
-                            <?php foreach ($part2 as $k => $v): ?>
+                        <select name="start" id="second_start" class="field field2 form-control">
+                            <?php foreach ($part as $k => $v): ?>
                                 <option value="<?=$v['field']; ?>"><?=$v['field']; ?></option>               
                             <?php endforeach; ?>  
                         </select>
                     </div>     
                     <div class="form-group">
                         <label for="section" class=""  style="float:left;">試場號迄</label>
-                        <select name="end" id="second_end" class="field2 form-control">
-                            <option value="">請選擇</option>
-                            <?php foreach ($part2 as $k => $v): ?>
+                        <select name="end" id="second_end" class="field field2 form-control">
+                            <?php foreach ($part as $k => $v): ?>
                                 <option value="<?=$v['field']; ?>"><?=$v['field']; ?></option>               
                             <?php endforeach; ?>  
                         </select>
@@ -524,20 +592,21 @@ $(function(){
                         <input type="text" class="form-control" id="second_section" readonly>
                     </div>                                  
                 </div>  
-                <div class="col-md-3 col-sm-3 col-xs-3 cube" style="max-width: 20%;">           
+                <div class="col-md-3 col-sm-3 col-xs-3 cube" style="max-width: 20%;">    
+                    <p style="text-align:center">第三天 <?=$datetime_info['day_3']; ?></p>                           
                     <div class="form-group">
                         <label for="field" class=""  style="float:left;">試場號起</label>
                         <input type="hidden" class="form-control" id="sn">
-                        <select name="start" id="third_start" class="field3 form-control">
-                            <?php foreach ($part3 as $k => $v): ?>
+                        <select name="start" id="third_start" class="field field3 form-control">
+                            <?php foreach ($part as $k => $v): ?>
                                 <option value="<?=$v['field']; ?>"><?=$v['field']; ?></option>               
                             <?php endforeach; ?>  
                         </select>
                     </div>     
                     <div class="form-group">
                         <label for="section" class=""  style="float:left;">試場號迄</label>
-                        <select name="end" id="third_end" class="field3 form-control">
-                            <?php foreach ($part3 as $k => $v): ?>
+                        <select name="end" id="third_end" class="field field3 form-control">
+                            <?php foreach ($part as $k => $v): ?>
                                 <option value="<?=$v['field']; ?>"><?=$v['field']; ?></option>               
                             <?php endforeach; ?>  
                         </select>
@@ -558,7 +627,8 @@ $(function(){
                 <div class="col-md-6 col-sm-6 col-xs-6" style="float:left;margin: 20px auto;">             
                     <div class="form-group" style="text-align:right">
                         <div class="">
-                            <button type="button" class="btn btn-primary" id="send">儲存</button>
+                            <button type="button" class="btn btn-primary" id="add">新增</button>
+                            <button type="button" class="btn btn-primary" id="send" style="background:#346a90">儲存</button>
                         </div>
                     </div>                  
                 </div>                         

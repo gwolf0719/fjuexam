@@ -52,6 +52,17 @@ class Mod_exam_area extends CI_Model
 
         return $count = 10 - $no[0];
     }
+
+    public function get_part($part = '')
+    {
+        $this->db->where('year', $this->session->userdata('year'));
+        if ($part != '') {
+            $this->db->where('part', $part);
+        }
+        $this->db->select('part,field');
+
+        return $this->db->get('exam_area')->result_array();
+    }
 }
 
 /* End of file Mod_exam_area.php */

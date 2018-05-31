@@ -371,8 +371,14 @@ $(function(){
         $("#day_count").val(arr_lenght);
         var day_total = $("#one_day_salary").val() * arr_lenght;
         $("#salary_total").val(day_total);
-        var total = parseInt($("#salary_total").val()) + parseInt($("#lunch_total").val());
-        $("#total").val(total);
+        if($("#order_meal").prop("checked") == true){
+            var lunch_total = 0 - parseInt($("#lunch_price").val()) * parseInt(arr_lenght);
+            $("#lunch_total").val(lunch_total);
+            var total = parseInt($("#salary_total").val()) + parseInt($("#lunch_total").val());
+            $("#total").val(total);            
+        }else{
+            $("#total").val($("#salary_total").val());        
+        }
     })
 
     $('input:checkbox[name="need"]').change(function(){
@@ -606,7 +612,7 @@ $(function(){
                     </div>   
                     <div class="form-group">
                         <label for="trial_end" class=""  style="float:left;">總計</label>
-                        <input type="text" class="form-control" id="total" value="0">
+                        <input type="text" class="form-control" id="total" value="0" readonly>
                     </div>                                  
                 </div>     
                 <div class="col-md-6 col-sm-6 col-xs-6 " style="float:left;margin: 20px auto;">             
