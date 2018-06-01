@@ -11,6 +11,20 @@ class Unit extends CI_Controller
         echo json_encode($res);
         // echo $this->db->last_query();
     }
+
+    public function get_once_day_section()
+    {
+        $this->load->model('mod_exam_datetime');
+        $res = $this->mod_exam_datetime->get_once_day_section('2', '220140', '220142');
+        echo json_encode($res);
+    }
+
+    public function get_day_section()
+    {
+        $this->load->model('mod_exam_datetime');
+        $res = $this->mod_exam_datetime->get_day_section('220140', '220141');
+        echo json_encode($res);
+    }
 }
 
 /* End of file Unit.php */

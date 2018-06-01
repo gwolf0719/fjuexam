@@ -1,3 +1,5 @@
+
+</script>
 <style>
 table{
     border:1px solid #ccc;
@@ -48,40 +50,494 @@ td{
             <tr>
                 <td style="text-align:center">日期</td>
             </tr>
-
-
             <tr>
                 <td><?=$datetime_info['day_1']; ?></td>
                 <td rowspan="3">預<br>備<br>鈴</td>
-                <td><?=$course['1_1']; ?></td>
+                <td>
+                    <?php
+                    switch ($course[0]['subject']) {
+                        case 'subject_00':
+                            echo '';
+                            break;
+                        case 'subject_01':
+                            echo '物理';
+                            break;
+                        case 'subject_02':
+                            echo '化學';
+                            break;
+                        case 'subject_03':
+                            echo '生物';
+                            break;
+                        case 'subject_04':
+                            echo '數乙';
+                            break;
+                        case 'subject_05':
+                            echo '國文';
+                            break;
+                        case 'subject_06':
+                            echo '英文';
+                            break;
+                        case 'subject_07':
+                            echo '數甲';
+                            break;
+                        case 'subject_08':
+                            echo '歷史';
+                            break;
+                        case 'subject_09':
+                            echo '地理';
+                            break;
+                        case 'subject_10':
+                            echo '公民與社會';
+                            break;
+                    }
+                    ?>                    
+                </td>
                 <td rowspan="3">預<br>備<br>鈴</td>
-                <td><?=$course['1_2']; ?></td>
+                <td>
+                    <?php
+                    switch ($course[1]['subject']) {
+                        case 'subject_00':
+                            echo '';
+                            break;
+                        case 'subject_01':
+                            echo '物理';
+                            break;
+                        case 'subject_02':
+                            echo '化學';
+                            break;
+                        case 'subject_03':
+                            echo '生物';
+                            break;
+                        case 'subject_04':
+                            echo '數乙';
+                            break;
+                        case 'subject_05':
+                            echo '國文';
+                            break;
+                        case 'subject_06':
+                            echo '英文';
+                            break;
+                        case 'subject_07':
+                            echo '數甲';
+                            break;
+                        case 'subject_08':
+                            echo '歷史';
+                            break;
+                        case 'subject_09':
+                            echo '地理';
+                            break;
+                        case 'subject_10':
+                            echo '公民與社會';
+                            break;
+                    }
+                    ?>  
+                </td>
                 <td rowspan="3">預<br>備<br>鈴</td>
-                <td><?=$course['1_3']; ?></td>
+                <td>
+                <?php
+                    switch ($course[2]['subject']) {
+                        case 'subject_00':
+                            echo '';
+                            break;
+                        case 'subject_01':
+                            echo '物理';
+                            break;
+                        case 'subject_02':
+                            echo '化學';
+                            break;
+                        case 'subject_03':
+                            echo '生物';
+                            break;
+                        case 'subject_04':
+                            echo '數乙';
+                            break;
+                        case 'subject_05':
+                            echo '國文';
+                            break;
+                        case 'subject_06':
+                            echo '英文';
+                            break;
+                        case 'subject_07':
+                            echo '數甲';
+                            break;
+                        case 'subject_08':
+                            echo '歷史';
+                            break;
+                        case 'subject_09':
+                            echo '地理';
+                            break;
+                        case 'subject_10':
+                            echo '公民與社會';
+                            break;
+                    }
+                    ?>  
+                </td>
                 <td rowspan="3">預<br>備<br>鈴</td>
-                <td><?=$course['1_4']; ?></td>
+                <td>
+                    <?php
+                    switch ($course[3]['subject']) {
+                        case 'subject_00':
+                            echo '';
+                            break;
+                        case 'subject_01':
+                            echo '物理';
+                            break;
+                        case 'subject_02':
+                            echo '化學';
+                            break;
+                        case 'subject_03':
+                            echo '生物';
+                            break;
+                        case 'subject_04':
+                            echo '數乙';
+                            break;
+                        case 'subject_05':
+                            echo '國文';
+                            break;
+                        case 'subject_06':
+                            echo '英文';
+                            break;
+                        case 'subject_07':
+                            echo '數甲';
+                            break;
+                        case 'subject_08':
+                            echo '歷史';
+                            break;
+                        case 'subject_09':
+                            echo '地理';
+                            break;
+                        case 'subject_10':
+                            echo '公民與社會';
+                            break;
+                    }
+                    ?>  
+                </td>
             </tr>
             <tr>
                 <td><?=$datetime_info['day_2']; ?></td>
                 <!-- <td></td> -->
-                <td><?=$course['2_1']; ?></td>
+                <td>
+                <?php
+                    switch ($course[4]['subject']) {
+                        case 'subject_00':
+                            echo '';
+                            break;
+                        case 'subject_01':
+                            echo '物理';
+                            break;
+                        case 'subject_02':
+                            echo '化學';
+                            break;
+                        case 'subject_03':
+                            echo '生物';
+                            break;
+                        case 'subject_04':
+                            echo '數乙';
+                            break;
+                        case 'subject_05':
+                            echo '國文';
+                            break;
+                        case 'subject_06':
+                            echo '英文';
+                            break;
+                        case 'subject_07':
+                            echo '數甲';
+                            break;
+                        case 'subject_08':
+                            echo '歷史';
+                            break;
+                        case 'subject_09':
+                            echo '地理';
+                            break;
+                        case 'subject_10':
+                            echo '公民與社會';
+                            break;
+                    }
+                    ?>  
+                </td>
                 <!-- <td></td> -->
-                <td><?=$course['2_2']; ?></td>
+                <td>
+                    <?php
+                    switch ($course[5]['subject']) {
+                        case 'subject_00':
+                            echo '';
+                            break;
+                        case 'subject_01':
+                            echo '物理';
+                            break;
+                        case 'subject_02':
+                            echo '化學';
+                            break;
+                        case 'subject_03':
+                            echo '生物';
+                            break;
+                        case 'subject_04':
+                            echo '數乙';
+                            break;
+                        case 'subject_05':
+                            echo '國文';
+                            break;
+                        case 'subject_06':
+                            echo '英文';
+                            break;
+                        case 'subject_07':
+                            echo '數甲';
+                            break;
+                        case 'subject_08':
+                            echo '歷史';
+                            break;
+                        case 'subject_09':
+                            echo '地理';
+                            break;
+                        case 'subject_10':
+                            echo '公民與社會';
+                            break;
+                    }
+                    ?>  
+                </td>
                 <!-- <td></td> -->
-                <td><?=$course['2_3']; ?></td>
+                <td>
+                    <?php
+                    switch ($course[6]['subject']) {
+                        case 'subject_00':
+                            echo '';
+                            break;
+                        case 'subject_01':
+                            echo '物理';
+                            break;
+                        case 'subject_02':
+                            echo '化學';
+                            break;
+                        case 'subject_03':
+                            echo '生物';
+                            break;
+                        case 'subject_04':
+                            echo '數乙';
+                            break;
+                        case 'subject_05':
+                            echo '國文';
+                            break;
+                        case 'subject_06':
+                            echo '英文';
+                            break;
+                        case 'subject_07':
+                            echo '數甲';
+                            break;
+                        case 'subject_08':
+                            echo '歷史';
+                            break;
+                        case 'subject_09':
+                            echo '地理';
+                            break;
+                        case 'subject_10':
+                            echo '公民與社會';
+                            break;
+                    }
+                    ?>  
+                </td>
                 <!-- <td></td> -->
-                <td><?=$course['2_4']; ?></td>
+                <td>
+                    <?php
+                    switch ($course[7]['subject']) {
+                        case 'subject_00':
+                            echo '';
+                            break;
+                        case 'subject_01':
+                            echo '物理';
+                            break;
+                        case 'subject_02':
+                            echo '化學';
+                            break;
+                        case 'subject_03':
+                            echo '生物';
+                            break;
+                        case 'subject_04':
+                            echo '數乙';
+                            break;
+                        case 'subject_05':
+                            echo '國文';
+                            break;
+                        case 'subject_06':
+                            echo '英文';
+                            break;
+                        case 'subject_07':
+                            echo '數甲';
+                            break;
+                        case 'subject_08':
+                            echo '歷史';
+                            break;
+                        case 'subject_09':
+                            echo '地理';
+                            break;
+                        case 'subject_10':
+                            echo '公民與社會';
+                            break;
+                    }
+                    ?>  
+                </td>
             </tr>
             <tr>
                 <td><?=$datetime_info['day_3']; ?></td>
                 <!-- <td></td> -->
-                <td><?=$course['3_1']; ?></td>
+                <td>
+                <?php
+                    switch ($course[8]['subject']) {
+                        case 'subject_00':
+                            echo '';
+                            break;
+                        case 'subject_01':
+                            echo '物理';
+                            break;
+                        case 'subject_02':
+                            echo '化學';
+                            break;
+                        case 'subject_03':
+                            echo '生物';
+                            break;
+                        case 'subject_04':
+                            echo '數乙';
+                            break;
+                        case 'subject_05':
+                            echo '國文';
+                            break;
+                        case 'subject_06':
+                            echo '英文';
+                            break;
+                        case 'subject_07':
+                            echo '數甲';
+                            break;
+                        case 'subject_08':
+                            echo '歷史';
+                            break;
+                        case 'subject_09':
+                            echo '地理';
+                            break;
+                        case 'subject_10':
+                            echo '公民與社會';
+                            break;
+                    }
+                    ?>  
+                </td>
                 <!-- <td></td> -->
-                <td><?=$course['3_2']; ?></td>
+                <td>
+                <?php
+                    switch ($course[9]['subject']) {
+                        case 'subject_00':
+                            echo '';
+                            break;
+                        case 'subject_01':
+                            echo '物理';
+                            break;
+                        case 'subject_02':
+                            echo '化學';
+                            break;
+                        case 'subject_03':
+                            echo '生物';
+                            break;
+                        case 'subject_04':
+                            echo '數乙';
+                            break;
+                        case 'subject_05':
+                            echo '國文';
+                            break;
+                        case 'subject_06':
+                            echo '英文';
+                            break;
+                        case 'subject_07':
+                            echo '數甲';
+                            break;
+                        case 'subject_08':
+                            echo '歷史';
+                            break;
+                        case 'subject_09':
+                            echo '地理';
+                            break;
+                        case 'subject_10':
+                            echo '公民與社會';
+                            break;
+                    }
+                    ?>  
+                </td>
                 <!-- <td></td> -->
-                <td><?=$course['3_3']; ?></td>
+                <td>
+                <?php
+                    switch ($course[10]['subject']) {
+                        case 'subject_00':
+                            echo '';
+                            break;
+                        case 'subject_01':
+                            echo '物理';
+                            break;
+                        case 'subject_02':
+                            echo '化學';
+                            break;
+                        case 'subject_03':
+                            echo '生物';
+                            break;
+                        case 'subject_04':
+                            echo '數乙';
+                            break;
+                        case 'subject_05':
+                            echo '國文';
+                            break;
+                        case 'subject_06':
+                            echo '英文';
+                            break;
+                        case 'subject_07':
+                            echo '數甲';
+                            break;
+                        case 'subject_08':
+                            echo '歷史';
+                            break;
+                        case 'subject_09':
+                            echo '地理';
+                            break;
+                        case 'subject_10':
+                            echo '公民與社會';
+                            break;
+                    }
+                    ?>  
+                </td>
                 <!-- <td></td> -->
-                <td><?=$course['3_4'];?></td>
+                <td>
+                <?php
+                    switch ($course[11]['subject']) {
+                        case 'subject_00':
+                            echo '';
+                            break;
+                        case 'subject_01':
+                            echo '物理';
+                            break;
+                        case 'subject_02':
+                            echo '化學';
+                            break;
+                        case 'subject_03':
+                            echo '生物';
+                            break;
+                        case 'subject_04':
+                            echo '數乙';
+                            break;
+                        case 'subject_05':
+                            echo '國文';
+                            break;
+                        case 'subject_06':
+                            echo '英文';
+                            break;
+                        case 'subject_07':
+                            echo '數甲';
+                            break;
+                        case 'subject_08':
+                            echo '歷史';
+                            break;
+                        case 'subject_09':
+                            echo '地理';
+                            break;
+                        case 'subject_10':
+                            echo '公民與社會';
+                            break;
+                    }
+                    ?>  
+                </td>
             </tr>
         </table>
 

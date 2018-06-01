@@ -87,43 +87,11 @@ class Designated extends CI_Controller
                     'end' => $data[4],
                     'number' => $data[5],
                 );
-
-                $datas_assign[] = array(
-                    'year' => $this->session->userdata('year'),
-                    'supervisor_1' => '',
-                    'supervisor_1_code' => '',
-                    'supervisor_2' => '',
-                    'supervisor_2_code' => '',
-                    'trial_staff_code' => '',
-                    'trial_staff' => '',
-                    'note' => '',
-                );
-                $datas_trial[] = array(
-                    'year' => $this->session->userdata('year'),
-                    'trial_staff_code' => '',
-                    'trial_staff_name' => '',
-                    'start' => '',
-                    'end' => '',
-                    'section' => '',
-                    'note' => '',
-                );
-                $datas_patrol[] = array(
-                    'year' => $this->session->userdata('year'),
-                    'patrol_staff_code' => '',
-                    'patrol_staff_name' => '',
-                    'start' => '',
-                    'end' => '',
-                    'section' => '',
-                    'note' => '',
-                );
             }
             // echo json_encode($datas);
 
             $this->mod_exam_area->import($datas);
             $this->mod_part_info->import($datas_part);
-            $this->mod_trial->import($datas_assign);
-            $this->mod_trial->import_trial($datas_trial);
-            $this->mod_patrol->import($datas_patrol);
             fclose($file);
             unlink($file_name);
             // print_r(fgetcsv($file));
@@ -1037,24 +1005,10 @@ class Designated extends CI_Controller
         if ($this->mod_exam_datetime->chk_course($year)) {
             $course = $this->mod_exam_datetime->get_course($year);
         } else {
-            $course = array(
-                '1_1' => '',
-                '1_2' => '',
-                '1_3' => '',
-                '1_4' => '',
-                '2_1' => '',
-                '2_2' => '',
-                '2_3' => '',
-                '2_4' => '',
-                '3_1' => '',
-                '3_2' => '',
-                '3_3' => '',
-                '3_4' => '',
-                '4_1' => '',
-                '4_2' => '',
-                '4_3' => '',
-                '4_4' => '',
-            );
+            $course = array();
+            for ($i = 0; $i <= 12; ++$i) {
+                $course[$i]['subject'] = '';
+            }
         }
         $data = array(
             'title' => '預覽考程表',

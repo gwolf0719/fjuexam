@@ -344,19 +344,16 @@ $(function(){
             job:$("#search_job").text(),
             area:"考區",
         },function(data){
-            // console.log(data.info);
-            if(data.info != undefined){
-                alert(data.sys_msg);
-                if(data.sys_code == "200"){
-                    $('#exampleModal').modal('hide');
-                    $("#member_job_title").val($("#search_job").text());
-                    $("#job_code").val(data.info.member_code);
-                    $("#job_title").val(data.info.member_title);
-                    $("#name").val(data.info.member_name);
-                    $("#phone").val(data.info.member_phone);
-                    if(data.info.order_meal == "y"){
-                        $("#order_meal").prop("checked",true);
-                    }
+            alert(data.sys_msg);
+            if(data.sys_code == "200"){
+                $('#exampleModal').modal('hide');
+                $("#member_job_title").val($("#search_job").text());
+                $("#job_code").val(data.info.member_code);
+                $("#job_title").val(data.info.member_title);
+                $("#name").val(data.info.member_name);
+                $("#phone").val(data.info.member_phone);
+                if(data.info.order_meal == "y"){
+                    $("#order_meal").prop("checked",true);
                 }
             }
         },"json")           

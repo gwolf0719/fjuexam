@@ -158,7 +158,7 @@ $(function(){
             if(data.info.order_meal == "N" || data.info.order_meal == ""){
                 $("#order_meal").prop("checked",false);
             }else{
-                $("#order_meal").prop("checked",true);
+                $("#order_meal").prop("checked",true);           
             }              
             var section_count = parseInt(data.info.first_section) + parseInt(data.info.second_section) + parseInt(data.info.third_section);
             var day_arr = [data.info.first_section,data.info.second_section,data.info.third_section];
@@ -360,6 +360,8 @@ $(function(){
         if($(this).prop("checked") == false){
             $("#day_total").val($("#day_salary_total").val());
             $("#section_total").val($("#section_salary_total").val());
+            $("#day_lunch_total").val(0);
+            $("#section_lunch_total").val(0);
         }else{
             //節數
             var section_salary_total = parseInt($("#salary_section").val()) * parseInt($("#section_count").val());

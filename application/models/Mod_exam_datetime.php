@@ -1,22 +1,24 @@
 <?php
+
 defined('BASEPATH') or exit('No direct script access allowed');
 class Mod_exam_datetime extends CI_Model
 {
     /**
      * 由試場起迄號得知使用日期
      * start 開始考場 end 結束考場
-     * res 陣列 1=>第一天,2=>第二天,3=>第三天 
+     * res 陣列 1=>第一天,2=>第二天,3=>第三天
      * true 有
-     * flase 沒有
+     * flase 沒有.
      */
-    function room_use_day($start,$end){
-        $year  = $this->session->userdata("year");
+    public function room_use_day($start, $end)
+    {
+        $year = $this->session->userdata('year');
         // 取得每日考科
         $day = array();
-        for($i=1;$i<=3;$i++){
-            foreach ($this->db->select('subject')->where('year',$year)->where('day',$i)->get('exam_course')->result_array() as $key => $value) {
-                # code...
-                if($value['subject'] != "subject_00"){
+        for ($i = 1; $i <= 3; ++$i) {
+            foreach ($this->db->select('subject')->where('year', $year)->where('day', $i)->get('exam_course')->result_array() as $key => $value) {
+                // code...
+                if ($value['subject'] != 'subject_00') {
                     $day[$i][] = $value['subject'];
                 }
             }
@@ -24,26 +26,84 @@ class Mod_exam_datetime extends CI_Model
         // 確認每一天
         $res = array();
 
-        for($i=1;$i<=3;$i++){
+        for ($i = 1; $i <= 3; ++$i) {
             // 搜尋條件
             $where = array(
-                'field <='=>$end,
-                'field >='=>$start
+                'field <=' => $end,
+                'field >=' => $start,
             );
             // 將考科送入搜尋條件
-            foreach($day[$i] as $k=>$v){
+            foreach ($day[$i] as $k => $v) {
                 $where[$v] = 0;
             }
             // 如果有就true 沒有的話就 flase
-            if($this->db->where($where)->count_all_results('exam_area') == 0){
-                $res[] = true;    
-            }else{
+            if ($this->db->where($where)->count_all_results('exam_area') == 0) {
+                $res[] = true;
+            } else {
                 $res[] = false;
             }
         }
-        
-        
+
         return $res;
+    }
+
+    public function get_once_day_section($uses_day, $start, $end)
+    {
+        $year = $this->session->userdata('year');
+        //先取得當天考試科目
+        $day = array();
+        foreach ($this->db->select('subject')->where('year', '106')->where('day', $uses_day)->get('exam_course')->result_array() as $key => $value) {
+            // code...
+            if ($value['subject'] != 'subject_00') {
+                $day[$uses_day][] = $value['subject'];
+            }
+        }
+
+        //將試場的值送入搜尋
+        $where = array(
+            'field <=' => $end,
+            'field >=' => $start,
+        );
+        foreach ($day[$uses_day] as $k => $v) {
+            $where[$v] = 0;
+        }
+
+        return $total = $this->db->where($where)->count_all_results('exam_area');
+    }
+
+    public function get_day_section($start, $end)
+    {
+        $year = $this->session->userdata('year');
+        // 取得每日考科
+        $day = array();
+        for ($i = 1; $i <= 3; ++$i) {
+            foreach ($this->db->select('subject')->where('year', $year)->where('day', $i)->get('exam_course')->result_array() as $key => $value) {
+                // code...
+                if ($value['subject'] != 'subject_00') {
+                    $day[$i][] = $value['subject'];
+                }
+            }
+        }
+        // 確認每一天
+        $res = array();
+
+        for ($i = 1; $i <= 3; ++$i) {
+            // 搜尋條件
+            $where = array(
+                'field <=' => $end,
+                'field >=' => $start,
+            );
+            // 將考科送入搜尋條件
+            foreach ($day[$i] as $k => $v) {
+                $where[$v] = 0;
+            }
+            // 如果有就true 沒有的話就 flase
+            $res[] = $this->db->where($where)->count_all_results('exam_area');
+        }
+
+        $count = $res[0] + $res[1] + $res[2];
+
+        return $count;
     }
 
     public function chk_once($year)
@@ -55,20 +115,25 @@ class Mod_exam_datetime extends CI_Model
             return true;
         }
     }
+
     public function get_once($year)
     {
         $this->db->where('year', $year);
+
         return $this->db->get('exam_datetime')->row_array();
     }
+
     public function update_once($year, $data)
     {
         $this->db->where('year', $year);
         $this->db->update('exam_datetime', $data);
     }
+
     public function add_once($data)
     {
         $this->db->insert('exam_datetime', $data);
     }
+
     /**
      * 清除當年考試課程表.
      */
@@ -77,18 +142,18 @@ class Mod_exam_datetime extends CI_Model
         $this->db->where('year', $year);
         $this->db->delete('exam_course');
     }
+
     public function setting_course($year, $data)
     {
-        
         $new_data = array();
         foreach ($data as $k => $v) {
-            
             $new_data[$k] = $v;
             $new_data[$k]['year'] = $year;
         }
-        
-        $this->db->insert_batch("exam_course",$new_data);
+
+        $this->db->insert_batch('exam_course', $new_data);
     }
+
     public function chk_course($year)
     {
         $this->db->where('year', $year);
@@ -98,11 +163,11 @@ class Mod_exam_datetime extends CI_Model
             return true;
         }
     }
+
     public function get_course($year)
     {
         $this->db->where('year', $year);
-        
-        
+
         return $this->db->get('exam_course')->result_array();
     }
 }

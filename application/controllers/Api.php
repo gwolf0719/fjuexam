@@ -265,7 +265,6 @@ class Api extends CI_Controller
 
         $res = $this->mod_task->get_member_info();
         foreach ($res as $key => $value) {
-            // $json_arr['info'][$key]['sn'] = $value['sn'];
             $json_arr['info'][$key]['id'] = $value['member_code'];
             $json_arr['info'][$key]['name'] = $value['member_code'].' - '.$value['member_name'];
         }
@@ -291,7 +290,9 @@ class Api extends CI_Controller
                 $json_arr['info'] = $this->mod_task->get_once_info($data['job_code']);
                 $json_arr['sys_code'] = '200';
                 $json_arr['sys_msg'] = '資料處理完成';
+                $json_arr['assign'] = '';
             } else {
+                $json_arr['assign'] = '(已指派)';
                 $json_arr['sys_code'] = '500';
                 $json_arr['sys_msg'] = '該職員已經有指派職務';
             }
@@ -587,6 +588,44 @@ class Api extends CI_Controller
         echo json_encode($json_arr);
     }
 
+    //取得每天節數總和
+    public function get_day_section()
+    {
+        $this->load->model('mod_exam_datetime');
+        $getpost = array('start', 'end');
+        $requred = array('start', 'end');
+        $data = $this->getpost->getpost_array($getpost, $requred);
+        if ($data == false) {
+            $json_arr['sys_code'] = '000';
+            $json_arr['sys_msg'] = '資料不足';
+            $json_arr['requred'] = $this->getpost->report_requred($requred);
+        } else {
+            $json_arr['section'] = $this->mod_exam_datetime->get_day_section($data['start'], $data['end']);
+            $json_arr['sys_code'] = '200';
+            $json_arr['sys_msg'] = '資料處理完成';
+        }
+        echo json_encode($json_arr);
+    }
+
+    //取得當天節數
+    public function get_once_day_section()
+    {
+        $this->load->model('mod_exam_datetime');
+        $getpost = array('day', 'start', 'end');
+        $requred = array('day', 'start', 'end');
+        $data = $this->getpost->getpost_array($getpost, $requred);
+        if ($data == false) {
+            $json_arr['sys_code'] = '000';
+            $json_arr['sys_msg'] = '資料不足';
+            $json_arr['requred'] = $this->getpost->report_requred($requred);
+        } else {
+            $json_arr['section'] = $this->mod_exam_datetime->get_once_day_section($data['day'], $data['start'], $data['end']);
+            $json_arr['sys_code'] = '200';
+            $json_arr['sys_msg'] = '資料處理完成';
+        }
+        echo json_encode($json_arr);
+    }
+
     public function add_trial_staff()
     {
         $this->load->model('mod_trial');
@@ -609,8 +648,8 @@ class Api extends CI_Controller
     public function save_trial_staff()
     {
         $this->load->model('mod_trial');
-        $getpost = array('sn', 'part', 'allocation_code', 'trial_staff_code', 'trial_staff_name', 'first_start', 'first_end', 'first_section', 'second_start', 'second_end', 'second_section', 'third_start', 'third_end', 'third_section', 'note', 'order_meal');
-        $requred = array('sn', 'part', 'allocation_code', 'trial_staff_code', 'trial_staff_name', 'first_start', 'first_end', 'first_section', 'second_start', 'second_end', 'second_section', 'third_start', 'third_end', 'third_section', 'order_meal');
+        $getpost = array('sn', 'part', 'allocation_code', 'trial_staff_code', 'trial_staff_name', 'first_start', 'first_end', 'first_section', 'second_start', 'second_end', 'second_section', 'third_start', 'third_end', 'third_section', 'note');
+        $requred = array('sn', 'part', 'allocation_code', 'trial_staff_code', 'trial_staff_name', 'first_start', 'first_end', 'first_section', 'second_start', 'second_end', 'second_section', 'third_start', 'third_end', 'third_section');
         $data = $this->getpost->getpost_array($getpost, $requred);
         if ($data == false) {
             $json_arr['sys_code'] = '000';

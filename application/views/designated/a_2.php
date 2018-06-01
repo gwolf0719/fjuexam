@@ -9,30 +9,15 @@ img{
     max-width:100%;
 }
 
-.form{
-    position: relative;
-    width: 100%;
-    margin: 0 auto;
+.boxs{
     border-top: 1px solid;
     background: #f2f2f2;
-    padding: 20px 0px;
-    left: -15px;
-    display:none;
-    float: left;
-    height: auto;    
-}
-.up{
-    cursor: pointer;
-    z-index: 9999;
-    width: 100%;
-    text-align: center;
-    position: relative;
-    top: 25px;    
+    padding: 0px 0px 20px;
 }
 .bottom{
-    position: absolute;
-    bottom: 0px;
-    width:100%;
+    position: relative;
+    width: 100%;
+    top: 100px;
 }
 label {
     display: inline-block;
@@ -234,12 +219,9 @@ tr{
 </div>
 
 <div class="bottom">
-    <div class="up">
-        <img src="assets/images/upup.png" alt="" >
-    </div>
-    <div class="row form" style="">
+    <div class="row boxs">
         <div class="col-md-12 col-sm-12 col-xs-12">      
-            <form method="POST"  class="">                                            
+            <form method="POST"  class="" style="padding: 30px 0px 0px;">                                            
                 <div class="col-md-3 col-sm-3 col-xs-3 cube">          
                     <div class="form-group">
                         <label for="company_name_01">部別</label>
@@ -262,9 +244,9 @@ tr{
                 <div class="col-md-12 col-sm-12 col-xs-12">             
                     <div class="form-group" style="text-align:right">
                         <div class="">
-                            <!-- <button class="btn btn-primary" type="button" id="add" style="display:none">確定</button>
+                            <button class="btn btn-primary" type="button" id="add" style="display:none">確定</button>
                             <button class="btn btn-danger" type="button" id="no" style="display:none">取消</button>
-                            <button class="btn btn-primary" type="button" id="add_info">新增</button> -->
+                            <button class="btn btn-primary" type="button" id="add_info">新增</button>
                             <button type="button" class="btn btn-primary" id="send">修改</button>
                             <button type="button" class="btn btn-danger" id="remove">刪除</button>
                         </div>

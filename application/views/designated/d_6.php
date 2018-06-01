@@ -128,7 +128,7 @@ $(function(){
             }                 
             //取得節數
             $.ajax({
-                url: 'api/get_max_filed',
+                url: 'api/get_day_section',
                 data:{
                     "start":data.info.start,
                     "end":data.info.end,
@@ -367,6 +367,8 @@ $(function(){
         if($(this).prop("checked") == false){
             $("#day_total").val($("#day_salary_total").val());
             $("#section_total").val($("#section_salary_total").val());
+            $("#day_lunch_total").val(0);
+            $("#section_lunch_total").val(0);                 
         }else{
             //節數
             var section_salary_total = parseInt($("#salary_section").val()) * parseInt($("#section_count").val());

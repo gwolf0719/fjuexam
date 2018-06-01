@@ -171,20 +171,21 @@ $(function(){
             $("#section").val(data.info.test_section);
             $("#trial_staff_code_1").val();
             //監試人員編號第一碼產生
-            var c1;
+
             switch(part) {
                 case "2501":
                     var c1 = "1";
                     break;
-                case "2052":
+                case "2502":
                     var c1 = "2";
                     break;
-                case "2053":
+                case "2503":
                     var c1 = "3";
                     break;
             }      
             //監試人員編號第二碼產生
             var c2 = data.info.field.substring(3,6);
+            console.log(c2);
             $("#trial_staff_code_1").val(c1+c2+"1");
             $("#trial_staff_code_2").val(c1+c2+"2");
 

@@ -226,9 +226,12 @@ $(function(){
     $("body").on("change",".field1",function(){
         var start = $("#first_start").val();
         var end = $("#first_end").val();
+        var day = $('.field1 option:selected').attr('day');
+        console.log(day);
         $.ajax({
-            url: 'api/get_max_filed',
+            url: 'api/get_once_day_section',
             data:{
+                "day":day,
                 "start":start,
                 "end":end,
             },
@@ -242,9 +245,12 @@ $(function(){
     $("body").on("change",".field2",function(){
         var start = $("#second_start").val();
         var end = $("#second_end").val();
+        var day = $('.field2 option:selected').attr('day');
+        console.log(day);        
         $.ajax({
-            url: 'api/get_max_filed',
+            url: 'api/get_once_day_section',
             data:{
+                "day":day,
                 "start":start,
                 "end":end,
             },
@@ -258,9 +264,12 @@ $(function(){
     $("body").on("change",".field3",function(){
         var start = $("#third_start").val();
         var end = $("#third_end").val();
+        var day = $('.field3 option:selected').attr('day');
+        console.log(day);        
         $.ajax({
-            url: 'api/get_max_filed',
+            url: 'api/get_once_day_section',
             data:{
+                "day":day,
                 "start":start,
                 "end":end,
             },
@@ -551,7 +560,7 @@ $(function(){
                         <input type="hidden" class="form-control" id="sn">
                         <select name="start" id="first_start" class="field field1 form-control">
                             <?php foreach ($part as $k => $v): ?>
-                                <option value="<?=$v['field']; ?>"><?=$v['field']; ?></option>               
+                                <option value="<?=$v['field']; ?>" day="1"><?=$v['field']; ?></option>               
                             <?php endforeach; ?>    
                         </select>
                     </div>     
@@ -559,7 +568,7 @@ $(function(){
                         <label for="section" class=""  style="float:left;">試場號迄</label>
                         <select name="end" id="first_end" class="field field1 form-control">
                             <?php foreach ($part as $k => $v): ?>
-                                <option value="<?=$v['field']; ?>"><?=$v['field']; ?></option>               
+                                <option value="<?=$v['field']; ?>" day="1"><?=$v['field']; ?></option>               
                             <?php endforeach; ?>  
                         </select>
                     </div>  
@@ -575,7 +584,7 @@ $(function(){
                         <input type="hidden" class="form-control" id="sn">
                         <select name="start" id="second_start" class="field field2 form-control">
                             <?php foreach ($part as $k => $v): ?>
-                                <option value="<?=$v['field']; ?>"><?=$v['field']; ?></option>               
+                                <option value="<?=$v['field']; ?>" day="2"><?=$v['field']; ?></option>               
                             <?php endforeach; ?>  
                         </select>
                     </div>     
@@ -583,7 +592,7 @@ $(function(){
                         <label for="section" class=""  style="float:left;">試場號迄</label>
                         <select name="end" id="second_end" class="field field2 form-control">
                             <?php foreach ($part as $k => $v): ?>
-                                <option value="<?=$v['field']; ?>"><?=$v['field']; ?></option>               
+                                <option value="<?=$v['field']; ?>" day="2"><?=$v['field']; ?></option>               
                             <?php endforeach; ?>  
                         </select>
                     </div>  
@@ -599,7 +608,7 @@ $(function(){
                         <input type="hidden" class="form-control" id="sn">
                         <select name="start" id="third_start" class="field field3 form-control">
                             <?php foreach ($part as $k => $v): ?>
-                                <option value="<?=$v['field']; ?>"><?=$v['field']; ?></option>               
+                                <option value="<?=$v['field']; ?>" day="3"><?=$v['field']; ?></option>               
                             <?php endforeach; ?>  
                         </select>
                     </div>     
@@ -607,7 +616,7 @@ $(function(){
                         <label for="section" class=""  style="float:left;">試場號迄</label>
                         <select name="end" id="third_end" class="field field3 form-control">
                             <?php foreach ($part as $k => $v): ?>
-                                <option value="<?=$v['field']; ?>"><?=$v['field']; ?></option>               
+                                <option value="<?=$v['field']; ?>" day="3"><?=$v['field']; ?></option>               
                             <?php endforeach; ?>  
                         </select>
                     </div>  

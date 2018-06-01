@@ -12,30 +12,15 @@ img{
     margin: 0 5px;
     vertical-align: baseline;
 }
-.form{
-    position: relative;
-    width: 100%;
-    margin: 0 auto;
+.boxs{
     border-top: 1px solid;
     background: #f2f2f2;
-    padding: 20px 0px;
-    left: -15px;
-    display:none;
-    float: left;
-    height: auto;    
-}
-.up{
-    cursor: pointer;
-    z-index: 9999;
-    width: 100%;
-    text-align: center;
-    position: relative;
-    top: 25px;    
+    padding: 0px 0px 20px;
 }
 .bottom{
-    position: absolute;
-    bottom: 0px;
-    width:100%;
+    position: relative;
+    width: 100%;
+    top: 100px;
 }
 label {
     display: inline-block;
@@ -274,12 +259,9 @@ $(function(){
      </div>
 </div>
 <div class="bottom">
-   <div class="up">
-        <img src="assets/images/upup.png" alt="" >
-    </div>
-    <div class="row form" style="">
-        <div class="col-md-12 col-sm-12 col-xs-12">      
-            <form method="POST" class="page_form">     
+    <div class="row boxs">
+        <div class="col-md-12 col-sm-12 col-xs-12">     
+            <form method="POST"  class="" style="padding: 30px 0px 0px;">  
                 <div class="col-md-3 col-sm-3 col-xs-3 cube">                                       
                     <div class="form-group">
                         <label for="member_code">人員代碼</label>

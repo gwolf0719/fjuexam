@@ -191,7 +191,7 @@ $(function(){
         var start = $("#start").val();
         var end = $("#end").val();
         $.ajax({
-            url: 'api/get_max_filed',
+            url: 'api/get_day_section',
             data:{
                 "start":start,
                 "end":end,
