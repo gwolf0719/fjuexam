@@ -290,9 +290,7 @@ class Api extends CI_Controller
                 $json_arr['info'] = $this->mod_task->get_once_info($data['job_code']);
                 $json_arr['sys_code'] = '200';
                 $json_arr['sys_msg'] = '資料處理完成';
-                $json_arr['assign'] = '';
             } else {
-                $json_arr['assign'] = '(已指派)';
                 $json_arr['sys_code'] = '500';
                 $json_arr['sys_msg'] = '該職員已經有指派職務';
             }

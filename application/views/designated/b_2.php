@@ -78,8 +78,7 @@ $(function(){
     /**自動完成 */
     var data ;
     $.getJSON("./api/get_member_info",function(data){
-        data = data.info;
-        // console.log(data);
+        data = data.info;     
         var $input = $(".typeahead");
             $input.typeahead({
             source: data,
