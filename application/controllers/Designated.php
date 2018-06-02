@@ -203,8 +203,8 @@ class Designated extends CI_Controller
         $this->load->model('mod_exam_area');
         $this->mod_user->chk_status();
 
-        if (isset($_FILES['inputGroupFile01'])) { // 如果有接收到上傳檔案資料
-            $file = $_FILES['inputGroupFile01']['tmp_name'];
+        if (isset($_FILES['inputGroupFile00'])) { // 如果有接收到上傳檔案資料
+            $file = $_FILES['inputGroupFile00']['tmp_name'];
             $file_name = './tmp/'.time().'.csv';
             copy($file, $file_name);
             $file = fopen($file_name, 'r');
@@ -241,8 +241,8 @@ class Designated extends CI_Controller
             fclose($file);
             unlink($file_name);
             redirect('designated/a_4');
-        } elseif (isset($_FILES['inputGroupFile02'])) {
-            $file = $_FILES['inputGroupFile02']['tmp_name'];
+        } elseif (isset($_FILES['inputGroupFile01'])) {
+            $file = $_FILES['inputGroupFile01']['tmp_name'];
             $file_name = './tmp/'.time().'.csv';
             copy($file, $file_name);
             $file = fopen($file_name, 'r');
@@ -277,6 +277,69 @@ class Designated extends CI_Controller
                     'total' => '',
                     'status' => '1',
                  );
+                // $area_2[] = array(
+                //     'year' => $this->session->userdata('year'),
+                //     'area' => '第二分區',
+                //     'job' => $data[0],
+                //     'job_code' => '',
+                //     'job_title' => '',
+                //     'name' => '',
+                //     'trial_start' => $start_2['field'],
+                //     'trial_end' => $end_2['field'],
+                //     'number' => '',
+                //     'phone' => '',
+                //     'note' => '',
+                //     'do_date' => '',
+                //     'day_count' => '',
+                //     'one_day_salary' => '',
+                //     'salary_total' => '',
+                //     'lunch_price' => '',
+                //     'lunch_total' => '',
+                //     'total' => '',
+                //     'status' => '1',
+                //  );
+                // $area_3[] = array(
+                //     'year' => $this->session->userdata('year'),
+                //     'area' => '第三分區',
+                //     'job' => $data[0],
+                //     'job_code' => '',
+                //     'job_title' => '',
+                //     'name' => '',
+                //     'trial_start' => $start_3['field'],
+                //     'trial_end' => $end_3['field'],
+                //     'number' => '',
+                //     'phone' => '',
+                //     'note' => '',
+                //     'do_date' => '',
+                //     'day_count' => '',
+                //     'one_day_salary' => '',
+                //     'salary_total' => '',
+                //     'lunch_price' => '',
+                //     'lunch_total' => '',
+                //     'total' => '',
+                //     'status' => '1',
+                //  );
+            }
+            // echo json_encode($datas);
+
+            $this->mod_task->import_1($area_1);
+            // $this->mod_task->import_2($area_2);
+            // $this->mod_task->import_3($area_3);
+            fclose($file);
+            unlink($file_name);
+            print_r(fgetcsv($file));
+            redirect('designated/a_4');
+        } elseif (isset($_FILES['inputGroupFile02'])) {
+            $file = $_FILES['inputGroupFile02']['tmp_name'];
+            $file_name = './tmp/'.time().'.csv';
+            copy($file, $file_name);
+            $file = fopen($file_name, 'r');
+            $datas = array();
+            fgetcsv($file);
+            $start_2 = $this->mod_exam_area->get_min_start('2502');
+            $end_2 = $this->mod_exam_area->get_max_end('2502');
+            while (!feof($file)) {
+                $data = fgetcsv($file);
                 $area_2[] = array(
                     'year' => $this->session->userdata('year'),
                     'area' => '第二分區',
@@ -298,6 +361,25 @@ class Designated extends CI_Controller
                     'total' => '',
                     'status' => '1',
                  );
+            }
+            // echo json_encode($datas);
+
+            $this->mod_task->import_2($area_2);
+            fclose($file);
+            unlink($file_name);
+            print_r(fgetcsv($file));
+            redirect('designated/a_4');
+        } elseif (isset($_FILES['inputGroupFile03'])) {
+            $file = $_FILES['inputGroupFile03']['tmp_name'];
+            $file_name = './tmp/'.time().'.csv';
+            copy($file, $file_name);
+            $file = fopen($file_name, 'r');
+            $datas = array();
+            fgetcsv($file);
+            $start_3 = $this->mod_exam_area->get_min_start('2503');
+            $end_3 = $this->mod_exam_area->get_max_end('2503');
+            while (!feof($file)) {
+                $data = fgetcsv($file);
                 $area_3[] = array(
                     'year' => $this->session->userdata('year'),
                     'area' => '第三分區',
@@ -322,8 +404,6 @@ class Designated extends CI_Controller
             }
             // echo json_encode($datas);
 
-            $this->mod_task->import_1($area_1);
-            $this->mod_task->import_2($area_2);
             $this->mod_task->import_3($area_3);
             fclose($file);
             unlink($file_name);

@@ -47,6 +47,22 @@ img{
 </style>
 <script>
 $(function(){
+
+    $("body").on("click","#Upload",function(){
+        var files = $("input[name='inputGroupFile00']").prop('files');
+        console.log(files);
+        if(files.length == 0){
+            alert('請先選擇文件');
+            return;
+        }else{
+            if(confirm("注意！舊資料會全部刪除，新資料將匯入")){
+                $("#form").submit();
+                // location.href="./designated/b_5";
+            }
+        }        
+    })
+
+    // 第一分區匯入
     $("body").on("click","#Upload1",function(){
         var files = $("input[name='inputGroupFile01']").prop('files');
         console.log(files);
@@ -59,7 +75,9 @@ $(function(){
                 // location.href="./designated/b_5";
             }
         }        
-    })
+    })    
+
+    // 第二分區匯入
     $("body").on("click","#Upload2",function(){
         var files = $("input[name='inputGroupFile02']").prop('files');
         console.log(files);
@@ -72,7 +90,22 @@ $(function(){
                 // location.href="./designated/b_5";
             }
         }        
-    })    
+    })  
+
+    // 第三分區匯入
+    $("body").on("click","#Upload3",function(){
+        var files = $("input[name='inputGroupFile03']").prop('files');
+        console.log(files);
+        if(files.length == 0){
+            alert('請先選擇文件');
+            return;
+        }else{
+            if(confirm("注意！舊資料會全部刪除，新資料將匯入")){
+                $("#form3").submit();
+                // location.href="./designated/b_5";
+            }
+        }        
+    })        
     $(".cube").eq(0).show();
     $("body").on("click",".tab",function(){
         var $this = $(this);
@@ -102,14 +135,20 @@ $(function(){
 
     <div class="input-group col-sm-2 ">
 
-        <button type="button" class="btn btn-primary "  data-toggle="modal" data-target="#area" style="margin: 0px 3px;">考區職務匯入</button>
-        <button type="button" class="btn btn-primary "  data-toggle="modal" data-target="#part"  >分區職務匯入</button>
+        <!-- <button type="button" class="btn btn-primary "  data-toggle="modal" data-target="#area" style="margin: 0px 3px;">考區職務匯入</button>
+        <button type="button" class="btn btn-primary "  data-toggle="modal" data-target="#part style="margin: 0px 3px;""  >第一分區職務匯入</button> -->
         
     </div>
-    </div>    
     
 </div>
-
+<div class="row" style="position: relative;top: 20px;left: 10px;">
+    <div style="width:95%;margin:0 auto">
+        <button type="button" class="btn btn-primary "  data-toggle="modal" data-target="#area" style="margin: 0px 3px;">考區職務匯入</button>
+        <button type="button" class="btn btn-primary "  data-toggle="modal" data-target="#part1" style="margin: 0px 3px;"  >第一分區職務匯入</button>
+        <button type="button" class="btn btn-primary "  data-toggle="modal" data-target="#part2" style="margin: 0px 3px;"  >第二分區職務匯入</button>
+        <button type="button" class="btn btn-primary "  data-toggle="modal" data-target="#part3" style="margin: 0px 3px;"  >第三分區職務匯入</button>
+    </div>
+</div>
 <div class="row" style="position: relative;top: 20px;left: 10px;">
     <div style="width:95%;margin:0 auto">
         <div class="tab active" area="0"><div class="W50 ball">B</div><div class="W50 tab_text">ALL</div></div>
@@ -330,12 +369,42 @@ $(function(){
         </button>
       </div>
       <div class="modal-body">
-        <form method="POST" enctype="multipart/form-data"  action="" id="form1" class="page_form">
+        <form method="POST" enctype="multipart/form-data"  action="" id="form" class="page_form">
+                  
+            <div class="input-group mb-3">
+            <div class="custom-file">
+                <input type="file" class="" id="inputGroupFile00" name="inputGroupFile00">
+            </div>
+            <div class="input-group-append">
+                <span class="input-group-text" id="Upload">Upload</span>
+            </div>
+            </div>
+            
+
+        </form>
+      </div>
+      
+    </div>
+  </div>
+</div>
+<!-- Modal end-->
+
+<!-- Modal start-->
+<div class="modal fade" id="part1" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="">第一分區職務匯入</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <form method="POST" enctype="multipart/form-data" action="" id="form1" class="page_form">
                   
             <div class="input-group mb-3">
             <div class="custom-file">
                 <input type="file" class="" id="inputGroupFile01" name="inputGroupFile01">
-                <!-- <label class="custom-file-label" for="inputGroupFile02">請選擇檔案</label> -->
             </div>
             <div class="input-group-append">
                 <span class="input-group-text" id="Upload1">Upload</span>
@@ -350,13 +419,12 @@ $(function(){
   </div>
 </div>
 <!-- Modal end-->
-
 <!-- Modal start-->
-<div class="modal fade" id="part" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+<div class="modal fade" id="part2" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
   <div class="modal-dialog" role="document">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title" id="">分區職務匯入</h5>
+        <h5 class="modal-title" id="">第二分區職務匯入</h5>
         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>
@@ -367,10 +435,39 @@ $(function(){
             <div class="input-group mb-3">
             <div class="custom-file">
                 <input type="file" class="" id="inputGroupFile02" name="inputGroupFile02">
-                <!-- <label class="custom-file-label" for="inputGroupFile02">請選擇檔案</label> -->
             </div>
             <div class="input-group-append">
                 <span class="input-group-text" id="Upload2">Upload</span>
+            </div>
+            </div>
+            
+
+        </form>
+      </div>
+      
+    </div>
+  </div>
+</div>
+<!-- Modal end-->
+<!-- Modal start-->
+<div class="modal fade" id="part3" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="">第三分區職務匯入</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <form method="POST" enctype="multipart/form-data" action="" id="form3" class="page_form">
+                  
+            <div class="input-group mb-3">
+            <div class="custom-file">
+                <input type="file" class="" id="inputGroupFile03" name="inputGroupFile03">
+            </div>
+            <div class="input-group-append">
+                <span class="input-group-text" id="Upload3">Upload</span>
             </div>
             </div>
             
