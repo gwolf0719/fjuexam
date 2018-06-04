@@ -52,23 +52,28 @@ class Mod_exam_datetime extends CI_Model
         $year = $this->session->userdata('year');
         //先取得當天考試科目
         $day = array();
-        foreach ($this->db->select('subject')->where('year', $year)->where('day', $uses_day)->get('exam_course')->result_array() as $key => $value) {
+        foreach ($this->db->select('subject')->where('year', '106')->where('day', $uses_day)->get('exam_course')->result_array() as $key => $value) {
             // code...
             if ($value['subject'] != 'subject_00') {
                 $day[$uses_day][] = $value['subject'];
             }
         }
-        $res = array();
+
         //將試場的值送入搜尋
         $where = array(
-            'field <=' => $end,
-            'field >=' => $start,
-        );
+                'year' => $year,
+                'field <=' => $end,
+                'field >=' => $start,
+            );
+        $count = 0;
         foreach ($day[$uses_day] as $k => $v) {
             $where[$v] = 0;
+            if ($this->db->where($where)->count_all_results('exam_area') != 0) {
+                $count = $count + 1;
+            }
         }
 
-        return $total = $this->db->where($where)->count_all_results('exam_area');
+        return $count;
     }
 
     public function get_day_section($start, $end)
@@ -77,31 +82,27 @@ class Mod_exam_datetime extends CI_Model
         // 取得每日考科
         $day = array();
         for ($i = 1; $i <= 3; ++$i) {
-            foreach ($this->db->select('subject')->where('year', $year)->where('day', $i)->get('exam_course')->result_array() as $key => $value) {
+            foreach ($this->db->select('subject')->where('year', '106')->where('day', $i)->get('exam_course')->result_array() as $key => $value) {
                 // code...
                 if ($value['subject'] != 'subject_00') {
                     $day[$i][] = $value['subject'];
                 }
             }
         }
-        // 確認每一天
-        $res = array();
 
-        for ($i = 1; $i <= 3; ++$i) {
-            // 搜尋條件
-            $where = array(
-                'field <=' => $end,
-                'field >=' => $start,
-            );
-            // 將考科送入搜尋條件
-            foreach ($day[$i] as $k => $v) {
-                $where[$v] = 0;
+        // 搜尋條件
+        $where = array(
+            'year' => $year,
+            'field <=' => $end,
+            'field >=' => $start,
+        );
+        $count = 0;
+        foreach ($day[$i] as $k => $v) {
+            $where[$v] = 0;
+            if ($this->db->where($where)->count_all_results('exam_area') != 0) {
+                $count = $count + 1;
             }
-            // 如果有就true 沒有的話就 flase
-            $res[] = $this->db->where($where)->count_all_results('exam_area');
         }
-
-        $count = $res[0] + $res[1] + $res[2];
 
         return $count;
     }
