@@ -52,13 +52,13 @@ class Mod_exam_datetime extends CI_Model
         $year = $this->session->userdata('year');
         //先取得當天考試科目
         $day = array();
-        foreach ($this->db->select('subject')->where('year', '106')->where('day', $uses_day)->get('exam_course')->result_array() as $key => $value) {
+        foreach ($this->db->select('subject')->where('year', $year)->where('day', $uses_day)->get('exam_course')->result_array() as $key => $value) {
             // code...
             if ($value['subject'] != 'subject_00') {
                 $day[$uses_day][] = $value['subject'];
             }
         }
-
+        $res = array();
         //將試場的值送入搜尋
         $where = array(
             'field <=' => $end,

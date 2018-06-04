@@ -15,7 +15,7 @@ class Unit extends CI_Controller
     public function get_once_day_section()
     {
         $this->load->model('mod_exam_datetime');
-        $res = $this->mod_exam_datetime->get_once_day_section('2', '220140', '220142');
+        $res = $this->mod_exam_datetime->get_once_day_section('1', '220140', '220148');
         echo json_encode($res);
     }
 
