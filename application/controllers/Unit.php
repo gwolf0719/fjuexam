@@ -15,14 +15,14 @@ class Unit extends CI_Controller
     public function get_once_day_section()
     {
         $this->load->model('mod_exam_datetime');
-        $res = $this->mod_exam_datetime->get_once_day_section('2', '220140', '220143');
+        $res = $this->mod_exam_datetime->get_once_day_section('2', '210119', '210120');
         echo json_encode($res);
     }
 
     public function get_day_section()
     {
         $this->load->model('mod_exam_datetime');
-        $res = $this->mod_exam_datetime->get_day_section('220140', '220172');
+        $res = $this->mod_exam_datetime->get_day_section('210119', '210120');
         echo json_encode($res);
     }
 }
