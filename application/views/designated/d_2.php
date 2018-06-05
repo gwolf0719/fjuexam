@@ -226,7 +226,7 @@ $(function(){
     $("body").on("change",".field1",function(){
         var start = $("#first_start").val();
         var end = $("#first_end").val();
-        var day = $('.field1 option:selected').attr('day');
+        var day = $("#day1").val();
         console.log(day);
         $.ajax({
             url: 'api/get_once_day_section',
@@ -245,7 +245,7 @@ $(function(){
     $("body").on("change",".field2",function(){
         var start = $("#second_start").val();
         var end = $("#second_end").val();
-        var day = $('.field2 option:selected').attr('day');
+        var day = $("#day2").val();
         console.log(day);        
         $.ajax({
             url: 'api/get_once_day_section',
@@ -264,7 +264,7 @@ $(function(){
     $("body").on("change",".field3",function(){
         var start = $("#third_start").val();
         var end = $("#third_end").val();
-        var day = $('.field3 option:selected').attr('day');
+        var day = $("#day3").val();
         console.log(day);        
         $.ajax({
             url: 'api/get_once_day_section',
@@ -546,6 +546,7 @@ $(function(){
                 <div class="col-md-3 col-sm-3 col-xs-3 cube" style="background:#afccf0">
                     <div class="form-group" style="width: 100%;float: left;">
                         <label for="floor" class="" style="float:left;">管卷人員</label>
+                        <input type="hidden" class="form-control" id="sn">
                         <input type="text" class="form-control" id="allocation_code" style="width: 28%;float: left;" placeholder="管卷人員編號">
                         <input type="hidden" class="form-control" id="part" style="" placeholder="" value="2501">
                         <input type="hidden" class="form-control" id="trial_staff_code" style="width: 20%;float: left;" placeholder="">
@@ -557,7 +558,7 @@ $(function(){
                     <p style="text-align:center">第一天 <?=$datetime_info['day_1']; ?></p>          
                     <div class="form-group">
                         <label for="field" class=""  style="float:left;">試場號起</label>
-                        <input type="hidden" class="form-control" id="sn">
+                        <input type="hidden" value="1" id="day1">
                         <select name="start" id="first_start" class="field field1 form-control">
                             <?php foreach ($part as $k => $v): ?>
                                 <option value="<?=$v['field']; ?>" day="1"><?=$v['field']; ?></option>               
@@ -581,10 +582,10 @@ $(function(){
                 <p style="text-align:center">第二天 <?=$datetime_info['day_2']; ?></p>          
                     <div class="form-group">
                         <label for="field" class=""  style="float:left;">試場號起</label>
-                        <input type="hidden" class="form-control" id="sn">
+                        <input type="hidden" value="2" id="day2">                        
                         <select name="start" id="second_start" class="field field2 form-control">
                             <?php foreach ($part as $k => $v): ?>
-                                <option value="<?=$v['field']; ?>" day="2"><?=$v['field']; ?></option>               
+                                <option value="<?=$v['field']; ?>"><?=$v['field']; ?></option>               
                             <?php endforeach; ?>  
                         </select>
                     </div>     
@@ -605,7 +606,7 @@ $(function(){
                     <p style="text-align:center">第三天 <?=$datetime_info['day_3']; ?></p>                           
                     <div class="form-group">
                         <label for="field" class=""  style="float:left;">試場號起</label>
-                        <input type="hidden" class="form-control" id="sn">
+                        <input type="hidden" value="3" id="day3">                        
                         <select name="start" id="third_start" class="field field3 form-control">
                             <?php foreach ($part as $k => $v): ?>
                                 <option value="<?=$v['field']; ?>" day="3"><?=$v['field']; ?></option>               

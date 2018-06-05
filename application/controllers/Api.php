@@ -638,7 +638,7 @@ class Api extends CI_Controller
             $data['year'] = $this->session->userdata('year');
             $this->mod_trial->add_trial($data);
             $json_arr['sys_code'] = '200';
-            $json_arr['sys_msg'] = '資料儲存完成';
+            $json_arr['sys_msg'] = '資料新增完成';
         }
         echo json_encode($json_arr);
     }

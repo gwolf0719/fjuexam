@@ -65,7 +65,7 @@ class Mod_exam_datetime extends CI_Model
         $where = array();
         foreach ($day[$uses_day] as $k => $v) {
             $where = array(
-                'year' => '106',
+                'year' => $year,
                 'field <=' => $end,
                 'field >=' => $start,
                 $v.'!=' => 0,
@@ -85,7 +85,7 @@ class Mod_exam_datetime extends CI_Model
         // 取得每日考科
         $day = array();
         for ($i = 1; $i <= 3; ++$i) {
-            foreach ($this->db->select('subject')->where('year', '106')->where('day', $i)->get('exam_course')->result_array() as $key => $value) {
+            foreach ($this->db->select('subject')->where('year', $year)->where('day', $i)->get('exam_course')->result_array() as $key => $value) {
                 // code...
                 if ($value['subject'] != 'subject_00') {
                     $day[$i][] = $value['subject'];
@@ -97,7 +97,7 @@ class Mod_exam_datetime extends CI_Model
         for ($i = 1; $i <= 3; ++$i) {
             foreach ($day[$i] as $k => $v) {
                 $where = array(
-                    'year' => '106',
+                    'year' => $year,
                     'field <=' => $end,
                     'field >=' => $start,
                     $v.'!=' => 0,
