@@ -30,7 +30,7 @@ img{
     float:left;
 }
 .tab_text{
-    text-align: left;
+    text-align: center;
     padding: 10px 0px;
     font-size: 21px;
 }
@@ -142,7 +142,7 @@ $(function(){
     
 </div>
 <div class="row" style="position: relative;top: 20px;left: 10px;">
-    <div style="width:95%;margin:0 auto">
+    <div style="width:95%;margin:10px auto 30px">
         <button type="button" class="btn btn-primary "  data-toggle="modal" data-target="#area" style="margin: 0px 3px;">考區職務匯入</button>
         <button type="button" class="btn btn-primary "  data-toggle="modal" data-target="#part1" style="margin: 0px 3px;"  >第一分區職務匯入</button>
         <button type="button" class="btn btn-primary "  data-toggle="modal" data-target="#part2" style="margin: 0px 3px;"  >第二分區職務匯入</button>
@@ -151,30 +151,22 @@ $(function(){
 </div>
 <div class="row" style="position: relative;top: 20px;left: 10px;">
     <div style="width:95%;margin:0 auto">
-        <div class="tab active" area="0"><div class="W50 ball">B</div><div class="W50 tab_text">ALL</div></div>
-        <div class="tab" area="1"><div class="W50 ball">B1</div><div class="W50 tab_text">考區</div></div>
-        <div class="tab" area="2"><div class="W50 ball">B2</div><div class="W50 tab_text">第一分區</div></div>
-        <div class="tab" area="3"><div class="W50 ball">B3</div><div class="W50 tab_text">第二分區</div></div>
-        <div class="tab" area="4"><div class="W50 ball">B4</div><div class="W50 tab_text">第三分區</div></div>
+        <div class="tab active" area="0"><div class="tab_text">ALL</div></div>
+        <div class="tab" area="1"><div class="tab_text">考區</div></div>
+        <div class="tab" area="2"><div class="tab_text">第一分區</div></div>
+        <div class="tab" area="3"><div class="tab_text">第二分區</div></div>
+        <div class="tab" area="4"><div class="tab_text">第三分區</div></div>
     </div>
 </div>
 <div class="row cube" id="b0">
    <div class="col-12" style="margin-top: 10px;">
-        <table class="table table-hover" id="">
+        <table class="table table-hover" id="" style="text-align:center;">
             <thead>
                 <tr>
                     <th>序號</th>
                     <th>年度</th>
                     <th>考區</th>
                     <th>職務</th>
-                    <th>職員代碼</th>
-                    <th>職稱</th>
-                    <th>姓名</th>
-                    <th>執行日</th>
-                    <th>試場起號</th>
-                    <th>試場迄號</th>
-                    <th>聯絡電話</th>
-                    <th>備註</th>
                 </tr>
             </thead>
             <tbody>
@@ -184,14 +176,6 @@ $(function(){
                     <td><?=$v['year']; ?></td>
                     <td><?=$v['area']; ?></td>
                     <td><?=$v['job']; ?></td>
-                    <td><?=$v['job_code']; ?></td>
-                    <td><?=$v['job_title']; ?></td>
-                    <td><?=$v['name']; ?></td>
-                    <td><?=$v['do_date']; ?></td>
-                    <td><?=$v['trial_start']; ?></td>
-                    <td><?=$v['trial_end']; ?></td>
-                    <td><?=$v['phone']; ?></td>
-                    <td><?=$v['note']; ?></td>
                 </tr>
             <?php endforeach; ?>
             </tbody>
@@ -200,21 +184,13 @@ $(function(){
 </div>
 <div class="row cube" id="b1">
    <div class="col-12" style="margin-top: 10px;">
-        <table class="table table-hover" id="">
+        <table class="table table-hover" id="" style="text-align:center;">
             <thead>
                 <tr>
                     <th>序號</th>
                     <th>年度</th>
                     <th>考區</th>
                     <th>職務</th>
-                    <th>職員代碼</th>
-                    <th>職稱</th>
-                    <th>姓名</th>
-                    <th>執行日</th>
-                    <th>試場起號</th>
-                    <th>試場迄號</th>
-                    <th>聯絡電話</th>
-                    <th>備註</th>
                 </tr>
             </thead>
             <tbody>
@@ -224,14 +200,6 @@ $(function(){
                     <td><?=$v['year']; ?></td>
                     <td><?=$v['area']; ?></td>
                     <td><?=$v['job']; ?></td>
-                    <td><?=$v['job_code']; ?></td>
-                    <td><?=$v['job_title']; ?></td>
-                    <td><?=$v['name']; ?></td>
-                    <td><?=$v['do_date']; ?></td>
-                    <td><?=$v['trial_start']; ?></td>
-                    <td><?=$v['trial_end']; ?></td>
-                    <td><?=$v['phone']; ?></td>
-                    <td><?=$v['note']; ?></td>
                 </tr>
             <?php endforeach; ?>
             </tbody>
@@ -240,21 +208,13 @@ $(function(){
 </div>
 <div class="row cube" id="b2">
    <div class="col-12" style="margin-top: 10px;">
-        <table class="table table-hover" id="">
+        <table class="table table-hover" id="" style="text-align:center;">
             <thead>
                 <tr>
                     <th>序號</th>
                     <th>年度</th>
                     <th>考區</th>
                     <th>職務</th>
-                    <th>職員代碼</th>
-                    <th>職稱</th>
-                    <th>姓名</th>
-                    <th>執行日</th>
-                    <th>試場起號</th>
-                    <th>試場迄號</th>
-                    <th>聯絡電話</th>
-                    <th>備註</th>
                 </tr>
             </thead>
             <tbody>
@@ -264,14 +224,6 @@ $(function(){
                     <td><?=$v['year']; ?></td>
                     <td><?=$v['area']; ?></td>
                     <td><?=$v['job']; ?></td>
-                    <td><?=$v['job_code']; ?></td>
-                    <td><?=$v['job_title']; ?></td>
-                    <td><?=$v['name']; ?></td>
-                    <td><?=$v['do_date']; ?></td>
-                    <td><?=$v['trial_start']; ?></td>
-                    <td><?=$v['trial_end']; ?></td>
-                    <td><?=$v['phone']; ?></td>
-                    <td><?=$v['note']; ?></td>
                 </tr>
             <?php endforeach; ?>
             </tbody>
@@ -280,21 +232,13 @@ $(function(){
 </div>
 <div class="row cube" id="b3">
    <div class="col-12" style="margin-top: 10px;">
-        <table class="table table-hover" id="">
+        <table class="table table-hover" id="" style="text-align:center;">
             <thead>
                 <tr>
                     <th>序號</th>
                     <th>年度</th>
                     <th>考區</th>
                     <th>職務</th>
-                    <th>職員代碼</th>
-                    <th>職稱</th>
-                    <th>姓名</th>
-                    <th>執行日</th>
-                    <th>試場起號</th>
-                    <th>試場迄號</th>
-                    <th>聯絡電話</th>
-                    <th>備註</th>
                 </tr>
             </thead>
             <tbody>
@@ -304,14 +248,6 @@ $(function(){
                     <td><?=$v['year']; ?></td>
                     <td><?=$v['area']; ?></td>
                     <td><?=$v['job']; ?></td>
-                    <td><?=$v['job_code']; ?></td>
-                    <td><?=$v['job_title']; ?></td>
-                    <td><?=$v['name']; ?></td>
-                    <td><?=$v['do_date']; ?></td>
-                    <td><?=$v['trial_start']; ?></td>
-                    <td><?=$v['trial_end']; ?></td>
-                    <td><?=$v['phone']; ?></td>
-                    <td><?=$v['note']; ?></td>
                 </tr>
             <?php endforeach; ?>
             </tbody>
@@ -320,21 +256,13 @@ $(function(){
 </div>
 <div class="row cube" id="b4">
    <div class="col-12" style="margin-top: 10px;">
-        <table class="table table-hover" id="">
+        <table class="table table-hover" id="" style="text-align:center;">
             <thead>
                 <tr>
                     <th>序號</th>
                     <th>年度</th>
                     <th>考區</th>
                     <th>職務</th>
-                    <th>職員代碼</th>
-                    <th>職稱</th>
-                    <th>姓名</th>
-                    <th>執行日</th>
-                    <th>試場起號</th>
-                    <th>試場迄號</th>
-                    <th>聯絡電話</th>
-                    <th>備註</th>
                 </tr>
             </thead>
             <tbody>
@@ -344,14 +272,6 @@ $(function(){
                     <td><?=$v['year']; ?></td>
                     <td><?=$v['area']; ?></td>
                     <td><?=$v['job']; ?></td>
-                    <td><?=$v['job_code']; ?></td>
-                    <td><?=$v['job_title']; ?></td>
-                    <td><?=$v['name']; ?></td>
-                    <td><?=$v['do_date']; ?></td>
-                    <td><?=$v['trial_start']; ?></td>
-                    <td><?=$v['trial_end']; ?></td>
-                    <td><?=$v['phone']; ?></td>
-                    <td><?=$v['note']; ?></td>
                 </tr>
             <?php endforeach; ?>
             </tbody>
