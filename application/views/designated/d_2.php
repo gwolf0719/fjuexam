@@ -151,7 +151,15 @@ $(function(){
         console.log(part);
         var $this = $(this);
         $("#part").val(part);
-         //點擊先做還原動作
+        //點擊先做還原動作
+        $("#sn").val("");
+        $("#allocation_code").val("");
+        $("#trial_staff_code").val("");
+        $("#trial_staff_name").val("");
+        $("#first_section").val("0");
+        $("#second_section").val("0");
+        $("#third_section").val("0"); 
+        $("textarea[name='note']").val("");         
         $(".tab").removeClass("active");
         $(".part").hide();
         // 點擊到的追加active以及打開相對應table
@@ -329,9 +337,17 @@ $(function(){
 
     $("body").on("click","#add",function(){
         if($("#sn").val() != ""){
-            alert("目前處於編輯狀態，請先送出此筆資料，在進行新增");
+            if(confirm("目前處於編輯狀態，若要新增，將會清空所有欄位")){
+                $("#sn").val("")
+                $("#allocation_code").val("")
+                $("#trial_staff_code").val("")
+                $("#trial_staff_name").val("")
+                $("#first_section").val("0");
+                $("#second_section").val("0");
+                $("#third_section").val("0"); 
+                $("textarea[name='note']").val("");
+            }
         }else{
-            var sn = $("#sn").val();
             var part = $("#part").val();
             var allocation_code = $("#allocation_code").val();
             var trial_staff_code = $("#trial_staff_code").val();
@@ -575,7 +591,7 @@ $(function(){
                     </div>  
                     <div class="form-group">
                         <label for="start" class=""  style="float:left;">節數</label>
-                        <input type="text" class="form-control" id="first_section" readonly>
+                        <input type="text" class="form-control" id="first_section" value="0" readonly>
                     </div>                                  
                 </div>  
                 <div class="col-md-3 col-sm-3 col-xs-3 cube" style="max-width: 20%;">     
@@ -599,7 +615,7 @@ $(function(){
                     </div>  
                     <div class="form-group">
                         <label for="start" class=""  style="float:left;">節數</label>
-                        <input type="text" class="form-control" id="second_section" readonly>
+                        <input type="text" class="form-control" id="second_section" value="0" readonly>
                     </div>                                  
                 </div>  
                 <div class="col-md-3 col-sm-3 col-xs-3 cube" style="max-width: 20%;">    
@@ -623,7 +639,7 @@ $(function(){
                     </div>  
                     <div class="form-group">
                         <label for="start" class=""  style="float:left;">節數</label>
-                        <input type="text" class="form-control" id="third_section" readonly>
+                        <input type="text" class="form-control" id="third_section" value="0" readonly>
                     </div>                                  
                 </div>                                                                                                          
                 <div class="col-md-6 col-sm-6 col-xs-6 " style="float:left;margin: 20px auto;">             
@@ -638,7 +654,7 @@ $(function(){
                     <div class="form-group" style="text-align:right">
                         <div class="">
                             <button type="button" class="btn btn-primary" id="add">新增</button>
-                            <button type="button" class="btn btn-primary" id="send" style="background:#346a90">儲存</button>
+                            <button type="button" class="btn btn-primary" id="send" style="background:#346a90">修改</button>
                         </div>
                     </div>                  
                 </div>                         

@@ -89,12 +89,14 @@ class Mod_task extends CI_Model
     /**
      * 建立新職務.
      */
-    public function add_job($year, $job, $area)
+    public function add_job($year, $job, $area, $trial_start, $trial_end)
     {
         $data = array(
             'year' => $year,
             'job' => $job,
             'area' => $area,
+            'trial_start' => $trial_start,
+            'trial_end' => $trial_end,
         );
         $this->db->insert('district_task', $data);
     }
@@ -113,6 +115,11 @@ class Mod_task extends CI_Model
     public function get_once($sn)
     {
         return $this->db->where('sn', $sn)->get('district_task')->row_array();
+    }
+
+    public function get_part_for_once($part)
+    {
+        return $this->db->where('area', $part)->get('district_task')->row_array();
     }
 
     public function add_once($data)

@@ -502,7 +502,6 @@ $(function(){
                 <div class="col-6">
                     <button type="button" class="btn btn-primary" id="assign" data-toggle="modal" data-target="#exampleModal">指派</button>
                     <button class="btn btn-primary" type="button" id="new_job">新增職務</button>
-                    <!-- <button class="btn btn-danger" type="button" id="cancel_job">取消職務</button> -->
                 </div>
             </div>
         </div>

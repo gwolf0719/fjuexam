@@ -96,7 +96,7 @@ $(function(){
             $("#end").val(data.info.end);
             $("#floor").val(data.info.floor);
             $("#number").val(data.info.number);
-            $("#section").val(data.info.section);
+            $("#section").val(data.info.test_section);
             $("#note").val(data.info.note);
         })
     })

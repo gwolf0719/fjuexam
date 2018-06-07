@@ -154,16 +154,19 @@ $(function(){
             $("#third_end").val(data.info.third_end);
             $("#third_section").val(data.info.third_section);                        
             $("#note").val(data.info.note);   
-            console.log(data.info.order_meal); 
-            if(data.info.order_meal == "N" || data.info.order_meal == ""){
+            $("#lunch_price").attr("lunch_price",data.info.lunch_price);     
+            if(data.info.order_meal.toUpperCase() == "N" || data.info.order_meal == ""){
                 $("#order_meal").prop("checked",false);
+                $("#lunch_price").val("0");
+                $("#lunch_price").attr("readonly",true);
             }else{
-                $("#order_meal").prop("checked",true);           
+                $("#order_meal").prop("checked",true);   
+                $("#lunch_price").attr("readonly",false);   
             }              
+            
             var section_count = parseInt(data.info.first_section) + parseInt(data.info.second_section) + parseInt(data.info.third_section);
             var day_arr = [data.info.first_section,data.info.second_section,data.info.third_section];
             var uses_day_count = day_arr.length;
-            console.log(data.info.calculation);
             switch(data.info.calculation) {
                 case "by_section":
                     $("#calculation").val("by_section");
@@ -178,6 +181,7 @@ $(function(){
                     $("#section_lunch_total").show();
                     $("#section_total").show();       
                     $("#section_count").val(data.info.count);    
+                    $("#lunch_price").val(data.info.lunch_price);
                     $("#salary_section").val(data.info.salary);
                     $("#section_salary_total").val(data.info.salary_total);
                     $("#section_lunch_total").val(data.info.lunch_total);
@@ -197,6 +201,7 @@ $(function(){
                     $("#section_total").hide();       
                     $("#day_count").val(data.info.count);    
                     $("#one_day_salary").val(data.info.salary);
+                    $("#lunch_price").val(data.info.lunch_price);
                     $("#day_salary_total").val(data.info.salary_total);
                     $("#day_lunch_total").val(data.info.lunch_total);
                     $("#day_total").val(data.info.total); 
@@ -215,6 +220,7 @@ $(function(){
                     $("#section_total").hide();    
                     $("#section_count").val(data.info.count);                       
                     $("#day_count").val(uses_day_count);    
+                    $("#lunch_price").val(<?=$fees_info['lunch_fee']; ?>);
                     var day_salary_total = parseInt($("#one_day_salary").val()) * parseInt($("#day_count").val());
                     $("#day_salary_total").val(day_salary_total);
                     $("#day_total").val($("#day_salary_total").val());                                               
@@ -246,9 +252,16 @@ $(function(){
         if (this.checked) {
             $(this).val("y");
             $("#lunch_price").attr("readonly",false);
+            //判斷有沒有編輯過便當價格決定要不要帶入預設值
+            if($("#lunch_price").attr("lunch_price") == "<?=$fees_info['lunch_fee']; ?>"  || $("#lunch_price").attr("#lunch_price") == undefined){
+                $("#lunch_price").val($("#lunch_price").attr("lunch_price"));
+            }else{
+                $("#lunch_price").val("<?=$fees_info['lunch_fee']; ?>");
+            }
         } else {
             $(this).val("n");
             $("#lunch_price").attr("readonly",true);
+            $("#lunch_price").val("0");
         }
     });    
     
@@ -716,7 +729,7 @@ $(function(){
                     <div class="form-group" style="padding: 0% 3%;">
                         <div class="W50">
                             <label for="trial_start" class=""  style="float:left;width: 50%;">便當費 </label>
-                                <input type="text" class="form-control" id="lunch_price" value="<?=$fees_info['lunch_fee']; ?>">                       
+                                <input type="text" class="form-control" id="lunch_price" value="0" lunch_price="">                       
                         </div>
                         <div class="W50">
                             <label for="trial_start" class=""  style="float:left;width: 50%;">便當總計</label>
@@ -742,7 +755,6 @@ $(function(){
                     <div class="form-group" style="text-align:right">
                         <div class="">
                             <button type="button" class="btn btn-primary" id="send">修改</button>
-                            <button type="button" class="btn btn-danger" id="remove">刪除</button>
                         </div>
                     </div>                  
                 </div>                         

@@ -449,7 +449,7 @@ $(function(){
                 <div class="col-md-6 col-sm-6 col-xs-6" style="float:left;margin: 20px auto;">             
                     <div class="form-group" style="text-align:right">
                         <div class="">
-                            <button type="button" class="btn btn-primary" id="send">儲存</button>
+                            <button type="button" class="btn btn-primary" id="send">修改</button>
                         </div>
                     </div>                  
                 </div>                         

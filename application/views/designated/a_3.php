@@ -111,6 +111,11 @@ $(function(){
         $("#remove").hide();
         $("#add").show();
         $("#no").show();
+        $("#member_code").val("");
+        $("#member_name").val("");
+        $("#member_unit").val("");
+        $("#member_phone").val("");
+        $("#member_title").val("");
     })
 
     $("body").on("click","#no",function(){

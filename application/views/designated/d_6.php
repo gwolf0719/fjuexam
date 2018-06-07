@@ -121,11 +121,15 @@ $(function(){
             $("#trial_start").val(data.info.start);
             $("#trial_end").val(data.info.end);
             $("#note").val(data.info.note);   
-            if(data.info.order_meal == "N" || data.info.order_meal == ""){
+            $("#lunch_price").attr("lunch_price",data.info.lunch_price);     
+            if(data.info.order_meal.toUpperCase() == "N" || data.info.order_meal == ""){
                 $("#order_meal").prop("checked",false);
+                $("#lunch_price").val("0");
+                $("#lunch_price").attr("readonly",true);
             }else{
-                $("#order_meal").prop("checked",true);
-            }                 
+                $("#order_meal").prop("checked",true);   
+                $("#lunch_price").attr("readonly",false);   
+            }                    
             //取得節數
             $.ajax({
                 url: 'api/get_day_section',
@@ -238,9 +242,17 @@ $(function(){
         if (this.checked) {
             $(this).val("Y");
             $("#lunch_price").attr("readonly",false);
+            console.log();
+            //判斷有沒有編輯過便當價格決定要不要帶入預設值
+            if($("#lunch_price").attr("lunch_price") == "<?=$fees_info['lunch_fee']; ?>"  || $("#lunch_price").attr("#lunch_price") == undefined){
+                $("#lunch_price").val($("#lunch_price").attr("lunch_price"));
+            }else{
+                $("#lunch_price").val("<?=$fees_info['lunch_fee']; ?>");
+            }     
         } else {
             $(this).val("N");
             $("#lunch_price").attr("readonly",true);
+            $("#lunch_price").val(0);
         }
     });    
     
@@ -642,7 +654,7 @@ $(function(){
                     <div class="form-group" style="padding: 0% 3%;">
                         <div class="W50">
                             <label for="trial_start" class=""  style="float:left;width: 50%;">便當費 </label>
-                                <input type="text" class="form-control" id="lunch_price" value="<?=$fees_info['lunch_fee']; ?>">                       
+                                <input type="text" class="form-control" id="lunch_price" value="0" lunch_price="">                       
                         </div>
                         <div class="W50">
                             <label for="trial_start" class=""  style="float:left;width: 50%;">便當總計</label>
@@ -668,7 +680,6 @@ $(function(){
                     <div class="form-group" style="text-align:right">
                         <div class="">
                             <button type="button" class="btn btn-primary" id="send">修改</button>
-                            <button type="button" class="btn btn-danger" id="remove">刪除</button>
                         </div>
                     </div>                  
                 </div>                         

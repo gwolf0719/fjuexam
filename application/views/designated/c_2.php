@@ -6,6 +6,10 @@
         width:100%;
     }
 }
+.W50{
+    width:50%;
+    float:left;
+}
 .typeahead{
     z-index: 1051;
     margin-left:10px;
@@ -96,7 +100,7 @@ $(function(){
             $("#end").val(data.info.end);
             $("#floor").val(data.info.floor);
             $("#number").val(data.info.number);
-            $("#section").val(data.info.section);
+            $("#section").val(data.info.test_section);
             $("#note").val(data.info.note);
         })
     })

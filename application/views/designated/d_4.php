@@ -569,7 +569,7 @@ $(function(){
                     <div class="col-md-12 col-sm-12 col-xs-12" style="float: left;margin: 50px auto 0;">      
                         <div class="form-group" style="text-align:right">
                             <div class="">
-                                <button type="button" class="btn btn-primary send">儲存</button>
+                                <button type="button" class="btn btn-primary send">修改</button>
                             </div>
                         </div>                  
                     </div>                    
