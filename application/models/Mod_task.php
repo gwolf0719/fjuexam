@@ -112,6 +112,30 @@ class Mod_task extends CI_Model
         return $this->db->get('district_task')->result_array();
     }
 
+    public function get_list_for_pdf()
+    {
+        $this->db->where('year', $this->session->userdata('year'));
+
+        $res = $this->db->get('district_task')->result_array();
+
+        
+
+        for ($i=0; $i < count($res); $i++) {
+            # code...
+            $member_unit = $this->db->where('member_code', $res[$i]['job_code'])->select('member_unit')->get('staff_member')->row_array();
+            if ($res[$i]['job_code'] != "") {
+                $arr[] = array(
+                    'job_code' => $res[$i]['job_code'],
+                    'name' => $res[$i]['name'],
+                    'job_title' => $res[$i]['job_title'],
+                    'member_unit'=>$member_unit['member_unit'],
+                    'do_date' => $res[$i]['do_date']
+                );
+            }
+        }
+        return $arr;
+    }
+
     public function get_once($sn)
     {
         return $this->db->where('sn', $sn)->get('district_task')->row_array();

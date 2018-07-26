@@ -55,6 +55,66 @@ class Mod_trial extends CI_Model
         return $this->db->get()->result_array();
     }
 
+    public function get_list_for_pdf($part = '')
+    {
+        $this->db->select('*');
+        if ($part != '') {
+            $this->db->where('part', $part);
+        }
+        $this->db->from('part_info');
+        $this->db->join('trial_assign', 'part_info.sn = trial_assign.sn');
+
+        $res = $this->db->get()->result_array();
+
+        for ($i=0; $i < count($res); $i++) {
+            # code...
+            $supervisor1 = $this->db->where('member_code', $res[$i]['supervisor_1_code'])->get('staff_member')->row_array();
+            $supervisor2 = $this->db->where('member_code', $res[$i]['supervisor_2_code'])->get('staff_member')->row_array();
+
+            $arr[] = array(
+                'field' => $res[$i]['field'],
+                'test_section' => $res[$i]['test_section'],
+                'do_date' => $res[$i]['first_member_do_date'],
+                'supervisor_1'=>$res[$i]['supervisor_1'],
+                'supervisor_1_unit' => $supervisor1['member_unit'] ,
+                'supervisor_1_phone' => $supervisor1['member_phone'],
+                'supervisor_2'=>$res[$i]['supervisor_2'],
+                'supervisor_2_unit' => $supervisor2['member_unit'] ,
+                'supervisor_2_phone' => $supervisor2['member_phone'],
+            );
+        }
+        return $arr;
+    }
+
+    public function get_dinner_list_for_pdf($part = '')
+    {
+        $this->db->select('*');
+        if ($part != '') {
+            $this->db->where('part', $part);
+        }
+        $this->db->from('part_info');
+        $this->db->join('trial_assign', 'part_info.sn = trial_assign.sn');
+
+        $res = $this->db->get()->result_array();
+
+        for ($i=0; $i < count($res); $i++) {
+            # code...
+            $supervisor1 = $this->db->where('member_code', $res[$i]['supervisor_1_code'])->get('staff_member')->row_array();
+            $supervisor2 = $this->db->where('member_code', $res[$i]['supervisor_2_code'])->get('staff_member')->row_array();
+
+            $arr[] = array(
+                'field' => $res[$i]['field'],
+                'supervisor_1'=>$res[$i]['supervisor_1'],
+                'supervisor_1_code' => $res[$i]['supervisor_1_code'],
+                'order_meal_1' => $supervisor1['meal'],
+                'supervisor_2' => $res[$i]['supervisor_2'],
+                'supervisor_2_code' => $res[$i]['supervisor_2_code'],
+                'order_meal_2' => $supervisor2['meal']
+            );
+        }
+        return $arr;
+    }
+
     public function get_trial_list($part = '')
     {
         $this->db->where('year', $this->session->userdata('year'));

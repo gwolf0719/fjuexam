@@ -545,8 +545,8 @@ class Api extends CI_Controller
     public function save_trial_for_price()
     {
         $this->load->model('mod_trial');
-        $getpost = array('sn', 'first_member_day_count', 'first_member_one_day_salary', 'first_member_day_salary_total', 'first_member_lunch_price', 'first_member_day_lunch_total', 'first_member_day_total', 'second_member_day_count', 'second_member_one_day_salary', 'second_member_day_salary_total', 'second_member_lunch_price', 'second_member_day_lunch_total', 'second_member_day_total');
-        $requred = array('sn', 'first_member_day_count', 'first_member_one_day_salary', 'first_member_day_salary_total', 'first_member_lunch_price', 'first_member_day_lunch_total', 'first_member_day_total', 'second_member_day_count', 'second_member_one_day_salary', 'second_member_day_salary_total', 'second_member_lunch_price', 'second_member_day_lunch_total', 'second_member_day_total');
+        $getpost = array('sn', 'first_member_day_count', 'first_member_one_day_salary', 'first_member_day_salary_total', 'first_member_lunch_price', 'first_member_day_lunch_total', 'first_member_day_total', 'second_member_day_count', 'second_member_one_day_salary', 'second_member_day_salary_total', 'second_member_lunch_price', 'second_member_day_lunch_total', 'second_member_day_total','first_member_do_date','second_member_do_date');
+        $requred = array('sn', 'first_member_day_count', 'first_member_one_day_salary', 'first_member_day_salary_total', 'first_member_lunch_price', 'first_member_day_lunch_total', 'first_member_day_total', 'second_member_day_count', 'second_member_one_day_salary', 'second_member_day_salary_total', 'second_member_lunch_price', 'second_member_day_lunch_total', 'second_member_day_total','first_member_do_date','second_member_do_date');
         $data = $this->getpost->getpost_array($getpost, $requred);
         if ($data == false) {
             $json_arr['sys_code'] = '000';

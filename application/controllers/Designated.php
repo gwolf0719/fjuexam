@@ -958,6 +958,175 @@ class Designated extends CI_Controller
     }
 
     /**
+     * 考區任務編組.
+     */
+    public function e()
+    {
+        $this->mod_user->chk_status();
+        $data = array(
+            'title' => '製作報表',
+            'path' => 'designated/e',
+            'path_text' => ' > 製作報表',
+        );
+        $this->load->view('layout', $data);
+    }
+
+    public function e_1()
+    {
+        $this->mod_user->chk_status();
+        $data = array(
+            'title' => '名單 / 資料 / 統計表',
+            'path' => 'designated/e_1',
+            'path_text' => ' > 製作報表 > 名單 / 資料 / 統計表',
+        );
+        $this->load->view('layout', $data);
+    }
+
+    public function e_1_1()
+    {
+        $this->load->library('pdf');
+        $this->load->model('mod_school_unit');
+        $obj_pdf = new Pdf(PDF_PAGE_ORIENTATION, PDF_UNIT, PDF_PAGE_FORMAT, false, 'UTF-8', false);
+        $obj_pdf->SetCreator(PDF_CREATOR);
+        $title = '行政單位';
+        $date = date('yyyy/m/d');
+        $obj_pdf->SetTitle($title);
+        $obj_pdf->SetHeaderData('', '', $title, '印表日期：'.$date);
+        $obj_pdf->setPrintHeader(false);
+        // $obj_pdf->SetHeaderMargin(PDF_MARGIN_HEADER);
+        $obj_pdf->SetFooterMargin(PDF_MARGIN_FOOTER);
+        $obj_pdf->SetMargins(PDF_MARGIN_LEFT, PDF_MARGIN_RIGHT);
+        $obj_pdf->SetAutoPageBreak(true, PDF_MARGIN_BOTTOM);
+        $obj_pdf->SetFont('msungstdlight', 'B', 8);
+
+        $obj_pdf->setFontSubsetting(false);
+        $obj_pdf->AddPage();
+        $data = array(
+            'list' => $this->mod_school_unit->year_get_list(),
+        );
+        // print_r($data);
+        $view =  $this->load->view('designated/e_1_1', $data, true);
+        $obj_pdf->writeHTML($view);
+        $obj_pdf->Output('行政單位'.'.pdf', 'I');
+    }
+
+    public function e_1_2()
+    {
+        $this->load->library('pdf');
+        $this->load->model('mod_task');
+        $obj_pdf = new Pdf(PDF_PAGE_ORIENTATION, PDF_UNIT, PDF_PAGE_FORMAT, false, 'UTF-8', false);
+        $obj_pdf->SetCreator(PDF_CREATOR);
+        $title = '請公假名單';
+        $date = date('yyyy/m/d');
+        $obj_pdf->SetTitle($title);
+        $obj_pdf->SetHeaderData('', '', $title, '印表日期：'.$date);
+        $obj_pdf->setPrintHeader(false);
+        // $obj_pdf->SetHeaderMargin(PDF_MARGIN_HEADER);
+        $obj_pdf->SetFooterMargin(PDF_MARGIN_FOOTER);
+        $obj_pdf->SetMargins(PDF_MARGIN_LEFT, PDF_MARGIN_RIGHT);
+        $obj_pdf->SetAutoPageBreak(true, PDF_MARGIN_BOTTOM);
+        $obj_pdf->SetFont('msungstdlight', 'B', 10);
+
+        $obj_pdf->setFontSubsetting(false);
+        $obj_pdf->AddPage();
+        $data = array(
+            'list' => $this->mod_task->get_list_for_pdf(),
+        );
+        // print_r($data);
+        $view =  $this->load->view('designated/e_1_2', $data, true);
+        $obj_pdf->writeHTML($view);
+        $obj_pdf->Output('請公假名單'.'.pdf', 'I');
+    }
+
+    public function e_1_3()
+    {
+        $this->load->library('pdf');
+        $this->load->model('mod_trial');
+        $obj_pdf = new Pdf(PDF_PAGE_ORIENTATION, PDF_UNIT, PDF_PAGE_FORMAT, false, 'UTF-8', false);
+        $obj_pdf->SetCreator(PDF_CREATOR);
+        $title = '監試及試務人員一覽表';
+        $date = date('yyyy/m/d');
+        $obj_pdf->SetTitle($title);
+        $obj_pdf->SetHeaderData('', '', $title, '印表日期：'.$date);
+        $obj_pdf->setPrintHeader(false);
+        // $obj_pdf->SetHeaderMargin(PDF_MARGIN_HEADER);
+        $obj_pdf->SetFooterMargin(PDF_MARGIN_FOOTER);
+        $obj_pdf->SetMargins(PDF_MARGIN_LEFT, PDF_MARGIN_RIGHT);
+        $obj_pdf->SetAutoPageBreak(true, PDF_MARGIN_BOTTOM);
+        $obj_pdf->SetFont('msungstdlight', 'B', 8);
+
+        $obj_pdf->setFontSubsetting(false);
+        $obj_pdf->AddPage();
+        $data = array(
+            'part1' => $this->mod_trial->get_list_for_pdf('2501'),
+            'part2' => $this->mod_trial->get_list_for_pdf('2502'),
+            'part3' => $this->mod_trial->get_list_for_pdf('2503'),
+        );
+        $view =  $this->load->view('designated/e_1_3', $data, true);
+        $obj_pdf->writeHTML($view);
+        $obj_pdf->Output('監試及試務人員一覽表'.'.pdf', 'I');
+    }
+
+    public function e_1_4()
+    {
+        $this->load->library('pdf');
+        $this->load->model('mod_trial');
+        $obj_pdf = new Pdf(PDF_PAGE_ORIENTATION, PDF_UNIT, PDF_PAGE_FORMAT, false, 'UTF-8', false);
+        $obj_pdf->SetCreator(PDF_CREATOR);
+        $title = '缺考人數統計';
+        $date = date('yyyy/m/d');
+        $obj_pdf->SetTitle($title);
+        $obj_pdf->SetHeaderData('', '', $title, '印表日期：'.$date);
+        $obj_pdf->setPrintHeader(false);
+        // $obj_pdf->SetHeaderMargin(PDF_MARGIN_HEADER);
+        $obj_pdf->SetFooterMargin(PDF_MARGIN_FOOTER);
+        $obj_pdf->SetMargins(PDF_MARGIN_LEFT, PDF_MARGIN_RIGHT);
+        $obj_pdf->SetAutoPageBreak(true, PDF_MARGIN_BOTTOM);
+        $obj_pdf->SetFont('msungstdlight', 'B', 8);
+
+        $obj_pdf->setFontSubsetting(false);
+        $obj_pdf->AddPage();
+        $data = array(
+            'list' => $this->mod_trial->year_get_list(),
+            'part2' => $this->mod_trial->get_list_for_pdf('2502'),
+            'part3' => $this->mod_trial->get_list_for_pdf('2503'),
+        );
+        $view =  $this->load->view('designated/e_1_4', $data, true);
+        $obj_pdf->writeHTML($view);
+        $obj_pdf->Output('缺考人數統計'.'.pdf', 'I');
+    }
+
+    public function e_1_5()
+    {
+        $this->load->library('pdf');
+        $this->load->model('mod_trial');
+        $obj_pdf = new Pdf(PDF_PAGE_ORIENTATION, PDF_UNIT, PDF_PAGE_FORMAT, false, 'UTF-8', false);
+        $obj_pdf->SetCreator(PDF_CREATOR);
+        $title = '各分區午餐名單';
+        $date = date('yyyy/m/d');
+        $obj_pdf->SetTitle($title);
+        $obj_pdf->SetHeaderData('', '', $title, '印表日期：'.$date);
+        $obj_pdf->setPrintHeader(false);
+        // $obj_pdf->SetHeaderMargin(PDF_MARGIN_HEADER);
+        $obj_pdf->SetFooterMargin(PDF_MARGIN_FOOTER);
+        $obj_pdf->SetMargins(PDF_MARGIN_LEFT, PDF_MARGIN_RIGHT);
+        $obj_pdf->SetAutoPageBreak(true, PDF_MARGIN_BOTTOM);
+        $obj_pdf->SetFont('msungstdlight', 'B', 10);
+
+        $obj_pdf->setFontSubsetting(false);
+        
+        $obj_pdf->AddPage();
+        $data = array(
+            'part1' => $this->mod_trial->get_dinner_list_for_pdf('2501'),
+            'part2' => $this->mod_trial->get_dinner_list_for_pdf('2502'),
+            'part3' => $this->mod_trial->get_dinner_list_for_pdf('2503'),
+        );
+        $view =  $this->load->view('designated/e_1_5', $data, true);
+        $obj_pdf->writeHTML($view);
+        $obj_pdf->Output('各分區午餐名單'.'.pdf', 'I');
+    }
+
+    /**
      * F 考程設定.
      */
     public function f()

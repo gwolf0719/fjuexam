@@ -1,26 +1,27 @@
 <style>
-    
-    .cube{
-        margin:25px auto;
+    .cube {
+        margin: 25px auto;
     }
-    .cube img{
-        max-width:60%;
+
+    .cube img {
+        max-width: 60%;
     }
-    @media (min-width: 1200px){
+
+    @media (min-width: 1200px) {
         .container {
             max-width: 100%;
             width: 100%;
         }
-    }    
+    }
 </style>
 <script>
-    $(function(){
-        $("body").on("click","#set_year",function(){
-            $.getJSON("./api/ch_year",{
-                year:$("#year").val()
-            },function(data){
+    $(function() {
+        $("body").on("click", "#set_year", function() {
+            $.getJSON("./api/ch_year", {
+                year: $("#year").val()
+            }, function(data) {
                 alert(data.sys_msg);
-                
+
             })
         })
     })
@@ -32,20 +33,20 @@
             <span class="input-group-text" id="inputGroup-sizing-default">學年度</span>
         </div>
         <input type="text" id="year" class="form-control" aria-label="Default" aria-describedby="inputGroup-sizing-default" value="<?=$this->session->userdata('year'); ?>">
-        
+
         <div class="input-group-append">
             <button class="btn btn-outline-secondary" type="button" id="set_year">送出</button>
         </div>
-        
+
     </div>
-    
+
 </div>
 <div class="row" style="">
-    
+
     <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4 cube text-center">
         <a href="./designated/a">
             <img src="assets/images/a.png" alt="">
-        </a>    
+        </a>
     </div>
     <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4 cube  text-center">
         <a href="./designated/b">
@@ -63,14 +64,14 @@
         </a>
     </div>
     <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4 cube text-center">
-        <!-- <a href="./designated/e"> -->
+        <a href="./designated/e">
             <img src="assets/images/e.png" alt="">
-        <!-- </a> -->
+        </a>
     </div>
     <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4 cube text-center">
         <a href="./designated/f">
             <img src="assets/images/f.png" alt="">
         </a>
     </div>
-    
+
 </div>
