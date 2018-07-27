@@ -86,6 +86,34 @@ class Mod_trial extends CI_Model
         return $arr;
     }
 
+
+    public function e_2_2_pdf($part = '')
+    {
+        $this->db->select('*');
+        if ($part != '') {
+            $this->db->where('part', $part);
+        }
+        $this->db->from('part_info');
+        $this->db->join('trial_assign', 'part_info.sn = trial_assign.sn');
+
+        $res = $this->db->get()->result_array();
+
+        for ($i=0; $i < count($res); $i++) {
+            # code...
+            $supervisor1 = $this->db->where('member_code', $res[$i]['supervisor_1_code'])->get('staff_member')->row_array();
+            $supervisor2 = $this->db->where('member_code', $res[$i]['supervisor_2_code'])->get('staff_member')->row_array();
+
+            $arr[] = array(
+                'field' => $res[$i]['field'],
+                'supervisor_1'=>$res[$i]['supervisor_1'],
+                'supervisor_1_unit' => $supervisor1['member_unit'] ,
+                'supervisor_2'=>$res[$i]['supervisor_2'],
+                'supervisor_2_unit' => $supervisor2['member_unit'] ,
+            );
+        }
+        return $arr;
+    }
+
     public function get_dinner_list_for_pdf($part = '')
     {
         $this->db->select('*');
