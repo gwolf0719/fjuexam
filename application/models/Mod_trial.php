@@ -66,49 +66,37 @@ class Mod_trial extends CI_Model
 
         $res = $this->db->get()->result_array();
 
+        
+
         for ($i=0; $i < count($res); $i++) {
             # code...
             $supervisor1 = $this->db->where('member_code', $res[$i]['supervisor_1_code'])->get('staff_member')->row_array();
             $supervisor2 = $this->db->where('member_code', $res[$i]['supervisor_2_code'])->get('staff_member')->row_array();
+            $patrol = $this->db->where('start <=', $res[$i]['start'])->where('end >=', $res[$i]['end'])->get('patrol_staff')->row_array();
 
             $arr[] = array(
                 'field' => $res[$i]['field'],
                 'test_section' => $res[$i]['test_section'],
                 'do_date' => $res[$i]['first_member_do_date'],
+                'first_member_one_day_salary'=>$res[$i]['first_member_one_day_salary'],
+                'first_member_day_lunch_total'=>$res[$i]['first_member_day_lunch_total'],
+                'first_member_day_salary_total'=>$res[$i]['first_member_day_salary_total'],
+                'order_meal1'=>$supervisor1['order_meal'],
                 'supervisor_1'=>$res[$i]['supervisor_1'],
                 'supervisor_1_unit' => $supervisor1['member_unit'] ,
                 'supervisor_1_phone' => $supervisor1['member_phone'],
+                'second_member_one_day_salary'=>$res[$i]['second_member_one_day_salary'],
+                'second_member_day_lunch_total'=>$res[$i]['second_member_day_lunch_total'],
+                'second_member_day_salary_total'=>$res[$i]['second_member_day_salary_total'],
                 'supervisor_2'=>$res[$i]['supervisor_2'],
                 'supervisor_2_unit' => $supervisor2['member_unit'] ,
                 'supervisor_2_phone' => $supervisor2['member_phone'],
-            );
-        }
-        return $arr;
-    }
-
-
-    public function e_2_2_pdf($part = '')
-    {
-        $this->db->select('*');
-        if ($part != '') {
-            $this->db->where('part', $part);
-        }
-        $this->db->from('part_info');
-        $this->db->join('trial_assign', 'part_info.sn = trial_assign.sn');
-
-        $res = $this->db->get()->result_array();
-
-        for ($i=0; $i < count($res); $i++) {
-            # code...
-            $supervisor1 = $this->db->where('member_code', $res[$i]['supervisor_1_code'])->get('staff_member')->row_array();
-            $supervisor2 = $this->db->where('member_code', $res[$i]['supervisor_2_code'])->get('staff_member')->row_array();
-
-            $arr[] = array(
-                'field' => $res[$i]['field'],
-                'supervisor_1'=>$res[$i]['supervisor_1'],
-                'supervisor_1_unit' => $supervisor1['member_unit'] ,
-                'supervisor_2'=>$res[$i]['supervisor_2'],
-                'supervisor_2_unit' => $supervisor2['member_unit'] ,
+                'order_meal2'=>$supervisor2['order_meal'],
+                'floor' =>$res[$i]['floor'],
+                'number'=>$res[$i]['number'],
+                'start'=>$res[$i]['start'],
+                'end'=>$res[$i]['end'],
+                'patrol'=>$patrol['patrol_staff_name']
             );
         }
         return $arr;

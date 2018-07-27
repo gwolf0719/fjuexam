@@ -49,14 +49,14 @@
 
     </div>
     <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6 cube text-center">
-        <a href="./designated/e_4">
-            <img src="assets/images/e4.png" alt="">
-        </a>
+        <!-- <a href="./designated/e_4"> -->
+        <img src="assets/images/e4.png" alt="">
+        <!-- </a> -->
     </div>
     <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6 cube text-center">
-        <a href="./designated/e_5">
-            <img src="assets/images/e5.png" alt="">
-        </a>
+        <!-- <a href="./designated/e_5"> -->
+        <img src="assets/images/e5.png" alt="">
+        <!-- </a> -->
     </div>
     <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6 cube text-center">
         <a href="./designated/e_6">
@@ -65,9 +65,9 @@
     </div>
 
     <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6 cube text-center">
-        <a href="./designated/e_7">
-            <img src="assets/images/e7.png" alt="">
-        </a>
+        <!-- <a href="./designated/e_7"> -->
+        <img src="assets/images/e7.png" alt="">
+        <!-- </a> -->
     </div>
 
     <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6 cube text-center">

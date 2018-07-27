@@ -1188,14 +1188,44 @@ class Designated extends CI_Controller
         $obj_pdf->setFontSubsetting(false);
         $obj_pdf->AddPage();
         $data = array(
-            'part1' => $this->mod_trial->e_2_2_pdf('2501'),
-            'part2' => $this->mod_trial->e_2_2_pdf('2502'),
-            'part3' => $this->mod_trial->e_2_2_pdf('2503'),
+            'part1' => $this->mod_trial->get_list_for_pdf('2501'),
+            'part2' => $this->mod_trial->get_list_for_pdf('2502'),
+            'part3' => $this->mod_trial->get_list_for_pdf('2503'),
         );
         // print_r($data);
         $view =  $this->load->view('designated/e_2_2', $data, true);
         $obj_pdf->writeHTML($view);
         $obj_pdf->Output('監試人員執行任務簽到表'.'.pdf', 'I');
+    }
+    
+    public function e_2_4()
+    {
+        $this->load->library('pdf');
+        $this->load->model('mod_task');
+        $obj_pdf = new Pdf(PDF_PAGE_ORIENTATION, PDF_UNIT, PDF_PAGE_FORMAT, false, 'UTF-8', false);
+        $obj_pdf->SetCreator(PDF_CREATOR);
+        $title = '監試說明會簽到表';
+        $date = date('yyyy/m/d');
+        $obj_pdf->SetTitle($title);
+        $obj_pdf->SetHeaderData('', '', $title, '印表日期：'.$date);
+        $obj_pdf->setPrintHeader(false);
+        // $obj_pdf->SetHeaderMargin(PDF_MARGIN_HEADER);
+        $obj_pdf->SetFooterMargin(PDF_MARGIN_FOOTER);
+        $obj_pdf->SetMargins(PDF_MARGIN_LEFT, PDF_MARGIN_RIGHT);
+        $obj_pdf->SetAutoPageBreak(true, PDF_MARGIN_BOTTOM);
+        $obj_pdf->SetFont('msungstdlight', 'B', 8);
+
+        $obj_pdf->setFontSubsetting(false);
+        $obj_pdf->AddPage();
+        $data = array(
+            'part0' => $this->mod_task->e_2_1_pdf('考區'),
+            'part1' => $this->mod_task->e_2_1_pdf('第一分區'),
+            'part2' => $this->mod_task->e_2_1_pdf('第二分區'),
+            'part3' => $this->mod_task->e_2_1_pdf('第三分區'),
+        );
+        $view =  $this->load->view('designated/e_2_4', $data, true);
+        $obj_pdf->writeHTML($view);
+        $obj_pdf->Output('監試說明會簽到表'.'.pdf', 'I');
     }
 
     public function e_2_5()
@@ -1227,6 +1257,89 @@ class Designated extends CI_Controller
         $view =  $this->load->view('designated/e_2_5', $data, true);
         $obj_pdf->writeHTML($view);
         $obj_pdf->Output('開會通知簽收表'.'.pdf', 'I');
+    }
+
+
+    public function e_3()
+    {
+        $this->mod_user->chk_status();
+        $data = array(
+            'title' => '日程表 / 分配表',
+            'path' => 'designated/e_3',
+            'path_text' => ' > 製作報表 > 日程表 / 分配表',
+        );
+        $this->load->view('layout', $data);
+    }
+
+    public function e_3_2()
+    {
+        $this->load->library('pdf');
+        $this->load->model('mod_trial');
+        $obj_pdf = new Pdf(PDF_PAGE_ORIENTATION, PDF_UNIT, PDF_PAGE_FORMAT, false, 'UTF-8', false);
+        $obj_pdf->SetCreator(PDF_CREATOR);
+        $title = '試務人員巡場分配表';
+        $date = date('yyyy/m/d');
+        $obj_pdf->SetTitle($title);
+        $obj_pdf->SetHeaderData('', '', $title, '印表日期：'.$date);
+        $obj_pdf->setPrintHeader(false);
+        // $obj_pdf->SetHeaderMargin(PDF_MARGIN_HEADER);
+        $obj_pdf->SetFooterMargin(PDF_MARGIN_FOOTER);
+        $obj_pdf->SetMargins(PDF_MARGIN_LEFT, PDF_MARGIN_RIGHT);
+        $obj_pdf->SetAutoPageBreak(true, PDF_MARGIN_BOTTOM);
+        $obj_pdf->SetFont('msungstdlight', 'B', 8);
+
+        $obj_pdf->setFontSubsetting(false);
+        $obj_pdf->AddPage();
+        $data = array(
+            'part1' => $this->mod_trial->get_list_for_pdf('2501'),
+            'part2' => $this->mod_trial->get_list_for_pdf('2502'),
+            'part3' => $this->mod_trial->get_list_for_pdf('2503'),
+        );
+        // print_r($data);
+        $view =  $this->load->view('designated/e_3_2', $data, true);
+        $obj_pdf->writeHTML($view);
+        $obj_pdf->Output('試務人員巡場分配表'.'.pdf', 'I');
+    }
+
+
+    public function e_6()
+    {
+        $this->mod_user->chk_status();
+        $data = array(
+            'title' => '印領清冊',
+            'path' => 'designated/e_6',
+            'path_text' => ' > 製作報表 > 印領清冊',
+        );
+        $this->load->view('layout', $data);
+    }
+
+    public function e_6_1()
+    {
+        $this->load->library('pdf');
+        $this->load->model('mod_trial');
+        $obj_pdf = new Pdf(PDF_PAGE_ORIENTATION, PDF_UNIT, PDF_PAGE_FORMAT, false, 'UTF-8', false);
+        $obj_pdf->SetCreator(PDF_CREATOR);
+        $title = '監試人員印領清冊';
+        $date = date('yyyy/m/d');
+        $obj_pdf->SetTitle($title);
+        $obj_pdf->SetHeaderData('', '', $title, '印表日期：'.$date);
+        $obj_pdf->setPrintHeader(false);
+        // $obj_pdf->SetHeaderMargin(PDF_MARGIN_HEADER);
+        $obj_pdf->SetFooterMargin(PDF_MARGIN_FOOTER);
+        $obj_pdf->SetMargins(PDF_MARGIN_LEFT, PDF_MARGIN_RIGHT);
+        $obj_pdf->SetAutoPageBreak(true, PDF_MARGIN_BOTTOM);
+        $obj_pdf->SetFont('msungstdlight', 'B', 8);
+
+        $obj_pdf->setFontSubsetting(false);
+        $obj_pdf->AddPage();
+        $data = array(
+            'part1' => $this->mod_trial->get_list_for_pdf('2501'),
+            'part2' => $this->mod_trial->get_list_for_pdf('2502'),
+            'part3' => $this->mod_trial->get_list_for_pdf('2503'),
+        );
+        $view =  $this->load->view('designated/e_6_1', $data, true);
+        $obj_pdf->writeHTML($view);
+        $obj_pdf->Output('監試人員印領清冊'.'.pdf', 'I');
     }
 
 
