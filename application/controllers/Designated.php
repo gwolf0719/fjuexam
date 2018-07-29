@@ -1070,7 +1070,7 @@ class Designated extends CI_Controller
     public function e_1_4()
     {
         $this->load->library('pdf');
-        $this->load->model('mod_trial');
+        $this->load->model('mod_exam_area');
         $obj_pdf = new Pdf(PDF_PAGE_ORIENTATION, PDF_UNIT, PDF_PAGE_FORMAT, false, 'UTF-8', false);
         $obj_pdf->SetCreator(PDF_CREATOR);
         $title = '缺考人數統計';
@@ -1087,9 +1087,7 @@ class Designated extends CI_Controller
         $obj_pdf->setFontSubsetting(false);
         $obj_pdf->AddPage();
         $data = array(
-            'list' => $this->mod_trial->year_get_list(),
-            'part2' => $this->mod_trial->get_list_for_pdf('2502'),
-            'part3' => $this->mod_trial->get_list_for_pdf('2503'),
+            'list' => $this->mod_exam_area->year_get_list(),
         );
         $view =  $this->load->view('designated/e_1_4', $data, true);
         $obj_pdf->writeHTML($view);

@@ -1,6 +1,5 @@
 <style>
     table {
-        width: 780px;
         border: 1px solid #999999;
     }
 
@@ -14,40 +13,101 @@
     }
 </style>
 
-<div>
-    <h2 style="text-align:center">各單位名稱一覽表</h2>
+<h1 style="text-align:center">
+    <?=$_SESSION['year']?>學年度定科目考試新北一考區缺考人數統計表</h1>
 
-    <div style="width:50%;float:left;">單位：行政單位</div>
-    <div style="width:50%;float:left;">印表日期：
-        <?=date('20y-m-d')?>
-    </div>
-</div>
-</div>
 <table class="" id="" style="width:510px;padding:10px 4px 10px 4px;text-align:center;">
     <thead>
-        <tr style="background:#FFE4E7">
-            <th>序號</th>
-            <th>部別</th>
-            <th>代碼</th>
-            <th>單位名稱</th>
+        <tr>
+            <th>日期</th>
+            <th colspan="6" class="bb">7月1號</th>
+            <th colspan="8" class="bb">7月2號</th>
+            <th colspan="6" class="bb">7月3號</th>
+        </tr>
+        <tr>
+            <td>科目</td>
+            <td colspan="2">第一節物理</td>
+            <td colspan="2">第二節化學</td>
+            <td colspan="2">第三節生物</td>
+            <td colspan="2">第一節數學乙</td>
+            <td colspan="2">第二節國文</td>
+            <td colspan="2">第三節英文</td>
+            <td colspan="2">第四節數學甲</td>
+            <td colspan="2">第一節歷史</td>
+            <td colspan="2">第二節地理</td>
+            <td colspan="2">第三節公民與社會</td>
+        </tr>
+        <tr>
+            <td>試場</td>
+            <td>考生人數</td>
+            <td>缺考人數</td>
+            <td>考生人數</td>
+            <td>缺考人數</td>
+            <td>考生人數</td>
+            <td>缺考人數</td>
+            <td>考生人數</td>
+            <td>缺考人數</td>
+            <td>考生人數</td>
+            <td>缺考人數</td>
+            <td>考生人數</td>
+            <td>缺考人數</td>
+            <td>考生人數</td>
+            <td>缺考人數</td>
+            <td>考生人數</td>
+            <td>缺考人數</td>
+            <td>考生人數</td>
+            <td>缺考人數</td>
+            <td>考生人數</td>
+            <td>缺考人數</td>
         </tr>
     </thead>
-    <tbody>
-        <?php foreach ($list as $k => $v): ?>
-        <tr>
-            <td>
-                <?=$k + 1; ?>
-            </td>
-            <td>
-                <?=$v['department']; ?>
-            </td>
-            <td>
-                <?=$v['code']; ?>
-            </td>
-            <td>
-                <?=$v['company_name_02']; ?>
-            </td>
-        </tr>
-        <?php endforeach; ?>
-    </tbody>
+    <?php foreach ($list as $k => $v): ?>
+    <tr>
+        <td>
+            <?=$v['field']?>
+        </td>
+        <td>
+            <?=$v['subject_01']?>
+        </td>
+        <td></td>
+        <td>
+            <?=$v['subject_02']?>
+        </td>
+        <td></td>
+        <td>
+            <?=$v['subject_03']?>
+        </td>
+        <td></td>
+        <td>
+            <?=$v['subject_04']?>
+        </td>
+        <td></td>
+        <td>
+            <?=$v['subject_05']?>
+        </td>
+        <td></td>
+        <td>
+            <?=$v['subject_06']?>
+        </td>
+        <td></td>
+        <td>
+            <?=$v['subject_07']?>
+        </td>
+        <td></td>
+        <td>
+            <?=$v['subject_08']?>
+        </td>
+        <td></td>
+        <td>
+            <?=$v['subject_09']?>
+        </td>
+        <td></td>
+        <td>
+            <?=$v['subject_10']?>
+        </td>
+        <td></td>
+
+    </tr>
+    <?php endforeach; ?>
+
 </table>
