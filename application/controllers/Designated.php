@@ -1026,8 +1026,10 @@ class Designated extends CI_Controller
         $obj_pdf->SetMargins(PDF_MARGIN_LEFT, PDF_MARGIN_RIGHT);
         $obj_pdf->SetAutoPageBreak(true, PDF_MARGIN_BOTTOM);
         $obj_pdf->SetFont('msungstdlight', 'B', 10);
+        $obj_pdf->SetCellPadding(0);
 
         $obj_pdf->setFontSubsetting(false);
+
         $obj_pdf->AddPage();
         $data = array(
             'list' => $this->mod_task->get_list_for_pdf(),
@@ -1042,6 +1044,8 @@ class Designated extends CI_Controller
     {
         $this->load->library('pdf');
         $this->load->model('mod_trial');
+        $part = $_GET['part'];
+        $area = $_GET['area'];
         $obj_pdf = new Pdf(PDF_PAGE_ORIENTATION, PDF_UNIT, PDF_PAGE_FORMAT, false, 'UTF-8', false);
         $obj_pdf->SetCreator(PDF_CREATOR);
         $title = '監試及試務人員一覽表';
@@ -1053,14 +1057,13 @@ class Designated extends CI_Controller
         $obj_pdf->SetFooterMargin(PDF_MARGIN_FOOTER);
         $obj_pdf->SetMargins(PDF_MARGIN_LEFT, PDF_MARGIN_RIGHT);
         $obj_pdf->SetAutoPageBreak(true, PDF_MARGIN_BOTTOM);
-        $obj_pdf->SetFont('msungstdlight', 'B', 13);
+        $obj_pdf->SetFont('msungstdlight', 'B', 8);
 
         $obj_pdf->setFontSubsetting(false);
         $obj_pdf->AddPage();
         $data = array(
-            'part1' => $this->mod_trial->get_list_for_pdf('2501'),
-            'part2' => $this->mod_trial->get_list_for_pdf('2502'),
-            'part3' => $this->mod_trial->get_list_for_pdf('2503'),
+            'part' => $this->mod_trial->get_list_for_pdf($part),
+            'area' => $area
         );
         $view =  $this->load->view('designated/e_1_3', $data, true);
         $obj_pdf->writeHTML($view);
@@ -1085,9 +1088,11 @@ class Designated extends CI_Controller
         $obj_pdf->SetFooterMargin(PDF_MARGIN_FOOTER);
         $obj_pdf->SetMargins(PDF_MARGIN_LEFT, PDF_MARGIN_RIGHT);
         $obj_pdf->SetAutoPageBreak(true, PDF_MARGIN_BOTTOM);
-        $obj_pdf->SetFont('msungstdlight', 'B', 13);
+        $obj_pdf->SetFont('msungstdlight', 'B', 8);
 
         $obj_pdf->setFontSubsetting(false);
+        $obj_pdf->SetCellPadding(0);
+
         $obj_pdf->AddPage();
         if ($this->mod_exam_datetime->chk_course($year)) {
             $course = $this->mod_exam_datetime->get_course($year);
@@ -1113,6 +1118,9 @@ class Designated extends CI_Controller
         $this->load->model('mod_trial');
         $obj_pdf = new Pdf(PDF_PAGE_ORIENTATION, PDF_UNIT, PDF_PAGE_FORMAT, false, 'UTF-8', false);
         $obj_pdf->SetCreator(PDF_CREATOR);
+        $part = $_GET['part'];
+        $area = $_GET['area'];
+
         $title = '各分區午餐名單';
         $date = date('yyyy/m/d');
         $obj_pdf->SetTitle($title);
@@ -1128,9 +1136,8 @@ class Designated extends CI_Controller
         
         $obj_pdf->AddPage();
         $data = array(
-            'part1' => $this->mod_trial->get_dinner_list_for_pdf('2501'),
-            'part2' => $this->mod_trial->get_dinner_list_for_pdf('2502'),
-            'part3' => $this->mod_trial->get_dinner_list_for_pdf('2503'),
+            'part' => $this->mod_trial->get_dinner_list_for_pdf($part),
+            'area' => $area
         );
         $view =  $this->load->view('designated/e_1_5', $data, true);
         $obj_pdf->writeHTML($view);
@@ -1155,6 +1162,7 @@ class Designated extends CI_Controller
         $obj_pdf = new Pdf(PDF_PAGE_ORIENTATION, PDF_UNIT, PDF_PAGE_FORMAT, false, 'UTF-8', false);
         $obj_pdf->SetCreator(PDF_CREATOR);
         $title = '試務人員執行任務簽到表';
+        $area = $_GET['area'];
         $date = date('yyyy/m/d');
         $obj_pdf->SetTitle($title);
         $obj_pdf->SetHeaderData('', '', $title, '印表日期：'.$date);
@@ -1163,15 +1171,13 @@ class Designated extends CI_Controller
         $obj_pdf->SetFooterMargin(PDF_MARGIN_FOOTER);
         $obj_pdf->SetMargins(PDF_MARGIN_LEFT, PDF_MARGIN_RIGHT);
         $obj_pdf->SetAutoPageBreak(true, PDF_MARGIN_BOTTOM);
-        $obj_pdf->SetFont('msungstdlight', 'B', 13);
+        $obj_pdf->SetFont('msungstdlight', 'B', 10);
 
         $obj_pdf->setFontSubsetting(false);
         $obj_pdf->AddPage();
         $data = array(
-            'part0' => $this->mod_task->e_2_1_pdf('考區'),
-            'part1' => $this->mod_task->e_2_1_pdf('第一分區'),
-            'part2' => $this->mod_task->e_2_1_pdf('第二分區'),
-            'part3' => $this->mod_task->e_2_1_pdf('第三分區'),
+            'part' => $this->mod_task->e_2_1_pdf($area),
+            'area' => $area
         );
         // print_r($data);
         $view =  $this->load->view('designated/e_2_1', $data, true);
@@ -1187,6 +1193,9 @@ class Designated extends CI_Controller
         $obj_pdf->SetCreator(PDF_CREATOR);
         $title = '監試人員執行任務簽到表';
         $date = date('yyyy/m/d');
+        $part = $_GET['part'];
+        $area = $_GET['area'];
+
         $obj_pdf->SetTitle($title);
         $obj_pdf->SetHeaderData('', '', $title, '印表日期：'.$date);
         $obj_pdf->setPrintHeader(false);
@@ -1194,14 +1203,13 @@ class Designated extends CI_Controller
         $obj_pdf->SetFooterMargin(PDF_MARGIN_FOOTER);
         $obj_pdf->SetMargins(PDF_MARGIN_LEFT, PDF_MARGIN_RIGHT);
         $obj_pdf->SetAutoPageBreak(true, PDF_MARGIN_BOTTOM);
-        $obj_pdf->SetFont('msungstdlight', 'B', 13);
+        $obj_pdf->SetFont('msungstdlight', 'B', 10);
 
         $obj_pdf->setFontSubsetting(false);
         $obj_pdf->AddPage();
         $data = array(
-            'part1' => $this->mod_trial->get_list_for_pdf('2501'),
-            'part2' => $this->mod_trial->get_list_for_pdf('2502'),
-            'part3' => $this->mod_trial->get_list_for_pdf('2503'),
+            'part' => $this->mod_trial->get_list_for_pdf($part),
+            'area' =>$area
         );
         // print_r($data);
         $view =  $this->load->view('designated/e_2_2', $data, true);
@@ -1217,6 +1225,8 @@ class Designated extends CI_Controller
         $obj_pdf->SetCreator(PDF_CREATOR);
         $title = '監試說明會簽到表';
         $date = date('yyyy/m/d');
+        $area = $_GET['area'];
+
         $obj_pdf->SetTitle($title);
         $obj_pdf->SetHeaderData('', '', $title, '印表日期：'.$date);
         $obj_pdf->setPrintHeader(false);
@@ -1224,15 +1234,13 @@ class Designated extends CI_Controller
         $obj_pdf->SetFooterMargin(PDF_MARGIN_FOOTER);
         $obj_pdf->SetMargins(PDF_MARGIN_LEFT, PDF_MARGIN_RIGHT);
         $obj_pdf->SetAutoPageBreak(true, PDF_MARGIN_BOTTOM);
-        $obj_pdf->SetFont('msungstdlight', 'B', 13);
+        $obj_pdf->SetFont('msungstdlight', 'B', 10);
 
         $obj_pdf->setFontSubsetting(false);
         $obj_pdf->AddPage();
         $data = array(
-            'part0' => $this->mod_task->e_2_1_pdf('考區'),
-            'part1' => $this->mod_task->e_2_1_pdf('第一分區'),
-            'part2' => $this->mod_task->e_2_1_pdf('第二分區'),
-            'part3' => $this->mod_task->e_2_1_pdf('第三分區'),
+            'part' => $this->mod_task->e_2_1_pdf($area),
+            'area' => $area
         );
         $view =  $this->load->view('designated/e_2_4', $data, true);
         $obj_pdf->writeHTML($view);
@@ -1246,6 +1254,8 @@ class Designated extends CI_Controller
         $obj_pdf = new Pdf(PDF_PAGE_ORIENTATION, PDF_UNIT, PDF_PAGE_FORMAT, false, 'UTF-8', false);
         $obj_pdf->SetCreator(PDF_CREATOR);
         $title = '開會通知簽收表';
+        $area = $_GET['area'];
+
         $date = date('yyyy/m/d');
         $obj_pdf->SetTitle($title);
         $obj_pdf->SetHeaderData('', '', $title, '印表日期：'.$date);
@@ -1254,15 +1264,13 @@ class Designated extends CI_Controller
         $obj_pdf->SetFooterMargin(PDF_MARGIN_FOOTER);
         $obj_pdf->SetMargins(PDF_MARGIN_LEFT, PDF_MARGIN_RIGHT);
         $obj_pdf->SetAutoPageBreak(true, PDF_MARGIN_BOTTOM);
-        $obj_pdf->SetFont('msungstdlight', 'B', 13);
+        $obj_pdf->SetFont('msungstdlight', 'B', 10);
 
         $obj_pdf->setFontSubsetting(false);
         $obj_pdf->AddPage();
         $data = array(
-            'part0' => $this->mod_task->e_2_1_pdf('考區'),
-            'part1' => $this->mod_task->e_2_1_pdf('第一分區'),
-            'part2' => $this->mod_task->e_2_1_pdf('第二分區'),
-            'part3' => $this->mod_task->e_2_1_pdf('第三分區'),
+            'part' => $this->mod_task->e_2_1_pdf($area),
+            'area' => $area
         );
         // print_r($data);
         $view =  $this->load->view('designated/e_2_5', $data, true);

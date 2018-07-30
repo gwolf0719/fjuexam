@@ -1,6 +1,5 @@
 <style>
     table {
-        width: 780px;
         border: 1px solid #999999;
     }
 
@@ -14,36 +13,41 @@
     }
 </style>
 
-<div>
-    <h2 style="text-align:center">請公假名單</h2>
-</div>
-</div>
-<table class="" id="" style="width:510px;padding:10px 4px 10px 4px;text-align:center;">
+<h1 style="text-align:center">請公假名單</h1>
+<h3 style="text-align:right">印表日期：
+    <?=date('20y-m-d')?>
+</h3>
+
+<table class="" id="" style="width:510px;padding:5px 0px 5px 0px;text-align:center;">
     <thead>
         <tr style="background:#FFE4E7">
-            <th>職員代碼</th>
-            <th>姓名</th>
-            <th>單位</th>
-            <th>職稱</th>
-            <th>執勤日期</th>
+            <th width="5%">序號</th>
+            <th width="15%">職員代碼</th>
+            <th width="15%">姓名</th>
+            <th width="15%">單位</th>
+            <th width="15%">職稱</th>
+            <th width="35%">執勤日期</th>
         </tr>
     </thead>
     <tbody>
         <?php foreach ($list as $k => $v): ?>
         <tr>
-            <td>
+            <td width="5%">
+                <?=$k + 1?>
+            </td>
+            <td width="15%">
                 <?=$v['job_code']?>
             </td>
-            <td>
+            <td width="15%">
                 <?=$v['name']; ?>
             </td>
-            <td>
+            <td width="15%">
                 <?=$v['member_unit']; ?>
             </td>
-            <td>
+            <td width="15%">
                 <?=$v['job_title']; ?>
             </td>
-            <td>
+            <td width="35%">
                 <?=$v['do_date']; ?>
             </td>
         </tr>

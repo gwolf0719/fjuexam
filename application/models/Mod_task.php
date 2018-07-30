@@ -119,23 +119,25 @@ class Mod_task extends CI_Model
             $this->db->where('area', $area);
         }
 
+        $this->db->where('job_code !=', "");
+
         $res = $this->db->get('district_task')->result_array();
 
-        for ($i=0; $i < count($res); $i++) {
-            # code...
-            $member_unit = $this->db->where('member_code', $res[$i]['job_code'])->get('staff_member')->row_array();
-            // if ($res[$i]['job_code'] != "") {
-            $arr[] = array(
-                    'job_code' => $res[$i]['job_code'],
-                    'job' => $res[$i]['job'],
-                    'job_title' => $res[$i]['job_title'],
-                    'name' => $res[$i]['name'],
-                    'member_unit'=>$member_unit['member_unit'],
-                    'meal' => $member_unit['meal']
-                );
-            // }
+        if (!empty($res)) {
+            for ($i=0; $i < count($res); $i++) {
+                # code...
+                $member_unit = $this->db->where('member_code', $res[$i]['job_code'])->get('staff_member')->row_array();
+                $arr[] = array(
+                        'job_code' => $res[$i]['job_code'],
+                        'job' => $res[$i]['job'],
+                        'job_title' => $res[$i]['job_title'],
+                        'name' => $res[$i]['name'],
+                        'member_unit'=>$member_unit['member_unit'],
+                        'meal' => $member_unit['meal']
+                    );
+            }
+            return $arr;
         }
-        return $arr;
     }
 
 

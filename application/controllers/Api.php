@@ -329,17 +329,12 @@ class Api extends CI_Controller
             $json_arr['sys_msg'] = '資料不足';
             $json_arr['requred'] = $this->getpost->report_requred($requred);
         } else {
-            if (!$this->mod_task->chk_job($data['job'], $data['area'])) {
-                $year = $this->session->userdata('year');
-                $part = $this->mod_task->get_part_for_once($data['area']);
+            $year = $this->session->userdata('year');
+            $part = $this->mod_task->get_part_for_once($data['area']);
 
-                $this->mod_task->add_job($year, $data['job'], $data['area'], $part['trial_start'], $part['trial_end']);
-                $json_arr['sys_code'] = '200';
-                $json_arr['sys_msg'] = '新增完成';
-            } else {
-                $json_arr['sys_code'] = '500';
-                $json_arr['sys_msg'] = '名稱重複';
-            }
+            $this->mod_task->add_job($year, $data['job'], $data['area'], $part['trial_start'], $part['trial_end']);
+            $json_arr['sys_code'] = '200';
+            $json_arr['sys_msg'] = '新增完成';
         }
         echo json_encode($json_arr);
     }
