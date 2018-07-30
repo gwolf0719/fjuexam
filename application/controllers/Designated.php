@@ -1299,6 +1299,9 @@ class Designated extends CI_Controller
         $obj_pdf->SetCreator(PDF_CREATOR);
         $title = '監試人員監考科目日程對照表';
         $date = date('yyyy/m/d');
+        $part = $_GET['part'];
+        $area = $_GET['area'];
+
         $obj_pdf->SetTitle($title);
         $obj_pdf->SetHeaderData('', '', $title, '印表日期：'.$date);
         $obj_pdf->setPrintHeader(false);
@@ -1314,18 +1317,19 @@ class Designated extends CI_Controller
 
         $datetime_info = $this->mod_exam_datetime->get_once($year);
         $course = $this->mod_exam_datetime->get_course($year);
-        
+        $res = $this->mod_trial->get_list_for_pdf($part);
         $data = array(
-            'part' => $this->mod_trial->get_list_for_pdf(),
+            'part' => $res,
+            'area' =>$area,
             'course' => $course,
             'datetime_info' => $datetime_info,
+            // 'course_info' => $this->mod_exam_datetime->get_once_course($res)
         );
 
-
-        
         $view =  $this->load->view('designated/e_3_1', $data, true);
+        
         $obj_pdf->writeHTML($view);
-        $obj_pdf->Output('監試人員監考科目日程對照表.pdf', 'D');
+        $obj_pdf->Output('監試人員監考科目日程對照表.pdf', 'I');
     }
 
     public function e_3_2()
@@ -1336,6 +1340,9 @@ class Designated extends CI_Controller
         $obj_pdf->SetCreator(PDF_CREATOR);
         $title = '試務人員巡場分配表';
         $date = date('yyyy/m/d');
+        $part = $_GET['part'];
+        $area = $_GET['area'];
+
         $obj_pdf->SetTitle($title);
         $obj_pdf->SetHeaderData('', '', $title, '印表日期：'.$date);
         $obj_pdf->setPrintHeader(false);
@@ -1343,14 +1350,13 @@ class Designated extends CI_Controller
         $obj_pdf->SetFooterMargin(PDF_MARGIN_FOOTER);
         $obj_pdf->SetMargins(PDF_MARGIN_LEFT, PDF_MARGIN_RIGHT);
         $obj_pdf->SetAutoPageBreak(true, PDF_MARGIN_BOTTOM);
-        $obj_pdf->SetFont('msungstdlight', 'B', 13);
+        $obj_pdf->SetFont('msungstdlight', 'B', 10);
 
         $obj_pdf->setFontSubsetting(false);
         $obj_pdf->AddPage();
         $data = array(
-            'part1' => $this->mod_trial->get_list_for_pdf('2501'),
-            'part2' => $this->mod_trial->get_list_for_pdf('2502'),
-            'part3' => $this->mod_trial->get_list_for_pdf('2503'),
+            'part' => $this->mod_trial->get_list_for_pdf($part),
+            'area' => $area
         );
         // print_r($data);
         $view =  $this->load->view('designated/e_3_2', $data, true);
@@ -1358,6 +1364,60 @@ class Designated extends CI_Controller
         $obj_pdf->Output('試務人員巡場分配表.pdf', 'I');
     }
 
+    public function e_4()
+    {
+        $this->mod_user->chk_status();
+        $data = array(
+            'title' => '監試務工作說明會教務處書函',
+            'path' => 'designated/e_4',
+            'path_text' => ' > 製作報表 > 監試務工作說明會教務處書函',
+        );
+        $this->load->view('layout', $data);
+    }
+
+    public function e_4_1()
+    {
+        $this->mod_user->chk_status();
+        $data = array(
+            'title' => '監試務工作說明會教務處書函',
+            'path' => 'designated/e_4_1',
+            'path_text' => ' > 製作報表 > 監試務工作說明會教務處書函',
+        );
+        $this->load->view('layout', $data);
+    }
+
+    public function e_5()
+    {
+        $this->mod_user->chk_status();
+        $data = array(
+            'title' => '識別證 / 標籤',
+            'path' => 'designated/e_5',
+            'path_text' => ' > 製作報表 > 識別證 / 標籤',
+        );
+        $this->load->view('layout', $data);
+    }
+
+    public function e_5_1()
+    {
+        $this->mod_user->chk_status();
+        $data = array(
+            'title' => '識別證 / 標籤',
+            'path' => 'designated/e_5_1',
+            'path_text' => ' > 製作報表 > 識別證 / 標籤',
+        );
+        $this->load->view('layout', $data);
+    }
+
+    public function e_5_2()
+    {
+        $this->mod_user->chk_status();
+        $data = array(
+            'title' => '套印標籤',
+            'path' => 'designated/e_5_2',
+            'path_text' => ' > 製作報表 > 識別證 / 標籤 > 套印標籤',
+        );
+        $this->load->view('layout', $data);
+    }
 
     public function e_6()
     {
@@ -1378,6 +1438,9 @@ class Designated extends CI_Controller
         $obj_pdf->SetCreator(PDF_CREATOR);
         $title = '監試人員印領清冊';
         $date = date('yyyy/m/d');
+        $part = $_GET['part'];
+        $area = $_GET['area'];
+        
         $obj_pdf->SetTitle($title);
         $obj_pdf->SetHeaderData('', '', $title, '印表日期：'.$date);
         $obj_pdf->setPrintHeader(false);
@@ -1385,14 +1448,13 @@ class Designated extends CI_Controller
         $obj_pdf->SetFooterMargin(PDF_MARGIN_FOOTER);
         $obj_pdf->SetMargins(PDF_MARGIN_LEFT, PDF_MARGIN_RIGHT);
         $obj_pdf->SetAutoPageBreak(true, PDF_MARGIN_BOTTOM);
-        $obj_pdf->SetFont('msungstdlight', 'B', 13);
+        $obj_pdf->SetFont('msungstdlight', 'B', 10);
 
         $obj_pdf->setFontSubsetting(false);
         $obj_pdf->AddPage();
         $data = array(
-            'part1' => $this->mod_trial->get_list_for_pdf('2501'),
-            'part2' => $this->mod_trial->get_list_for_pdf('2502'),
-            'part3' => $this->mod_trial->get_list_for_pdf('2503'),
+            'part' => $this->mod_trial->get_list_for_pdf($part),
+            'area'=> $area
         );
         $view =  $this->load->view('designated/e_6_1', $data, true);
         $obj_pdf->writeHTML($view);

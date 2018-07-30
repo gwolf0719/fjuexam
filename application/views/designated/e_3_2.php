@@ -18,9 +18,11 @@
 <div>
     <h2 style="text-align:center">
         <?=$_SESSION['year']?>學年度定科目考試新北一考區</h2>
+    <h2>
+        分區：
+        <?=$area?>
+    </h2>
 </div>
-
-
 
 <table class="" id="" style="width:510px;padding:10px 4px 10px 4px;text-align:center;">
     <thead>
@@ -36,7 +38,7 @@
         </tr>
     </thead>
     <tbody>
-        <?php foreach ($part1 as $k => $v): ?>
+        <?php foreach ($part as $k => $v): ?>
         <tr>
             <td>
                 <?=$v['field']?>
@@ -45,7 +47,9 @@
                 <?=$v['test_section']; ?>
             </td>
             <td>
-                <?=$v['start']; ?>~
+                <?=$v['start']; ?>
+                <br>~
+                <br>
                 <?=$v['end']; ?>
             </td>
             <td>

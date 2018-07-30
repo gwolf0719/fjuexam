@@ -12,10 +12,10 @@ class Unit extends CI_Controller
         // echo $this->db->last_query();
     }
 
-    public function get_once_day_section()
+    public function get_once_day_section_test()
     {
         $this->load->model('mod_exam_datetime');
-        $res = $this->mod_exam_datetime->get_once_day_section('2', '210119', '210120');
+        $res = $this->mod_exam_datetime->get_once_day_section_test('2', '210119', '210120');
         echo json_encode($res);
     }
 

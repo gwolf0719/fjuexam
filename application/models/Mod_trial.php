@@ -63,9 +63,11 @@ class Mod_trial extends CI_Model
         }
         $this->db->from('part_info');
         $this->db->join('trial_assign', 'part_info.sn = trial_assign.sn');
+        
+        $this->db->where('first_member_do_date !=', "");
 
         $res = $this->db->get()->result_array();
-        
+        // print_r($res);
 
         for ($i=0; $i < count($res); $i++) {
             # code...
@@ -96,7 +98,7 @@ class Mod_trial extends CI_Model
                 'number'=>$res[$i]['number'],
                 'start'=>$res[$i]['start'],
                 'end'=>$res[$i]['end'],
-                'patrol'=>$patrol['patrol_staff_name']
+                'patrol'=>$patrol['patrol_staff_name'],
             );
         }
         return $arr;
