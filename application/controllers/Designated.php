@@ -997,7 +997,7 @@ class Designated extends CI_Controller
         $obj_pdf->SetFooterMargin(PDF_MARGIN_FOOTER);
         $obj_pdf->SetMargins(PDF_MARGIN_LEFT, PDF_MARGIN_RIGHT);
         $obj_pdf->SetAutoPageBreak(true, PDF_MARGIN_BOTTOM);
-        $obj_pdf->SetFont('msungstdlight', 'B', 8);
+        $obj_pdf->SetFont('msungstdlight', 'B', 13);
 
         $obj_pdf->setFontSubsetting(false);
         $obj_pdf->AddPage();
@@ -1007,7 +1007,7 @@ class Designated extends CI_Controller
         // print_r($data);
         $view =  $this->load->view('designated/e_1_1', $data, true);
         $obj_pdf->writeHTML($view);
-        $obj_pdf->Output('行政單位'.'.pdf', 'I');
+        $obj_pdf->Output('行政單位.pdf', 'I');
     }
 
     public function e_1_2()
@@ -1035,7 +1035,7 @@ class Designated extends CI_Controller
         // print_r($data);
         $view =  $this->load->view('designated/e_1_2', $data, true);
         $obj_pdf->writeHTML($view);
-        $obj_pdf->Output('請公假名單'.'.pdf', 'I');
+        $obj_pdf->Output('請公假名單.pdf', 'I');
     }
 
     public function e_1_3()
@@ -1053,7 +1053,7 @@ class Designated extends CI_Controller
         $obj_pdf->SetFooterMargin(PDF_MARGIN_FOOTER);
         $obj_pdf->SetMargins(PDF_MARGIN_LEFT, PDF_MARGIN_RIGHT);
         $obj_pdf->SetAutoPageBreak(true, PDF_MARGIN_BOTTOM);
-        $obj_pdf->SetFont('msungstdlight', 'B', 8);
+        $obj_pdf->SetFont('msungstdlight', 'B', 13);
 
         $obj_pdf->setFontSubsetting(false);
         $obj_pdf->AddPage();
@@ -1064,16 +1064,19 @@ class Designated extends CI_Controller
         );
         $view =  $this->load->view('designated/e_1_3', $data, true);
         $obj_pdf->writeHTML($view);
-        $obj_pdf->Output('監試及試務人員一覽表'.'.pdf', 'I');
+        $obj_pdf->Output('監試及試務人員一覽表.pdf', 'I');
     }
 
     public function e_1_4()
     {
         $this->load->library('pdf');
         $this->load->model('mod_exam_area');
+        $this->load->model('mod_exam_datetime');
         $obj_pdf = new Pdf(PDF_PAGE_ORIENTATION, PDF_UNIT, PDF_PAGE_FORMAT, false, 'UTF-8', false);
         $obj_pdf->SetCreator(PDF_CREATOR);
         $title = '缺考人數統計';
+        $year = $this->session->userdata('year');
+
         $date = date('yyyy/m/d');
         $obj_pdf->SetTitle($title);
         $obj_pdf->SetHeaderData('', '', $title, '印表日期：'.$date);
@@ -1082,16 +1085,26 @@ class Designated extends CI_Controller
         $obj_pdf->SetFooterMargin(PDF_MARGIN_FOOTER);
         $obj_pdf->SetMargins(PDF_MARGIN_LEFT, PDF_MARGIN_RIGHT);
         $obj_pdf->SetAutoPageBreak(true, PDF_MARGIN_BOTTOM);
-        $obj_pdf->SetFont('msungstdlight', 'B', 8);
+        $obj_pdf->SetFont('msungstdlight', 'B', 13);
 
         $obj_pdf->setFontSubsetting(false);
         $obj_pdf->AddPage();
+        if ($this->mod_exam_datetime->chk_course($year)) {
+            $course = $this->mod_exam_datetime->get_course($year);
+        } else {
+            $course = array();
+            for ($i = 0; $i <= 12; ++$i) {
+                $course[$i]['subject'] = '';
+            }
+        }
+        
         $data = array(
             'list' => $this->mod_exam_area->year_get_list(),
+            'course' => $this->mod_exam_datetime->get_course($year)
         );
         $view =  $this->load->view('designated/e_1_4', $data, true);
         $obj_pdf->writeHTML($view);
-        $obj_pdf->Output('缺考人數統計'.'.pdf', 'I');
+        $obj_pdf->Output('缺考人數統計.pdf', 'I');
     }
 
     public function e_1_5()
@@ -1121,7 +1134,7 @@ class Designated extends CI_Controller
         );
         $view =  $this->load->view('designated/e_1_5', $data, true);
         $obj_pdf->writeHTML($view);
-        $obj_pdf->Output('各分區午餐名單'.'.pdf', 'I');
+        $obj_pdf->Output('各分區午餐名單.pdf', 'I');
     }
 
     public function e_2()
@@ -1150,7 +1163,7 @@ class Designated extends CI_Controller
         $obj_pdf->SetFooterMargin(PDF_MARGIN_FOOTER);
         $obj_pdf->SetMargins(PDF_MARGIN_LEFT, PDF_MARGIN_RIGHT);
         $obj_pdf->SetAutoPageBreak(true, PDF_MARGIN_BOTTOM);
-        $obj_pdf->SetFont('msungstdlight', 'B', 8);
+        $obj_pdf->SetFont('msungstdlight', 'B', 13);
 
         $obj_pdf->setFontSubsetting(false);
         $obj_pdf->AddPage();
@@ -1163,7 +1176,7 @@ class Designated extends CI_Controller
         // print_r($data);
         $view =  $this->load->view('designated/e_2_1', $data, true);
         $obj_pdf->writeHTML($view);
-        $obj_pdf->Output('試務人員執行任務簽到表'.'.pdf', 'I');
+        $obj_pdf->Output('試務人員執行任務簽到表.pdf', 'I');
     }
 
     public function e_2_2()
@@ -1181,7 +1194,7 @@ class Designated extends CI_Controller
         $obj_pdf->SetFooterMargin(PDF_MARGIN_FOOTER);
         $obj_pdf->SetMargins(PDF_MARGIN_LEFT, PDF_MARGIN_RIGHT);
         $obj_pdf->SetAutoPageBreak(true, PDF_MARGIN_BOTTOM);
-        $obj_pdf->SetFont('msungstdlight', 'B', 8);
+        $obj_pdf->SetFont('msungstdlight', 'B', 13);
 
         $obj_pdf->setFontSubsetting(false);
         $obj_pdf->AddPage();
@@ -1193,7 +1206,7 @@ class Designated extends CI_Controller
         // print_r($data);
         $view =  $this->load->view('designated/e_2_2', $data, true);
         $obj_pdf->writeHTML($view);
-        $obj_pdf->Output('監試人員執行任務簽到表'.'.pdf', 'I');
+        $obj_pdf->Output('監試人員執行任務簽到表.pdf', 'I');
     }
     
     public function e_2_4()
@@ -1211,7 +1224,7 @@ class Designated extends CI_Controller
         $obj_pdf->SetFooterMargin(PDF_MARGIN_FOOTER);
         $obj_pdf->SetMargins(PDF_MARGIN_LEFT, PDF_MARGIN_RIGHT);
         $obj_pdf->SetAutoPageBreak(true, PDF_MARGIN_BOTTOM);
-        $obj_pdf->SetFont('msungstdlight', 'B', 8);
+        $obj_pdf->SetFont('msungstdlight', 'B', 13);
 
         $obj_pdf->setFontSubsetting(false);
         $obj_pdf->AddPage();
@@ -1223,7 +1236,7 @@ class Designated extends CI_Controller
         );
         $view =  $this->load->view('designated/e_2_4', $data, true);
         $obj_pdf->writeHTML($view);
-        $obj_pdf->Output('監試說明會簽到表'.'.pdf', 'I');
+        $obj_pdf->Output('監試說明會簽到表.pdf', 'I');
     }
 
     public function e_2_5()
@@ -1241,7 +1254,7 @@ class Designated extends CI_Controller
         $obj_pdf->SetFooterMargin(PDF_MARGIN_FOOTER);
         $obj_pdf->SetMargins(PDF_MARGIN_LEFT, PDF_MARGIN_RIGHT);
         $obj_pdf->SetAutoPageBreak(true, PDF_MARGIN_BOTTOM);
-        $obj_pdf->SetFont('msungstdlight', 'B', 8);
+        $obj_pdf->SetFont('msungstdlight', 'B', 13);
 
         $obj_pdf->setFontSubsetting(false);
         $obj_pdf->AddPage();
@@ -1254,7 +1267,7 @@ class Designated extends CI_Controller
         // print_r($data);
         $view =  $this->load->view('designated/e_2_5', $data, true);
         $obj_pdf->writeHTML($view);
-        $obj_pdf->Output('開會通知簽收表'.'.pdf', 'I');
+        $obj_pdf->Output('開會通知簽收表.pdf', 'I');
     }
 
 
@@ -1267,6 +1280,44 @@ class Designated extends CI_Controller
             'path_text' => ' > 製作報表 > 日程表 / 分配表',
         );
         $this->load->view('layout', $data);
+    }
+
+    public function e_3_1()
+    {
+        $this->load->library('pdf');
+        $this->load->model('mod_exam_datetime');
+        $this->load->model('mod_trial');
+        $obj_pdf = new Pdf(PDF_PAGE_ORIENTATION, PDF_UNIT, PDF_PAGE_FORMAT, false, 'UTF-8', false);
+        $obj_pdf->SetCreator(PDF_CREATOR);
+        $title = '監試人員監考科目日程對照表';
+        $date = date('yyyy/m/d');
+        $obj_pdf->SetTitle($title);
+        $obj_pdf->SetHeaderData('', '', $title, '印表日期：'.$date);
+        $obj_pdf->setPrintHeader(false);
+        // $obj_pdf->SetHeaderMargin(PDF_MARGIN_HEADER);
+        $obj_pdf->SetFooterMargin(PDF_MARGIN_FOOTER);
+        $obj_pdf->SetMargins(PDF_MARGIN_LEFT, PDF_MARGIN_RIGHT);
+        $obj_pdf->SetAutoPageBreak(true, PDF_MARGIN_BOTTOM);
+        $obj_pdf->SetFont('msungstdlight', 'B', 13);
+
+        $obj_pdf->setFontSubsetting(false);
+        $obj_pdf->AddPage();
+        $year = $this->session->userdata('year');
+
+        $datetime_info = $this->mod_exam_datetime->get_once($year);
+        $course = $this->mod_exam_datetime->get_course($year);
+        
+        $data = array(
+            'part' => $this->mod_trial->get_list_for_pdf(),
+            'course' => $course,
+            'datetime_info' => $datetime_info,
+        );
+
+
+        
+        $view =  $this->load->view('designated/e_3_1', $data, true);
+        $obj_pdf->writeHTML($view);
+        $obj_pdf->Output('監試人員監考科目日程對照表.pdf', 'D');
     }
 
     public function e_3_2()
@@ -1284,7 +1335,7 @@ class Designated extends CI_Controller
         $obj_pdf->SetFooterMargin(PDF_MARGIN_FOOTER);
         $obj_pdf->SetMargins(PDF_MARGIN_LEFT, PDF_MARGIN_RIGHT);
         $obj_pdf->SetAutoPageBreak(true, PDF_MARGIN_BOTTOM);
-        $obj_pdf->SetFont('msungstdlight', 'B', 8);
+        $obj_pdf->SetFont('msungstdlight', 'B', 13);
 
         $obj_pdf->setFontSubsetting(false);
         $obj_pdf->AddPage();
@@ -1296,7 +1347,7 @@ class Designated extends CI_Controller
         // print_r($data);
         $view =  $this->load->view('designated/e_3_2', $data, true);
         $obj_pdf->writeHTML($view);
-        $obj_pdf->Output('試務人員巡場分配表'.'.pdf', 'I');
+        $obj_pdf->Output('試務人員巡場分配表.pdf', 'I');
     }
 
 
@@ -1326,7 +1377,7 @@ class Designated extends CI_Controller
         $obj_pdf->SetFooterMargin(PDF_MARGIN_FOOTER);
         $obj_pdf->SetMargins(PDF_MARGIN_LEFT, PDF_MARGIN_RIGHT);
         $obj_pdf->SetAutoPageBreak(true, PDF_MARGIN_BOTTOM);
-        $obj_pdf->SetFont('msungstdlight', 'B', 8);
+        $obj_pdf->SetFont('msungstdlight', 'B', 13);
 
         $obj_pdf->setFontSubsetting(false);
         $obj_pdf->AddPage();
@@ -1337,7 +1388,7 @@ class Designated extends CI_Controller
         );
         $view =  $this->load->view('designated/e_6_1', $data, true);
         $obj_pdf->writeHTML($view);
-        $obj_pdf->Output('監試人員印領清冊'.'.pdf', 'I');
+        $obj_pdf->Output('監試人員印領清冊.pdf', 'I');
     }
 
 

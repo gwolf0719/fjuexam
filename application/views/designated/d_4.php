@@ -173,6 +173,12 @@
                 dataType: "json"
             }).done(function(data) {
                 $(".field").val(field);
+                $("#first_member_lunch_price").attr("lunch_price",
+                    "<?=$fees_info['lunch_fee']; ?>"
+                );
+                $("#second_member_lunch_price").attr("lunch_price",
+                    "<?=$fees_info['lunch_fee']; ?>"
+                );
                 $("#trial_staff_code_1").val(data.info.trial_staff_code_1);
                 $("#trial_staff_code_2").val(data.info.trial_staff_code_2);
                 if (data.info.first_member_one_day_salary != "") {
@@ -189,6 +195,7 @@
                     },
                     dataType: "json"
                 }).done(function(data) {
+                    console.log(data);
                     $("#first_member_job_code").val(data.info.member_code);
                     $("#first_member_job_title").val(data.info.member_title);
                     $("#first_member_name").val(data.info.member_name);
@@ -267,11 +274,13 @@
                             first_member_day_lunch_total);
                         //計算總金額 (排除沒訂餐)
                         if ($("#first_member_order_meal").val() == "N") {
+                            $("#first_member_lunch_price").val(parseInt(0));
+                            $("#first_member_day_lunch_total").val(parseInt(0));
                             $("#first_member_day_total").val(
                                 first_member_day_salary_total);
                         } else {
-                            var first_member_day_lunch_total = 0 -
-                                first_member_day_lunch_total;
+                            var first_member_day_lunch_total =
+                                0 - first_member_day_lunch_total;
                             $("#first_member_day_lunch_total").val(
                                 first_member_day_lunch_total);
                             var first_member_day_total = parseInt($(
@@ -305,6 +314,10 @@
                             second_member_day_lunch_total);
                         //計算總金額 (排除沒訂餐)
                         if ($("#second_member_order_meal").val() == "N") {
+                            $("#second_member_lunch_price").val(parseInt(0));
+                            $("#second_member_day_lunch_total").val(parseInt(0));
+                            $("#second_member_day_total").val(
+                                first_member_day_salary_total);
                             $("#second_member_day_total").val(
                                 second_member_day_salary_total);
                         } else {
@@ -366,6 +379,88 @@
                 })
             }
         })
+
+        $("body").on("keyup", "#first_member_lunch_price", function() {
+            var lunch_total = 0 - $(this).val() * $("#first_member_day_count").val();
+            $("#first_member_day_lunch_total").val(lunch_total);
+            var first_member_day_total = parseInt($("#first_member_day_salary_total").val()) + parseInt(
+                $("#first_member_day_lunch_total").val());
+            $("#first_member_day_total").val(first_member_day_total);
+        })
+
+        $("body").on("keyup", "#second_member_lunch_price", function() {
+            var lunch_total = 0 - $(this).val() * $("#second_member_day_count").val();
+            $("#second_member_day_lunch_total").val(lunch_total);
+            var second_member_day_total = parseInt($("#second_member_day_salary_total").val()) +
+                parseInt(
+                    $("#second_member_day_lunch_total").val());
+            $("#second_member_day_total").val(second_member_day_total);
+        })
+
+        $("#first_member_order_meal").change(function() {
+            if (this.checked) {
+                $(this).val("y");
+                $("#first_member_lunch_price").attr("readonly", false);
+                //判斷有沒有編輯過便當價格決定要不要帶入預設值
+                if ($("#first_member_lunch_price").attr("lunch_price") ==
+                    "<?=$fees_info['lunch_fee']; ?>" || $(
+                        "#first_member_lunch_price").attr("#first_member_lunch_price") == undefined) {
+
+                    $("#first_member_lunch_price").val($("#first_member_lunch_price").attr(
+                        "lunch_price"));
+                    var lunch_total = 0 - $("#first_member_lunch_price").val() * $(
+                        "#first_member_day_count").val();
+                    $("#first_member_day_lunch_total").val(lunch_total);
+                    var first_member_day_total = parseInt($("#first_member_day_salary_total").val()) +
+                        parseInt(
+                            $("#first_member_day_lunch_total").val());
+                    $("#first_member_day_total").val(first_member_day_total);
+                } else {
+                    $("#first_member_lunch_price").val(
+                        "<?=$fees_info['lunch_fee']; ?>");
+                }
+            } else {
+                $(this).val("n");
+                $("#first_member_lunch_price").attr("readonly", true);
+                $("#first_member_lunch_price").val(0);
+                $("#first_member_day_lunch_total").val(0);
+                var first_member_day_total = parseInt($("#first_member_day_salary_total").val()) +
+                    parseInt($("#first_member_day_lunch_total").val());
+                $("#first_member_day_total").val(first_member_day_total);
+            }
+        });
+
+        $("#second_member_order_meal").change(function() {
+            if (this.checked) {
+                $(this).val("y");
+                $("#second_member_lunch_price").attr("readonly", false);
+                //判斷有沒有編輯過便當價格決定要不要帶入預設值
+                if ($("#second_member_lunch_price").attr("lunch_price") ==
+                    "<?=$fees_info['lunch_fee']; ?>" || $(
+                        "#second_member_lunch_price").attr("#second_member_lunch_price") == undefined) {
+                    $("#second_member_lunch_price").val($("#second_member_lunch_price").attr(
+                        "lunch_price"));
+                    var lunch_total = 0 - $("#second_member_lunch_price").val() * $(
+                        "#second_member_day_count").val();
+                    $("#second_member_day_lunch_total").val(lunch_total);
+                    var second_member_day_total = parseInt($("#second_member_day_salary_total").val()) +
+                        parseInt(
+                            $("#second_member_day_lunch_total").val());
+                    $("#second_member_day_total").val(second_member_day_total);
+                } else {
+                    $("#second_member_lunch_price").val(
+                        "<?=$fees_info['lunch_fee']; ?>");
+                }
+            } else {
+                $(this).val("n");
+                $("#second_member_lunch_price").attr("readonly", true);
+                $("#second_member_lunch_price").val(0);
+                $("#second_member_day_lunch_total").val(0);
+                var second_member_day_total = parseInt($("#second_member_day_salary_total").val()) +
+                    parseInt($("#second_member_day_lunch_total").val());
+                $("#second_member_day_total").val(second_member_day_total);
+            }
+        });
 
         $("body").on("keyup", "#first_member_one_day_salary", function() {
             var day_total = $(this).val() * $("#first_member_day_count").val();
@@ -680,7 +775,7 @@
                         </div>
                         <div class="form-group">
                             <label for="order_meal">訂餐需求</label>
-                            <input type="checkbox" class="" name="need" id="first_member_order_meal" disabled>
+                            <input type="checkbox" class="" name="need" id="first_member_order_meal">
                             <span>需訂餐</span>
                         </div>
                         <!-- <div class="form-group">
@@ -782,7 +877,7 @@
                         </div>
                         <div class="form-group">
                             <label for="order_meal">訂餐需求</label>
-                            <input type="checkbox" class="" name="need" id="second_member_order_meal" disabled>
+                            <input type="checkbox" class="" name="need" id="second_member_order_meal">
                             <span>需訂餐</span>
                         </div>
                         <!-- <div class="form-group">

@@ -65,7 +65,6 @@ class Mod_trial extends CI_Model
         $this->db->join('trial_assign', 'part_info.sn = trial_assign.sn');
 
         $res = $this->db->get()->result_array();
-
         
 
         for ($i=0; $i < count($res); $i++) {
@@ -77,6 +76,7 @@ class Mod_trial extends CI_Model
             $arr[] = array(
                 'field' => $res[$i]['field'],
                 'test_section' => $res[$i]['test_section'],
+                'part' => $res[$i]['part'],
                 'do_date' => $res[$i]['first_member_do_date'],
                 'first_member_one_day_salary'=>$res[$i]['first_member_one_day_salary'],
                 'first_member_day_lunch_total'=>$res[$i]['first_member_day_lunch_total'],
