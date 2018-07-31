@@ -175,6 +175,7 @@ $(function(){
             dataType:"json"
         }).done(function(data){
             var html = "";
+            console.log(data);
             $.each(data.part,function(k,v){
 
                 html += '<option value="'+v.field+'">' + v.field + '</option>'; 

@@ -25,6 +25,13 @@ class Unit extends CI_Controller
         $res = $this->mod_exam_datetime->get_day_section('210119', '210120');
         echo json_encode($res);
     }
+
+    public function get_list_for_csv()
+    {
+        $this->load->model('mod_trial');
+        $res = $this->mod_trial->get_list_for_csv();
+        echo json_encode($res);
+    }
 }
 
 /* End of file Unit.php */

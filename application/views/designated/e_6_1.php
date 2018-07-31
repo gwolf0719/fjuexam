@@ -55,7 +55,7 @@
             <?=$v['field']?>
         </td>
         <td>
-            <?=$v['first_member_one_day_salary']?>
+            <?=$v['first_member_salary_section']?>
         </td>
         <td>
             <?=$v['supervisor_1']?>
@@ -65,22 +65,22 @@
             if ($v['order_meal1'] == "N") {
                 echo 0;
             } else {
-                echo abs($v['first_member_day_lunch_total']);
+                echo abs($v['first_member_section_lunch_total']);
             }
             ?>
         </td>
         <td>
             <?php
             if ($v['order_meal1'] == "N") {
-                echo $v['first_member_day_salary_total'] - 0;
+                echo $v['first_member_section_salary_total'] - 0;
             } else {
-                echo $v['first_member_day_salary_total'] - abs($v['first_member_day_lunch_total']);
+                echo $v['first_member_section_salary_total'] - abs($v['first_member_section_lunch_total']);
             }
             ?>
         </td>
         <td></td>
         <td>
-            <?=$v['second_member_one_day_salary']?>
+            <?=$v['second_member_salary_section']?>
         </td>
         <td>
             <?=$v['supervisor_2']?>
@@ -90,16 +90,16 @@
             if ($v['order_meal2'] == "N") {
                 echo 0;
             } else {
-                echo abs($v['second_member_day_lunch_total']);
+                echo abs($v['second_member_section_lunch_total']);
             }
             ?>
         </td>
         <td>
             <?php
             if ($v['order_meal2'] == "N") {
-                echo $v['second_member_day_salary_total'] - 0;
+                echo $v['second_member_section_salary_total'] - 0;
             } else {
-                echo $v['second_member_day_salary_total'] - abs($v['second_member_day_lunch_total']);
+                echo $v['second_member_section_salary_total'] - abs($v['second_member_section_lunch_total']);
             }
             ?>
         </td>

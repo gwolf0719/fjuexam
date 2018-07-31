@@ -27,6 +27,26 @@
         width: 80%;
         float: left;
     }
+
+    .btn_part {
+        background: #dc969d;
+        text-align: center;
+        padding: 8px;
+        border-radius: 5px;
+        margin: 10px auto;
+        cursor: pointer;
+        width: 150px;
+    }
+
+    a {
+        text-decoration: none;
+        color: #000;
+    }
+
+    a:hover {
+        text-decoration: none;
+        color: #000;
+    }        
 </style>
 
 <div class="input-group W20">
@@ -48,7 +68,7 @@
 <div class="row">
     <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6 cube text-center">
         <!-- <a href="./designated/e_3_1" target="_blank"> -->
-        <img src="assets/images/download.png" alt="">
+        <img src="assets/images/download.png" alt="" style="cursor: pointer;" data-toggle="modal" data-target="#download">
         <!-- </a> -->
     </div>
 
@@ -69,3 +89,30 @@
     </div>
 
 </div>
+
+<!-- Modal start-->
+<div class="modal fade" id="download" tabindex="-1" role="dialog" aria-labelledby="download" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header" style="border-bottom: none;">
+                <h5 class="modal-title" id="exampleModalLabel" style="">選擇分區</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-md-12 col-sm-12 col-xs-12">
+                        <a href="./designated/e_5_2_1" target="_blank">
+                            <div class="btn_part">監試人員</div>
+                        </a>
+                        <a href="./designated/e_5_2_2" target="_blank">
+                            <div class="btn_part">試務人員</div>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Modal end-->

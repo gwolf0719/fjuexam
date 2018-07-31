@@ -1323,11 +1323,10 @@ class Designated extends CI_Controller
             'area' =>$area,
             'course' => $course,
             'datetime_info' => $datetime_info,
-            // 'course_info' => $this->mod_exam_datetime->get_once_course($res)
+            'course_info' => $this->mod_exam_datetime->get_once_course($res)
         );
-
         $view =  $this->load->view('designated/e_3_1', $data, true);
-        
+
         $obj_pdf->writeHTML($view);
         $obj_pdf->Output('監試人員監考科目日程對照表.pdf', 'I');
     }
@@ -1386,6 +1385,67 @@ class Designated extends CI_Controller
         $this->load->view('layout', $data);
     }
 
+    public function e_4_1_1()
+    {
+        $this->load->library('excel');
+        $this->load->model('mod_patrol');
+        $this->load->model('mod_trial');
+
+        $objPHPExcel = new PHPExcel();
+        $objPHPExcel->setActiveSheetIndex(0);
+        $res = $this->mod_patrol->get_patrol_list();
+        for ($i=0; $i < count($res); $i++) {
+            # code...
+            $objPHPExcel->getActiveSheet()->setCellValue('A1', '學年度');
+            $objPHPExcel->getActiveSheet()->setCellValue('B1', '試務人員');
+            $objPHPExcel->getActiveSheet()->setCellValue('A'.(2+$i), $res[$i]['year']);
+            $objPHPExcel->getActiveSheet()->setCellValue('B'.(2+$i), $res[$i]['patrol_staff_name']);
+        }
+
+
+        $objWriter = PHPExcel_IOFactory::createWriter($objPHPExcel, 'CSV');
+
+
+        header('Content-Type: application/vnd.ms-excel');
+        header('Content-Disposition: attachment;filename="試務人員'. '.csv"');
+        header('Cache-Control: max-age=0');
+
+        $objWriter->save('php://output');        
+    }
+
+    public function e_4_1_2()
+    {
+        $this->load->library('excel');
+        $this->load->model('mod_patrol');
+        $this->load->model('mod_trial');
+        
+        $objPHPExcel = new PHPExcel();
+        $objPHPExcel->setActiveSheetIndex(0);
+        $arr = $this->mod_trial->get_list_for_csv();
+        for ($i=0; $i < count($arr); $i++) {
+            # code...
+            $objPHPExcel->getActiveSheet()->setCellValue('A1', '學年度');
+            $objPHPExcel->getActiveSheet()->setCellValue('B1', '監試人員');
+            $objPHPExcel->getActiveSheet()->setCellValue('C1', '監試日期');
+
+            $objPHPExcel->getActiveSheet()->setCellValue('A'.(2+$i), $arr[$i]['year']);
+            $objPHPExcel->getActiveSheet()->setCellValue('B'.(2+$i), $arr[$i]['name']);
+            $objPHPExcel->getActiveSheet()->setCellValue('C'.(2+$i), $arr[$i]['do_date']);
+        }
+
+        $objWriter = PHPExcel_IOFactory::createWriter($objPHPExcel, 'CSV');
+
+
+        header('Content-Type: application/vnd.ms-excel');
+        header('Content-Disposition: attachment;filename="監試人員'.'.csv"');
+        header('Cache-Control: max-age=0');
+
+        
+
+        $objWriter->save('php://output');
+
+    }
+
     public function e_5()
     {
         $this->mod_user->chk_status();
@@ -1418,6 +1478,141 @@ class Designated extends CI_Controller
         );
         $this->load->view('layout', $data);
     }
+
+   public function e_5_1_1()
+    {
+        $this->load->library('excel');
+        $this->load->model('mod_patrol');
+        $this->load->model('mod_trial');
+        
+        $objPHPExcel = new PHPExcel();
+        $objPHPExcel->setActiveSheetIndex(0);
+        $arr = $this->mod_trial->get_list_for_csv();
+        for ($i=0; $i < count($arr); $i++) {
+            # code...
+            $objPHPExcel->getActiveSheet()->setCellValue('A1', '分區');
+            $objPHPExcel->getActiveSheet()->setCellValue('B1', '職務');
+            $objPHPExcel->getActiveSheet()->setCellValue('C1', '監試人員');
+            $objPHPExcel->getActiveSheet()->setCellValue('D1', '編號');
+
+
+            $objPHPExcel->getActiveSheet()->setCellValue('A'.(2+$i), $arr[$i]['part_name']);
+            $objPHPExcel->getActiveSheet()->setCellValue('B'.(2+$i), '監試人員');
+            $objPHPExcel->getActiveSheet()->setCellValue('C'.(2+$i), $arr[$i]['member_name']);
+            $objPHPExcel->getActiveSheet()->setCellValue('D'.(2+$i), $arr[$i]['member_code']);
+            
+        }
+
+        $objWriter = PHPExcel_IOFactory::createWriter($objPHPExcel, 'CSV');
+
+
+        header('Content-Type: application/vnd.ms-excel');
+        header('Content-Disposition: attachment;filename="監試人員名牌'.'.csv"');
+        header('Cache-Control: max-age=0');
+
+        
+
+        $objWriter->save('php://output');
+
+    }    
+
+    public function e_5_1_2()
+    {
+        $this->load->library('excel');
+        $this->load->model('mod_task');
+        
+        $objPHPExcel = new PHPExcel();
+        $objPHPExcel->setActiveSheetIndex(0);
+        $arr = $this->mod_task->get_list_for_csv();
+        for ($i=0; $i < count($arr); $i++) {
+            # code...
+            $objPHPExcel->getActiveSheet()->setCellValue('A1', '分區');
+            $objPHPExcel->getActiveSheet()->setCellValue('B1', '職務');
+            $objPHPExcel->getActiveSheet()->setCellValue('C1', '試務人員');
+            $objPHPExcel->getActiveSheet()->setCellValue('D1', '編號');
+
+
+            $objPHPExcel->getActiveSheet()->setCellValue('A'.(2+$i), $arr[$i]['area']);
+            $objPHPExcel->getActiveSheet()->setCellValue('B'.(2+$i), $arr[$i]['job']);
+            $objPHPExcel->getActiveSheet()->setCellValue('C'.(2+$i), $arr[$i]['name']);
+            $objPHPExcel->getActiveSheet()->setCellValue('D'.(2+$i), $arr[$i]['job_code']);
+            
+        }
+
+        $objWriter = PHPExcel_IOFactory::createWriter($objPHPExcel, 'CSV');
+
+
+        header('Content-Type: application/vnd.ms-excel');
+        header('Content-Disposition: attachment;filename="試務人員名牌'.'.csv"');
+        header('Cache-Control: max-age=0');
+
+        
+
+        $objWriter->save('php://output');
+
+    }        
+
+   public function e_5_2_1()
+    {
+        $this->load->library('excel');
+        $this->load->model('mod_patrol');
+        $this->load->model('mod_trial');
+        
+        $objPHPExcel = new PHPExcel();
+        $objPHPExcel->setActiveSheetIndex(0);
+        $arr = $this->mod_trial->get_list_for_csv();
+        for ($i=0; $i < count($arr); $i++) {
+            # code...
+            $objPHPExcel->getActiveSheet()->setCellValue('A1', '單位');
+            $objPHPExcel->getActiveSheet()->setCellValue('B1', '監試人員');
+
+            $objPHPExcel->getActiveSheet()->setCellValue('A'.(2+$i), $arr[$i]['unit']);
+            $objPHPExcel->getActiveSheet()->setCellValue('B'.(2+$i), $arr[$i]['name']);
+        }
+
+        $objWriter = PHPExcel_IOFactory::createWriter($objPHPExcel, 'CSV');
+
+
+        header('Content-Type: application/vnd.ms-excel');
+        header('Content-Disposition: attachment;filename="監試人員標籤樣式'.'.csv"');
+        header('Cache-Control: max-age=0');
+
+        
+
+        $objWriter->save('php://output');
+
+    }
+
+   public function e_5_2_2()
+    {
+        $this->load->library('excel');
+        $this->load->model('mod_patrol');
+        
+        $objPHPExcel = new PHPExcel();
+        $objPHPExcel->setActiveSheetIndex(0);
+        $arr = $this->mod_patrol->get_patrol_for_csv();
+        for ($i=0; $i < count($arr); $i++) {
+            # code...
+            $objPHPExcel->getActiveSheet()->setCellValue('A1', '單位');
+            $objPHPExcel->getActiveSheet()->setCellValue('B1', '試務人員');
+
+            $objPHPExcel->getActiveSheet()->setCellValue('A'.(2+$i), $arr[$i]['member_unit']);
+            $objPHPExcel->getActiveSheet()->setCellValue('B'.(2+$i), $arr[$i]['member_name']);
+        }
+
+        $objWriter = PHPExcel_IOFactory::createWriter($objPHPExcel, 'CSV');
+
+
+        header('Content-Type: application/vnd.ms-excel');
+        header('Content-Disposition: attachment;filename="試務人員標籤樣式'.'.csv"');
+        header('Cache-Control: max-age=0');
+
+        
+
+        $objWriter->save('php://output');
+
+    }    
+
 
     public function e_6()
     {
@@ -1461,6 +1656,44 @@ class Designated extends CI_Controller
         $obj_pdf->Output('監試人員印領清冊.pdf', 'I');
     }
 
+    public function e_7()
+    {
+        $this->load->library('excel');
+        $this->load->model('mod_task');
+        
+        $objPHPExcel = new PHPExcel();
+        $objPHPExcel->setActiveSheetIndex(0);
+        $arr = $this->mod_task->get_list_for_csv();
+        for ($i=0; $i < count($arr); $i++) {
+            # code...
+            $objPHPExcel->getActiveSheet()->setCellValue('A1', '職員代碼');
+            $objPHPExcel->getActiveSheet()->setCellValue('B1', '姓名');
+            $objPHPExcel->getActiveSheet()->setCellValue('C1', '單位');
+            $objPHPExcel->getActiveSheet()->setCellValue('D1', '職稱');
+            $objPHPExcel->getActiveSheet()->setCellValue('E1', '執勤日期');
+
+
+
+            $objPHPExcel->getActiveSheet()->setCellValue('A'.(2+$i), $arr[$i]['job_code']);
+            $objPHPExcel->getActiveSheet()->setCellValue('B'.(2+$i), $arr[$i]['name']);
+            $objPHPExcel->getActiveSheet()->setCellValue('C'.(2+$i), $arr[$i]['member_unit']);
+            $objPHPExcel->getActiveSheet()->setCellValue('D'.(2+$i), $arr[$i]['job']);
+            $objPHPExcel->getActiveSheet()->setCellValue('E'.(2+$i), $arr[$i]['do_date']);
+
+        }
+
+        $objWriter = PHPExcel_IOFactory::createWriter($objPHPExcel, 'CSV');
+
+
+        header('Content-Type: application/vnd.ms-excel');
+        header('Content-Disposition: attachment;filename="檔案匯出'.'.csv"');
+        header('Cache-Control: max-age=0');
+
+        
+
+        $objWriter->save('php://output');
+
+    }
 
     /**
      * F 考程設定.

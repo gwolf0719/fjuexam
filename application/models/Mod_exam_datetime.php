@@ -145,9 +145,10 @@ class Mod_exam_datetime extends CI_Model
             # code...
             $this->db->where('year', $this->session->userdata('year'));
 
-            $this->db->where('field', $res[$i]['field'])->get('exam_area')->row_array();
+            $data[] = $this->db->where_in('field', $res[$i]['field'])->get('exam_area')->row_array();
         }
-        return $res;
+        
+        return $data;
     }
 
     public function chk_once($year)

@@ -140,6 +140,29 @@ class Mod_task extends CI_Model
         }
     }
 
+    public function get_list_for_csv()
+    {
+        $this->db->where('job_code !=', "");
+
+        $res = $this->db->get('district_task')->result_array();
+        if (!empty($res)) {
+            for ($i=0; $i < count($res); $i++) {
+                # code...
+                $member_unit = $this->db->where('member_code', $res[$i]['job_code'])->get('staff_member')->row_array();
+                $arr[] = array(
+                        'area' =>$res[$i]['area'],
+                        'job_code' => $res[$i]['job_code'],
+                        'job' => $res[$i]['job'],
+                        'job_title' => $res[$i]['job_title'],
+                        'name' => $res[$i]['name'],
+                        'member_unit'=>$member_unit['member_unit'],
+                        'do_date'=>$res[$i]['do_date']
+                    );
+            }
+            return $arr;
+        }
+    }    
+
 
     public function get_list_for_pdf()
     {
