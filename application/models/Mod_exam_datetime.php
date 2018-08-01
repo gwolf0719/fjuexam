@@ -81,30 +81,17 @@ class Mod_exam_datetime extends CI_Model
 
     public function get_once_day_section_test($res)
     {
+        $year = $this->session->userdata('year');
+
         for ($i=0; $i < count($res); $i++) {
-            # code...
-            $year = $this->session->userdata('year');
-            //先取得當天考試科目
-            $day = array();
-            foreach ($this->db->select('subject')->where('year', $year)->where('day', count($res[$i]['do_date']))->get('exam_course')->result_array() as $key => $value) {
-                // code...
-                if ($value['subject'] != 'subject_00') {
-                    $day[count($res[$i]['do_date'])][] = $value['subject'];
-                }
-            }
-            //將試場的值送入搜尋
-            $where = array();
-            foreach ($day[count($res[$i]['do_date'])] as $k => $v) {
-                $where = array(
+            $where = array(
                     'year' => $year,
                     'field' => $res[$i]['field'],
-                    $v.'!=' => 0,
                 );
-                // print_r($where);
-                $res = $this->db->where($where)->get('exam_area')->row_array();
-            }
-            return $res;
+                
+            $data = $this->db->where($where)->get('exam_area')->row_array();
         }
+        return $data;
     }
 
     public function get_day_section($start, $end)
@@ -145,9 +132,9 @@ class Mod_exam_datetime extends CI_Model
             # code...
             $this->db->where('year', $this->session->userdata('year'));
 
-            $data[] = $this->db->where_in('field', $res[$i]['field'])->get('exam_area')->row_array();
+            $data = $this->db->where('field', $res[$i]['field'])->get('exam_area')->row_array();
         }
-        
+        // print_r($data);
         return $data;
     }
 

@@ -2,7 +2,7 @@
     table {
         width: 780px;
         border: 1px solid #999999;
-        margin: 30px auto;
+        margin: 0px auto;
     }
 
     td {
@@ -72,18 +72,128 @@
         <td>地理</td>
         <td>公民與社會</td>
     </tr>
-
     <tr>
-        <td></td>
-        <td></td>
-        <td></td>
-        <td></td>
-        <td></td>
-        <td></td>
-        <td></td>
-        <td></td>
-        <td></td>
-        <td></td>
+        <td>
+            <?php
+            switch ($v['subject_01']) {
+                case '0':
+                    echo '';
+                    break;
+                default:
+                    echo 'V';
+            }
+
+            ?>
+
+        </td>
+        <td>
+            <?php
+            switch ($v['subject_02']) {
+                case '0':
+                    echo '';
+                    break;
+                default:
+                    echo 'V';
+            }
+
+            ?>
+        </td>
+        <td>
+            <?php
+            switch ($v['subject_03']) {
+                case '0':
+                    echo '';
+                    break;
+                default:
+                    echo 'V';
+            }
+
+            ?>
+        </td>
+        <td>
+            <?php
+            switch ($v['subject_04']) {
+                case '0':
+                    echo '';
+                    break;
+                default:
+                    echo 'V';
+            }
+
+            ?>
+        </td>
+        <td>
+            <?php
+            switch ($v['subject_05']) {
+                case '0':
+                    echo '';
+                    break;
+                default:
+                    echo 'V';
+            }
+
+            ?>
+        </td>
+        <td>
+            <?php
+            switch ($v['subject_06']) {
+                case '0':
+                    echo '';
+                    break;
+                default:
+                    echo 'V';
+            }
+
+            ?>
+        </td>
+        <td>
+            <?php
+            switch ($v['subject_07']) {
+                case '0':
+                    echo '';
+                    break;
+                default:
+                    echo 'V';
+            }
+
+            ?>
+        </td>
+        <td>
+            <?php
+            switch ($v['subject_08']) {
+                case '0':
+                    echo '';
+                    break;
+                default:
+                    echo 'V';
+            }
+
+            ?>
+        </td>
+        <td>
+            <?php
+            switch ($v['subject_09']) {
+                case '0':
+                    echo '';
+                    break;
+                default:
+                    echo 'V';
+            }
+
+            ?>
+        </td>
+        <td>
+            <?php
+            switch ($v['subject_10']) {
+                case '0':
+                    echo '';
+                    break;
+                default:
+                    echo 'V';
+            }
+
+            ?>
+        </td>
     </tr>
 </table>
 <table class="" id="" style="width:510px;padding:10px 4px 10px 4px;text-align:center;">

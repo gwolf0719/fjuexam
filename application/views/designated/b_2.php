@@ -120,11 +120,23 @@
             }).done(function(data) {
                 var chk = data.info.do_date.split(",")
                 var lenght = data.info.do_date.split(",").length;
-                for (i = 1; i <= lenght; i++) {
-                    if (chk[i - 1] != undefined) {
-                        $('input:checkbox[name="day"]').eq(i - 1).prop("checked", true);
+
+
+                // for (i = 0; i < lenght + 1; i++) {
+                $('input:checkbox[name="day"]').each(function() {
+                    console.log($(this).val());
+                    if (chk[0] == $(this).val()) {
+                        $(this).prop("checked", true);
                     }
-                }
+                    if (chk[1] == $(this).val()) {
+                        $(this).prop("checked", true);
+                    }
+                    if (chk[2] == $(this).val()) {
+                        $(this).prop("checked", true);
+                    }
+                })
+                // }
+
                 if (data.info.do_date == "") {
                     $('input:checkbox[name="day"]').eq(0).prop("checked", false);
                     $('input:checkbox[name="day"]').eq(1).prop("checked", false);

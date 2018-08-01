@@ -195,17 +195,18 @@
                         $("#day_total").val(data.info.total);
                         break;
                     case "":
-                        $("#calculation").val("by_day");
-                        $("#day_count").show();
-                        $("#one_day_salary").show();
-                        $("#day_salary_total").show();
-                        $("#day_lunch_total").show();
-                        $("#day_total").show();
-                        $("#section_count").hide();
-                        $("#salary_section").hide()
-                        $("#section_salary_total").hide();
-                        $("#section_lunch_total").hide();
-                        $("#section_total").hide();
+                        $("#calculation").val("by_section");
+                        $("#section_count").show();
+                        $("#salary_section").show()
+                        $("#section_salary_total").show();
+                        $("#section_lunch_total").show();
+                        $("#section_total").show();
+                        $("#day_count").hide();
+                        $("#one_day_salary").hide();
+                        $("#day_salary_total").hide();
+                        $("#day_lunch_total").hide();
+                        $("#day_total").hide();
+
                         break;
 
                 }
@@ -727,27 +728,27 @@
                     <div class="form-group">
                         <label for="trial_end" class="" style="float:left;">計算方式</label>
                         <select class="form-control" id="calculation">
-                            <option value="by_day">以天計算</option>
                             <option value="by_section">以節計算</option>
+                            <option value="by_day">以天計算</option>
                         </select>
                     </div>
                 </div>
                 <div class="col-md-3 col-sm-3 col-xs-3 cube" style="float:left">
                     <div class="form-group">
                         <label for="start_date" class="" style="float:left;">天數/節數</label>
-                        <input type="text" class="form-control" id="day_count" readonly>
-                        <input type="text" class="form-control" style="display:none" id="section_count" readonly>
+                        <input type="text" class="form-control" style="display:none" id="day_count" readonly>
+                        <input type="text" class="form-control" id="section_count" readonly>
                     </div>
                     <div class="form-group" style="padding: 0% 3%;">
                         <div class="W50">
                             <label for="trial_start" class="" style="float:left;width: 50%;">薪資單價</label>
-                            <input type="text" class="form-control" id="one_day_salary" value="<?=$fees_info['one_day_salary']; ?>">
-                            <input type="text" class="form-control" id="salary_section" style="display:none" value="<?=$fees_info['salary_section']; ?>">
+                            <input type="text" class="form-control" id="one_day_salary" style="display:none" value="<?=$fees_info['one_day_salary']; ?>">
+                            <input type="text" class="form-control" id="salary_section" value="<?=$fees_info['salary_section']; ?>">
                         </div>
                         <div class="W50">
                             <label for="trial_start" class="" style="float:left;width: 50%;">薪資總計</label>
-                            <input type="text" class="form-control" id="day_salary_total" value="0" readonly>
-                            <input type="text" class="form-control" id="section_salary_total" style="display:none" value="0" readonly>
+                            <input type="text" class="form-control" id="day_salary_total" style="display:none" value="0" readonly>
+                            <input type="text" class="form-control" id="section_salary_total" value="0" readonly>
                         </div>
                     </div>
                     <div class="form-group" style="padding: 0% 3%;">
@@ -757,14 +758,14 @@
                         </div>
                         <div class="W50">
                             <label for="trial_start" class="" style="float:left;width: 50%;">便當總計</label>
-                            <input type="text" class="form-control" id="day_lunch_total" value="0" readonly>
-                            <input type="text" class="form-control" id="section_lunch_total" style="display:none" value="0" readonly>
+                            <input type="text" class="form-control" id="day_lunch_total" style="display:none" value="0" readonly>
+                            <input type="text" class="form-control" id="section_lunch_total" value="0" readonly>
                         </div>
                     </div>
                     <div class="form-group">
                         <label for="trial_end" class="" style="float:left;">總計</label>
-                        <input type="text" class="form-control" id="day_total" value="0">
-                        <input type="text" class="form-control" id="section_total" style="display:none" value="0">
+                        <input type="text" class="form-control" id="day_total" style="display:none" value="0" readonly>
+                        <input type="text" class="form-control" id="section_total" value="0" readonly>
                     </div>
                 </div>
                 <div class="col-md-6 col-sm-6 col-xs-6 " style="float:left;margin: 20px auto;">

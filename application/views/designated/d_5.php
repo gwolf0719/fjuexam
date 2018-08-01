@@ -152,7 +152,6 @@
         $("body").on("click", "tr", function() {
             var sn = $(this).attr("sn");
 
-
             $("html, body").animate({
                 scrollTop: $("body").height()
             }, 1000);
@@ -190,7 +189,13 @@
                 var section_count = parseInt(data.info.first_section) + parseInt(data.info.second_section) +
                     parseInt(data.info.third_section);
                 var day_arr = [data.info.first_section, data.info.second_section, data.info.third_section];
+                var count = day_arr.filter(function(value) {
+                    return value != "0";
+                });
+                console.log(count);
+                $("#lunch").val(count.length);
                 var uses_day_count = day_arr.length;
+                console.log(data.info.calculation);
                 switch (data.info.calculation) {
                     case "by_section":
                         $("#calculation").val("by_section");
@@ -204,12 +209,19 @@
                         $("#section_salary_total").show();
                         $("#section_lunch_total").show();
                         $("#section_total").show();
-                        $("#section_count").val(data.info.count);
+                        $("#section_count").val(section_count);
                         $("#lunch_price").val(data.info.lunch_price);
                         $("#salary_section").val(data.info.salary);
-                        $("#section_salary_total").val(data.info.salary_total);
-                        $("#section_lunch_total").val(data.info.lunch_total);
-                        $("#section_total").val(data.info.total);
+                        var section_salary_total = parseInt($("#salary_section").val()) *
+                            parseInt($(
+                                "#section_count").val());
+                        $("#section_salary_total").val(section_salary_total);
+                        var section_lunch_total = 0 - parseInt($("#lunch_price").val()) *
+                            parseInt($(
+                                "#lunch").val());
+                        $("#section_lunch_total").val(section_lunch_total);
+                        var section_total = section_salary_total + section_lunch_total;
+                        $("#section_total").val(section_total);
                         break;
                     case "by_day":
                         $("#calculation").val("by_day");
@@ -223,7 +235,7 @@
                         $("#section_salary_total").hide();
                         $("#section_lunch_total").hide();
                         $("#section_total").hide();
-                        $("#day_count").val(data.info.count);
+                        $("#day_count").val(count.length);
                         $("#one_day_salary").val(data.info.salary);
                         $("#lunch_price").val(data.info.lunch_price);
                         $("#day_salary_total").val(data.info.salary_total);
@@ -231,24 +243,30 @@
                         $("#day_total").val(data.info.total);
                         break;
                     case "":
-                        $("#calculation").val("by_day");
-                        $("#day_count").show();
-                        $("#one_day_salary").show();
-                        $("#day_salary_total").show();
-                        $("#day_lunch_total").show();
-                        $("#day_total").show();
-                        $("#section_count").hide();
-                        $("#salary_section").hide()
-                        $("#section_salary_total").hide();
-                        $("#section_lunch_total").hide();
-                        $("#section_total").hide();
-                        $("#section_count").val(data.info.count);
-                        $("#day_count").val(uses_day_count);
+                        $("#calculation").val("by_section");
+                        $("#section_count").show();
+                        $("#salary_section").show()
+                        $("#section_salary_total").show();
+                        $("#section_lunch_total").show();
+                        $("#section_total").show();
+                        $("#day_count").hide();
+                        $("#one_day_salary").hide();
+                        $("#day_salary_total").hide();
+                        $("#day_lunch_total").hide();
+                        $("#day_total").hide();
+                        $("#section_count").val(section_count);
+                        $("#day_count").val(count.length);
                         $("#lunch_price").val( <?=$fees_info['lunch_fee']; ?> );
-                        var day_salary_total = parseInt($("#one_day_salary").val()) * parseInt(
-                            $("#day_count").val());
-                        $("#day_salary_total").val(day_salary_total);
-                        $("#day_total").val($("#day_salary_total").val());
+                        var section_salary_total = parseInt($("#salary_section").val()) *
+                            parseInt($(
+                                "#section_count").val());
+                        $("#section_salary_total").val(section_salary_total);
+                        var section_lunch_total = 0 - parseInt($("#lunch_price").val()) *
+                            parseInt($(
+                                "#lunch").val());
+                        $("#section_lunch_total").val(section_lunch_total);
+                        var section_total = section_salary_total + section_lunch_total;
+                        $("#section_total").val(section_total);
                         break;
 
                 }
@@ -316,7 +334,7 @@
                     lunch_total = $("#section_lunch_total").val()
                     total = $("#section_total").val()
                 } else {
-                    count = $("#day_count").val();
+                    count = $("#lunch").val();
                     salary = $("#one_day_salary").val();
                     salary_total = $("#day_salary_total").val()
                     lunch_price = $("#lunch_price").val()
@@ -383,7 +401,7 @@
                 $("#section_total").val(section_salary_total);
             } else {
                 var section_lunch_total = 0 - parseInt($("#lunch_price").val()) * parseInt($(
-                    "#day_count").val());
+                    "#lunch").val());
                 $("#section_lunch_total").val(section_lunch_total);
                 var section_total = section_salary_total + section_lunch_total;
                 $("#section_total").val(section_total);
@@ -391,7 +409,7 @@
         })
 
         $("body").on("keyup", "#lunch_price", function() {
-            var lunch_total = 0 - $(this).val() * $("#day_count").val();
+            var lunch_total = 0 - $(this).val() * $("#lunch").val();
             $("#day_lunch_total").val(lunch_total);
             $("#section_lunch_total").val(lunch_total);
             var day_total = parseInt($("#day_salary_total").val()) + parseInt($("#day_lunch_total").val());
@@ -412,13 +430,13 @@
                 var section_salary_total = parseInt($("#salary_section").val()) * parseInt($(
                     "#section_count").val());
                 var section_lunch_total = 0 - parseInt($("#lunch_price").val()) * parseInt($(
-                    "#day_count").val());
+                    "#lunch").val());
                 $("#section_lunch_total").val(section_lunch_total);
                 var section_total = section_salary_total + section_lunch_total;
                 $("#section_total").val(section_total);
                 // 天數
-                var day_salary_total = parseInt($("#one_day_salary").val()) * parseInt($("#day_count").val());
-                var day_lunch_total = 0 - parseInt($("#lunch_price").val()) * parseInt($("#day_count").val());
+                var day_salary_total = parseInt($("#one_day_salary").val()) * parseInt($("#lunch").val());
+                var day_lunch_total = 0 - parseInt($("#lunch_price").val()) * parseInt($("#lunch").val());
                 $("#day_lunch_total").val(day_lunch_total);
                 var day_total = day_salary_total + day_lunch_total;
                 $("#day_total").val(day_total);
@@ -454,7 +472,7 @@
                     var section_salary_total = parseInt($("#salary_section").val()) * parseInt($(
                         "#section_count").val());
                     var section_lunch_total = 0 - parseInt($("#lunch_price").val()) * parseInt($(
-                        "#day_count").val());
+                        "#lunch").val());
                     $("#section_lunch_total").val(section_lunch_total);
                     var section_total = section_salary_total + section_lunch_total;
                     $("#section_total").val(section_total);
@@ -462,7 +480,7 @@
                     var day_salary_total = parseInt($("#one_day_salary").val()) * parseInt($(
                         "#day_count").val());
                     var day_lunch_total = 0 - parseInt($("#lunch_price").val()) * parseInt($(
-                        "#day_count").val());
+                        "#lunch").val());
                     $("#day_lunch_total").val(day_lunch_total);
                     var day_total = day_salary_total + day_lunch_total;
                     $("#day_total").val(day_total);
@@ -479,6 +497,9 @@
                 $("#section_salary_total").hide();
                 $("#section_lunch_total").hide();
                 $("#section_total").hide();
+                $("#day_count").val($("#lunch").val());
+                var day_salary_total = parseInt($("#day_count").val()) * parseInt($("#one_day_salary").val())
+                $("#day_salary_total").val(day_salary_total)
                 if ($("#order_meal").prop("checked") == false) {
                     $("#day_total").val($("#day_salary_total").val());
                     $("#section_total").val($("#section_salary_total").val());
@@ -493,9 +514,9 @@
                     $("#section_total").val(section_total);
                     // 天數
                     var day_salary_total = parseInt($("#one_day_salary").val()) * parseInt($(
-                        "#day_count").val());
+                        "#lunch").val());
                     var day_lunch_total = 0 - parseInt($("#lunch_price").val()) * parseInt($(
-                        "#day_count").val());
+                        "#lunch").val());
                     $("#day_lunch_total").val(day_lunch_total);
                     var day_total = day_salary_total + day_lunch_total;
                     $("#day_total").val(day_total);
@@ -839,27 +860,27 @@
                     <div class="form-group">
                         <label for="trial_end" class="" style="float:left;">計算方式</label>
                         <select class="form-control" id="calculation">
-                            <option value="by_day">以天計算</option>
                             <option value="by_section">以節計算</option>
+                            <option value="by_day">以天計算</option>
                         </select>
                     </div>
                 </div>
                 <div class="col-md-3 col-sm-3 col-xs-3 cube W20">
                     <div class="form-group">
                         <label for="start_date" class="" style="float:left;">天數/節數</label>
-                        <input type="text" class="form-control" id="day_count" readonly value="0">
-                        <input type="text" class="form-control" style="display:none" id="section_count" readonly value="0">
+                        <input type="text" class="form-control" style="display:none" id="day_count" readonly value="0">
+                        <input type="text" class="form-control" id="section_count" readonly value="0">
                     </div>
                     <div class="form-group" style="padding: 0% 3%;">
                         <div class="W50">
                             <label for="trial_start" class="" style="float:left;width: 50%;">薪資單價</label>
-                            <input type="text" class="form-control" id="one_day_salary" value="<?=$fees_info['one_day_salary']; ?>">
-                            <input type="text" class="form-control" id="salary_section" style="display:none" value="<?=$fees_info['salary_section']; ?>">
+                            <input type="text" class="form-control" id="one_day_salary" style="display:none" value="<?=$fees_info['one_day_salary']; ?>">
+                            <input type="text" class="form-control" id="salary_section" value="<?=$fees_info['salary_section']; ?>">
                         </div>
                         <div class="W50">
                             <label for="trial_start" class="" style="float:left;width: 50%;">薪資總計</label>
-                            <input type="text" class="form-control" id="day_salary_total" value="0" readonly>
-                            <input type="text" class="form-control" id="section_salary_total" style="display:none" value="0" readonly>
+                            <input type="text" class="form-control" id="day_salary_total" style="display:none" value="0" readonly>
+                            <input type="text" class="form-control" id="section_salary_total" value="0" readonly>
                         </div>
                     </div>
                     <div class="form-group" style="padding: 0% 3%;">
@@ -869,14 +890,15 @@
                         </div>
                         <div class="W50">
                             <label for="trial_start" class="" style="float:left;width: 50%;">便當總計</label>
-                            <input type="text" class="form-control" id="day_lunch_total" value="0" readonly>
-                            <input type="text" class="form-control" id="section_lunch_total" style="display:none" value="0" readonly>
+                            <input type="text" class="form-control" id="day_lunch_total" style="display:none" value="0" readonly>
+                            <input type="text" class="form-control" id="section_lunch_total" value="0" readonly>
+                            <input type="hidden" name="lunch" id="lunch" value="">
                         </div>
                     </div>
                     <div class="form-group">
                         <label for="trial_end" class="" style="float:left;">總計</label>
-                        <input type="text" class="form-control" id="day_total" value="0" readonly>
-                        <input type="text" class="form-control" id="section_total" style="display:none" value="0" readonly>
+                        <input type="text" class="form-control" id="day_total" style="display:none" value="0" readonly>
+                        <input type="text" class="form-control" id="section_total" value="0" readonly>
                     </div>
                 </div>
                 <div class="col-md-6 col-sm-6 col-xs-6 " style="float:left;margin: 20px auto;">

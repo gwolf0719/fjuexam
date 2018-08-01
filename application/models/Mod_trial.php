@@ -65,6 +65,7 @@ class Mod_trial extends CI_Model
         $this->db->join('trial_assign', 'part_info.sn = trial_assign.sn');
         
         $this->db->where('first_member_do_date !=', "");
+        $year = $this->session->userdata('year');
 
         $res = $this->db->get()->result_array();
 
@@ -83,7 +84,9 @@ class Mod_trial extends CI_Model
             $supervisor1 = $this->db->where('member_code', $sub[$i]['supervisor_1_code'])->get('staff_member')->row_array();
             $supervisor2 = $this->db->where('member_code', $sub[$i]['supervisor_2_code'])->get('staff_member')->row_array();
             $patrol = $this->db->where('start <=', $sub[$i]['start'])->where('end >=', $sub[$i]['end'])->get('patrol_staff')->row_array();
-
+            $course = $this->db->where('year', $year)->where('field', $sub[$i]['field'])->get('exam_area')->row_array();
+            $trial = $this->db->get('trial_staff')->result_array();
+            // print_r($trial);
             $arr[] = array(
                 'sn'=>$sub[$i]['sn'],
                 'field' => $sub[$i]['field'],
@@ -109,6 +112,16 @@ class Mod_trial extends CI_Model
                 'start'=>$sub[$i]['start'],
                 'end'=>$sub[$i]['end'],
                 'patrol'=>$patrol['patrol_staff_name'],
+                'subject_01'=>$course['subject_01'],
+                'subject_02'=>$course['subject_02'],
+                'subject_03'=>$course['subject_03'],
+                'subject_04'=>$course['subject_04'],
+                'subject_05'=>$course['subject_05'],
+                'subject_06'=>$course['subject_06'],
+                'subject_07'=>$course['subject_07'],
+                'subject_08'=>$course['subject_08'],
+                'subject_09'=>$course['subject_09'],
+                'subject_10'=>$course['subject_10'],
             );
         }
         return $arr;
@@ -147,7 +160,7 @@ class Mod_trial extends CI_Model
             // foreach ($res as $k => $v) {
             $name = array_merge($supervisor1, $supervisor2);
             # code...
-                $arr[] = array(
+            $arr[] = array(
                     'year' => $sub[$i]['year'],
                     'part_name'=>$sub[$i]['part_name'],
                     'do_date' => $sub[$i]['first_member_do_date'],

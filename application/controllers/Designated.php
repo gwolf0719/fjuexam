@@ -1318,12 +1318,14 @@ class Designated extends CI_Controller
         $datetime_info = $this->mod_exam_datetime->get_once($year);
         $course = $this->mod_exam_datetime->get_course($year);
         $res = $this->mod_trial->get_list_for_pdf($part);
+        $course_info = $this->mod_exam_datetime->get_once_day_section_test($res);
+        
         $data = array(
             'part' => $res,
             'area' =>$area,
             'course' => $course,
             'datetime_info' => $datetime_info,
-            'course_info' => $this->mod_exam_datetime->get_once_course($res)
+            'course_info' => $course_info
         );
         $view =  $this->load->view('designated/e_3_1', $data, true);
 
@@ -1410,7 +1412,7 @@ class Designated extends CI_Controller
         header('Content-Disposition: attachment;filename="試務人員'. '.csv"');
         header('Cache-Control: max-age=0');
 
-        $objWriter->save('php://output');        
+        $objWriter->save('php://output');
     }
 
     public function e_4_1_2()
@@ -1443,7 +1445,6 @@ class Designated extends CI_Controller
         
 
         $objWriter->save('php://output');
-
     }
 
     public function e_5()
@@ -1479,7 +1480,7 @@ class Designated extends CI_Controller
         $this->load->view('layout', $data);
     }
 
-   public function e_5_1_1()
+    public function e_5_1_1()
     {
         $this->load->library('excel');
         $this->load->model('mod_patrol');
@@ -1500,7 +1501,6 @@ class Designated extends CI_Controller
             $objPHPExcel->getActiveSheet()->setCellValue('B'.(2+$i), '監試人員');
             $objPHPExcel->getActiveSheet()->setCellValue('C'.(2+$i), $arr[$i]['member_name']);
             $objPHPExcel->getActiveSheet()->setCellValue('D'.(2+$i), $arr[$i]['member_code']);
-            
         }
 
         $objWriter = PHPExcel_IOFactory::createWriter($objPHPExcel, 'CSV');
@@ -1513,8 +1513,7 @@ class Designated extends CI_Controller
         
 
         $objWriter->save('php://output');
-
-    }    
+    }
 
     public function e_5_1_2()
     {
@@ -1536,7 +1535,6 @@ class Designated extends CI_Controller
             $objPHPExcel->getActiveSheet()->setCellValue('B'.(2+$i), $arr[$i]['job']);
             $objPHPExcel->getActiveSheet()->setCellValue('C'.(2+$i), $arr[$i]['name']);
             $objPHPExcel->getActiveSheet()->setCellValue('D'.(2+$i), $arr[$i]['job_code']);
-            
         }
 
         $objWriter = PHPExcel_IOFactory::createWriter($objPHPExcel, 'CSV');
@@ -1549,10 +1547,9 @@ class Designated extends CI_Controller
         
 
         $objWriter->save('php://output');
+    }
 
-    }        
-
-   public function e_5_2_1()
+    public function e_5_2_1()
     {
         $this->load->library('excel');
         $this->load->model('mod_patrol');
@@ -1580,10 +1577,9 @@ class Designated extends CI_Controller
         
 
         $objWriter->save('php://output');
-
     }
 
-   public function e_5_2_2()
+    public function e_5_2_2()
     {
         $this->load->library('excel');
         $this->load->model('mod_patrol');
@@ -1610,8 +1606,7 @@ class Designated extends CI_Controller
         
 
         $objWriter->save('php://output');
-
-    }    
+    }
 
 
     public function e_6()
@@ -1679,7 +1674,6 @@ class Designated extends CI_Controller
             $objPHPExcel->getActiveSheet()->setCellValue('C'.(2+$i), $arr[$i]['member_unit']);
             $objPHPExcel->getActiveSheet()->setCellValue('D'.(2+$i), $arr[$i]['job']);
             $objPHPExcel->getActiveSheet()->setCellValue('E'.(2+$i), $arr[$i]['do_date']);
-
         }
 
         $objWriter = PHPExcel_IOFactory::createWriter($objPHPExcel, 'CSV');
@@ -1692,7 +1686,6 @@ class Designated extends CI_Controller
         
 
         $objWriter->save('php://output');
-
     }
 
     /**
