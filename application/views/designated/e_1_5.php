@@ -64,3 +64,7 @@
     </tr>
     <?php endforeach; ?>
 </table>
+<p>
+    共計：
+    <?=count($part)*2?>人
+</p>

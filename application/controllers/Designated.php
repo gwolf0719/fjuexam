@@ -1137,7 +1137,8 @@ class Designated extends CI_Controller
         $obj_pdf->AddPage();
         $data = array(
             'part' => $this->mod_trial->get_dinner_list_for_pdf($part),
-            'area' => $area
+            'area' => $area,
+            // 'deal' => $this->mod_trial->get_all_meal_count($part),
         );
         $view =  $this->load->view('designated/e_1_5', $data, true);
         $obj_pdf->writeHTML($view);

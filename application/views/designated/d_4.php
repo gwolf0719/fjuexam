@@ -489,18 +489,18 @@
         })
 
         $("body").on("keyup", "#second_member_salary_section", function() {
-            var day_total = $(this).val() * $("#second_member_section_count").val();
-            $("#second_member_section_total").val(day_total);
+            var section_total = $(this).val() * $("#second_member_section_count").val();
+            $("#second_member_section_salary_total").val(section_total);
             //計算總金額 (排除沒訂餐)
             if ($("#second_member_order_meal").val() == "N") {
-                $("#second_member_day_total").val(day_total);
+                $("#second_member_section_total").val(section_total);
             } else {
                 var second_member_section_lunch_total = parseInt($("#second_member_day_count").val()) *
                     parseInt($("#second_member_lunch_price").val());
                 var second_member_section_lunch_total = 0 - second_member_section_lunch_total;
                 $("#second_member_section_lunch_total").val(second_member_section_lunch_total);
                 var second_member_section_total = parseInt($("#second_member_section_salary_total").val()) +
-                    parseInt($("#second_member_day_lunch_total").val());
+                    parseInt($("#second_member_section_lunch_total").val());
                 $("#second_member_section_total").val(second_member_section_total);
             }
         })

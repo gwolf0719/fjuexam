@@ -197,11 +197,31 @@ class Mod_trial extends CI_Model
                 'order_meal_1' => $supervisor1['meal'],
                 'supervisor_2' => $res[$i]['supervisor_2'],
                 'supervisor_2_code' => $res[$i]['supervisor_2_code'],
-                'order_meal_2' => $supervisor2['meal']
+                'order_meal_2' => $supervisor2['meal'],
             );
         }
         return $arr;
     }
+
+    // public function get_all_meal_count($part = '')
+    // {
+    //     $this->db->select('*');
+    //     if ($part != '') {
+    //         $this->db->where('part', $part);
+    //     }
+    //     $this->db->from('part_info');
+    //     $this->db->join('trial_assign', 'part_info.sn = trial_assign.sn');
+
+    //     $res = $this->db->get()->result_array();
+
+
+    //     for ($i=0; $i < count($res); $i++) {
+    //         # code...
+    //         $this->db->where('member_code', $res[$i]['supervisor_1_code']);
+    //         $veg1 = $this->db->get('staff_member')->row_array();
+    //         // print_r(count($veg1));
+    //     }
+    // }
 
     public function get_trial_list($part = '')
     {

@@ -531,3 +531,28 @@
     <?php endforeach; ?>
 
 </table>
+<table class="" id="" style="width:510px;padding:5px 2px 5px 2px;text-align:center;">
+    <tr>
+        <td>共計</td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+    </tr>
+</table>
