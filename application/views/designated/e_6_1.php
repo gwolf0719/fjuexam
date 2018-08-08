@@ -26,27 +26,23 @@
     <?=$area?>
 </h3>
 
-<table class="" id="" style="width:510px;padding:10px 4px 10px 4px;text-align:center;">
+<table class="" id="" style="padding:4px;text-align:center;">
     <thead>
         <tr>
-            <th>試場</th>
+            <th rowspan="2">試場</th>
             <th colspan="4" class="bb">監試人員(1)</th>
-            <th>簽名</th>
-            <th colspan="4" class="bb">監試人員(2)</th>
-            <th>簽名</th>
+            <th rowspan="2">簽名或蓋章</th>
+            <th colspan="3" class="bb">監試人員(2)</th>
+            <th rowspan="2">簽名或蓋章</th>
         </tr>
         <tr>
-            <td></td>
             <td>監考費</td>
             <td>姓名</td>
             <td>餐費</td>
             <td>應領費用</td>
-            <td></td>
-            <td>監考費</td>
             <td>姓名</td>
             <td>餐費</td>
             <td>應領費用</td>
-            <td></td>
         </tr>
     </thead>
     <?php foreach ($part as $k => $v): ?>
@@ -79,9 +75,6 @@
             ?>
         </td>
         <td></td>
-        <td>
-            <?=$v['second_member_salary_section']?>
-        </td>
         <td>
             <?=$v['supervisor_2']?>
         </td>

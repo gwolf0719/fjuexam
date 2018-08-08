@@ -170,11 +170,12 @@ class Designated extends CI_Controller
                         'year' => $this->session->userdata('year'),
                         'member_code' => $data[0],
                         'member_name' => $data[1],
-                        'member_unit' => $data[2],
-                        'member_title' => $data[3],
-                        'member_phone' => $data[4],
-                        'order_meal' => $data[5],
-                        'meal' => $data[6],
+                        'unit'=>$data[2],
+                        'member_unit' => $data[3],
+                        'member_title' => $data[4],
+                        'member_phone' => $data[5],
+                        'order_meal' => $data[6],
+                        'meal' => $data[7],
                     );
                 }
                 // print_r($datas);
@@ -1102,10 +1103,20 @@ class Designated extends CI_Controller
                 $course[$i]['subject'] = '';
             }
         }
+        if ($this->mod_exam_datetime->chk_once($year)) {
+            $datetime_info = $this->mod_exam_datetime->get_once($year);
+        } else {
+            $datetime_info = array(
+                'day_1' => '07/01',
+                'day_2' => '07/02',
+                'day_3' => '07/03',
+            );
+        }
         
         $data = array(
             'list' => $this->mod_exam_area->year_get_list(),
-            'course' => $this->mod_exam_datetime->get_course($year)
+            'course' => $this->mod_exam_datetime->get_course($year),
+            'datetime_info'=>$datetime_info
         );
         $view =  $this->load->view('designated/e_1_4', $data, true);
         $obj_pdf->writeHTML($view);
@@ -1637,7 +1648,7 @@ class Designated extends CI_Controller
         $obj_pdf->setPrintHeader(false);
         // $obj_pdf->SetHeaderMargin(PDF_MARGIN_HEADER);
         $obj_pdf->SetFooterMargin(PDF_MARGIN_FOOTER);
-        $obj_pdf->SetMargins(PDF_MARGIN_LEFT, PDF_MARGIN_RIGHT);
+        $obj_pdf->SetMargins(3, 3);
         $obj_pdf->SetAutoPageBreak(true, PDF_MARGIN_BOTTOM);
         $obj_pdf->SetFont('msungstdlight', 'B', 10);
 

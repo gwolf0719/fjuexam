@@ -24,142 +24,42 @@
     </h2>
 </div>
 
-<table class="" id="" style="width:510px;padding:10px 4px 10px 4px;text-align:center;">
-    <thead>
-        <tr style="background:#FFE4E7">
-            <th>試場</th>
-            <th>考試節數</th>
-            <th>考生起訖號碼</th>
-            <th>人數</th>
-            <th>樓層別</th>
-            <th>監試人員</th>
-            <th>監試人員</th>
-            <th>試務人員</th>
-        </tr>
-    </thead>
-    <tbody>
-        <?php foreach ($part as $k => $v): ?>
-        <tr>
-            <td>
-                <?=$v['field']?>
-            </td>
-            <td>
-                <?=$v['test_section']; ?>
-            </td>
-            <td>
-                <?=$v['start']; ?>
-                <br>~
-                <br>
-                <?=$v['end']; ?>
-            </td>
-            <td>
-                <?=$v['number']; ?>
-            </td>
-            <td>
-                <?=$v['floor']; ?>
-            </td>
-            <td>
-                <?=$v['supervisor_1']?>
-            </td>
-            <td>
-                <?=$v['supervisor_2']?>
-            </td>
-            <td>
-                <?=$v['patrol']?>
-            </td>
-        </tr>
-        <?php endforeach; ?>
-    </tbody>
-</table>
-
-<table class="" id="" style="width:510px;padding:10px 4px 10px 4px;text-align:center;">
-    <thead>
-        <tr style="background:#FFE4E7">
-            <th>試場</th>
-            <th>考試節數</th>
-            <th>考生起訖號碼</th>
-            <th>人數</th>
-            <th>樓層別</th>
-            <th>監試人員</th>
-            <th>監試人員</th>
-            <th>試務人員</th>
-        </tr>
-    </thead>
-    <tbody>
-        <?php foreach ($part2 as $k => $v): ?>
-        <tr>
-            <td>
-                <?=$v['field']?>
-            </td>
-            <td>
-                <?=$v['test_section']; ?>
-            </td>
-            <td>
-                <?=$v['start']; ?>~
-                <?=$v['end']; ?>
-            </td>
-            <td>
-                <?=$v['number']; ?>
-            </td>
-            <td>
-                <?=$v['floor']; ?>
-            </td>
-            <td>
-                <?=$v['supervisor_1']?>
-            </td>
-            <td>
-                <?=$v['supervisor_2']?>
-            </td>
-            <td>
-                <?=$v['patrol']?>
-            </td>
-        </tr>
-        <?php endforeach; ?>
-    </tbody>
-</table>
-
-<table class="" id="" style="width:510px;padding:10px 4px 10px 4px;text-align:center;">
-    <thead>
-        <tr style="background:#FFE4E7">
-            <th>試場</th>
-            <th>考試節數</th>
-            <th>考生起訖號碼</th>
-            <th>人數</th>
-            <th>樓層別</th>
-            <th>監試人員</th>
-            <th>監試人員</th>
-            <th>試務人員</th>
-        </tr>
-    </thead>
-    <tbody>
-        <?php foreach ($part3 as $k => $v): ?>
-        <tr>
-            <td>
-                <?=$v['field']?>
-            </td>
-            <td>
-                <?=$v['test_section']; ?>
-            </td>
-            <td>
-                <?=$v['start']; ?>~
-                <?=$v['end']; ?>
-            </td>
-            <td>
-                <?=$v['number']; ?>
-            </td>
-            <td>
-                <?=$v['floor']; ?>
-            </td>
-            <td>
-                <?=$v['supervisor_1']?>
-            </td>
-            <td>
-                <?=$v['supervisor_2']?>
-            </td>
-            <td>
-                <?=$v['patrol']?>
-            </td>
-        </tr>
-        <?php endforeach; ?>
-    </tbody>
+<table class="" id="" style="width:510px;padding:4px;text-align:center;">
+    <tr style="background:#FFE4E7">
+        <th>試場</th>
+        <th>考試節數</th>
+        <th colspan="2">考生起訖號碼</th>
+        <th>樓層別</th>
+        <th>監試人員</th>
+        <th>監試人員</th>
+        <th>試務人員</th>
+    </tr>
+    <?php foreach ($part as $k => $v): ?>
+    <tr>
+        <td>
+            <?=$v['field']?>
+        </td>
+        <td>
+            <?=$v['test_section']; ?>
+        </td>
+        <td>
+            <?=$v['start']; ?>
+        </td>
+        <td>
+            <?=$v['end']; ?>
+        </td>
+        <td>
+            <?=$v['floor']; ?>
+        </td>
+        <td>
+            <?=$v['supervisor_1']?>
+        </td>
+        <td>
+            <?=$v['supervisor_2']?>
+        </td>
+        <td>
+            <?=$v['patrol']?>
+        </td>
+    </tr>
+    <?php endforeach; ?>
 </table>

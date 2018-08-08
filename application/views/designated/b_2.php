@@ -125,14 +125,20 @@
                 // for (i = 0; i < lenght + 1; i++) {
                 $('input:checkbox[name="day"]').each(function() {
                     console.log($(this).val());
-                    if (chk[0] == $(this).val()) {
-                        $(this).prop("checked", true);
-                    }
-                    if (chk[1] == $(this).val()) {
-                        $(this).prop("checked", true);
-                    }
-                    if (chk[2] == $(this).val()) {
-                        $(this).prop("checked", true);
+                    // if (chk[0] == $(this).val()) {
+                    //     $(this).prop("checked", true);
+                    // }
+                    // if (chk[1] == $(this).val()) {
+                    //     $(this).prop("checked", true);
+                    // }
+                    // if (chk[2] == $(this).val()) {
+                    //     $(this).prop("checked", true);
+                    // }
+                    for (let index = 0; index < lenght; index++) {
+                        if (chk[index] == $(this).val()) {
+                            $(this).prop("checked", true);
+
+                        }
                     }
                 })
                 // }

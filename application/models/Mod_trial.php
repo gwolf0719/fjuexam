@@ -86,7 +86,7 @@ class Mod_trial extends CI_Model
             $patrol = $this->db->where('start <=', $sub[$i]['start'])->where('end >=', $sub[$i]['end'])->get('patrol_staff')->row_array();
             $course = $this->db->where('year', $year)->where('field', $sub[$i]['field'])->get('exam_area')->row_array();
             $trial = $this->db->get('trial_staff')->result_array();
-            // print_r($trial);
+
             $arr[] = array(
                 'sn'=>$sub[$i]['sn'],
                 'field' => $sub[$i]['field'],

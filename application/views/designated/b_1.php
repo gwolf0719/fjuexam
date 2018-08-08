@@ -120,17 +120,23 @@
                 dataType: "json"
             }).done(function(data) {
                 var chk = data.info.do_date.split(",")
+                console.log(chk);
                 var lenght = data.info.do_date.split(",").length;
                 $('input:checkbox[name="day"]').each(function() {
-                    console.log($(this).val());
-                    if (chk[0] == $(this).val()) {
-                        $(this).prop("checked", true);
-                    }
-                    if (chk[1] == $(this).val()) {
-                        $(this).prop("checked", true);
-                    }
-                    if (chk[2] == $(this).val()) {
-                        $(this).prop("checked", true);
+                    // if (chk[0] == $(this).val()) {
+                    //     $(this).prop("checked", true);
+                    // }
+                    // if (chk[1] == $(this).val()) {
+                    //     $(this).prop("checked", true);
+                    // }
+                    // if (chk[2] == $(this).val()) {
+                    //     $(this).prop("checked", true);
+                    // }
+                    for (let index = 0; index < lenght; index++) {
+                        if (chk[index] == $(this).val()) {
+                            $(this).prop("checked", true);
+
+                        }
                     }
                 })
                 if (data.info.do_date == "") {
