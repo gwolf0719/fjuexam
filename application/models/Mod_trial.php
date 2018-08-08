@@ -54,6 +54,71 @@ class Mod_trial extends CI_Model
 
         return $this->db->get()->result_array();
     }
+    public function chk_part_list($part,$area)
+    {
+        $this->db->select('*');
+        if ($part != '') {
+            $this->db->where('part', $part);
+        }
+        $this->db->from('part_info');
+        $this->db->join('trial_assign', 'part_info.sn = trial_assign.sn');
+        
+        $this->db->where('first_member_do_date !=', "");
+        $year = $this->session->userdata('year');
+
+        $res = $this->db->get()->result_array();
+
+
+        function even($var)
+        {
+            return($var['year'] == $_SESSION['year']);
+        }
+
+        $sub =  array_filter($res, "even");
+
+        sort($sub);
+
+
+        if (!empty($sub)) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    public function chk_part_list_of_obs($part,$area,$obs)
+    {
+        $this->db->select('*');
+        if ($part != '') {
+            $this->db->where('part', $part);
+        }
+        $this->db->like('part', $obs, 'after');
+
+        $this->db->from('part_info');
+        $this->db->join('trial_assign', 'part_info.sn = trial_assign.sn');
+        
+        $this->db->where('first_member_do_date !=', "");
+        $year = $this->session->userdata('year');
+
+        $res = $this->db->get()->result_array();
+
+
+        function even($var)
+        {
+            return($var['year'] == $_SESSION['year']);
+        }
+
+        $sub =  array_filter($res, "even");
+
+        sort($sub);
+
+
+        if (!empty($sub)) {
+            return true;
+        } else {
+            return false;
+        }
+    }    
 
     public function get_list_for_pdf($part = '')
     {
@@ -126,6 +191,79 @@ class Mod_trial extends CI_Model
         }
         return $arr;
     }
+
+    public function get_list_for_obs($part = '',$obs)
+    {
+        $this->db->select('*');
+        if ($part != '') {
+            $this->db->where('part', $part);
+        }
+        $this->db->like('part',$obs, 'after');
+        $this->db->from('part_info');
+        $this->db->join('trial_assign', 'part_info.sn = trial_assign.sn');
+        
+        $this->db->where('first_member_do_date !=', "");
+        $year = $this->session->userdata('year');
+
+        $res = $this->db->get()->result_array();
+
+        function even($var)
+        {
+            return($var['year'] == $_SESSION['year']);
+        }
+
+        $sub =  array_filter($res, "even");
+
+        sort($sub);
+
+
+        for ($i=0; $i < count($sub); $i++) {
+            # code...
+            $supervisor1 = $this->db->where('member_code', $sub[$i]['supervisor_1_code'])->get('staff_member')->row_array();
+            $supervisor2 = $this->db->where('member_code', $sub[$i]['supervisor_2_code'])->get('staff_member')->row_array();
+            $patrol = $this->db->where('start <=', $sub[$i]['start'])->where('end >=', $sub[$i]['end'])->get('patrol_staff')->row_array();
+            $course = $this->db->where('year', $year)->where('field', $sub[$i]['field'])->get('exam_area')->row_array();
+            $trial = $this->db->get('trial_staff')->result_array();
+
+            $arr[] = array(
+                'sn'=>$sub[$i]['sn'],
+                'field' => $sub[$i]['field'],
+                'test_section' => $sub[$i]['test_section'],
+                'part' => $sub[$i]['part'],
+                'do_date' => $sub[$i]['first_member_do_date'],
+                'first_member_salary_section'=>$sub[$i]['first_member_salary_section'],
+                'first_member_section_lunch_total'=>$sub[$i]['first_member_section_lunch_total'],
+                'first_member_section_salary_total'=>$sub[$i]['first_member_section_salary_total'],
+                'order_meal1'=>$supervisor1['order_meal'],
+                'supervisor_1'=>$sub[$i]['supervisor_1'],
+                'supervisor_1_unit' => $supervisor1['member_unit'] ,
+                'supervisor_1_phone' => $supervisor1['member_phone'],
+                'second_member_salary_section'=>$sub[$i]['second_member_salary_section'],
+                'second_member_section_lunch_total'=>$sub[$i]['second_member_section_lunch_total'],
+                'second_member_section_salary_total'=>$sub[$i]['second_member_section_salary_total'],
+                'supervisor_2'=>$sub[$i]['supervisor_2'],
+                'supervisor_2_unit' => $supervisor2['member_unit'] ,
+                'supervisor_2_phone' => $supervisor2['member_phone'],
+                'order_meal2'=>$supervisor2['order_meal'],
+                'floor' =>$sub[$i]['floor'],
+                'number'=>$sub[$i]['number'],
+                'start'=>$sub[$i]['start'],
+                'end'=>$sub[$i]['end'],
+                'patrol'=>$patrol['patrol_staff_name'],
+                'subject_01'=>$course['subject_01'],
+                'subject_02'=>$course['subject_02'],
+                'subject_03'=>$course['subject_03'],
+                'subject_04'=>$course['subject_04'],
+                'subject_05'=>$course['subject_05'],
+                'subject_06'=>$course['subject_06'],
+                'subject_07'=>$course['subject_07'],
+                'subject_08'=>$course['subject_08'],
+                'subject_09'=>$course['subject_09'],
+                'subject_10'=>$course['subject_10'],
+            );
+        }
+        return $arr;
+    }    
 
     public function get_list_for_csv()
     {

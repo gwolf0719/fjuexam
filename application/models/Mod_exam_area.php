@@ -11,10 +11,26 @@ class Mod_exam_area extends CI_Model
         $this->db->insert_batch('exam_area', $datas);
     }
 
-    public function year_get_list()
+    public function year_get_list($part='')
     {
-        return $this->db->where('year', $this->session->userdata('year'))->get('exam_area')->result_array();
+        $this->db->where('year', $this->session->userdata('year'));
+        if($part != ''){
+            $this->db->where('part', $part);
+        }
+
+        return $this->db->get('exam_area')->result_array();
     }
+
+    public function year_school_name($part='')
+    {
+        $this->db->where('year', $this->session->userdata('year'));
+        if($part != ''){
+            $this->db->where('part', $part);
+        }
+
+        $school = $this->db->get('exam_area')->row_array();
+        return $school['part_name'];
+    }    
 
     public function get_min_start($part = '')
     {

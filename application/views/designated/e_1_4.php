@@ -13,48 +13,54 @@
     }
 </style>
 
-<h1 style="text-align:center">
-    <?=$_SESSION['year']?>學年度定科目考試新北一考區缺考人數統計表</h1>
 
-<table class="" id="" style="width:510px;padding:5px 2px 5px 2px;text-align:center;">
-    <thead>
+
+    <table class="" id="" style="padding:4px;text-align:center;">
+
+        <thead>
         <tr>
-            <th>日期</th>
-            <th colspan="6" class="bb" style="font-size:18px">
-                <?=mb_substr($datetime_info['day_1'], 5, 8, 'utf-8'); ?>
-            </th>
-            <th colspan="8" class="bb" style="font-size:18px">
-                <?=mb_substr($datetime_info['day_2'], 5, 8, 'utf-8'); ?>
-            </th>
-            <th colspan="6" class="bb" style="font-size:18px">
-                <?=mb_substr($datetime_info['day_3'], 5, 8, 'utf-8'); ?>
-            </th>
+            <td colspan="22" style="font-size:16px"><?=$_SESSION['year']?>學年度定科目考試新北一考區缺考人數統計表</td>
+        </tr>      
+        <tr>
+            <td colspan="22" style="font-size:14px;"><?=$area?><?=$school?></td>
         </tr>
         <tr>
-            <td>科目</td>
-            <td colspan="2">第一節
+            <td colspan="2">日期</td>
+            <td colspan="6" class="bb" style="font-size:16px">
+                <?=mb_substr($datetime_info['day_1'], 5, 8, 'utf-8'); ?>
+            </td>
+            <td colspan="8" class="bb" style="font-size:16px">
+                <?=mb_substr($datetime_info['day_2'], 5, 8, 'utf-8'); ?>
+            </td>
+            <td colspan="6" class="bb" style="font-size:16px">
+                <?=mb_substr($datetime_info['day_3'], 5, 8, 'utf-8'); ?>
+            </td>
+        </tr>
+        <tr>
+            <td colspan="2">科目</td>
+            <td colspan="2">第1節
                 <br>物理</td>
-            <td colspan="2">第二節
+            <td colspan="2">第2節
                 <br>化學</td>
-            <td colspan="2">第三節
+            <td colspan="2">第3節
                 <br>生物</td>
-            <td colspan="2">第一節
+            <td colspan="2">第1節
                 <br>數學乙</td>
-            <td colspan="2">第二節
+            <td colspan="2">第2節
                 <br>國文</td>
-            <td colspan="2">第三節
+            <td colspan="2">第3節
                 <br>英文</td>
-            <td colspan="2">第四節
+            <td colspan="2">第4節
                 <br>數學甲</td>
-            <td colspan="2">第一節
+            <td colspan="2">第1節
                 <br>歷史</td>
-            <td colspan="2">第二節
+            <td colspan="2">第2節
                 <br>地理</td>
-            <td colspan="2">第三節
+            <td colspan="2">第3節
                 <br>公民與社會</td>
         </tr>
         <tr>
-            <td>試場</td>
+            <td colspan="2">試場</td>
             <td>考生
                 <br>人數</td>
             <td>缺考
@@ -97,9 +103,10 @@
                 <br>人數</td>
         </tr>
     </thead>
+    <tbody>
     <?php foreach ($list as $k => $v): ?>
     <tr>
-        <td>
+        <td colspan="2">
             <?=$v['field']?>
         </td>
         <td>
@@ -145,11 +152,8 @@
 
     </tr>
     <?php endforeach; ?>
-
-</table>
-<table class="" id="" style="width:510px;padding:5px 2px 5px 2px;text-align:center;">
     <tr>
-        <td>共計</td>
+        <td colspan="2">共計</td>
         <td></td>
         <td></td>
         <td></td>
@@ -171,4 +175,6 @@
         <td></td>
         <td></td>
     </tr>
+    </tbody>
+    
 </table>

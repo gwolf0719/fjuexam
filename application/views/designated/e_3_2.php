@@ -1,63 +1,47 @@
 <style>
-    table {
-        width: 780px;
-        border: 1px solid #999999;
-        margin: 30px auto;
-    }
 
-    td {
+    .bb {
         border: 1px solid #999999;
-    }
-
-    th {
-        border: 1px solid #999999;
-        text-align: center;
     }
 </style>
 
-<div>
-    <h2 style="text-align:center">
-        <?=$_SESSION['year']?>學年度定科目考試新北一考區</h2>
-    <h2>
-        分區：
-        <?=$area?>
-    </h2>
-</div>
-
-<table class="" id="" style="width:510px;padding:4px;text-align:center;">
+<table class="" id="" style="padding:4px;text-align:center;">
+    <tr>
+        <td colspan="8"><?=$_SESSION['year']?>學年度定科目考試新北一考區</td>
+    </tr>
+    <tr>
+        <td colspan="8">分區：<?=$area?></td>
+    </tr>
     <tr style="background:#FFE4E7">
-        <th>試場</th>
-        <th>考試節數</th>
-        <th colspan="2">考生起訖號碼</th>
-        <th>樓層別</th>
-        <th>監試人員</th>
-        <th>監試人員</th>
-        <th>試務人員</th>
+        <th class="bb">試場</th>
+        <th class="bb">考試節數</th>
+        <th class="bb" colspan="2">考生起訖號碼</th>
+        <th class="bb">樓層別</th>
+        <th class="bb">監試人員</th>
+        <th class="bb">監試人員</th>
+        <th class="bb">試務人員</th>
     </tr>
     <?php foreach ($part as $k => $v): ?>
     <tr>
-        <td>
+        <td class="bb">
             <?=$v['field']?>
         </td>
-        <td>
+        <td class="bb">
             <?=$v['test_section']; ?>
         </td>
-        <td>
-            <?=$v['start']; ?>
+        <td class="bb" colspan="2">
+            <?=$v['start']; ?>~<?=$v['end']; ?>
         </td>
-        <td>
-            <?=$v['end']; ?>
-        </td>
-        <td>
+        <td class="bb">
             <?=$v['floor']; ?>
         </td>
-        <td>
+        <td class="bb">
             <?=$v['supervisor_1']?>
         </td>
-        <td>
+        <td class="bb">
             <?=$v['supervisor_2']?>
         </td>
-        <td>
+        <td class="bb">
             <?=$v['patrol']?>
         </td>
     </tr>

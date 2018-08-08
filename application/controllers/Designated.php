@@ -1083,18 +1083,21 @@ class Designated extends CI_Controller
 
         $date = date('yyyy/m/d');
         $obj_pdf->SetTitle($title);
-        $obj_pdf->SetHeaderData('', '', $title, '印表日期：'.$date);
         $obj_pdf->setPrintHeader(false);
-        // $obj_pdf->SetHeaderMargin(PDF_MARGIN_HEADER);
+        $obj_pdf->SetHeaderMargin(PDF_MARGIN_HEADER);
         $obj_pdf->SetFooterMargin(PDF_MARGIN_FOOTER);
-        $obj_pdf->SetMargins(PDF_MARGIN_LEFT, PDF_MARGIN_RIGHT);
+        $obj_pdf->SetMargins(3, 2, 3, 0);
+
         $obj_pdf->SetAutoPageBreak(true, PDF_MARGIN_BOTTOM);
-        $obj_pdf->SetFont('msungstdlight', 'B', 8);
+        $obj_pdf->SetFont('msungstdlight', '', 8);
 
         $obj_pdf->setFontSubsetting(false);
         $obj_pdf->SetCellPadding(0);
 
         $obj_pdf->AddPage();
+        $part = $_GET['part'];
+        $area = $_GET['area'];
+        
         if ($this->mod_exam_datetime->chk_course($year)) {
             $course = $this->mod_exam_datetime->get_course($year);
         } else {
@@ -1114,9 +1117,11 @@ class Designated extends CI_Controller
         }
         
         $data = array(
-            'list' => $this->mod_exam_area->year_get_list(),
+            'list' => $this->mod_exam_area->year_get_list($part),
+            'school' => $this->mod_exam_area->year_school_name($part),
             'course' => $this->mod_exam_datetime->get_course($year),
-            'datetime_info'=>$datetime_info
+            'datetime_info'=>$datetime_info,
+            'area'=>$area
         );
         $view =  $this->load->view('designated/e_1_4', $data, true);
         $obj_pdf->writeHTML($view);
@@ -1636,6 +1641,7 @@ class Designated extends CI_Controller
     {
         $this->load->library('pdf');
         $this->load->model('mod_trial');
+        $this->load->model('mod_exam_area');
         $obj_pdf = new Pdf(PDF_PAGE_ORIENTATION, PDF_UNIT, PDF_PAGE_FORMAT, false, 'UTF-8', false);
         $obj_pdf->SetCreator(PDF_CREATOR);
         $title = '監試人員印領清冊';
@@ -1650,18 +1656,54 @@ class Designated extends CI_Controller
         $obj_pdf->SetFooterMargin(PDF_MARGIN_FOOTER);
         $obj_pdf->SetMargins(3, 3);
         $obj_pdf->SetAutoPageBreak(true, PDF_MARGIN_BOTTOM);
-        $obj_pdf->SetFont('msungstdlight', 'B', 10);
+        $obj_pdf->SetFont('msungstdlight', '', 10);
 
         $obj_pdf->setFontSubsetting(false);
         $obj_pdf->AddPage();
         $data = array(
             'part' => $this->mod_trial->get_list_for_pdf($part),
-            'area'=> $area
+            'area'=> $area,
+            'school' => $this->mod_exam_area->year_school_name($part),
         );
         $view =  $this->load->view('designated/e_6_1', $data, true);
         $obj_pdf->writeHTML($view);
         $obj_pdf->Output('監試人員印領清冊.pdf', 'I');
     }
+
+    public function e_6_2()
+    {
+        $this->load->library('pdf');
+        $this->load->model('mod_trial');
+        $this->load->model('mod_exam_area');
+        $obj_pdf = new Pdf(PDF_PAGE_ORIENTATION, PDF_UNIT, PDF_PAGE_FORMAT, false, 'UTF-8', false);
+        $obj_pdf->SetCreator(PDF_CREATOR);
+        $title = '監試人員印領清冊';
+        $date = date('yyyy/m/d');
+        $part = $_GET['part'];
+        $area = $_GET['area'];
+        $obs = $_GET['obs'];
+
+        
+        $obj_pdf->SetTitle($title);
+        $obj_pdf->SetHeaderData('', '', $title, '印表日期：'.$date);
+        $obj_pdf->setPrintHeader(false);
+        // $obj_pdf->SetHeaderMargin(PDF_MARGIN_HEADER);
+        $obj_pdf->SetFooterMargin(PDF_MARGIN_FOOTER);
+        $obj_pdf->SetMargins(3, 3);
+        $obj_pdf->SetAutoPageBreak(true, PDF_MARGIN_BOTTOM);
+        $obj_pdf->SetFont('msungstdlight', '', 10);
+
+        $obj_pdf->setFontSubsetting(false);
+        $obj_pdf->AddPage();
+        $data = array(
+            'part' => $this->mod_trial->get_list_for_obs($part,$obs),
+            'area'=> $area,
+            'school' => $this->mod_exam_area->year_school_name($part),
+        );
+        $view =  $this->load->view('designated/e_6_2', $data, true);
+        $obj_pdf->writeHTML($view);
+        $obj_pdf->Output('監試人員印領清冊.pdf', 'I');
+    }    
 
     public function e_7()
     {

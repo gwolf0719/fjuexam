@@ -26,7 +26,8 @@
         border-radius: 5px;
         margin: 10px auto;
         cursor: pointer;
-        width: 150px;
+        width: 230px;
+        display: inline-block;
     }
 
     a {
@@ -71,15 +72,12 @@
             <div class="modal-body">
                 <div class="row">
                     <div class="col-md-12 col-sm-12 col-xs-12">
-                        <a href="./designated/e_6_1?part=2501&area=第一分區" target="_blank">
-                            <div class="btn_part">第一分區</div>
-                        </a>
-                        <a href="./designated/e_6_1?part=2502&area=第二分區" target="_blank">
-                            <div class="btn_part">第二分區</div>
-                        </a>
-                        <a href="./designated/e_6_1?part=2503&area=第三分區" target="_blank">
-                            <div class="btn_part">第三分區</div>
-                        </a>
+                        <div class="btn_part btn1" link="./designated/e_6_1?part=2501&area=第一分區" part="2501" area="第一分區">第一分區</div>
+                        <div class="btn_part btn2" link="./designated/e_6_2?part=2501&area=第一分區&obs=29" part="2501" area="第一分區" obs="29">第一分區(身障)</div>
+                        <div class="btn_part btn1" link="./designated/e_6_1?part=2502&area=第二分區" part="2502" area="第二分區">第二分區</div>
+                        <div class="btn_part btn2" link="./designated/e_6_2?part=2501&area=第二分區&obs=29" part="2502" area="第二分區" obs="29">第二分區(身障)</div>    
+                        <div class="btn_part btn1" link="./designated/e_6_1?part=2503&area=第三分區" part="2503" area="第三分區">第三分區</div> 
+                        <div class="btn_part btn2" link="./designated/e_6_2?part=2501&area=第三分區&obs=29" part="2503" area="第三分區" obs="29">第三分區(身障)</div> 
                     </div>
                 </div>
             </div>
@@ -87,3 +85,45 @@
     </div>
 </div>
 <!-- Modal end-->
+<script>
+$(function(){
+    $("body").on("click",".btn1",function(){
+        var part = $(this).attr("part");
+        var area = $(this).attr("area");
+        var link = $(this).attr("link");
+        $.ajax({
+            url: 'api/chk_part_list',
+            data: {
+                part: part,
+                area: area,
+            },
+            dataType: "json"
+        }).done(function(data) {
+            alert(data.sys_msg);
+            if (data.sys_code == "200") {
+                location.href = link;  
+            }
+        })        
+    })
+    $("body").on("click",".btn2",function(){
+        var part = $(this).attr("part");
+        var area = $(this).attr("area");
+        var obs = $(this).attr("obs")
+        var link = $(this).attr("link");
+        $.ajax({
+            url: 'api/chk_part_list_of_obs',
+            data: {
+                part: part,
+                area: area,
+                obs:obs
+            },
+            dataType: "json"
+        }).done(function(data) {
+            alert(data.sys_msg);
+            if (data.sys_code == "200") {
+                location.href = link;  
+            }
+        })        
+    })    
+})
+</script>
