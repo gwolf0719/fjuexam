@@ -56,7 +56,9 @@
     </div>
 
     <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6 cube text-center">
-        <img src="assets/images/e_2_5.png" alt="" style="cursor: pointer;" data-toggle="modal" data-target="#e_2_5">
+        <a href="./designated/e_2_5" target="_blank">
+            <img src="assets/images/e_2_5.png" alt="">
+        </a>
     </div>
 
     <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6 cube text-center">
@@ -76,7 +78,9 @@
     </div>
 
     <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6 cube text-center">
-        <img src="assets/images/e_2_4.png" alt="" style="cursor: pointer;" data-toggle="modal" data-target="#e_2_4">
+        <a href="./designated/e_2_4" target="_blank">
+            <img src="assets/images/e_2_4.png" alt="">
+        </a>
     </div>
 
     <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6 cube text-center">
@@ -147,67 +151,3 @@
         </div>
     </div>
 </div>
-<!-- Modal end-->
-<div class="modal fade" id="e_2_4" tabindex="-1" role="dialog" aria-labelledby="e_2_4" aria-hidden="true">
-    <div class="modal-dialog" role="document">
-        <div class="modal-content">
-            <div class="modal-header" style="border-bottom: none;">
-                <h5 class="modal-title" id="exampleModalLabel" style="">選擇分區</h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-            </div>
-            <div class="modal-body">
-                <div class="row">
-                    <div class="col-md-12 col-sm-12 col-xs-12">
-                        <a href="./designated/e_2_4?area=考區">
-                            <div class="btn_part">考區</div>
-                        </a>
-                        <a href="./designated/e_2_4?area=第一分區" target="_blank">
-                            <div class="btn_part">第一分區</div>
-                        </a>
-                        <a href="./designated/e_2_4?area=第二分區" target="_blank">
-                            <div class="btn_part">第二分區</div>
-                        </a>
-                        <a href="./designated/e_2_4?area=第三分區" target="_blank">
-                            <div class="btn_part">第三分區</div>
-                        </a>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
-<!-- Modal end-->
-<!-- Modal end-->
-<div class="modal fade" id="e_2_5" tabindex="-1" role="dialog" aria-labelledby="e_2_5" aria-hidden="true">
-    <div class="modal-dialog" role="document">
-        <div class="modal-content">
-            <div class="modal-header" style="border-bottom: none;">
-                <h5 class="modal-title" id="exampleModalLabel" style="">選擇分區</h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-            </div>
-            <div class="modal-body">
-                <div class="row">
-                    <div class="col-md-12 col-sm-12 col-xs-12">
-                        <a href="./designated/e_2_5?area=考區" target="_blank">
-                            <div class="btn_part">考區</div>
-                        </a>
-                        <a href="./designated/e_2_5?area=第一分區" target="_blank">
-                            <div class="btn_part">第一分區</div>
-                        </a>
-                        <a href="./designated/e_2_5?area=第二分區" target="_blank">
-                            <div class="btn_part">第二分區</div>
-                        </a>
-                        <a href="./designated/e_2_5?area=第三分區" target="_blank">
-                            <div class="btn_part">第三分區</div>
-                        </a>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
-<!-- Modal end-->

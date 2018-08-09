@@ -1045,6 +1045,8 @@ class Designated extends CI_Controller
     {
         $this->load->library('pdf');
         $this->load->model('mod_trial');
+        $this->load->model('mod_exam_area');
+
         $part = $_GET['part'];
         $area = $_GET['area'];
         $obj_pdf = new Pdf(PDF_PAGE_ORIENTATION, PDF_UNIT, PDF_PAGE_FORMAT, false, 'UTF-8', false);
@@ -1058,13 +1060,14 @@ class Designated extends CI_Controller
         $obj_pdf->SetFooterMargin(PDF_MARGIN_FOOTER);
         $obj_pdf->SetMargins(PDF_MARGIN_LEFT, PDF_MARGIN_RIGHT);
         $obj_pdf->SetAutoPageBreak(true, PDF_MARGIN_BOTTOM);
-        $obj_pdf->SetFont('msungstdlight', 'B', 8);
+        $obj_pdf->SetFont('msungstdlight', 'B', 10);
 
         $obj_pdf->setFontSubsetting(false);
         $obj_pdf->AddPage();
         $data = array(
             'part' => $this->mod_trial->get_list_for_pdf($part),
-            'area' => $area
+            'area' => $area,
+            'school' => $this->mod_exam_area->year_school_name($part),
         );
         $view =  $this->load->view('designated/e_1_3', $data, true);
         $obj_pdf->writeHTML($view);
@@ -1137,7 +1140,7 @@ class Designated extends CI_Controller
         $part = $_GET['part'];
         $area = $_GET['area'];
 
-        $title = '各分區午餐名單';
+        $title = $area.'監試人員午餐一覽表';
         $date = date('yyyy/m/d');
         $obj_pdf->SetTitle($title);
         $obj_pdf->SetHeaderData('', '', $title, '印表日期：'.$date);
@@ -1158,7 +1161,7 @@ class Designated extends CI_Controller
         );
         $view =  $this->load->view('designated/e_1_5', $data, true);
         $obj_pdf->writeHTML($view);
-        $obj_pdf->Output('各分區午餐名單.pdf', 'I');
+        $obj_pdf->Output($area.'監試人員午餐一覽表.pdf', 'I');
     }
 
     public function e_2()
@@ -1242,7 +1245,6 @@ class Designated extends CI_Controller
         $obj_pdf->SetCreator(PDF_CREATOR);
         $title = '監試說明會簽到表';
         $date = date('yyyy/m/d');
-        $area = $_GET['area'];
 
         $obj_pdf->SetTitle($title);
         $obj_pdf->SetHeaderData('', '', $title, '印表日期：'.$date);
@@ -1254,24 +1256,63 @@ class Designated extends CI_Controller
         $obj_pdf->SetFont('msungstdlight', 'B', 10);
 
         $obj_pdf->setFontSubsetting(false);
-        $obj_pdf->AddPage();
         $data = array(
-            'part' => $this->mod_task->e_2_1_pdf($area),
-            'area' => $area
+            'part' => $this->mod_task->get_sign_list(),
         );
-        $view =  $this->load->view('designated/e_2_4', $data, true);
-        $obj_pdf->writeHTML($view);
+
+        
+
+        foreach ($data['part'] as $k => $v) {
+            $html = '<table style="padding:5px 0px;text-align:center;">';
+            $html .=  '<tr>';
+            $html .=  '<td colspan="5" style="font-size:14px;">大學入學考試中心'.$_SESSION['year'].'學年度定科目考試新北一考區監視說明會開會通知簽收表</td>';
+            $html .=  '</tr>';
+
+            $html .=  '<tr>';
+            $html .=  '<td colspan="6" style="font-size:13px;text-align:left;">單位：'.$k.'</td>';
+            $html .=  '</tr>';
+            $html .=  '<tr style="background:#FFE4E7">';
+            $html .=  '<th style="border: 1px solid #999999;">職務</th>';
+            $html .=  '<th style="border: 1px solid #999999;">姓名</th>';
+            $html .=  '<th style="border: 1px solid #999999;">單位別</th>';
+            $html .=  '<th style="border: 1px solid #999999;">簽名</th>';
+            $html .=  '<th style="border: 1px solid #999999;">備註</th>';
+            $html .=  '</tr>';
+            foreach ($v as $kc => $vc) {
+                $html .=   '<tr>';
+                    $html .=  '<td  style="border: 1px solid #999999;">'.$vc['job'].'</td>';
+                    $html .=  '<td  style="border: 1px solid #999999;">'.$vc['member_name'].'</td>';
+                    $html .=  '<td  style="border: 1px solid #999999;">'.$vc['member_unit'].'</td>';
+                    $html .=  '<td  style="border: 1px solid #999999;"></td>';
+                    $html .=  '<td  style="border: 1px solid #999999;"></td>';
+                $html .=  '</tr>';     
+            }
+            $html .= '<tr>';
+            $html .= '<td colspan="5" style="font-size:13px;text-align:left;">共計：'.count($v).'人</td>';
+            $html .=  '</tr>';
+        
+            $html .=  '</table>';
+
+        $obj_pdf->AddPage($html);
+
+        $obj_pdf->writeHTML($html);
+
+        }
+        
         $obj_pdf->Output('監試說明會簽到表.pdf', 'I');
+
+
     }
 
     public function e_2_5()
     {
         $this->load->library('pdf');
         $this->load->model('mod_task');
+        $this->load->model('mod_exam_area');
+
         $obj_pdf = new Pdf(PDF_PAGE_ORIENTATION, PDF_UNIT, PDF_PAGE_FORMAT, false, 'UTF-8', false);
         $obj_pdf->SetCreator(PDF_CREATOR);
-        $title = '開會通知簽收表';
-        $area = $_GET['area'];
+        $title = '大學入學考試中心'.$_SESSION['year'].'學年度定科目考試新北一考區監視說明會開會通知簽收表';
 
         $date = date('yyyy/m/d');
         $obj_pdf->SetTitle($title);
@@ -1284,15 +1325,50 @@ class Designated extends CI_Controller
         $obj_pdf->SetFont('msungstdlight', 'B', 10);
 
         $obj_pdf->setFontSubsetting(false);
-        $obj_pdf->AddPage();
         $data = array(
-            'part' => $this->mod_task->e_2_1_pdf($area),
-            'area' => $area
+            'part' => $this->mod_task->get_sign_list(),
         );
-        // print_r($data);
-        $view =  $this->load->view('designated/e_2_5', $data, true);
-        $obj_pdf->writeHTML($view);
-        $obj_pdf->Output('開會通知簽收表.pdf', 'I');
+
+        foreach ($data['part'] as $k => $v) {
+            $html = '<table style="padding:5px 0px;text-align:center;">';
+            $html .=  '<tr>';
+            $html .=  '<td colspan="6" style="font-size:14px;">大學入學考試中心'.$_SESSION['year'].'學年度定科目考試新北一考區監視說明會開會通知簽收表</td>';
+            $html .=  '</tr>';
+
+            $html .=  '<tr>';
+            $html .=  '<td colspan="6" style="font-size:13px;text-align:left;">單位：'.$k.'</td>';
+            $html .=  '</tr>';
+            $html .=  '<tr style="background:#FFE4E7">';
+            $html .=  '<th style="border: 1px solid #999999;">編號</th>';
+            $html .=  '<th style="border: 1px solid #999999;">職務</th>';
+            $html .=  '<th style="border: 1px solid #999999;">姓名</th>';
+            $html .=  '<th style="border: 1px solid #999999;">單位別</th>';
+            $html .=  '<th style="border: 1px solid #999999;">簽名</th>';
+            $html .=  '<th style="border: 1px solid #999999;">備註</th>';
+            $html .=  '</tr>';
+            foreach ($v as $kc => $vc) {
+                $html .=   '<tr>';
+                $html .=  '<td  style="border: 1px solid #999999;">'.$vc['member_code'].'</td>';
+
+                $html .=  '<td  style="border: 1px solid #999999;">'.$vc['job'].'</td>';
+                $html .=  '<td  style="border: 1px solid #999999;">'.$vc['member_name'].'</td>';
+                $html .=  '<td  style="border: 1px solid #999999;">'.$vc['member_unit'].'</td>';
+                $html .=  '<td  style="border: 1px solid #999999;"></td>';
+                $html .=  '<td  style="border: 1px solid #999999;"></td>';
+                $html .=  '</tr>';
+            }
+            $html .= '<tr>';
+            $html .= '<td colspan="5" style="font-size:13px;text-align:left;">共計：'.count($v).'人</td>';
+            $html .=  '</tr>';
+        
+            $html .=  '</table>';
+
+            $obj_pdf->AddPage($html);
+
+            $obj_pdf->writeHTML($html);
+        }
+
+        $obj_pdf->Output('大學入學考試中心'.$_SESSION['year'].'學年度定科目考試新北一考區監視說明會開會通知簽收表'.'.pdf', 'I');
     }
 
 
@@ -1326,7 +1402,7 @@ class Designated extends CI_Controller
         $obj_pdf->SetFooterMargin(PDF_MARGIN_FOOTER);
         $obj_pdf->SetMargins(PDF_MARGIN_LEFT, PDF_MARGIN_RIGHT);
         $obj_pdf->SetAutoPageBreak(true, PDF_MARGIN_BOTTOM);
-        $obj_pdf->SetFont('msungstdlight', 'B', 13);
+        $obj_pdf->SetFont('msungstdlight', 'B', 11);
 
         $obj_pdf->setFontSubsetting(false);
         $obj_pdf->AddPage();
@@ -1334,7 +1410,7 @@ class Designated extends CI_Controller
 
         $datetime_info = $this->mod_exam_datetime->get_once($year);
         $course = $this->mod_exam_datetime->get_course($year);
-        $res = $this->mod_trial->get_list_for_pdf($part);
+        $res = $this->mod_trial->get_supervisor_list($part);
         $course_info = $this->mod_exam_datetime->get_once_day_section_test($res);
         
         $data = array(
@@ -1342,8 +1418,9 @@ class Designated extends CI_Controller
             'area' =>$area,
             'course' => $course,
             'datetime_info' => $datetime_info,
-            'course_info' => $course_info
+            'course_info' => $course_info,
         );
+
         $view =  $this->load->view('designated/e_3_1', $data, true);
 
         $obj_pdf->writeHTML($view);
@@ -1354,9 +1431,10 @@ class Designated extends CI_Controller
     {
         $this->load->library('pdf');
         $this->load->model('mod_trial');
+        $this->load->model('mod_exam_area');
         $obj_pdf = new Pdf(PDF_PAGE_ORIENTATION, PDF_UNIT, PDF_PAGE_FORMAT, false, 'UTF-8', false);
         $obj_pdf->SetCreator(PDF_CREATOR);
-        $title = '試務人員巡場分配表';
+        $title = '試場工作人員分配表';
         $date = date('yyyy/m/d');
         $part = $_GET['part'];
         $area = $_GET['area'];
@@ -1368,18 +1446,20 @@ class Designated extends CI_Controller
         $obj_pdf->SetFooterMargin(PDF_MARGIN_FOOTER);
         $obj_pdf->SetMargins(PDF_MARGIN_LEFT, PDF_MARGIN_RIGHT);
         $obj_pdf->SetAutoPageBreak(true, PDF_MARGIN_BOTTOM);
-        $obj_pdf->SetFont('msungstdlight', 'B', 10);
+        $obj_pdf->SetFont('msungstdlight', '', 12);
 
         $obj_pdf->setFontSubsetting(false);
         $obj_pdf->AddPage();
         $data = array(
             'part' => $this->mod_trial->get_list_for_pdf($part),
-            'area' => $area
+            'area' => $area,
+            'count'=> $this->mod_trial->get_patrol_member_count($part),
+            'school' => $this->mod_exam_area->year_school_name($part),
         );
         // print_r($data);
         $view =  $this->load->view('designated/e_3_2', $data, true);
         $obj_pdf->writeHTML($view);
-        $obj_pdf->Output('試務人員巡場分配表.pdf', 'I');
+        $obj_pdf->Output('試場工作人員分配表.pdf', 'I');
     }
 
     public function e_4()
@@ -1696,14 +1776,14 @@ class Designated extends CI_Controller
         $obj_pdf->setFontSubsetting(false);
         $obj_pdf->AddPage();
         $data = array(
-            'part' => $this->mod_trial->get_list_for_obs($part,$obs),
+            'part' => $this->mod_trial->get_list_for_obs($part, $obs),
             'area'=> $area,
             'school' => $this->mod_exam_area->year_school_name($part),
         );
         $view =  $this->load->view('designated/e_6_2', $data, true);
         $obj_pdf->writeHTML($view);
         $obj_pdf->Output('監試人員印領清冊.pdf', 'I');
-    }    
+    }
 
     public function e_7()
     {

@@ -140,6 +140,41 @@ class Mod_task extends CI_Model
         }
     }
 
+    public function get_sign_list($area = '')
+    {
+        $this->db->where('year', $this->session->userdata('year'));
+        if ($area != '') {
+            $this->db->where('area', $area);
+        }
+
+        $this->db->where('job_code !=', "");
+
+        $res = $this->db->get('district_task')->result_array();
+                
+
+
+
+        if (!empty($res)) {
+            for ($i=0; $i < count($res); $i++) {
+                # code...
+                $member = $this->db->where('year', $this->session->userdata('year'))->where('member_code', $res[$i]['job_code'])->get('staff_member')->result_array();
+
+                for ($m=0; $m < count($member); $m++) { 
+                    # code...
+                    $unit = $this->db->where('year', $this->session->userdata('year'))->where('unit', $member[$m]['unit'])->where('member_code',$member[$m]['member_code'])->get('staff_member')->row_array();
+                    $arr[$unit['unit']][] = array(
+                        'member_code'=>$member[$m]['member_code'],
+                        'member_name'=>$member[$m]['member_name'],
+                        'member_unit'=>$member[$m]['member_unit'],
+                        'job'=>$res[$i]['job_title'],
+                    );
+                }
+            }
+
+            return $arr;
+        }
+    }    
+
     public function get_list_for_csv()
     {
         $this->db->where('job_code !=', "");

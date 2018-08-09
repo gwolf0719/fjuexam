@@ -880,7 +880,7 @@ class Api extends CI_Controller
                 $json_arr['sys_msg'] = '匯出完成';
             } else {
                 $json_arr['sys_code'] = '404';
-                $json_arr['sys_msg'] = '查無此資料，請重新輸入';
+                $json_arr['sys_msg'] = '查無此資料，請確認是否有資料';
             }
         }
         echo json_encode($json_arr);

@@ -1,11 +1,6 @@
 <style>
-    table {
-        width: 780px;
-        border: 1px solid #999999;
-        margin: 0px auto;
-    }
 
-    td {
+    .bb {
         border: 1px solid #999999;
     }
 
@@ -15,65 +10,50 @@
     }
 </style>
 
-<div>
-    <h2 style="text-align:center">
-        <?=$_SESSION['year']?>學年度定科目考試新北一考區</h2>
-    <h2>監試人員監考科目日程對照表</h2>
-</div>
-
 <?php foreach ($part as $k => $v): ?>
-<div>
-    <p>編號：
-        <?=$v['field']?>
-    </p>
-    <p>監試人員：
-        <?=$v['supervisor_1']?>
-    </p>
-    <p>監試人員：
-        <?=$v['supervisor_2']?>
-    </p>
-    <p>監試分區：
-        <?php
-        switch ($v['part']) {
-            case '2501':
-                echo '第一分區';
-                break;
-            case '2502':
-                echo '第二分區';
-                break;
-            case '2503':
-                echo '第三分區';
-                break;
-        }
-
-        ?>
-    </p>
-    <p>監試日期：
-        <?=$v['do_date']?>
-    </p>
-    <p>監試節次：
-        <?=$v['test_section']?>
-    </p>
-    <p>監試科目如下：
-        <br>
-
-    </p>
-</div>
-<table class="" id="" style="width:510px;padding:10px 4px 10px 4px;text-align:center;">
+<table style="padding:10px 0px;text-align:center;">
+    <thead>
+        <tr>
+            <td style="font-size:18px"><?=$_SESSION['year']?>學年度定科目考試新北一考區</td>
+        </tr>
+        <tr>
+            <td style="font-size:14px">監試人員監考科目日程對照表</td>
+        </tr>        
+        <tr>
+            <td style="text-align:left">編號:<?=$v['field']?></td>
+        </tr>
+        <tr>
+            <td style="text-align:left">監試人員:<?=$v['supervisor']?></td>
+        </tr>   
+        <tr>
+            <td style="text-align:left">監試分區:<?=$_GET['area']?></td>
+        </tr>   
+        <tr>
+            <td style="text-align:left">監試日期:<?=$v['do_date']?></td>
+        </tr>     
+        <tr>
+            <td style="text-align:left">監試節次:<?=$v['test_section']?></td>
+        </tr>     
+        <tr>
+            <td style="line-height:1px"></td>
+        </tr>                   
+    </thead>
+</table>
+<table class="" id="" style="padding:4px;text-align:center;">
     <tr>
-        <td>物理</td>
-        <td>化學</td>
-        <td>生物</td>
-        <td>數學乙</td>
-        <td>國文</td>
-        <td>英文</td>
-        <td>數學甲</td>
-        <td>歷史</td>
-        <td>地理</td>
-        <td>公民與社會</td>
+        <td class="bb">物理</td>
+        <td class="bb">化學</td>
+        <td class="bb">生物</td>
+        <td class="bb">數學乙</td>
+        <td class="bb">國文</td>
+        <td class="bb">英文</td>
+        <td class="bb">數學甲</td>
+        <td class="bb">歷史</td>
+        <td class="bb">地理</td>
+        <td class="bb">公民與社會</td>
     </tr>
     <tr>
-        <td>
+        <td class="bb">
             <?php
             switch ($v['subject_01']) {
                 case '0':
@@ -86,7 +66,7 @@
             ?>
 
         </td>
-        <td>
+        <td class="bb">
             <?php
             switch ($v['subject_02']) {
                 case '0':
@@ -98,7 +78,7 @@
 
             ?>
         </td>
-        <td>
+        <td class="bb">
             <?php
             switch ($v['subject_03']) {
                 case '0':
@@ -110,7 +90,7 @@
 
             ?>
         </td>
-        <td>
+        <td class="bb">
             <?php
             switch ($v['subject_04']) {
                 case '0':
@@ -122,7 +102,7 @@
 
             ?>
         </td>
-        <td>
+        <td class="bb">
             <?php
             switch ($v['subject_05']) {
                 case '0':
@@ -134,7 +114,7 @@
 
             ?>
         </td>
-        <td>
+        <td class="bb">
             <?php
             switch ($v['subject_06']) {
                 case '0':
@@ -146,7 +126,7 @@
 
             ?>
         </td>
-        <td>
+        <td class="bb">
             <?php
             switch ($v['subject_07']) {
                 case '0':
@@ -158,7 +138,7 @@
 
             ?>
         </td>
-        <td>
+        <td class="bb">
             <?php
             switch ($v['subject_08']) {
                 case '0':
@@ -170,7 +150,7 @@
 
             ?>
         </td>
-        <td>
+        <td class="bb">
             <?php
             switch ($v['subject_09']) {
                 case '0':
@@ -182,7 +162,7 @@
 
             ?>
         </td>
-        <td>
+        <td class="bb">
             <?php
             switch ($v['subject_10']) {
                 case '0':
@@ -196,54 +176,61 @@
         </td>
     </tr>
 </table>
-<table class="" id="" style="width:510px;padding:10px 4px 10px 4px;text-align:center;">
+<table class="" id="" style="padding:4px;text-align:center;">
     <tr>
-        <td>時間</td>
-        <td colspan="4">上午</td>
-        <td colspan="4">下午</td>
+        <td colspan="9" style="padding:10px 0px;text-align:left;"></td>
     </tr>
     <tr>
-        <td>科目</td>
-        <td rowspan="2">
+        <td colspan="9" style="padding:10px 0px;text-align:left;">考試日程表：</td>
+    </tr>
+    <tr>
+        <td colspan="9" style="padding:10px 0px;text-align:left;"></td>
+    </tr>    
+    <tr>
+        <td class="bb">時間</td>
+        <td class="bb" colspan="4">上午</td>
+        <td class="bb" colspan="4">下午</td>
+    </tr>
+    <tr>
+        <td class="bb">科目</td>
+        <td class="bb" rowspan="2">
             <?=$datetime_info['pre_1']; ?>
         </td>
-        <td rowspan="2">
-            <?=$datetime_info['course_1_start']; ?>~
+        <td class="bb" rowspan="2">
+            <?=$datetime_info['course_1_start']; ?><br>|<br>
             <?=$datetime_info['course_1_end']; ?>
         </td>
-        <td rowspan="2">
+        <td class="bb" rowspan="2">
             <?=$datetime_info['pre_2']; ?>
         </td>
-        <td rowspan="2">
-            <?=$datetime_info['course_2_start']; ?>~
+        <td class="bb" rowspan="2">
+            <?=$datetime_info['course_2_start']; ?><br>|<br>
             <?=$datetime_info['course_2_end']; ?>
         </td>
-        <td rowspan="2">
+        <td class="bb" rowspan="2">
             <?=$datetime_info['pre_3']; ?>
         </td>
-        <td rowspan="2">
-            <?=$datetime_info['course_3_start']; ?>~
+        <td class="bb" rowspan="2">
+            <?=$datetime_info['course_3_start']; ?><br>|<br>
             <?=$datetime_info['course_3_end']; ?>
         </td>
-        <td rowspan="2">
+        <td class="bb" rowspan="2">
             <?=$datetime_info['pre_4']; ?>
         </td>
-        <td rowspan="2">
-            <?=$datetime_info['course_4_start']; ?>~
+        <td class="bb" rowspan="2">
+            <?=$datetime_info['course_4_start']; ?><br>|<br>
             <?=$datetime_info['course_4_end']; ?>
         </td>
     </tr>
     <tr>
-        <td style="text-align:center">日期</td>
+        <td class="bb" style="text-align:center">日期</td>
     </tr>
     <tr>
-        <td>
-            <?=$datetime_info['day_1']; ?>
+        <td class="bb">
+            <?=mb_substr($datetime_info['day_1'], 5, 8, 'utf-8'); ?>
         </td>
-        <td rowspan="3">預
-            <br>備
-            <br>鈴</td>
-        <td>
+        <td class="bb" rowspan="3">預備鈴</td>
+        <td class="bb">
             <?php
                     switch ($course[0]['subject']) {
                         case 'subject_00':
@@ -282,10 +269,8 @@
                     }
                     ?>
         </td>
-        <td rowspan="3">預
-            <br>備
-            <br>鈴</td>
-        <td>
+        <td class="bb" rowspan="3">預<br>備<br>鈴</td>
+        <td class="bb">
             <?php
                     switch ($course[1]['subject']) {
                         case 'subject_00':
@@ -324,10 +309,8 @@
                     }
                     ?>
         </td>
-        <td rowspan="3">預
-            <br>備
-            <br>鈴</td>
-        <td>
+        <td class="bb" rowspan="3">預<br>備<br>鈴</td>
+        <td class="bb">
             <?php
                     switch ($course[2]['subject']) {
                         case 'subject_00':
@@ -366,10 +349,10 @@
                     }
                     ?>
         </td>
-        <td rowspan="3">預
+        <td class="bb" rowspan="3">預
             <br>備
             <br>鈴</td>
-        <td>
+        <td class="bb">
             <?php
                     switch ($course[3]['subject']) {
                         case 'subject_00':
@@ -410,11 +393,11 @@
         </td>
     </tr>
     <tr>
-        <td>
-            <?=$datetime_info['day_2']; ?>
+        <td class="bb">
+            <?=mb_substr($datetime_info['day_2'], 5, 8, 'utf-8'); ?>
         </td>
         <!-- <td></td> -->
-        <td>
+        <td class="bb">
             <?php
                     switch ($course[4]['subject']) {
                         case 'subject_00':
@@ -454,7 +437,7 @@
                     ?>
         </td>
         <!-- <td></td> -->
-        <td>
+        <td class="bb">
             <?php
                     switch ($course[5]['subject']) {
                         case 'subject_00':
@@ -494,7 +477,7 @@
                     ?>
         </td>
         <!-- <td></td> -->
-        <td>
+        <td class="bb">
             <?php
                     switch ($course[6]['subject']) {
                         case 'subject_00':
@@ -534,7 +517,7 @@
                     ?>
         </td>
         <!-- <td></td> -->
-        <td>
+        <td class="bb">
             <?php
                     switch ($course[7]['subject']) {
                         case 'subject_00':
@@ -575,11 +558,11 @@
         </td>
     </tr>
     <tr>
-        <td>
-            <?=$datetime_info['day_3']; ?>
+        <td class="bb">
+            <?=mb_substr($datetime_info['day_3'], 5, 8, 'utf-8'); ?>
         </td>
         <!-- <td></td> -->
-        <td>
+        <td class="bb">
             <?php
                     switch ($course[8]['subject']) {
                         case 'subject_00':
@@ -619,7 +602,7 @@
                     ?>
         </td>
         <!-- <td></td> -->
-        <td>
+        <td class="bb">
             <?php
                     switch ($course[9]['subject']) {
                         case 'subject_00':
@@ -659,7 +642,7 @@
                     ?>
         </td>
         <!-- <td></td> -->
-        <td>
+        <td class="bb">
             <?php
                     switch ($course[10]['subject']) {
                         case 'subject_00':
@@ -699,7 +682,7 @@
                     ?>
         </td>
         <!-- <td></td> -->
-        <td>
+        <td class="bb">
             <?php
                     switch ($course[11]['subject']) {
                         case 'subject_00':

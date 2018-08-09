@@ -1,63 +1,43 @@
 <style>
-    table {
-        width: 780px;
-        border: 1px solid #999999;
-        margin: 30px auto;
-    }
 
-    td {
+    .bb {
         border: 1px solid #999999;
-    }
-
-    th {
-        border: 1px solid #999999;
-        text-align: center;
     }
 </style>
 
-<div>
-    <h2 style="text-align:center">開會通知簽收表</h2>
-</div>
+<?php foreach ($part as $k => $v): ?>
+<table class="" id="" style="padding:5px 0px;text-align:center;">
 
-
-<h3 style="text-align:left">分區：
-    <?=$area?>
-</h3>
-<h3 style="text-align:left">考場：板橋高中</h3>
-<h3 style="text-align:left">簽到日期：
-    <?=date('20y-m-d')?>
-</h3>
-
-
-<table class="" id="" style="width:510px;padding:10px 4px 10px 4px;text-align:center;">
-    <thead>
-        <tr style="background:#FFE4E7">
-            <th>職務</th>
-            <th>姓名</th>
-            <th>職稱</th>
-            <th>單位別</th>
-            <th>簽名</th>
-            <th>備註</th>
-        </tr>
-    </thead>
-    <tbody>
-        <?php foreach ($part as $k => $v): ?>
+    <tr>
+        <td colspan="5" style="font-size:14px;">大學入學考試中心<?=$_SESSION['year']?>學年度定科目考試新北一考區監視說明會開會通知簽收表</td>
+    </tr>   
+    <tr>
+        <td colspan="6" style="font-size:13px;text-align:left;">單位：<?=$k?></td>
+    </tr>        
+    <tr style="background:#FFE4E7">
+        <th class="bb">職務</th>
+        <th class="bb">姓名</th>
+        <th class="bb">單位別</th>
+        <th class="bb">簽名</th>
+        <th class="bb">備註</th>
+    </tr>  
+    <?php foreach ($v as $k => $vc): ?>
         <tr>
-            <td>
-                <?=$v['job']?>
+            <td class="bb">
+                <?=$vc['job']?>
             </td>
-            <td>
-                <?=$v['name']; ?>
+            <td class="bb">
+                <?=$vc['member_name']; ?>
             </td>
-            <td>
-                <?=$v['job_title']; ?>
+            <td class="bb">
+                <?=$vc['member_unit']; ?>
             </td>
-            <td>
-                <?=$v['member_unit']; ?>
-            </td>
-            <td></td>
-            <td></td>
+            <td class="bb"></td>
+            <td class="bb"></td>
         </tr>
-        <?php endforeach; ?>
-    </tbody>
+    <?php endforeach; ?>
+    <tr>
+        <td colspan="5" style="font-size:13px;text-align:left;">共計：<?=count($v)?>人</td>
+    </tr>             
 </table>
+<?php endforeach; ?>

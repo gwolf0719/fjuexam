@@ -32,6 +32,13 @@ class Unit extends CI_Controller
         $res = $this->mod_trial->get_list_for_csv();
         echo json_encode($res);
     }
+
+    function get_supervisor_member_count(){
+        $this->load->model('mod_trial');
+        $res = $this->mod_trial->get_supervisor_member_count('2501');
+        echo json_encode($res);
+
+    }
 }
 
 /* End of file Unit.php */
