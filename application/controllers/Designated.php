@@ -1209,6 +1209,7 @@ class Designated extends CI_Controller
     {
         $this->load->library('pdf');
         $this->load->model('mod_trial');
+        $this->load->model('mod_exam_datetime');
         $obj_pdf = new Pdf(PDF_PAGE_ORIENTATION, PDF_UNIT, PDF_PAGE_FORMAT, false, 'UTF-8', false);
         $obj_pdf->SetCreator(PDF_CREATOR);
         $title = '監試人員執行任務簽到表';
@@ -1226,15 +1227,18 @@ class Designated extends CI_Controller
         $obj_pdf->SetFont('msungstdlight', 'B', 10);
 
         $obj_pdf->setFontSubsetting(false);
+
         $obj_pdf->AddPage();
+        $year = $this->session->userdata('year');
+
         $data = array(
-            'part' => $this->mod_trial->get_list_for_pdf($part),
+            'part' => $this->mod_trial->get_date_for_trial_list($part),
             'area' =>$area
         );
         // print_r($data);
-        $view =  $this->load->view('designated/e_2_2', $data, true);
-        $obj_pdf->writeHTML($view);
-        $obj_pdf->Output('監試人員執行任務簽到表.pdf', 'I');
+        // $view =  $this->load->view('designated/e_2_2', $data, true);
+        // $obj_pdf->writeHTML($view);
+        // $obj_pdf->Output('監試人員執行任務簽到表.pdf', 'I');
     }
     
     public function e_2_4()
