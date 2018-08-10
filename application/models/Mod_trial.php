@@ -51,9 +51,9 @@ class Mod_trial extends CI_Model
         }
         $this->db->from('part_info');
         $this->db->join('trial_assign', 'part_info.sn = trial_assign.sn');
-
         return $this->db->get()->result_array();
     }
+
     public function chk_part_list($part, $area)
     {
         $this->db->select('*');

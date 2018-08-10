@@ -87,11 +87,42 @@ class Designated extends CI_Controller
                     'end' => $data[4],
                     'number' => $data[5],
                 );
+
+                $datas_trial[] = array(
+                    'year' => $this->session->userdata('year'),
+                    'supervisor_1' => '',
+                    'supervisor_1_code' => '',
+                    'supervisor_2' => '',
+                    'supervisor_2_code' => '',
+                    'trial_staff_code_1' => '',
+                    'trial_staff_code_2' => '',
+                    'first_member_do_date' => '',
+                    'first_member_day_count' => '',
+                    'first_member_salary_section' => '',
+                    'first_member_section_salary_total' => '',
+                    'first_member_lunch_price' => '',
+                    'first_member_section_lunch_total' => '',
+                    'first_member_section_total' => '',
+                    'second_member_do_date' => '',
+                    'second_member_day_count' => '',
+                    'second_member_salary_section' => '',
+                    'second_member_section_salary_total' => '',
+                    'second_member_lunch_price' => '',
+                    'second_member_section_lunch_total' => '',
+                    'second_member_section_total' => '',
+                    'note' => '',                  
+                );
+
+                
+    
             }
             // echo json_encode($datas);
 
             $this->mod_exam_area->import($datas);
             $this->mod_part_info->import($datas_part);
+            $this->mod_trial->import($datas_trial);
+
+
             fclose($file);
             unlink($file_name);
             // print_r(fgetcsv($file));
@@ -1184,10 +1215,10 @@ class Designated extends CI_Controller
         $obj_pdf->SetCreator(PDF_CREATOR);
         $title = '試務人員執行任務簽到表';
         $area = $_GET['area'];
-        if($_GET['part'] != "2500"){
+        if ($_GET['part'] != "2500") {
             $part = $_GET['part'];
             $school = $this->mod_exam_area->year_school_name($part);
-        }else{
+        } else {
             $school = "";
         }
         $date = date('yyyy/m/d');
@@ -1234,7 +1265,8 @@ class Designated extends CI_Controller
                     # code...
                     $html .= '<tr>';
                     $html .= '<td style="border:1px solid #999">'.$vc['job'].'</td>';
-                    $html .= '<td style="border:1px solid #999">'.$vc['name'].'<br><span style="color:#ff0000">'.$vc['meal'].'</span></td>';'</td>';
+                    $html .= '<td style="border:1px solid #999">'.$vc['name'].'<br><span style="color:#ff0000">'.$vc['meal'].'</span></td>';
+                    '</td>';
                     $html .= '<td style="border:1px solid #999">'.$vc['member_unit'].'</td>';
                     $html .= '<td style="border:1px solid #999"></td>';
                     $html .= '<td style="border:1px solid #999" colspan="2">'.$vc['note'].'</td>';
@@ -1288,7 +1320,7 @@ class Designated extends CI_Controller
             'veg'=>$this->mod_trial->get_trial_member_veg_count($part),
             'meat'=>$this->mod_trial->get_trial_member_meat_count($part),
         );
-        if($data['part'] != false){
+        if ($data['part'] != false) {
             foreach ($data['part'] as $k => $v) {
                 # code...
                 $html = '<table class="" id="" style="padding:5px 0px;;text-align:center;">';
@@ -1338,11 +1370,10 @@ class Designated extends CI_Controller
 
                 $obj_pdf->writeHTML($html);
             }
-
         }
         
         // $this->load->view('designated/e_2_2', $data);
-        // $obj_pdf->writeHTML($view); 
+        // $obj_pdf->writeHTML($view);
         $obj_pdf->Output('監試人員執行任務簽到表.pdf', 'I');
     }
 
@@ -1382,10 +1413,10 @@ class Designated extends CI_Controller
             'school' => $this->mod_exam_area->year_school_name($part),
         );
         // print_r($data);
-        $view = $this->load->view('designated/e_2_3', $data,true);
+        $view = $this->load->view('designated/e_2_3', $data, true);
         $obj_pdf->writeHTML($view);
         $obj_pdf->Output('試場工作人員分配表.pdf', 'I');
-    }    
+    }
 
     public function e_2_4()
     {
@@ -1409,7 +1440,7 @@ class Designated extends CI_Controller
         $data = array(
             'part' => $this->mod_task->get_sign_list(),
         );
-        if($data['part'] != false){
+        if ($data['part'] != false) {
             foreach ($data['part'] as $k => $v) {
                 $html = '<table style="padding:5px 0px;text-align:center;">';
                 $html .=  '<tr>';
@@ -1473,7 +1504,7 @@ class Designated extends CI_Controller
         $data = array(
             'part' => $this->mod_task->get_sign_list(),
         );
-        if($data['part'] != false){
+        if ($data['part'] != false) {
             foreach ($data['part'] as $k => $v) {
                 $html = '<table style="padding:5px 0px;text-align:center;">';
                 $html .=  '<tr>';
@@ -1512,7 +1543,6 @@ class Designated extends CI_Controller
 
                 $obj_pdf->writeHTML($html);
             }
-
         }
         $obj_pdf->Output('大學入學考試中心'.$_SESSION['year'].'學年度定科目考試新北一考區監視說明會開會通知簽收表'.'.pdf', 'I');
     }
@@ -2004,8 +2034,8 @@ class Designated extends CI_Controller
             }
             
 
-            $objPHPExcel->getActiveSheet()->setCellValue('A0','');
-            $objPHPExcel->getActiveSheet()->setCellValue('A1','試場');
+            $objPHPExcel->getActiveSheet()->setCellValue('A0', '');
+            $objPHPExcel->getActiveSheet()->setCellValue('A1', '試場');
 
             $objPHPExcel->getActiveSheet()->setCellValue('B1', '監考費');
             $objPHPExcel->getActiveSheet()->setCellValue('C1', '姓名');
@@ -2036,7 +2066,7 @@ class Designated extends CI_Controller
         
 
         $objWriter->save('php://output');
-    }    
+    }
 
     public function e_7_2()
     {
@@ -2076,7 +2106,7 @@ class Designated extends CI_Controller
             }
             
 
-            $objPHPExcel->getActiveSheet()->setCellValue('A1','試場');
+            $objPHPExcel->getActiveSheet()->setCellValue('A1', '試場');
             $objPHPExcel->getActiveSheet()->setCellValue('B1', '監考費');
             $objPHPExcel->getActiveSheet()->setCellValue('C1', '姓名');
             $objPHPExcel->getActiveSheet()->setCellValue('D1', '餐費');
@@ -2106,7 +2136,7 @@ class Designated extends CI_Controller
         
 
         $objWriter->save('php://output');
-    }      
+    }
 
     /**
      * F 考程設定.

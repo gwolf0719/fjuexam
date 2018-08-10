@@ -40,7 +40,7 @@
         display: inline-block;
         line-height: 40px;
         text-align: center;
-        width: 35%;
+        width: 30%;
     }
 
     .form-control {
@@ -71,7 +71,6 @@
 
     .chbox {
         vertical-align: sub;
-        padding: 0px 3px;
     }
 
     .W50 {
