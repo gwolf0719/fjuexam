@@ -140,6 +140,123 @@ class Mod_task extends CI_Model
         }
     }
 
+    public function e_2_1($area = '')
+    {
+        $this->db->where('year', $this->session->userdata('year'));
+        if ($area != '') {
+            $this->db->where('area', $area);
+        }
+
+        $this->db->where('job_code !=', "");
+
+        $res = $this->db->get('district_task')->result_array();
+        if (!empty($res)) {
+            for ($i=0; $i < count($res); $i++) {
+                # code...
+                $member = $this->db->where('member_code', $res[$i]['job_code'])->get('staff_member')->row_array();
+                // $trial = $this->db->where('part',$part)->where('year',$_SESSION['year'])->get('trial_staff')->row_array();
+                $do_date = explode(",", $res[$i]['do_date']);
+                        
+                for ($d=0; $d < count($do_date); $d++) {
+                    # code...
+                    $arr[$do_date[$d]][] = array(
+                        'job_code' => $res[$i]['job_code'],
+                        'job' => $res[$i]['job'],
+                        'job_title' => $res[$i]['job_title'],
+                        'name' => $res[$i]['name'],
+                        'member_unit'=>$member['member_unit'],
+                        'meal' => $member['meal'],
+                        'note' => $res[$i]['note']
+                    );
+                }
+            }
+            return $arr;
+        }else{
+            return false;
+        }
+    }  
+    
+    public function get_member_own_count($area = '')
+    {
+        $this->db->where('year', $this->session->userdata('year'));
+        if ($area != '') {
+            $this->db->where('area', $area);
+        }
+
+        $this->db->where('job_code !=', "");
+
+        $res = $this->db->get('district_task')->result_array();
+        if (!empty($res)) {
+            $own_count = 0;
+            for ($i=0; $i < count($res); $i++) {
+                # code...
+                $member = $this->db->where('member_code', $res[$i]['job_code'])->get('staff_member')->row_array();
+                $this->db->where('member_code', $res[$i]['job_code']);
+                $this->db->where('meal', '自備');
+                $own = $this->db->get('staff_member')->row_array();
+                $own_count += count($own['meal']);
+
+            }
+            return $own_count;
+        }else{
+            return false;
+        }
+    }      
+
+    public function get_member_veg_count($area = '')
+    {
+        $this->db->where('year', $this->session->userdata('year'));
+        if ($area != '') {
+            $this->db->where('area', $area);
+        }
+
+        $this->db->where('job_code !=', "");
+
+        $res = $this->db->get('district_task')->result_array();
+        if (!empty($res)) {
+            $veg_count = 0;
+            for ($i=0; $i < count($res); $i++) {
+                # code...
+                $member = $this->db->where('member_code', $res[$i]['job_code'])->get('staff_member')->row_array();
+                $this->db->where('member_code', $res[$i]['job_code']);
+                $this->db->where('meal', '素');
+                $veg = $this->db->get('staff_member')->row_array();
+                $veg_count += count($veg['meal']);
+
+            }
+            return $veg_count;
+        }else{
+            return false;
+        }
+    }       
+    
+    public function get_member_meat_count($area = '')
+    {
+        $this->db->where('year', $this->session->userdata('year'));
+        if ($area != '') {
+            $this->db->where('area', $area);
+        }
+
+        $this->db->where('job_code !=', "");
+
+        $res = $this->db->get('district_task')->result_array();
+        if (!empty($res)) {
+            $meat_count = 0;
+            for ($i=0; $i < count($res); $i++) {
+                # code...
+                $member = $this->db->where('member_code', $res[$i]['job_code'])->get('staff_member')->row_array();
+                $this->db->where('member_code', $res[$i]['job_code']);
+                $this->db->where('meal', '葷');
+                $meat = $this->db->get('staff_member')->row_array();
+                $meat_count += count($meat['meal']);
+
+            }
+            return $meat_count;
+        }else{
+            return false;
+        }
+    }           
+
     public function get_sign_list($area = '')
     {
         $this->db->where('year', $this->session->userdata('year'));
@@ -151,9 +268,6 @@ class Mod_task extends CI_Model
 
         $res = $this->db->get('district_task')->result_array();
                 
-
-
-
         if (!empty($res)) {
             for ($i=0; $i < count($res); $i++) {
                 # code...
@@ -172,6 +286,8 @@ class Mod_task extends CI_Model
             }
 
             return $arr;
+        }else{
+            return false;
         }
     }    
 

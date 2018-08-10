@@ -193,7 +193,7 @@ class Mod_trial extends CI_Model
         return $arr;
     }
 
-    public function get_date_for_trial_list($part = '',$datetime_info)
+    public function get_list_for_voucher($part = '')
     {
         $this->db->select('*');
         if ($part != '') {
@@ -215,37 +215,217 @@ class Mod_trial extends CI_Model
         $sub =  array_filter($res, "even");
 
         sort($sub);
+
         for ($i=0; $i < count($sub); $i++) {
             # code...
             $supervisor1 = $this->db->where('member_code', $sub[$i]['supervisor_1_code'])->get('staff_member')->row_array();
             $supervisor2 = $this->db->where('member_code', $sub[$i]['supervisor_2_code'])->get('staff_member')->row_array();
-            $do_date = explode("、",$sub[$i]['first_member_do_date']);
+            $voucher = $this->db->where('part',$part)->where('first_start <=', $sub[$i]['start'])->where('first_end >=', $sub[$i]['end'])->get('trial_staff')->row_array();
+            $course = $this->db->where('year', $year)->where('field', $sub[$i]['field'])->get('exam_area')->row_array();
+            $trial = $this->db->get('trial_staff')->result_array();
+
+
+            $arr[$voucher['trial_staff_name']] = array(
+                'sn'=>$sub[$i]['sn'],
+                'field' => $sub[$i]['field'],
+                'test_section' => $sub[$i]['test_section'],
+                'part' => $sub[$i]['part'],
+                'supervisor_1'=>$sub[$i]['supervisor_1'],
+                'supervisor_2'=>$sub[$i]['supervisor_2'],
+                'subject_01'=>$course['subject_01'],
+                'subject_02'=>$course['subject_02'],
+                'subject_03'=>$course['subject_03'],
+                'subject_04'=>$course['subject_04'],
+                'subject_05'=>$course['subject_05'],
+                'subject_06'=>$course['subject_06'],
+                'subject_07'=>$course['subject_07'],
+                'subject_08'=>$course['subject_08'],
+                'subject_09'=>$course['subject_09'],
+                'subject_10'=>$course['subject_10'],                
+            );
             
-            for ($d=0; $d < count($do_date); $d++) { 
-                # code...
-                $arr[$do_date[$d]][] = array(
-                    'sn'=>$sub[$i]['sn'],
-                    'field' => $sub[$i]['field'],
-                    'test_section' => $sub[$i]['test_section'],
-                    'part' => $sub[$i]['part'],
-                    'order_meal1'=>$supervisor1['order_meal'],
-                    'supervisor_1'=>$sub[$i]['supervisor_1'],
-                    'supervisor_1_unit' => $supervisor1['member_unit'] ,
-                    'supervisor_1_phone' => $supervisor1['member_phone'],
-                    'supervisor_2'=>$sub[$i]['supervisor_2'],
-                    'supervisor_2_unit' => $supervisor2['member_unit'] ,
-                    'supervisor_2_phone' => $supervisor2['member_phone'],
-                    'order_meal2'=>$supervisor2['order_meal'],
-                    'floor' =>$sub[$i]['floor'],
-                    'number'=>$sub[$i]['number'],
-                    'start'=>$sub[$i]['start'],
-                    'end'=>$sub[$i]['end'],
-                );
-                
-            }
         }
         return $arr;
     }
+
+    //按照日期取的監試人員資料
+    public function get_date_for_trial_list($part = '')
+    {
+        $this->db->select('*');
+        if ($part != '') {
+            $this->db->where('part', $part);
+        }
+        $this->db->from('part_info');
+        $this->db->join('trial_assign', 'part_info.sn = trial_assign.sn');
+        
+        $this->db->where('first_member_do_date !=', "");
+        $year = $this->session->userdata('year');
+
+        $res = $this->db->get()->result_array();
+
+        function even($var)
+        {
+            return($var['year'] == $_SESSION['year']);
+        }
+
+        $sub =  array_filter($res, "even");
+
+        sort($sub);
+
+        if(!empty($sub)){
+            for ($i=0; $i < count($sub); $i++) {
+             # code...
+                $supervisor1 = $this->db->where('member_code', $sub[$i]['supervisor_1_code'])->get('staff_member')->row_array();
+                $supervisor2 = $this->db->where('member_code', $sub[$i]['supervisor_2_code'])->get('staff_member')->row_array();
+                
+                $do_date = explode("、", $sub[$i]['first_member_do_date']);
+                        
+                for ($d=0; $d < count($do_date); $d++) {
+                    # code...
+                    $arr[$do_date[$d]][] = array(
+                        'sn'=>$sub[$i]['sn'],
+                        'field' => $sub[$i]['field'],
+                        'test_section' => $sub[$i]['test_section'],
+                        'part' => $sub[$i]['part'],
+                        'order_meal1'=>$supervisor1['order_meal'],
+                        'meal1'=>$supervisor1['meal'],
+                        'supervisor_1'=>$sub[$i]['supervisor_1'],
+                        'supervisor_1_unit' => $supervisor1['member_unit'] ,
+                        'supervisor_1_phone' => $supervisor1['member_phone'],
+                        'meal2'=>$supervisor2['meal'],
+                        'supervisor_2'=>$sub[$i]['supervisor_2'],
+                        'supervisor_2_unit' => $supervisor2['member_unit'] ,
+                        'supervisor_2_phone' => $supervisor2['member_phone'],
+                        'order_meal2'=>$supervisor2['order_meal'],
+                        'floor' =>$sub[$i]['floor'],
+                        'number'=>$sub[$i]['number'],
+                        'start'=>$sub[$i]['start'],
+                        'end'=>$sub[$i]['end'],
+                    );
+                }
+            }
+            return $arr;
+        }else{
+            return false;
+        }
+    }
+    
+    function odd($var)
+    {
+        return($var['year'] == $_SESSION['year']);
+    }
+
+    public function get_trial_member_own_count($part = '')
+    {
+        $this->db->select('*');
+        if ($part != '') {
+            $this->db->where('part', $part);
+        }
+        $this->db->from('part_info');
+        $this->db->join('trial_assign', 'part_info.sn = trial_assign.sn');
+        
+        $this->db->where('first_member_do_date !=', "");
+        $year = $this->session->userdata('year');
+
+        $res = $this->db->get()->result_array();
+
+        function odd($var)
+        {
+            return($var['year'] == $_SESSION['year']);
+        }
+
+        $sub =  array_filter($res, "odd");
+
+        sort($sub);
+        $own = 0;
+        for ($i=0; $i < count($sub); $i++) {
+            # code...
+            $supervisor1 = $this->db->where('member_code', $sub[$i]['supervisor_1_code'])->get('staff_member')->row_array();
+            $supervisor2 = $this->db->where('member_code', $sub[$i]['supervisor_2_code'])->get('staff_member')->row_array();
+
+            //取的自備午餐人數
+            $this->db->where('member_code', $sub[$i]['supervisor_1_code']);
+            $this->db->where('meal', '自備');
+            $own1 =$this->db->get('staff_member')->row_array();
+            $this->db->where('member_code', $sub[$i]['supervisor_2_code']);
+            $this->db->where('meal', '自備');
+            $own2 =$this->db->get('staff_member')->row_array();
+            
+            $own += count($own1['meal']) + count($own2['meal']);
+        }
+        return $own;
+    }
+
+    public function get_trial_member_veg_count($part = '')
+    {
+        $this->db->select('*');
+        if ($part != '') {
+            $this->db->where('part', $part);
+
+        }
+        $this->db->from('part_info');
+        $this->db->join('trial_assign', 'part_info.sn = trial_assign.sn');
+        $this->db->where('first_member_do_date !=', "");
+        $year = $this->session->userdata('year');
+
+        $res = $this->db->get()->result_array();
+        $veg = 0;
+        for ($i=0; $i < count($res); $i++) {
+            # code...
+            $supervisor1 = $this->db->where('member_code', $res[$i]['supervisor_1_code'])->get('staff_member')->row_array();
+            $supervisor2 = $this->db->where('member_code', $res[$i]['supervisor_2_code'])->get('staff_member')->row_array();
+
+            //取的自備午餐人數
+            $this->db->where('member_code', $res[$i]['supervisor_1_code']);
+            $this->db->where('meal', '素');
+            $veg1 =$this->db->get('staff_member')->row_array();
+            $this->db->where('member_code', $res[$i]['supervisor_2_code']);
+            $this->db->where('meal', '素');
+            $veg2 =$this->db->get('staff_member')->row_array();
+            
+            $veg += count($veg1['meal']) + count($veg2['meal']);
+        }
+        return $veg;
+    }    
+
+
+    public function get_trial_member_meat_count($part = '')
+    {
+        $this->db->select('*');
+        if ($part != '') {
+            $this->db->where('part', $part);
+        }
+        $this->db->from('part_info');
+        $this->db->join('trial_assign', 'part_info.sn = trial_assign.sn');
+        
+        $this->db->where('first_member_do_date !=', "");
+        $year = $this->session->userdata('year');
+
+        $res = $this->db->get()->result_array();
+
+
+        $sub =  array_filter($res, "odd");
+
+        sort($sub);
+
+        $meat = 0;
+        for ($i=0; $i < count($res); $i++) {
+            # code...
+            $supervisor1 = $this->db->where('member_code', $res[$i]['supervisor_1_code'])->get('staff_member')->row_array();
+            $supervisor2 = $this->db->where('member_code', $res[$i]['supervisor_2_code'])->get('staff_member')->row_array();
+
+            //取的自備午餐人數
+            $this->db->where('member_code', $res[$i]['supervisor_1_code']);
+            $this->db->where('meal', '葷');
+            $meat1 =$this->db->get('staff_member')->row_array();
+            $this->db->where('member_code', $res[$i]['supervisor_2_code']);
+            $this->db->where('meal', '葷');
+            $meat2 =$this->db->get('staff_member')->row_array();
+            
+            $meat += count($meat1['meal']) + count($meat2['meal']);
+        }
+        return $meat;
+    }        
 
     public function get_patrol_member_count($part = '')
     {
@@ -357,7 +537,6 @@ class Mod_trial extends CI_Model
                 'subject_09'=>$course['subject_09'],
                 'subject_10'=>$course['subject_10'],
             );
-            
         }
         return $arr;
     }

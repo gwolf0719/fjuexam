@@ -30,7 +30,7 @@
             <th rowspan="2" class="bb">試場</th>
             <th colspan="4" class="bb">監試人員(1)</th>
             <th rowspan="2" colspan="2" class="bb">簽名或蓋章</th>
-            <th colspan="4" class="bb">監試人員(2)</th>
+            <th colspan="3" class="bb">監試人員(2)</th>
             <th rowspan="2" colspan="2" class="bb">簽名或蓋章</th>
         </tr>
         <tr>
@@ -38,7 +38,6 @@
             <td class="bb">姓名</td>
             <td class="bb">餐費</td>
             <td class="bb">應領費用</td>
-            <td class="bb">監考費</td>
             <td class="bb">姓名</td>
             <td class="bb">餐費</td>
             <td class="bb">應領費用</td>

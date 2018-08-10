@@ -1179,10 +1179,17 @@ class Designated extends CI_Controller
     {
         $this->load->library('pdf');
         $this->load->model('mod_task');
+        $this->load->model('mod_exam_area');
         $obj_pdf = new Pdf(PDF_PAGE_ORIENTATION, PDF_UNIT, PDF_PAGE_FORMAT, false, 'UTF-8', false);
         $obj_pdf->SetCreator(PDF_CREATOR);
         $title = '試務人員執行任務簽到表';
         $area = $_GET['area'];
+        if($_GET['part'] != "2500"){
+            $part = $_GET['part'];
+            $school = $this->mod_exam_area->year_school_name($part);
+        }else{
+            $school = "";
+        }
         $date = date('yyyy/m/d');
         $obj_pdf->SetTitle($title);
         $obj_pdf->SetHeaderData('', '', $title, '印表日期：'.$date);
@@ -1194,14 +1201,58 @@ class Designated extends CI_Controller
         $obj_pdf->SetFont('msungstdlight', 'B', 10);
 
         $obj_pdf->setFontSubsetting(false);
-        $obj_pdf->AddPage();
+        
         $data = array(
-            'part' => $this->mod_task->e_2_1_pdf($area),
-            'area' => $area
+            'part' => $this->mod_task->e_2_1($area),
+            'area' => $area,
+            'own'=> $this->mod_task->get_member_own_count($area),
+            'veg'=> $this->mod_task->get_member_veg_count($area),
+            'meat'=> $this->mod_task->get_member_meat_count($area),
+            'school' => $school,
         );
-        // print_r($data);
-        $view =  $this->load->view('designated/e_2_1', $data, true);
-        $obj_pdf->writeHTML($view);
+        if ($data['part'] != false) {
+            foreach ($data['part'] as $k => $v) {
+                # code...
+                $html = '<table class="" id="" style="padding:5px 0px;;text-align:center;">';
+                $html .= '<tr>';
+                $html .= '<td style="font-size:16px;lne-height:50px;" colspan="6">'.$_SESSION['year'].'學年度定科目考試新北一考區試務人員簽到表</td>';
+                $html .= '</tr>';
+                $html .= '<tr>';
+                $html .= '<td colspan="2" style="font-size:14px;text-align:left;">分區：'.$area.'</td>';
+                $html .= '<td colspan="2" style="font-size:14px;">'.$school.'</td>';
+                $html .= '<td colspan="2" style="font-size:14px;text-align:right;">簽到日期：'.$k.'</td>';
+                $html .= '</tr>';
+                $html .= '<tr>';
+                $html .= '<th style="border:1px solid #999">職務</th>';
+                $html .= '<th style="border:1px solid #999">姓名</th>';
+                $html .= '<th style="border:1px solid #999">單位別</th>';
+                $html .= '<th style="border:1px solid #999">簽名</th>';
+                $html .= '<th style="border:1px solid #999" colspan="2">備註(工作分配)</th>';
+                $html .= '</tr>';
+                        
+                foreach ($v as $kc => $vc) {
+                    # code...
+                    $html .= '<tr>';
+                    $html .= '<td style="border:1px solid #999">'.$vc['job'].'</td>';
+                    $html .= '<td style="border:1px solid #999">'.$vc['name'].'<br><span style="color:#ff0000">'.$vc['meal'].'</span></td>';'</td>';
+                    $html .= '<td style="border:1px solid #999">'.$vc['member_unit'].'</td>';
+                    $html .= '<td style="border:1px solid #999"></td>';
+                    $html .= '<td style="border:1px solid #999" colspan="2">'.$vc['note'].'</td>';
+                    $html .= '</tr>';
+                }
+                $html .= '<tr>';
+                $html .= '<td colspan="6" style="font-size:16px;text-align:left;">共計：'.(count($v)).'人、'.'自備共'.$data['own'].'人、'.'素食共'.$data['veg'].'人、'.'葷食共'.$data['veg'].'人</td>';
+                $html .= '</tr>';
+
+                $html .= '</table>';
+
+
+                $obj_pdf->AddPage($html);
+
+                $obj_pdf->writeHTML($html);
+            }
+        }
+
         $obj_pdf->Output('試務人員執行任務簽到表.pdf', 'I');
     }
 
@@ -1209,7 +1260,7 @@ class Designated extends CI_Controller
     {
         $this->load->library('pdf');
         $this->load->model('mod_trial');
-        $this->load->model('mod_exam_datetime');
+        $this->load->model('mod_exam_area');
         $obj_pdf = new Pdf(PDF_PAGE_ORIENTATION, PDF_UNIT, PDF_PAGE_FORMAT, false, 'UTF-8', false);
         $obj_pdf->SetCreator(PDF_CREATOR);
         $title = '監試人員執行任務簽到表';
@@ -1228,19 +1279,114 @@ class Designated extends CI_Controller
 
         $obj_pdf->setFontSubsetting(false);
 
-        $obj_pdf->AddPage();
         $year = $this->session->userdata('year');
-
         $data = array(
             'part' => $this->mod_trial->get_date_for_trial_list($part),
-            'area' =>$area
+            'area' =>$area,
+            'school' => $this->mod_exam_area->year_school_name($part),
+            'own'=>$this->mod_trial->get_trial_member_own_count($part),
+            'veg'=>$this->mod_trial->get_trial_member_veg_count($part),
+            'meat'=>$this->mod_trial->get_trial_member_meat_count($part),
+        );
+        if($data['part'] != false){
+            foreach ($data['part'] as $k => $v) {
+                # code...
+                $html = '<table class="" id="" style="padding:5px 0px;;text-align:center;">';
+                $html .= '<tr>';
+                $html .= '<td style="font-size:16px;lne-height:50px;" colspan="7">'.$_SESSION['year'].'學年度定科目考試新北一考區監試人員簽到表</td>';
+                $html .= '</tr>';
+                $html .= '<tr>';
+
+                $html .= '<td colspan="2" style="font-size:14px;">分區：'.$part.'</td>';
+                $html .= '<td colspan="3" style="font-size:14px;">'.$data['school'].'</td>';
+                $html .= '<td colspan="2" style="font-size:14px;">簽到日期：'.$k.'</td>';
+                $html .= '</tr>';
+                $html .= '<tr>';
+                $html .= '<th style="border:1px solid #999" rowspan="2">試場</th>';
+                $html .= '<th style="border:1px solid #999" colspan="2" class="bb">監試人員(1)</th>';
+                $html .= '<th style="border:1px solid #999" rowspan="2">簽名</th>';
+                $html .= '<th style="border:1px solid #999" colspan="2" class="bb">監試人員(2)</th>';
+                $html .= '<th style="border:1px solid #999" rowspan="2">簽名</th>';
+                $html .= '</tr>';
+
+                $html .= '<tr>';
+                $html .= '<td style="border:1px solid #999">姓名</td>';
+                $html .= '<td style="border:1px solid #999">單位別</td>';
+                $html .= '<td style="border:1px solid #999">姓名</td>';
+                $html .= '<td style="border:1px solid #999">單位別</td>';
+                $html .= '</tr>';
+                        
+                foreach ($v as $kc => $vc) {
+                    # code...
+                    $html .= '<tr>';
+                    $html .= '<td style="border:1px solid #999">'.$vc['field'].'</td>';
+                    $html .= '<td style="border:1px solid #999">'.$vc['supervisor_1'].'<br><span style="color:#ff0000">'.$vc['meal1'].'</span></td>';
+                    $html .= '<td style="border:1px solid #999">'.$vc['supervisor_1_unit'].'</td>';
+                    $html .= '<td style="border:1px solid #999"></td>';
+                    $html .= '<td style="border:1px solid #999">'.$vc['supervisor_2'].'<br><span style="color:#ff0000">'.$vc['meal2'].'</span></td>';
+                    $html .= '<td style="border:1px solid #999">'.$vc['supervisor_2_unit'].'</td>';
+                    $html .= '<td style="border:1px solid #999"></td>';
+                    $html .= '</tr>';
+                }
+                $html .= '<tr>';
+                $html .= '<td colspan="7" style="font-size:16px;text-align:left;">共計：'.(count($v)*2).'人、'.'自備共'.$data['own'].'人、'.'素食共'.$data['veg'].'人、'.'葷食共'.$data['veg'].'人</td>';
+                $html .= '</tr>';
+                $html .= '</table>';
+
+
+                $obj_pdf->AddPage($html);
+
+                $obj_pdf->writeHTML($html);
+            }
+
+        }
+        
+        // $this->load->view('designated/e_2_2', $data);
+        // $obj_pdf->writeHTML($view); 
+        $obj_pdf->Output('監試人員執行任務簽到表.pdf', 'I');
+    }
+
+    public function e_2_3()
+    {
+        $this->load->library('pdf');
+        $this->load->model('mod_trial');
+        $this->load->model('mod_exam_area');
+        $this->load->model('mod_exam_datetime');
+
+        $obj_pdf = new Pdf(PDF_PAGE_ORIENTATION, PDF_UNIT, PDF_PAGE_FORMAT, false, 'UTF-8', false);
+        $obj_pdf->SetCreator(PDF_CREATOR);
+        $title = '試場工作人員分配表';
+        $date = date('yyyy/m/d');
+        $part = $_GET['part'];
+        $area = $_GET['area'];
+        
+        $obj_pdf->SetTitle($title);
+        $obj_pdf->SetHeaderData('', '', $title, '印表日期：'.$date);
+        $obj_pdf->setPrintHeader(false);
+        // $obj_pdf->SetHeaderMargin(PDF_MARGIN_HEADER);
+        $obj_pdf->SetFooterMargin(PDF_MARGIN_FOOTER);
+        $obj_pdf->SetMargins(PDF_MARGIN_LEFT, PDF_MARGIN_RIGHT);
+        $obj_pdf->SetAutoPageBreak(true, PDF_MARGIN_BOTTOM);
+        $obj_pdf->SetFont('msungstdlight', 'L', 10);
+        $year = $this->session->userdata('year');
+
+        $datetime_info = $this->mod_exam_datetime->get_once($year);
+
+        $obj_pdf->setFontSubsetting(false);
+        $obj_pdf->AddPage();
+        $data = array(
+            'part' => $this->mod_trial->get_list_for_voucher($part),
+            'area' => $area,
+            'datetime_info' => $datetime_info,
+            'count'=> $this->mod_trial->get_patrol_member_count($part),
+            'school' => $this->mod_exam_area->year_school_name($part),
         );
         // print_r($data);
-        // $view =  $this->load->view('designated/e_2_2', $data, true);
-        // $obj_pdf->writeHTML($view);
-        // $obj_pdf->Output('監試人員執行任務簽到表.pdf', 'I');
-    }
-    
+        $view = $this->load->view('designated/e_2_3', $data,true);
+        $obj_pdf->writeHTML($view);
+        $obj_pdf->Output('試場工作人員分配表.pdf', 'I');
+    }    
+
     public function e_2_4()
     {
         $this->load->library('pdf');
@@ -1263,49 +1409,44 @@ class Designated extends CI_Controller
         $data = array(
             'part' => $this->mod_task->get_sign_list(),
         );
+        if($data['part'] != false){
+            foreach ($data['part'] as $k => $v) {
+                $html = '<table style="padding:5px 0px;text-align:center;">';
+                $html .=  '<tr>';
+                $html .=  '<td colspan="5" style="font-size:14px;">大學入學考試中心'.$_SESSION['year'].'學年度定科目考試新北一考區監視說明會開會通知簽收表</td>';
+                $html .=  '</tr>';
 
-        
-
-        foreach ($data['part'] as $k => $v) {
-            $html = '<table style="padding:5px 0px;text-align:center;">';
-            $html .=  '<tr>';
-            $html .=  '<td colspan="5" style="font-size:14px;">大學入學考試中心'.$_SESSION['year'].'學年度定科目考試新北一考區監視說明會開會通知簽收表</td>';
-            $html .=  '</tr>';
-
-            $html .=  '<tr>';
-            $html .=  '<td colspan="6" style="font-size:13px;text-align:left;">單位：'.$k.'</td>';
-            $html .=  '</tr>';
-            $html .=  '<tr style="background:#FFE4E7">';
-            $html .=  '<th style="border: 1px solid #999999;">職務</th>';
-            $html .=  '<th style="border: 1px solid #999999;">姓名</th>';
-            $html .=  '<th style="border: 1px solid #999999;">單位別</th>';
-            $html .=  '<th style="border: 1px solid #999999;">簽名</th>';
-            $html .=  '<th style="border: 1px solid #999999;">備註</th>';
-            $html .=  '</tr>';
-            foreach ($v as $kc => $vc) {
-                $html .=   '<tr>';
+                $html .=  '<tr>';
+                $html .=  '<td colspan="6" style="font-size:13px;text-align:left;">單位：'.$k.'</td>';
+                $html .=  '</tr>';
+                $html .=  '<tr style="background:#FFE4E7">';
+                $html .=  '<th style="border: 1px solid #999999;">職務</th>';
+                $html .=  '<th style="border: 1px solid #999999;">姓名</th>';
+                $html .=  '<th style="border: 1px solid #999999;">單位別</th>';
+                $html .=  '<th style="border: 1px solid #999999;">簽名</th>';
+                $html .=  '<th style="border: 1px solid #999999;">備註</th>';
+                $html .=  '</tr>';
+                foreach ($v as $kc => $vc) {
+                    $html .=   '<tr>';
                     $html .=  '<td  style="border: 1px solid #999999;">'.$vc['job'].'</td>';
                     $html .=  '<td  style="border: 1px solid #999999;">'.$vc['member_name'].'</td>';
                     $html .=  '<td  style="border: 1px solid #999999;">'.$vc['member_unit'].'</td>';
                     $html .=  '<td  style="border: 1px solid #999999;"></td>';
                     $html .=  '<td  style="border: 1px solid #999999;"></td>';
-                $html .=  '</tr>';     
+                    $html .=  '</tr>';
+                }
+                $html .= '<tr>';
+                $html .= '<td colspan="5" style="font-size:13px;text-align:left;">共計：'.count($v).'人</td>';
+                $html .=  '</tr>';
+                    
+                $html .=  '</table>';
+
+                $obj_pdf->AddPage($html);
+
+                $obj_pdf->writeHTML($html);
             }
-            $html .= '<tr>';
-            $html .= '<td colspan="5" style="font-size:13px;text-align:left;">共計：'.count($v).'人</td>';
-            $html .=  '</tr>';
-        
-            $html .=  '</table>';
-
-        $obj_pdf->AddPage($html);
-
-        $obj_pdf->writeHTML($html);
-
         }
-        
         $obj_pdf->Output('監試說明會簽到表.pdf', 'I');
-
-
     }
 
     public function e_2_5()
@@ -1332,46 +1473,47 @@ class Designated extends CI_Controller
         $data = array(
             'part' => $this->mod_task->get_sign_list(),
         );
-
-        foreach ($data['part'] as $k => $v) {
-            $html = '<table style="padding:5px 0px;text-align:center;">';
-            $html .=  '<tr>';
-            $html .=  '<td colspan="6" style="font-size:14px;">大學入學考試中心'.$_SESSION['year'].'學年度定科目考試新北一考區監視說明會開會通知簽收表</td>';
-            $html .=  '</tr>';
-
-            $html .=  '<tr>';
-            $html .=  '<td colspan="6" style="font-size:13px;text-align:left;">單位：'.$k.'</td>';
-            $html .=  '</tr>';
-            $html .=  '<tr style="background:#FFE4E7">';
-            $html .=  '<th style="border: 1px solid #999999;">編號</th>';
-            $html .=  '<th style="border: 1px solid #999999;">職務</th>';
-            $html .=  '<th style="border: 1px solid #999999;">姓名</th>';
-            $html .=  '<th style="border: 1px solid #999999;">單位別</th>';
-            $html .=  '<th style="border: 1px solid #999999;">簽名</th>';
-            $html .=  '<th style="border: 1px solid #999999;">備註</th>';
-            $html .=  '</tr>';
-            foreach ($v as $kc => $vc) {
-                $html .=   '<tr>';
-                $html .=  '<td  style="border: 1px solid #999999;">'.$vc['member_code'].'</td>';
-
-                $html .=  '<td  style="border: 1px solid #999999;">'.$vc['job'].'</td>';
-                $html .=  '<td  style="border: 1px solid #999999;">'.$vc['member_name'].'</td>';
-                $html .=  '<td  style="border: 1px solid #999999;">'.$vc['member_unit'].'</td>';
-                $html .=  '<td  style="border: 1px solid #999999;"></td>';
-                $html .=  '<td  style="border: 1px solid #999999;"></td>';
+        if($data['part'] != false){
+            foreach ($data['part'] as $k => $v) {
+                $html = '<table style="padding:5px 0px;text-align:center;">';
+                $html .=  '<tr>';
+                $html .=  '<td colspan="6" style="font-size:14px;">大學入學考試中心'.$_SESSION['year'].'學年度定科目考試新北一考區監視說明會開會通知簽收表</td>';
                 $html .=  '</tr>';
+
+                $html .=  '<tr>';
+                $html .=  '<td colspan="6" style="font-size:13px;text-align:left;">單位：'.$k.'</td>';
+                $html .=  '</tr>';
+                $html .=  '<tr style="background:#FFE4E7">';
+                $html .=  '<th style="border: 1px solid #999999;">編號</th>';
+                $html .=  '<th style="border: 1px solid #999999;">職務</th>';
+                $html .=  '<th style="border: 1px solid #999999;">姓名</th>';
+                $html .=  '<th style="border: 1px solid #999999;">單位別</th>';
+                $html .=  '<th style="border: 1px solid #999999;">簽名</th>';
+                $html .=  '<th style="border: 1px solid #999999;">備註</th>';
+                $html .=  '</tr>';
+                foreach ($v as $kc => $vc) {
+                    $html .=   '<tr>';
+                    $html .=  '<td  style="border: 1px solid #999999;">'.$vc['member_code'].'</td>';
+
+                    $html .=  '<td  style="border: 1px solid #999999;">'.$vc['job'].'</td>';
+                    $html .=  '<td  style="border: 1px solid #999999;">'.$vc['member_name'].'</td>';
+                    $html .=  '<td  style="border: 1px solid #999999;">'.$vc['member_unit'].'</td>';
+                    $html .=  '<td  style="border: 1px solid #999999;"></td>';
+                    $html .=  '<td  style="border: 1px solid #999999;"></td>';
+                    $html .=  '</tr>';
+                }
+                $html .= '<tr>';
+                $html .= '<td colspan="5" style="font-size:13px;text-align:left;">共計：'.count($v).'人</td>';
+                $html .=  '</tr>';
+                    
+                $html .=  '</table>';
+
+                $obj_pdf->AddPage($html);
+
+                $obj_pdf->writeHTML($html);
             }
-            $html .= '<tr>';
-            $html .= '<td colspan="5" style="font-size:13px;text-align:left;">共計：'.count($v).'人</td>';
-            $html .=  '</tr>';
-        
-            $html .=  '</table>';
 
-            $obj_pdf->AddPage($html);
-
-            $obj_pdf->writeHTML($html);
         }
-
         $obj_pdf->Output('大學入學考試中心'.$_SESSION['year'].'學年度定科目考試新北一考區監視說明會開會通知簽收表'.'.pdf', 'I');
     }
 
@@ -1825,6 +1967,146 @@ class Designated extends CI_Controller
 
         $objWriter->save('php://output');
     }
+
+    public function e_7_1()
+    {
+        $this->load->library('excel');
+        $this->load->model('mod_trial');
+        
+        $objPHPExcel = new PHPExcel();
+        $objPHPExcel->setActiveSheetIndex(0);
+        $part = $_GET['part'];
+        $area = $_GET['area'];
+
+        $arr = $this->mod_trial->get_list_for_pdf($part);
+        for ($i=0; $i < count($arr); $i++) {
+            # code...
+            if ($arr[$i]['order_meal1'] == "N") {
+                $first_member_section_lunch_total = 0;
+            } else {
+                $first_member_section_lunch_total = number_format(abs($arr[$i]['first_member_section_lunch_total']));
+            }
+            if ($arr[$i]['order_meal1'] == "N") {
+                $first_member_section_salary_total = number_format($arr[$i]['first_member_section_salary_total'] - 0);
+            } else {
+                $first_member_section_salary_total =  number_format($arr[$i]['first_member_section_salary_total'] - abs($arr[$i]['first_member_section_lunch_total']));
+            }
+
+            if ($arr[$i]['order_meal2'] == "N") {
+                $second_member_section_lunch_total = 0;
+            } else {
+                $second_member_section_lunch_total = number_format(abs($arr[$i]['second_member_section_lunch_total']));
+            }
+            if ($arr[$i]['order_meal2'] == "N") {
+                $second_member_section_salary_total = number_format($arr[$i]['second_member_section_salary_total'] - 0);
+            } else {
+                $second_member_section_salary_total =  number_format($arr[$i]['second_member_section_salary_total'] - abs($arr[$i]['second_member_section_lunch_total']));
+            }
+            
+
+            $objPHPExcel->getActiveSheet()->setCellValue('A0','');
+            $objPHPExcel->getActiveSheet()->setCellValue('A1','試場');
+
+            $objPHPExcel->getActiveSheet()->setCellValue('B1', '監考費');
+            $objPHPExcel->getActiveSheet()->setCellValue('C1', '姓名');
+            $objPHPExcel->getActiveSheet()->setCellValue('D1', '餐費');
+            $objPHPExcel->getActiveSheet()->setCellValue('E1', '應領費用');
+            $objPHPExcel->getActiveSheet()->setCellValue('F1', '監考費');
+            $objPHPExcel->getActiveSheet()->setCellValue('G1', '姓名');
+            $objPHPExcel->getActiveSheet()->setCellValue('H1', '餐費');
+            $objPHPExcel->getActiveSheet()->setCellValue('I1', '應領費用');
+            $objPHPExcel->getActiveSheet()->setCellValue('A'.(2+$i), $arr[$i]['field']);
+            $objPHPExcel->getActiveSheet()->setCellValue('B'.(2+$i), number_format($arr[$i]['first_member_salary_section']));
+            $objPHPExcel->getActiveSheet()->setCellValue('C'.(2+$i), $arr[$i]['supervisor_1']);
+            $objPHPExcel->getActiveSheet()->setCellValue('D'.(2+$i), $first_member_section_lunch_total);
+            $objPHPExcel->getActiveSheet()->setCellValue('E'.(2+$i), $second_member_section_salary_total);
+            $objPHPExcel->getActiveSheet()->setCellValue('F'.(2+$i), number_format($arr[$i]['second_member_salary_section']));
+            $objPHPExcel->getActiveSheet()->setCellValue('G'.(2+$i), $arr[$i]['supervisor_2']);
+            $objPHPExcel->getActiveSheet()->setCellValue('H'.(2+$i), $second_member_section_lunch_total);
+            $objPHPExcel->getActiveSheet()->setCellValue('I'.(2+$i), $second_member_section_salary_total);
+        }
+
+        $objWriter = PHPExcel_IOFactory::createWriter($objPHPExcel, 'CSV');
+
+
+        header('Content-Type: application/vnd.ms-excel');
+        header('Content-Disposition: attachment;filename="'.$area.'印領清冊'.'.csv"');
+        header('Cache-Control: max-age=0');
+
+        
+
+        $objWriter->save('php://output');
+    }    
+
+    public function e_7_2()
+    {
+        $this->load->library('excel');
+        $this->load->model('mod_trial');
+        
+        $objPHPExcel = new PHPExcel();
+        $objPHPExcel->setActiveSheetIndex(0);
+        $part = $_GET['part'];
+        $area = $_GET['area'];
+        $obs = $_GET['obs'];
+
+
+        $arr = $this->mod_trial->get_list_for_obs($part, $obs);
+        for ($i=0; $i < count($arr); $i++) {
+            # code...
+            if ($arr[$i]['order_meal1'] == "N") {
+                $first_member_section_lunch_total = 0;
+            } else {
+                $first_member_section_lunch_total = number_format(abs($arr[$i]['first_member_section_lunch_total']));
+            }
+            if ($arr[$i]['order_meal1'] == "N") {
+                $first_member_section_salary_total = number_format($arr[$i]['first_member_section_salary_total'] - 0);
+            } else {
+                $first_member_section_salary_total =  number_format($arr[$i]['first_member_section_salary_total'] - abs($arr[$i]['first_member_section_lunch_total']));
+            }
+
+            if ($arr[$i]['order_meal2'] == "N") {
+                $second_member_section_lunch_total = 0;
+            } else {
+                $second_member_section_lunch_total = number_format(abs($arr[$i]['second_member_section_lunch_total']));
+            }
+            if ($arr[$i]['order_meal2'] == "N") {
+                $second_member_section_salary_total = number_format($arr[$i]['second_member_section_salary_total'] - 0);
+            } else {
+                $second_member_section_salary_total =  number_format($arr[$i]['second_member_section_salary_total'] - abs($arr[$i]['second_member_section_lunch_total']));
+            }
+            
+
+            $objPHPExcel->getActiveSheet()->setCellValue('A1','試場');
+            $objPHPExcel->getActiveSheet()->setCellValue('B1', '監考費');
+            $objPHPExcel->getActiveSheet()->setCellValue('C1', '姓名');
+            $objPHPExcel->getActiveSheet()->setCellValue('D1', '餐費');
+            $objPHPExcel->getActiveSheet()->setCellValue('E1', '應領費用');
+            $objPHPExcel->getActiveSheet()->setCellValue('F1', '監考費');
+            $objPHPExcel->getActiveSheet()->setCellValue('G1', '姓名');
+            $objPHPExcel->getActiveSheet()->setCellValue('H1', '餐費');
+            $objPHPExcel->getActiveSheet()->setCellValue('I1', '應領費用');
+            $objPHPExcel->getActiveSheet()->setCellValue('A'.(2+$i), $arr[$i]['field']);
+            $objPHPExcel->getActiveSheet()->setCellValue('B'.(2+$i), number_format($arr[$i]['first_member_salary_section']));
+            $objPHPExcel->getActiveSheet()->setCellValue('C'.(2+$i), $arr[$i]['supervisor_1']);
+            $objPHPExcel->getActiveSheet()->setCellValue('D'.(2+$i), $first_member_section_lunch_total);
+            $objPHPExcel->getActiveSheet()->setCellValue('E'.(2+$i), $second_member_section_salary_total);
+            $objPHPExcel->getActiveSheet()->setCellValue('F'.(2+$i), number_format($arr[$i]['second_member_salary_section']));
+            $objPHPExcel->getActiveSheet()->setCellValue('G'.(2+$i), $arr[$i]['supervisor_2']);
+            $objPHPExcel->getActiveSheet()->setCellValue('H'.(2+$i), $second_member_section_lunch_total);
+            $objPHPExcel->getActiveSheet()->setCellValue('I'.(2+$i), $second_member_section_salary_total);
+        }
+
+        $objWriter = PHPExcel_IOFactory::createWriter($objPHPExcel, 'CSV');
+
+
+        header('Content-Type: application/vnd.ms-excel');
+        header('Content-Disposition: attachment;filename="'.$area.'印領清冊'.'.csv"');
+        header('Cache-Control: max-age=0');
+
+        
+
+        $objWriter->save('php://output');
+    }      
 
     /**
      * F 考程設定.

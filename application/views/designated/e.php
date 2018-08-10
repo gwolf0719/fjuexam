@@ -17,6 +17,27 @@
     .cube img {
         max-width: 65%;
     }
+
+    .btn_part {
+        background: #dc969d;
+        text-align: center;
+        padding: 8px;
+        border-radius: 5px;
+        margin: 10px auto;
+        cursor: pointer;
+        width: 230px;
+        display: inline-block;
+    }
+
+    a {
+        text-decoration: none;
+        color: #000;
+    }
+
+    a:hover {
+        text-decoration: none;
+        color: #000;
+    }
 </style>
 <div class="row">
     <div class="input-group col-sm-3">
@@ -59,9 +80,9 @@
 
     </div>
     <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6 cube text-center">
-        <a href="./designated/e_7">
-            <img src="assets/images/e7.png" alt="">
-        </a>
+        <!-- <a href="./designated/e_7"> -->
+            <img src="assets/images/e7.png" alt="" style="cursor: pointer;" data-toggle="modal" data-target="#e_7">
+        <!-- </a> -->
     </div>
     <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6 cube text-center">
         <a href="./designated/e_4">
@@ -77,3 +98,96 @@
     </div>
 
 </div>
+<!-- Modal start-->
+<div class="modal fade" id="e_7" tabindex="-1" role="dialog" aria-labelledby="e_7" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header" style="border-bottom: none;">
+                <h5 class="modal-title" id="exampleModalLabel" style="">選擇分區</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-md-12 col-sm-12 col-xs-12">
+                        <a href="./designated/e_7">
+                            <div class="btn_part">請公假名單</div>
+                        </a>
+                        <div class="btn_part" style="cursor: pointer;" data-toggle="modal" data-target="#e_7_1">印領清冊</div>                
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Modal end-->
+<!-- Modal start-->
+<div class="modal fade" id="e_7_1" tabindex="-1" role="dialog" aria-labelledby="e_7_1" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header" style="border-bottom: none;">
+                <h5 class="modal-title" id="exampleModalLabel" style="">選擇分區</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-md-12 col-sm-12 col-xs-12">
+                        <div class="btn_part btn1" link="./designated/e_7_1?part=2501&area=第一分區" part="2501" area="第一分區">第一分區</div>
+                        <div class="btn_part btn2" link="./designated/e_7_2?part=2501&area=第一分區&obs=29" part="2501" area="第一分區" obs="29">第一分區(身障)</div>
+                        <div class="btn_part btn1" link="./designated/e_7_1?part=2502&area=第二分區" part="2502" area="第二分區">第二分區</div>
+                        <div class="btn_part btn2" link="./designated/e_7_2?part=2501&area=第二分區&obs=29" part="2502" area="第二分區" obs="29">第二分區(身障)</div>    
+                        <div class="btn_part btn1" link="./designated/e_7_1?part=2503&area=第三分區" part="2503" area="第三分區">第三分區</div> 
+                        <div class="btn_part btn2" link="./designated/e_7_2?part=2501&area=第三分區&obs=29" part="2503" area="第三分區" obs="29">第三分區(身障)</div> 
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Modal end-->
+<script>
+$(function(){
+    $("body").on("click",".btn1",function(){
+        var part = $(this).attr("part");
+        var area = $(this).attr("area");
+        var link = $(this).attr("link");
+        $.ajax({
+            url: 'api/chk_part_list',
+            data: {
+                part: part,
+                area: area,
+            },
+            dataType: "json"
+        }).done(function(data) {
+            alert(data.sys_msg);
+            if (data.sys_code == "200") {
+                location.href = link;  
+            }
+        })        
+    })
+
+    $("body").on("click",".btn2",function(){
+        var part = $(this).attr("part");
+        var area = $(this).attr("area");
+        var obs = $(this).attr("obs")
+        var link = $(this).attr("link");
+        $.ajax({
+            url: 'api/chk_part_list_of_obs',
+            data: {
+                part: part,
+                area: area,
+                obs:obs
+            },
+            dataType: "json"
+        }).done(function(data) {
+            alert(data.sys_msg);
+            if (data.sys_code == "200") {
+                location.href = link;  
+            }
+        })        
+    })    
+})
+</script>

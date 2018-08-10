@@ -1,71 +1,59 @@
-<style>
-    table {
-        width: 780px;
-        border: 1px solid #999999;
-        margin: 30px auto;
-    }
-
-    td {
-        border: 1px solid #999999;
-    }
-
-    th {
-        border: 1px solid #999999;
-        text-align: center;
-    }
-</style>
-
-<div>
-    <h2 style="text-align:center">
-        <?=$_SESSION['year']?>學年度定科目考試新北一考區監試人員簽到表</h2>
-</div>
-
-<h3 style="text-align:left">分區：
-    <?=$area?>
-</h3>
-<h3 style="text-align:left">考場：板橋高中</h3>
-<h3 style="text-align:left">簽到日期：
-    <?=date('20y-m-d')?>
-</h3>
-
-<table class="" id="" style="width:510px;padding:10px 4px 10px 4px;text-align:center;">
+<?php foreach ($part as $k => $v): ?>
+<table class="" id="" style="padding:4px 0px;;text-align:center;">
     <thead>
         <tr>
-            <th>試場</th>
-            <th colspan="2" class="bb">監試人員(1)</th>
-            <th>簽名</th>
-            <th colspan="2" class="bb">監試人員(2)</th>
-            <th>簽名</th>
+            <td style="font-size:16px;" colspan="7">
+                <?=$_SESSION['year']?>學年度定科目考試新北一考區監試人員簽到表</td>
         </tr>
         <tr>
-            <td></td>
-            <td>姓名</td>
-            <td>單位別</td>
-            <td></td>
-            <td>姓名</td>
-            <td>單位別</td>
-            <td></td>
+            <td colspan="2" style="font-size:14px;">分區：
+                <?=$_GET['part']?>
+            </td>
+            <td colspan="3" style="font-size:14px;">
+                <?=$school?>
+            </td>
+            <td colspan="2" style="font-size:14px;">簽到日期：
+                <?=$k?>
+            </td>
+        </tr>
+        <tr>
+            <th style="border:1px solid #999" rowspan="2">試場</th>
+            <th style="border:1px solid #999" colspan="2" class="bb">監試人員(1)</th>
+            <th style="border:1px solid #999" rowspan="2">簽名</th>
+            <th style="border:1px solid #999" colspan="2" class="bb">監試人員(2)</th>
+            <th style="border:1px solid #999" rowspan="2">簽名</th>
+        </tr>
+        <tr>
+            <td style="border:1px solid #999">姓名</td>
+            <td style="border:1px solid #999">單位別</td>
+            <td style="border:1px solid #999">姓名</td>
+            <td style="border:1px solid #999">單位別</td>
+        </tr>
+        <?php foreach ($v as $kc => $vc): ?>
+        <tr>
+            <td style="border:1px solid #999">
+                <?=$vc['field']?>
+            </td>
+            <td style="border:1px solid #999">
+                <?=$vc['supervisor_1']?>
+            </td>
+            <td style="border:1px solid #999">
+                <?=$vc['supervisor_1_unit']?>
+            </td>
+            <td style="border:1px solid #999"></td>
+            <td style="border:1px solid #999">
+                <?=$vc['supervisor_2']?>
+            </td>
+            <td style="border:1px solid #999">
+                <?=$vc['supervisor_2_unit']?>
+            </td>
+            <td style="border:1px solid #999"></td>
+        </tr>
+        <?php endforeach; ?>
+        <tr>
+            <td colspan="7" style="font-size:16px;text-align:left;">共計：
+                <?=count($v)*2?>人</td>
         </tr>
     </thead>
-    <?php foreach ($part as $k => $v): ?>
-    <tr>
-        <td>
-            <?=$v['field']?>
-        </td>
-        <td>
-            <?=$v['supervisor_1']?>
-        </td>
-        <td>
-            <?=$v['supervisor_1_unit']?>
-        </td>
-        <td></td>
-        <td>
-            <?=$v['supervisor_2']?>
-        </td>
-        <td>
-            <?=$v['supervisor_2_unit']?>
-        </td>
-        <td></td>
-    </tr>
-    <?php endforeach; ?>
 </table>
+<?php endforeach;
