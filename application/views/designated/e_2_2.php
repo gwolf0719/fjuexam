@@ -7,7 +7,7 @@
         </tr>
         <tr>
             <td colspan="2" style="font-size:14px;">分區：
-                <?=$_GET['part']?>
+                <?=$_GET['area']?>
             </td>
             <td colspan="3" style="font-size:14px;">
                 <?=$school?>

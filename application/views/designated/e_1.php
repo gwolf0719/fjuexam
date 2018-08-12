@@ -100,15 +100,9 @@
             <div class="modal-body">
                 <div class="row">
                     <div class="col-md-12 col-sm-12 col-xs-12">
-                        <a href="./designated/e_1_3?part=2501&area=第一分區" target="_blank">
-                            <div class="btn_part">第一分區</div>
-                        </a>
-                        <a href="./designated/e_1_3?part=2502&area=第二分區" target="_blank">
-                            <div class="btn_part">第二分區</div>
-                        </a>
-                        <a href="./designated/e_1_3?part=2503&area=第三分區" target="_blank">
-                            <div class="btn_part">第三分區</div>
-                        </a>
+                        <div class="btn_part btn1" part="2501" area="第一分區" link="./designated/e_1_3?part=2501&area=第一分區">第一分區</div>
+                        <div class="btn_part btn1" part="2502" area="第二分區" link="./designated/e_1_3?part=2502&area=第二分區">第二分區</div>
+                        <div class="btn_part btn1" part="2503" area="第三分區" link="./designated/e_1_3?part=2503&area=第三分區">第三分區</div>
                     </div>
                 </div>
             </div>
@@ -175,3 +169,25 @@
     </div>
 </div>
 <!-- Modal end-->
+<script>
+    $(function() {
+        $("body").on("click", ".btn1", function() {
+            var part = $(this).attr("part");
+            var area = $(this).attr("area");
+            var link = $(this).attr("link");
+            $.ajax({
+                url: 'api/chk_part_list',
+                data: {
+                    part: part,
+                    area: area,
+                },
+                dataType: "json"
+            }).done(function(data) {
+                alert(data.sys_msg);
+                if (data.sys_code == "200") {
+                    location.href = link;
+                }
+            })
+        })
+    })
+</script>

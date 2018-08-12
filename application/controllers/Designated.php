@@ -110,11 +110,8 @@ class Designated extends CI_Controller
                     'second_member_lunch_price' => '',
                     'second_member_section_lunch_total' => '',
                     'second_member_section_total' => '',
-                    'note' => '',                  
+                    'note' => '',
                 );
-
-                
-    
             }
             // echo json_encode($datas);
 
@@ -1029,16 +1026,47 @@ class Designated extends CI_Controller
         $obj_pdf->SetFooterMargin(PDF_MARGIN_FOOTER);
         $obj_pdf->SetMargins(PDF_MARGIN_LEFT, PDF_MARGIN_RIGHT);
         $obj_pdf->SetAutoPageBreak(true, PDF_MARGIN_BOTTOM);
-        $obj_pdf->SetFont('msungstdlight', 'B', 13);
+        $obj_pdf->SetFont('msungstdlight', 'L', 12);
 
         $obj_pdf->setFontSubsetting(false);
-        $obj_pdf->AddPage();
         $data = array(
-            'list' => $this->mod_school_unit->year_get_list(),
+            'list' => $this->mod_school_unit->year_get_school_unit_list(),
         );
-        // print_r($data);
-        $view =  $this->load->view('designated/e_1_1', $data, true);
-        $obj_pdf->writeHTML($view);
+        if ($data['list'] != false) {
+            foreach ($data['list'] as $k => $v) {
+                # code...
+                $html = '<table class="" id="" style="padding:5px 0px;;text-align:center;">';
+                $html .= '<tr>';
+                $html .= '<td colspan="4" style="font-size:14px;">單位：'.$k.'</td>';
+                $html .= '<td colspan="4" style="font-size:18px;">各單位名稱一覽表</td>';
+                $html .= '<td colspan="4" style="font-size:14px;">印表日期：'.date('Y/m/d').'</td>';
+                $html .= '</tr>';
+                $html .= '<tr>';
+                $html .= '<td width="25%" style="border:1px solid #999">序號</td>';
+                $html .= '<td width="25%" style="border:1px solid #999">部別</td>';
+                $html .= '<td width="25%" style="border:1px solid #999">代碼</td>';
+                $html .= '<td width="25%" style="border:1px solid #999">單位名稱</td>';
+
+                $html .= '</tr>';
+                        
+                foreach ($v as $kc => $vc) {
+                    # code...
+                    $html .= '<tr>';
+                        $html .= '<td style="border:1px solid #999">'.$vc['company_name_01'].'</td>';
+                        $html .= '<td style="border:1px solid #999">'.$vc['company_name_02'].'</td>';
+                        $html .= '<td style="border:1px solid #999">'.$vc['department'].'</td>';
+                        $html .= '<td style="border:1px solid #999">'.$vc['code'].'</td>';
+                    $html .= '</tr>';
+                }
+                $html .= '</table>';
+
+
+                $obj_pdf->AddPage($html);
+
+                $obj_pdf->writeHTML($html);
+            }
+        }
+
         $obj_pdf->Output('行政單位.pdf', 'I');
     }
 
@@ -1329,7 +1357,7 @@ class Designated extends CI_Controller
                 $html .= '</tr>';
                 $html .= '<tr>';
 
-                $html .= '<td colspan="2" style="font-size:14px;">分區：'.$part.'</td>';
+                $html .= '<td colspan="2" style="font-size:14px;">分區：'.$area.'</td>';
                 $html .= '<td colspan="3" style="font-size:14px;">'.$data['school'].'</td>';
                 $html .= '<td colspan="2" style="font-size:14px;">簽到日期：'.$k.'</td>';
                 $html .= '</tr>';
