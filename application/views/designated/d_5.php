@@ -370,6 +370,38 @@
         $("body").on("click", ".tab", function() {
             var $this = $(this);
             //點擊先做還原動作
+            $("#sn").val("");
+            $("#member_job_title").val("");
+            $("#job_code").val("");
+            $("#job_title").val("");
+            $("#name").val("");
+            $("#phone").val("");
+            $("#first_start").val("");
+            $("#first_end").val("");
+            $("#first_section").val("");
+            $("#second_start").val("");
+            $("#second_end").val("");
+            $("#second_section").val("");
+            $("#third_start").val("");
+            $("#third_end").val("");
+            $("#third_section").val("");
+            $("#calculation").val("by_section");
+            $("#order_meal").prop("checked", false);
+            $("#section_count").val(0);
+            $("#day_count").val(0)
+            $("#salary_section").val(
+                "<?=$fees_info['salary_section']; ?>");
+            $("#one_day_salary").val(
+                "<?=$fees_info['one_day_salary']; ?>");
+            $("#day_salary_total").val(0);
+            $("#section_salary_total").val(0);
+            $("#lunch_price").val(0);
+            $("#section_lunch_total").val(0);
+            $("#day_lunch_total").val(0);
+            $("#lunch").val(0);
+            $("#section_total").val(0);
+            $("#day_total").val(0);
+
             $(".tab").removeClass("active");
             $(".part").hide();
             // 點擊到的追加active以及打開相對應table
@@ -785,7 +817,7 @@
                         <label for="job_code" class="" style="float:left;">職員代碼</label>
                         <input type="hidden" id="sn">
                         <input type="hidden" id="member_job_title">
-                        <input type="text" class="form-control" id="job_code">
+                        <input type="text" class="form-control" id="job_code" readonly>
                     </div>
                     <div class="form-group">
                         <label for="job_title" class="" style="float:left;">職稱</label>

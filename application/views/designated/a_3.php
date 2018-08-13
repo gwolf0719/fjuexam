@@ -83,8 +83,7 @@
                 },
                 dataType: "json"
             }).done(function(data) {
-                // console.log(data.info);
-                console.log(data.info.order_meal.toUpperCase());
+                console.log(data.info.order_meal);
                 if (data.info.order_meal.toUpperCase() == "Y") {
                     $("#order_meal").prop("checked", true);
                 } else {
@@ -93,6 +92,7 @@
                 $("#sn").val(sn);
                 $("#member_code").val(data.info.member_code);
                 $("#member_name").val(data.info.member_name);
+                $("#unit").val(data.info.unit);
                 $("#member_unit").val(data.info.member_unit);
                 $("#member_phone").val(data.info.member_phone);
                 $("#member_title").val(data.info.member_title);
@@ -137,6 +137,7 @@
             var member_code = $("#member_code").val();
             var member_name = $("#member_name").val();
             var member_unit = $("#member_unit").val();
+            var unit = $("#unit").val();
             var member_title = $("#member_title").val();
             var member_phone = $("#member_phone").val();
             var order_meal = $("#order_meal").val();
@@ -166,6 +167,7 @@
                 var member_code = $("#member_code").val();
                 var member_name = $("#member_name").val();
                 var member_unit = $("#member_unit").val();
+                var unit = $("#unit").val();
                 var member_title = $("#member_title").val();
                 var member_phone = $("#member_phone").val();
                 var order_meal = $("#order_meal").val();
@@ -176,6 +178,7 @@
                         "sn": sn,
                         "member_code": member_code,
                         "member_name": member_name,
+                        "unit": unit,
                         "member_unit": member_unit,
                         "member_title": member_title,
                         "member_phone": member_phone,
@@ -297,7 +300,7 @@
     <div class="row boxs">
         <div class="col-md-12 col-sm-12 col-xs-12">
             <form method="POST" class="" style="padding: 30px 0px 0px;">
-                <div class="col-md-3 col-sm-3 col-xs-3 cube">
+                <div class="col-md-3 col-sm-3 col-xs-3 cube" style="width:50%;float:left;">
                     <div class="form-group">
                         <label for="member_code">人員代碼</label>
                         <input type="text" class="form-control" id="member_code">
@@ -308,9 +311,16 @@
                         <input type="text" class="form-control" id="member_name">
                     </div>
                     <div class="form-group">
-                        <label for="member_unit">單位</label>
+                        <label for="member_unit">單位一</label>
+                        <input type="text" class="form-control" id="unit">
+                    </div>
+                    <div class="form-group">
+                        <label for="member_unit">單位二</label>
                         <input type="text" class="form-control" id="member_unit">
                     </div>
+
+                </div>
+                <div class="col-md-3 col-sm-3 col-xs-3 cube" style="width:50%;float:left;">
                     <div class="form-group">
                         <label for="member_title">職稱</label>
                         <input type="text" class="form-control" id="member_title">
@@ -322,7 +332,7 @@
                     <div class="form-group">
                         <label for="order_meal">訂餐需求</label>
                         <input type="checkbox" class="" id="order_meal">
-                        <span>需訂餐</span>
+                        <span class="need">需訂餐</span>
                     </div>
                     <div class="form-group">
                         <label for="meal">餐別</label>
@@ -332,7 +342,7 @@
                         </select>
                     </div>
                 </div>
-                <div class="col-md-12 col-sm-12 col-xs-12 cube">
+                <div class="col-md-12 col-sm-12 col-xs-12 cube" style="width:100%;float:left;">
                     <div class="form-group" style="text-align: right;">
                         <div class="">
                             <button class="btn btn-primary" type="button" id="add" style="display:none">確定</button>
@@ -379,3 +389,14 @@
     </div>
 </div>
 <!-- Modal end-->
+<script>
+    $(function() {
+        $("body").on("click", ".need", function() {
+            if ($("#order_meal").prop("checked") == true) {
+                $("#order_meal").prop("checked", false);
+            } else {
+                $("#order_meal").prop("checked", true);
+            }
+        })
+    })
+</script>

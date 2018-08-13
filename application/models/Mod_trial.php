@@ -284,13 +284,13 @@ class Mod_trial extends CI_Model
                 if (strtoupper($sub[$i]['first_member_order_meal']) == "Y") {
                     $first_member_meal = $supervisor1['meal'];
                 } else {
-                    $first_member_meal = "";
+                    $first_member_meal = '自備';
                 }
 
                 if (strtoupper($sub[$i]['second_member_order_meal']) == "Y") {
                     $second_member_meal = $supervisor2['meal'];
                 } else {
-                    $second_member_meal = "";
+                    $second_member_meal = '自備';
                 }
     
                 for ($d=0; $d < count($do_date); $d++) {
@@ -316,7 +316,7 @@ class Mod_trial extends CI_Model
                     );
                 }
             }
-            // print_r($arr);
+            print_r($arr);
             return $arr;
         } else {
             return false;
@@ -366,10 +366,9 @@ class Mod_trial extends CI_Model
             if (strtoupper($sub[$i]['second_member_order_meal']) == "Y") {
                 $this->db->where('member_code', $sub[$i]['supervisor_2_code']);
                 $this->db->where('meal', '自備');
-                $own2 =$this->db->get('staff_member')->row_array();
+                $own2 = $this->db->get('staff_member')->row_array();
             }
-
-            $own += count($own1['meal']) + count($own2['meal']);
+            // $own += count($own1['meal']) + count($own2['meal']);
         }
         return $own;
     }
@@ -694,26 +693,14 @@ class Mod_trial extends CI_Model
             $supervisor1 = $this->db->where('member_code', $res[$i]['supervisor_1_code'])->get('staff_member')->row_array();
             $supervisor2 = $this->db->where('member_code', $res[$i]['supervisor_2_code'])->get('staff_member')->row_array();
 
-            if (strtoupper($res[$i]['first_member_order_meal']) == "Y") {
-                $first_member_meal = $supervisor1['meal'];
-            } else {
-                $first_member_meal = "";
-            }
-
-            if (strtoupper($res[$i]['second_member_order_meal']) == "Y") {
-                $second_member_meal = $supervisor2['meal'];
-            } else {
-                $second_member_meal = "";
-            }
-
             $arr[] = array(
                 'field' => $res[$i]['field'],
                 'supervisor_1'=>$res[$i]['supervisor_1'],
                 'trial_staff_code_1' => $res[$i]['trial_staff_code_1'],
-                'order_meal_1' => $first_member_meal,
+                'order_meal_1' => $res[$i]['first_member_meal'],
                 'supervisor_2' => $res[$i]['supervisor_2'],
                 'trial_staff_code_2' => $res[$i]['trial_staff_code_2'],
-                'order_meal_2' => $second_member_meal,
+                'order_meal_2' => $res[$i]['second_member_meal'],
             );
         }
         // print_r($arr);

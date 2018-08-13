@@ -107,6 +107,9 @@
         $("body").on("click", "tr", function() {
             var sn = $(this).attr("sn");
             $("#job_code").attr("readonly", true);
+            $('input:checkbox[name="day"]').eq(0).prop("checked", false);
+            $('input:checkbox[name="day"]').eq(1).prop("checked", false);
+            $('input:checkbox[name="day"]').eq(2).prop("checked", false);
             $("html, body").animate({
                 scrollTop: $("body").height()
             }, 1000);
@@ -118,31 +121,33 @@
                 },
                 dataType: "json"
             }).done(function(data) {
-                var chk = data.info.do_date.split(",")
-                var lenght = data.info.do_date.split(",").length;
-                $('input:checkbox[name="day"]').each(function() {
-                    console.log($(this).val());
-                    // if (chk[0] == $(this).val()) {
-                    //     $(this).prop("checked", true);
-                    // }
-                    // if (chk[1] == $(this).val()) {
-                    //     $(this).prop("checked", true);
-                    // }
-                    // if (chk[2] == $(this).val()) {
-                    //     $(this).prop("checked", true);
-                    // }
-                    for (let index = 0; index < lenght; index++) {
-                        if (chk[index] == $(this).val()) {
-                            $(this).prop("checked", true);
 
-                        }
-                    }
-                })
                 if (data.info.do_date == "") {
-                    $('input:checkbox[name="day"]').eq(0).prop("checked", false);
-                    $('input:checkbox[name="day"]').eq(1).prop("checked", false);
-                    $('input:checkbox[name="day"]').eq(2).prop("checked", false);
+                    $('input:checkbox[name="day"]').eq(0).prop("checked", true);
+                    $('input:checkbox[name="day"]').eq(1).prop("checked", true);
+                    $('input:checkbox[name="day"]').eq(2).prop("checked", true);
+                } else {
+                    var chk = data.info.do_date.split(",")
+                    var lenght = data.info.do_date.split(",").length;
+                    $('input:checkbox[name="day"]').each(function() {
+                        for (let index = 0; index < lenght; index++) {
+                            if (chk[index] == $(this).val()) {
+                                $(this).prop("checked", true);
+
+                            }
+                        }
+                    })
                 }
+                var day_arr = $('input:checkbox:checked[name="day"]').map(function() {
+                    return $(this).val();
+                }).get().length;
+                console.log(day_arr);
+                $("#assign").show();
+                $("#job").attr("readonly", false);
+                $("#job_code").attr("readonly", false);
+                $("#job_title").attr("readonly", false);
+                $("#name").attr("readonly", false);
+                $("#phone").attr("readonly", false);
                 $("#sn").val(sn);
                 $("#job").val(data.info.job)
                 $("#job_code").val(data.info.job_code)
@@ -161,13 +166,14 @@
                 if (data.info.day_count != "") {
                     $("#day_count").val(data.info.day_count);
                 } else {
-                    $("#day_count").val("0");
+                    $("#day_count").val(day_arr);
                 }
 
                 if (data.info.salary_total != "") {
                     $("#salary_total").val(data.info.salary_total);
                 } else {
-                    $("#salary_total").val("0");
+                    var one_day_salary = $("#one_day_salary").val() * day_arr;
+                    $("#salary_total").val(one_day_salary);
                 }
 
                 if (data.info.one_day_salary != "") {
@@ -185,7 +191,7 @@
                 if (data.info.lunch_price != "") {
                     $("#lunch_price").val(data.info.lunch_price);
                 } else {
-                    $("#lunch_price").val( <?=$fees_info['lunch_fee']; ?> )
+                    $("#lunch_price").val(0)
                 }
 
                 if (data.info.total != "") {
@@ -197,9 +203,11 @@
                 if (data.info.order_meal.toUpperCase() == "Y") {
                     $("#order_meal").prop("checked", true);
                     $("#lunch_price").attr("readonly", false);
+                    $('.meal').show();
                 } else {
                     $("#order_meal").prop("checked", false);
                     $("#lunch_price").attr("readonly", true);
+                    $('.meal').hide();
                 }
             })
         })
@@ -229,9 +237,14 @@
             if (this.checked) {
                 $(this).val("y");
                 $("#lunch_price").attr("readonly", false);
+                $("#lunch_price").val(
+                    "<?=$fees_info['lunch_fee']; ?>");
+                $(".meal").show();
             } else {
                 $(this).val("n");
                 $("#lunch_price").attr("readonly", true);
+                $("#lunch_price").val(0);
+                $(".meal").hide();
             }
         });
 
@@ -259,6 +272,12 @@
                 var lunch_total = $("#lunch_total").val();
                 var total = $("#total").val();
                 var order_meal = $("#order_meal").val();
+                var meal;
+                if (order_meal.toUpperCase() == "Y") {
+                    meal = $("#meal").val();
+                } else {
+                    meal = "自備";
+                }
                 $.ajax({
                     url: 'api/edit_task',
                     data: {
@@ -271,6 +290,7 @@
                         "trial_start": trial_start,
                         "trial_end": trial_end,
                         "phone": phone,
+                        "meal": meal,
                         "note": note,
                         "class": cla,
                         "do_date": do_date,
@@ -381,7 +401,6 @@
                         $("#order_meal").prop("checked", true);
                     }
                 }
-
             }, "json")
         })
 
@@ -545,7 +564,7 @@
         <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4" style="margin:20px 0px 20px 25px">
             <div class="row">
                 <div for="" class="col-2" style="display: inline-block;line-height:40px;text-align:right;">職務</div>
-                <select class="form-control col-4" id="job">
+                <select class="form-control col-4" id="job" disabled>
                     <?php foreach ($jobs as $k => $v): ?>
                     <option value="<?=$v['job']; ?>">
                         <?=$v['job']; ?>
@@ -553,9 +572,8 @@
                     <?php endforeach; ?>
                 </select>
                 <div class="col-6">
-                    <button type="button" class="btn btn-primary" id="assign" data-toggle="modal" data-target="#exampleModal">指派</button>
+                    <button type="button" class="btn btn-primary" id="assign" data-toggle="modal" data-target="#exampleModal" style="display:none;">指派</button>
                     <button class="btn btn-primary" type="button" id="new_job">新增職務</button>
-                    <!-- <button class="btn btn-danger" type="button" id="cancel_job">取消職務</button> -->
                 </div>
             </div>
         </div>
@@ -568,19 +586,19 @@
                         <label for="job_code" class="" style="float:left;">職員代碼</label>
                         <input type="hidden" id="sn">
                         <input type="hidden" id="member_job_title">
-                        <input type="text" class="form-control" id="job_code">
+                        <input type="text" class="form-control" id="job_code" readonly>
                     </div>
                     <div class="form-group">
                         <label for="job_title" class="" style="float:left;">職稱</label>
-                        <input type="text" class="form-control" id="job_title">
+                        <input type="text" class="form-control" id="job_title" readonly>
                     </div>
                     <div class="form-group">
                         <label for="member_name" class="" style="float:left;">姓名</label>
-                        <input type="text" class="form-control" id="name">
+                        <input type="text" class="form-control" id="name" readonly>
                     </div>
                     <div class="form-group">
                         <label for="trial_start" class="" style="float:left;">聯絡電話</label>
-                        <input type="text" class="form-control" id="phone">
+                        <input type="text" class="form-control" id="phone" readonly>
                     </div>
                 </div>
                 <div class="col-md-3 col-sm-3 col-xs-3 cube">
@@ -608,18 +626,19 @@
                         <input type="text" class="form-control" id="trial_end" readonly>
                     </div>
                 </div>
-                <div class="col-md-3 col-sm-3 col-xs-3 cube" style="height:100px;">
+                <div class="col-md-3 col-sm-3 col-xs-3 cube" style="height:150px;">
                     <div class="form-group">
                         <label for="order_meal">訂餐需求</label>
                         <input type="checkbox" class="" name="need" id="order_meal">
                         <span>需訂餐</span>
                     </div>
-                    <!-- <div class="form-group">
-                        <label for="trial_end" class=""  style="float:left;">計算方式</label>
-                        <select class="form-control" id="calculation">
-                            <option value="by_day">以天計算</option>
+                    <div class="form-group meal" style="display:none;">
+                        <label for="meal" class="" style="float:left;">餐別</label>
+                        <select class="form-control" id="meal">
+                            <option value="葷食">葷食</option>
+                            <option value="素食">素食</option>
                         </select>
-                    </div>       -->
+                    </div>
                     <!-- <div class="by_section">
                         <div class="form-group">
                             <label for="start_date" class=""  style="float:left;">節數</label>
@@ -659,7 +678,7 @@
         <div class="form-group" style="padding: 0% 3%;">
             <div class="W50">
                 <label for="trial_start" class="" style="float:left;width: 50%;">便當費 </label>
-                <input type="text" class="form-control" id="lunch_price" value="<?=$fees_info['lunch_fee']; ?>">
+                <input type="text" class="form-control" id="lunch_price" value="0">
             </div>
             <div class="W50">
                 <label for="trial_start" class="" style="float:left;width: 50%;">便當總計</label>

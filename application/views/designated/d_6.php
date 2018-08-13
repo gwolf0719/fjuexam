@@ -356,6 +356,35 @@
         $("body").on("click", ".tab", function() {
             var $this = $(this);
             //點擊先做還原動作
+            //點擊先做還原動作
+            $("#sn").val("");
+            $("#member_job_title").val("");
+            $("#job_code").val("");
+            $("#job_title").val("");
+            $("#name").val("");
+            $("#phone").val("");
+            $('input[name="day"]').each(function() {
+                for (let index = 0; index < 3; index++) {
+                    $(this).prop("checked", false);
+                }
+            })
+            $("#trial_start").val("");
+            $("#trial_end").val("");
+            $("#calculation").val("by_section");
+            $("#order_meal").prop("checked", false);
+            $("#section_count").val(0);
+            $("#day_count").val(0)
+            $("#salary_section").val(
+                "<?=$fees_info['salary_section']; ?>");
+            $("#one_day_salary").val(
+                "<?=$fees_info['one_day_salary']; ?>");
+            $("#day_salary_total").val(0);
+            $("#section_salary_total").val(0);
+            $("#lunch_price").val(0);
+            $("#section_lunch_total").val(0);
+            $("#day_lunch_total").val(0);
+            $("#section_total").val(0);
+            $("#day_total").val(0);
             $(".tab").removeClass("active");
             $(".part").hide();
             // 點擊到的追加active以及打開相對應table
@@ -697,15 +726,18 @@
                 <div class="col-md-3 col-sm-3 col-xs-3 cube">
                     <div class="form-group">
                         <label for="start_date" class="" style="float:left;">執行日</label>
-                        <input type="checkbox" class="chbox" id="" name="day" value="<?=mb_substr($datetime_info['day_1'], 5, 8, 'utf-8'); ?>">
+                        <input type="checkbox" class="chbox" id="" name="day" value="<?=mb_substr($datetime_info['day_1'], 5, 8, 'utf-8'); ?>"
+                            disabled>
                         <span class="chbox">
                             <?=mb_substr($datetime_info['day_1'], 5, 8, 'utf-8'); ?>
                         </span>
-                        <input type="checkbox" class="chbox" id="" name="day" value="<?=mb_substr($datetime_info['day_2'], 5, 8, 'utf-8'); ?>">
+                        <input type="checkbox" class="chbox" id="" name="day" value="<?=mb_substr($datetime_info['day_2'], 5, 8, 'utf-8'); ?>"
+                            disabled>
                         <span class="chbox">
                             <?=mb_substr($datetime_info['day_2'], 5, 8, 'utf-8'); ?>
                         </span>
-                        <input type="checkbox" class="chbox" id="" name="day" value="<?=mb_substr($datetime_info['day_3'], 5, 8, 'utf-8'); ?>">
+                        <input type="checkbox" class="chbox" id="" name="day" value="<?=mb_substr($datetime_info['day_3'], 5, 8, 'utf-8'); ?>"
+                            disabled>
                         <span class="chbox">
                             <?=mb_substr($datetime_info['day_3'], 5, 8, 'utf-8'); ?>
                         </span>
