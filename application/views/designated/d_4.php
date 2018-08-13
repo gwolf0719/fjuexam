@@ -185,6 +185,28 @@
                 );
                 $("#trial_staff_code_1").val(data.info.trial_staff_code_1);
                 $("#trial_staff_code_2").val(data.info.trial_staff_code_2);
+                console.log(data.info.first_member_order_meal);
+                console.log(data.info.second_member_order_meal);
+
+                //監試人員一訂餐需求
+                $("#first_member_order_meal").val(data.info.first_member_order_meal);
+                if (data.info.first_member_order_meal.toUpperCase() == "Y") {
+                    $("#first_member_order_meal").prop("checked", true);
+                    $("#first_member_lunch_price").attr("readonly", false);
+                } else {
+                    $("#first_member_order_meal").prop("checked", false);
+                    $("#first_member_lunch_price").attr("readonly", true);
+                }
+
+                //監試人員二訂餐需求
+                $("#second_member_order_meal").val(data.info.second_member_order_meal);
+                if (data.info.second_member_order_meal.toUpperCase() == "Y") {
+                    $("#second_member_order_meal").prop("checked", true);
+                    $("#second_member_lunch_price").attr("readonly", false);
+                } else {
+                    $("#second_member_order_meal").prop("checked", false);
+                    $("#second_member_lunch_price").attr("readonly", true);
+                }
                 // if (data.info.first_member_salary_section != "") {
                 //     $("#first_member_salary_section").val(data.info.first_member_salary_section);
                 // }
@@ -204,14 +226,7 @@
                     $("#first_member_job_title").val(data.info.member_title);
                     $("#first_member_name").val(data.info.member_name);
                     $("#first_member_phone").val(data.info.member_phone);
-                    $("#first_member_order_meal").val(data.info.order_meal);
-                    if (data.info.order_meal.toUpperCase() == "Y") {
-                        $("#first_member_order_meal").prop("checked", true);
-                        $("#first_member_lunch_price").attr("readonly", false);
-                    } else {
-                        $("#first_member_order_meal").prop("checked", false);
-                        $("#first_member_lunch_price").attr("readonly", true);
-                    }
+
                 })
                 //取得職員二資料
                 $.ajax({
@@ -225,14 +240,7 @@
                     $("#second_member_job_title").val(data.info.member_title);
                     $("#second_member_name").val(data.info.member_name);
                     $("#second_member_phone").val(data.info.member_phone);
-                    $("#second_member_order_meal").val(data.info.order_meal);
-                    if (data.info.order_meal.toUpperCase() == "Y") {
-                        $("#second_member_order_meal").prop("checked", true);
-                        $("#second_member_lunch_price").attr("readonly", false);
-                    } else {
-                        $("#second_member_order_meal").prop("checked", false);
-                        $("#second_member_lunch_price").attr("readonly", true);
-                    }
+
                 })
                 //取得試場 start&end get_field_start_end
                 $.ajax({
@@ -277,20 +285,22 @@
                         $("#first_member_section_lunch_total").val(
                             first_member_section_lunch_total);
                         //計算總金額 (排除沒訂餐)
-                        if ($("#first_member_order_meal").val() == "N") {
+                        if ($("#first_member_order_meal").val().toUpperCase() ==
+                            "N") {
                             $("#first_member_lunch_price").val(parseInt(0));
                             $("#first_member_section_lunch_total").val(parseInt(
                                 0));
                             $("#first_member_section_total").val(
                                 first_member_section_salary_total);
                         } else {
-                            var first_member_day_lunch_total = 0 -
-                                first_member_day_lunch_total;
-                            $("#first_member_day_lunch_total").val(
-                                first_member_day_lunch_total);
+                            var first_member_section_lunch_total = 0 -
+                                first_member_section_lunch_total;
+                            $("#first_member_section_lunch_total").val(
+                                first_member_section_lunch_total);
                             var first_member_section_total = parseInt($(
                                     "#first_member_section_salary_total").val()) +
-                                parseInt($("#first_member_day_lunch_total").val());
+                                parseInt($("#first_member_section_lunch_total")
+                                    .val());
                             $("#first_member_section_total").val(
                                 first_member_section_total);
                         }
@@ -318,7 +328,8 @@
                         $("#second_member_section_lunch_total").val(
                             second_member_section_lunch_total);
                         //計算總金額 (排除沒訂餐)
-                        if ($("#second_member_order_meal").val() == "N") {
+                        if ($("#second_member_order_meal").val().toUpperCase() ==
+                            "N") {
                             $("#second_member_lunch_price").val(parseInt(0));
                             $("#second_member_section_lunch_total").val(
                                 parseInt(0));
@@ -364,6 +375,7 @@
                         "first_member_salary_section": $("#first_member_salary_section").val(),
                         "first_member_section_salary_total": $(
                             "#first_member_section_salary_total").val(),
+                        "first_member_order_meal": $("#first_member_order_meal").val(),
                         "first_member_lunch_price": $("#first_member_lunch_price").val(),
                         "first_member_section_lunch_total": $(
                             "#first_member_section_lunch_total").val(),
@@ -373,6 +385,7 @@
                         "second_member_salary_section": $("#second_member_salary_section").val(),
                         "second_member_section_salary_total": $(
                             "#second_member_section_salary_total").val(),
+                        "second_member_order_meal": $("#second_member_order_meal").val(),
                         "second_member_lunch_price": $("#second_member_lunch_price").val(),
                         "second_member_section_lunch_total": $(
                             "#second_member_section_lunch_total").val(),

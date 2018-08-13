@@ -220,7 +220,7 @@ class Mod_trial extends CI_Model
             # code...
             $supervisor1 = $this->db->where('member_code', $sub[$i]['supervisor_1_code'])->get('staff_member')->row_array();
             $supervisor2 = $this->db->where('member_code', $sub[$i]['supervisor_2_code'])->get('staff_member')->row_array();
-            $voucher = $this->db->where('part',$part)->where('first_start <=', $sub[$i]['start'])->where('first_end >=', $sub[$i]['end'])->get('trial_staff')->row_array();
+            $voucher = $this->db->where('part', $part)->where('first_start <=', $sub[$i]['start'])->where('first_end >=', $sub[$i]['end'])->get('trial_staff')->row_array();
             $course = $this->db->where('year', $year)->where('field', $sub[$i]['field'])->get('exam_area')->row_array();
             $trial = $this->db->get('trial_staff')->result_array();
 
@@ -241,9 +241,8 @@ class Mod_trial extends CI_Model
                 'subject_07'=>$course['subject_07'],
                 'subject_08'=>$course['subject_08'],
                 'subject_09'=>$course['subject_09'],
-                'subject_10'=>$course['subject_10'],                
+                'subject_10'=>$course['subject_10'],
             );
-            
         }
         return $arr;
     }
@@ -272,27 +271,40 @@ class Mod_trial extends CI_Model
 
         sort($sub);
 
-        if(!empty($sub)){
+    
+
+        if (!empty($sub)) {
             for ($i=0; $i < count($sub); $i++) {
-             # code...
+                # code...
                 $supervisor1 = $this->db->where('member_code', $sub[$i]['supervisor_1_code'])->get('staff_member')->row_array();
                 $supervisor2 = $this->db->where('member_code', $sub[$i]['supervisor_2_code'])->get('staff_member')->row_array();
                 
                 $do_date = explode("、", $sub[$i]['first_member_do_date']);
-                        
+                # code...
+                if (strtoupper($sub[$i]['first_member_order_meal']) == "Y") {
+                    $first_member_meal = $supervisor1['meal'];
+                } else {
+                    $first_member_meal = "";
+                }
+
+                if (strtoupper($sub[$i]['second_member_order_meal']) == "Y") {
+                    $second_member_meal = $supervisor2['meal'];
+                } else {
+                    $second_member_meal = "";
+                }
+    
                 for ($d=0; $d < count($do_date); $d++) {
-                    # code...
                     $arr[$do_date[$d]][] = array(
                         'sn'=>$sub[$i]['sn'],
                         'field' => $sub[$i]['field'],
                         'test_section' => $sub[$i]['test_section'],
                         'part' => $sub[$i]['part'],
                         'order_meal1'=>$supervisor1['order_meal'],
-                        'meal1'=>$supervisor1['meal'],
+                        'meal1'=>$first_member_meal,
                         'supervisor_1'=>$sub[$i]['supervisor_1'],
                         'supervisor_1_unit' => $supervisor1['member_unit'] ,
                         'supervisor_1_phone' => $supervisor1['member_phone'],
-                        'meal2'=>$supervisor2['meal'],
+                        'meal2'=>$second_member_meal,
                         'supervisor_2'=>$sub[$i]['supervisor_2'],
                         'supervisor_2_unit' => $supervisor2['member_unit'] ,
                         'supervisor_2_phone' => $supervisor2['member_phone'],
@@ -304,13 +316,14 @@ class Mod_trial extends CI_Model
                     );
                 }
             }
+            // print_r($arr);
             return $arr;
-        }else{
+        } else {
             return false;
         }
     }
     
-    function odd($var)
+    public function odd($var)
     {
         return($var['year'] == $_SESSION['year']);
     }
@@ -343,14 +356,19 @@ class Mod_trial extends CI_Model
             $supervisor1 = $this->db->where('member_code', $sub[$i]['supervisor_1_code'])->get('staff_member')->row_array();
             $supervisor2 = $this->db->where('member_code', $sub[$i]['supervisor_2_code'])->get('staff_member')->row_array();
 
-            //取的自備午餐人數
-            $this->db->where('member_code', $sub[$i]['supervisor_1_code']);
-            $this->db->where('meal', '自備');
-            $own1 =$this->db->get('staff_member')->row_array();
-            $this->db->where('member_code', $sub[$i]['supervisor_2_code']);
-            $this->db->where('meal', '自備');
-            $own2 =$this->db->get('staff_member')->row_array();
-            
+            if (strtoupper($sub[$i]['first_member_order_meal']) == "Y") {
+                //取的自備午餐人數
+                $this->db->where('member_code', $sub[$i]['supervisor_1_code']);
+                $this->db->where('meal', '自備');
+                $own1 =$this->db->get('staff_member')->row_array();
+            }
+
+            if (strtoupper($sub[$i]['second_member_order_meal']) == "Y") {
+                $this->db->where('member_code', $sub[$i]['supervisor_2_code']);
+                $this->db->where('meal', '自備');
+                $own2 =$this->db->get('staff_member')->row_array();
+            }
+
             $own += count($own1['meal']) + count($own2['meal']);
         }
         return $own;
@@ -361,7 +379,6 @@ class Mod_trial extends CI_Model
         $this->db->select('*');
         if ($part != '') {
             $this->db->where('part', $part);
-
         }
         $this->db->from('part_info');
         $this->db->join('trial_assign', 'part_info.sn = trial_assign.sn');
@@ -386,7 +403,7 @@ class Mod_trial extends CI_Model
             $veg += count($veg1['meal']) + count($veg2['meal']);
         }
         return $veg;
-    }    
+    }
 
 
     public function get_trial_member_meat_count($part = '')
@@ -425,7 +442,7 @@ class Mod_trial extends CI_Model
             $meat += count($meat1['meal']) + count($meat2['meal']);
         }
         return $meat;
-    }        
+    }
 
     public function get_patrol_member_count($part = '')
     {
@@ -677,16 +694,29 @@ class Mod_trial extends CI_Model
             $supervisor1 = $this->db->where('member_code', $res[$i]['supervisor_1_code'])->get('staff_member')->row_array();
             $supervisor2 = $this->db->where('member_code', $res[$i]['supervisor_2_code'])->get('staff_member')->row_array();
 
+            if (strtoupper($res[$i]['first_member_order_meal']) == "Y") {
+                $first_member_meal = $supervisor1['meal'];
+            } else {
+                $first_member_meal = "";
+            }
+
+            if (strtoupper($res[$i]['second_member_order_meal']) == "Y") {
+                $second_member_meal = $supervisor2['meal'];
+            } else {
+                $second_member_meal = "";
+            }
+
             $arr[] = array(
                 'field' => $res[$i]['field'],
                 'supervisor_1'=>$res[$i]['supervisor_1'],
                 'trial_staff_code_1' => $res[$i]['trial_staff_code_1'],
-                'order_meal_1' => $supervisor1['meal'],
+                'order_meal_1' => $first_member_meal,
                 'supervisor_2' => $res[$i]['supervisor_2'],
                 'trial_staff_code_2' => $res[$i]['trial_staff_code_2'],
-                'order_meal_2' => $supervisor2['meal'],
+                'order_meal_2' => $second_member_meal,
             );
         }
+        // print_r($arr);
         return $arr;
     }
 
@@ -734,7 +764,6 @@ class Mod_trial extends CI_Model
     {
         $this->db->where('sn', $sn);
         $this->db->update('trial_assign', $data);
-
         return true;
     }
 
