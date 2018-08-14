@@ -86,6 +86,38 @@ class Mod_trial extends CI_Model
         }
     }
 
+    public function chk_list_for_voucher($part, $area)
+    {
+        $this->db->select('*');
+        if ($part != '') {
+            $this->db->where('part', $part);
+        }
+        $this->db->from('part_info');
+        $this->db->join('trial_assign', 'part_info.sn = trial_assign.sn');
+        
+        $year = $this->session->userdata('year');
+
+        $this->db->where('first_member_do_date !=', "");
+        $res = $this->db->get()->result_array();
+
+
+        function even($var)
+        {
+            return($var['year'] == $_SESSION['year']);
+        }
+
+        $sub =  array_filter($res, "even");
+
+        sort($sub);
+
+
+        if (!empty($sub)) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
     public function chk_part_list_of_obs($part, $area, $obs)
     {
         $this->db->select('*');
@@ -133,64 +165,76 @@ class Mod_trial extends CI_Model
         $year = $this->session->userdata('year');
 
         $res = $this->db->get()->result_array();
+        if(!empty($res)){
+            function even($var)
+            {
+                return($var['year'] == $_SESSION['year']);
+            }
 
-        function even($var)
-        {
-            return($var['year'] == $_SESSION['year']);
+            $sub =  array_filter($res, "even");
+
+            sort($sub);
+
+
+            for ($i=0; $i < count($sub); $i++) {
+                # code...
+                $supervisor1 = $this->db->where('member_code', $sub[$i]['supervisor_1_code'])->get('staff_member')->row_array();
+                $supervisor2 = $this->db->where('member_code', $sub[$i]['supervisor_2_code'])->get('staff_member')->row_array();
+                $patrol = $this->db->where('start <=', $sub[$i]['start'])->where('end >=', $sub[$i]['end'])->get('patrol_staff')->row_array();
+                $course = $this->db->where('year', $year)->where('field', $sub[$i]['field'])->get('exam_area')->row_array();
+                $trial = $this->db->get('trial_staff')->result_array();
+                if($sub[$i]['first_member_salary_section'] == ""){
+                    $first_member_salary_section = 0;
+                }else{
+                    $first_member_salary_section = $sub[$i]['first_member_salary_section'];
+                }
+                if($sub[$i]['second_member_salary_section'] == ""){
+                    $second_member_salary_section = 0;
+                }else{
+                    $second_member_salary_section = $sub[$i]['second_member_salary_section'];
+                }            
+                $arr[] = array(
+                    'sn'=>$sub[$i]['sn'],
+                    'field' => $sub[$i]['field'],
+                    'test_section' => $sub[$i]['test_section'],
+                    'part' => $sub[$i]['part'],
+                    'do_date' => $sub[$i]['first_member_do_date'],
+                    'first_member_salary_section'=>$first_member_salary_section ,
+                    'first_member_section_lunch_total'=>$sub[$i]['first_member_section_lunch_total'],
+                    'first_member_section_salary_total'=>$sub[$i]['first_member_section_salary_total'],
+                    'order_meal1'=>$supervisor1['order_meal'],
+                    'supervisor_1'=>$sub[$i]['supervisor_1'],
+                    'supervisor_1_unit' => $supervisor1['member_unit'] ,
+                    'supervisor_1_phone' => $supervisor1['member_phone'],
+                    'second_member_salary_section'=>$second_member_salary_section,
+                    'second_member_section_lunch_total'=>$sub[$i]['second_member_section_lunch_total'],
+                    'second_member_section_salary_total'=>$sub[$i]['second_member_section_salary_total'],
+                    'supervisor_2'=>$sub[$i]['supervisor_2'],
+                    'supervisor_2_unit' => $supervisor2['member_unit'] ,
+                    'supervisor_2_phone' => $supervisor2['member_phone'],
+                    'order_meal2'=>$supervisor2['order_meal'],
+                    'floor' =>$sub[$i]['floor'],
+                    'number'=>$sub[$i]['number'],
+                    'start'=>$sub[$i]['start'],
+                    'end'=>$sub[$i]['end'],
+                    'allocation_code'=>$patrol['allocation_code'],
+                    'patrol'=>$patrol['patrol_staff_name'],
+                    'subject_01'=>$course['subject_01'],
+                    'subject_02'=>$course['subject_02'],
+                    'subject_03'=>$course['subject_03'],
+                    'subject_04'=>$course['subject_04'],
+                    'subject_05'=>$course['subject_05'],
+                    'subject_06'=>$course['subject_06'],
+                    'subject_07'=>$course['subject_07'],
+                    'subject_08'=>$course['subject_08'],
+                    'subject_09'=>$course['subject_09'],
+                    'subject_10'=>$course['subject_10'],
+                );
+            }
+            return $arr;
+        }else{
+            return false;
         }
-
-        $sub =  array_filter($res, "even");
-
-        sort($sub);
-
-
-        for ($i=0; $i < count($sub); $i++) {
-            # code...
-            $supervisor1 = $this->db->where('member_code', $sub[$i]['supervisor_1_code'])->get('staff_member')->row_array();
-            $supervisor2 = $this->db->where('member_code', $sub[$i]['supervisor_2_code'])->get('staff_member')->row_array();
-            $patrol = $this->db->where('start <=', $sub[$i]['start'])->where('end >=', $sub[$i]['end'])->get('patrol_staff')->row_array();
-            $course = $this->db->where('year', $year)->where('field', $sub[$i]['field'])->get('exam_area')->row_array();
-            $trial = $this->db->get('trial_staff')->result_array();
-
-            $arr[] = array(
-                'sn'=>$sub[$i]['sn'],
-                'field' => $sub[$i]['field'],
-                'test_section' => $sub[$i]['test_section'],
-                'part' => $sub[$i]['part'],
-                'do_date' => $sub[$i]['first_member_do_date'],
-                'first_member_salary_section'=>$sub[$i]['first_member_salary_section'],
-                'first_member_section_lunch_total'=>$sub[$i]['first_member_section_lunch_total'],
-                'first_member_section_salary_total'=>$sub[$i]['first_member_section_salary_total'],
-                'order_meal1'=>$supervisor1['order_meal'],
-                'supervisor_1'=>$sub[$i]['supervisor_1'],
-                'supervisor_1_unit' => $supervisor1['member_unit'] ,
-                'supervisor_1_phone' => $supervisor1['member_phone'],
-                'second_member_salary_section'=>$sub[$i]['second_member_salary_section'],
-                'second_member_section_lunch_total'=>$sub[$i]['second_member_section_lunch_total'],
-                'second_member_section_salary_total'=>$sub[$i]['second_member_section_salary_total'],
-                'supervisor_2'=>$sub[$i]['supervisor_2'],
-                'supervisor_2_unit' => $supervisor2['member_unit'] ,
-                'supervisor_2_phone' => $supervisor2['member_phone'],
-                'order_meal2'=>$supervisor2['order_meal'],
-                'floor' =>$sub[$i]['floor'],
-                'number'=>$sub[$i]['number'],
-                'start'=>$sub[$i]['start'],
-                'end'=>$sub[$i]['end'],
-                'allocation_code'=>$patrol['allocation_code'],
-                'patrol'=>$patrol['patrol_staff_name'],
-                'subject_01'=>$course['subject_01'],
-                'subject_02'=>$course['subject_02'],
-                'subject_03'=>$course['subject_03'],
-                'subject_04'=>$course['subject_04'],
-                'subject_05'=>$course['subject_05'],
-                'subject_06'=>$course['subject_06'],
-                'subject_07'=>$course['subject_07'],
-                'subject_08'=>$course['subject_08'],
-                'subject_09'=>$course['subject_09'],
-                'subject_10'=>$course['subject_10'],
-            );
-        }
-        return $arr;
     }
 
     public function get_list_for_voucher($part = '')
@@ -206,7 +250,6 @@ class Mod_trial extends CI_Model
         $year = $this->session->userdata('year');
 
         $res = $this->db->get()->result_array();
-
         function even($var)
         {
             return($var['year'] == $_SESSION['year']);
@@ -217,7 +260,7 @@ class Mod_trial extends CI_Model
         sort($sub);
 
         for ($i=0; $i < count($sub); $i++) {
-            # code...
+                # code...
             $supervisor1 = $this->db->where('member_code', $sub[$i]['supervisor_1_code'])->get('staff_member')->row_array();
             $supervisor2 = $this->db->where('member_code', $sub[$i]['supervisor_2_code'])->get('staff_member')->row_array();
             $voucher = $this->db->where('part', $part)->where('first_start <=', $sub[$i]['start'])->where('first_end >=', $sub[$i]['end'])->get('trial_staff')->row_array();
@@ -316,7 +359,6 @@ class Mod_trial extends CI_Model
                     );
                 }
             }
-            print_r($arr);
             return $arr;
         } else {
             return false;
@@ -457,22 +499,26 @@ class Mod_trial extends CI_Model
 
         $res = $this->db->get()->result_array();
 
-        function odd($var)
-        {
-            return($var['year'] == $_SESSION['year']);
+        if(!empty($res)){
+            function odd($var)
+            {
+                return($var['year'] == $_SESSION['year']);
+            }
+
+            $sub =  array_filter($res, "odd");
+
+            sort($sub);
+
+            for ($i=0; $i < count($sub); $i++) {
+                $patrol = $this->db->where('start <=', $sub[$i]['start'])->where('end >=', $sub[$i]['end'])->get('patrol_staff')->row_array();
+            }
+            return count($patrol['patrol_staff_name']);
+        }else{
+            return false;
         }
-
-        $sub =  array_filter($res, "odd");
-
-        sort($sub);
-
-        for ($i=0; $i < count($sub); $i++) {
-            $patrol = $this->db->where('start <=', $sub[$i]['start'])->where('end >=', $sub[$i]['end'])->get('patrol_staff')->row_array();
-        }
-        return count($patrol['patrol_staff_name']);
     }
 
-    public function get_supervisor_list($part = '')
+    public function chk_patrol_member($part = '')
     {
         $this->db->select('*');
         if ($part != '') {
@@ -495,6 +541,69 @@ class Mod_trial extends CI_Model
 
         sort($sub);
 
+
+        if (!empty($sub)) {
+            return true;
+        } else {
+            return false;
+        }
+    }    
+
+    public function chk_supervisor_list($part)
+    {
+        $this->db->select('*');
+        if ($part != '') {
+            $this->db->where('part', $part);
+        }
+        $this->db->from('part_info');
+        $this->db->join('trial_assign', 'part_info.sn = trial_assign.sn');
+        
+        $year = $this->session->userdata('year');
+
+        $this->db->where('first_member_do_date !=', "");
+        $res = $this->db->get()->result_array();
+
+
+        function even($var)
+        {
+            return($var['year'] == $_SESSION['year']);
+        }
+
+        $sub =  array_filter($res, "even");
+
+        sort($sub);
+
+
+        if (!empty($sub)) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    public function get_supervisor_list($part = '')
+    {
+        $this->db->select('*');
+        if ($part != '') {
+            $this->db->where('part', $part);
+        }
+        $this->db->from('part_info');
+        $this->db->join('trial_assign', 'part_info.sn = trial_assign.sn');
+        
+        $this->db->where('first_member_do_date !=', "");
+        $year = $this->session->userdata('year');
+
+        $res = $this->db->get()->result_array();
+
+
+        function even($var)
+        {
+            return($var['year'] == $_SESSION['year']);
+        }
+
+        $sub =  array_filter($res, "even");
+
+        sort($sub);
 
         for ($i=0; $i < count($sub); $i++) {
             # code...
@@ -535,7 +644,7 @@ class Mod_trial extends CI_Model
                 'test_section' => $sub[$i]['test_section'],
                 'part' => $sub[$i]['part'],
                 'do_date' => $sub[$i]['second_member_do_date'],
-                'order_meal1'=>$supervisor1['order_meal'],
+                'order_meal1'=>$supervisor2['order_meal'],
                 'supervisor'=>$sub[$i]['supervisor_2'],
                 'floor' =>$sub[$i]['floor'],
                 'number'=>$sub[$i]['number'],
@@ -652,8 +761,6 @@ class Mod_trial extends CI_Model
 
         sort($sub);
 
-
-
         for ($i=0; $i < count($sub); $i++) {
             # code...
             $supervisor1 = $this->db->where('member_code', $sub[$i]['supervisor_1_code'])->get('staff_member')->row_array();
@@ -661,16 +768,23 @@ class Mod_trial extends CI_Model
             
 
             // foreach ($res as $k => $v) {
-            $name = array_merge($supervisor1, $supervisor2);
             # code...
             $arr[] = array(
                     'year' => $sub[$i]['year'],
                     'part_name'=>$sub[$i]['part_name'],
                     'do_date' => $sub[$i]['first_member_do_date'],
-                    'member_unit' => $name['member_unit'],
-                    'member_name'=> $name['member_name'],
-                    'member_code' =>$name['member_code']
+                    'member_unit' => $supervisor1['member_unit'],
+                    'member_name'=> $supervisor1['member_name'],
+                    'member_code' =>$supervisor1['member_code']
                 );
+            $arr[] = array(
+                    'year' => $sub[$i]['year'],
+                    'part_name'=>$sub[$i]['part_name'],
+                    'do_date' => $sub[$i]['second_member_do_date'],
+                    'member_unit' => $supervisor2['member_unit'],
+                    'member_name'=> $supervisor2['member_name'],
+                    'member_code' =>$supervisor2['member_code']
+                );                
             // }
         }
         // print_r($arr);
@@ -747,6 +861,11 @@ class Mod_trial extends CI_Model
         return $this->db->where('sn', $sn)->get('trial_staff')->row_array();
     }
 
+    public function get_once_trial_by_code($trial_staff_code)
+    {
+        return $this->db->where('member_code', $trial_staff_code)->get('staff_member')->row_array();
+    }    
+
     public function update_once($sn, $data)
     {
         $this->db->where('sn', $sn);
@@ -797,6 +916,14 @@ class Mod_trial extends CI_Model
         $this->db->select('field');
 
         return $this->db->get('part_info')->row_array();
+    }
+
+    public function remove_trial_staff($sn)
+    {
+        $this->db->where('sn', $sn);
+        $this->db->delete('trial_staff');
+
+        return true;
     }
 }
 

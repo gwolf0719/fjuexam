@@ -62,6 +62,26 @@ class Mod_task extends CI_Model
         }
     }
 
+    public function chk_patrol($sn)
+    {
+        $this->db->where('sn', $sn);
+        if ($this->db->count_all_results('district_task') == 0) {
+            return false;
+        } else {
+            return true;
+        }
+    }    
+
+    public function chk_staff($sn)
+    {
+        $this->db->where('sn', $sn);
+        if ($this->db->count_all_results('district_task') == 0) {
+            return false;
+        } else {
+            return true;
+        }
+    }        
+
     public function chk_job_code($job_code)
     {
         $this->db->where('job_code', $job_code);
@@ -140,7 +160,7 @@ class Mod_task extends CI_Model
         }
     }
 
-    public function e_2_1($area = '')
+    public function e_2_1($area = '',$part)
     {
         $this->db->where('year', $this->session->userdata('year'));
         if ($area != '') {
@@ -165,7 +185,7 @@ class Mod_task extends CI_Model
                         'job_title' => $res[$i]['job_title'],
                         'name' => $res[$i]['name'],
                         'member_unit'=>$member['member_unit'],
-                        'meal' => $member['meal'],
+                        'meal' => $res[$i]['meal'],
                         'note' => $res[$i]['note']
                     );
                 }
@@ -191,10 +211,13 @@ class Mod_task extends CI_Model
             for ($i=0; $i < count($res); $i++) {
                 # code...
                 $member = $this->db->where('member_code', $res[$i]['job_code'])->get('staff_member')->row_array();
-                $this->db->where('member_code', $res[$i]['job_code']);
-                $this->db->where('meal', '自備');
-                $own = $this->db->get('staff_member')->row_array();
-                $own_count += count($own['meal']);
+                $do_date = explode(",", $res[$i]['do_date']);
+                for ($d=0; $d < count($do_date); $d++) {
+                    # code...
+                    $this->db->where('meal','自備');
+                    $member = $this->db->where('job_code', $res[$i]['job_code'])->get('district_task')->row_array();
+                    $own_count += count($member['meal']);
+                }
 
             }
             return $own_count;
@@ -267,7 +290,6 @@ class Mod_task extends CI_Model
         $this->db->where('job_code !=', "");
 
         $res = $this->db->get('district_task')->result_array();
-                
         if (!empty($res)) {
             for ($i=0; $i < count($res); $i++) {
                 # code...
@@ -280,7 +302,7 @@ class Mod_task extends CI_Model
                         'member_code'=>$member[$m]['member_code'],
                         'member_name'=>$member[$m]['member_name'],
                         'member_unit'=>$member[$m]['member_unit'],
-                        'job'=>$res[$i]['job_title'],
+                        'job'=>$res[$i]['job'],
                     );
                 }
             }

@@ -77,9 +77,9 @@
             <div class="modal-body">
                 <div class="row">
                     <div class="col-md-12 col-sm-12 col-xs-12">
-                        <div class="btn_part btn1" link="./designated/e_3_1?part=2501&area=第一分區" part="2501" area="第一分區">第一分區</div>
-                        <div class="btn_part btn1" link="./designated/e_3_1?part=2502&area=第二分區" part="2502" area="第二分區">第二分區</div>
-                        <div class="btn_part btn1" link="./designated/e_3_1?part=2502&area=第三分區" part="2503" area="第三分區">第三分區</div>
+                        <div class="btn_part btn2" link="./designated/e_3_1?part=2501&area=第一分區" part="2501" area="第一分區">第一分區</div>
+                        <div class="btn_part btn2" link="./designated/e_3_1?part=2502&area=第二分區" part="2502" area="第二分區">第二分區</div>
+                        <div class="btn_part btn2" link="./designated/e_3_1?part=2502&area=第三分區" part="2503" area="第三分區">第三分區</div>
                     </div>
                 </div>
             </div>
@@ -129,6 +129,24 @@ $(function(){
                 location.href = link;  
             }
         })        
+    })
+
+    $("body").on("click",".btn2",function(){
+        var part = $(this).attr("part");
+        var area = $(this).attr("area");
+        var link = $(this).attr("link");
+        $.ajax({
+            url: 'api/chk_list_for_voucher',
+            data: {
+                part: part,
+            },
+            dataType: "json"
+        }).done(function(data) {
+            alert(data.sys_msg);
+            if (data.sys_code == "200") {
+                location.href = link;  
+            }
+        })     
     })
 })
 </script>

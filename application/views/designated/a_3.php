@@ -83,11 +83,18 @@
                 },
                 dataType: "json"
             }).done(function(data) {
-                console.log(data.info.order_meal);
+                console.log(data.info.meal);
                 if (data.info.order_meal.toUpperCase() == "Y") {
                     $("#order_meal").prop("checked", true);
+                    $(".meal").show();
                 } else {
                     $("#order_meal").prop("checked", false);
+                    $(".meal").hide();
+                }
+                if(data.info.meal == "自備"){
+                    $("#meal").val(" ");
+                }else{
+                    $("#meal").val(data.info.meal);
                 }
                 $("#sn").val(sn);
                 $("#member_code").val(data.info.member_code);
@@ -141,7 +148,12 @@
             var member_title = $("#member_title").val();
             var member_phone = $("#member_phone").val();
             var order_meal = $("#order_meal").val();
-            var meal = $("#meal").val();
+            var meal;
+            if($("#order_meal").prop("checked") == false){
+                meal = "自備";
+            }else{
+                meal = $("#meal").val();
+            }
             $.ajax({
                 url: 'api/add_staff',
                 data: {
@@ -171,7 +183,12 @@
                 var member_title = $("#member_title").val();
                 var member_phone = $("#member_phone").val();
                 var order_meal = $("#order_meal").val();
-                var meal = $("#meal").val();
+                var meal;
+                if($("#order_meal").prop("checked") == false){
+                    meal = "自備";
+                }else{
+                    meal = $("#meal").val();
+                }
                 $.ajax({
                     url: 'api/edit_staff',
                     data: {
@@ -334,9 +351,10 @@
                         <input type="checkbox" class="" id="order_meal">
                         <span class="need">需訂餐</span>
                     </div>
-                    <div class="form-group">
+                    <div class="form-group meal" style="display:none;">
                         <label for="meal">餐別</label>
                         <select name="meal" id="meal" class="form-control">
+                            <option value=" ">請選擇</option>
                             <option value="葷">葷</option>
                             <option value="素">素</option>
                         </select>
@@ -391,11 +409,13 @@
 <!-- Modal end-->
 <script>
     $(function() {
-        $("body").on("click", ".need", function() {
+        $("body").on("change", "#order_meal", function() {
             if ($("#order_meal").prop("checked") == true) {
-                $("#order_meal").prop("checked", false);
+                $("#meal").val(" ");
+                $(".meal").show();
             } else {
-                $("#order_meal").prop("checked", true);
+                $(".meal").hide();
+                $("#meal").val(" ");
             }
         })
     })

@@ -7,7 +7,7 @@
 <table class="" id="" style="padding:5px 0px;text-align:center;">
     <thead>
         <tr>
-            <th colspan="9" style="font-size:18px;"><?=$_SESSION['year']?>學年度定科目考試新北一考區監試人員一覽表</th>
+            <th colspan="9" style="font-size:18px;"><?=$_SESSION['year']?>學年度指定科目考試新北一考區監試人員一覽表</th>
         </tr>
         <tr>
             <th colspan="3" style="font-size:14px;">分區：<?=$area?></th>

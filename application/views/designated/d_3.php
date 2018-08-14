@@ -157,6 +157,7 @@
             $("#second_section").val("0");
             $("#third_section").val("0");
             $("textarea[name='note']").val("");
+            $("#section").val(0);            
             $(".tab").removeClass("active");
             $(".part").hide();
             // 點擊到的追加active以及打開相對應table
@@ -173,6 +174,7 @@
                 dataType: "json"
             }).done(function(data) {
                 var html = "";
+                html = '<option value="">請選擇</option>';
                 $.each(data.part, function(k, v) {
                     html += '<option value="' + v.field + '">' + v.field + '</option>';
                 })
@@ -252,6 +254,25 @@
                         "end": end,
                         "section": section,
                         "note": note
+                    },
+                    dataType: "json"
+                }).done(function(data) {
+                    alert(data.sys_msg);
+                    if (data.sys_code == "200") {
+                        location.reload();
+                    }
+                })
+            }
+        })
+
+        $("body").on("click", "#remove", function() {
+            if (confirm("是否要刪除?")) {
+                var sn = $("#sn").val();
+                console.log(sn);
+                $.ajax({
+                    url: 'api/remove_patrol_staff',
+                    data: {
+                        "sn": sn,
                     },
                     dataType: "json"
                 }).done(function(data) {
@@ -490,6 +511,7 @@
                         <div class="form-group">
                             <label for="field" class="" style="float:left;">試場號起</label>
                             <select name="start" id="start" class="field form-control">
+                                <option value="">請選擇</option>
                                 <?php foreach ($part as $k => $v): ?>
                                 <option value="<?=$v['field']; ?>">
                                     <?=$v['field']; ?>
@@ -500,6 +522,7 @@
                         <div class="form-group">
                             <label for="section" class="" style="float:left;">試場號迄</label>
                             <select name="end" id="end" class="field form-control">
+                                <option value="">請選擇</option>
                                 <?php foreach ($part as $k => $v): ?>
                                 <option value="<?=$v['field']; ?>">
                                     <?=$v['field']; ?>
@@ -525,6 +548,7 @@
                     <div class="form-group" style="text-align:right">
                         <div class="">
                             <button type="button" class="btn btn-primary" id="add">新增</button>
+                            <button type="button" class="btn btn-danger" id="remove">刪除</button>
                             <button type="button" class="btn btn-primary" id="send" style="background:#346a90">修改</button>
                         </div>
                     </div>

@@ -141,9 +141,16 @@
                     $("#order_meal").prop("checked", false);
                     $("#lunch_price").val("0");
                     $("#lunch_price").attr("readonly", true);
+                    $(".meal").hide();
                 } else {
                     $("#order_meal").prop("checked", true);
                     $("#lunch_price").attr("readonly", false);
+                    $(".meal").show();
+                }
+                if(data.info.meal == "自備"){
+                    $("#meal").val("");
+                }else{
+                    $("#meal").val(data.info.meal);
                 }
                 //取得節數
                 $.ajax({
@@ -311,10 +318,17 @@
                     lunch_total = $("#day_lunch_total").val()
                     total = $("#day_total").val()
                 }
+                var meal;
+                if($("#order_meal").prop("checked") == false){
+                    meal = '自備';
+                }else{
+                    meal = $("#meal").val();
+                }
                 $.ajax({
                     url: 'api/save_patrol_staff_for_list',
                     data: {
                         "sn": sn,
+                        "meal":meal,
                         "do_date": do_date,
                         "calculation": calculation,
                         "count": count,
@@ -440,6 +454,7 @@
                 $("#section_total").val($("#section_salary_total").val());
                 $("#day_lunch_total").val(0);
                 $("#section_lunch_total").val(0);
+                $(".meal").hide();
             } else {
                 //節數
                 var section_salary_total = parseInt($("#salary_section").val()) * parseInt($(
@@ -455,6 +470,7 @@
                 $("#day_lunch_total").val(day_lunch_total);
                 var day_total = day_salary_total + day_lunch_total;
                 $("#day_total").val(day_total);
+                $(".meal").show();
             }
         })
 
@@ -751,7 +767,7 @@
                         <input type="text" class="form-control" id="trial_end" readonly>
                     </div>
                 </div>
-                <div class="col-md-3 col-sm-3 col-xs-3 cube" style="height:150px;">
+                <div class="col-md-3 col-sm-3 col-xs-3 cube" style="height:200px;">
                     <div class="form-group">
                         <label for="order_meal">訂餐需求</label>
                         <input type="checkbox" class="" name="need" id="order_meal" value="N">
@@ -764,6 +780,14 @@
                             <option value="by_day">以天計算</option>
                         </select>
                     </div>
+                    <div class="form-group meal">
+                        <label for="trial_end" class="" style="float:left;">餐別</label>
+                        <select class="form-control" id="meal">
+                            <option value="meal">請選擇</option>
+                            <option value="葷">葷</option>
+                            <option value="素">素</option>
+                        </select>
+                    </div>                    
                 </div>
                 <div class="col-md-3 col-sm-3 col-xs-3 cube" style="float:left">
                     <div class="form-group">

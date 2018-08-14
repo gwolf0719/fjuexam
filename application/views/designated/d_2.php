@@ -354,6 +354,24 @@
             }
         })
 
+        $("body").on("click", "#remove", function() {
+            if (confirm("是否要刪除?")) {
+                var sn = $("#sn").val();
+                $.ajax({
+                    url: 'api/remove_trial_staff',
+                    data: {
+                        "sn": sn,
+                    },
+                    dataType: "json"
+                }).done(function(data) {
+                    alert(data.sys_msg);
+                    if (data.sys_code == "200") {
+                        location.reload();
+                    }
+                })
+            }
+        })        
+
         $("body").on("click", "#add", function() {
             if ($("#sn").val() != "") {
                 if (confirm("目前處於編輯狀態，若要新增，將會清空所有欄位")) {
@@ -776,6 +794,7 @@
                     <div class="form-group" style="text-align:right">
                         <div class="">
                             <button type="button" class="btn btn-primary" id="add">新增</button>
+                            <button type="button" class="btn btn-danger" id="remove">刪除</button>
                             <button type="button" class="btn btn-primary" id="send" style="background:#346a90">修改</button>
                         </div>
                     </div>

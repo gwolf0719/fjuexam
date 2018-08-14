@@ -3,7 +3,7 @@
     <thead>
         <tr>
             <td style="font-size:16px;" colspan="7">
-                <?=$_SESSION['year']?>學年度定科目考試新北一考區監試人員簽到表</td>
+                <?=$_SESSION['year']?>學年度指定科目考試新北一考區監試人員簽到表</td>
         </tr>
         <tr>
             <td colspan="2" style="font-size:14px;">分區：

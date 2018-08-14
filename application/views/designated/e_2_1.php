@@ -17,7 +17,7 @@
 
 <div>
     <h2 style="text-align:center">
-        <?=$_SESSION['year']?>學年度定科目考試新北一考區試務人員簽到表</h2>
+        <?=$_SESSION['year']?>學年度指定科目考試新北一考區試務人員簽到表</h2>
 </div>
 
 

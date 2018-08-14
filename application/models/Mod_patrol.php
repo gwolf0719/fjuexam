@@ -70,9 +70,24 @@ class Mod_patrol extends CI_Model
         return true;
     }
 
+    public function insert_2_district_task($sn, $data)
+    {
+        $this->db->insert('district_task', $data);
+
+        return true;
+    }
+
     public function add_once($data)
     {
         $this->db->insert('patrol_staff', $data);
+
+        return true;
+    }
+
+        public function remove_patrol_staff($sn)
+    {
+        $this->db->where('sn', $sn);
+        $this->db->delete('patrol_staff');
 
         return true;
     }

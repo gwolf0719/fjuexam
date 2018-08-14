@@ -9,7 +9,7 @@
 <table class="" id="" style="padding:5px 0px;text-align:center;">
 
     <tr>
-        <td colspan="5" style="font-size:14px;">大學入學考試中心<?=$_SESSION['year']?>學年度定科目考試新北一考區監視說明會開會通知簽收表</td>
+        <td colspan="5" style="font-size:14px;">大學入學考試中心<?=$_SESSION['year']?>學年度指定科目考試新北一考區監試說明會開會通知簽收表</td>
     </tr>   
     <tr>
         <td colspan="6" style="font-size:13px;text-align:left;">單位：<?=$k?></td>

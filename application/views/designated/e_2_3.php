@@ -10,7 +10,7 @@
 <?php foreach ($part as $k => $v): ?>
 <table style="padding:2px 0px;text-align:center;">
     <tr>
-        <td colspan="14" style="font-size:16px;text-align:center;"><?=$_SESSION['year']?>學年度定科目考試新北一考區</td>
+        <td colspan="14" style="font-size:16px;text-align:center;"><?=$_SESSION['year']?>學年度指定科目考試新北一考區</td>
     </tr>
     <tr>
         <td colspan="14" style="font-size:16px;text-align:center;"><?=$_GET['area']?><?=$school?>試題本、答案券收發記錄單</td>

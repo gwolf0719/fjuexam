@@ -16,7 +16,7 @@
 <table class="" id="" style="padding:4px;text-align:center;">
     <thead>
         <tr>
-            <th colspan="12" style="font-size:18px;"><?=$_SESSION['year']?>學年度定科目考試新北一考區</th>
+            <th colspan="12" style="font-size:18px;"><?=$_SESSION['year']?>學年度指定科目考試新北一考區</th>
         </tr>
         <tr>
             <th colspan="12" style="font-size:16px;">監試人員印領清冊</th>

@@ -14,7 +14,7 @@
 <table style="padding:10px 0px;text-align:center;">
     <thead>
         <tr>
-            <td style="font-size:18px"><?=$_SESSION['year']?>學年度定科目考試新北一考區</td>
+            <td style="font-size:18px"><?=$_SESSION['year']?>學年度指定科目考試新北一考區</td>
         </tr>
         <tr>
             <td style="font-size:14px">監試人員監考科目日程對照表</td>

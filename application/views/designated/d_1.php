@@ -268,6 +268,50 @@
                 })
             }
         })
+
+        $("body").on("click","#remove",function(){
+            if (confirm("是否要刪除?")) {
+                var sn = $("#sn").val();
+                console.log(sn);
+                $.ajax({
+                    url: 'api/remove_trial',
+                    data: {
+                        "sn": sn,
+                        "supervisor_1": " ",
+                        "supervisor_1_code": " ",
+                        "supervisor_2": " ",
+                        "supervisor_2_code": " ",
+                        "trial_staff_code_1": " ",
+                        "trial_staff_code_2": " ",
+                        "first_member_order_meal":" ",
+                        "first_member_meal":" ",
+                        "second_member_order_meal":" ",
+                        "second_member_meal":" ",  
+                        "first_member_do_date":" ",
+                        "first_member_day_count":" ",
+                        "first_member_salary_section":" ",
+                        "first_member_section_salary_total":" ",
+                        "first_member_lunch_price":" ",
+                        "first_member_section_lunch_total":" ",
+                        "first_member_section_total":" ",
+                        "second_member_do_date":" ",
+                        "second_member_day_count":" ",
+                        "second_member_salary_section":" ",
+                        "second_member_section_salary_total":" ",
+                        "second_member_lunch_price":" ",
+                        "second_member_section_lunch_total":" ",
+                        "second_member_section_total":" ",
+                        "note": " "
+                    },
+                    dataType: "json"
+                }).done(function(data) {
+                    alert(data.sys_msg);
+                    if (data.sys_code == "200") {
+                        location.reload();
+                    }
+                })
+            }            
+        })
     });
 </script>
 
@@ -557,6 +601,7 @@
                 <div class="col-md-6 col-sm-6 col-xs-6" style="float:left;margin: 20px auto;">
                     <div class="form-group" style="text-align:right">
                         <div class="">
+                            <button type="button" class="btn btn-danger" id="remove">刪除</button>
                             <button type="button" class="btn btn-primary" id="send">修改</button>
                         </div>
                     </div>

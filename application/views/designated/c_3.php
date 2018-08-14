@@ -92,8 +92,8 @@ $(function(){
             $("#part").val(data.info.part);
             $("#part_name").val(data.info.part_name);
             $("#field").val(data.info.field);
-            $("#start").val(data.info.start);
-            $("#end").val(data.info.end);
+            $("#start").val(data.info.field);
+            $("#end").val(data.info.field);
             $("#floor").val(data.info.floor);
             $("#number").val(data.info.number);
             $("#section").val(data.info.test_section);
@@ -103,18 +103,16 @@ $(function(){
 
     $("body").on("click","#send",function(){
         if(confirm("是否要儲存?")){
-            var sn = $("#sn").val();
             var floor = $("#floor").val();
-            var addr = $("#addr").val();
-            var section = $("#section").val();
+            var start = $("#start").val();
+            var end = $("#end").val();
             var note = $("textarea[name='note']").val();
             $.ajax({
-                url: 'api/save_part',
+                url: 'api/save_floor',
                 data:{
-                    "sn":sn,
                     "floor":floor,
-                    "addr":addr,
-                    "section":section,
+                    "start":start,
+                    "end":end,
                     "note":note
                 },
                 dataType:"json"
@@ -144,6 +142,7 @@ $(function(){
     </div>
     
 </div>
+
 <div class="row" style="height:700px;overflow: auto;">
    <div class="col-12" style="margin-top: 10px;">
         <table class="table table-hover" id="">
@@ -175,7 +174,7 @@ $(function(){
                     <td><?=$v['start']; ?></td>
                     <td><?=$v['end']; ?></td>
                     <td><?=$v['number']; ?></td>
-                    <td><?=$addr_info['part_addr_3']; ?></td>
+                    <td><?=$addr_info['part_addr_1']; ?></td>
                     <td><?=$v['floor']; ?></td>
                     <td><?=$v['note']; ?></td>
                 </tr>                    
@@ -198,31 +197,27 @@ $(function(){
                     <div class="form-group">
                         <label for="part_name" class="" style="float:left;">分區名稱</label>
                         <input type="text" class="form-control" id="part_name" readonly>
-                    </div>                  
-                    <div class="form-group">
-                        <label for="field" class=""  style="float:left;">試場</label>
-                        <input type="text" class="form-control" id="field" readonly>
                     </div>     
                 </div>
                 <div class="col-md-3 col-sm-3 col-xs-3 cube">
                     <div class="form-group">
-                        <label for="section" class=""  style="float:left;">考試節數</label>
-                        <input type="text" class="form-control" id="section" readonly>
-                    </div>  
-                    <div class="form-group">
-                        <label for="start" class=""  style="float:left;">考生應試號起</label>
-                        <input type="text" class="form-control" id="start" readonly>
+                        <label for="start" class=""  style="float:left;">試場起號</label>
+                        <select name="start" id="start" class="form-control">
+                            <?php foreach ($datalist as $k => $v): ?>
+                                <option value="<?=$v['field']; ?>"><?=$v['field']; ?></option>
+                            <?php endforeach; ?>         
+                        </select>
                     </div>                  
                     <div class="form-group">
-                        <label for="end" class=""  style="float:left;">考生應試號迄</label>
-                        <input type="text" class="form-control" id="end" readonly>
+                        <label for="end" class=""  style="float:left;">試場迄號</label>
+                        <select name="start" id="end" class="form-control">
+                            <?php foreach ($datalist as $k => $v): ?>
+                                <option value="<?=$v['field']; ?>"><?=$v['field']; ?></option>
+                            <?php endforeach; ?>        
+                        </select>
                     </div>     
                 </div>                    
-                <div class="col-md-3 col-sm-3 col-xs-3 cube">
-                    <div class="form-group">
-                        <label for="number" class="" style="float:left;">應試人數</label>
-                        <input type="text" class="form-control" id="number" readonly>
-                    </div>                 
+                <div class="col-md-3 col-sm-3 col-xs-3 cube">   
                     <div class="form-group">
                         <label for="addr" class="" style="float:left;">考試地址</label>
                         <input type="text" class="form-control" id="addr" value="<?=$addr_info['part_addr_1']; ?>" readonly>
