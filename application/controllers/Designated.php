@@ -1046,8 +1046,8 @@ class Designated extends CI_Controller
                 $html .= '</tr>';
                 $html .= '<tr>';
                 $html .= '<td colspan="1" style="border:1px solid #999">序號</td>';
-                $html .= '<td colspan="2" style="border:1px solid #999">部別</td>';
-                $html .= '<td colspan="1" style="border:1px solid #999">代碼</td>';
+                $html .= '<td colspan="1" style="border:1px solid #999">部別</td>';
+                $html .= '<td colspan="2" style="border:1px solid #999">代碼</td>';
                 $html .= '<td colspan="2" style="border:1px solid #999">單位名稱</td>';
                 $html .= '</tr>';                
                 $html .= '</thead>';
@@ -1056,10 +1056,10 @@ class Designated extends CI_Controller
                 foreach ($v as $kc => $vc) {
                     # code...
                     $html .= '<tr>';
-                        $html .= '<td colspan="1" style="border:1px solid #999">'.$vc['company_name_01'].'</td>';
-                        $html .= '<td colspan="2" style="border:1px solid #999">'.$vc['company_name_02'].'</td>';
+                        $html .= '<td colspan="1" style="border:1px solid #999">'.($kc+1).'</td>';
                         $html .= '<td colspan="1" style="border:1px solid #999">'.$vc['department'].'</td>';
                         $html .= '<td colspan="2" style="border:1px solid #999">'.$vc['code'].'</td>';
+                        $html .= '<td colspan="2" style="border:1px solid #999">'.$vc['company_name_02'].'</td>';
                     $html .= '</tr>';
                 }
                 $html .= '</table>';
@@ -1087,7 +1087,7 @@ class Designated extends CI_Controller
         $obj_pdf->setPrintHeader(false);
         // $obj_pdf->SetHeaderMargin(PDF_MARGIN_HEADER);
         $obj_pdf->SetFooterMargin(PDF_MARGIN_FOOTER);
-        $obj_pdf->SetMargins(PDF_MARGIN_LEFT, PDF_MARGIN_RIGHT);
+        $obj_pdf->SetMargins(PDF_MARGIN_LEFT, 7,PDF_MARGIN_RIGHT);
         $obj_pdf->SetAutoPageBreak(true, PDF_MARGIN_BOTTOM);
         $obj_pdf->SetFont('msungstdlight', 'B', 10);
         $obj_pdf->SetCellPadding(0);
@@ -1096,7 +1096,7 @@ class Designated extends CI_Controller
 
         $obj_pdf->AddPage();
         $data = array(
-            'list' => $this->mod_task->get_list_for_pdf(),
+            'list' => $this->mod_task->get_all_assign_member_list(),
         );
         // print_r($data);
         $view =  $this->load->view('designated/e_1_2', $data, true);
@@ -1136,6 +1136,56 @@ class Designated extends CI_Controller
         $obj_pdf->writeHTML($view);
         $obj_pdf->Output('監試及試務人員一覽表.pdf', 'I');
     }
+
+    public function e_1_3_3()
+    {
+        $this->load->library('pdf');
+        $this->load->model('mod_task');
+        $this->load->model('mod_exam_area');
+        $this->load->model("mod_part_addr");
+        $part = $_GET['part'];
+        $area = $_GET['area'];
+        if ($_GET['part'] != "2500") {
+            $part = $_GET['part'];
+            $school = $this->mod_exam_area->year_school_name($part);
+        } else {
+            $school = "";
+        }        
+        $obj_pdf = new Pdf(PDF_PAGE_ORIENTATION, PDF_UNIT, PDF_PAGE_FORMAT, false, 'UTF-8', false);
+        $obj_pdf->SetCreator(PDF_CREATOR);
+        $title = '監試及試務人員一覽表';
+        $date = date('yyyy/m/d');
+        $obj_pdf->SetTitle($title);
+        $obj_pdf->SetHeaderData('', '', $title, '印表日期：'.$date);
+        $obj_pdf->setPrintHeader(false);
+        // $obj_pdf->SetHeaderMargin(PDF_MARGIN_HEADER);
+        $obj_pdf->SetFooterMargin(PDF_MARGIN_FOOTER);
+        $obj_pdf->SetMargins(PDF_MARGIN_LEFT, PDF_MARGIN_RIGHT);
+        $obj_pdf->SetAutoPageBreak(true, PDF_MARGIN_BOTTOM);
+        $obj_pdf->SetFont('msungstdlight', 'B', 10);
+
+        $obj_pdf->setFontSubsetting(false);
+        $obj_pdf->AddPage();
+        $year = $_SESSION['year'];
+        if ($this->mod_part_addr->chk_once($year)) {
+            $addr_info = $this->mod_part_addr->get_once($year);
+        } else {
+            $addr_info = array(
+                'part_addr_1' => '',
+                'part_addr_2' => '',
+                'part_addr_3' => '',
+            );
+        }        
+        $data = array(
+            'part' => $this->mod_task->get_district_task($area,$part),
+            'area' => $area,
+            'school' => $this->mod_exam_area->year_school_name($part),
+            'addr_info' => $addr_info,
+        );
+        $view =  $this->load->view('designated/e_1_3_3', $data, true);
+        $obj_pdf->writeHTML($view);
+        $obj_pdf->Output('監試及試務人員一覽表.pdf', 'I');
+    }    
 
     public function e_1_4()
     {
@@ -1304,11 +1354,11 @@ class Designated extends CI_Controller
                     $html .= '<td style="border:1px solid #999"></td>';
                     $html .= '<td style="border:1px solid #999" colspan="2">'.$vc['note'].'</td>';
                     $html .= '</tr>';
+             
                 }
-                // $html .= '<tr>';
-                // $html .= '<td colspan="6" style="font-size:16px;text-align:left;">共計：'.(count($v)).'人、'.'自備共'.$data['own'].'人、'.'素食共'.$data['veg'].'人、'.'葷食共'.$data['veg'].'人</td>';
-                // $html .= '</tr>';
-
+                $html .= '<tr>';
+                $html .= '<td colspan="6" style="font-size:16px;text-align:left;">共計：'.count($v).'人</td>';
+                $html .= '</tr>';       
                 $html .= '</table>';
 
 

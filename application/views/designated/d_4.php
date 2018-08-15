@@ -212,6 +212,7 @@
             $("#sn").val(sn);
             var part = $(this).attr("part");
             var field = $(this).attr("field");
+            console.log(field);
             $("html, body").animate({
                 scrollTop: $("body").height()
             }, 1000);
@@ -686,7 +687,7 @@
             </thead>
             <tbody>
                 <?php foreach ($part2 as $k => $v): ?>
-                <tr sn="<?=$v['sn']; ?>" part="2502" section="<?=$v['test_section']; ?>">
+                <tr sn="<?=$v['sn']; ?>" part="2502" field="<?=$v['field']; ?>" section="<?=$v['test_section']; ?>">
                     <td>
                         <?=$k + 1; ?>
                     </td>
@@ -751,7 +752,7 @@
             </thead>
             <tbody>
                 <?php foreach ($part3 as $k => $v): ?>
-                <tr sn="<?=$v['sn']; ?>" part="2503" section="<?=$v['test_section']; ?>">
+                <tr sn="<?=$v['sn']; ?>" part="2503" field="<?=$v['field']; ?>" section="<?=$v['test_section']; ?>">
                     <td>
                         <?=$k + 1; ?>
                     </td>

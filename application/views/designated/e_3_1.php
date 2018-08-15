@@ -10,181 +10,176 @@
     }
 </style>
 
-<?php foreach ($part as $k => $v): ?>
 <table style="padding:10px 0px;text-align:center;">
+    <?php foreach ($part as $k => $v): ?>
     <thead>
         <tr>
-            <td style="font-size:18px"><?=$_SESSION['year']?>學年度指定科目考試新北一考區</td>
+            <td colspan="10" style="font-size:18px"><?=$_SESSION['year']?>學年度指定科目考試新北一考區</td>
         </tr>
         <tr>
-            <td style="font-size:14px">監試人員監考科目日程對照表</td>
+            <td colspan="10" style="font-size:14px">監試人員監考科目日程對照表</td>
         </tr>        
         <tr>
-            <td style="text-align:left">編號:<?=$v['field']?></td>
+            <td colspan="10" style="text-align:left">編號:<?=$v['field']?></td>
         </tr>
         <tr>
-            <td style="text-align:left">監試人員:<?=$v['supervisor']?></td>
+            <td colspan="10" style="text-align:left">監試人員:<?=$v['supervisor']?></td>
         </tr>   
         <tr>
-            <td style="text-align:left">監試分區:<?=$_GET['area']?></td>
+            <td colspan="10" style="text-align:left">監試分區:<?=$_GET['area']?></td>
         </tr>   
         <tr>
-            <td style="text-align:left">監試日期:<?=$v['do_date']?></td>
+            <td colspan="10" style="text-align:left">監試日期:<?=$v['do_date']?></td>
         </tr>     
         <tr>
-            <td style="text-align:left">監試節次:<?=$v['test_section']?></td>
+            <td colspan="10" style="text-align:left">監試節次:<?=$v['test_section']?></td>
         </tr>     
         <tr>
-            <td style="line-height:1px"></td>
-        </tr>                   
-    </thead>
-</table>
-<table class="" id="" style="padding:4px;text-align:center;">
-    <tr>
-        <td class="bb">物理</td>
-        <td class="bb">化學</td>
-        <td class="bb">生物</td>
-        <td class="bb">數學乙</td>
-        <td class="bb">國文</td>
-        <td class="bb">英文</td>
-        <td class="bb">數學甲</td>
-        <td class="bb">歷史</td>
-        <td class="bb">地理</td>
-        <td class="bb">公民與社會</td>
+            <td colspan="10" style="line-height:1px"></td>
+        </tr>     
+        <tr>
+            <td class="bb">物理</td>
+            <td class="bb">化學</td>
+            <td class="bb">生物</td>
+            <td class="bb">數學乙</td>
+            <td class="bb">國文</td>
+            <td class="bb">英文</td>
+            <td class="bb">數學甲</td>
+            <td class="bb">歷史</td>
+            <td class="bb">地理</td>
+            <td class="bb">公民與社會</td>
+        </tr>
+        <tr>
+            <td class="bb">
+                <?php
+                switch ($v['subject_01']) {
+                    case '0':
+                        echo '';
+                        break;
+                    default:
+                        echo 'V';
+                }
+
+                ?>
+
+            </td>
+            <td class="bb">
+                <?php
+                switch ($v['subject_02']) {
+                    case '0':
+                        echo '';
+                        break;
+                    default:
+                        echo 'V';
+                }
+
+                ?>
+            </td>
+            <td class="bb">
+                <?php
+                switch ($v['subject_03']) {
+                    case '0':
+                        echo '';
+                        break;
+                    default:
+                        echo 'V';
+                }
+
+                ?>
+            </td>
+            <td class="bb">
+                <?php
+                switch ($v['subject_04']) {
+                    case '0':
+                        echo '';
+                        break;
+                    default:
+                        echo 'V';
+                }
+
+                ?>
+            </td>
+            <td class="bb">
+                <?php
+                switch ($v['subject_05']) {
+                    case '0':
+                        echo '';
+                        break;
+                    default:
+                        echo 'V';
+                }
+
+                ?>
+            </td>
+            <td class="bb">
+                <?php
+                switch ($v['subject_06']) {
+                    case '0':
+                        echo '';
+                        break;
+                    default:
+                        echo 'V';
+                }
+
+                ?>
+            </td>
+            <td class="bb">
+                <?php
+                switch ($v['subject_07']) {
+                    case '0':
+                        echo '';
+                        break;
+                    default:
+                        echo 'V';
+                }
+
+                ?>
+            </td>
+            <td class="bb">
+                <?php
+                switch ($v['subject_08']) {
+                    case '0':
+                        echo '';
+                        break;
+                    default:
+                        echo 'V';
+                }
+
+                ?>
+            </td>
+            <td class="bb">
+                <?php
+                switch ($v['subject_09']) {
+                    case '0':
+                        echo '';
+                        break;
+                    default:
+                        echo 'V';
+                }
+
+                ?>
+            </td>
+            <td class="bb">
+                <?php
+                switch ($v['subject_10']) {
+                    case '0':
+                        echo '';
+                        break;
+                    default:
+                        echo 'V';
+                }
+
+                ?>
+            </td>
+        </tr>       
+<tr>
+        <td colspan="10" style="padding:5px 0px;text-align:left;"></td>
     </tr>
     <tr>
-        <td class="bb">
-            <?php
-            switch ($v['subject_01']) {
-                case '0':
-                    echo '';
-                    break;
-                default:
-                    echo 'V';
-            }
-
-            ?>
-
-        </td>
-        <td class="bb">
-            <?php
-            switch ($v['subject_02']) {
-                case '0':
-                    echo '';
-                    break;
-                default:
-                    echo 'V';
-            }
-
-            ?>
-        </td>
-        <td class="bb">
-            <?php
-            switch ($v['subject_03']) {
-                case '0':
-                    echo '';
-                    break;
-                default:
-                    echo 'V';
-            }
-
-            ?>
-        </td>
-        <td class="bb">
-            <?php
-            switch ($v['subject_04']) {
-                case '0':
-                    echo '';
-                    break;
-                default:
-                    echo 'V';
-            }
-
-            ?>
-        </td>
-        <td class="bb">
-            <?php
-            switch ($v['subject_05']) {
-                case '0':
-                    echo '';
-                    break;
-                default:
-                    echo 'V';
-            }
-
-            ?>
-        </td>
-        <td class="bb">
-            <?php
-            switch ($v['subject_06']) {
-                case '0':
-                    echo '';
-                    break;
-                default:
-                    echo 'V';
-            }
-
-            ?>
-        </td>
-        <td class="bb">
-            <?php
-            switch ($v['subject_07']) {
-                case '0':
-                    echo '';
-                    break;
-                default:
-                    echo 'V';
-            }
-
-            ?>
-        </td>
-        <td class="bb">
-            <?php
-            switch ($v['subject_08']) {
-                case '0':
-                    echo '';
-                    break;
-                default:
-                    echo 'V';
-            }
-
-            ?>
-        </td>
-        <td class="bb">
-            <?php
-            switch ($v['subject_09']) {
-                case '0':
-                    echo '';
-                    break;
-                default:
-                    echo 'V';
-            }
-
-            ?>
-        </td>
-        <td class="bb">
-            <?php
-            switch ($v['subject_10']) {
-                case '0':
-                    echo '';
-                    break;
-                default:
-                    echo 'V';
-            }
-
-            ?>
-        </td>
-    </tr>
-</table>
-<table class="" id="" style="padding:4px;text-align:center;">
-    <tr>
-        <td colspan="9" style="padding:10px 0px;text-align:left;"></td>
+        <td colspan="10" style="padding:5px 0px;text-align:left;">考試日程表：</td>
     </tr>
     <tr>
-        <td colspan="9" style="padding:10px 0px;text-align:left;">考試日程表：</td>
-    </tr>
-    <tr>
-        <td colspan="9" style="padding:10px 0px;text-align:left;"></td>
+        <td colspan="10" style="padding:5px 0px;text-align:left;"></td>
     </tr>    
     <tr>
         <td class="bb">時間</td>
@@ -721,6 +716,8 @@
                     }
                     ?>
         </td>
-    </tr>
+    </tr>          
+    </thead>  
+    <?php endforeach; ?>
 </table>
-<?php endforeach;
+    
