@@ -56,6 +56,10 @@
 </style>
 <script>
     $(function() {
+        // 畫面一載入的時候全部 input 關閉
+        $("input").attr("disabled", "disabled");
+
+
         $("body").on("click", "#Upload", function() {
             var files = $('input[name="file"]').prop('files'); //获取到文件列表
             if (files.length == 0) {
@@ -67,9 +71,13 @@
                 }
             }
         })
+
+        // 當點選資料的時候可以進行編輯
         $("body").on("click", "tr", function() {
             var sn = $(this).attr("sn");
             $(".form").addClass("upup");
+            $("input").attr("readonly", false);
+            $("input").removeAttr("disabled");
             $("#member_code").attr("readonly", true);
             if ($(".form").hasClass("upup")) {
                 $(".form").slideDown();
@@ -120,24 +128,27 @@
 
 
         $("body").on("click", "#add_info", function() {
-            $(this).hide();
+            // $(this).hide();
+            $("input").attr("readonly", false);
             $("#send").hide();
             $("#remove").hide();
             $("#add").show();
             $("#no").show();
             $("#member_code").val("");
             $("#member_name").val("");
+            $("#unit").val("");
             $("#member_unit").val("");
             $("#member_phone").val("");
             $("#member_title").val("");
         })
 
         $("body").on("click", "#no", function() {
-            $(this).hide();
-            $("#add").hide();
-            $("#add_info").show();
-            $("#send").show();
-            $("#remove").show();
+            location.reload();
+            // $(this).hide();
+            // $("#add").hide();
+            // $("#add_info").show();
+            // $("#send").show();
+            // $("#remove").show();
         })
 
         $("body").on("click", "#add", function() {
@@ -160,6 +171,7 @@
                     "member_code": member_code,
                     "member_name": member_name,
                     "member_unit": member_unit,
+                    "unit":unit,
                     "member_title": member_title,
                     "member_phone": member_phone,
                     "order_meal": $("#order_meal").val(),
@@ -252,7 +264,7 @@
     <div class="input-group col-sm-2">
 
         <button type="button" class="btn btn-primary " data-toggle="modal" data-target="#exampleModal">匯入資料</button>
-
+        <button class="btn btn-primary" type="button" id="add_info" style="margin-left:5px;">新增</button>
 
     </div>
 
@@ -328,7 +340,7 @@
                         <input type="text" class="form-control" id="member_name">
                     </div>
                     <div class="form-group">
-                        <label for="member_unit">單位一</label>
+                        <label for="unit">單位一</label>
                         <input type="text" class="form-control" id="unit">
                     </div>
                     <div class="form-group">
@@ -365,7 +377,7 @@
                         <div class="">
                             <button class="btn btn-primary" type="button" id="add" style="display:none">確定</button>
                             <button class="btn btn-danger" type="button" id="no" style="display:none">取消</button>
-                            <button class="btn btn-primary" type="button" id="add_info">新增</button>
+                            
                             <button type="button" class="btn btn-primary" id="send">修改</button>
                             <button type="button" class="btn btn-danger" id="remove">刪除</button>
                         </div>
