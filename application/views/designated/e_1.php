@@ -78,7 +78,7 @@
     </div>
 
     <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6 cube text-center">
-        <img src="assets/images/e_1_4.png" alt="" style="cursor: pointer;" data-toggle="modal" data-target="#exampleModal4">
+        <img src="assets/images/e_1_4.png" alt="" style="cursor: pointer;" data-toggle="modal" data-target="#exampleModal2">
     </div>
 
     <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6 cube text-center">
@@ -102,6 +102,8 @@
                     <div class="col-md-12 col-sm-12 col-xs-12">
                         <div class="btn_part" style="cursor: pointer;" data-toggle="modal" data-target="#exampleModal">監試人員</div>
                         <div class="btn_part" style="cursor: pointer;" data-toggle="modal" data-target="#exampleModal4">試務人員</div>
+                        <div class="btn_part" style="cursor: pointer;" data-toggle="modal" data-target="#exampleModal5">管券人員</div>
+                        <div class="btn_part" style="cursor: pointer;" data-toggle="modal" data-target="#exampleModal6">巡場人員</div>
                     </div>
                 </div>
             </div>
@@ -187,7 +189,7 @@
 <!-- Modal end-->
 
 <!-- Modal start-->
-<div class="modal fade" id="exampleModal4" tabindex="-1" role="dialog" aria-labelledby="exampleModal4" aria-hidden="true">
+<div class="modal fade" id="exampleModal2" tabindex="-1" role="dialog" aria-labelledby="exampleModal4" aria-hidden="true">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header" style="border-bottom: none;">
@@ -206,6 +208,64 @@
                             <div class="btn_part">第二分區</div>
                         </a>
                         <a href="./designated/e_1_4?part=2503&area=第三分區" target="_blank">
+                            <div class="btn_part">第三分區</div>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Modal end-->
+<!-- Modal start-->
+<div class="modal fade" id="exampleModal5" tabindex="-1" role="dialog" aria-labelledby="exampleModal5" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header" style="border-bottom: none;">
+                <h5 class="modal-title" id="exampleModalLabel" style="">選擇分區</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-md-12 col-sm-12 col-xs-12">
+                        <a href="./designated/e_1_3_4?part=2501&area=第一分區" target="_blank">
+                            <div class="btn_part">第一分區</div>
+                        </a>
+                        <a href="./designated/e_1_3_4?part=2502&area=第二分區" target="_blank">
+                            <div class="btn_part">第二分區</div>
+                        </a>
+                        <a href="./designated/e_1_3_4?part=2503&area=第三分區" target="_blank">
+                            <div class="btn_part">第三分區</div>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Modal end-->
+<!-- Modal start-->
+<div class="modal fade" id="exampleModal6" tabindex="-1" role="dialog" aria-labelledby="exampleModal6" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header" style="border-bottom: none;">
+                <h5 class="modal-title" id="exampleModalLabel" style="">選擇分區</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-md-12 col-sm-12 col-xs-12">
+                        <a href="./designated/e_1_3_5?part=2501&area=第一分區" target="_blank">
+                            <div class="btn_part">第一分區</div>
+                        </a>
+                        <a href="./designated/e_1_3_5?part=2502&area=第二分區" target="_blank">
+                            <div class="btn_part">第二分區</div>
+                        </a>
+                        <a href="./designated/e_1_3_5?part=2503&area=第三分區" target="_blank">
                             <div class="btn_part">第三分區</div>
                         </a>
                     </div>

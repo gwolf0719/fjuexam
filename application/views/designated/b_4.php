@@ -271,7 +271,12 @@
                 var lunch_price = $("#lunch_price").val();
                 var lunch_total = $("#lunch_total").val();
                 var total = $("#total").val();
-                var order_meal = $("#order_meal").val();
+                var order_meal;
+                if($("#order_meal").prop("checked") == false){
+                    order_meal = "N";
+                }else{
+                    order_meal = "Y";
+                }         
                 var meal;
                 if (order_meal.toUpperCase() == "Y") {
                     meal = $("#meal").val();

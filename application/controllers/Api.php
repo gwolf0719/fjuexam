@@ -1172,6 +1172,73 @@ class Api extends CI_Controller
         echo json_encode($json_arr);
     }
 
+    public function chk_task_list()
+    {
+        $this->load->model('mod_task');
+        $getpost = array('area');
+        $requred = array('area');
+        $data = $this->getpost->getpost_array($getpost, $requred);
+        if ($data == false) {
+            $json_arr['sys_code'] = '000';
+            $json_arr['sys_msg'] = '資料不足';
+            $json_arr['requred'] = $this->getpost->report_requred($requred);
+        } else {
+            if ($this->mod_task->chk_task_list($data['area']) == true) {
+                $json_arr['sys_code'] = '200';
+                $json_arr['sys_msg'] = '匯出完成';
+            } else {
+                $json_arr['sys_code'] = '404';
+                $json_arr['sys_msg'] = '查無此資料，請確認是否有資料';
+            }
+        }
+        echo json_encode($json_arr);
+    }        
+
+
+    public function chk_trial_staff_task_list()
+    {
+        $this->load->model('mod_trial');
+        $getpost = array('part');
+        $requred = array('part');
+        $data = $this->getpost->getpost_array($getpost, $requred);
+        if ($data == false) {
+            $json_arr['sys_code'] = '000';
+            $json_arr['sys_msg'] = '資料不足';
+            $json_arr['requred'] = $this->getpost->report_requred($requred);
+        } else {
+            if ($this->mod_trial->chk_trial_staff_task_list($data['part']) == true) {
+                $json_arr['sys_code'] = '200';
+                $json_arr['sys_msg'] = '匯出完成';
+            } else {
+                $json_arr['sys_code'] = '404';
+                $json_arr['sys_msg'] = '查無此資料，請確認是否有資料';
+            }
+        }
+        echo json_encode($json_arr);
+    }    
+
+    public function chk_patrol_staff_task_list()
+    {
+        $this->load->model('mod_trial');
+        $getpost = array('part');
+        $requred = array('part');
+        $data = $this->getpost->getpost_array($getpost, $requred);
+        if ($data == false) {
+            $json_arr['sys_code'] = '000';
+            $json_arr['sys_msg'] = '資料不足';
+            $json_arr['requred'] = $this->getpost->report_requred($requred);
+        } else {
+            if ($this->mod_trial->chk_patrol_staff_task_list($data['part']) == true) {
+                $json_arr['sys_code'] = '200';
+                $json_arr['sys_msg'] = '匯出完成';
+            } else {
+                $json_arr['sys_code'] = '404';
+                $json_arr['sys_msg'] = '查無此資料，請確認是否有資料';
+            }
+        }
+        echo json_encode($json_arr);
+    }        
+
     public function chk_supervisor_list()
     {
         $this->load->model('mod_trial');

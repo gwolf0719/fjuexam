@@ -1187,6 +1187,106 @@ class Designated extends CI_Controller
         $obj_pdf->Output('監試及試務人員一覽表.pdf', 'I');
     }    
 
+    public function e_1_3_4()
+    {
+        $this->load->library('pdf');
+        $this->load->model('mod_task');
+        $this->load->model('mod_exam_area');
+        $this->load->model("mod_part_addr");
+        $part = $_GET['part'];
+        $area = $_GET['area'];
+        if ($_GET['part'] != "2500") {
+            $part = $_GET['part'];
+            $school = $this->mod_exam_area->year_school_name($part);
+        } else {
+            $school = "";
+        }        
+        $obj_pdf = new Pdf(PDF_PAGE_ORIENTATION, PDF_UNIT, PDF_PAGE_FORMAT, false, 'UTF-8', false);
+        $obj_pdf->SetCreator(PDF_CREATOR);
+        $title = '監試及試務人員一覽表';
+        $date = date('yyyy/m/d');
+        $obj_pdf->SetTitle($title);
+        $obj_pdf->SetHeaderData('', '', $title, '印表日期：'.$date);
+        $obj_pdf->setPrintHeader(false);
+        // $obj_pdf->SetHeaderMargin(PDF_MARGIN_HEADER);
+        $obj_pdf->SetFooterMargin(PDF_MARGIN_FOOTER);
+        $obj_pdf->SetMargins(PDF_MARGIN_LEFT, PDF_MARGIN_RIGHT);
+        $obj_pdf->SetAutoPageBreak(true, PDF_MARGIN_BOTTOM);
+        $obj_pdf->SetFont('msungstdlight', 'B', 10);
+
+        $obj_pdf->setFontSubsetting(false);
+        $obj_pdf->AddPage();
+        $year = $_SESSION['year'];
+        if ($this->mod_part_addr->chk_once($year)) {
+            $addr_info = $this->mod_part_addr->get_once($year);
+        } else {
+            $addr_info = array(
+                'part_addr_1' => '',
+                'part_addr_2' => '',
+                'part_addr_3' => '',
+            );
+        }        
+        $data = array(
+            'part' => $this->mod_task->get_trial_staff_list_for_pdf($area,$part),
+            'area' => $area,
+            'school' => $this->mod_exam_area->year_school_name($part),
+            'addr_info' => $addr_info,
+        );
+        $view =  $this->load->view('designated/e_1_3_4', $data, true);
+        $obj_pdf->writeHTML($view);
+        $obj_pdf->Output('監試及試務人員一覽表.pdf', 'I');
+    }    
+
+    public function e_1_3_5()
+    {
+        $this->load->library('pdf');
+        $this->load->model('mod_task');
+        $this->load->model('mod_exam_area');
+        $this->load->model("mod_part_addr");
+        $part = $_GET['part'];
+        $area = $_GET['area'];
+        if ($_GET['part'] != "2500") {
+            $part = $_GET['part'];
+            $school = $this->mod_exam_area->year_school_name($part);
+        } else {
+            $school = "";
+        }        
+        $obj_pdf = new Pdf(PDF_PAGE_ORIENTATION, PDF_UNIT, PDF_PAGE_FORMAT, false, 'UTF-8', false);
+        $obj_pdf->SetCreator(PDF_CREATOR);
+        $title = '監試及試務人員一覽表';
+        $date = date('yyyy/m/d');
+        $obj_pdf->SetTitle($title);
+        $obj_pdf->SetHeaderData('', '', $title, '印表日期：'.$date);
+        $obj_pdf->setPrintHeader(false);
+        // $obj_pdf->SetHeaderMargin(PDF_MARGIN_HEADER);
+        $obj_pdf->SetFooterMargin(PDF_MARGIN_FOOTER);
+        $obj_pdf->SetMargins(PDF_MARGIN_LEFT, PDF_MARGIN_RIGHT);
+        $obj_pdf->SetAutoPageBreak(true, PDF_MARGIN_BOTTOM);
+        $obj_pdf->SetFont('msungstdlight', 'B', 10);
+
+        $obj_pdf->setFontSubsetting(false);
+        $obj_pdf->AddPage();
+        $year = $_SESSION['year'];
+        if ($this->mod_part_addr->chk_once($year)) {
+            $addr_info = $this->mod_part_addr->get_once($year);
+        } else {
+            $addr_info = array(
+                'part_addr_1' => '',
+                'part_addr_2' => '',
+                'part_addr_3' => '',
+            );
+        }        
+        $data = array(
+            'part' => $this->mod_task->get_patrol_staff_list_for_pdf($area,$part),
+            'area' => $area,
+            'school' => $this->mod_exam_area->year_school_name($part),
+            'addr_info' => $addr_info,
+        );
+        $view =  $this->load->view('designated/e_1_3_5', $data, true);
+        $obj_pdf->writeHTML($view);
+        $obj_pdf->Output('監試及試務人員一覽表.pdf', 'I');
+    }    
+
     public function e_1_4()
     {
         $this->load->library('pdf');
@@ -1679,7 +1779,9 @@ class Designated extends CI_Controller
             'course' => $course,
             'datetime_info' => $datetime_info,
         );
-        $this->load->view('designated/e_3_1', $data);
+        $view =  $this->load->view('designated/e_3_1', $data, true);
+        $obj_pdf->writeHTML($view);
+        $obj_pdf->Output('監試人員監考科目日程對照表.pdf', 'I');
 
     }
 
@@ -1745,34 +1847,6 @@ class Designated extends CI_Controller
         $this->load->library('excel');
         $this->load->model('mod_patrol');
         $this->load->model('mod_trial');
-
-        $objPHPExcel = new PHPExcel();
-        $objPHPExcel->setActiveSheetIndex(0);
-        $res = $this->mod_patrol->get_patrol_list();
-        for ($i=0; $i < count($res); $i++) {
-            # code...
-            $objPHPExcel->getActiveSheet()->setCellValue('A1', '學年度');
-            $objPHPExcel->getActiveSheet()->setCellValue('B1', '試務人員');
-            $objPHPExcel->getActiveSheet()->setCellValue('A'.(2+$i), $res[$i]['year']);
-            $objPHPExcel->getActiveSheet()->setCellValue('B'.(2+$i), $res[$i]['patrol_staff_name']);
-        }
-
-
-        $objWriter = PHPExcel_IOFactory::createWriter($objPHPExcel, 'CSV');
-
-
-        header('Content-Type: application/vnd.ms-excel');
-        header('Content-Disposition: attachment;filename="試務人員'. '.csv"');
-        header('Cache-Control: max-age=0');
-
-        $objWriter->save('php://output');
-    }
-
-    public function e_4_1_2()
-    {
-        $this->load->library('excel');
-        $this->load->model('mod_patrol');
-        $this->load->model('mod_trial');
         
         $objPHPExcel = new PHPExcel();
         $objPHPExcel->setActiveSheetIndex(0);
@@ -1799,6 +1873,99 @@ class Designated extends CI_Controller
 
         $objWriter->save('php://output');
     }
+
+    public function e_4_1_2()
+    {
+        $this->load->library('excel');
+        $this->load->model('mod_patrol');
+        $this->load->model('mod_task');
+
+        $objPHPExcel = new PHPExcel();
+        $objPHPExcel->setActiveSheetIndex(0);
+        $res = $this->mod_task->get_list_for_csv();
+        for ($i=0; $i < count($res); $i++) {
+            # code...
+            $objPHPExcel->getActiveSheet()->setCellValue('A1', '學年度');
+            $objPHPExcel->getActiveSheet()->setCellValue('B1', '試務人員');
+            $objPHPExcel->getActiveSheet()->setCellValue('C1', '執行日');
+            $objPHPExcel->getActiveSheet()->setCellValue('A'.(2+$i), $res[$i]['year']);
+            $objPHPExcel->getActiveSheet()->setCellValue('B'.(2+$i), $res[$i]['name']);
+            $objPHPExcel->getActiveSheet()->setCellValue('C'.(2+$i), $res[$i]['do_date']);
+        }
+
+
+        $objWriter = PHPExcel_IOFactory::createWriter($objPHPExcel, 'CSV');
+
+
+        header('Content-Type: application/vnd.ms-excel');
+        header('Content-Disposition: attachment;filename="試務人員'. '.csv"');
+        header('Cache-Control: max-age=0');
+
+        $objWriter->save('php://output');
+    }
+
+    public function e_4_1_3()
+    {
+        $this->load->library('excel');
+        $this->load->model('mod_patrol');
+        
+        $objPHPExcel = new PHPExcel();
+        $objPHPExcel->setActiveSheetIndex(0);
+        $arr = $this->mod_patrol->get_trial_staff_for_csv();
+        for ($i=0; $i < count($arr); $i++) {
+            # code...
+            $objPHPExcel->getActiveSheet()->setCellValue('A1', '學年度');
+            $objPHPExcel->getActiveSheet()->setCellValue('B1', '管券人員');
+            $objPHPExcel->getActiveSheet()->setCellValue('C1', '監試日期');
+
+            $objPHPExcel->getActiveSheet()->setCellValue('A'.(2+$i), $arr[$i]['year']);
+            $objPHPExcel->getActiveSheet()->setCellValue('B'.(2+$i), $arr[$i]['member_name']);
+            $objPHPExcel->getActiveSheet()->setCellValue('C'.(2+$i), $arr[$i]['do_date']);
+        }
+
+        $objWriter = PHPExcel_IOFactory::createWriter($objPHPExcel, 'CSV');
+
+
+        header('Content-Type: application/vnd.ms-excel');
+        header('Content-Disposition: attachment;filename="管券人員'.'.csv"');
+        header('Cache-Control: max-age=0');
+
+        
+
+        $objWriter->save('php://output');
+    }
+    
+    public function e_4_1_4()
+    {
+        $this->load->library('excel');
+        $this->load->model('mod_patrol');
+        $this->load->model('mod_trial');
+        
+        $objPHPExcel = new PHPExcel();
+        $objPHPExcel->setActiveSheetIndex(0);
+        $arr = $this->mod_patrol->get_patrol_for_csv();
+        for ($i=0; $i < count($arr); $i++) {
+            # code...
+            $objPHPExcel->getActiveSheet()->setCellValue('A1', '學年度');
+            $objPHPExcel->getActiveSheet()->setCellValue('B1', '巡場人員');
+            $objPHPExcel->getActiveSheet()->setCellValue('C1', '監試日期');
+
+            $objPHPExcel->getActiveSheet()->setCellValue('A'.(2+$i), $arr[$i]['year']);
+            $objPHPExcel->getActiveSheet()->setCellValue('B'.(2+$i), $arr[$i]['member_name']);
+            $objPHPExcel->getActiveSheet()->setCellValue('C'.(2+$i), $arr[$i]['do_date']);
+        }
+
+        $objWriter = PHPExcel_IOFactory::createWriter($objPHPExcel, 'CSV');
+
+
+        header('Content-Type: application/vnd.ms-excel');
+        header('Content-Disposition: attachment;filename="巡場人員'.'.csv"');
+        header('Cache-Control: max-age=0');
+
+        
+
+        $objWriter->save('php://output');
+    }    
 
     public function e_5()
     {
@@ -1902,6 +2069,74 @@ class Designated extends CI_Controller
         $objWriter->save('php://output');
     }
 
+    public function e_5_1_3()
+    {
+        $this->load->library('excel');
+        $this->load->model('mod_patrol');
+        
+        $objPHPExcel = new PHPExcel();
+        $objPHPExcel->setActiveSheetIndex(0);
+        $arr = $this->mod_patrol->get_trial_staff_for_csv();
+        for ($i=0; $i < count($arr); $i++) {
+            # code...
+            $objPHPExcel->getActiveSheet()->setCellValue('A1', '分區');
+            $objPHPExcel->getActiveSheet()->setCellValue('B1', '職務');
+            $objPHPExcel->getActiveSheet()->setCellValue('C1', '管券人員');
+            $objPHPExcel->getActiveSheet()->setCellValue('D1', '編號');
+
+
+            $objPHPExcel->getActiveSheet()->setCellValue('A'.(2+$i), $arr[$i]['area']);
+            $objPHPExcel->getActiveSheet()->setCellValue('B'.(2+$i), $arr[$i]['job']);
+            $objPHPExcel->getActiveSheet()->setCellValue('C'.(2+$i), $arr[$i]['member_name']);
+            $objPHPExcel->getActiveSheet()->setCellValue('D'.(2+$i), $arr[$i]['member_code']);
+        }
+
+        $objWriter = PHPExcel_IOFactory::createWriter($objPHPExcel, 'CSV');
+
+
+        header('Content-Type: application/vnd.ms-excel');
+        header('Content-Disposition: attachment;filename="管券人員名牌'.'.csv"');
+        header('Cache-Control: max-age=0');
+
+        
+
+        $objWriter->save('php://output');
+    }    
+
+    public function e_5_1_4()
+    {
+        $this->load->library('excel');
+        $this->load->model('mod_patrol');
+        
+        $objPHPExcel = new PHPExcel();
+        $objPHPExcel->setActiveSheetIndex(0);
+        $arr = $this->mod_patrol->get_patrol_for_csv();
+        for ($i=0; $i < count($arr); $i++) {
+            # code...
+            $objPHPExcel->getActiveSheet()->setCellValue('A1', '分區');
+            $objPHPExcel->getActiveSheet()->setCellValue('B1', '職務');
+            $objPHPExcel->getActiveSheet()->setCellValue('C1', '巡場人員');
+            $objPHPExcel->getActiveSheet()->setCellValue('D1', '編號');
+
+
+            $objPHPExcel->getActiveSheet()->setCellValue('A'.(2+$i), $arr[$i]['area']);
+            $objPHPExcel->getActiveSheet()->setCellValue('B'.(2+$i), $arr[$i]['job']);
+            $objPHPExcel->getActiveSheet()->setCellValue('C'.(2+$i), $arr[$i]['member_name']);
+            $objPHPExcel->getActiveSheet()->setCellValue('D'.(2+$i), $arr[$i]['member_code']);
+        }
+
+        $objWriter = PHPExcel_IOFactory::createWriter($objPHPExcel, 'CSV');
+
+
+        header('Content-Type: application/vnd.ms-excel');
+        header('Content-Disposition: attachment;filename="巡場人員名牌'.'.csv"');
+        header('Cache-Control: max-age=0');
+
+        
+
+        $objWriter->save('php://output');
+    }        
+
     public function e_5_2_1()
     {
         $this->load->library('excel');
@@ -1935,6 +2170,65 @@ class Designated extends CI_Controller
     public function e_5_2_2()
     {
         $this->load->library('excel');
+        $this->load->model('mod_task');
+        
+        $objPHPExcel = new PHPExcel();
+        $objPHPExcel->setActiveSheetIndex(0);
+        $arr = $this->mod_task->get_district_task_csv();
+        for ($i=0; $i < count($arr); $i++) {
+            # code...
+            $objPHPExcel->getActiveSheet()->setCellValue('A1', '單位');
+            $objPHPExcel->getActiveSheet()->setCellValue('B1', '試務人員');
+
+            $objPHPExcel->getActiveSheet()->setCellValue('A'.(2+$i), $arr[$i]['member_unit']);
+            $objPHPExcel->getActiveSheet()->setCellValue('B'.(2+$i), $arr[$i]['name']);
+        }
+
+        $objWriter = PHPExcel_IOFactory::createWriter($objPHPExcel, 'CSV');
+
+
+        header('Content-Type: application/vnd.ms-excel');
+        header('Content-Disposition: attachment;filename="試務人員標籤樣式'.'.csv"');
+        header('Cache-Control: max-age=0');
+
+        
+
+        $objWriter->save('php://output');
+    }
+
+
+    public function e_5_2_3()
+    {
+        $this->load->library('excel');
+        $this->load->model('mod_patrol');
+        
+        $objPHPExcel = new PHPExcel();
+        $objPHPExcel->setActiveSheetIndex(0);
+        $arr = $this->mod_patrol->get_trial_staff_for_csv();
+        for ($i=0; $i < count($arr); $i++) {
+            # code...
+            $objPHPExcel->getActiveSheet()->setCellValue('A1', '單位');
+            $objPHPExcel->getActiveSheet()->setCellValue('B1', '管券人員');
+
+            $objPHPExcel->getActiveSheet()->setCellValue('A'.(2+$i), $arr[$i]['member_unit']);
+            $objPHPExcel->getActiveSheet()->setCellValue('B'.(2+$i), $arr[$i]['member_name']);
+        }
+
+        $objWriter = PHPExcel_IOFactory::createWriter($objPHPExcel, 'CSV');
+
+
+        header('Content-Type: application/vnd.ms-excel');
+        header('Content-Disposition: attachment;filename="管券人員標籤樣式'.'.csv"');
+        header('Cache-Control: max-age=0');
+
+        
+
+        $objWriter->save('php://output');
+    }
+
+    public function e_5_2_4()
+    {
+        $this->load->library('excel');
         $this->load->model('mod_patrol');
         
         $objPHPExcel = new PHPExcel();
@@ -1943,7 +2237,7 @@ class Designated extends CI_Controller
         for ($i=0; $i < count($arr); $i++) {
             # code...
             $objPHPExcel->getActiveSheet()->setCellValue('A1', '單位');
-            $objPHPExcel->getActiveSheet()->setCellValue('B1', '試務人員');
+            $objPHPExcel->getActiveSheet()->setCellValue('B1', '巡場人員');
 
             $objPHPExcel->getActiveSheet()->setCellValue('A'.(2+$i), $arr[$i]['member_unit']);
             $objPHPExcel->getActiveSheet()->setCellValue('B'.(2+$i), $arr[$i]['member_name']);
@@ -2041,6 +2335,105 @@ class Designated extends CI_Controller
         $obj_pdf->Output('監試人員印領清冊.pdf', 'I');
     }
 
+    public function e_6_3()
+    {
+        $this->load->library('pdf');
+        $this->load->model('mod_task');
+        $this->load->model('mod_exam_area');
+        $obj_pdf = new Pdf(PDF_PAGE_ORIENTATION, PDF_UNIT, PDF_PAGE_FORMAT, false, 'UTF-8', false);
+        $obj_pdf->SetCreator(PDF_CREATOR);
+        $title = '試務人員印領清冊';
+        $date = date('yyyy/m/d');
+        $part = $_GET['part'];
+        $area = $_GET['area'];
+        
+        $obj_pdf->SetTitle($title);
+        $obj_pdf->SetHeaderData('', '', $title, '印表日期：'.$date);
+        $obj_pdf->setPrintHeader(false);
+        // $obj_pdf->SetHeaderMargin(PDF_MARGIN_HEADER);
+        $obj_pdf->SetFooterMargin(PDF_MARGIN_FOOTER);
+        $obj_pdf->SetMargins(3, 3);
+        $obj_pdf->SetAutoPageBreak(true, PDF_MARGIN_BOTTOM);
+        $obj_pdf->SetFont('msungstdlight', '', 10);
+
+        $obj_pdf->setFontSubsetting(false);
+        $obj_pdf->AddPage();
+        $data = array(
+            'part' => $this->mod_task->get_district_task_money_list($area),
+            'area'=> $area,
+            'school' => $this->mod_exam_area->year_school_name($part),
+        );
+        $view =  $this->load->view('designated/e_6_3', $data, true);
+        $obj_pdf->writeHTML($view);
+        $obj_pdf->Output('試務人員印領清冊.pdf', 'I');
+    }
+
+    public function e_6_4()
+    {
+        $this->load->library('pdf');
+        $this->load->model('mod_trial');
+        $this->load->model('mod_exam_area');
+        $obj_pdf = new Pdf(PDF_PAGE_ORIENTATION, PDF_UNIT, PDF_PAGE_FORMAT, false, 'UTF-8', false);
+        $obj_pdf->SetCreator(PDF_CREATOR);
+        $title = '管券人員印領清冊';
+        $date = date('yyyy/m/d');
+        $part = $_GET['part'];
+        $area = $_GET['area'];
+        
+        $obj_pdf->SetTitle($title);
+        $obj_pdf->SetHeaderData('', '', $title, '印表日期：'.$date);
+        $obj_pdf->setPrintHeader(false);
+        // $obj_pdf->SetHeaderMargin(PDF_MARGIN_HEADER);
+        $obj_pdf->SetFooterMargin(PDF_MARGIN_FOOTER);
+        $obj_pdf->SetMargins(3, 3);
+        $obj_pdf->SetAutoPageBreak(true, PDF_MARGIN_BOTTOM);
+        $obj_pdf->SetFont('msungstdlight', '', 10);
+
+        $obj_pdf->setFontSubsetting(false);
+        $obj_pdf->AddPage();
+        $data = array(
+            'part' => $this->mod_trial->get_trial_staff_task_money_list($part),
+            'area'=> $area,
+            'school' => $this->mod_exam_area->year_school_name($part),
+        );
+        $view =  $this->load->view('designated/e_6_4', $data, true);
+        $obj_pdf->writeHTML($view);
+        $obj_pdf->Output('管券人員印領清冊.pdf', 'I');
+    }
+
+    public function e_6_5()
+    {
+        $this->load->library('pdf');
+        $this->load->model('mod_trial');
+        $this->load->model('mod_exam_area');
+        $obj_pdf = new Pdf(PDF_PAGE_ORIENTATION, PDF_UNIT, PDF_PAGE_FORMAT, false, 'UTF-8', false);
+        $obj_pdf->SetCreator(PDF_CREATOR);
+        $title = '巡場人員印領清冊';
+        $date = date('yyyy/m/d');
+        $part = $_GET['part'];
+        $area = $_GET['area'];
+        
+        $obj_pdf->SetTitle($title);
+        $obj_pdf->SetHeaderData('', '', $title, '印表日期：'.$date);
+        $obj_pdf->setPrintHeader(false);
+        // $obj_pdf->SetHeaderMargin(PDF_MARGIN_HEADER);
+        $obj_pdf->SetFooterMargin(PDF_MARGIN_FOOTER);
+        $obj_pdf->SetMargins(3, 3);
+        $obj_pdf->SetAutoPageBreak(true, PDF_MARGIN_BOTTOM);
+        $obj_pdf->SetFont('msungstdlight', '', 10);
+
+        $obj_pdf->setFontSubsetting(false);
+        $obj_pdf->AddPage();
+        $data = array(
+            'part' => $this->mod_trial->get_patrol_staff_task_money_list($part),
+            'area'=> $area,
+            'school' => $this->mod_exam_area->year_school_name($part),
+        );
+        $view =  $this->load->view('designated/e_6_5', $data, true);
+        $obj_pdf->writeHTML($view);
+        $obj_pdf->Output('巡場人員印領清冊.pdf', 'I');
+    }
+
     public function e_7()
     {
         $this->load->library('excel');
@@ -2048,7 +2441,7 @@ class Designated extends CI_Controller
         
         $objPHPExcel = new PHPExcel();
         $objPHPExcel->setActiveSheetIndex(0);
-        $arr = $this->mod_task->get_list_for_csv();
+        $arr = $this->mod_task->get_all_assign_member_list();
         for ($i=0; $i < count($arr); $i++) {
             # code...
             $objPHPExcel->getActiveSheet()->setCellValue('A1', '職員代碼');
@@ -2088,29 +2481,19 @@ class Designated extends CI_Controller
         $part = $_GET['part'];
         $area = $_GET['area'];
 
-        $arr = $this->mod_trial->get_list_for_pdf($part);
+        $arr = $this->mod_trial->get_trial_moneylist_for_csv($part);
         for ($i=0; $i < count($arr); $i++) {
             # code...
-            if ($arr[$i]['order_meal1'] == "N") {
-                $first_member_section_lunch_total = 0;
-            } else {
-                $first_member_section_lunch_total = number_format(abs($arr[$i]['first_member_section_lunch_total']));
-            }
-            if ($arr[$i]['order_meal1'] == "N") {
-                $first_member_section_salary_total = number_format($arr[$i]['first_member_section_salary_total'] - 0);
-            } else {
-                $first_member_section_salary_total =  number_format($arr[$i]['first_member_section_salary_total'] - abs($arr[$i]['first_member_section_lunch_total']));
-            }
 
-            if ($arr[$i]['order_meal2'] == "N") {
-                $second_member_section_lunch_total = 0;
+            if ($arr[$i]['order_meal'] == "N") {
+                $section_lunch_total = 0;
             } else {
-                $second_member_section_lunch_total = number_format(abs($arr[$i]['second_member_section_lunch_total']));
+                $section_lunch_total = number_format(abs($arr[$i]['section_lunch_total']));
             }
-            if ($arr[$i]['order_meal2'] == "N") {
-                $second_member_section_salary_total = number_format($arr[$i]['second_member_section_salary_total'] - 0);
+            if ($arr[$i]['order_meal'] == "N") {
+                $salary_total = number_format($arr[$i]['section_salary_total'] - 0);
             } else {
-                $second_member_section_salary_total =  number_format($arr[$i]['second_member_section_salary_total'] - abs($arr[$i]['second_member_section_lunch_total']));
+                $salary_total =  number_format($arr[$i]['section_salary_total'] - abs($arr[$i]['section_lunch_total']));
             }
             
 
@@ -2121,19 +2504,11 @@ class Designated extends CI_Controller
             $objPHPExcel->getActiveSheet()->setCellValue('C1', '姓名');
             $objPHPExcel->getActiveSheet()->setCellValue('D1', '餐費');
             $objPHPExcel->getActiveSheet()->setCellValue('E1', '應領費用');
-            $objPHPExcel->getActiveSheet()->setCellValue('F1', '監考費');
-            $objPHPExcel->getActiveSheet()->setCellValue('G1', '姓名');
-            $objPHPExcel->getActiveSheet()->setCellValue('H1', '餐費');
-            $objPHPExcel->getActiveSheet()->setCellValue('I1', '應領費用');
             $objPHPExcel->getActiveSheet()->setCellValue('A'.(2+$i), $arr[$i]['field']);
-            $objPHPExcel->getActiveSheet()->setCellValue('B'.(2+$i), number_format($arr[$i]['first_member_salary_section']));
-            $objPHPExcel->getActiveSheet()->setCellValue('C'.(2+$i), $arr[$i]['supervisor_1']);
-            $objPHPExcel->getActiveSheet()->setCellValue('D'.(2+$i), $first_member_section_lunch_total);
-            $objPHPExcel->getActiveSheet()->setCellValue('E'.(2+$i), $second_member_section_salary_total);
-            $objPHPExcel->getActiveSheet()->setCellValue('F'.(2+$i), number_format($arr[$i]['second_member_salary_section']));
-            $objPHPExcel->getActiveSheet()->setCellValue('G'.(2+$i), $arr[$i]['supervisor_2']);
-            $objPHPExcel->getActiveSheet()->setCellValue('H'.(2+$i), $second_member_section_lunch_total);
-            $objPHPExcel->getActiveSheet()->setCellValue('I'.(2+$i), $second_member_section_salary_total);
+            $objPHPExcel->getActiveSheet()->setCellValue('B'.(2+$i), number_format($arr[$i]['salary_section']));
+            $objPHPExcel->getActiveSheet()->setCellValue('C'.(2+$i), $arr[$i]['supervisor']);
+            $objPHPExcel->getActiveSheet()->setCellValue('D'.(2+$i), $section_lunch_total);
+            $objPHPExcel->getActiveSheet()->setCellValue('E'.(2+$i), $salary_total);
         }
 
         $objWriter = PHPExcel_IOFactory::createWriter($objPHPExcel, 'CSV');
@@ -2160,50 +2535,30 @@ class Designated extends CI_Controller
         $obs = $_GET['obs'];
 
 
-        $arr = $this->mod_trial->get_list_for_obs($part, $obs);
+        $arr = $this->mod_trial->get_trial_list_of_obs_for_csv($part, $obs);
         for ($i=0; $i < count($arr); $i++) {
             # code...
-            if ($arr[$i]['order_meal1'] == "N") {
-                $first_member_section_lunch_total = 0;
+            if ($arr[$i]['order_meal'] == "N") {
+                $section_lunch_total = 0;
             } else {
-                $first_member_section_lunch_total = number_format(abs($arr[$i]['first_member_section_lunch_total']));
+                $section_lunch_total = number_format(abs($arr[$i]['section_lunch_total']));
             }
-            if ($arr[$i]['order_meal1'] == "N") {
-                $first_member_section_salary_total = number_format($arr[$i]['first_member_section_salary_total'] - 0);
+            if ($arr[$i]['order_meal'] == "N") {
+                $salary_total = number_format($arr[$i]['section_salary_total'] - 0);
             } else {
-                $first_member_section_salary_total =  number_format($arr[$i]['first_member_section_salary_total'] - abs($arr[$i]['first_member_section_lunch_total']));
+                $salary_total =  number_format($arr[$i]['section_salary_total'] - abs($arr[$i]['section_lunch_total']));
             }
-
-            if ($arr[$i]['order_meal2'] == "N") {
-                $second_member_section_lunch_total = 0;
-            } else {
-                $second_member_section_lunch_total = number_format(abs($arr[$i]['second_member_section_lunch_total']));
-            }
-            if ($arr[$i]['order_meal2'] == "N") {
-                $second_member_section_salary_total = number_format($arr[$i]['second_member_section_salary_total'] - 0);
-            } else {
-                $second_member_section_salary_total =  number_format($arr[$i]['second_member_section_salary_total'] - abs($arr[$i]['second_member_section_lunch_total']));
-            }
-            
 
             $objPHPExcel->getActiveSheet()->setCellValue('A1', '試場');
             $objPHPExcel->getActiveSheet()->setCellValue('B1', '監考費');
             $objPHPExcel->getActiveSheet()->setCellValue('C1', '姓名');
             $objPHPExcel->getActiveSheet()->setCellValue('D1', '餐費');
             $objPHPExcel->getActiveSheet()->setCellValue('E1', '應領費用');
-            $objPHPExcel->getActiveSheet()->setCellValue('F1', '監考費');
-            $objPHPExcel->getActiveSheet()->setCellValue('G1', '姓名');
-            $objPHPExcel->getActiveSheet()->setCellValue('H1', '餐費');
-            $objPHPExcel->getActiveSheet()->setCellValue('I1', '應領費用');
             $objPHPExcel->getActiveSheet()->setCellValue('A'.(2+$i), $arr[$i]['field']);
-            $objPHPExcel->getActiveSheet()->setCellValue('B'.(2+$i), number_format($arr[$i]['first_member_salary_section']));
-            $objPHPExcel->getActiveSheet()->setCellValue('C'.(2+$i), $arr[$i]['supervisor_1']);
-            $objPHPExcel->getActiveSheet()->setCellValue('D'.(2+$i), $first_member_section_lunch_total);
-            $objPHPExcel->getActiveSheet()->setCellValue('E'.(2+$i), $second_member_section_salary_total);
-            $objPHPExcel->getActiveSheet()->setCellValue('F'.(2+$i), number_format($arr[$i]['second_member_salary_section']));
-            $objPHPExcel->getActiveSheet()->setCellValue('G'.(2+$i), $arr[$i]['supervisor_2']);
-            $objPHPExcel->getActiveSheet()->setCellValue('H'.(2+$i), $second_member_section_lunch_total);
-            $objPHPExcel->getActiveSheet()->setCellValue('I'.(2+$i), $second_member_section_salary_total);
+            $objPHPExcel->getActiveSheet()->setCellValue('B'.(2+$i), number_format($arr[$i]['salary_section']));
+            $objPHPExcel->getActiveSheet()->setCellValue('C'.(2+$i), $arr[$i]['supervisor']);
+            $objPHPExcel->getActiveSheet()->setCellValue('D'.(2+$i), $section_lunch_total);
+            $objPHPExcel->getActiveSheet()->setCellValue('E'.(2+$i), $section_salary_total);
         }
 
         $objWriter = PHPExcel_IOFactory::createWriter($objPHPExcel, 'CSV');
@@ -2217,6 +2572,145 @@ class Designated extends CI_Controller
 
         $objWriter->save('php://output');
     }
+
+    public function e_7_3()
+    {
+        $this->load->library('excel');
+        $this->load->model('mod_task');
+        $this->load->model('mod_exam_area');
+        
+        $objPHPExcel = new PHPExcel();
+        $objPHPExcel->setActiveSheetIndex(0);
+        $part = $_GET['part'];
+        $area = $_GET['area'];
+
+        $school = $this->mod_exam_area->year_school_name($part);
+        $arr = $this->mod_task->get_district_task_money_list($area);
+        for ($i=0; $i < count($arr); $i++) {
+            # code...
+            $objPHPExcel->getActiveSheet()->setCellValue('A1', '序號');
+            $objPHPExcel->getActiveSheet()->setCellValue('B1', '分區');
+            $objPHPExcel->getActiveSheet()->setCellValue('C1', '考場');
+            $objPHPExcel->getActiveSheet()->setCellValue('D1', '姓名');
+            $objPHPExcel->getActiveSheet()->setCellValue('E1', '職務');
+            $objPHPExcel->getActiveSheet()->setCellValue('F1', '工作費');
+            $objPHPExcel->getActiveSheet()->setCellValue('G1', '餐費費');
+            $objPHPExcel->getActiveSheet()->setCellValue('H1', '應領費用');
+            $objPHPExcel->getActiveSheet()->setCellValue('A'.(2+$i), $i+1);
+            $objPHPExcel->getActiveSheet()->setCellValue('B'.(2+$i), $area);
+            $objPHPExcel->getActiveSheet()->setCellValue('C'.(2+$i), $school);
+            $objPHPExcel->getActiveSheet()->setCellValue('D'.(2+$i), $arr[$i]['name']);
+            $objPHPExcel->getActiveSheet()->setCellValue('E'.(2+$i), $arr[$i]['job']);
+            $objPHPExcel->getActiveSheet()->setCellValue('F'.(2+$i), number_format($arr[$i]['one_day_salary']));
+            $objPHPExcel->getActiveSheet()->setCellValue('G'.(2+$i), number_format($arr[$i]['lunch_total']));
+            $objPHPExcel->getActiveSheet()->setCellValue('H'.(2+$i), number_format($arr[$i]['total']));
+
+        }
+
+        $objWriter = PHPExcel_IOFactory::createWriter($objPHPExcel, 'CSV');
+
+
+        header('Content-Type: application/vnd.ms-excel');
+        header('Content-Disposition: attachment;filename="'.$area.'試務人員印領清冊'.'.csv"');
+        header('Cache-Control: max-age=0');
+
+        
+
+        $objWriter->save('php://output');
+    }
+
+    public function e_7_4()
+    {
+        $this->load->library('excel');
+        $this->load->model('mod_trial');
+        $this->load->model('mod_exam_area');
+        
+        $objPHPExcel = new PHPExcel();
+        $objPHPExcel->setActiveSheetIndex(0);
+        $part = $_GET['part'];
+        $area = $_GET['area'];
+
+        $school = $this->mod_exam_area->year_school_name($part);
+        $arr = $this->mod_trial->get_trial_staff_task_money_list($part);
+        for ($i=0; $i < count($arr); $i++) {
+            # code...
+            $objPHPExcel->getActiveSheet()->setCellValue('A1', '序號');
+            $objPHPExcel->getActiveSheet()->setCellValue('B1', '分區');
+            $objPHPExcel->getActiveSheet()->setCellValue('C1', '考場');
+            $objPHPExcel->getActiveSheet()->setCellValue('D1', '姓名');
+            $objPHPExcel->getActiveSheet()->setCellValue('E1', '職務');
+            $objPHPExcel->getActiveSheet()->setCellValue('F1', '工作費');
+            $objPHPExcel->getActiveSheet()->setCellValue('G1', '餐費費');
+            $objPHPExcel->getActiveSheet()->setCellValue('H1', '應領費用');
+            $objPHPExcel->getActiveSheet()->setCellValue('A'.(2+$i), $i+1);
+            $objPHPExcel->getActiveSheet()->setCellValue('B'.(2+$i), $area);
+            $objPHPExcel->getActiveSheet()->setCellValue('C'.(2+$i), $school);
+            $objPHPExcel->getActiveSheet()->setCellValue('D'.(2+$i), $arr[$i]['name']);
+            $objPHPExcel->getActiveSheet()->setCellValue('E'.(2+$i), $arr[$i]['job']);
+            $objPHPExcel->getActiveSheet()->setCellValue('F'.(2+$i), number_format($arr[$i]['one_day_salary']));
+            $objPHPExcel->getActiveSheet()->setCellValue('G'.(2+$i), number_format($arr[$i]['lunch_total']));
+            $objPHPExcel->getActiveSheet()->setCellValue('H'.(2+$i), number_format($arr[$i]['total']));
+
+        }
+
+        $objWriter = PHPExcel_IOFactory::createWriter($objPHPExcel, 'CSV');
+
+
+        header('Content-Type: application/vnd.ms-excel');
+        header('Content-Disposition: attachment;filename="'.$area.'管券人員印領清冊'.'.csv"');
+        header('Cache-Control: max-age=0');
+
+        
+
+        $objWriter->save('php://output');
+    }
+
+    public function e_7_5()
+    {
+        $this->load->library('excel');
+        $this->load->model('mod_trial');
+        $this->load->model('mod_exam_area');
+        
+        $objPHPExcel = new PHPExcel();
+        $objPHPExcel->setActiveSheetIndex(0);
+        $part = $_GET['part'];
+        $area = $_GET['area'];
+
+        $school = $this->mod_exam_area->year_school_name($part);
+        $arr = $this->mod_trial->get_patrol_staff_task_money_list($part);
+        for ($i=0; $i < count($arr); $i++) {
+            # code...
+            $objPHPExcel->getActiveSheet()->setCellValue('A1', '序號');
+            $objPHPExcel->getActiveSheet()->setCellValue('B1', '分區');
+            $objPHPExcel->getActiveSheet()->setCellValue('C1', '考場');
+            $objPHPExcel->getActiveSheet()->setCellValue('D1', '姓名');
+            $objPHPExcel->getActiveSheet()->setCellValue('E1', '職務');
+            $objPHPExcel->getActiveSheet()->setCellValue('F1', '工作費');
+            $objPHPExcel->getActiveSheet()->setCellValue('G1', '餐費費');
+            $objPHPExcel->getActiveSheet()->setCellValue('H1', '應領費用');
+            $objPHPExcel->getActiveSheet()->setCellValue('A'.(2+$i), $i+1);
+            $objPHPExcel->getActiveSheet()->setCellValue('B'.(2+$i), $area);
+            $objPHPExcel->getActiveSheet()->setCellValue('C'.(2+$i), $school);
+            $objPHPExcel->getActiveSheet()->setCellValue('D'.(2+$i), $arr[$i]['name']);
+            $objPHPExcel->getActiveSheet()->setCellValue('E'.(2+$i), $arr[$i]['job']);
+            $objPHPExcel->getActiveSheet()->setCellValue('F'.(2+$i), number_format($arr[$i]['one_day_salary']));
+            $objPHPExcel->getActiveSheet()->setCellValue('G'.(2+$i), number_format($arr[$i]['lunch_total']));
+            $objPHPExcel->getActiveSheet()->setCellValue('H'.(2+$i), number_format($arr[$i]['total']));
+
+        }
+
+        $objWriter = PHPExcel_IOFactory::createWriter($objPHPExcel, 'CSV');
+
+
+        header('Content-Type: application/vnd.ms-excel');
+        header('Content-Disposition: attachment;filename="'.$area.'巡場人員印領清冊'.'.csv"');
+        header('Cache-Control: max-age=0');
+
+        
+
+        $objWriter->save('php://output');
+    }
+
 
     /**
      * F 考程設定.

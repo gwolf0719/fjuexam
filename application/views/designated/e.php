@@ -135,12 +135,106 @@
             <div class="modal-body">
                 <div class="row">
                     <div class="col-md-12 col-sm-12 col-xs-12">
+                        <div class="btn_part" style="cursor: pointer;" data-toggle="modal" data-target="#e_7_2">監試人員</div>
+                        <div class="btn_part" style="cursor: pointer;" data-toggle="modal" data-target="#e_7_3">試務人員</div>
+                        <div class="btn_part" style="cursor: pointer;" data-toggle="modal" data-target="#e_7_4">管券人員</div>
+                        <div class="btn_part" style="cursor: pointer;" data-toggle="modal" data-target="#e_7_5">巡場人員</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Modal end-->
+<!-- Modal start-->
+<div class="modal fade" id="e_7_2" tabindex="-1" role="dialog" aria-labelledby="e_7_2" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header" style="border-bottom: none;">
+                <h5 class="modal-title" id="exampleModalLabel" style="">選擇分區</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-md-12 col-sm-12 col-xs-12">
                         <div class="btn_part btn1" link="./designated/e_7_1?part=2501&area=第一分區" part="2501" area="第一分區">第一分區</div>
                         <div class="btn_part btn2" link="./designated/e_7_2?part=2501&area=第一分區&obs=29" part="2501" area="第一分區" obs="29">第一分區(身障)</div>
                         <div class="btn_part btn1" link="./designated/e_7_1?part=2502&area=第二分區" part="2502" area="第二分區">第二分區</div>
                         <div class="btn_part btn2" link="./designated/e_7_2?part=2501&area=第二分區&obs=29" part="2502" area="第二分區" obs="29">第二分區(身障)</div>    
                         <div class="btn_part btn1" link="./designated/e_7_1?part=2503&area=第三分區" part="2503" area="第三分區">第三分區</div> 
                         <div class="btn_part btn2" link="./designated/e_7_2?part=2501&area=第三分區&obs=29" part="2503" area="第三分區" obs="29">第三分區(身障)</div> 
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Modal end-->
+<!-- Modal start-->
+<div class="modal fade" id="e_7_3" tabindex="-1" role="dialog" aria-labelledby="e_7_3" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header" style="border-bottom: none;">
+                <h5 class="modal-title" id="exampleModalLabel" style="">選擇分區</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-md-12 col-sm-12 col-xs-12">
+                        <div class="btn_part btn3" link="./designated/e_7_3?part=2501&area=考區" part="2500" area="考區">考區</div>
+                        <div class="btn_part btn3" link="./designated/e_7_3?part=2501&area=第一分區" part="2501" area="第一分區">第一分區</div>
+                        <div class="btn_part btn3" link="./designated/e_7_3?part=2502&area=第二分區" part="2502" area="第二分區">第二分區</div>  
+                        <div class="btn_part btn3" link="./designated/e_7_3?part=2503&area=第三分區" part="2503" area="第三分區">第三分區</div> 
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Modal end-->
+<!-- Modal start-->
+<div class="modal fade" id="e_7_4" tabindex="-1" role="dialog" aria-labelledby="e_7_4" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header" style="border-bottom: none;">
+                <h5 class="modal-title" id="exampleModalLabel" style="">選擇分區</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-md-12 col-sm-12 col-xs-12">
+                        <div class="btn_part btn4" link="./designated/e_7_4?part=2501&area=第一分區" part="2501" area="第一分區">第一分區</div>
+                        <div class="btn_part btn4" link="./designated/e_7_4?part=2502&area=第二分區" part="2502" area="第二分區">第二分區</div>  
+                        <div class="btn_part btn4" link="./designated/e_7_4?part=2503&area=第三分區" part="2503" area="第三分區">第三分區</div> 
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Modal end-->
+<!-- Modal start-->
+<div class="modal fade" id="e_7_5" tabindex="-1" role="dialog" aria-labelledby="e_7_5" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header" style="border-bottom: none;">
+                <h5 class="modal-title" id="exampleModalLabel" style="">選擇分區</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-md-12 col-sm-12 col-xs-12">
+                        <div class="btn_part btn5" link="./designated/e_7_5?part=2501&area=第一分區" part="2501" area="第一分區">第一分區</div>
+                        <div class="btn_part btn5" link="./designated/e_7_5?part=2502&area=第二分區" part="2502" area="第二分區">第二分區</div>  
+                        <div class="btn_part btn5" link="./designated/e_7_5?part=2503&area=第三分區" part="2503" area="第三分區">第三分區</div> 
                     </div>
                 </div>
             </div>
@@ -189,5 +283,56 @@ $(function(){
             }
         })        
     })    
+
+$("body").on("click",".btn3",function(){
+        var area = $(this).attr("area");
+        var link = $(this).attr("link");
+        $.ajax({
+            url: 'api/chk_task_list',
+            data: {
+                area: area,
+            },
+            dataType: "json"
+        }).done(function(data) {
+            alert(data.sys_msg);
+            if (data.sys_code == "200") {
+                location.href = link;  
+            }
+        })   
+    })        
+
+    $("body").on("click",".btn4",function(){
+        var part = $(this).attr("part");
+        var link = $(this).attr("link");
+        $.ajax({
+            url: 'api/chk_trial_staff_task_list',
+            data: {
+                part: part,
+            },
+            dataType: "json"
+        }).done(function(data) {
+            alert(data.sys_msg);
+            if (data.sys_code == "200") {
+                location.href = link;  
+            }
+        })   
+    })    
+
+    $("body").on("click",".btn5",function(){
+        var part = $(this).attr("part");
+        var link = $(this).attr("link");
+        $.ajax({
+            url: 'api/chk_patrol_staff_task_list',
+            data: {
+                part: part,
+            },
+            dataType: "json"
+        }).done(function(data) {
+            alert(data.sys_msg);
+            if (data.sys_code == "200") {
+                location.href = link;  
+            }
+        })   
+    })          
 })
 </script>

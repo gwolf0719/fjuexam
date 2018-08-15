@@ -109,6 +109,12 @@
                         <a href="./designated/e_5_2_2" target="_blank">
                             <div class="btn_part">試務人員</div>
                         </a>
+                        <a href="./designated/e_5_2_3" target="_blank">
+                            <div class="btn_part">管券人員</div>
+                        </a>                                                
+                        <a href="./designated/e_5_2_4" target="_blank">
+                            <div class="btn_part">巡場人員</div>
+                        </a>
                     </div>
                 </div>
             </div>
