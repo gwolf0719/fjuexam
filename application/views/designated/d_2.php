@@ -410,6 +410,14 @@
                 var third_end = $("#third_end").val();
                 var third_section = $("#third_section").val();
                 var note = $("textarea[name='note']").val();
+                var arr  = [];
+                $(".day").each(function(){
+                    if($(this).val() != 0){
+                        arr.push($(this).attr("day"));
+                    }
+                })
+                var do_date = arr.join(",");       
+                console.log(do_date);         
                 $.ajax({
                     url: 'api/add_trial_staff',
                     data: {
@@ -426,7 +434,8 @@
                         "third_start": third_start,
                         "third_end": third_end,
                         "third_section": third_section,
-                        "note": note
+                        "note": note,
+                        "do_date":do_date
                     },
                     dataType: "json"
                 }).done(function(data) {
@@ -730,7 +739,7 @@
                     </div>
                     <div class="form-group">
                         <label for="start" class="" style="float:left;">節數</label>
-                        <input type="text" class="form-control" id="first_section" value="0" readonly>
+                        <input type="text" class="form-control day" id="first_section" value="0" readonly day="<?=mb_substr($datetime_info['day_1'], 5, 8, 'utf-8'); ?>">
                     </div>
                 </div>
                 <div class="col-md-3 col-sm-3 col-xs-3 cube" style="max-width: 20%;">
@@ -760,7 +769,7 @@
                     </div>
                     <div class="form-group">
                         <label for="start" class="" style="float:left;">節數</label>
-                        <input type="text" class="form-control" id="second_section" value="0" readonly>
+                        <input type="text" class="form-control day" id="second_section" value="0" readonly day="<?=mb_substr($datetime_info['day_2'], 5, 8, 'utf-8'); ?>">
                     </div>
                 </div>
                 <div class="col-md-3 col-sm-3 col-xs-3 cube" style="max-width: 20%;">
@@ -790,7 +799,7 @@
                     </div>
                     <div class="form-group">
                         <label for="start" class="" style="float:left;">節數</label>
-                        <input type="text" class="form-control" id="third_section" value="0" readonly>
+                        <input type="text" class="form-control day" id="third_section" value="0" readonly day="<?=mb_substr($datetime_info['day_3'], 5, 8, 'utf-8'); ?>">
                     </div>
                 </div>
                 <div class="col-md-6 col-sm-6 col-xs-6 " style="float:left;margin: 20px auto;">
