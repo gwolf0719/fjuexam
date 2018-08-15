@@ -57,6 +57,7 @@
 <script>
     $(function() {
         // 畫面一載入的時候全部 input 關閉
+        $("#member_code").attr("readonly", "readonly");
         $("input").attr("disabled", "disabled");
 
 
@@ -74,6 +75,12 @@
 
         // 當點選資料的時候可以進行編輯
         $("body").on("click", "tr", function() {
+            console.log($("#member_code").attr('readonly'));
+            if($("#member_code").attr('readonly') != "readonly"){
+                if(confirm("目前為新增資料模式，請問是否要改為編輯舊資料？")){
+                    
+                }
+            }
             var sn = $(this).attr("sn");
             $(".form").addClass("upup");
             $("input").attr("readonly", false);
@@ -130,6 +137,7 @@
         $("body").on("click", "#add_info", function() {
             // $(this).hide();
             $("input").attr("readonly", false);
+            $("input").removeAttr("disabled");
             $("#send").hide();
             $("#remove").hide();
             $("#add").show();
