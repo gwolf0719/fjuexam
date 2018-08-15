@@ -343,7 +343,6 @@
                     }
                 })
                 var do_date = arr.join(",");
-                var do_date = arr.join(",");
                 var calculation = $("#calculation").val();
                 var count;
                 var salary;
