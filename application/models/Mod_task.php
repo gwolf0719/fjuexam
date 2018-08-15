@@ -399,19 +399,26 @@ class Mod_task extends CI_Model
 
     public function get_all_assign_member_list()
     {
+        //取出試務人員
         $this->db->where('year', $this->session->userdata('year'));
-
         $res = $this->db->get('district_task')->result_array();
 
+        //取出監試人員
         $this->db->select('*');
-       
         $this->db->from('part_info');
         $this->db->join('trial_assign', 'part_info.sn = trial_assign.sn');
-
         $this->db->where("part_info.year",$_SESSION['year']);
         $year = $this->session->userdata('year');
-
         $sub = $this->db->get()->result_array();
+
+        //取出管券人員
+        $this->db->where('year', $this->session->userdata('year'));
+        $trial_staff = $this->db->get('trial_staff')->result_array();    
+        
+        //取出巡場人員
+        $this->db->where('year', $this->session->userdata('year'));
+
+        $patrol = $this->db->get('patrol_staff')->result_array();
 
         for ($i=0; $i < count($res); $i++) {
             # code...
@@ -452,7 +459,35 @@ class Mod_task extends CI_Model
                     'do_date' => $sub[$i]['second_member_do_date']
                 );
             }
-        }                
+        }      
+        
+        for ($i=0; $i < count($trial_staff); $i++) {
+            # code...
+            $trial_staff_member = $this->db->where('member_code', $trial_staff[$i]['trial_staff_code'])->get('staff_member')->row_array();
+            if($trial_staff[$i]['trial_staff_code'] != ""){
+                $arr[] = array(
+                    'job_code' => $trial_staff[$i]['trial_staff_code'],
+                    'name' => $trial_staff[$i]['trial_staff_name'],
+                    'job_title' => $trial_staff_member['member_title'],
+                    'member_unit'=>$trial_staff_member['member_unit'],
+                    'do_date' => $trial_staff[$i]['do_date']
+                );
+            }
+        }    
+        
+        for ($i=0; $i < count($patrol); $i++) {
+            # code...
+            $patrol_member = $this->db->where('member_code', $patrol[$i]['patrol_staff_code'])->get('staff_member')->row_array();
+            if($patrol[$i]['patrol_staff_code'] != ""){
+                $arr[] = array(
+                    'job_code' => $patrol[$i]['patrol_staff_code'],
+                    'name' => $patrol[$i]['patrol_staff_name'],
+                    'job_title' => $patrol_member['member_title'],
+                    'member_unit'=>$patrol_member['member_unit'],
+                    'do_date' => $patrol[$i]['do_date']
+                );
+            }
+        }            
         return $arr;
     }
 

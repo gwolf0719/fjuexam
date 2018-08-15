@@ -1679,10 +1679,8 @@ class Designated extends CI_Controller
             'course' => $course,
             'datetime_info' => $datetime_info,
         );
-        $view =  $this->load->view('designated/e_3_1', $data, true);
+        $this->load->view('designated/e_3_1', $data);
 
-        $obj_pdf->writeHTML($view);
-        $obj_pdf->Output('監試人員監考科目日程對照表.pdf', 'I');
     }
 
     public function e_3_2()

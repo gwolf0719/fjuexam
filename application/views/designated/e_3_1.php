@@ -227,6 +227,9 @@
         <td class="bb" rowspan="3">預備鈴</td>
         <td class="bb">
             <?php
+            $c = $course[0]['subject'];
+            $sub_arr['subject_00'] = ''; 
+            $sub_arr['subject_01'] = '物理'; 
                     switch ($course[0]['subject']) {
                         case 'subject_00':
                             echo '';
