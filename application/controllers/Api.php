@@ -799,8 +799,8 @@ class Api extends CI_Controller
     public function save_trial_staff()
     {
         $this->load->model('mod_trial');
-        $getpost = array('sn', 'part', 'allocation_code', 'trial_staff_code', 'trial_staff_name', 'first_start', 'first_end', 'first_section', 'second_start', 'second_end', 'second_section', 'third_start', 'third_end', 'third_section', 'note','first_member_order_meal','second_member_order_meal');
-        $requred = array('sn', 'part', 'allocation_code', 'trial_staff_code', 'trial_staff_name', 'first_start', 'first_end', 'first_section', 'second_start', 'second_end', 'second_section', 'third_start', 'third_end', 'third_section','first_member_order_meal','second_member_order_meal');
+        $getpost = array('sn', 'part', 'allocation_code', 'trial_staff_code', 'trial_staff_name', 'first_start', 'first_end', 'first_section', 'second_start', 'second_end', 'second_section', 'third_start', 'third_end', 'third_section', 'note');
+        $requred = array('sn', 'part', 'allocation_code', 'trial_staff_code', 'trial_staff_name', 'first_start', 'first_end', 'first_section', 'second_start', 'second_end', 'second_section', 'third_start', 'third_end', 'third_section');
         $data = $this->getpost->getpost_array($getpost, $requred);
         if ($data == false) {
             $json_arr['sys_code'] = '000';
@@ -902,6 +902,11 @@ class Api extends CI_Controller
     public function add_patrol_staff()
     {
         $this->load->model('mod_patrol');
+        $this->load->model('mod_trial');
+        $this->load->model('mod_exam_datetime');
+        $this->load->model('mod_exam_fees');
+        $this->load->model('mod_part_info');
+        $this->load->model('mod_staff');
         $getpost = array('part', 'allocation_code', 'patrol_staff_code', 'patrol_staff_name', 'start', 'end', 'section', 'note');
         $requred = array('part', 'allocation_code', 'patrol_staff_code', 'patrol_staff_name', 'start', 'end', 'section');
         $data = $this->getpost->getpost_array($getpost, $requred);
@@ -911,7 +916,56 @@ class Api extends CI_Controller
             $json_arr['requred'] = $this->getpost->report_requred($requred);
         } else {
             $data['year'] = $this->session->userdata('year');
-            $this->mod_patrol->add_once($data);
+            $max = $this->mod_trial->get_max_field($data['part']);
+            $min = $this->mod_trial->get_min_field($data['part']);
+            $day = $this->mod_exam_datetime->room_use_day($min['field'], $max['field']);
+            $datetime_info = $this->mod_exam_datetime->get_once($_SESSION['year']);
+            $fees_info = $this->mod_exam_fees->get_once($_SESSION['year']);
+            $member = $this->mod_staff->get_staff_member($data['patrol_staff_code']);
+            $do_date = array();
+            if($day[0] != ""){
+                array_push($do_date,mb_substr($datetime_info['day_1'], 5, 8, 'utf-8'));
+            }
+            if($day[1] != ""){
+                array_push($do_date,mb_substr($datetime_info['day_2'], 5, 8, 'utf-8'));
+            }   
+            if($day[2] != ""){
+                array_push($do_date,mb_substr($datetime_info['day_3'], 5, 8, 'utf-8'));
+            }                
+            $date = implode(",",$do_date);    
+            if($member['order_meal'] == "N"){
+                $lunch_price = 0;
+                $lunch_total = 0;
+                $salary_total = $fees_info['salary_section']*$data['section'];
+                $total = $salary_total;
+            }else{
+                $lunch_price = $fees_info['lunch_fee'];
+                $lunch_total = $fees_info['lunch_fee'] * count(do_date);
+                $salary_total = $fees_info['salary_section']*$data['section'];
+                $total = $salary_total - $lunch_total;                
+            }
+            $sql_data = array(
+                'part'=>$data['part'],
+                'year'=>$_SESSION['year'],
+                'allocation_code'=>$data['allocation_code'],
+                'patrol_staff_code'=>$data['patrol_staff_code'],
+                'patrol_staff_name'=>$data['patrol_staff_name'],
+                'start'=>$data['start'],
+                'end'=>$data['end'],
+                'section'=>$data['section'],
+                'note'=>$data['note'],
+                'do_date'=>$date,
+                'calculation'=> 'by_section',
+                'count'=> count($do_date),
+                'salary'=>$fees_info['salary_section'],
+                'salary_total'=>$salary_total,
+                'lunch_price'=>$lunch_price,
+                'lunch_total'=>$lunch_total,
+                'total'=>$total,
+                'order_meal'=> $member['order_meal'],
+                'meal'=>$member['meal'],
+            );
+            $this->mod_patrol->add_once($sql_data);
             $json_arr['sys_code'] = '200';
             $json_arr['sys_msg'] = '資料儲存完成';
         }

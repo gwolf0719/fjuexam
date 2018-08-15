@@ -324,6 +324,12 @@
                 }else{
                     meal = $("#meal").val();
                 }
+                var order_meal;
+                if($("#order_meal").prop("checked") == false){
+                    order_meal = 'N';
+                }else{
+                    order_meal = 'Y';
+                }                
                 $.ajax({
                     url: 'api/save_patrol_staff_for_list',
                     data: {

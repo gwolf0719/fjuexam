@@ -300,18 +300,6 @@
                     console.log(member);
                     $("#first_member_job_title").val(member.info.member_title);
                     $("#first_member_phone").val(member.info.member_phone);
-                    // //監試人員一訂餐需求
-                    // $("#first_member_order_meal").val(data.info.order_meal);
-                    // if (data.info.order_meal.toUpperCase() == "Y") {
-                    //     $("#first_member_order_meal").prop("checked", true);
-                    //     $("#first_member_lunch_price").attr("readonly", false);
-                    //     $(".first_member_meal").show();
-                    //     $("#first_member_meal").val(data.info.order_meal);
-                    // } else {
-                    //     $("#first_member_order_meal").prop("checked", false);
-                    //     $("#first_member_lunch_price").attr("readonly", true);
-                    //     $(".first_member_meal").hide();
-                    // }
                 })
                 // // 取得職員二資料
                 $.ajax({
@@ -323,17 +311,6 @@
                 }).done(function(data) {
                     $("#second_member_job_title").val(data.info.member_title);
                     $("#second_member_phone").val(data.info.member_phone);
-                    // $("#second_member_order_meal").val(data.info.order_meal);
-                    // if (data.info.order_meal.toUpperCase() == "Y") {
-                    //     $("#second_member_order_meal").prop("checked", true);
-                    //     $("#second_member_lunch_price").attr("readonly", false);
-                    //     $(".second_member_meal").show();
-                    //     $("#second_member_meal").val(data.info.order_meal);
-                    // } else {
-                    //     $("#second_member_order_meal").prop("checked", false);
-                    //     $("#second_member_lunch_price").attr("readonly", true);
-                    //     $(".second_member_meal").hide();
-                    // }
                 })
                 // 取得試場 start & end get_field_start_end
                 $.ajax({
@@ -440,6 +417,18 @@
                 } else {
                     second_member_meal = "自備";
                 }
+                var first_member_order_meal;
+                if($("#first_member_order_meal").prop("checked") == false){
+                    first_member_order_meal = "N";
+                }else{
+                    first_member_order_meal = "Y"
+                }                
+                var second_member_order_meal;
+                if($("#second_member_order_meal").prop("checked") == false){
+                    second_member_order_meal = "N";
+                }else{
+                    second_member_order_meal = "Y"
+                }
                 $.ajax({
                     url: 'api/save_trial_for_price',
                     data: {
@@ -448,7 +437,7 @@
                         "first_member_day_count": $("#first_member_day_count").val(),
                         "first_member_salary_section": $("#first_member_salary_section").val(),
                         "first_member_section_salary_total": $("#first_member_section_salary_total").val(),
-                        "first_member_order_meal": $("#first_member_order_meal").val(),
+                        "first_member_order_meal": first_member_order_meal,
                         "first_member_lunch_price": $("#first_member_lunch_price").val(),
                         "first_member_section_lunch_total": $("#first_member_section_lunch_total").val(),
                         "first_member_section_total": $("#first_member_section_total").val(),
@@ -456,7 +445,7 @@
                         "second_member_day_count": $("#second_member_day_count").val(),
                         "second_member_salary_section": $("#second_member_salary_section").val(),
                         "second_member_section_salary_total": $("#second_member_section_salary_total").val(),
-                        "second_member_order_meal": $("#second_member_order_meal").val(),
+                        "second_member_order_meal": second_member_order_meal,
                         "second_member_lunch_price": $("#second_member_lunch_price").val(),
                         "second_member_section_lunch_total": $("#second_member_section_lunch_total").val(),
                         "second_member_section_total": $("#second_member_section_total").val(),
