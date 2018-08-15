@@ -176,9 +176,12 @@ class Mod_task extends CI_Model
                 $member = $this->db->where('member_code', $res[$i]['job_code'])->get('staff_member')->row_array();
                 // $trial = $this->db->where('part',$part)->where('year',$_SESSION['year'])->get('trial_staff')->row_array();
                 $do_date = explode(",", $res[$i]['do_date']);
-                        
+                $own = 0;
                 for ($d=0; $d < count($do_date); $d++) {
                     # code...
+                    if(in_array("自備",$res[$i])){
+                        $own += 1;
+                    } 
                     $arr[$do_date[$d]][] = array(
                         'job_code' => $res[$i]['job_code'],
                         'job' => $res[$i]['job'],
@@ -186,15 +189,48 @@ class Mod_task extends CI_Model
                         'name' => $res[$i]['name'],
                         'member_unit'=>$member['member_unit'],
                         'meal' => $res[$i]['meal'],
-                        'note' => $res[$i]['note']
+                        'note' => $res[$i]['note'],
+                        'own'=> $own
                     );
                 }
             }
+
             return $arr;
         }else{
             return false;
         }
     }  
+
+    public function get_district_task($area = '',$part)
+    {
+        $this->db->where('year', $this->session->userdata('year'));
+        if ($area != '') {
+            $this->db->where('area', $area);
+        }
+
+        $this->db->where('job_code !=', "");
+
+        $res = $this->db->get('district_task')->result_array();
+        if (!empty($res)) {
+            for ($i=0; $i < count($res); $i++) {
+                # code...
+                $member = $this->db->where('member_code', $res[$i]['job_code'])->get('staff_member')->row_array();
+                    $arr[] = array(
+                        'job_code' => $res[$i]['job_code'],
+                        'job' => $res[$i]['job'],
+                        'job_title' => $res[$i]['job_title'],
+                        'name' => $res[$i]['name'],
+                        'member_unit'=>$member['member_unit'],
+                        'meal' => $res[$i]['meal'],
+                        'note' => $res[$i]['note'],
+                    );
+            }
+
+            return $arr;
+        }else{
+            return false;
+        }
+    }      
     
     public function get_member_own_count($area = '')
     {
@@ -212,13 +248,13 @@ class Mod_task extends CI_Model
                 # code...
                 $member = $this->db->where('member_code', $res[$i]['job_code'])->get('staff_member')->row_array();
                 $do_date = explode(",", $res[$i]['do_date']);
-                for ($d=0; $d < count($do_date); $d++) {
+                    # code...
+                for ($d=0; $d < count($do_date); $d++) { 
                     # code...
                     $this->db->where('meal','自備');
                     $member = $this->db->where('job_code', $res[$i]['job_code'])->get('district_task')->row_array();
                     $own_count += count($member['meal']);
                 }
-
             }
             return $own_count;
         }else{
@@ -360,6 +396,67 @@ class Mod_task extends CI_Model
         }
         return $arr;
     }
+
+    public function get_all_assign_member_list()
+    {
+        $this->db->where('year', $this->session->userdata('year'));
+
+        $res = $this->db->get('district_task')->result_array();
+
+        $this->db->select('*');
+       
+        $this->db->from('part_info');
+        $this->db->join('trial_assign', 'part_info.sn = trial_assign.sn');
+
+        $this->db->where("part_info.year",$_SESSION['year']);
+        $year = $this->session->userdata('year');
+
+        $sub = $this->db->get()->result_array();
+
+        for ($i=0; $i < count($res); $i++) {
+            # code...
+            $member_unit = $this->db->where('member_code', $res[$i]['job_code'])->select('member_unit')->get('staff_member')->row_array();
+            if ($res[$i]['job_code'] != "") {
+                $arr[] = array(
+                    'job_code' => $res[$i]['job_code'],
+                    'name' => $res[$i]['name'],
+                    'job_title' => $res[$i]['job_title'],
+                    'member_unit'=>$member_unit['member_unit'],
+                    'do_date' => $res[$i]['do_date']
+                );
+            }
+        }
+        for ($i=0; $i < count($sub); $i++) {
+            # code...
+            $supervisor_1 = $this->db->where('member_code', $sub[$i]['supervisor_1_code'])->get('staff_member')->row_array();
+            if($sub[$i]['trial_staff_code_1'] != ""){
+                $arr[] = array(
+                    'job_code' => $sub[$i]['trial_staff_code_1'],
+                    'name' => $sub[$i]['supervisor_1'],
+                    'job_title' => $supervisor_1['member_title'],
+                    'member_unit'=>$supervisor_1['member_unit'],
+                    'do_date' => $sub[$i]['first_member_do_date']
+                );
+            }
+        }    
+
+        for ($i=0; $i < count($sub); $i++) {
+            # code...
+            $supervisor_2 = $this->db->where('member_code', $sub[$i]['supervisor_2_code'])->get('staff_member')->row_array();
+            if($sub[$i]['trial_staff_code_2'] != ""){
+                $arr[] = array(
+                    'job_code' => $sub[$i]['trial_staff_code_2'],
+                    'name' => $sub[$i]['supervisor_2'],
+                    'job_title' => $supervisor_2['member_title'],
+                    'member_unit'=>$supervisor_2['member_unit'],
+                    'do_date' => $sub[$i]['second_member_do_date']
+                );
+            }
+        }                
+        return $arr;
+    }
+
+
 
     public function get_once($sn)
     {

@@ -584,48 +584,33 @@ class Mod_trial extends CI_Model
     public function get_supervisor_list($part = '')
     {
         $this->db->select('*');
-        if ($part != '') {
-            $this->db->where('part', $part);
-        }
+       
         $this->db->from('part_info');
         $this->db->join('trial_assign', 'part_info.sn = trial_assign.sn');
-        
-        $this->db->where('first_member_do_date !=', "");
+        if ($part != '') {
+            $this->db->where('part_info.part', $part);
+        }
+        $this->db->where("part_info.year",$_SESSION['year']);
         $year = $this->session->userdata('year');
 
         $res = $this->db->get()->result_array();
 
+        // print_r($res);
+        // echo $this->db->last_query();
 
-        function even($var)
-        {
-            return($var['year'] == $_SESSION['year']);
-        }
 
-        $sub =  array_filter($res, "even");
 
-        sort($sub);
-
-        for ($i=0; $i < count($sub); $i++) {
+        for ($i=0; $i < count($res); $i++) {
             # code...
-            $supervisor1 = $this->db->where('member_code', $sub[$i]['supervisor_1_code'])->get('staff_member')->row_array();
-            $supervisor2 = $this->db->where('member_code', $sub[$i]['supervisor_2_code'])->get('staff_member')->row_array();
-            $patrol = $this->db->where('start <=', $sub[$i]['start'])->where('end >=', $sub[$i]['end'])->get('patrol_staff')->row_array();
-            $course = $this->db->where('year', $year)->where('field', $sub[$i]['field'])->get('exam_area')->row_array();
-            $trial = $this->db->get('trial_staff')->result_array();
-
+            $course = $this->db->where('year', $year)->where('field', $res[$i]['field'])->get('exam_area')->row_array();
             $arr[] = array(
-                'sn'=>$sub[$i]['sn'],
-                'field' => $sub[$i]['field'],
-                'test_section' => $sub[$i]['test_section'],
-                'part' => $sub[$i]['part'],
-                'do_date' => $sub[$i]['first_member_do_date'],
-                'order_meal1'=>$supervisor1['order_meal'],
-                'supervisor'=>$sub[$i]['supervisor_1'],
-                'floor' =>$sub[$i]['floor'],
-                'number'=>$sub[$i]['number'],
-                'start'=>$sub[$i]['start'],
-                'end'=>$sub[$i]['end'],
-                'patrol'=>$patrol['patrol_staff_name'],
+                'sn'=>$res[$i]['sn'],
+                'field' => $res[$i]['field'],
+                'test_section' => $res[$i]['test_section'],
+                'part' => $res[$i]['part'],
+                'supervisor'=>$res[$i]['supervisor_1'],
+                'do_date' => $res[$i]['first_member_do_date'],
+                'floor' =>$res[$i]['floor'],
                 'subject_01'=>$course['subject_01'],
                 'subject_02'=>$course['subject_02'],
                 'subject_03'=>$course['subject_03'],
@@ -635,22 +620,17 @@ class Mod_trial extends CI_Model
                 'subject_07'=>$course['subject_07'],
                 'subject_08'=>$course['subject_08'],
                 'subject_09'=>$course['subject_09'],
-                'subject_10'=>$course['subject_10'],
+                'subject_10'=>$course['subject_10'],                
             );
 
             $arr[] = array(
-                'sn'=>$sub[$i]['sn'],
-                'field' => $sub[$i]['field'],
-                'test_section' => $sub[$i]['test_section'],
-                'part' => $sub[$i]['part'],
-                'do_date' => $sub[$i]['second_member_do_date'],
-                'order_meal1'=>$supervisor2['order_meal'],
-                'supervisor'=>$sub[$i]['supervisor_2'],
-                'floor' =>$sub[$i]['floor'],
-                'number'=>$sub[$i]['number'],
-                'start'=>$sub[$i]['start'],
-                'end'=>$sub[$i]['end'],
-                'patrol'=>$patrol['patrol_staff_name'],
+                'sn'=>$res[$i]['sn'],
+                'field' => $res[$i]['field'],
+                'test_section' => $res[$i]['test_section'],
+                'part' => $res[$i]['part'],
+                'supervisor'=>$res[$i]['supervisor_2'],
+                'do_date' => $res[$i]['first_member_do_date'],
+                'floor' =>$res[$i]['floor'],
                 'subject_01'=>$course['subject_01'],
                 'subject_02'=>$course['subject_02'],
                 'subject_03'=>$course['subject_03'],
@@ -660,8 +640,10 @@ class Mod_trial extends CI_Model
                 'subject_07'=>$course['subject_07'],
                 'subject_08'=>$course['subject_08'],
                 'subject_09'=>$course['subject_09'],
-                'subject_10'=>$course['subject_10'],
-            );
+                'subject_10'=>$course['subject_10'],                
+            );            
+
+
         }
         return $arr;
     }

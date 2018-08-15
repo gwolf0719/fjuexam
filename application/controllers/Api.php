@@ -536,8 +536,9 @@ class Api extends CI_Controller
     {
         $this->load->model('mod_trial');
         $this->load->model('mod_staff');
-        $getpost = array('sn', 'supervisor_1', 'supervisor_1_code', 'supervisor_2', 'supervisor_2_code', 'trial_staff_code_1', 'trial_staff_code_2', 'note');
-        $requred = array('sn', 'supervisor_1', 'supervisor_1_code', 'supervisor_2', 'supervisor_2_code', 'trial_staff_code_1', 'trial_staff_code_2');
+        $this->load->model('mod_exam_datetime');
+        $getpost = array('sn', 'part','supervisor_1', 'supervisor_1_code', 'supervisor_2', 'supervisor_2_code', 'trial_staff_code_1', 'trial_staff_code_2', 'note');
+        $requred = array('sn', 'part','supervisor_1', 'supervisor_1_code', 'supervisor_2', 'supervisor_2_code', 'trial_staff_code_1', 'trial_staff_code_2');
         $data = $this->getpost->getpost_array($getpost, $requred);
         if ($data == false) {
             $json_arr['sys_code'] = '000';
@@ -548,6 +549,21 @@ class Api extends CI_Controller
             if ($this->mod_trial->chk_once($data['sn'])) {
                 $member1 = $this->mod_staff->get_staff_member($data['supervisor_1_code']);
                 $member2 = $this->mod_staff->get_staff_member($data['supervisor_2_code']);
+                $max = $this->mod_trial->get_max_field($data['part']);
+                $min = $this->mod_trial->get_min_field($data['part']);
+                $day = $this->mod_exam_datetime->room_use_day($min['field'], $max['field']);
+                $datetime_info = $this->mod_exam_datetime->get_once($_SESSION['year']);
+                $do_date = [];
+                if($day[0] != ""){
+                    array_push($do_date,mb_substr($datetime_info['day_1'], 5, 8, 'utf-8'));
+                }
+                if($day[1] != ""){
+                    array_push($do_date,mb_substr($datetime_info['day_2'], 5, 8, 'utf-8'));
+                }   
+                if($day[2] != ""){
+                    array_push($do_date,mb_substr($datetime_info['day_3'], 5, 8, 'utf-8'));
+                }                
+                // $do_date = explode(",", $do_date);     
                 $sql_data = array (
                     'sn'=>$data['sn'],
                     'supervisor_1'=>$data['supervisor_1'],
@@ -556,15 +572,16 @@ class Api extends CI_Controller
                     'supervisor_2'=>$data['supervisor_2'],
                     'trial_staff_code_1'=>$data['trial_staff_code_1'],
                     'trial_staff_code_2'=>$data['trial_staff_code_2'],
-                    'note'=>$data['note'],
                     'first_member_order_meal'=> $member1['order_meal'],
                     'first_member_meal'=> $member1['meal'],
                     'second_member_order_meal'=> $member2['order_meal'],
                     'second_member_meal'=> $member2['meal'],
+                    'note'=>$data['note'],
                 );
-                $this->mod_trial->update_once($data['sn'], $sql_data);
+                print_r($do_date);
+                // $this->mod_trial->update_once($data['sn'], $sql_data);
             } else {
-                $this->mod_trial->add_once($data);
+                // $this->mod_trial->add_once($data);
             }
             $json_arr['sys_code'] = '200';
             $json_arr['sys_msg'] = '資料儲存完成';
@@ -971,8 +988,8 @@ class Api extends CI_Controller
                 'phone'=>$member['member_phone'],
                 'job_code'=>$staff['trial_staff_code'],
                 'job_title'=> $member['member_title'],
-                'trial_start'=>'',
-                'trial_end'=>'',
+                'trial_start'=>'first_start',
+                'trial_end'=>'first_end',
                 'do_date'=>$staff['do_date'],
                 'order_meal'=>$data['order_meal'],
                 'day_count'=>$staff['count'],
@@ -1098,15 +1115,15 @@ class Api extends CI_Controller
     public function chk_list_for_voucher()
     {
         $this->load->model('mod_trial');
-        $getpost = array('part','area');
-        $requred = array('part','area');
+        $getpost = array('part');
+        $requred = array('part');
         $data = $this->getpost->getpost_array($getpost, $requred);
         if ($data == false) {
             $json_arr['sys_code'] = '000';
             $json_arr['sys_msg'] = '資料不足';
             $json_arr['requred'] = $this->getpost->report_requred($requred);
         } else {
-            if ($this->mod_trial->chk_list_for_voucher($data['part'], $data['area']) == true) {
+            if ($this->mod_trial->chk_list_for_voucher($data['part']) == true) {
                 $json_arr['sys_code'] = '200';
                 $json_arr['sys_msg'] = '匯出完成';
             } else {

@@ -181,6 +181,7 @@
         $("body").on("click", "tr", function() {
             var sn = $(this).attr("sn");
             var part = $(this).attr("part");
+            $("#part").val(part);
             $("html, body").animate({
                 scrollTop: $("body").height()
             }, 1000);
@@ -239,6 +240,7 @@
         $("body").on("click", "#send", function() {
             if (confirm("是否要儲存?")) {
                 var sn = $("#sn").val();
+                var part = $("#part").val();
                 var supervisor_1 = $("#supervisor_1").val();
                 var supervisor_1_code = $("#supervisor_1_code").val();
                 var supervisor_2 = $("#supervisor_2").val();
@@ -251,6 +253,7 @@
                     url: 'api/save_trial',
                     data: {
                         "sn": sn,
+                        "part": part,
                         "supervisor_1": supervisor_1,
                         "supervisor_1_code": supervisor_1_code,
                         "supervisor_2": supervisor_2,
@@ -549,6 +552,7 @@
                             <label for="field" class="" style="float:left;">試場</label>
                             <input type="text" class="form-control" id="field" readonly>
                             <input type="hidden" class="form-control" id="sn">
+                            <input type="hidden" class="form-control" id="part">
                         </div>
                         <div class="form-group">
                             <label for="section" class="" style="float:left;">考試節數</label>

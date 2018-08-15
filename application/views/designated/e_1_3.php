@@ -10,9 +10,9 @@
             <th colspan="9" style="font-size:18px;"><?=$_SESSION['year']?>學年度指定科目考試新北一考區監試人員一覽表</th>
         </tr>
         <tr>
-            <th colspan="3" style="font-size:14px;">分區：<?=$area?></th>
-            <th colspan="3" style="font-size:14px;"><?=$school?></th>
-            <th colspan="3" style="font-size:14px;">印表日期:<?=(date("Y") - 1911).date("/m/d")?></th>
+            <th colspan="3" style="font-size:13px;">分區：<?=$area?></th>
+            <th colspan="3" style="font-size:13px;">考場：<?=$school?></th>
+            <th colspan="3" style="font-size:13px;">印表日期:<?=(date("Y") - 1911).date("/m/d")?></th>
         </tr>        
         <tr>
             <th class="bb" rowspan="2">試場</th>

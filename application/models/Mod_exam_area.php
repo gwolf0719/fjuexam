@@ -30,7 +30,19 @@ class Mod_exam_area extends CI_Model
 
         $school = $this->db->get('exam_area')->row_array();
         return $school['part_name'];
-    }    
+    }   
+    
+    public function year_addr_name($part='')
+    {
+        $this->db->where('year', $this->session->userdata('year'));
+        if($part != ''){
+            $this->db->where('part', $part);
+        }
+
+        $addr = $this->db->get('part_info')->row_array();
+        print_r($addr);
+        return $addr['addr'];
+    }       
 
     public function get_min_start($part = '')
     {

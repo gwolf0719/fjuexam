@@ -302,10 +302,21 @@
                 },
                 dataType: "json"
             }).done(function(data) {
-                console.log(data);
                 $("#third_section").val(data.section);
             })
         })
+
+        // $("body").on("change",".field_start",function(){
+        //     $(".field_start").each(function(){
+        //         $('.field_start').val($(this).val());
+        //     })
+        // })
+
+        // $("body").on("change",".field_end",function(){
+        //     $(".field_end").each(function(){
+        //         $('.field_end').val($(this).val());
+        //     })
+        // })
 
         $("body").on("click", "#send", function() {
             if (confirm("是否要儲存?")) {
@@ -699,7 +710,7 @@
                     <div class="form-group">
                         <label for="field" class="" style="float:left;">試場號起</label>
                         <input type="hidden" value="1" id="day1">
-                        <select name="start" id="first_start" class="field field1 form-control">
+                        <select name="start" id="first_start" class="field field_start field1 form-control">
                             <?php foreach ($part as $k => $v): ?>
                             <option value="<?=$v['field']; ?>" day="1">
                                 <?=$v['field']; ?>
@@ -709,7 +720,7 @@
                     </div>
                     <div class="form-group">
                         <label for="section" class="" style="float:left;">試場號迄</label>
-                        <select name="end" id="first_end" class="field field1 form-control">
+                        <select name="end" id="first_end" class="field field1 field_end form-control">
                             <?php foreach ($part as $k => $v): ?>
                             <option value="<?=$v['field']; ?>" day="1">
                                 <?=$v['field']; ?>
@@ -729,7 +740,7 @@
                     <div class="form-group">
                         <label for="field" class="" style="float:left;">試場號起</label>
                         <input type="hidden" value="2" id="day2">
-                        <select name="start" id="second_start" class="field field2 form-control">
+                        <select name="start" id="second_start" class="field field_start field2 form-control">
                             <?php foreach ($part as $k => $v): ?>
                             <option value="<?=$v['field']; ?>">
                                 <?=$v['field']; ?>
@@ -739,7 +750,7 @@
                     </div>
                     <div class="form-group">
                         <label for="section" class="" style="float:left;">試場號迄</label>
-                        <select name="end" id="second_end" class="field field2 form-control">
+                        <select name="end" id="second_end" class="field field2 field_end form-control">
                             <?php foreach ($part as $k => $v): ?>
                             <option value="<?=$v['field']; ?>" day="2">
                                 <?=$v['field']; ?>
@@ -759,7 +770,7 @@
                     <div class="form-group">
                         <label for="field" class="" style="float:left;">試場號起</label>
                         <input type="hidden" value="3" id="day3">
-                        <select name="start" id="third_start" class="field field3 form-control">
+                        <select name="start" id="third_start" class="field field_start field3 form-control">
                             <?php foreach ($part as $k => $v): ?>
                             <option value="<?=$v['field']; ?>" day="3">
                                 <?=$v['field']; ?>
@@ -769,7 +780,7 @@
                     </div>
                     <div class="form-group">
                         <label for="section" class="" style="float:left;">試場號迄</label>
-                        <select name="end" id="third_end" class="field field3 form-control">
+                        <select name="end" id="third_end" class="field field3 field_end form-control">
                             <?php foreach ($part as $k => $v): ?>
                             <option value="<?=$v['field']; ?>" day="3">
                                 <?=$v['field']; ?>
