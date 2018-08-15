@@ -71,8 +71,6 @@
         </td>
         <td colspan="2" class="bb" style="line-height:30px;"></td>
 
-        <td class="bb"><?=number_format($v['second_member_salary_section'])?>
-        </td>
         <td class="bb"><?=$v['supervisor_2']?>
         </td>
         <td class="bb">
