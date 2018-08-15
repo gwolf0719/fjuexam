@@ -75,16 +75,24 @@
 
         // 當點選資料的時候可以進行編輯
         $("body").on("click", "tr", function() {
-            console.log($("#member_code").attr('readonly'));
             if($("#member_code").attr('readonly') != "readonly"){
                 if(confirm("目前為新增資料模式，請問是否要改為編輯舊資料？")){
-                    
+                    var sn = $(this).attr("sn");
+                    edit_info(sn);
                 }
+            }else{
+                var sn = $(this).attr("sn");
+                edit_info(sn);
             }
-            var sn = $(this).attr("sn");
+            
+        })
+        // 啟用編輯區
+        function edit_info(sn){
             $(".form").addClass("upup");
             $("input").attr("readonly", false);
             $("input").removeAttr("disabled");
+            $("#send").show();
+            $("#add").hide();
             $("#member_code").attr("readonly", true);
             if ($(".form").hasClass("upup")) {
                 $(".form").slideDown();
@@ -121,7 +129,7 @@
                 $("#order_meal").val(data.info.order_meal);
                 $("#meal").val(data.info.meal);
             })
-        })
+        }
 
 
         $("#order_meal").change(function() {
