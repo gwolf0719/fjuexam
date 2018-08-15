@@ -174,7 +174,7 @@ $(function(){
                     <td><?=$v['start']; ?></td>
                     <td><?=$v['end']; ?></td>
                     <td><?=$v['number']; ?></td>
-                    <td><?=$addr_info['part_addr_1']; ?></td>
+                    <td><?=$addr_info['part_addr_2']; ?></td>
                     <td><?=$v['floor']; ?></td>
                     <td><?=$v['note']; ?></td>
                 </tr>                    
