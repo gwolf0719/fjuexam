@@ -72,21 +72,21 @@
         <!-- </a> -->
     </div>
 
-    <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6 cube text-center">
+    <!-- <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6 cube text-center">
         <a href="assets/zip/標籤貼線.zip" download>
             <img src="assets/images/e_5_2_1.png" alt="">
         </a>
-    </div>
+    </div> -->
 
     <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6 cube text-center">
 
     </div>
 
-    <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6 cube text-center">
+    <!-- <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6 cube text-center">
         <a href="assets/zip/標籤貼線.zip" download>
             <img src="assets/images/e_5_2_2.png" alt="">
         </a>
-    </div>
+    </div> -->
 
 </div>
 

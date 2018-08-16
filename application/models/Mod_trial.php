@@ -396,6 +396,121 @@ public function get_trial_moneylist_for_csv($part = '')
         return $arr;
     }
 
+    public function get_once_date_of_voucher1($part = '')
+    {
+        $this->db->select('*');
+        $year = $this->session->userdata('year');
+        $this->db->where('part_info.year', $year);
+        if ($part != '') {
+            $this->db->where('part_info.part', $part);
+        }
+        $this->db->from('part_info');
+        $this->db->join('trial_assign', 'part_info.sn = trial_assign.sn');
+    
+
+        $sub = $this->db->get()->result_array();
+        for ($i=0; $i < count($sub); $i++) {
+                # code...
+            $supervisor1 = $this->db->where('member_code', $sub[$i]['supervisor_1_code'])->get('staff_member')->row_array();
+            $supervisor2 = $this->db->where('member_code', $sub[$i]['supervisor_2_code'])->get('staff_member')->row_array();
+            $voucher = $this->db->where('part', $part)->where('first_start <=', $sub[$i]['field'])->where('first_end >=', $sub[$i]['field'])->get('trial_staff')->result_array();
+            $course = $this->db->where('year', $year)->where('field', $sub[$i]['field'])->get('exam_area')->row_array();
+            $trial = $this->db->get('trial_staff')->result_array();
+            for ($v=0; $v < count($voucher); $v++) { 
+                # code...
+                $arr[$voucher[$v]['trial_staff_name']][] = array(
+                    'sn'=>$sub[$i]['sn'],
+                    'field' => $sub[$i]['field'],
+                    'test_section' => $sub[$i]['test_section'],
+                    'part' => $sub[$i]['part'],
+                    'supervisor_1'=>$sub[$i]['supervisor_1'],
+                    'supervisor_2'=>$sub[$i]['supervisor_2'],
+                    'subject_01'=>$course['subject_01'],
+                    'subject_02'=>$course['subject_02'],
+                    'subject_03'=>$course['subject_03'],
+                );                
+            }
+        }
+        return $arr;
+    }  
+    
+    public function get_once_date_of_voucher2($part = '')
+    {
+        $this->db->select('*');
+        $year = $this->session->userdata('year');
+        $this->db->where('part_info.year', $year);
+        if ($part != '') {
+            $this->db->where('part_info.part', $part);
+        }
+        $this->db->from('part_info');
+        $this->db->join('trial_assign', 'part_info.sn = trial_assign.sn');
+    
+
+        $sub = $this->db->get()->result_array();
+        for ($i=0; $i < count($sub); $i++) {
+                # code...
+            $supervisor1 = $this->db->where('member_code', $sub[$i]['supervisor_1_code'])->get('staff_member')->row_array();
+            $supervisor2 = $this->db->where('member_code', $sub[$i]['supervisor_2_code'])->get('staff_member')->row_array();
+            $voucher = $this->db->where('part', $part)->where('second_start <=', $sub[$i]['field'])->where('second_end >=', $sub[$i]['field'])->get('trial_staff')->result_array();
+            $course = $this->db->where('year', $year)->where('field', $sub[$i]['field'])->get('exam_area')->row_array();
+            $trial = $this->db->get('trial_staff')->result_array();
+            for ($v=0; $v < count($voucher); $v++) { 
+                # code...
+                $arr[$voucher[$v]['trial_staff_name']][] = array(
+                    'sn'=>$sub[$i]['sn'],
+                    'field' => $sub[$i]['field'],
+                    'test_section' => $sub[$i]['test_section'],
+                    'part' => $sub[$i]['part'],
+                    'supervisor_1'=>$sub[$i]['supervisor_1'],
+                    'supervisor_2'=>$sub[$i]['supervisor_2'],
+                    'subject_04'=>$course['subject_04'],
+                    'subject_05'=>$course['subject_05'],
+                    'subject_06'=>$course['subject_06'],
+                    'subject_07'=>$course['subject_07'],
+                );                
+            }
+        }
+        return $arr;
+    }  
+
+ public function get_once_date_of_voucher3($part = '')
+    {
+        $this->db->select('*');
+        $year = $this->session->userdata('year');
+        $this->db->where('part_info.year', $year);
+        if ($part != '') {
+            $this->db->where('part_info.part', $part);
+        }
+        $this->db->from('part_info');
+        $this->db->join('trial_assign', 'part_info.sn = trial_assign.sn');
+    
+
+        $sub = $this->db->get()->result_array();
+        for ($i=0; $i < count($sub); $i++) {
+                # code...
+            $supervisor1 = $this->db->where('member_code', $sub[$i]['supervisor_1_code'])->get('staff_member')->row_array();
+            $supervisor2 = $this->db->where('member_code', $sub[$i]['supervisor_2_code'])->get('staff_member')->row_array();
+            $voucher = $this->db->where('part', $part)->where('third_start <=', $sub[$i]['field'])->where('third_end >=', $sub[$i]['field'])->get('trial_staff')->result_array();
+            $course = $this->db->where('year', $year)->where('field', $sub[$i]['field'])->get('exam_area')->row_array();
+            $trial = $this->db->get('trial_staff')->result_array();
+            for ($v=0; $v < count($voucher); $v++) { 
+                # code...
+                $arr[$voucher[$v]['trial_staff_name']][] = array(
+                    'sn'=>$sub[$i]['sn'],
+                    'field' => $sub[$i]['field'],
+                    'test_section' => $sub[$i]['test_section'],
+                    'part' => $sub[$i]['part'],
+                    'supervisor_1'=>$sub[$i]['supervisor_1'],
+                    'supervisor_2'=>$sub[$i]['supervisor_2'],
+                    'subject_08'=>$course['subject_08'],
+                    'subject_09'=>$course['subject_09'],
+                    'subject_010'=>$course['subject_010'],
+                );                
+            }
+        }
+        return $arr;
+    }      
+
     //按照日期取的監試人員資料
     public function get_date_for_trial_list($part = '')
     {
@@ -761,7 +876,6 @@ public function get_trial_moneylist_for_csv($part = '')
             $this->db->where('part_info.part', $part);
         }
         $this->db->where("part_info.year",$_SESSION['year']);
-        $year = $this->session->userdata('year');
 
         $res = $this->db->get()->result_array();
 

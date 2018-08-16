@@ -1380,10 +1380,13 @@ class Designated extends CI_Controller
     public function e_2()
     {
         $this->mod_user->chk_status();
+        $this->load->model('mod_exam_datetime');
+        $datetime_info = $this->mod_exam_datetime->get_once($_SESSION['year']);
         $data = array(
             'title' => '簽到表 / 簽收單',
             'path' => 'designated/e_2',
             'path_text' => ' > 製作報表 > 簽到表 / 簽收單',
+            'datetime_info'=>$datetime_info
         );
         $this->load->view('layout', $data);
     }
@@ -1561,7 +1564,7 @@ class Designated extends CI_Controller
         $obj_pdf->Output('監試人員執行任務簽到表.pdf', 'I');
     }
 
-    public function e_2_3()
+    public function e_2_3_1()
     {
         $this->load->library('pdf');
         $this->load->model('mod_trial');
@@ -1570,7 +1573,7 @@ class Designated extends CI_Controller
 
         $obj_pdf = new Pdf(PDF_PAGE_ORIENTATION, PDF_UNIT, PDF_PAGE_FORMAT, false, 'UTF-8', false);
         $obj_pdf->SetCreator(PDF_CREATOR);
-        $title = '試場工作人員分配表';
+        $title = '答案券卡收發記錄單';
         $date = date('yyyy/m/d');
         $part = $_GET['part'];
         $area = $_GET['area'];
@@ -1590,17 +1593,99 @@ class Designated extends CI_Controller
         $obj_pdf->setFontSubsetting(false);
         $obj_pdf->AddPage();
         $data = array(
-            'part' => $this->mod_trial->get_list_for_voucher($part),
+            'part' => $this->mod_trial->get_once_date_of_voucher1($part),
             'area' => $area,
             'datetime_info' => $datetime_info,
             'count'=> $this->mod_trial->get_patrol_member_count($part),
             'school' => $this->mod_exam_area->year_school_name($part),
         );
         // print_r($data);
-        $view = $this->load->view('designated/e_2_3', $data, true);
+        $view = $this->load->view('designated/e_2_3_1', $data,true);
         $obj_pdf->writeHTML($view);
-        $obj_pdf->Output('試場工作人員分配表.pdf', 'I');
+        $obj_pdf->Output('答案券卡收發記錄單.pdf', 'I');
     }
+
+    public function e_2_3_2()
+    {
+        $this->load->library('pdf');
+        $this->load->model('mod_trial');
+        $this->load->model('mod_exam_area');
+        $this->load->model('mod_exam_datetime');
+
+        $obj_pdf = new Pdf(PDF_PAGE_ORIENTATION, PDF_UNIT, PDF_PAGE_FORMAT, false, 'UTF-8', false);
+        $obj_pdf->SetCreator(PDF_CREATOR);
+        $title = '答案券卡收發記錄單';
+        $date = date('yyyy/m/d');
+        $part = $_GET['part'];
+        $area = $_GET['area'];
+        
+        $obj_pdf->SetTitle($title);
+        $obj_pdf->SetHeaderData('', '', $title, '印表日期：'.$date);
+        $obj_pdf->setPrintHeader(false);
+        // $obj_pdf->SetHeaderMargin(PDF_MARGIN_HEADER);
+        $obj_pdf->SetFooterMargin(PDF_MARGIN_FOOTER);
+        $obj_pdf->SetMargins(PDF_MARGIN_LEFT, PDF_MARGIN_RIGHT);
+        $obj_pdf->SetAutoPageBreak(true, PDF_MARGIN_BOTTOM);
+        $obj_pdf->SetFont('msungstdlight', 'L', 10);
+        $year = $this->session->userdata('year');
+
+        $datetime_info = $this->mod_exam_datetime->get_once($year);
+
+        $obj_pdf->setFontSubsetting(false);
+        $obj_pdf->AddPage();
+        $data = array(
+            'part' => $this->mod_trial->get_once_date_of_voucher2($part),
+            'area' => $area,
+            'datetime_info' => $datetime_info,
+            'count'=> $this->mod_trial->get_patrol_member_count($part),
+            'school' => $this->mod_exam_area->year_school_name($part),
+        );
+        // print_r($data);
+        $view = $this->load->view('designated/e_2_3_2', $data,true);
+        $obj_pdf->writeHTML($view);
+        $obj_pdf->Output('答案券卡收發記錄單.pdf', 'I');
+    }    
+
+    public function e_2_3_3()
+    {
+        $this->load->library('pdf');
+        $this->load->model('mod_trial');
+        $this->load->model('mod_exam_area');
+        $this->load->model('mod_exam_datetime');
+
+        $obj_pdf = new Pdf(PDF_PAGE_ORIENTATION, PDF_UNIT, PDF_PAGE_FORMAT, false, 'UTF-8', false);
+        $obj_pdf->SetCreator(PDF_CREATOR);
+        $title = '答案券卡收發記錄單';
+        $date = date('yyyy/m/d');
+        $part = $_GET['part'];
+        $area = $_GET['area'];
+        
+        $obj_pdf->SetTitle($title);
+        $obj_pdf->SetHeaderData('', '', $title, '印表日期：'.$date);
+        $obj_pdf->setPrintHeader(false);
+        // $obj_pdf->SetHeaderMargin(PDF_MARGIN_HEADER);
+        $obj_pdf->SetFooterMargin(PDF_MARGIN_FOOTER);
+        $obj_pdf->SetMargins(PDF_MARGIN_LEFT, PDF_MARGIN_RIGHT);
+        $obj_pdf->SetAutoPageBreak(true, PDF_MARGIN_BOTTOM);
+        $obj_pdf->SetFont('msungstdlight', 'L', 10);
+        $year = $this->session->userdata('year');
+
+        $datetime_info = $this->mod_exam_datetime->get_once($year);
+
+        $obj_pdf->setFontSubsetting(false);
+        $obj_pdf->AddPage();
+        $data = array(
+            'part' => $this->mod_trial->get_once_date_of_voucher3($part),
+            'area' => $area,
+            'datetime_info' => $datetime_info,
+            'count'=> $this->mod_trial->get_patrol_member_count($part),
+            'school' => $this->mod_exam_area->year_school_name($part),
+        );
+        // print_r($data);
+        $view = $this->load->view('designated/e_2_3_3', $data,true);
+        $obj_pdf->writeHTML($view);
+        $obj_pdf->Output('答案券卡收發記錄單.pdf', 'I');
+    }        
 
     public function e_2_4()
     {
