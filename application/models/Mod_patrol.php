@@ -57,7 +57,7 @@ class Mod_patrol extends CI_Model
             }            
             $arr[] = array(
                 'year'=>$patrol['year'],
-                'job'=>'分區管券人員',
+                'job'=>'分區管卷人員',
                 'area'=>$part,
                 'member_code'=>$res[$i]['allocation_code'],
                 'member_name'=>$patrol['member_name'],

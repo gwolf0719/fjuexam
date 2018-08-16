@@ -14,10 +14,10 @@
             <td colspan="5" style="font-size:16px;text-align:center;"><?=$_SESSION['year']?>學年度指定科目考試新北一考區</td>
         </tr>
         <tr>
-            <td colspan="5" style="font-size:16px;text-align:center;"><?=$_GET['area']?><?=$school?>試題本、答案券收發記錄單</td>
+            <td colspan="5" style="font-size:16px;text-align:center;"><?=$_GET['area']?><?=$school?>試題本、答案卷收發記錄單</td>
         </tr>        
         <tr>
-            <td colspan="5" style="font-size:13px;text-align:left;">管券人員：<?=$k?></td>
+            <td colspan="5" style="font-size:13px;text-align:left;">管卷人員：<?=$k?></td>
         </tr>    
         <tr>
             <td class="bb" colspan="2">日期 科目</td>
@@ -106,7 +106,7 @@
         </td>
     </tr>    
     <tr>
-        <td class="bb" colspan="2">管券人員簽收記錄表</td>
+        <td class="bb" colspan="2">管卷人員簽收記錄表</td>
         <td class="bb">           
         <?php
             switch ($vc['subject_08']) {

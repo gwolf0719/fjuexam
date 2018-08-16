@@ -1435,8 +1435,9 @@ class Designated extends CI_Controller
                 $own_count = 0;
                 for ($i=0; $i < count($v); $i++) { 
                     # code...
-                    $own = array_count_values($v[$i]);
+                    if(isset($own['自備'])){
                     $own_count += count($own['自備']);
+                    }                    
                 }
                 $veg_count = 0;
                 for ($i=0; $i < count($v); $i++) { 
@@ -1598,7 +1599,7 @@ class Designated extends CI_Controller
 
         $obj_pdf = new Pdf(PDF_PAGE_ORIENTATION, PDF_UNIT, PDF_PAGE_FORMAT, false, 'UTF-8', false);
         $obj_pdf->SetCreator(PDF_CREATOR);
-        $title = '答案券卡收發記錄單';
+        $title = '答案卷卡收發記錄單';
         $date = date('yyyy/m/d');
         $part = $_GET['part'];
         $area = $_GET['area'];
@@ -1627,7 +1628,7 @@ class Designated extends CI_Controller
         // print_r($data);
         $view = $this->load->view('designated/e_2_3_1', $data,true);
         $obj_pdf->writeHTML($view);
-        $obj_pdf->Output('答案券卡收發記錄單.pdf', 'I');
+        $obj_pdf->Output('答案卷卡收發記錄單.pdf', 'I');
     }
 
     public function e_2_3_2()
@@ -1639,7 +1640,7 @@ class Designated extends CI_Controller
 
         $obj_pdf = new Pdf(PDF_PAGE_ORIENTATION, PDF_UNIT, PDF_PAGE_FORMAT, false, 'UTF-8', false);
         $obj_pdf->SetCreator(PDF_CREATOR);
-        $title = '答案券卡收發記錄單';
+        $title = '答案卷卡收發記錄單';
         $date = date('yyyy/m/d');
         $part = $_GET['part'];
         $area = $_GET['area'];
@@ -1668,7 +1669,7 @@ class Designated extends CI_Controller
         // print_r($data);
         $view = $this->load->view('designated/e_2_3_2', $data,true);
         $obj_pdf->writeHTML($view);
-        $obj_pdf->Output('答案券卡收發記錄單.pdf', 'I');
+        $obj_pdf->Output('答案卷卡收發記錄單.pdf', 'I');
     }    
 
     public function e_2_3_3()
@@ -1680,7 +1681,7 @@ class Designated extends CI_Controller
 
         $obj_pdf = new Pdf(PDF_PAGE_ORIENTATION, PDF_UNIT, PDF_PAGE_FORMAT, false, 'UTF-8', false);
         $obj_pdf->SetCreator(PDF_CREATOR);
-        $title = '答案券卡收發記錄單';
+        $title = '答案卷卡收發記錄單';
         $date = date('yyyy/m/d');
         $part = $_GET['part'];
         $area = $_GET['area'];
@@ -1709,7 +1710,7 @@ class Designated extends CI_Controller
         // print_r($data);
         $view = $this->load->view('designated/e_2_3_3', $data,true);
         $obj_pdf->writeHTML($view);
-        $obj_pdf->Output('答案券卡收發記錄單.pdf', 'I');
+        $obj_pdf->Output('答案卷卡收發記錄單.pdf', 'I');
     }        
 
     public function e_2_4()
@@ -2583,7 +2584,7 @@ class Designated extends CI_Controller
         for ($i=0; $i < count($arr); $i++) {
             # code...
             $objPHPExcel->getActiveSheet()->setCellValue('A1', '學年度');
-            $objPHPExcel->getActiveSheet()->setCellValue('B1', '管券人員');
+            $objPHPExcel->getActiveSheet()->setCellValue('B1', '管卷人員');
             $objPHPExcel->getActiveSheet()->setCellValue('C1', '監試日期');
 
             $objPHPExcel->getActiveSheet()->setCellValue('A'.(2+$i), $arr[$i]['year']);
@@ -2595,7 +2596,7 @@ class Designated extends CI_Controller
 
 
         header('Content-Type: application/vnd.ms-excel');
-        header('Content-Disposition: attachment;filename="管券人員'.'.csv"');
+        header('Content-Disposition: attachment;filename="管卷人員'.'.csv"');
         header('Cache-Control: max-age=0');
 
         
@@ -2749,7 +2750,7 @@ class Designated extends CI_Controller
             # code...
             $objPHPExcel->getActiveSheet()->setCellValue('A1', '分區');
             $objPHPExcel->getActiveSheet()->setCellValue('B1', '職務');
-            $objPHPExcel->getActiveSheet()->setCellValue('C1', '管券人員');
+            $objPHPExcel->getActiveSheet()->setCellValue('C1', '管卷人員');
             $objPHPExcel->getActiveSheet()->setCellValue('D1', '編號');
 
 
@@ -2763,7 +2764,7 @@ class Designated extends CI_Controller
 
 
         header('Content-Type: application/vnd.ms-excel');
-        header('Content-Disposition: attachment;filename="管券人員名牌'.'.csv"');
+        header('Content-Disposition: attachment;filename="管卷人員名牌'.'.csv"');
         header('Cache-Control: max-age=0');
 
         
@@ -2876,7 +2877,7 @@ class Designated extends CI_Controller
         for ($i=0; $i < count($arr); $i++) {
             # code...
             $objPHPExcel->getActiveSheet()->setCellValue('A1', '單位');
-            $objPHPExcel->getActiveSheet()->setCellValue('B1', '管券人員');
+            $objPHPExcel->getActiveSheet()->setCellValue('B1', '管卷人員');
 
             $objPHPExcel->getActiveSheet()->setCellValue('A'.(2+$i), $arr[$i]['member_unit']);
             $objPHPExcel->getActiveSheet()->setCellValue('B'.(2+$i), $arr[$i]['member_name']);
@@ -2886,7 +2887,7 @@ class Designated extends CI_Controller
 
 
         header('Content-Type: application/vnd.ms-excel');
-        header('Content-Disposition: attachment;filename="管券人員標籤樣式'.'.csv"');
+        header('Content-Disposition: attachment;filename="管卷人員標籤樣式'.'.csv"');
         header('Cache-Control: max-age=0');
 
         
@@ -3043,7 +3044,7 @@ class Designated extends CI_Controller
         $this->load->model('mod_exam_area');
         $obj_pdf = new Pdf(PDF_PAGE_ORIENTATION, PDF_UNIT, PDF_PAGE_FORMAT, false, 'UTF-8', false);
         $obj_pdf->SetCreator(PDF_CREATOR);
-        $title = '管券人員印領清冊';
+        $title = '管卷人員印領清冊';
         $date = date('yyyy/m/d');
         $part = $_GET['part'];
         $area = $_GET['area'];
@@ -3066,7 +3067,7 @@ class Designated extends CI_Controller
         );
         $view =  $this->load->view('designated/e_6_4', $data, true);
         $obj_pdf->writeHTML($view);
-        $obj_pdf->Output('管券人員印領清冊.pdf', 'I');
+        $obj_pdf->Output('管卷人員印領清冊.pdf', 'I');
     }
 
     public function e_6_5()
@@ -3325,7 +3326,7 @@ class Designated extends CI_Controller
 
 
         header('Content-Type: application/vnd.ms-excel');
-        header('Content-Disposition: attachment;filename="'.$area.'管券人員印領清冊'.'.csv"');
+        header('Content-Disposition: attachment;filename="'.$area.'管卷人員印領清冊'.'.csv"');
         header('Cache-Control: max-age=0');
 
         

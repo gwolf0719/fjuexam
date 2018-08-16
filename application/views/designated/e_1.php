@@ -102,7 +102,7 @@
                     <div class="col-md-12 col-sm-12 col-xs-12">
                         <div class="btn_part" style="cursor: pointer;" data-toggle="modal" data-target="#exampleModal">監試人員</div>
                         <div class="btn_part" style="cursor: pointer;" data-toggle="modal" data-target="#exampleModal4">試務人員</div>
-                        <div class="btn_part" style="cursor: pointer;" data-toggle="modal" data-target="#exampleModal5">管券人員</div>
+                        <div class="btn_part" style="cursor: pointer;" data-toggle="modal" data-target="#exampleModal5">管卷人員</div>
                         <div class="btn_part" style="cursor: pointer;" data-toggle="modal" data-target="#exampleModal6">巡場人員</div>
                     </div>
                 </div>

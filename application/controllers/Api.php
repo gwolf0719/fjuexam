@@ -1256,7 +1256,7 @@ class Api extends CI_Controller
                     $json_arr['sys_msg'] = '匯出完成';
                 }else{
                     $json_arr['sys_code'] = '404';
-                    $json_arr['sys_msg'] = '查無此資料，請確認是否管券人員是否有資料';
+                    $json_arr['sys_msg'] = '查無此資料，請確認是否管卷人員是否有資料';
                 }
             } else {
                 $json_arr['sys_code'] = '404';

@@ -19,7 +19,7 @@
             <th colspan="10" style="font-size:18px;"><?=$_SESSION['year']?>學年度指定科目考試新北一考區</th>
         </tr>
         <tr>
-            <th colspan="10" style="font-size:16px;">管券人員印領清冊</th>
+            <th colspan="10" style="font-size:16px;">管卷人員印領清冊</th>
         </tr>        
         <tr>
             <th colspan="3" style="font-size:12px;text-align:left;"> 分區：<?=$area?></th>

@@ -600,7 +600,7 @@ public function get_trial_moneylist_for_csv($part = '')
                 
                 # code...
                 $arr[] = array(
-                    'job'=> '分區管券人員',
+                    'job'=> '分區管卷人員',
                     'name'=>$res[$i]['trial_staff_name'],
                     'one_day_salary'=>$res[$i]['salary'] * count($do_date),
                     'salary_total'=>$res[$i]['salary_total'] * count($do_date),

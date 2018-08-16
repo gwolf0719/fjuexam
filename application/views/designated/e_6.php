@@ -74,7 +74,7 @@
                     <div class="col-md-12 col-sm-12 col-xs-12">
                         <div class="btn_part" style="cursor: pointer;" data-toggle="modal" data-target="#e_6_1">監試人員</div>
                         <div class="btn_part" style="cursor: pointer;" data-toggle="modal" data-target="#e_6_3">試務人員</div>
-                        <div class="btn_part" style="cursor: pointer;" data-toggle="modal" data-target="#e_6_4">管券人員</div>
+                        <div class="btn_part" style="cursor: pointer;" data-toggle="modal" data-target="#e_6_4">管卷人員</div>
                         <div class="btn_part" style="cursor: pointer;" data-toggle="modal" data-target="#e_6_5">巡場人員</div>                        
                     </div>
                 </div>

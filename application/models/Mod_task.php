@@ -299,7 +299,7 @@ class Mod_task extends CI_Model
     }      
 
     public function get_trial_staff_list_for_pdf($area = '',$part = ''){
-        //取出管券人員
+        //取出管卷人員
         $this->db->where('year', $this->session->userdata('year'));
         if($part != ''){
             $this->db->where('part',$part);
@@ -311,7 +311,7 @@ class Mod_task extends CI_Model
                 $member = $this->db->where('member_code', $res[$i]['trial_staff_code'])->get('staff_member')->row_array();
                     $arr[] = array(
                         'job_code' => $res[$i]['trial_staff_code'],
-                        'job' => '分區管券人員',
+                        'job' => '分區管卷人員',
                         'job_title' => $member['member_title'],
                         'name' => $res[$i]['trial_staff_name'],
                         'member_unit'=>$member['member_unit'],
@@ -488,7 +488,7 @@ class Mod_task extends CI_Model
         $year = $this->session->userdata('year');
         $sub = $this->db->get()->result_array();
 
-        //取出管券人員
+        //取出管卷人員
         $this->db->where('year', $this->session->userdata('year'));
         $trial_staff = $this->db->get('trial_staff')->result_array();    
         
@@ -548,7 +548,7 @@ class Mod_task extends CI_Model
                     'member_code'=>$member['member_code'],
                     'member_name'=>$member['member_name'],
                     'member_unit'=>$member['member_unit'],
-                    'job'=>'管券人員',
+                    'job'=>'管卷人員',
                 );   
             }        
             
@@ -634,7 +634,7 @@ class Mod_task extends CI_Model
         $year = $this->session->userdata('year');
         $sub = $this->db->get()->result_array();
 
-        //取出管券人員
+        //取出管卷人員
         $this->db->where('year', $this->session->userdata('year'));
         $trial_staff = $this->db->get('trial_staff')->result_array();    
         
@@ -693,7 +693,7 @@ class Mod_task extends CI_Model
             if($trial_staff[$i]['trial_staff_code'] != ""){
                 $arr[] = array(
                     'job_code' => $trial_staff[$i]['trial_staff_code'],
-                    'job' => '管券人員',
+                    'job' => '管卷人員',
                     'name' => $trial_staff[$i]['trial_staff_name'],
                     'job_title' => $trial_staff_member['member_title'],
                     'member_unit'=>$trial_staff_member['member_unit'],
