@@ -1,8 +1,8 @@
 <style>
     @media (min-width: 1200px) {
         .container {
-            max-width: 100%;
-            width: 100% !important;
+            max-width: 1680px;
+            width: 1680px!important;
         }
     }
 

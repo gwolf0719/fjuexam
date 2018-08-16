@@ -51,8 +51,7 @@
         </tr>
         <?php endforeach; ?>
         <tr>
-            <td colspan="7" style="font-size:16px;text-align:left;">共計：
-                <?=count($v)*2?>人</td>
+            <td colspan="7" style="text-align:left;font-size:16px;">共計：<?=count($part)*2?>人、自備：<?=$own?>人、素食：<?=$veg?>人、葷食：<?=$meat?>人</td>
         </tr>
     </thead>
 </table>

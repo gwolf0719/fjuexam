@@ -1370,7 +1370,9 @@ class Designated extends CI_Controller
         $data = array(
             'part' => $this->mod_trial->get_dinner_list_for_pdf($part),
             'area' => $area,
-            // 'deal' => $this->mod_trial->get_all_meal_count($part),
+            'own' => $this->mod_trial->get_trial_own_meal_count($part),
+            'veg' => $this->mod_trial->get_trial_veg_meal_count($part),
+            'meat' => $this->mod_trial->get_trial_meat_meal_count($part),
         );
         $view =  $this->load->view('designated/e_1_5', $data, true);
         $obj_pdf->writeHTML($view);
@@ -1422,7 +1424,7 @@ class Designated extends CI_Controller
         $data = array(
             'part' => $this->mod_task->e_2_1($area,$part),
             'area' => $area,
-            // 'own'=> $this->mod_task->get_member_own_count($area),
+            // 'own'=> $this->mod_task->get_task_own_count($area),
             // 'veg'=> $this->mod_task->get_member_veg_count($area),
             // 'meat'=> $this->mod_task->get_member_meat_count($area),
             'school' => $school,
@@ -1430,6 +1432,28 @@ class Designated extends CI_Controller
         if ($data['part'] != false) {
             foreach ($data['part'] as $k => $v) {
                 # code...
+                $own_count = 0;
+                for ($i=0; $i < count($v); $i++) { 
+                    # code...
+                    $own = array_count_values($v[$i]);
+                    $own_count += count($own['自備']);
+                }
+                $veg_count = 0;
+                for ($i=0; $i < count($v); $i++) { 
+                    # code...
+                    $veg = array_count_values($v[$i]);
+                    if(isset($veg['素'])){
+                        $veg_count += count($veg['素']);
+                    }
+                }   
+                $meat_count = 0;
+                for ($i=0; $i < count($v); $i++) { 
+                    # code...
+                    $meat = array_count_values($v[$i]);
+                    if(isset($meat['葷'])){
+                        $meat_count += count($meat['葷']);
+                    }
+                }                                
                 $html = '<table class="" id="" style="padding:5px 0px;;text-align:center;">';
                 $html .= '<tr>';
                 $html .= '<td style="font-size:16px;lne-height:50px;" colspan="6">'.$_SESSION['year'].'學年度指定科目考試新北一考區試務人員簽到表</td>';
@@ -1460,7 +1484,7 @@ class Designated extends CI_Controller
              
                 }
                 $html .= '<tr>';
-                $html .= '<td colspan="6" style="font-size:16px;text-align:left;">共計：'.count($v).'人</td>';
+                $html .= '<td colspan="7" style="font-size:16px;text-align:left;">共計：'.count($v).'人、自備:'.$own_count.'人、素食：'.$veg_count.'人、葷食：'.$meat_count.'人</td>';
                 $html .= '</tr>';       
                 $html .= '</table>';
 
@@ -1502,10 +1526,11 @@ class Designated extends CI_Controller
             'part' => $this->mod_trial->get_date_for_trial_list($part),
             'area' =>$area,
             'school' => $this->mod_exam_area->year_school_name($part),
-            // 'own'=>$this->mod_trial->get_trial_member_own_count($part),
-            // 'veg'=>$this->mod_trial->get_trial_member_veg_count($part),
-            // 'meat'=>$this->mod_trial->get_trial_member_meat_count($part),
+            'own' => $this->mod_trial->get_trial_own_meal_count($part),
+            'veg' => $this->mod_trial->get_trial_veg_meal_count($part),
+            'meat' => $this->mod_trial->get_trial_meat_meal_count($part),
         );
+        
         if ($data['part'] != false) {
             foreach ($data['part'] as $k => $v) {
                 # code...
@@ -1548,7 +1573,7 @@ class Designated extends CI_Controller
                     $html .= '</tr>';
                 }
                 $html .= '<tr>';
-                $html .= '<td colspan="7" style="font-size:16px;text-align:left;">共計：'.(count($v)*2).'人</td>';
+                $html .= '<td colspan="7" style="font-size:16px;text-align:left;">共計：'.(count($v)*2).'人、自備:'.$data['own'].'人、素食：'.$data['veg'].'人、葷食：'.$data['meat'].'人</td>';
                 $html .= '</tr>';
                 $html .= '</table>';
 
@@ -1832,42 +1857,600 @@ class Designated extends CI_Controller
 
     public function e_3_1()
     {
-        $this->load->library('pdf');
+        $this->load->library('excel');
         $this->load->model('mod_exam_datetime');
         $this->load->model('mod_trial');
-        $obj_pdf = new Pdf(PDF_PAGE_ORIENTATION, PDF_UNIT, PDF_PAGE_FORMAT, false, 'UTF-8', false);
-        $obj_pdf->SetCreator(PDF_CREATOR);
-        $title = '監試人員監考科目日程對照表';
-        $date = date('yyyy/m/d');
+        
+        $objPHPExcel = new PHPExcel();
+        $objPHPExcel->setActiveSheetIndex(0);
         $part = $_GET['part'];
         $area = $_GET['area'];
-
-        $obj_pdf->SetTitle($title);
-        $obj_pdf->SetHeaderData('', '', $title, '印表日期：'.$date);
-        $obj_pdf->setPrintHeader(false);
-        // $obj_pdf->SetHeaderMargin(PDF_MARGIN_HEADER);
-        $obj_pdf->SetFooterMargin(PDF_MARGIN_FOOTER);
-        $obj_pdf->SetMargins(PDF_MARGIN_LEFT, PDF_MARGIN_RIGHT);
-        $obj_pdf->SetAutoPageBreak(true, PDF_MARGIN_BOTTOM);
-        $obj_pdf->SetFont('msungstdlight', 'B', 11);
-
-        $obj_pdf->setFontSubsetting(false);
-        $obj_pdf->AddPage();
-        $year = $this->session->userdata('year');
-
+        $year = $this->session->userdata('year');        
         $datetime_info = $this->mod_exam_datetime->get_once($year);
         $course = $this->mod_exam_datetime->get_course($year);
-        $res = $this->mod_trial->get_supervisor_list($part);
-        $data = array(
-            'part' => $res,
-            'area' =>$area,
-            'course' => $course,
-            'datetime_info' => $datetime_info,
-        );
-        $view =  $this->load->view('designated/e_3_1', $data, true);
-        $obj_pdf->writeHTML($view);
-        $obj_pdf->Output('監試人員監考科目日程對照表.pdf', 'I');
+        $res = $this->mod_trial->get_supervisor_list($part);     
+        for ($i=0; $i < count($res); $i++) {
+            # code...
+            switch ($res[$i]['subject_01']) {
+                case '0':
+                    $subject_01 =  '';
+                    break;
+                default:
+                    $subject_01 =  'V';
+            }
+            switch ($res[$i]['subject_02']) {
+                case '0':
+                    $subject_02 =  '';
+                    break;
+                default:
+                    $subject_02 =  'V';
+            }            
+            switch ($res[$i]['subject_03']) {
+                case '0':
+                    $subject_03 =  '';
+                    break;
+                default:
+                    $subject_03 =  'V';
+            }
+            switch ($res[$i]['subject_04']) {
+                case '0':
+                    $subject_04 =  '';
+                    break;
+                default:
+                    $subject_04 =  'V';
+            }
+            switch ($res[$i]['subject_05']) {
+                case '0':
+                    $subject_05 =  '';
+                    break;
+                default:
+                    $subject_05 =  'V';
+            }            
+            switch ($res[$i]['subject_06']) {
+                case '0':
+                    $subject_06 =  '';
+                    break;
+                default:
+                    $subject_06 =  'V';
+            }            
+            switch ($res[$i]['subject_07']) {
+                case '0':
+                    $subject_07 =  '';
+                    break;
+                default:
+                    $subject_07 = 'V';
+            }            
+            switch ($res[$i]['subject_08']) {
+                case '0':
+                    $subject_08 = '';
+                    break;
+                default:
+                    $subject_08 = 'V';
+            }            
+            switch ($res[$i]['subject_09']) {
+                case '0':
+                    $subject_09 = '';
+                    break;
+                default:
+                    $subject_09 = 'V';
+            }            
+            switch ($res[$i]['subject_10']) {
+                case '0':
+                    $subject_10 = '';
+                    break;
+                default:
+                    $subject_10 = 'V';
+            }         
+            
+            switch ($course[0]['subject']) {
+                case 'subject_00':
+                    $course1 = '';
+                    break;
+                case 'subject_01':
+                    $course1 = '物理';
+                    break;
+                case 'subject_02':
+                    $course1 = '化學';
+                    break;
+                case 'subject_03':
+                    $course1 = '生物';
+                    break;
+                case 'subject_04':
+                    $course1 = '數乙';
+                    break;
+                case 'subject_05':
+                    $course1 = '國文';
+                    break;
+                case 'subject_06':
+                    $course1 = '英文';
+                    break;
+                case 'subject_07':
+                    $course1 = '數甲';
+                    break;
+                case 'subject_08':
+                    $course1 = '歷史';
+                    break;
+                case 'subject_09':
+                    $course1 = '地理';
+                    break;
+                case 'subject_10':
+                    $course1 = '公民與社會';
+                    break;
+            }       
+            
+           switch ($course[1]['subject']) {
+                case 'subject_00':
+                    $course2 = '';
+                    break;
+                case 'subject_01':
+                    $course2 = '物理';
+                    break;
+                case 'subject_02':
+                    $course2 = '化學';
+                    break;
+                case 'subject_03':
+                    $course2 = '生物';
+                    break;
+                case 'subject_04':
+                    $course2 = '數乙';
+                    break;
+                case 'subject_05':
+                    $course2 = '國文';
+                    break;
+                case 'subject_06':
+                    $course2 = '英文';
+                    break;
+                case 'subject_07':
+                    $course2 = '數甲';
+                    break;
+                case 'subject_08':
+                    $course2 = '歷史';
+                    break;
+                case 'subject_09':
+                    $course2 = '地理';
+                    break;
+                case 'subject_10':
+                    $course2 = '公民與社會';
+                    break;
+            }       
 
+           switch ($course[2]['subject']) {
+                case 'subject_00':
+                    $course3 = '';
+                    break;
+                case 'subject_01':
+                    $course3 = '物理';
+                    break;
+                case 'subject_02':
+                    $course3 = '化學';
+                    break;
+                case 'subject_03':
+                    $course3 = '生物';
+                    break;
+                case 'subject_04':
+                    $course3 = '數乙';
+                    break;
+                case 'subject_05':
+                    $course3 = '國文';
+                    break;
+                case 'subject_06':
+                    $course3 = '英文';
+                    break;
+                case 'subject_07':
+                    $course3 = '數甲';
+                    break;
+                case 'subject_08':
+                    $course3 = '歷史';
+                    break;
+                case 'subject_09':
+                    $course3 = '地理';
+                    break;
+                case 'subject_10':
+                    $course3 = '公民與社會';
+                    break;
+            }       
+
+            switch ($course[3]['subject']) {
+                case 'subject_00':
+                    $course4 = '';
+                    break;
+                case 'subject_01':
+                    $course4 = '物理';
+                    break;
+                case 'subject_02':
+                    $course4 = '化學';
+                    break;
+                case 'subject_03':
+                    $course4 = '生物';
+                    break;
+                case 'subject_04':
+                    $course4 = '數乙';
+                    break;
+                case 'subject_05':
+                    $course4 = '國文';
+                    break;
+                case 'subject_06':
+                    $course4 = '英文';
+                    break;
+                case 'subject_07':
+                    $course4 = '數甲';
+                    break;
+                case 'subject_08':
+                    $course4 = '歷史';
+                    break;
+                case 'subject_09':
+                    $course4 = '地理';
+                    break;
+                case 'subject_10':
+                    $course4 = '公民與社會';
+                    break;
+            }       
+
+           switch ($course[4]['subject']) {
+                case 'subject_00':
+                    $course5 = '';
+                    break;
+                case 'subject_01':
+                    $course5 = '物理';
+                    break;
+                case 'subject_02':
+                    $course5 = '化學';
+                    break;
+                case 'subject_03':
+                    $course5 = '生物';
+                    break;
+                case 'subject_04':
+                    $course5 = '數乙';
+                    break;
+                case 'subject_05':
+                    $course5 = '國文';
+                    break;
+                case 'subject_06':
+                    $course5 = '英文';
+                    break;
+                case 'subject_07':
+                    $course5 = '數甲';
+                    break;
+                case 'subject_08':
+                    $course5 = '歷史';
+                    break;
+                case 'subject_09':
+                    $course5 = '地理';
+                    break;
+                case 'subject_10':
+                    $course5 = '公民與社會';
+                    break;
+            }                   
+            
+           switch ($course[5]['subject']) {
+                case 'subject_00':
+                    $course6 = '';
+                    break;
+                case 'subject_01':
+                    $course6 = '物理';
+                    break;
+                case 'subject_02':
+                    $course6 = '化學';
+                    break;
+                case 'subject_03':
+                    $course6 = '生物';
+                    break;
+                case 'subject_04':
+                    $course6 = '數乙';
+                    break;
+                case 'subject_05':
+                    $course6 = '國文';
+                    break;
+                case 'subject_06':
+                    $course6 = '英文';
+                    break;
+                case 'subject_07':
+                    $course6 = '數甲';
+                    break;
+                case 'subject_08':
+                    $course6 = '歷史';
+                    break;
+                case 'subject_09':
+                    $course6 = '地理';
+                    break;
+                case 'subject_10':
+                    $course6 = '公民與社會';
+                    break;
+            }                   
+                        
+           switch ($course[6]['subject']) {
+                case 'subject_00':
+                    $course7 = '';
+                    break;
+                case 'subject_01':
+                    $course7 = '物理';
+                    break;
+                case 'subject_02':
+                    $course7 = '化學';
+                    break;
+                case 'subject_03':
+                    $course7 = '生物';
+                    break;
+                case 'subject_04':
+                    $course7 = '數乙';
+                    break;
+                case 'subject_05':
+                    $course7 = '國文';
+                    break;
+                case 'subject_06':
+                    $course7 = '英文';
+                    break;
+                case 'subject_07':
+                    $course7 = '數甲';
+                    break;
+                case 'subject_08':
+                    $course7 = '歷史';
+                    break;
+                case 'subject_09':
+                    $course7 = '地理';
+                    break;
+                case 'subject_10':
+                    $course7 = '公民與社會';
+                    break;
+            }                   
+                        
+           switch ($course[7]['subject']) {
+                case 'subject_00':
+                    $course8 = '';
+                    break;
+                case 'subject_01':
+                    $course8 = '物理';
+                    break;
+                case 'subject_02':
+                    $course8 = '化學';
+                    break;
+                case 'subject_03':
+                    $course8 = '生物';
+                    break;
+                case 'subject_04':
+                    $course8 = '數乙';
+                    break;
+                case 'subject_05':
+                    $course8 = '國文';
+                    break;
+                case 'subject_06':
+                    $course8 = '英文';
+                    break;
+                case 'subject_07':
+                    $course8 = '數甲';
+                    break;
+                case 'subject_08':
+                    $course8 = '歷史';
+                    break;
+                case 'subject_09':
+                    $course8 = '地理';
+                    break;
+                case 'subject_10':
+                    $course8 = '公民與社會';
+                    break;
+            }                   
+                        
+           switch ($course[8]['subject']) {
+                case 'subject_00':
+                    $course9 = '';
+                    break;
+                case 'subject_01':
+                    $course9 = '物理';
+                    break;
+                case 'subject_02':
+                    $course9 = '化學';
+                    break;
+                case 'subject_03':
+                    $course9 = '生物';
+                    break;
+                case 'subject_04':
+                    $course9 = '數乙';
+                    break;
+                case 'subject_05':
+                    $course9 = '國文';
+                    break;
+                case 'subject_06':
+                    $course9 = '英文';
+                    break;
+                case 'subject_07':
+                    $course9 = '數甲';
+                    break;
+                case 'subject_08':
+                    $course9 = '歷史';
+                    break;
+                case 'subject_09':
+                    $course9 = '地理';
+                    break;
+                case 'subject_10':
+                    $course9 = '公民與社會';
+                    break;
+            }                   
+                        
+           switch ($course[9]['subject']) {
+                case 'subject_00':
+                    $course10 = '';
+                    break;
+                case 'subject_01':
+                    $course10 = '物理';
+                    break;
+                case 'subject_02':
+                    $course10 = '化學';
+                    break;
+                case 'subject_03':
+                    $course10 = '生物';
+                    break;
+                case 'subject_04':
+                    $course10 = '數乙';
+                    break;
+                case 'subject_05':
+                    $course10 = '國文';
+                    break;
+                case 'subject_06':
+                    $course10 = '英文';
+                    break;
+                case 'subject_07':
+                    $course10 = '數甲';
+                    break;
+                case 'subject_08':
+                    $course10 = '歷史';
+                    break;
+                case 'subject_09':
+                    $course10 = '地理';
+                    break;
+                case 'subject_10':
+                    $course10 = '公民與社會';
+                    break;
+            }                   
+                        
+           switch ($course[10]['subject']) {
+                case 'subject_00':
+                    $course11 = '';
+                    break;
+                case 'subject_01':
+                    $course11 = '物理';
+                    break;
+                case 'subject_02':
+                    $course11 = '化學';
+                    break;
+                case 'subject_03':
+                    $course11 = '生物';
+                    break;
+                case 'subject_04':
+                    $course11 = '數乙';
+                    break;
+                case 'subject_05':
+                    $course11 = '國文';
+                    break;
+                case 'subject_06':
+                    $course11 = '英文';
+                    break;
+                case 'subject_07':
+                    $course11 = '數甲';
+                    break;
+                case 'subject_08':
+                    $course11 = '歷史';
+                    break;
+                case 'subject_09':
+                    $course11 = '地理';
+                    break;
+                case 'subject_10':
+                    $course11 = '公民與社會';
+                    break;
+            }      
+            
+            switch ($course[11]['subject']) {
+                case 'subject_00':
+                    $course12 = '';
+                    break;
+                case 'subject_01':
+                    $course12 = '物理';
+                    break;
+                case 'subject_02':
+                    $course12 = '化學';
+                    break;
+                case 'subject_03':
+                    $course12 = '生物';
+                    break;
+                case 'subject_04':
+                    $course12 = '數乙';
+                    break;
+                case 'subject_05':
+                    $course12 = '國文';
+                    break;
+                case 'subject_06':
+                    $course12 = '英文';
+                    break;
+                case 'subject_07':
+                    $course12 = '數甲';
+                    break;
+                case 'subject_08':
+                    $course12 = '歷史';
+                    break;
+                case 'subject_09':
+                    $course12 = '地理';
+                    break;
+                case 'subject_10':
+                    $course12 = '公民與社會';
+                    break;
+            }                  
+                        
+            
+
+            $objPHPExcel->getActiveSheet()->setCellValue('A1', '學年度');
+            $objPHPExcel->getActiveSheet()->setCellValue('B1', '考試日期一');
+            $objPHPExcel->getActiveSheet()->setCellValue('C1', '考試日期二');
+            $objPHPExcel->getActiveSheet()->setCellValue('D1', '考試日期三');
+            $objPHPExcel->getActiveSheet()->setCellValue('E1', '編號');
+            $objPHPExcel->getActiveSheet()->setCellValue('F1', '監試人員姓名');
+            $objPHPExcel->getActiveSheet()->setCellValue('G1', '監試分區');
+            $objPHPExcel->getActiveSheet()->setCellValue('H1', '監試日期');
+            $objPHPExcel->getActiveSheet()->setCellValue('I1', '監試節次');
+            $objPHPExcel->getActiveSheet()->setCellValue('J1', '物理');
+            $objPHPExcel->getActiveSheet()->setCellValue('K1', '化學');
+            $objPHPExcel->getActiveSheet()->setCellValue('L1', '生物');
+            $objPHPExcel->getActiveSheet()->setCellValue('M1', '數學乙');
+            $objPHPExcel->getActiveSheet()->setCellValue('N1', '國文');
+            $objPHPExcel->getActiveSheet()->setCellValue('O1', '英文');
+            $objPHPExcel->getActiveSheet()->setCellValue('P1', '數學甲');
+            $objPHPExcel->getActiveSheet()->setCellValue('Q1', '歷史');
+            $objPHPExcel->getActiveSheet()->setCellValue('I1', '地理');
+            $objPHPExcel->getActiveSheet()->setCellValue('R1', '公民與社會');
+            $objPHPExcel->getActiveSheet()->setCellValue('S1', '第1科');
+            $objPHPExcel->getActiveSheet()->setCellValue('T1', '第2科');
+            $objPHPExcel->getActiveSheet()->setCellValue('U1', '第3科');
+            $objPHPExcel->getActiveSheet()->setCellValue('V1', '第4科');
+            $objPHPExcel->getActiveSheet()->setCellValue('W1', '第5科');
+            $objPHPExcel->getActiveSheet()->setCellValue('X1', '第6科');
+            $objPHPExcel->getActiveSheet()->setCellValue('Y1', '第7科');
+            $objPHPExcel->getActiveSheet()->setCellValue('Z1', '第8科');
+            $objPHPExcel->getActiveSheet()->setCellValue('AA1', '第9科');
+            $objPHPExcel->getActiveSheet()->setCellValue('AB1', '第10科');
+            $objPHPExcel->getActiveSheet()->setCellValue('AC1', '第11科');
+            $objPHPExcel->getActiveSheet()->setCellValue('AD1', '第12科');
+            
+            $objPHPExcel->getActiveSheet()->setCellValue('A'.(2+$i), $_SESSION['year']);
+            $objPHPExcel->getActiveSheet()->setCellValue('B'.(2+$i), mb_substr($datetime_info['day_1'], 5, 8, 'utf-8'));
+            $objPHPExcel->getActiveSheet()->setCellValue('C'.(2+$i), mb_substr($datetime_info['day_2'], 5, 8, 'utf-8'));
+            $objPHPExcel->getActiveSheet()->setCellValue('D'.(2+$i), mb_substr($datetime_info['day_3'], 5, 8, 'utf-8'));
+            $objPHPExcel->getActiveSheet()->setCellValue('E'.(2+$i), $res[$i]['field']);
+            $objPHPExcel->getActiveSheet()->setCellValue('F'.(2+$i), $res[$i]['supervisor']);
+            $objPHPExcel->getActiveSheet()->setCellValue('G'.(2+$i), $_GET['part']);
+            $objPHPExcel->getActiveSheet()->setCellValue('H'.(2+$i), $res[$i]['do_date']);
+            $objPHPExcel->getActiveSheet()->setCellValue('I'.(2+$i), $res[$i]['test_section']);
+            $objPHPExcel->getActiveSheet()->setCellValue('J'.(2+$i), $subject_01);
+            $objPHPExcel->getActiveSheet()->setCellValue('K'.(2+$i), $subject_02);
+            $objPHPExcel->getActiveSheet()->setCellValue('L'.(2+$i), $subject_03);
+            $objPHPExcel->getActiveSheet()->setCellValue('M'.(2+$i), $subject_04);
+            $objPHPExcel->getActiveSheet()->setCellValue('N'.(2+$i), $subject_05);
+            $objPHPExcel->getActiveSheet()->setCellValue('O'.(2+$i), $subject_06);
+            $objPHPExcel->getActiveSheet()->setCellValue('P'.(2+$i), $subject_07);
+            $objPHPExcel->getActiveSheet()->setCellValue('Q'.(2+$i), $subject_08);
+            $objPHPExcel->getActiveSheet()->setCellValue('I'.(2+$i), $subject_09);
+            $objPHPExcel->getActiveSheet()->setCellValue('R'.(2+$i), $subject_10);
+            $objPHPExcel->getActiveSheet()->setCellValue('S'.(2+$i), $course1);
+            $objPHPExcel->getActiveSheet()->setCellValue('T'.(2+$i), $course2);
+            $objPHPExcel->getActiveSheet()->setCellValue('U'.(2+$i), $course3);
+            $objPHPExcel->getActiveSheet()->setCellValue('V'.(2+$i), $course4);
+            $objPHPExcel->getActiveSheet()->setCellValue('W'.(2+$i), $course5);
+            $objPHPExcel->getActiveSheet()->setCellValue('X'.(2+$i), $course6);
+            $objPHPExcel->getActiveSheet()->setCellValue('Y'.(2+$i), $course7);
+            $objPHPExcel->getActiveSheet()->setCellValue('Z'.(2+$i), $course8);
+            $objPHPExcel->getActiveSheet()->setCellValue('AA'.(2+$i), $course9);
+            $objPHPExcel->getActiveSheet()->setCellValue('AB'.(2+$i), $course10);            
+            $objPHPExcel->getActiveSheet()->setCellValue('AC'.(2+$i), $course11);             
+
+        
+        }
+
+        $objWriter = PHPExcel_IOFactory::createWriter($objPHPExcel, 'CSV');
+
+
+        header('Content-Type: application/vnd.ms-excel');
+        header('Content-Disposition: attachment;filename="監試人員標籤樣式'.'.csv"');
+        header('Cache-Control: max-age=0');
+
+        
+        $objWriter->save('php://output');
     }
 
     public function e_3_2()

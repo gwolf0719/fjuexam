@@ -71,7 +71,7 @@
     </div>
 
     <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6 cube text-center">
-        <a href="assets/zip/監試人員書函.zip" download>
+        <a href="assets/zip/監試人員書函.doc" download>
             <img src="assets/images/e_4_1_2.png" alt="">
         </a>
     </div>
@@ -79,7 +79,7 @@
     <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6 cube text-center"></div>
 
     <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6 cube text-center">
-        <a href="assets/zip/試務人員書函.zip" download>
+        <a href="assets/zip/試務人員書函.doc" download>
             <img src="assets/images/e_4_1_3.png" alt="">
         </a>
     </div>
@@ -89,7 +89,7 @@
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header" style="border-bottom: none;">
-                <h5 class="modal-title" id="exampleModalLabel" style="">選擇分區</h5>
+                <h5 class="modal-title" id="exampleModalLabel" style="">選擇人員</h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>

@@ -176,12 +176,8 @@ class Mod_task extends CI_Model
                 $member = $this->db->where('member_code', $res[$i]['job_code'])->get('staff_member')->row_array();
                 // $trial = $this->db->where('part',$part)->where('year',$_SESSION['year'])->get('trial_staff')->row_array();
                 $do_date = explode(",", $res[$i]['do_date']);
-                $own = 0;
                 for ($d=0; $d < count($do_date); $d++) {
-                    # code...
-                    if(in_array("自備",$res[$i])){
-                        $own += 1;
-                    } 
+
                     $arr[$do_date[$d]][] = array(
                         'job_code' => $res[$i]['job_code'],
                         'job' => $res[$i]['job'],
@@ -190,7 +186,6 @@ class Mod_task extends CI_Model
                         'member_unit'=>$member['member_unit'],
                         'meal' => $res[$i]['meal'],
                         'note' => $res[$i]['note'],
-                        'own'=> $own
                     );
                 }
             }
@@ -199,6 +194,35 @@ class Mod_task extends CI_Model
         }else{
             return false;
         }
+    }  
+
+    public function get_task_own_count($area = '')
+    {
+        $this->db->where('year', $this->session->userdata('year'));
+        if ($area != '') {
+            $this->db->where('area', $area);
+        }
+
+        $this->db->where('job_code !=', "");
+
+        $res = $this->db->get('district_task')->result_array();
+        $own = 0;
+        for ($i=0; $i < count($res); $i++) {
+            # code...
+                            if($res[$i]['meal'] == "自備"){
+                    $own += 1;
+                }
+            $do_date = explode(",", $res[$i]['do_date']);
+            for ($d=0; $d < count($do_date); $d++) {
+
+                $arr[$do_date[$d]][] = array(
+                    'own' => $own,
+                );
+            }
+        }
+
+        // print_r($arr);
+        return $own;
     }  
 
     public function get_district_task($area = '',$part)

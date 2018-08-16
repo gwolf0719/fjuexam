@@ -135,18 +135,7 @@ $(function(){
         var part = $(this).attr("part");
         var area = $(this).attr("area");
         var link = $(this).attr("link");
-        $.ajax({
-            url: 'api/chk_list_for_voucher',
-            data: {
-                part: part,
-            },
-            dataType: "json"
-        }).done(function(data) {
-            alert(data.sys_msg);
-            if (data.sys_code == "200") {
-                location.href = link;  
-            }
-        })     
+        location.href = link;  
     })
 })
 </script>

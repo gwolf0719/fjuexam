@@ -879,14 +879,11 @@ public function get_trial_moneylist_for_csv($part = '')
 
         $res = $this->db->get()->result_array();
 
-        // print_r($res);
-        // echo $this->db->last_query();
 
 
-
-        for ($i=0; $i < 1; $i++) {
+        for ($i=0; $i < count($res); $i++) {
             # code...
-            $course = $this->db->where('year', $year)->where('field', $res[$i]['field'])->get('exam_area')->row_array();
+            $course = $this->db->where('year', $_SESSION['year'])->where('field', $res[$i]['field'])->get('exam_area')->row_array();
             $arr[] = array(
                 'sn'=>$res[$i]['sn'],
                 'field' => $res[$i]['field'],
@@ -1136,6 +1133,10 @@ public function get_trial_moneylist_for_csv($part = '')
             $supervisor1 = $this->db->where('member_code', $res[$i]['supervisor_1_code'])->get('staff_member')->row_array();
             $supervisor2 = $this->db->where('member_code', $res[$i]['supervisor_2_code'])->get('staff_member')->row_array();
 
+            // $own1 = array_count_values($supervisor1);
+            // $own2 = array_count_values($supervisor2);
+            // // $own_count1 = count($own1['自備']);
+            // $own += count($own1['自備']) + count($own2['自備']);
             $arr[] = array(
                 'field' => $res[$i]['field'],
                 'supervisor_1'=>$res[$i]['supervisor_1'],
@@ -1145,10 +1146,91 @@ public function get_trial_moneylist_for_csv($part = '')
                 'trial_staff_code_2' => $res[$i]['trial_staff_code_2'],
                 'order_meal_2' => $res[$i]['second_member_meal'],
             );
+
         }
-        // print_r($arr);
+        // print_r($own);
         return $arr;
     }
+
+    public function get_trial_own_meal_count($part = '')
+    {
+        $this->db->select('*');
+        if ($part != '') {
+            $this->db->where('part', $part);
+        }
+        $this->db->from('part_info');
+        $this->db->join('trial_assign', 'part_info.sn = trial_assign.sn');
+
+        $res = $this->db->get()->result_array();
+        $own1 = 0;
+        $own2 = 0;
+        for ($i=0; $i < count($res); $i++) {
+            # code...
+
+            if($res[$i]['first_member_meal'] == "自備"){
+                $own1 += 1;
+            }
+            
+            if($res[$i]['second_member_meal'] == "自備"){
+                $own2 += 1;
+            }      
+        }
+        $own = $own1 + $own2;  
+        return $own;
+    }    
+
+    public function get_trial_veg_meal_count($part = '')
+    {
+        $this->db->select('*');
+        if ($part != '') {
+            $this->db->where('part', $part);
+        }
+        $this->db->from('part_info');
+        $this->db->join('trial_assign', 'part_info.sn = trial_assign.sn');
+
+        $res = $this->db->get()->result_array();
+        $veg1 = 0;
+        $veg2 = 0;
+        for ($i=0; $i < count($res); $i++) {
+
+            if($res[$i]['first_member_meal']  == "素"){
+                $veg1 += 1;
+            }
+            
+            if($res[$i]['second_member_meal']  == "素"){
+                $veg2 += 1;
+            }      
+        }
+        $veg = $veg1 + $veg2;  
+        return $veg;
+    }        
+
+    public function get_trial_meat_meal_count($part = '')
+    {
+        $this->db->select('*');
+        if ($part != '') {
+            $this->db->where('part', $part);
+        }
+        $this->db->from('part_info');
+        $this->db->join('trial_assign', 'part_info.sn = trial_assign.sn');
+
+        $res = $this->db->get()->result_array();
+        $meat1 = 0;
+        $meat2 = 0;
+        for ($i=0; $i < count($res); $i++) {
+
+            if($res[$i]['first_member_meal']  == "葷"){
+                $meat1 += 1;
+            }
+            
+            if($res[$i]['second_member_meal']  == "葷"){
+                $meat2 += 1;
+            }      
+        }
+        $meat = $meat1 + $meat2;  
+        return $meat;
+    }        
+
 
     // public function get_all_meal_count($part = '')
     // {
