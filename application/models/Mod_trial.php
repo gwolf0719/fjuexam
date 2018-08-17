@@ -4,6 +4,19 @@ defined('BASEPATH') or exit('No direct script access allowed');
 
 class Mod_trial extends CI_Model
 {
+    /**
+     * 檢查監試人員是否指派過
+     */
+    function chk_trial_assigned($trial_staff_code){
+        $this->db->where('supervisor_1_code',$trial_staff_code);
+        $this->db->or_where('supervisor_2_code',$trial_staff_code);
+        if($this->db->count_all_results('trial_assign') == 0){
+            return false;
+        }else{
+            return true;
+        }
+    }
+
     public function import($datas)
     {
         // 先清除當年資料
