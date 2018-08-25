@@ -40,14 +40,14 @@
             <?=$v['supervisor_1']?>
         </td>
         <td class="bb" colspan="2">
-            <?=$v['supervisor_1_unit']?>
+            <?=$v['supervisor_1_unit']?><br>
             <?=$v['supervisor_1_phone']?>
         </td>
         <td class="bb">
             <?=$v['supervisor_2']?>
         </td>
         <td class="bb" colspan="2">
-            <?=$v['supervisor_2_unit']?>
+            <?=$v['supervisor_2_unit']?><br>
             <?=$v['supervisor_2_phone']?>
         </td>
     </tr>

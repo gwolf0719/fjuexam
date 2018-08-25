@@ -1805,28 +1805,28 @@ class Designated extends CI_Controller
             foreach ($data['part'] as $k => $v) {
                 $html = '<table style="padding:5px 0px;text-align:center;">';
                 $html .=  '<tr>';
-                $html .=  '<td colspan="6" style="font-size:14px;">大學入學考試中心'.$_SESSION['year'].'學年度指定科目考試新北一考區監試說明會開會通知簽收表</td>';
+                $html .=  '<td colspan="9" style="font-size:14px;">大學入學考試中心'.$_SESSION['year'].'學年度指定科目考試新北一考區監試說明會開會通知簽收表</td>';
                 $html .=  '</tr>';
 
                 $html .=  '<tr>';
-                $html .=  '<td colspan="6" style="font-size:13px;text-align:left;">單位：'.$k.'</td>';
+                $html .=  '<td colspan="9" style="font-size:13px;text-align:left;">單位：'.$k.'</td>';
                 $html .=  '</tr>';
                 $html .=  '<tr style="background:#FFE4E7">';
                 $html .=  '<th style="border: 1px solid #999999;">編號</th>';
-                $html .=  '<th style="border: 1px solid #999999;">職務</th>';
+                $html .=  '<th style="border: 1px solid #999999;" colspan="2">職務</th>';
                 $html .=  '<th style="border: 1px solid #999999;">姓名</th>';
-                $html .=  '<th style="border: 1px solid #999999;">單位別</th>';
-                $html .=  '<th style="border: 1px solid #999999;">簽名</th>';
+                $html .=  '<th style="border: 1px solid #999999;" colspan="2">單位別</th>';
+                $html .=  '<th style="border: 1px solid #999999;" colspan="2">簽名</th>';
                 $html .=  '<th style="border: 1px solid #999999;">備註</th>';
                 $html .=  '</tr>';
                 foreach ($v as $kc => $vc) {
                     $html .=   '<tr>';
-                    $html .=  '<td  style="border: 1px solid #999999;">'.$vc['member_code'].'</td>';
+                    $html .=  '<td  style="border: 1px solid #999999;">'.($kc+1).'</td>';
 
-                    $html .=  '<td  style="border: 1px solid #999999;">'.$vc['job'].'</td>';
+                    $html .=  '<td  style="border: 1px solid #999999;" colspan="2">'.$vc['job'].'</td>';
                     $html .=  '<td  style="border: 1px solid #999999;">'.$vc['member_name'].'</td>';
-                    $html .=  '<td  style="border: 1px solid #999999;">'.$vc['member_unit'].'</td>';
-                    $html .=  '<td  style="border: 1px solid #999999;"></td>';
+                    $html .=  '<td  style="border: 1px solid #999999;" colspan="2">'.$vc['member_unit'].'</td>';
+                    $html .=  '<td  style="border: 1px solid #999999;" colspan="2"></td>';
                     $html .=  '<td  style="border: 1px solid #999999;"></td>';
                     $html .=  '</tr>';
                 }
@@ -2413,7 +2413,7 @@ class Designated extends CI_Controller
             $objPHPExcel->getActiveSheet()->setCellValue('B'.(2+$i), mb_substr($datetime_info['day_1'], 5, 8, 'utf-8'));
             $objPHPExcel->getActiveSheet()->setCellValue('C'.(2+$i), mb_substr($datetime_info['day_2'], 5, 8, 'utf-8'));
             $objPHPExcel->getActiveSheet()->setCellValue('D'.(2+$i), mb_substr($datetime_info['day_3'], 5, 8, 'utf-8'));
-            $objPHPExcel->getActiveSheet()->setCellValue('E'.(2+$i), $res[$i]['field']);
+            $objPHPExcel->getActiveSheet()->setCellValue('E'.(2+$i), $res[$i]['supervisor_code']);
             $objPHPExcel->getActiveSheet()->setCellValue('F'.(2+$i), $res[$i]['supervisor']);
             $objPHPExcel->getActiveSheet()->setCellValue('G'.(2+$i), $_GET['part']);
             $objPHPExcel->getActiveSheet()->setCellValue('H'.(2+$i), $res[$i]['do_date']);

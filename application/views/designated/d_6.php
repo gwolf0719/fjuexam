@@ -114,6 +114,94 @@
             });
         })
 
+       //tab設定
+        var nowHash = location.hash; //取得loading進來後目前#
+        var nowTabNum = nowHash.slice(-1);
+        var nowHtml = location.pathname.split("/").pop();
+        console.log(nowTabNum);
+        if (nowHash != "") {
+            $(".part").hide();
+            $('#part' + nowTabNum).show();
+            $(".tab").removeClass('active');
+            $('.tab' + nowTabNum).addClass('active');
+        } else {
+            //如果loading進來的網址沒有hash，判斷是不是tab頁面
+            switch (nowHash) {
+                case "":
+                    $('.tab1').addClass('active');
+                    $(".part").hide();
+                    $('#part1').show();
+                    break;                   
+                case "#1":
+                    $('.tab1').addClass('active');
+                    $(".part").hide();
+                    $('#part' + nowTabNum).show();
+                    break;                    
+                case "#2":
+                    $('.tab2').addClass('active');
+                    $(".part").hide();                
+                    $('#part' + nowTabNum).show();
+                    break;
+                case "#3":
+                    $('.tab3').addClass('active');
+                    $(".part").hide();                 
+                    $('#part' + nowTabNum).show();
+                    break;
+            }
+        }    
+
+        $("body").on("click", ".tab", function(e) {
+            e.preventDefault();
+            var newHash = $(this).attr("area"); //點到的id
+           //點擊先做還原動作
+            //點擊先做還原動作
+            $("#sn").val("");
+            $("#member_job_title").val("");
+            $("#job_code").val("");
+            $("#job_title").val("");
+            $("#name").val("");
+            $("#phone").val("");
+            $('input[name="day"]').each(function() {
+                for (let index = 0; index < 3; index++) {
+                    $(this).prop("checked", false);
+                }
+            })
+            $("#trial_start").val("");
+            $("#trial_end").val("");
+            $("#calculation").val("by_section");
+            $("#order_meal").prop("checked", false);
+            $("#section_count").val(0);
+            $("#day_count").val(0)
+            $("#salary_section").val(
+                "<?=$fees_info['salary_section']; ?>");
+            $("#one_day_salary").val(
+                "<?=$fees_info['one_day_salary']; ?>");
+            $("#day_salary_total").val(0);
+            $("#section_salary_total").val(0);
+            $("#lunch_price").val(0);
+            $("#section_lunch_total").val(0);
+            $("#day_lunch_total").val(0);
+            $("#section_total").val(0);
+            $("#day_total").val(0);
+            console.log(newHash);
+            if (nowHtml == "d_6") {
+                //開闔div
+                $(".part").css({
+                    "display": "none"
+                });
+                $('#part' + newHash).show();
+                //tab樣式
+                $(".tab").removeClass('active');
+                $(this).addClass('active');
+                //修正網址
+                location.hash = '#' + newHash;
+            } else {
+                //如果本頁不是f_2_2則為一般超連結
+                location.href = './designated/d_6' + newHash;
+                $('#part' + newHash).show();
+            }
+        })               
+
 
         $("body").on("click", "tr", function() {
             var sn = $(this).attr("sn");
@@ -372,47 +460,19 @@
             }
         })
 
-        $(".part").eq(0).show();
-        $("body").on("click", ".tab", function() {
-            var $this = $(this);
-            //點擊先做還原動作
-            //點擊先做還原動作
-            $("#sn").val("");
-            $("#member_job_title").val("");
-            $("#job_code").val("");
-            $("#job_title").val("");
-            $("#name").val("");
-            $("#phone").val("");
-            $('input[name="day"]').each(function() {
-                for (let index = 0; index < 3; index++) {
-                    $(this).prop("checked", false);
-                }
-            })
-            $("#trial_start").val("");
-            $("#trial_end").val("");
-            $("#calculation").val("by_section");
-            $("#order_meal").prop("checked", false);
-            $("#section_count").val(0);
-            $("#day_count").val(0)
-            $("#salary_section").val(
-                "<?=$fees_info['salary_section']; ?>");
-            $("#one_day_salary").val(
-                "<?=$fees_info['one_day_salary']; ?>");
-            $("#day_salary_total").val(0);
-            $("#section_salary_total").val(0);
-            $("#lunch_price").val(0);
-            $("#section_lunch_total").val(0);
-            $("#day_lunch_total").val(0);
-            $("#section_total").val(0);
-            $("#day_total").val(0);
-            $(".tab").removeClass("active");
-            $(".part").hide();
-            // 點擊到的追加active以及打開相對應table
-            $this.addClass("active");
-            var area = $this.attr("area");
-            $("#part" + area).show();
+        // $(".part").eq(0).show();
+        // $("body").on("click", ".tab", function() {
+        //     var $this = $(this);
+        //     //點擊先做還原動作
 
-        })
+        //     $(".tab").removeClass("active");
+        //     $(".part").hide();
+        //     // 點擊到的追加active以及打開相對應table
+        //     $this.addClass("active");
+        //     var area = $this.attr("area");
+        //     $("#part" + area).show();
+
+        // })
 
         $("body").on("keyup", "#one_day_salary", function() {
             console.log($(this).val());
@@ -477,6 +537,7 @@
                 var day_total = day_salary_total + day_lunch_total;
                 $("#day_total").val(day_total);
                 $(".meal").show();
+                $("#meal").val("葷");
             }
         })
 
@@ -577,13 +638,13 @@
 </div>
 <div class="row" style="position: relative;top: 20px;left: 10px;">
     <div style="width:95%;margin:5px auto;">
-        <div class="tab active" area="1" part="2501">
+        <div class="tab tab1 active" area="1" part="2501">
             <div class="tab_text">第一分區</div>
         </div>
-        <div class="tab" area="2" part="2502">
+        <div class="tab tab2" area="2" part="2502">
             <div class="tab_text">第二分區</div>
         </div>
-        <div class="tab" area="3" part="2503">
+        <div class="tab tab3" area="3" part="2503">
             <div class="tab_text">第三分區</div>
         </div>
     </div>
@@ -789,7 +850,6 @@
                     <div class="form-group meal">
                         <label for="trial_end" class="" style="float:left;">餐別</label>
                         <select class="form-control" id="meal">
-                            <option value="meal">請選擇</option>
                             <option value="葷">葷</option>
                             <option value="素">素</option>
                         </select>

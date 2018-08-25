@@ -145,6 +145,114 @@
             }
         })
 
+        //tab設定
+        var nowHash = location.hash; //取得loading進來後目前#
+        var nowTabNum = nowHash.slice(-1);
+        var nowHtml = location.pathname.split("/").pop();
+        console.log(nowHash);
+        var part;
+        switch (nowHash) {
+            case "#1":
+                part = '2501';
+                break;
+            case "#2":
+                part = '2502';
+                break;
+            case "#3":
+                part = '2503'
+                break;                
+        }
+        $.ajax({
+            url: 'api/get_part',
+            data: {
+                "part": part,
+            },
+            dataType: "json"
+        }).done(function(data) {
+            var html = "";
+            console.log(data);
+            $.each(data.part, function(k, v) {
+                html += '<option value="' + v.field + '">' + v.field + '</option>';
+            })
+            $(".field").html(html);
+        })            
+        if (nowHash != "") {
+            $(".part").hide();
+            $('#part' + nowTabNum).show();
+            $(".tab").removeClass('active');
+            $('.tab' + nowTabNum).addClass('active');
+        } else {
+            //如果loading進來的網址沒有hash，判斷是不是tab頁面
+            // console.log(object);
+            switch (nowHash) {     
+                case "":
+                    $('.tab1').addClass('active');
+                    $(".part").hide();
+                    $('#part1').show();
+                    break;                            
+                case "#1":
+                    $('.tab1').addClass('active');
+                    $(".part").hide();
+                    $('#part' + nowTabNum).show();
+                    break;                    
+                case "#2":
+                    $('.tab2').addClass('active');
+                    $(".part").hide();                
+                    $('#part' + nowTabNum).show(); 
+                    break;
+                case "#3":
+                    $('.tab3').addClass('active');
+                    $(".part").hide();                 
+                    $('#part' + nowTabNum).show();                             
+                    break;
+            }
+            console.log(part);
+
+        }    
+
+        $("body").on("click", ".tab", function(e) {
+            e.preventDefault();
+            var newHash = $(this).attr("area"); //點到的id
+            console.log(newHash);
+            var part = $(this).attr("part");
+            $("#part").val(part);
+            //點擊先做還原動作
+            $("#sn").val("");
+            $("#allocation_code").val("");
+            $("#trial_staff_code").val("");
+            $("#trial_staff_name").val("");
+            $("#first_section").val("0");
+            $("#second_section").val("0");
+            $("#third_section").val("0");
+            $("textarea[name='note']").val("");
+            $.ajax({
+                url: 'api/get_part',
+                data: {
+                    "part": part,
+                },
+                dataType: "json"
+            }).done(function(data) {
+                var html = "";
+                $.each(data.part, function(k, v) {
+
+                    html += '<option value="' + v.field + '">' + v.field + '</option>';
+                })
+                $(".field").html(html);
+            })            
+            if (nowHtml == "d_2") {
+                //開闔div
+                $(".part").hide();
+                $('#part' + newHash).show();
+                //tab樣式
+                $(".tab").removeClass('active');
+                $(this).addClass('active');
+                location.hash = '#' + newHash;
+            } else {
+                location.href = './designated/d_2' + newHash;
+                $('#part' + newHash).show();
+            }
+        })                 
+
         /**自動完成 */
         var data;
         $.getJSON("./api/get_member_info", function(data) {
@@ -164,43 +272,12 @@
             $('#exampleModal').modal('hide');
         })
 
-        $(".part").eq(0).show();
-        $("body").on("click", ".tab", function() {
-            var part = $(this).attr("part");
-            var $this = $(this);
-            $("#part").val(part);
-            //點擊先做還原動作
-            $("#sn").val("");
-            $("#allocation_code").val("");
-            $("#trial_staff_code").val("");
-            $("#trial_staff_name").val("");
-            $("#first_section").val("0");
-            $("#second_section").val("0");
-            $("#third_section").val("0");
-            $("textarea[name='note']").val("");
-            $(".tab").removeClass("active");
-            $(".part").hide();
-            // 點擊到的追加active以及打開相對應table
-            $this.addClass("active");
-            var area = $this.attr("area");
-            $("#part" + area).show();
+        // $(".part").eq(0).show();
+        // $("body").on("click", ".tab", function() {
+        //     var part = $(this).attr("part");
+        //     var $this = $(this);
 
-            $.ajax({
-                url: 'api/get_part',
-                data: {
-                    "part": part,
-                },
-                dataType: "json"
-            }).done(function(data) {
-                var html = "";
-                console.log(data);
-                $.each(data.part, function(k, v) {
-
-                    html += '<option value="' + v.field + '">' + v.field + '</option>';
-                })
-                $(".field").html(html);
-            })
-        })
+        // })
 
 
         $("body").on("click", "tr", function() {
@@ -366,7 +443,7 @@
         })
 
         $("body").on("click", "#remove", function() {
-            if (confirm("是否要刪除?")) {
+            if (confirm("是否要取消指派?")) {
                 var sn = $("#sn").val();
                 $.ajax({
                     url: 'api/remove_trial_staff',
@@ -467,13 +544,13 @@
 </div>
 <div class="row" style="position: relative;top: 20px;left: 10px;">
     <div style="width:95%;margin:5px auto;">
-        <div class="tab active" area="1" part="2501" eng="first">
+        <div class="tab tab1 active" area="1" part="2501" eng="first">
             <div class="tab_text">第一分區</div>
         </div>
-        <div class="tab" area="2" part="2502" eng="second">
+        <div class="tab tab2" area="2" part="2502" eng="second">
             <div class="tab_text">第二分區</div>
         </div>
-        <div class="tab" area="3" part="2503" eng="third">
+        <div class="tab tab3" area="3" part="2503" eng="third">
             <div class="tab_text">第三分區</div>
         </div>
     </div>
@@ -814,7 +891,7 @@
                     <div class="form-group" style="text-align:right">
                         <div class="">
                             <button type="button" class="btn btn-primary" id="add">新增</button>
-                            <button type="button" class="btn btn-danger" id="remove">刪除</button>
+                            <button type="button" class="btn btn-danger" id="remove">取消指派</button>
                             <button type="button" class="btn btn-primary" id="send" style="background:#346a90">修改</button>
                         </div>
                     </div>

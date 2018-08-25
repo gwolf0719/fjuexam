@@ -123,31 +123,45 @@
 
 <script>
     $(function() {
-
-        $(window).on("load", function() {
-            var addr = $("#addr").val();
-            // console.log(arr);
-            if (addr == "") {
-                alert("目前 C1 考試地址尚未填寫資料，請先填寫資料再進行操作");
-                location.href = "./designated/c_4";
+        var nowHash = location.hash; //取得loading進來後目前#
+        var nowTabNum = nowHash.slice(-1);
+        var nowHtml = location.pathname.split("/").pop();
+        console.log(nowTabNum);
+        if (nowHash != "") {
+            $(".part").hide();
+            $('#part' + nowTabNum).show();
+            $(".tab").removeClass('active');
+            $('.tab' + nowTabNum).addClass('active');
+        } else {
+            //如果loading進來的網址沒有hash，判斷是不是tab頁面
+            // console.log(object);
+            switch (nowHash) {
+                case "":
+                    $('.tab1').addClass('active');
+                    $(".part").hide();
+                    $('#part1').show();
+                    break;                   
+                case "#1":
+                    $('.tab1').addClass('active');
+                    $(".part").hide();
+                    $('#part' + nowTabNum).show();
+                    break;                    
+                case "#2":
+                    $('.tab2').addClass('active');
+                    $(".part").hide();                
+                    $('#part' + nowTabNum).show();
+                    break;
+                case "#3":
+                    $('.tab3').addClass('active');
+                    $(".part").hide();                 
+                    $('#part' + nowTabNum).show();
+                    break;
             }
-        })
+        }    
 
-        /**自動完成 */
-        var data;
-        $.getJSON("./api/get_member_info", function(data) {
-            data = data.info;
-            // console.log(data);
-            var $input = $(".typeahead");
-            $input.typeahead({
-                source: data,
-                autoSelect: true,
-            });
-        })
-
-        $(".part").eq(0).show();
-        $("body").on("click", ".tab", function() {
-            var $this = $(this);
+        $("body").on("click", ".tab", function(e) {
+            e.preventDefault();
+            var newHash = $(this).attr("area"); //點到的id
             //點擊先做還原動作
             $('input[name="first_member_day"]').each(function() {
                 for (let index = 0; index < 3; index++) {
@@ -195,14 +209,58 @@
             $("#second_member_section_lunch_total").val(0);
             $("#second_member_section_total").val(0);
             $("#second_member_day_total").val(0);
-            $("#second_member_section_salary_total").val(0);
-            $(".tab").removeClass("active");
-            $(".part").hide();
-            // 點擊到的追加active以及打開相對應table
-            $this.addClass("active");
-            var area = $this.attr("area");
-            $("#part" + area).show();
+            $("#second_member_section_salary_total").val(0);         
+            console.log(newHash);
+            if (nowHtml == "d_4") {
+                //開闔div
+                $(".part").css({
+                    "display": "none"
+                });
+                $('#part' + newHash).show();
+                //tab樣式
+                $(".tab").removeClass('active');
+                $(this).addClass('active');
+                //修正網址
+                location.hash = '#' + newHash;
+            } else {
+                //如果本頁不是f_2_2則為一般超連結
+                location.href = './designated/d_4' + newHash;
+                $('#part' + newHash).show();
+            }
+        })                   
+
+        $(window).on("load", function() {
+            var addr = $("#addr").val();
+            // console.log(arr);
+            if (addr == "") {
+                alert("目前 C1 考試地址尚未填寫資料，請先填寫資料再進行操作");
+                location.href = "./designated/c_4";
+            }
         })
+
+        /**自動完成 */
+        var data;
+        $.getJSON("./api/get_member_info", function(data) {
+            data = data.info;
+            // console.log(data);
+            var $input = $(".typeahead");
+            $input.typeahead({
+                source: data,
+                autoSelect: true,
+            });
+        })
+
+        // $(".part").eq(0).show();
+        // $("body").on("click", ".tab", function() {
+        //     var $this = $(this);
+            
+        //     $(".tab").removeClass("active");
+        //     $(".part").hide();
+        //     // 點擊到的追加active以及打開相對應table
+        //     $this.addClass("active");
+        //     var area = $this.attr("area");
+        //     $("#part" + area).show();
+        // })
 
         $("body").on("click", "tr", function() {
             var section = $(this).attr("section");
@@ -578,13 +636,13 @@
 </div>
 <div class="row" style="position: relative;top: 20px;left: 10px;">
     <div style="width:95%;margin:5px auto;">
-        <div class="tab active" area="1" part="2501" eng="first">
+        <div class="tab tab1 active" area="1" part="2501" eng="first">
             <div class="tab_text">第一分區</div>
         </div>
-        <div class="tab" area="2" part="2502" eng="second">
+        <div class="tab tab2" area="2" part="2502" eng="second">
             <div class="tab_text">第二分區</div>
         </div>
-        <div class="tab" area="3" part="2503" eng="third">
+        <div class="tab tab3" area="3" part="2503" eng="third">
             <div class="tab_text">第三分區</div>
         </div>
     </div>

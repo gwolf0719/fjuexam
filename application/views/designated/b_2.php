@@ -500,10 +500,10 @@
             <thead>
                 <tr>
                     <th>序號</th>
-                    <th>年度</th>
+                    <!-- <th>年度</th> -->
                     <th>考區</th>
                     <th>職務</th>
-                    <th>職員代碼</th>
+                    <!-- <th>職員代碼</th> -->
                     <th>職稱</th>
                     <th>姓名</th>
                     <th>執行日</th>
@@ -519,18 +519,18 @@
                     <td>
                         <?=$k + 1; ?>
                     </td>
-                    <td>
+                    <!-- <td>
                         <?=$v['year']; ?>
-                    </td>
+                    </td> -->
                     <td>
                         <?=$v['area']; ?>
                     </td>
                     <td>
                         <?=$v['job']; ?>
                     </td>
-                    <td>
+                    <!-- <td>
                         <?=$v['job_code']; ?>
-                    </td>
+                    </td> -->
                     <td>
                         <?=$v['job_title']; ?>
                     </td>
@@ -622,11 +622,11 @@
                             <?=mb_substr($datetime_info['day_3'], 5, 8, 'utf-8'); ?>
                         </span>
                     </div>
-                    <div class="form-group">
+                    <div class="form-group" style="display:none">
                         <label for="trial_start" class="" style="float:left;">試場起號</label>
                         <input type="text" class="form-control" id="trial_start" readonly>
                     </div>
-                    <div class="form-group">
+                    <div class="form-group" style="display:none">
                         <label for="trial_end" class="" style="float:left;">試場迄號</label>
                         <input type="text" class="form-control" id="trial_end" readonly>
                     </div>

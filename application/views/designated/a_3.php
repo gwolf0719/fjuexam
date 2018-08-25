@@ -382,7 +382,6 @@
                     <div class="form-group meal" style="display:none;">
                         <label for="meal">餐別</label>
                         <select name="meal" id="meal" class="form-control">
-                            <option value=" ">請選擇</option>
                             <option value="葷">葷</option>
                             <option value="素">素</option>
                         </select>
@@ -439,11 +438,10 @@
     $(function() {
         $("body").on("change", "#order_meal", function() {
             if ($("#order_meal").prop("checked") == true) {
-                $("#meal").val(" ");
+                $("#meal").val("葷");
                 $(".meal").show();
             } else {
                 $(".meal").hide();
-                $("#meal").val(" ");
             }
         })
     })

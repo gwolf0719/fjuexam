@@ -157,7 +157,7 @@ $(function(){
                     <th>考生應試號起</th>
                     <th>考生應試號迄</th>
                     <th>應試人數</th>
-                    <th>地址</th>
+                    <!-- <th>地址</th> -->
                     <th>樓層別</th>
                     <th>備註</th>                    
                 </tr>
@@ -174,7 +174,7 @@ $(function(){
                     <td><?=$v['start']; ?></td>
                     <td><?=$v['end']; ?></td>
                     <td><?=$v['number']; ?></td>
-                    <td><?=$addr_info['part_addr_3']; ?></td>
+                    <!-- <td><?=$addr_info['part_addr_3']; ?></td> -->
                     <td><?=$v['floor']; ?></td>
                     <td><?=$v['note']; ?></td>
                 </tr>                    
@@ -218,7 +218,7 @@ $(function(){
                     </div>     
                 </div>                    
                 <div class="col-md-3 col-sm-3 col-xs-3 cube">   
-                    <div class="form-group">
+                    <div class="form-group" style="display:none">
                         <label for="addr" class="" style="float:left;">考試地址</label>
                         <input type="text" class="form-control" id="addr" value="<?=$addr_info['part_addr_1']; ?>" readonly>
                     </div>  
