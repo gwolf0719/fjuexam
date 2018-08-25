@@ -532,6 +532,31 @@ class Api extends CI_Controller
         echo json_encode($json_arr);
     }
 
+    /**
+    * 檢查監試人員是否指派過
+    */
+    function chk_trial_assigned(){
+        $this->load->model('mod_trial');
+        $getpost = array('code');
+        $requred = array('code');
+        $data = $this->getpost->getpost_array($getpost, $requred);
+        if ($data == false) {
+            $json_arr['sys_code'] = '000';
+            $json_arr['sys_msg'] = '資料不足';
+            $json_arr['requred'] = $this->getpost->report_requred($requred);
+        } else {
+            if($this->mod_trial->chk_trial_assigned($data['code'])){
+                $json_arr['sys_code'] = '500';
+                $json_arr['sys_msg'] = '該人員已經被指派過，請選擇其他人員';
+            }else{
+                $json_arr['sys_code'] = '200';
+                $json_arr['sys_msg'] = 'success';
+            }
+            $json_arr['sql'] = $this->db->last_query();
+        }
+        echo json_encode($json_arr);
+    }
+
     public function save_trial()
     {
         $this->load->model('mod_trial');

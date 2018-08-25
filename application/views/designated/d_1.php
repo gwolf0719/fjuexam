@@ -222,21 +222,46 @@
         //     // $("#part" + area).show();
         // })
 
+        // 監試人員一指派動作 
         $("body").on("click", "#sure1", function() {
-            var code = $("#number_1").val().split("-");
-            var name = $("#number_1").val().split("-");
-            $("#supervisor_1").val(name[1]);
-            $("#supervisor_1_code").val(code[0]);
-            $('#exampleModal1').modal('hide');
+            var arr = $("#number_1").val().split(" - ");
+            chk_code_use(arr[0],function(params) {
+                if(params){
+                    $("#supervisor_1").val(arr[1]);
+                    $("#supervisor_1_code").val(arr[0]);
+                    $('#exampleModal1').modal('hide');
+                }
+            })
         })
-
+        // 監試人員二指派動作 
         $("body").on("click", "#sure2", function() {
-            var code = $("#number_2").val().split("-");
-            var name = $("#number_2").val().split("-");
-            $("#supervisor_2").val(name[1]);
-            $("#supervisor_2_code").val(code[0]);
-            $('#exampleModal2').modal('hide');
+            var arr = $("#number_2").val().split(" - ");
+            chk_code_use(arr[0],function(params) {
+                if(params){
+                    $("#supervisor_2").val(arr[1]);
+                    $("#supervisor_2_code").val(arr[0]);
+                    $('#exampleModal2').modal('hide');
+                }
+            })
         })
+        /**
+        * 檢查監試人員是否指派過
+        */
+        function chk_code_use(code,callback){
+            $.getJSON("./api/chk_trial_assigned",{
+                code:code
+                },
+                function (data) {
+                    if(data.sys_code != "200"){
+                        alert(data.sys_msg);
+                        return callback(false);
+                    }else{
+                        return callback(true);
+                    }
+                }
+            );
+        }
+
 
         $("body").on("click", "tr", function() {
             var sn = $(this).attr("sn");
