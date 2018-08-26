@@ -97,11 +97,11 @@
                 <div class="row">
                     <div class="col-md-12 col-sm-12 col-xs-12">
                         <div class="btn_part btn1" link="./designated/e_6_1?part=2501&area=第一分區" part="2501" area="第一分區">第一分區</div>
-                        <div class="btn_part btn2" link="./designated/e_6_2?part=2501&area=第一分區&obs=29" part="2501" area="第一分區" obs="29">第一分區(身障)</div>
+                        <div class="btn_part btn2" link="./designated/e_6_2?part=2501&area=第一分區&obs=291" part="2501" area="第一分區" obs="292">第一分區(身障)</div>
                         <div class="btn_part btn1" link="./designated/e_6_1?part=2502&area=第二分區" part="2502" area="第二分區">第二分區</div>
-                        <div class="btn_part btn2" link="./designated/e_6_2?part=2501&area=第二分區&obs=29" part="2502" area="第二分區" obs="29">第二分區(身障)</div>    
+                        <div class="btn_part btn2" link="./designated/e_6_2?part=2502&area=第二分區&obs=292" part="2502" area="第二分區" obs="292">第二分區(身障)</div>    
                         <div class="btn_part btn1" link="./designated/e_6_1?part=2503&area=第三分區" part="2503" area="第三分區">第三分區</div> 
-                        <div class="btn_part btn2" link="./designated/e_6_2?part=2501&area=第三分區&obs=29" part="2503" area="第三分區" obs="29">第三分區(身障)</div> 
+                        <div class="btn_part btn2" link="./designated/e_6_2?part=2503&area=第三分區&obs=293" part="2503" area="第三分區" obs="292">第三分區(身障)</div> 
                     </div>
                 </div>
             </div>
@@ -204,6 +204,7 @@ $(function(){
         var area = $(this).attr("area");
         var obs = $(this).attr("obs")
         var link = $(this).attr("link");
+        // location.href = link;  
         $.ajax({
             url: 'api/chk_part_list_of_obs',
             data: {

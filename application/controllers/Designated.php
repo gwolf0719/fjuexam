@@ -1812,7 +1812,7 @@ class Designated extends CI_Controller
                 $html .=  '<td colspan="9" style="font-size:13px;text-align:left;">單位：'.$k.'</td>';
                 $html .=  '</tr>';
                 $html .=  '<tr style="background:#FFE4E7">';
-                $html .=  '<th style="border: 1px solid #999999;">編號</th>';
+                $html .=  '<th style="border: 1px solid #999999;">流水號</th>';
                 $html .=  '<th style="border: 1px solid #999999;" colspan="2">職務</th>';
                 $html .=  '<th style="border: 1px solid #999999;">姓名</th>';
                 $html .=  '<th style="border: 1px solid #999999;" colspan="2">單位別</th>';
@@ -2960,9 +2960,11 @@ class Designated extends CI_Controller
         $obj_pdf->setFontSubsetting(false);
         $obj_pdf->AddPage();
         $data = array(
-            'part' => $this->mod_trial->get_list_for_pdf($part),
+            'part' => $this->mod_trial->e_6_1($part),
             'area'=> $area,
             'school' => $this->mod_exam_area->year_school_name($part),
+            'salary'=>$this->mod_trial->get_all_salary_trial_total($part),
+            'lunch'=>$this->mod_trial->get_all_trial_lunch_total($part)
         );
         $view =  $this->load->view('designated/e_6_1', $data, true);
         $obj_pdf->writeHTML($view);
@@ -2998,6 +3000,8 @@ class Designated extends CI_Controller
             'part' => $this->mod_trial->get_list_for_obs($part, $obs),
             'area'=> $area,
             'school' => $this->mod_exam_area->year_school_name($part),
+            'salary'=>$this->mod_trial->get_all_salary_trial_total_of_obs($part,$obs),
+            'lunch'=>$this->mod_trial->get_all_trial_lunch_total_of_obs($part,$obs)
         );
         $view =  $this->load->view('designated/e_6_2', $data, true);
         $obj_pdf->writeHTML($view);

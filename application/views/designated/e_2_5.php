@@ -24,7 +24,7 @@
             <td colspan="6" style="font-size:14px;">大學入學考試中心<?=$_SESSION['year']?>學年度指定科目考試新北一考區監試說明會開會通知簽收表</td>
         </tr>             
         <tr style="background:#FFE4E7">
-            <th class="bb">編號</th>
+            <th class="bb">流水號</th>
             <th class="bb" colsapn="2">職務</th>
             <th class="bb">姓名</th>
             <th class="bb">職稱</th>
