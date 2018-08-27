@@ -1,11 +1,10 @@
 <style>
-
     .bb {
         border: 1px solid #999999;
     }
 </style>
 
-<table class="" id="" style="padding:4px;text-align:center;">
+<table class="" id="" style="padding: 4px 0px;text-align:center">
     <tr>
         <td colspan="9" style="font-size:18px;"><?=$_SESSION['year']?>學年度指定科目考試新北一考區</td>
     </tr>
@@ -22,15 +21,15 @@
     </tr>
     <?php foreach ($part as $k => $v): ?>
     <tr>
-        <td class="bb"><?=$v['field']?></td>
-        <td class="bb" colspan="2"><?=$v['start']; ?>~<?=$v['end']; ?></td>
-        <td class="bb" colspan="2"><?=$v['floor']; ?></td>
-        <td class="bb"><?=$v['supervisor_1']?></td>
-        <td class="bb"><?=$v['supervisor_2']?></td>
-        <td class="bb" colspan="2"><?=$v['allocation_code']?><?=$v['patrol']?></td>
+        <td class="bb"><?=trim($v['field'])?></td>
+        <td class="bb" colspan="2"><?=trim($v['start']) ?>~<?=trim($v['end']) ?></td>
+        <td class="bb" colspan="2"><?=trim($v['floor']) ?></td>
+        <td class="bb"><?=trim($v['supervisor_1'])?></td>
+        <td class="bb"><?=trim($v['supervisor_2'])?></td>
+        <td class="bb" colspan="2"><?=trim($v['allocation_code'])?><?=trim($v['patrol'])?></td>
     </tr>
     <?php endforeach; ?>
     <tr>
-        <td colspan="9" >共計：<?=count($part)*2+$count?>人</td>
+        <td colspan="9" style="text-align:left;">共計：<?=count($part)*2+$count?>人</td>
     </tr>
 </table>

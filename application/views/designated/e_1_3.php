@@ -1,7 +1,7 @@
 <style>
 
     .bb {
-        border: 1px solid #999999;
+        border: 1px solid #000;
     }
 </style>
 <table class="" id="" style="padding:5px 0px;text-align:center;">

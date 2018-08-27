@@ -184,7 +184,7 @@
             $(".field").val("");
             $("#first_member_meal").val("");
             $("#second_member_meal").val("");
-            $("#first_member_order_meal").prop("check",false);
+            $("#first_member_order_meal").prop("checked",false);
             $("#first_member_day_count").val(0);
             $("#first_member_section_count").val(0);
             $("#first_member_one_day_salary").val(<?=$fees_info['one_day_salary']; ?>);
@@ -199,7 +199,7 @@
             $("#second_member_job_title").val("");
             $("#second_member_name").val("");
             $("#second_member_phone").val("");
-            $("#second_member_order_meal").prop("check",false);
+            $("#second_member_order_meal").prop("checked",false);
             $("#second_member_day_count").val(0);
             $("#second_member_section_count").val(0);
             $("#second_member_one_day_salary").val(<?=$fees_info['one_day_salary']; ?>);
@@ -209,7 +209,9 @@
             $("#second_member_section_lunch_total").val(0);
             $("#second_member_section_total").val(0);
             $("#second_member_day_total").val(0);
-            $("#second_member_section_salary_total").val(0);         
+            $("#second_member_section_salary_total").val(0);     
+            $("#first_member_meal").hide();
+            $("#second_member_meal").hide();
             console.log(newHash);
             if (nowHtml == "d_4") {
                 //開闔div
@@ -379,6 +381,7 @@
                     dataType: "json"
                 }).done(function(part) {
                     //開始讀取天數
+                    console.log(part);
                     $.ajax({
                         url: 'api/room_use_day',
                         data: {
@@ -539,6 +542,7 @@
                 $(this).val("Y");
                 $(".first_member_meal").show();
                 $("#first_member_lunch_price").attr("readonly", false);
+                $("#first_member_meal").val("葷");
                 //判斷有沒有編輯過便當價格決定要不要帶入預設值
                 if ($("#first_member_lunch_price").attr("lunch_price") == "<?=$fees_info['lunch_fee']; ?>" || $("#first_member_lunch_price").attr("#first_member_lunch_price") == undefined) {
                     $("#first_member_lunch_price").val($("#first_member_lunch_price").attr("lunch_price"));
@@ -565,6 +569,7 @@
                 $(this).val("Y");
                 $(".second_member_meal").show();
                 $("#second_member_lunch_price").attr("readonly", false);
+                $("#second_member_meal").val("葷");
                 //判斷有沒有編輯過便當價格決定要不要帶入預設值
                 if ($("#second_member_lunch_price").attr("lunch_price") == "<?=$fees_info['lunch_fee']; ?>" || $("#second_member_lunch_price").attr("#second_member_lunch_price") == undefined) {
                     $("#second_member_lunch_price").val($("#second_member_lunch_price").attr("lunch_price"));
@@ -900,7 +905,6 @@
                         <div class="form-group first_member_meal" style="display:none;">
                             <label for="first_member_meal" class="" style="float:left;">餐別</label>
                             <select class="form-control" id="first_member_meal">
-                                <option value="">請選擇</option>
                                 <option value="葷">葷</option>
                                 <option value="素">素</option>
                             </select>
@@ -1003,7 +1007,6 @@
                         <div class="form-group second_member_meal" style="display:none;">
                             <label for="second_member_meal" class="" style="float:left;">餐別</label>
                             <select class="form-control" id="second_member_meal">
-                                <option value="">請選擇</option>
                                 <option value="葷">葷</option>
                                 <option value="素">素</option>
                             </select>

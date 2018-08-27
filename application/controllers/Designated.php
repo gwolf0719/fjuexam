@@ -1121,8 +1121,8 @@ class Designated extends CI_Controller
         $obj_pdf->setPrintHeader(false);
         // $obj_pdf->SetHeaderMargin(PDF_MARGIN_HEADER);
         $obj_pdf->SetFooterMargin(PDF_MARGIN_FOOTER);
-        $obj_pdf->SetMargins(PDF_MARGIN_LEFT, PDF_MARGIN_RIGHT);
-        $obj_pdf->SetAutoPageBreak(true, PDF_MARGIN_BOTTOM);
+        $obj_pdf->SetMargins(PDF_MARGIN_LEFT, 5,PDF_MARGIN_RIGHT);
+        $obj_pdf->SetAutoPageBreak(true, 10);
         $obj_pdf->SetFont('msungstdlight', 'B', 10);
 
         $obj_pdf->setFontSubsetting(false);
@@ -1260,7 +1260,7 @@ class Designated extends CI_Controller
         $obj_pdf->setPrintHeader(false);
         // $obj_pdf->SetHeaderMargin(PDF_MARGIN_HEADER);
         $obj_pdf->SetFooterMargin(PDF_MARGIN_FOOTER);
-        $obj_pdf->SetMargins(PDF_MARGIN_LEFT, PDF_MARGIN_RIGHT);
+        $obj_pdf->SetMargins(PDF_MARGIN_LEFT,PDF_MARGIN_RIGHT);
         $obj_pdf->SetAutoPageBreak(true, PDF_MARGIN_BOTTOM);
         $obj_pdf->SetFont('msungstdlight', 'B', 10);
 
@@ -1805,17 +1805,17 @@ class Designated extends CI_Controller
             foreach ($data['part'] as $k => $v) {
                 $html = '<table style="padding:5px 0px;text-align:center;">';
                 $html .=  '<tr>';
-                $html .=  '<td colspan="9" style="font-size:14px;">大學入學考試中心'.$_SESSION['year'].'學年度指定科目考試新北一考區監試說明會開會通知簽收表</td>';
+                $html .=  '<td colspan="10" style="font-size:14px;">大學入學考試中心'.$_SESSION['year'].'學年度指定科目考試新北一考區監試說明會開會通知簽收表</td>';
                 $html .=  '</tr>';
 
                 $html .=  '<tr>';
-                $html .=  '<td colspan="9" style="font-size:13px;text-align:left;">單位：'.$k.'</td>';
+                $html .=  '<td colspan="10" style="font-size:13px;text-align:left;">單位：'.$k.'</td>';
                 $html .=  '</tr>';
                 $html .=  '<tr style="background:#FFE4E7">';
-                $html .=  '<th style="border: 1px solid #999999;">流水號</th>';
+                $html .=  '<th style="border: 1px solid #999999;">編號</th>';
                 $html .=  '<th style="border: 1px solid #999999;" colspan="2">職務</th>';
                 $html .=  '<th style="border: 1px solid #999999;">姓名</th>';
-                $html .=  '<th style="border: 1px solid #999999;" colspan="2">單位別</th>';
+                $html .=  '<th style="border: 1px solid #999999;" colspan="3">單位別</th>';
                 $html .=  '<th style="border: 1px solid #999999;" colspan="2">簽名</th>';
                 $html .=  '<th style="border: 1px solid #999999;">備註</th>';
                 $html .=  '</tr>';
@@ -1825,13 +1825,13 @@ class Designated extends CI_Controller
 
                     $html .=  '<td  style="border: 1px solid #999999;" colspan="2">'.$vc['job'].'</td>';
                     $html .=  '<td  style="border: 1px solid #999999;">'.$vc['member_name'].'</td>';
-                    $html .=  '<td  style="border: 1px solid #999999;" colspan="2">'.$vc['member_unit'].'</td>';
+                    $html .=  '<td  style="border: 1px solid #999999;" colspan="3">'.$vc['member_unit'].'</td>';
                     $html .=  '<td  style="border: 1px solid #999999;" colspan="2"></td>';
                     $html .=  '<td  style="border: 1px solid #999999;"></td>';
                     $html .=  '</tr>';
                 }
                 $html .= '<tr>';
-                $html .= '<td colspan="5" style="font-size:13px;text-align:left;">共計：'.count($v).'人</td>';
+                $html .= '<td colspan="10" style="font-size:13px;text-align:left;">共計：'.count($v).'人</td>';
                 $html .=  '</tr>';
                     
                 $html .=  '</table>';
@@ -2394,28 +2394,29 @@ class Designated extends CI_Controller
             $objPHPExcel->getActiveSheet()->setCellValue('O1', '英文');
             $objPHPExcel->getActiveSheet()->setCellValue('P1', '數學甲');
             $objPHPExcel->getActiveSheet()->setCellValue('Q1', '歷史');
-            $objPHPExcel->getActiveSheet()->setCellValue('I1', '地理');
-            $objPHPExcel->getActiveSheet()->setCellValue('R1', '公民與社會');
-            $objPHPExcel->getActiveSheet()->setCellValue('S1', '第1科');
-            $objPHPExcel->getActiveSheet()->setCellValue('T1', '第2科');
-            $objPHPExcel->getActiveSheet()->setCellValue('U1', '第3科');
-            $objPHPExcel->getActiveSheet()->setCellValue('V1', '第4科');
-            $objPHPExcel->getActiveSheet()->setCellValue('W1', '第5科');
-            $objPHPExcel->getActiveSheet()->setCellValue('X1', '第6科');
-            $objPHPExcel->getActiveSheet()->setCellValue('Y1', '第7科');
-            $objPHPExcel->getActiveSheet()->setCellValue('Z1', '第8科');
-            $objPHPExcel->getActiveSheet()->setCellValue('AA1', '第9科');
-            $objPHPExcel->getActiveSheet()->setCellValue('AB1', '第10科');
-            $objPHPExcel->getActiveSheet()->setCellValue('AC1', '第11科');
-            $objPHPExcel->getActiveSheet()->setCellValue('AD1', '第12科');
+            $objPHPExcel->getActiveSheet()->setCellValue('R1', '地理');
+            $objPHPExcel->getActiveSheet()->setCellValue('S1', '公民與社會');
+            $objPHPExcel->getActiveSheet()->setCellValue('T1', '第1科');
+            $objPHPExcel->getActiveSheet()->setCellValue('U1', '第2科');
+            $objPHPExcel->getActiveSheet()->setCellValue('V1', '第3科');
+            $objPHPExcel->getActiveSheet()->setCellValue('W1', '第4科');
+            $objPHPExcel->getActiveSheet()->setCellValue('X1', '第5科');
+            $objPHPExcel->getActiveSheet()->setCellValue('Y1', '第6科');
+            $objPHPExcel->getActiveSheet()->setCellValue('Z1', '第7科');
+            $objPHPExcel->getActiveSheet()->setCellValue('AA1', '第8科');
+            $objPHPExcel->getActiveSheet()->setCellValue('AB1', '第9科');
+            $objPHPExcel->getActiveSheet()->setCellValue('AC1', '第10科');
+            $objPHPExcel->getActiveSheet()->setCellValue('AD1', '第11科');
+            $objPHPExcel->getActiveSheet()->setCellValue('AE1', '第12科');
             
+
             $objPHPExcel->getActiveSheet()->setCellValue('A'.(2+$i), $_SESSION['year']);
             $objPHPExcel->getActiveSheet()->setCellValue('B'.(2+$i), mb_substr($datetime_info['day_1'], 5, 8, 'utf-8'));
             $objPHPExcel->getActiveSheet()->setCellValue('C'.(2+$i), mb_substr($datetime_info['day_2'], 5, 8, 'utf-8'));
             $objPHPExcel->getActiveSheet()->setCellValue('D'.(2+$i), mb_substr($datetime_info['day_3'], 5, 8, 'utf-8'));
             $objPHPExcel->getActiveSheet()->setCellValue('E'.(2+$i), $res[$i]['supervisor_code']);
             $objPHPExcel->getActiveSheet()->setCellValue('F'.(2+$i), $res[$i]['supervisor']);
-            $objPHPExcel->getActiveSheet()->setCellValue('G'.(2+$i), $_GET['part']);
+            $objPHPExcel->getActiveSheet()->setCellValue('G'.(2+$i), $_GET['area']);
             $objPHPExcel->getActiveSheet()->setCellValue('H'.(2+$i), $res[$i]['do_date']);
             $objPHPExcel->getActiveSheet()->setCellValue('I'.(2+$i), $res[$i]['test_section']);
             $objPHPExcel->getActiveSheet()->setCellValue('J'.(2+$i), $subject_01);
@@ -2426,28 +2427,27 @@ class Designated extends CI_Controller
             $objPHPExcel->getActiveSheet()->setCellValue('O'.(2+$i), $subject_06);
             $objPHPExcel->getActiveSheet()->setCellValue('P'.(2+$i), $subject_07);
             $objPHPExcel->getActiveSheet()->setCellValue('Q'.(2+$i), $subject_08);
-            $objPHPExcel->getActiveSheet()->setCellValue('I'.(2+$i), $subject_09);
-            $objPHPExcel->getActiveSheet()->setCellValue('R'.(2+$i), $subject_10);
-            $objPHPExcel->getActiveSheet()->setCellValue('S'.(2+$i), $course1);
-            $objPHPExcel->getActiveSheet()->setCellValue('T'.(2+$i), $course2);
-            $objPHPExcel->getActiveSheet()->setCellValue('U'.(2+$i), $course3);
-            $objPHPExcel->getActiveSheet()->setCellValue('V'.(2+$i), $course4);
-            $objPHPExcel->getActiveSheet()->setCellValue('W'.(2+$i), $course5);
-            $objPHPExcel->getActiveSheet()->setCellValue('X'.(2+$i), $course6);
-            $objPHPExcel->getActiveSheet()->setCellValue('Y'.(2+$i), $course7);
-            $objPHPExcel->getActiveSheet()->setCellValue('Z'.(2+$i), $course8);
-            $objPHPExcel->getActiveSheet()->setCellValue('AA'.(2+$i), $course9);
-            $objPHPExcel->getActiveSheet()->setCellValue('AB'.(2+$i), $course10);            
-            $objPHPExcel->getActiveSheet()->setCellValue('AC'.(2+$i), $course11);             
-
-        
+            $objPHPExcel->getActiveSheet()->setCellValue('R'.(2+$i), $subject_09);
+            $objPHPExcel->getActiveSheet()->setCellValue('S'.(2+$i), $subject_10);
+            $objPHPExcel->getActiveSheet()->setCellValue('T'.(2+$i), $course1);
+            $objPHPExcel->getActiveSheet()->setCellValue('U'.(2+$i), $course2);
+            $objPHPExcel->getActiveSheet()->setCellValue('V'.(2+$i), $course3);
+            $objPHPExcel->getActiveSheet()->setCellValue('W'.(2+$i), $course4);
+            $objPHPExcel->getActiveSheet()->setCellValue('X'.(2+$i), $course5);
+            $objPHPExcel->getActiveSheet()->setCellValue('Y'.(2+$i), $course6);
+            $objPHPExcel->getActiveSheet()->setCellValue('Z'.(2+$i), $course7);
+            $objPHPExcel->getActiveSheet()->setCellValue('AA'.(2+$i), $course8);
+            $objPHPExcel->getActiveSheet()->setCellValue('AB'.(2+$i), $course9);
+            $objPHPExcel->getActiveSheet()->setCellValue('AC'.(2+$i), $course10);
+            $objPHPExcel->getActiveSheet()->setCellValue('AD'.(2+$i), $course11);
+            $objPHPExcel->getActiveSheet()->setCellValue('AE'.(2+$i), $course12);      
         }
 
         $objWriter = PHPExcel_IOFactory::createWriter($objPHPExcel, 'CSV');
 
 
         header('Content-Type: application/vnd.ms-excel');
-        header('Content-Disposition: attachment;filename="監試人員標籤樣式'.'.csv"');
+        header('Content-Disposition: attachment;filename="監試人員監考日程表'.'.csv"');
         header('Cache-Control: max-age=0');
 
         

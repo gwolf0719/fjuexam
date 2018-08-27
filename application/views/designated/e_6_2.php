@@ -13,7 +13,7 @@
    
 </h3> -->
 
-<table class="" id="" style="padding:4px;text-align:center;">
+<table class="" id="" style="padding:4px 0px;text-align:center;">
     <thead>
         <tr>
             <th colspan="12" style="font-size:18px;"><?=$_SESSION['year']?>學年度指定科目考試新北一考區</th>
@@ -30,7 +30,7 @@
             <th rowspan="2" class="bb">試場</th>
             <th colspan="4" class="bb">監試人員(1)</th>
             <th rowspan="2" colspan="2" class="bb">簽名或蓋章</th>
-            <th colspan="4" class="bb">監試人員(2)</th>
+            <th colspan="3" class="bb">監試人員(2)</th>
             <th rowspan="2" colspan="2" class="bb">簽名或蓋章</th>
         </tr>
         <tr>
@@ -38,7 +38,6 @@
             <td class="bb">姓名</td>
             <td class="bb">餐費</td>
             <td class="bb">應領費用</td>
-            <td class="bb">監考費</td>
             <td class="bb">姓名</td>
             <td class="bb">餐費</td>
             <td class="bb">應領費用</td>
@@ -46,51 +45,45 @@
     </thead>
     <?php foreach ($part as $k => $v): ?>
     <tr>
-        <td class="bb"><?=$v['field']?>
-        </td>
-        <td class="bb"><?=number_format($v['first_member_salary_section'])?>
-        </td>
-        <td class="bb"><?=$v['supervisor_1']?>
-        </td>
+        <td class="bb"><?=trim($v['field'])?></td>
+        <td class="bb"><?=trim(number_format($v['first_member_salary_section']))?></td>
+        <td class="bb"><?=trim($v['supervisor_1'])?></td>
         <td class="bb">
             <?php
             if ($v['order_meal1'] == "N") {
                 echo 0;
             } else {
-                echo number_format(abs($v['first_member_section_lunch_total']));
+                echo trim(number_format(abs($v['first_member_section_lunch_total'])));
             }
             ?>
         </td>
         <td class="bb">
             <?php
             if ($v['order_meal1'] == "N") {
-                echo number_format($v['first_member_section_salary_total'] - 0);
+                echo trim(number_format($v['first_member_section_salary_total'] - 0));
             } else {
-                echo number_format($v['first_member_section_salary_total'] - abs($v['first_member_section_lunch_total']));
+                echo trim(number_format($v['first_member_section_salary_total'] - abs($v['first_member_section_lunch_total'])));
             }
             ?>
         </td>
         <td colspan="2" class="bb" style="line-height:30px;"></td>
 
-        <td class="bb"><?=number_format($v['second_member_salary_section'])?>
-        </td>
-        <td class="bb"><?=$v['supervisor_2']?>
-        </td>
+        <td class="bb"><?=trim($v['supervisor_2'])?></td>
         <td class="bb">
             <?php
             if ($v['order_meal2'] == "N") {
                 echo 0;
             } else {
-                echo number_format(abs($v['second_member_section_lunch_total']));
+                echo trim(number_format(abs($v['second_member_section_lunch_total'])));
             }
             ?>
         </td>
         <td class="bb">
             <?php
             if ($v['order_meal2'] == "N") {
-                echo number_format($v['second_member_section_salary_total'] - 0);
+                echo trim(number_format($v['second_member_section_salary_total'] - 0));
             } else {
-                echo number_format($v['second_member_section_salary_total'] - abs($v['second_member_section_lunch_total']));
+                echo trim(number_format($v['second_member_section_salary_total'] - abs($v['second_member_section_lunch_total'])));
             }
             ?>
         </td>

@@ -7,7 +7,7 @@ class Unit extends CI_Controller
     public function room_use_day()
     {
         $this->load->model('mod_exam_datetime');
-        $res = $this->mod_exam_datetime->room_use_day('220140', '220172');
+        $res = $this->mod_exam_datetime->room_use_day('210114', '292502');
         echo json_encode($res);
         // echo $this->db->last_query();
     }

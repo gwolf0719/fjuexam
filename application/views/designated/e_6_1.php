@@ -45,9 +45,11 @@
     </thead>
     <?php foreach ($part as $k => $v): ?>
     <tr>
-        <td class="bb"><?=$v['field']?>
+        <td class="bb">
+            <?=$v['field']?>
         </td>
-        <td class="bb"><?=number_format($v['first_member_salary_section'])?>
+        <td class="bb">
+            <?=number_format($v['first_member_salary_section'])?>
         </td>
         <td class="bb"><?=$v['supervisor_1']?>
         </td>
