@@ -372,7 +372,17 @@
                 }).done(function(data) {
                     alert(data.sys_msg);
                     if (data.sys_code == "200") {
-                        location.reload();
+                        // location.reload();
+                        $("tr").each(function(){
+                            if($(this).attr("sn") == $("#sn").val()){
+                                $(this).find("td").eq(1).text(allocation_code);
+                                $(this).find("td").eq(2).text(patrol_staff_name)
+                                $(this).find("td").eq(3).text(start)
+                                $(this).find("td").eq(4).text(end)
+                                $(this).find("td").eq(5).text(section)
+                                $(this).find("td").eq(6).text(note)
+                            }
+                        })                        
                     }
                 })
             }

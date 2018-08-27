@@ -436,7 +436,23 @@
                 }).done(function(data) {
                     alert(data.sys_msg);
                     if (data.sys_code == "200") {
-                        location.reload();
+                        // location.reload();
+                        $("tr").each(function(){
+                            if($(this).attr("sn") == $("#sn").val()){
+                                $(this).find("td").eq(1).text(allocation_code);
+                                $(this).find("td").eq(2).text(trial_staff_name)
+                                $(this).find("td").eq(3).text(first_start)
+                                $(this).find("td").eq(4).text(first_end)
+                                $(this).find("td").eq(5).text(first_section)
+                                $(this).find("td").eq(6).text(second_start)
+                                $(this).find("td").eq(7).text(second_end)
+                                $(this).find("td").eq(8).text(second_section)
+                                $(this).find("td").eq(9).text(third_start)
+                                $(this).find("td").eq(10).text(third_end)
+                                $(this).find("td").eq(11).text(third_section)
+                                $(this).find("td").eq(12).text(note)
+                            }
+                        })
                     }
                 })
             }
