@@ -127,7 +127,6 @@ class Mod_patrol extends CI_Model
     public function add_once($data)
     {
         $this->db->insert('patrol_staff', $data);
-
         return true;
     }
 

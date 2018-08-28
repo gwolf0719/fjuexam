@@ -965,11 +965,11 @@ class Api extends CI_Controller
                 $total = $salary_total;
             }else{
                 $lunch_price = $fees_info['lunch_fee'];
-                $lunch_total = $fees_info['lunch_fee'] * count(do_date);
+                $lunch_total = $fees_info['lunch_fee'] * count($do_date);
                 $salary_total = $fees_info['salary_section']*$data['section'];
                 $total = $salary_total - $lunch_total;                
             }
-            $sql_data = array(
+            $data = array(
                 'part'=>$data['part'],
                 'year'=>$_SESSION['year'],
                 'allocation_code'=>$data['allocation_code'],
@@ -990,7 +990,7 @@ class Api extends CI_Controller
                 'order_meal'=> $member['order_meal'],
                 'meal'=>$member['meal'],
             );
-            $this->mod_patrol->add_once($sql_data);
+            $this->mod_patrol->add_once($data);
             $json_arr['sys_code'] = '200';
             $json_arr['sys_msg'] = '資料儲存完成';
         }
