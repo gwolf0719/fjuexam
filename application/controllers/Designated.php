@@ -1617,7 +1617,6 @@ class Designated extends CI_Controller
         $datetime_info = $this->mod_exam_datetime->get_once($year);
 
         $obj_pdf->setFontSubsetting(false);
-        $obj_pdf->AddPage();
         $data = array(
             'part' => $this->mod_trial->get_once_date_of_voucher1($part),
             'area' => $area,
@@ -1625,9 +1624,84 @@ class Designated extends CI_Controller
             'count'=> $this->mod_trial->get_patrol_member_count($part),
             'school' => $this->mod_exam_area->year_school_name($part),
         );
-        // print_r($data);
-        $view = $this->load->view('designated/e_2_3_1', $data,true);
-        $obj_pdf->writeHTML($view);
+        if ($data['part'] != false) {
+            foreach ($data['part'] as $k => $v) {
+                $html = '<table style="padding:4px 0px;text-align:center;">';
+                $html .= '<thead>';
+                $html .=  '<tr>';
+                $html .=  '<td colspan="5" style="font-size:16px;text-align:center;">'.$_SESSION['year'].'學年度指定科目考試新北一考區</td>';
+                $html .=  '</tr>';       
+                $html .=  '<tr>';
+                $html .=  '<td colspan="5" style="font-size:16px;text-align:center;">'.$_GET['area'].$data['school'].'試題本、答案卷收發記錄單</td>';
+                $html .=  '</tr>'; 
+                $html .=  '<tr>';
+                $html .=  '<td colspan="5" style="font-size:13px;text-align:left;">管卷人員：'.$k.'</td>';
+                $html .=  '</tr>';      
+                $html .=  '<tr>';
+                $html .=  '<td style="border: 1px solid #999999;" colspan="2">日期  科目</td>';
+                $html .=  '<td style="border: 1px solid #999999;" colspan="3">'.mb_substr($datetime_info['day_1'], 5, 8, 'utf-8').'</td>';
+                $html .=  '</tr>';              
+                $html .=  '<tr>';        
+                $html .= '<td style="border: 1px solid #999999;">試場</td>';
+                $html .= '<td style="border: 1px solid #999999;">監試人員</td>';
+                $html .= '<td style="border: 1px solid #999999;">第1節<br>物理</td>';
+                $html .= '<td style="border: 1px solid #999999;">第2節<br>化學</td>';
+                $html .= '<td style="border: 1px solid #999999;">第3節<br>生物</td>';
+                $html .=  '</tr>';        
+                $html .= '</thead>';
+                foreach ($v as $kc => $vc) {
+                    switch ($vc['subject_01']) {
+                        case '0':
+                            $subject_01 = 'X';
+                            break;
+                        default:
+                            $subject_01 = '';
+                    }        
+                    switch ($vc['subject_02']) {
+                        case '0':
+                            $subject_02 = 'X';
+                            break;
+                        default:
+                            $subject_02 = '';
+                    }  
+                    switch ($vc['subject_03']) {
+                        case '0':
+                            $subject_03 = 'X';
+                            break;
+                        default:
+                            $subject_03 = '';
+                    }                                                            
+                    $html .=   '<tr>';
+                    $html .=  '<td  style="border: 1px solid #999999;" rowspan="2">'.$vc['field'].'</td>';
+                    $html .=  '<td  style="border: 1px solid #999999;">'.$vc['supervisor_1'].'</td>';
+                    $html .=  '<td  style="border: 1px solid #999999;">'.$subject_01.'</td>';
+                    $html .=  '<td  style="border: 1px solid #999999;">'.$subject_02.'</td>';
+                    $html .=  '<td  style="border: 1px solid #999999;">'.$subject_03.'</td>';
+                    $html .=  '</tr>';
+                    $html .=   '<tr>';
+                    $html .=  '<td  style="border: 1px solid #999999;">'.$vc['supervisor_2'].'</td>';
+                    $html .=  '<td  style="border: 1px solid #999999;">'.$subject_01.'</td>';
+                    $html .=  '<td  style="border: 1px solid #999999;">'.$subject_02.'</td>';
+                    $html .=  '<td  style="border: 1px solid #999999;">'.$subject_03.'</td>';
+                    $html .=  '</tr>';       
+                    $html .=   '<tr>';
+                    $html .=  '<td  style="border: 1px solid #999999;" colspan="2">管卷人員簽收記錄表</td>';
+                    $html .=  '<td  style="border: 1px solid #999999;">'.$subject_01.'</td>';
+                    $html .=  '<td  style="border: 1px solid #999999;">'.$subject_02.'</td>';
+                    $html .=  '<td  style="border: 1px solid #999999;">'.$subject_03.'</td>';
+                    $html .=  '</tr>';                                    
+                }
+                // $html .= '<tr>';
+                // $html .= '<td colspan="5" style="font-size:13px;text-align:left;">共計：'.count($v).'人</td>';
+                // $html .=  '</tr>';
+                    
+                $html .=  '</table>';
+
+                $obj_pdf->AddPage($html);
+
+                $obj_pdf->writeHTML($html);
+            }
+        }
         $obj_pdf->Output('答案卷卡收發記錄單.pdf', 'I');
     }
 
@@ -1658,7 +1732,6 @@ class Designated extends CI_Controller
         $datetime_info = $this->mod_exam_datetime->get_once($year);
 
         $obj_pdf->setFontSubsetting(false);
-        $obj_pdf->AddPage();
         $data = array(
             'part' => $this->mod_trial->get_once_date_of_voucher2($part),
             'area' => $area,
@@ -1666,9 +1739,95 @@ class Designated extends CI_Controller
             'count'=> $this->mod_trial->get_patrol_member_count($part),
             'school' => $this->mod_exam_area->year_school_name($part),
         );
-        // print_r($data);
-        $view = $this->load->view('designated/e_2_3_2', $data,true);
-        $obj_pdf->writeHTML($view);
+        if ($data['part'] != false) {
+            foreach ($data['part'] as $k => $v) {
+                $html = '<table style="padding:4px 0px;text-align:center;">';
+                $html .= '<thead>';
+                $html .=  '<tr>';
+                $html .=  '<td colspan="6" style="font-size:16px;text-align:center;">'.$_SESSION['year'].'學年度指定科目考試新北一考區</td>';
+                $html .=  '</tr>';       
+                $html .=  '<tr>';
+                $html .=  '<td colspan="6" style="font-size:16px;text-align:center;">'.$_GET['area'].$data['school'].'試題本、答案卷收發記錄單</td>';
+                $html .=  '</tr>'; 
+                $html .=  '<tr>';
+                $html .=  '<td colspan="6" style="font-size:13px;text-align:left;">管卷人員：'.$k.'</td>';
+                $html .=  '</tr>';      
+                $html .=  '<tr>';
+                $html .=  '<td style="border: 1px solid #999999;" colspan="2">日期  科目</td>';
+                $html .=  '<td style="border: 1px solid #999999;" colspan="4">'.mb_substr($datetime_info['day_2'], 5, 8, 'utf-8').'</td>';
+                $html .=  '</tr>';              
+                $html .=  '<tr>';        
+                $html .= '<td style="border: 1px solid #999999;">試場</td>';
+                $html .= '<td style="border: 1px solid #999999;">監試人員</td>';
+                $html .= '<td style="border: 1px solid #999999;">第1節<br>數乙</td>';
+                $html .= '<td style="border: 1px solid #999999;">第2節<br>國文</td>';
+                $html .= '<td style="border: 1px solid #999999;">第3節<br>英文</td>';
+                $html .= '<td style="border: 1px solid #999999;">第4節<br>數甲</td>';
+                $html .=  '</tr>';        
+                $html .= '</thead>';
+                foreach ($v as $kc => $vc) {
+                    switch ($vc['subject_04']) {
+                        case '0':
+                            $subject_04 = 'X';
+                            break;
+                        default:
+                            $subject_04 = '';
+                    }        
+                    switch ($vc['subject_05']) {
+                        case '0':
+                            $subject_05 = 'X';
+                            break;
+                        default:
+                            $subject_05 = '';
+                    }  
+                    switch ($vc['subject_06']) {
+                        case '0':
+                            $subject_06 = 'X';
+                            break;
+                        default:
+                            $subject_06 = '';
+                    }   
+                    switch ($vc['subject_07']) {
+                        case '0':
+                            $subject_07 = 'X';
+                            break;
+                        default:
+                            $subject_07 = '';
+                    }                                                                                
+                    $html .=   '<tr>';
+                    $html .=  '<td  style="border: 1px solid #999999;" rowspan="2">'.$vc['field'].'</td>';
+                    $html .=  '<td  style="border: 1px solid #999999;">'.$vc['supervisor_1'].'</td>';
+                    $html .=  '<td  style="border: 1px solid #999999;">'.$subject_04.'</td>';
+                    $html .=  '<td  style="border: 1px solid #999999;">'.$subject_05.'</td>';
+                    $html .=  '<td  style="border: 1px solid #999999;">'.$subject_06.'</td>';
+                    $html .=  '<td  style="border: 1px solid #999999;">'.$subject_07.'</td>';
+                    $html .=  '</tr>';
+                    $html .=   '<tr>';
+                    $html .=  '<td  style="border: 1px solid #999999;">'.$vc['supervisor_2'].'</td>';
+                    $html .=  '<td  style="border: 1px solid #999999;">'.$subject_04.'</td>';
+                    $html .=  '<td  style="border: 1px solid #999999;">'.$subject_05.'</td>';
+                    $html .=  '<td  style="border: 1px solid #999999;">'.$subject_06.'</td>';
+                    $html .=  '<td  style="border: 1px solid #999999;">'.$subject_07.'</td>';
+                    $html .=  '</tr>';       
+                    $html .=   '<tr>';
+                    $html .=  '<td  style="border: 1px solid #999999;" colspan="2">管卷人員簽收記錄表</td>';
+                    $html .=  '<td  style="border: 1px solid #999999;">'.$subject_04.'</td>';
+                    $html .=  '<td  style="border: 1px solid #999999;">'.$subject_05.'</td>';
+                    $html .=  '<td  style="border: 1px solid #999999;">'.$subject_06.'</td>';
+                    $html .=  '<td  style="border: 1px solid #999999;">'.$subject_07.'</td>';
+                    $html .=  '</tr>';                                    
+                }
+                // $html .= '<tr>';
+                // $html .= '<td colspan="5" style="font-size:13px;text-align:left;">共計：'.count($v).'人</td>';
+                // $html .=  '</tr>';
+                    
+                $html .=  '</table>';
+
+                $obj_pdf->AddPage($html);
+
+                $obj_pdf->writeHTML($html);
+            }
+        }
         $obj_pdf->Output('答案卷卡收發記錄單.pdf', 'I');
     }    
 
@@ -1707,9 +1866,84 @@ class Designated extends CI_Controller
             'count'=> $this->mod_trial->get_patrol_member_count($part),
             'school' => $this->mod_exam_area->year_school_name($part),
         );
-        // print_r($data);
-        $view = $this->load->view('designated/e_2_3_3', $data,true);
-        $obj_pdf->writeHTML($view);
+        if ($data['part'] != false) {
+            foreach ($data['part'] as $k => $v) {
+                $html = '<table style="padding:4px 0px;text-align:center;">';
+                $html .= '<thead>';
+                $html .=  '<tr>';
+                $html .=  '<td colspan="5" style="font-size:16px;text-align:center;">'.$_SESSION['year'].'學年度指定科目考試新北一考區</td>';
+                $html .=  '</tr>';       
+                $html .=  '<tr>';
+                $html .=  '<td colspan="5" style="font-size:16px;text-align:center;">'.$_GET['area'].$data['school'].'試題本、答案卷收發記錄單</td>';
+                $html .=  '</tr>'; 
+                $html .=  '<tr>';
+                $html .=  '<td colspan="5" style="font-size:13px;text-align:left;">管卷人員：'.$k.'</td>';
+                $html .=  '</tr>';      
+                $html .=  '<tr>';
+                $html .=  '<td style="border: 1px solid #999999;" colspan="2">日期  科目</td>';
+                $html .=  '<td style="border: 1px solid #999999;" colspan="3">'.mb_substr($datetime_info['day_1'], 5, 8, 'utf-8').'</td>';
+                $html .=  '</tr>';              
+                $html .=  '<tr>';        
+                $html .= '<td style="border: 1px solid #999999;">試場</td>';
+                $html .= '<td style="border: 1px solid #999999;">監試人員</td>';
+                $html .= '<td style="border: 1px solid #999999;">第1節<br>物理</td>';
+                $html .= '<td style="border: 1px solid #999999;">第2節<br>化學</td>';
+                $html .= '<td style="border: 1px solid #999999;">第3節<br>生物</td>';
+                $html .=  '</tr>';        
+                $html .= '</thead>';
+                foreach ($v as $kc => $vc) {
+                    switch ($vc['subject_08']) {
+                        case '0':
+                            $subject_08 = 'X';
+                            break;
+                        default:
+                            $subject_08 = '';
+                    }        
+                    switch ($vc['subject_09']) {
+                        case '0':
+                            $subject_09 = 'X';
+                            break;
+                        default:
+                            $subject_09 = '';
+                    }  
+                    switch ($vc['subject_10']) {
+                        case '0':
+                            $subject_10 = 'X';
+                            break;
+                        default:
+                            $subject_10 = '';
+                    }                                                            
+                    $html .=   '<tr>';
+                    $html .=  '<td  style="border: 1px solid #999999;" rowspan="2">'.$vc['field'].'</td>';
+                    $html .=  '<td  style="border: 1px solid #999999;">'.$vc['supervisor_1'].'</td>';
+                    $html .=  '<td  style="border: 1px solid #999999;">'.$subject_08.'</td>';
+                    $html .=  '<td  style="border: 1px solid #999999;">'.$subject_09.'</td>';
+                    $html .=  '<td  style="border: 1px solid #999999;">'.$subject_10.'</td>';
+                    $html .=  '</tr>';
+                    $html .=   '<tr>';
+                    $html .=  '<td  style="border: 1px solid #999999;">'.$vc['supervisor_2'].'</td>';
+                    $html .=  '<td  style="border: 1px solid #999999;">'.$subject_08.'</td>';
+                    $html .=  '<td  style="border: 1px solid #999999;">'.$subject_09.'</td>';
+                    $html .=  '<td  style="border: 1px solid #999999;">'.$subject_10.'</td>';
+                    $html .=  '</tr>';       
+                    $html .=   '<tr>';
+                    $html .=  '<td  style="border: 1px solid #999999;" colspan="2">管卷人員簽收記錄表</td>';
+                    $html .=  '<td  style="border: 1px solid #999999;">'.$subject_08.'</td>';
+                    $html .=  '<td  style="border: 1px solid #999999;">'.$subject_09.'</td>';
+                    $html .=  '<td  style="border: 1px solid #999999;">'.$subject_10.'</td>';
+                    $html .=  '</tr>';                                    
+                }
+                // $html .= '<tr>';
+                // $html .= '<td colspan="5" style="font-size:13px;text-align:left;">共計：'.count($v).'人</td>';
+                // $html .=  '</tr>';
+                    
+                $html .=  '</table>';
+
+                $obj_pdf->AddPage($html);
+
+                $obj_pdf->writeHTML($html);
+            }
+        }
         $obj_pdf->Output('答案卷卡收發記錄單.pdf', 'I');
     }        
 
@@ -1740,7 +1974,7 @@ class Designated extends CI_Controller
                 $html = '<table style="padding:8px 0px;text-align:center;">';
                 $html .= '<thead>';
                 $html .=  '<tr>';
-                $html .=  '<td colspan="5" style="font-size:14px;">'.$_SESSION['year'].' 學年度監試說明會簽到表</td>';
+                $html .=  '<td colspan="5" style="font-size:14px;">'.$_SESSION['year'].'學年度指定科目考試新北一考區監試說明會簽到表</td>';
                 $html .=  '</tr>';       
                 $html .=  '<tr>';
                 $html .=  '<td colspan="5" style="font-size:13px;text-align:left;">單位：'.$k.'</td>';
@@ -2415,7 +2649,7 @@ class Designated extends CI_Controller
             $objPHPExcel->getActiveSheet()->setCellValue('C'.(2+$i), mb_substr($datetime_info['day_2'], 5, 8, 'utf-8'));
             $objPHPExcel->getActiveSheet()->setCellValue('D'.(2+$i), mb_substr($datetime_info['day_3'], 5, 8, 'utf-8'));
             $objPHPExcel->getActiveSheet()->setCellValue('E'.(2+$i), $res[$i]['supervisor_code']);
-            $objPHPExcel->getActiveSheet()->setCellValue('F'.(2+$i), $res[$i]['supervisor']);
+            $objPHPExcel->getActiveSheet()->setCellValue('F'.(2+$i), trim($res[$i]['supervisor']));
             $objPHPExcel->getActiveSheet()->setCellValue('G'.(2+$i), $_GET['area']);
             $objPHPExcel->getActiveSheet()->setCellValue('H'.(2+$i), $res[$i]['do_date']);
             $objPHPExcel->getActiveSheet()->setCellValue('I'.(2+$i), $res[$i]['test_section']);

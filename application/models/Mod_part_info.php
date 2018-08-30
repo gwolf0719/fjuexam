@@ -42,6 +42,7 @@ class Mod_part_info extends CI_Model
     public function update_floor($data)
     {
         $this->db->where('year', $this->session->userdata('year'));
+        $this->db->where('part',$data['part']);
         $this->db->where('field>=', $data['start']);
         $this->db->where('field<=', $data['end']);
         $res = $this->db->get('part_info')->result_array();

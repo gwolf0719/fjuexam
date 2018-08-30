@@ -103,6 +103,7 @@ $(function(){
 
     $("body").on("click","#send",function(){
         if(confirm("是否要儲存?")){
+            var part = $("#part").val();            
             var floor = $("#floor").val();
             var start = $("#start").val();
             var end = $("#end").val();
@@ -110,6 +111,7 @@ $(function(){
             $.ajax({
                 url: 'api/save_floor',
                 data:{
+                    "part":part,
                     "floor":floor,
                     "start":start,
                     "end":end,

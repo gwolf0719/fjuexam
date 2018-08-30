@@ -46,12 +46,12 @@
     <?php foreach ($part as $k => $v): ?>
     <tr>
         <td class="bb">
-            <?=$v['field']?>
+            <?=trim($v['field'])?>
         </td>
         <td class="bb">
-            <?=number_format($v['first_member_salary_section'])?>
+            <?=trim(number_format($v['first_member_salary_section']))?>
         </td>
-        <td class="bb"><?=$v['supervisor_1']?>
+        <td class="bb"><?=trim($v['supervisor_1'])?>
         </td>
         <td class="bb">
             <?php
@@ -65,7 +65,7 @@
         <td class="bb">
             <?php
             if ($v['order_meal1'] == "N") {
-                echo number_format($v['first_member_section_salary_total'] - 0);
+                echo trim(number_format($v['first_member_section_salary_total'] - 0));
             } else {
                 echo number_format($v['first_member_section_salary_total'] - abs($v['first_member_section_lunch_total']));
             }
@@ -73,14 +73,14 @@
         </td>
         <td colspan="2" class="bb" style="line-height:30px;"></td>
 
-        <td class="bb"><?=$v['supervisor_2']?>
+        <td class="bb"><?=trim($v['supervisor_2'])?>
         </td>
         <td class="bb">
             <?php
             if ($v['order_meal2'] == "N") {
                 echo 0;
             } else {
-                echo number_format(abs($v['second_member_section_lunch_total']));
+                echo trim(number_format(abs($v['second_member_section_lunch_total'])));
             }
             ?>
         </td>

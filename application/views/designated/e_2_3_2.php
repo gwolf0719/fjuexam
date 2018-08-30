@@ -29,7 +29,7 @@
             <td class="bb">第1節<br>數乙</td>
             <td class="bb">第2節<br>國文</td>
             <td class="bb">第3節<br>英文</td>     
-            <td class="bb">第3節<br>數甲</td>        
+            <td class="bb">第4節<br>數甲</td>        
         </tr>      
     </thead>
     <?php foreach ($v as $kc => $vc): ?>
