@@ -579,7 +579,6 @@ class Api extends CI_Controller
                 $max = $this->mod_trial->get_max_field($data['part']);
                 $min = $this->mod_trial->get_min_field($data['part']);
                 $day = $this->mod_exam_datetime->room_use_day($min['field'], $max['field']);
-                print_r($day);
                 $datetime_info = $this->mod_exam_datetime->get_once($_SESSION['year']);
                 $fees_info = $this->mod_exam_fees->get_once($_SESSION['year']);
                 $part_info = $this->mod_part_info->get_once($data['sn']);
