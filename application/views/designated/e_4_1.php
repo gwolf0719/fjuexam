@@ -72,18 +72,18 @@
 
     <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6 cube text-center">
         <a href="assets/zip/監試人員書函.doc" download>
-            <img src="assets/images/e_4_1_2.png" alt="">
+            <img src="assets/images/E401.png" alt="">
         </a>
     </div>
 
-    <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6 cube text-center"></div>
+    <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6 cube text-center"></div> 
 
     <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6 cube text-center">
         <a href="assets/zip/試務人員書函.doc" download>
-            <img src="assets/images/e_4_1_3.png" alt="">
+            <img src="assets/images/E402.png" alt="">
         </a>
     </div>
-</div>
+</div>  
 <!-- Modal start-->
 <div class="modal fade" id="download" tabindex="-1" role="dialog" aria-labelledby="download" aria-hidden="true">
     <div class="modal-dialog" role="document">
