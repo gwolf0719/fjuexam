@@ -902,7 +902,7 @@
                             <input type="checkbox" class="" name="need" id="first_member_order_meal">
                             <span>需訂餐</span>
                         </div>
-                        <div class="form-group first_member_meal" style="display:none;">
+                        <div class="form-group first_member_meal">
                             <label for="first_member_meal" class="" style="float:left;">餐別</label>
                             <select class="form-control" id="first_member_meal">
                                 <option value="葷">葷</option>
@@ -1004,7 +1004,7 @@
                             <input type="checkbox" class="" name="need" id="second_member_order_meal">
                             <span>需訂餐</span>
                         </div>
-                        <div class="form-group second_member_meal" style="display:none;">
+                        <div class="form-group second_member_meal">
                             <label for="second_member_meal" class="" style="float:left;">餐別</label>
                             <select class="form-control" id="second_member_meal">
                                 <option value="葷">葷</option>

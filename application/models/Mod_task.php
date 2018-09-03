@@ -448,14 +448,14 @@ class Mod_task extends CI_Model
         $this->db->where('job_code !=', "");
 
         $res = $this->db->get('district_task')->result_array();
-
         if (!empty($res)) {
             for ($i=0; $i < count($res); $i++) {
                 # code...
+                $do_date = explode(",",$res[$i]['do_date']);
                 $arr[] = array(
                     'job'=>$res[$i]['job'],
                     'name'=>$res[$i]['name'],
-                    'one_day_salary'=>$res[$i]['one_day_salary'],
+                    'one_day_salary'=>$res[$i]['one_day_salary'] * count($do_date),
                     'salary_total'=>$res[$i]['salary_total'],
                     'lunch_price'=>$res[$i]['lunch_price'],
                     'lunch_total'=>$res[$i]['lunch_total'],
@@ -469,6 +469,52 @@ class Mod_task extends CI_Model
             return false;
         }
     }           
+
+    public function get_all_salary_trial_total_of_district($area){
+        $this->db->where('year', $this->session->userdata('year'));
+        if ($area != '') {
+            $this->db->where('area', $area);
+        }
+
+        $this->db->where('job_code !=', "");
+
+        $res = $this->db->get('district_task')->result_array();
+
+        if (!empty($res)) {
+            $salary = 0;
+            for ($i=0; $i < count($res); $i++) {
+                # code...
+                $salary += $res[$i]['salary_total'];
+
+            }
+            return $salary;
+        }else{
+            return false;
+        }
+    }
+
+    public function get_all_lunch_trial_total_of_district($area){
+        $this->db->where('year', $this->session->userdata('year'));
+        if ($area != '') {
+            $this->db->where('area', $area);
+        }
+
+        $this->db->where('job_code !=', "");
+
+        $res = $this->db->get('district_task')->result_array();
+
+        if (!empty($res)) {
+            $lunch = 0;
+            for ($i=0; $i < count($res); $i++) {
+                # code...
+                $lunch += $res[$i]['lunch_total'];
+
+            }
+            return $lunch;
+        }else{
+            return false;
+        }
+    }    
 
     public function get_sign_list($area = '')
     {

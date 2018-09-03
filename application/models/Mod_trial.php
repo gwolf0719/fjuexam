@@ -225,6 +225,8 @@ class Mod_trial extends CI_Model
                 $patrol = $this->db->where('start <=', $sub[$i]['start'])->where('end >=', $sub[$i]['end'])->get('patrol_staff')->row_array();
                 $course = $this->db->where('year', $year)->where('field', $sub[$i]['field'])->get('exam_area')->row_array();
                 $trial = $this->db->get('trial_staff')->result_array();
+                // $trial_staff = $this->db->where('start <=', $sub[$i]['start'])->where('end >=', $sub[$i]['end'])->get('trial_staff')->row_array();
+                // print_r($trial_staff);
                 if($sub[$i]['first_member_salary_section'] == ""){
                     $first_member_salary_section = 0;
                 }else{
@@ -328,14 +330,14 @@ class Mod_trial extends CI_Model
                     'test_section' => $sub[$i]['test_section'],
                     'part' => $sub[$i]['part'],
                     'do_date' => $sub[$i]['first_member_do_date'],
-                    'first_member_salary_section'=> $first_member_salary_section * count($do_date1),
+                    'first_member_salary_section'=> $sub[$i]['first_member_section_salary_total'] * count($do_date1),
                     'first_member_section_lunch_total'=>$sub[$i]['first_member_section_lunch_total']*count($do_date1),
                     'first_member_section_salary_total'=>$sub[$i]['first_member_section_salary_total']*count($do_date1),
                     'order_meal1'=>$supervisor1['order_meal'],
                     'supervisor_1'=>$sub[$i]['supervisor_1'],
                     'supervisor_1_unit' => $supervisor1['member_unit'] ,
                     'supervisor_1_phone' => $supervisor1['member_phone'],
-                    'second_member_salary_section'=>$second_member_salary_section*count($do_date2),
+                    'second_member_salary_section'=> $sub[$i]['second_member_section_salary_total']*count($do_date2),
                     'second_member_section_lunch_total'=>$sub[$i]['second_member_section_lunch_total']*count($do_date2),
                     'second_member_section_salary_total'=>$sub[$i]['second_member_section_salary_total']*count($do_date2),
                     'supervisor_2'=>$sub[$i]['supervisor_2'],
@@ -781,15 +783,15 @@ class Mod_trial extends CI_Model
 
         sort($sub);
 
-    
+        // print_r($sub);
 
         if (!empty($sub)) {
             for ($i=0; $i < count($sub); $i++) {
                 # code...
                 $supervisor1 = $this->db->where('member_code', $sub[$i]['supervisor_1_code'])->get('staff_member')->row_array();
                 $supervisor2 = $this->db->where('member_code', $sub[$i]['supervisor_2_code'])->get('staff_member')->row_array();
-                
                 $do_date = explode("、", $sub[$i]['first_member_do_date']);
+                
                 # code...
                 if (strtoupper($sub[$i]['first_member_order_meal']) == "Y") {
                     $first_member_meal = $supervisor1['meal'];
@@ -843,7 +845,6 @@ class Mod_trial extends CI_Model
         if (!empty($res)) {
             for ($i=0; $i < count($res); $i++) {
                 $do_date = explode(",", $res[$i]['do_date']);
-                
                 # code...
                 $arr[] = array(
                     'job'=> '分區管卷人員',
@@ -862,7 +863,75 @@ class Mod_trial extends CI_Model
         }else{
             return false;
         }
-    }        
+    }    
+    
+    public function get_trial_staff_salary_total($part = '')
+    {
+        $this->db->where('year', $this->session->userdata('year'));
+        if ($part != '') {
+            $this->db->where('part', $part);
+        }
+
+        $res = $this->db->get('trial_staff')->result_array();
+        $salary = 0;
+        if (!empty($res)) {
+            for ($i=0; $i < count($res); $i++) {
+                $do_date = explode(",", $res[$i]['do_date']);
+                # code...
+                $arr[] = array(
+                    'job'=> '分區管卷人員',
+                    'name'=>$res[$i]['trial_staff_name'],
+                    'one_day_salary'=>$res[$i]['salary'] * count($do_date),
+                    'salary_total'=>$res[$i]['salary_total'] * count($do_date),
+                    'lunch_price'=>$res[$i]['lunch_price'] * count($do_date),
+                    'lunch_total'=>$res[$i]['lunch_total'] * count($do_date),
+                    'total'=>$res[$i]['total'] * count($do_date),
+                    'order_meal'=>$res[$i]['order_meal']
+                );
+
+                $salary += $res[$i]['salary_total'] * count($do_date); 
+
+            }
+            
+            return $salary;
+        }else{
+            return false;
+        }
+    }         
+    
+    public function get_trial_staff_lunch_total($part = '')
+    {
+        $this->db->where('year', $this->session->userdata('year'));
+        if ($part != '') {
+            $this->db->where('part', $part);
+        }
+
+        $res = $this->db->get('trial_staff')->result_array();
+        $lunch = 0;
+        if (!empty($res)) {
+            for ($i=0; $i < count($res); $i++) {
+                $do_date = explode(",", $res[$i]['do_date']);
+                # code...
+                $arr[] = array(
+                    'job'=> '分區管卷人員',
+                    'name'=>$res[$i]['trial_staff_name'],
+                    'one_day_salary'=>$res[$i]['salary'] * count($do_date),
+                    'salary_total'=>$res[$i]['salary_total'] * count($do_date),
+                    'lunch_price'=>$res[$i]['lunch_price'] * count($do_date),
+                    'lunch_total'=>$res[$i]['lunch_total'] * count($do_date),
+                    'total'=>$res[$i]['total'] * count($do_date),
+                    'order_meal'=>$res[$i]['order_meal']
+                );
+
+                $lunch += $res[$i]['lunch_total'] * count($do_date); 
+
+            }
+            
+            return $lunch;
+        }else{
+            return false;
+        }
+    }           
     
     public function get_patrol_staff_task_money_list($part = '')
     {
@@ -891,6 +960,52 @@ class Mod_trial extends CI_Model
             }
             
             return $arr;
+        }else{
+            return false;
+        }
+    }    
+    
+    public function get_patrol_staff_salary_total($part = '')
+    {
+        $this->db->where('year', $this->session->userdata('year'));
+        if ($part != '') {
+            $this->db->where('part', $part);
+        }
+
+        $res = $this->db->get('patrol_staff')->result_array();
+        if (!empty($res)) {
+            $salary = 0;
+            for ($i=0; $i < count($res); $i++) {
+                $do_date = explode(",", $res[$i]['do_date']);
+
+                $salary += $res[$i]['salary_total'] * count($do_date);
+
+            }
+            
+            return $salary;
+        }else{
+            return false;
+        }
+    }        
+
+    public function get_patrol_staff_lunch_total($part = '')
+    {
+        $this->db->where('year', $this->session->userdata('year'));
+        if ($part != '') {
+            $this->db->where('part', $part);
+        }
+
+        $res = $this->db->get('patrol_staff')->result_array();
+        if (!empty($res)) {
+            $lunch = 0;
+            for ($i=0; $i < count($res); $i++) {
+                $do_date = explode(",", $res[$i]['do_date']);
+                
+                $lunch += $res[$i]['lunch_total'] * count($do_date);
+
+            }
+            
+            return $lunch;
         }else{
             return false;
         }

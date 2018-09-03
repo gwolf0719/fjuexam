@@ -61,7 +61,7 @@
 <div class="W80" style="text-align: left;padding-left: 6%;">
     <img src="assets/images/e4.png" alt="" style="width: 30%;margin-right: 20px;">
     <img src="assets/images/e_4_1.png" alt="" style="width: 30%;">
-</div>
+</div> 
 
 <div style="clear:both"></div>
 
@@ -71,7 +71,7 @@
     </div>
 
     <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6 cube text-center">
-        <a href="assets/zip/監試人員書函.doc" download>
+        <a href="assets/zip/試務人員書函.doc" download>
             <img src="assets/images/E401.png" alt="">
         </a>
     </div>
@@ -79,7 +79,7 @@
     <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6 cube text-center"></div> 
 
     <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6 cube text-center">
-        <a href="assets/zip/試務人員書函.doc" download>
+        <a href="assets/zip/監試人員書函.doc" download>
             <img src="assets/images/E402.png" alt="">
         </a>
     </div>

@@ -592,7 +592,7 @@ class Api extends CI_Controller
                 if($day[2] != ""){
                     array_push($do_date,mb_substr($datetime_info['day_3'], 5, 8, 'utf-8'));
                 }                
-                $date = implode(",",$do_date);
+                $date = implode("、",$do_date);
                 if($member1['order_meal'] == "N"){
                     $first_lunch_fee = 0;
                     $first_lunch_total = 0;

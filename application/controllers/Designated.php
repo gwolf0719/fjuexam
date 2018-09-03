@@ -2651,7 +2651,7 @@ class Designated extends CI_Controller
             $objPHPExcel->getActiveSheet()->setCellValue('E'.(2+$i), $res[$i]['supervisor_code']);
             $objPHPExcel->getActiveSheet()->setCellValue('F'.(2+$i), trim($res[$i]['supervisor']));
             $objPHPExcel->getActiveSheet()->setCellValue('G'.(2+$i), $_GET['area']);
-            $objPHPExcel->getActiveSheet()->setCellValue('H'.(2+$i), $res[$i]['do_date']);
+            $objPHPExcel->getActiveSheet()->setCellValue('H'.(2+$i), str_replace(",","、",$res[$i]['do_date']));
             $objPHPExcel->getActiveSheet()->setCellValue('I'.(2+$i), $res[$i]['test_section']);
             $objPHPExcel->getActiveSheet()->setCellValue('J'.(2+$i), $subject_01);
             $objPHPExcel->getActiveSheet()->setCellValue('K'.(2+$i), $subject_02);
@@ -3269,6 +3269,8 @@ class Designated extends CI_Controller
             'part' => $this->mod_task->get_district_task_money_list($area),
             'area'=> $area,
             'school' => $this->mod_exam_area->year_school_name($part),
+            'salary'=>$this->mod_task->get_all_salary_trial_total_of_district($area),
+            'lunch'=>$this->mod_task->get_all_lunch_trial_total_of_district($area)            
         );
         $view =  $this->load->view('designated/e_6_3', $data, true);
         $obj_pdf->writeHTML($view);
@@ -3302,6 +3304,8 @@ class Designated extends CI_Controller
             'part' => $this->mod_trial->get_trial_staff_task_money_list($part),
             'area'=> $area,
             'school' => $this->mod_exam_area->year_school_name($part),
+            'salary'=>$this->mod_trial->get_trial_staff_salary_total($part),
+            'lunch'=>$this->mod_trial->get_trial_staff_lunch_total($part)            
         );
         $view =  $this->load->view('designated/e_6_4', $data, true);
         $obj_pdf->writeHTML($view);
@@ -3335,6 +3339,8 @@ class Designated extends CI_Controller
             'part' => $this->mod_trial->get_patrol_staff_task_money_list($part),
             'area'=> $area,
             'school' => $this->mod_exam_area->year_school_name($part),
+            'salary'=>$this->mod_trial->get_patrol_staff_salary_total($part),
+            'lunch'=>$this->mod_trial->get_patrol_staff_lunch_total($part)                  
         );
         $view =  $this->load->view('designated/e_6_5', $data, true);
         $obj_pdf->writeHTML($view);

@@ -10,40 +10,36 @@ class Mod_exam_datetime extends CI_Model
      * true 有
      * flase 沒有.
      */
-    public function room_use_day($start, $end)
-    {
-        $year = $this->session->userdata('year');
+    function room_use_day($start,$end){
+        $year  = $this->session->userdata("year");
         // 取得每日考科
         $day = array();
-        for ($i = 1; $i <= 3; ++$i) {
-            foreach ($this->db->select('subject')->where('year', $year)->where('day', $i)->get('exam_course')->result_array() as $key => $value) {
-                // code...
-                if ($value['subject'] != 'subject_00') {
+        for($i=1;$i<=3;$i++){
+            foreach ($this->db->select('subject')->where('year',$year)->where('day',$i)->get('exam_course')->result_array() as $key => $value) {
+                # code...
+                if($value['subject'] != "subject_00"){
                     $day[$i][] = $value['subject'];
                 }
             }
         }
         // 確認每一天
         $res = array();
-
-        for ($i = 1; $i <= 3; ++$i) {
-            // 將考科送入搜尋條件
+         for($i=1;$i<=3;$i++){
             $where = array(
-                'year'=>$year,
                 'field <='=>$end,
                 'field >='=>$start
             );
-            foreach($day[$i] as $k=>$v){
-                $where[$v.'!='] = 0;
-            }
-            // 如果有就true 沒有的話就 flase
-            if ($this->db->where($where)->count_all_results('exam_area') != 0) {
-                $res[] = true;
-            } else {
+            // foreach($day[$i] as $k=>$v){
+            //     $where[$v.'!='] = 0;
+            // }
+            if($this->db->where($where)->count_all_results('exam_area') != 0){
+                $res[] = true;    
+            }else{
                 $res[] = false;
             }
         }
-
+        
+        
         return $res;
     }
 

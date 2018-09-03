@@ -72,10 +72,19 @@
     </div>
 
     <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6 cube text-center">
-        <!-- <a href="assets/zip/名牌.zip" download> -->
-            <img src="assets/images/e_5_1_1.png" alt="" style="cursor: pointer;" data-toggle="modal" data-target="#download1">
-        <!-- </a> -->
+        <a href="assets/zip/試務人員識別證.docx" target="_blank" download> 
+            <img src="assets/images/E5101.png" alt="">
+        </a>              
     </div>
+
+    <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6 cube text-center">
+    </div>    
+
+    <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6 cube text-center">
+        <a href="assets/zip/監試人員識別證.docx" target="_blank" download> 
+            <img src="assets/images/E5102.png" alt="">
+        </a>              
+    </div>    
 </div>
 
 <!-- Modal start-->
