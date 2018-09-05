@@ -402,7 +402,7 @@ class Api extends CI_Controller
             $this->mod_exam_datetime->clean_course($year);
             $this->mod_exam_datetime->setting_course($year, $data['data']);
             $json_arr['sys_code'] = '200';
-            $json_arr['sys_msg'] = 'Success';
+            $json_arr['sys_msg'] = '修改成功';
         }
         echo json_encode($json_arr);
     }

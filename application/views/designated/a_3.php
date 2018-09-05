@@ -58,7 +58,8 @@
     $(function() {
         // 畫面一載入的時候全部 input 關閉
         $("#member_code").attr("readonly", "readonly");
-        $("input").attr("disabled", "disabled");
+        $('input[type=text]').attr("disabled", "disabled");
+        $('input[type=checkbox]').attr("disabled", "disabled");
 
 
         $("body").on("click", "#Upload", function() {
