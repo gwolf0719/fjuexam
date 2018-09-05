@@ -9,7 +9,7 @@
         <td colspan="9" style="font-size:18px;"><?=$_SESSION['year']?>學年度指定科目考試新北一考區</td>
     </tr>
     <tr>
-        <td colspan="9" style="font-size:16px;"><?=$area?><?=$school?>試場工作人員分配表</td>
+        <td colspan="9" style="font-size:16px;"><?=$area?><?=$school?>試場工作人員分配表 (<?=$date?>)</td>
     </tr>
     <tr style="background:#FFE4E7">
         <th class="bb">試場</th>
@@ -26,7 +26,7 @@
         <td class="bb" colspan="2"><?=trim($v['floor']) ?></td>
         <td class="bb"><?=trim($v['supervisor_1'])?></td>
         <td class="bb"><?=trim($v['supervisor_2'])?></td>
-        <td class="bb" colspan="2"><?=trim($v['allocation_code'])?> <?=trim($v['patrol'])?></td>
+        <td class="bb" colspan="2"><?=trim($v['allocation_code'])?> <?=trim($v['voucher'])?></td>
     </tr>
     <?php endforeach; ?>
     <tr>

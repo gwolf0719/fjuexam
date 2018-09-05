@@ -2081,11 +2081,34 @@ class Designated extends CI_Controller
 
     public function e_3()
     {
+        $this->load->model('mod_exam_datetime');
         $this->mod_user->chk_status();
+        if ($this->mod_exam_datetime->chk_once($_SESSION['year'])) {
+            $datetime_info = $this->mod_exam_datetime->get_once($_SESSION['year']);
+        } else {
+            $datetime_info = array(
+                'day_1' => '1911' + $this->session->userdata('year').'/07/01',
+                'day_2' => '1911' + $this->session->userdata('year').'/07/02',
+                'day_3' => '1911' + $this->session->userdata('year').'/07/03',
+                'course_1_start' => '08:40',
+                'course_1_end' => '10:00',
+                'course_2_start' => '10:50',
+                'course_2_end' => '12:00',
+                'course_3_start' => '14:00',
+                'course_3_end' => '15:20',
+                'course_4_start' => '16:01',
+                'course_4_end' => '17:30',
+                'pre_1' => '08:25',
+                'pre_2' => '10:45',
+                'pre_3' => '13:55',
+                'pre_4' => '16:05',
+            );
+        }        
         $data = array(
             'title' => '日程表 / 分配表',
             'path' => 'designated/e_3',
             'path_text' => ' > 製作報表 > 日程表 / 分配表',
+            'datetime_info'=> $datetime_info
         );
         $this->load->view('layout', $data);
     }
@@ -2688,7 +2711,7 @@ class Designated extends CI_Controller
         $objWriter->save('php://output');
     }
 
-    public function e_3_2()
+    public function e_3_2_1_1()
     {
         $this->load->library('pdf');
         $this->load->model('mod_trial');
@@ -2711,17 +2734,315 @@ class Designated extends CI_Controller
 
         $obj_pdf->setFontSubsetting(false);
         $obj_pdf->AddPage();
+        $date = $_GET['date'];
         $data = array(
-            'part' => $this->mod_trial->get_list_for_pdf($part),
+            'part' => $this->mod_trial->e_3_2_1($part),
             'area' => $area,
             'count'=> $this->mod_trial->get_patrol_member_count($part),
             'school' => $this->mod_exam_area->year_school_name($part),
+            'date' => $date,
         );
         // print_r($data);
-        $view =  $this->load->view('designated/e_3_2', $data, true);
+        $view =  $this->load->view('designated/e_3_2_1', $data, true);
         $obj_pdf->writeHTML($view);
         $obj_pdf->Output('試場工作人員分配表.pdf', 'I');
     }
+
+    public function e_3_2_1_2()
+    {
+        $this->load->library('pdf');
+        $this->load->model('mod_trial');
+        $this->load->model('mod_exam_area');
+        $obj_pdf = new Pdf(PDF_PAGE_ORIENTATION, PDF_UNIT, PDF_PAGE_FORMAT, false, 'UTF-8', false);
+        $obj_pdf->SetCreator(PDF_CREATOR);
+        $title = '試場工作人員分配表';
+        $date = date('yyyy/m/d');
+        $part = $_GET['part'];
+        $area = $_GET['area'];
+
+        $obj_pdf->SetTitle($title);
+        $obj_pdf->SetHeaderData('', '', $title, '印表日期：'.$date);
+        $obj_pdf->setPrintHeader(false);
+        // $obj_pdf->SetHeaderMargin(PDF_MARGIN_HEADER);
+        $obj_pdf->SetFooterMargin(PDF_MARGIN_FOOTER);
+        $obj_pdf->SetMargins(PDF_MARGIN_LEFT, PDF_MARGIN_RIGHT);
+        $obj_pdf->SetAutoPageBreak(true, PDF_MARGIN_BOTTOM);
+        $obj_pdf->SetFont('msungstdlight', '', 12);
+
+        $obj_pdf->setFontSubsetting(false);
+        $obj_pdf->AddPage();
+        $date = $_GET['date'];
+        $data = array(
+            'part' => $this->mod_trial->e_3_2_2($part),
+            'area' => $area,
+            'count'=> $this->mod_trial->get_patrol_member_count($part),
+            'school' => $this->mod_exam_area->year_school_name($part),
+            'date' => $date,
+        );
+        // print_r($data);
+        $view =  $this->load->view('designated/e_3_2_1', $data, true);
+        $obj_pdf->writeHTML($view);
+        $obj_pdf->Output('試場工作人員分配表.pdf', 'I');
+    }
+
+    public function e_3_2_1_3()
+    {
+        $this->load->library('pdf');
+        $this->load->model('mod_trial');
+        $this->load->model('mod_exam_area');
+        $obj_pdf = new Pdf(PDF_PAGE_ORIENTATION, PDF_UNIT, PDF_PAGE_FORMAT, false, 'UTF-8', false);
+        $obj_pdf->SetCreator(PDF_CREATOR);
+        $title = '試場工作人員分配表';
+        $date = date('yyyy/m/d');
+        $part = $_GET['part'];
+        $area = $_GET['area'];
+
+        $obj_pdf->SetTitle($title);
+        $obj_pdf->SetHeaderData('', '', $title, '印表日期：'.$date);
+        $obj_pdf->setPrintHeader(false);
+        // $obj_pdf->SetHeaderMargin(PDF_MARGIN_HEADER);
+        $obj_pdf->SetFooterMargin(PDF_MARGIN_FOOTER);
+        $obj_pdf->SetMargins(PDF_MARGIN_LEFT, PDF_MARGIN_RIGHT);
+        $obj_pdf->SetAutoPageBreak(true, PDF_MARGIN_BOTTOM);
+        $obj_pdf->SetFont('msungstdlight', '', 12);
+
+        $obj_pdf->setFontSubsetting(false);
+        $obj_pdf->AddPage();
+        $date = $_GET['date'];
+        $data = array(
+            'part' => $this->mod_trial->e_3_2_3($part),
+            'area' => $area,
+            'count'=> $this->mod_trial->get_patrol_member_count($part),
+            'school' => $this->mod_exam_area->year_school_name($part),
+            'date' => $date,
+        );
+        // print_r($data);
+        $view =  $this->load->view('designated/e_3_2_1', $data, true);
+        $obj_pdf->writeHTML($view);
+        $obj_pdf->Output('試場工作人員分配表.pdf', 'I');
+    }    
+
+    public function e_3_2_2_1()
+    {
+        $this->load->library('pdf');
+        $this->load->model('mod_trial');
+        $this->load->model('mod_exam_area');
+        $obj_pdf = new Pdf(PDF_PAGE_ORIENTATION, PDF_UNIT, PDF_PAGE_FORMAT, false, 'UTF-8', false);
+        $obj_pdf->SetCreator(PDF_CREATOR);
+        $title = '試場工作人員分配表';
+        $date = date('yyyy/m/d');
+        $part = $_GET['part'];
+        $area = $_GET['area'];
+
+        $obj_pdf->SetTitle($title);
+        $obj_pdf->SetHeaderData('', '', $title, '印表日期：'.$date);
+        $obj_pdf->setPrintHeader(false);
+        // $obj_pdf->SetHeaderMargin(PDF_MARGIN_HEADER);
+        $obj_pdf->SetFooterMargin(PDF_MARGIN_FOOTER);
+        $obj_pdf->SetMargins(PDF_MARGIN_LEFT, PDF_MARGIN_RIGHT);
+        $obj_pdf->SetAutoPageBreak(true, PDF_MARGIN_BOTTOM);
+        $obj_pdf->SetFont('msungstdlight', '', 12);
+
+        $obj_pdf->setFontSubsetting(false);
+        $obj_pdf->AddPage();
+        $date = $_GET['date'];
+        $data = array(
+            'part' => $this->mod_trial->e_3_2_1($part),
+            'area' => $area,
+            'count'=> $this->mod_trial->get_patrol_member_count($part),
+            'school' => $this->mod_exam_area->year_school_name($part),
+            'date' => $date,
+        );
+        // print_r($data);
+        $view =  $this->load->view('designated/e_3_2_2', $data, true);
+        $obj_pdf->writeHTML($view);
+        $obj_pdf->Output('試場工作人員分配表.pdf', 'I');
+    }
+    
+    public function e_3_2_2_2()
+    {
+        $this->load->library('pdf');
+        $this->load->model('mod_trial');
+        $this->load->model('mod_exam_area');
+        $obj_pdf = new Pdf(PDF_PAGE_ORIENTATION, PDF_UNIT, PDF_PAGE_FORMAT, false, 'UTF-8', false);
+        $obj_pdf->SetCreator(PDF_CREATOR);
+        $title = '試場工作人員分配表';
+        $date = date('yyyy/m/d');
+        $part = $_GET['part'];
+        $area = $_GET['area'];
+
+        $obj_pdf->SetTitle($title);
+        $obj_pdf->SetHeaderData('', '', $title, '印表日期：'.$date);
+        $obj_pdf->setPrintHeader(false);
+        // $obj_pdf->SetHeaderMargin(PDF_MARGIN_HEADER);
+        $obj_pdf->SetFooterMargin(PDF_MARGIN_FOOTER);
+        $obj_pdf->SetMargins(PDF_MARGIN_LEFT, PDF_MARGIN_RIGHT);
+        $obj_pdf->SetAutoPageBreak(true, PDF_MARGIN_BOTTOM);
+        $obj_pdf->SetFont('msungstdlight', '', 12);
+
+        $obj_pdf->setFontSubsetting(false);
+        $obj_pdf->AddPage();
+        $date = $_GET['date'];
+        $data = array(
+            'part' => $this->mod_trial->e_3_2_2($part),
+            'area' => $area,
+            'count'=> $this->mod_trial->get_patrol_member_count($part),
+            'school' => $this->mod_exam_area->year_school_name($part),
+            'date' => $date,
+        );
+        // print_r($data);
+        $view =  $this->load->view('designated/e_3_2_2', $data, true);
+        $obj_pdf->writeHTML($view);
+        $obj_pdf->Output('試場工作人員分配表.pdf', 'I');
+    }
+
+    public function e_3_2_2_3()
+    {
+        $this->load->library('pdf');
+        $this->load->model('mod_trial');
+        $this->load->model('mod_exam_area');
+        $obj_pdf = new Pdf(PDF_PAGE_ORIENTATION, PDF_UNIT, PDF_PAGE_FORMAT, false, 'UTF-8', false);
+        $obj_pdf->SetCreator(PDF_CREATOR);
+        $title = '試場工作人員分配表';
+        $date = date('yyyy/m/d');
+        $part = $_GET['part'];
+        $area = $_GET['area'];
+
+        $obj_pdf->SetTitle($title);
+        $obj_pdf->SetHeaderData('', '', $title, '印表日期：'.$date);
+        $obj_pdf->setPrintHeader(false);
+        // $obj_pdf->SetHeaderMargin(PDF_MARGIN_HEADER);
+        $obj_pdf->SetFooterMargin(PDF_MARGIN_FOOTER);
+        $obj_pdf->SetMargins(PDF_MARGIN_LEFT, PDF_MARGIN_RIGHT);
+        $obj_pdf->SetAutoPageBreak(true, PDF_MARGIN_BOTTOM);
+        $obj_pdf->SetFont('msungstdlight', '', 12);
+
+        $obj_pdf->setFontSubsetting(false);
+        $obj_pdf->AddPage();
+        $date = $_GET['date'];
+        $data = array(
+            'part' => $this->mod_trial->e_3_2_3($part),
+            'area' => $area,
+            'count'=> $this->mod_trial->get_patrol_member_count($part),
+            'school' => $this->mod_exam_area->year_school_name($part),
+            'date' => $date,
+        );
+        // print_r($data);
+        $view =  $this->load->view('designated/e_3_2_2', $data, true);
+        $obj_pdf->writeHTML($view);
+        $obj_pdf->Output('試場工作人員分配表.pdf', 'I');
+    }
+
+    public function e_3_2_3_1()
+    {
+        $this->load->library('pdf');
+        $this->load->model('mod_trial');
+        $this->load->model('mod_exam_area');
+        $obj_pdf = new Pdf(PDF_PAGE_ORIENTATION, PDF_UNIT, PDF_PAGE_FORMAT, false, 'UTF-8', false);
+        $obj_pdf->SetCreator(PDF_CREATOR);
+        $title = '試場工作人員分配表';
+        $date = date('yyyy/m/d');
+        $part = $_GET['part'];
+        $area = $_GET['area'];
+
+        $obj_pdf->SetTitle($title);
+        $obj_pdf->SetHeaderData('', '', $title, '印表日期：'.$date);
+        $obj_pdf->setPrintHeader(false);
+        // $obj_pdf->SetHeaderMargin(PDF_MARGIN_HEADER);
+        $obj_pdf->SetFooterMargin(PDF_MARGIN_FOOTER);
+        $obj_pdf->SetMargins(PDF_MARGIN_LEFT, PDF_MARGIN_RIGHT);
+        $obj_pdf->SetAutoPageBreak(true, PDF_MARGIN_BOTTOM);
+        $obj_pdf->SetFont('msungstdlight', '', 12);
+
+        $obj_pdf->setFontSubsetting(false);
+        $obj_pdf->AddPage();
+        $date = $_GET['date'];
+        $data = array(
+            'part' => $this->mod_trial->e_3_2_1($part),
+            'area' => $area,
+            'count'=> $this->mod_trial->get_patrol_member_count($part),
+            'school' => $this->mod_exam_area->year_school_name($part),
+            'date' => $date,
+        );
+        // print_r($data);
+        $view =  $this->load->view('designated/e_3_2_3', $data, true);
+        $obj_pdf->writeHTML($view);
+        $obj_pdf->Output('試場工作人員分配表.pdf', 'I');
+    }    
+
+       public function e_3_2_3_2()
+    {
+        $this->load->library('pdf');
+        $this->load->model('mod_trial');
+        $this->load->model('mod_exam_area');
+        $obj_pdf = new Pdf(PDF_PAGE_ORIENTATION, PDF_UNIT, PDF_PAGE_FORMAT, false, 'UTF-8', false);
+        $obj_pdf->SetCreator(PDF_CREATOR);
+        $title = '試場工作人員分配表';
+        $date = date('yyyy/m/d');
+        $part = $_GET['part'];
+        $area = $_GET['area'];
+
+        $obj_pdf->SetTitle($title);
+        $obj_pdf->SetHeaderData('', '', $title, '印表日期：'.$date);
+        $obj_pdf->setPrintHeader(false);
+        // $obj_pdf->SetHeaderMargin(PDF_MARGIN_HEADER);
+        $obj_pdf->SetFooterMargin(PDF_MARGIN_FOOTER);
+        $obj_pdf->SetMargins(PDF_MARGIN_LEFT, PDF_MARGIN_RIGHT);
+        $obj_pdf->SetAutoPageBreak(true, PDF_MARGIN_BOTTOM);
+        $obj_pdf->SetFont('msungstdlight', '', 12);
+
+        $obj_pdf->setFontSubsetting(false);
+        $obj_pdf->AddPage();
+        $date = $_GET['date'];
+        $data = array(
+            'part' => $this->mod_trial->e_3_2_2($part),
+            'area' => $area,
+            'count'=> $this->mod_trial->get_patrol_member_count($part),
+            'school' => $this->mod_exam_area->year_school_name($part),
+            'date' => $date,
+        );
+        // print_r($data);
+        $view =  $this->load->view('designated/e_3_2_3', $data, true);
+        $obj_pdf->writeHTML($view);
+        $obj_pdf->Output('試場工作人員分配表.pdf', 'I');
+    }    
+
+       public function e_3_2_3_3()
+    {
+        $this->load->library('pdf');
+        $this->load->model('mod_trial');
+        $this->load->model('mod_exam_area');
+        $obj_pdf = new Pdf(PDF_PAGE_ORIENTATION, PDF_UNIT, PDF_PAGE_FORMAT, false, 'UTF-8', false);
+        $obj_pdf->SetCreator(PDF_CREATOR);
+        $title = '試場工作人員分配表';
+        $date = date('yyyy/m/d');
+        $part = $_GET['part'];
+        $area = $_GET['area'];
+
+        $obj_pdf->SetTitle($title);
+        $obj_pdf->SetHeaderData('', '', $title, '印表日期：'.$date);
+        $obj_pdf->setPrintHeader(false);
+        // $obj_pdf->SetHeaderMargin(PDF_MARGIN_HEADER);
+        $obj_pdf->SetFooterMargin(PDF_MARGIN_FOOTER);
+        $obj_pdf->SetMargins(PDF_MARGIN_LEFT, PDF_MARGIN_RIGHT);
+        $obj_pdf->SetAutoPageBreak(true, PDF_MARGIN_BOTTOM);
+        $obj_pdf->SetFont('msungstdlight', '', 12);
+
+        $obj_pdf->setFontSubsetting(false);
+        $obj_pdf->AddPage();
+        $date = $_GET['date'];
+        $data = array(
+            'part' => $this->mod_trial->e_3_2_3($part),
+            'area' => $area,
+            'count'=> $this->mod_trial->get_patrol_member_count($part),
+            'school' => $this->mod_exam_area->year_school_name($part),
+            'date' => $date,
+        );
+        // print_r($data);
+        $view =  $this->load->view('designated/e_3_2_3', $data, true);
+        $obj_pdf->writeHTML($view);
+        $obj_pdf->Output('試場工作人員分配表.pdf', 'I');
+    }    
 
     public function e_4()
     {

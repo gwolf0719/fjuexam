@@ -104,16 +104,81 @@
             <div class="modal-body">
                 <div class="row">
                     <div class="col-md-12 col-sm-12 col-xs-12">
-                        <div class="btn_part btn1" link="./designated/e_3_2?part=2501&area=第一分區" part="2501" area="第一分區">第一分區</div>
-                        <div class="btn_part btn1" link="./designated/e_3_2?part=2502&area=第二分區" part="2502" area="第二分區">第二分區</div>
-                        <div class="btn_part btn1" link="./designated/e_3_2?part=2503&area=第三分區" part="2503" area="第三分區">第三分區</div>
+                        <div class="btn_part" data-toggle="modal" data-target="#e_3_2_1">第一分區</div>
+                        <div class="btn_part" data-toggle="modal" data-target="#e_3_2_2">第二分區</div>
+                        <div class="btn_part" data-toggle="modal" data-target="#e_3_2_3">第三分區</div>
                     </div>
                 </div>
             </div>
         </div>
     </div>
 </div>
-<!-- Modal end-->
+<!-- Modal start-->
+<div class="modal fade" id="e_3_2_1" tabindex="-1" role="dialog" aria-labelledby="e_3_2_1" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header" style="border-bottom: none;">
+                <h5 class="modal-title" id="exampleModalLabel" style="">選擇日期</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-md-12 col-sm-12 col-xs-12">
+                        <div class="btn_part btn1" link="./designated/e_3_2_1_1?part=2501&area=第一分區&date=<?=mb_substr($datetime_info['day_1'], 5, 8, 'utf-8'); ?>" part="2501" area="第一分區"><?=mb_substr($datetime_info['day_1'], 5, 8, 'utf-8'); ?></div>
+                        <div class="btn_part btn1" link="./designated/e_3_2_1_2?part=2501&area=第一分區&date=<?=mb_substr($datetime_info['day_2'], 5, 8, 'utf-8'); ?>" part="2501" area="第一分區"><?=mb_substr($datetime_info['day_2'], 5, 8, 'utf-8'); ?></div>
+                        <div class="btn_part btn1" link="./designated/e_3_2_1_3?part=2501&area=第一分區&date=<?=mb_substr($datetime_info['day_3'], 5, 8, 'utf-8'); ?>" part="2501" area="第一分區"><?=mb_substr($datetime_info['day_3'], 5, 8, 'utf-8'); ?></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Modal start-->
+<div class="modal fade" id="e_3_2_2" tabindex="-1" role="dialog" aria-labelledby="e_3_2_2" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header" style="border-bottom: none;">
+                <h5 class="modal-title" id="exampleModalLabel" style="">選擇日期</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-md-12 col-sm-12 col-xs-12">
+                        <div class="btn_part btn1" link="./designated/e_3_2_2_1?part=2502&area=第二分區&date=<?=mb_substr($datetime_info['day_1'], 5, 8, 'utf-8'); ?>" part="2502" area="第二分區"><?=mb_substr($datetime_info['day_1'], 5, 8, 'utf-8'); ?></div>
+                        <div class="btn_part btn1" link="./designated/e_3_2_2_2?part=2502&area=第二分區&date=<?=mb_substr($datetime_info['day_2'], 5, 8, 'utf-8'); ?>" part="2502" area="第二分區"><?=mb_substr($datetime_info['day_2'], 5, 8, 'utf-8'); ?></div>
+                        <div class="btn_part btn1" link="./designated/e_3_2_2_3?part=2502&area=第二分區&date=<?=mb_substr($datetime_info['day_3'], 5, 8, 'utf-8'); ?>" part="2502" area="第二分區"><?=mb_substr($datetime_info['day_3'], 5, 8, 'utf-8'); ?></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Modal start-->
+<div class="modal fade" id="e_3_2_3" tabindex="-1" role="dialog" aria-labelledby="e_3_2_3" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header" style="border-bottom: none;">
+                <h5 class="modal-title" id="exampleModalLabel" style="">選擇日期</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-md-12 col-sm-12 col-xs-12">
+                        <div class="btn_part btn1" link="./designated/e_3_2_3_1?part=2503&area=第三分區&date=<?=mb_substr($datetime_info['day_1'], 5, 8, 'utf-8'); ?>" part="2503" area="第三分區"><?=mb_substr($datetime_info['day_1'], 5, 8, 'utf-8'); ?></div>
+                        <div class="btn_part btn1" link="./designated/e_3_2_3_2?part=2503&area=第三分區&date=<?=mb_substr($datetime_info['day_2'], 5, 8, 'utf-8'); ?>" part="2503" area="第三分區"><?=mb_substr($datetime_info['day_2'], 5, 8, 'utf-8'); ?></div>
+                        <div class="btn_part btn1" link="./designated/e_3_2_3_3?part=2503&area=第三分區&date=<?=mb_substr($datetime_info['day_3'], 5, 8, 'utf-8'); ?>" part="2503" area="第三分區"><?=mb_substr($datetime_info['day_3'], 5, 8, 'utf-8'); ?></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
 <script>
 $(function(){
     $("body").on("click",".btn1",function(){
