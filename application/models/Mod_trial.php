@@ -237,8 +237,8 @@ class Mod_trial extends CI_Model
                 }else{
                     $second_member_salary_section = $sub[$i]['second_member_salary_section'];
                 }            
-                $do_date1 = explode("、", $sub[$i]['first_member_do_date']);
-                $do_date2 = explode("、", $sub[$i]['second_member_do_date']);
+                $do_date1 = explode(",", $sub[$i]['first_member_do_date']);
+                $do_date2 = explode(",", $sub[$i]['second_member_do_date']);
                 $arr[] = array(
                     'sn'=>$sub[$i]['sn'],
                     'field' => $sub[$i]['field'],
@@ -305,6 +305,8 @@ class Mod_trial extends CI_Model
 
             sort($sub);
 
+            // print_r($sub);
+
             for ($i=0; $i < count($sub); $i++) {
                 # code...
                 $supervisor1 = $this->db->where('member_code', $sub[$i]['supervisor_1_code'])->get('staff_member')->row_array();
@@ -321,9 +323,9 @@ class Mod_trial extends CI_Model
                     $second_member_salary_section = 0;
                 }else{
                     $second_member_salary_section = $sub[$i]['second_member_salary_section'];
-                }            
-                $do_date1 = explode("、", $sub[$i]['first_member_do_date']);
-                $do_date2 = explode("、", $sub[$i]['second_member_do_date']);
+                }      
+                $do_date1 = explode(",", $sub[$i]['first_member_do_date']);
+                $do_date2 = explode(",", $sub[$i]['second_member_do_date']);
                 $arr[] = array(
                     'sn'=>$sub[$i]['sn'],
                     'field' => $sub[$i]['field'],
@@ -333,7 +335,7 @@ class Mod_trial extends CI_Model
                     'first_member_salary_section'=> $sub[$i]['first_member_section_salary_total'] * count($do_date1),
                     'first_member_section_lunch_total'=>$sub[$i]['first_member_section_lunch_total']*count($do_date1),
                     'first_member_section_salary_total'=>$sub[$i]['first_member_section_salary_total']*count($do_date1),
-                    'order_meal1'=>$supervisor1['order_meal'],
+                    'order_meal1'=>$res[$i]['first_member_order_meal'],
                     'supervisor_1'=>$sub[$i]['supervisor_1'],
                     'supervisor_1_unit' => $supervisor1['member_unit'] ,
                     'supervisor_1_phone' => $supervisor1['member_phone'],
@@ -343,9 +345,10 @@ class Mod_trial extends CI_Model
                     'supervisor_2'=>$sub[$i]['supervisor_2'],
                     'supervisor_2_unit' => $supervisor2['member_unit'] ,
                     'supervisor_2_phone' => $supervisor2['member_phone'],
-                    'order_meal2'=>$supervisor2['order_meal'],
+                    'order_meal2'=>$res[$i]['second_member_order_meal'],
                 );
             }
+            // print_r($arr);
             return $arr;
         }else{
             return false;
@@ -383,8 +386,8 @@ class Mod_trial extends CI_Model
                 }else{
                     $second_member_salary_section = $sub[$i]['second_member_salary_section'];
                 }            
-                $do_date1 = explode("、", $sub[$i]['first_member_do_date']);
-                $do_date2 = explode("、", $sub[$i]['second_member_do_date']);
+                $do_date1 = explode(",", $sub[$i]['first_member_do_date']);
+                $do_date2 = explode(",", $sub[$i]['second_member_do_date']);
                 $salary += $sub[$i]['first_member_section_salary_total']*count($do_date1) + $sub[$i]['second_member_section_salary_total']*count($do_date2);
             }
             return $salary;
@@ -424,8 +427,8 @@ class Mod_trial extends CI_Model
                 }else{
                     $second_member_salary_section = $sub[$i]['second_member_salary_section'];
                 }            
-                $do_date1 = explode("、", $sub[$i]['first_member_do_date']);
-                $do_date2 = explode("、", $sub[$i]['second_member_do_date']);
+                $do_date1 = explode(",", $sub[$i]['first_member_do_date']);
+                $do_date2 = explode(",", $sub[$i]['second_member_do_date']);
                 $lunch += $sub[$i]['first_member_section_lunch_total']*count($do_date1) + $sub[$i]['second_member_section_lunch_total']*count($do_date2);
             }
             return $lunch;
@@ -466,8 +469,8 @@ class Mod_trial extends CI_Model
                 }else{
                     $second_member_salary_section = $sub[$i]['second_member_salary_section'];
                 }            
-                $do_date1 = explode("、", $sub[$i]['first_member_do_date']);
-                $do_date2 = explode("、", $sub[$i]['second_member_do_date']);
+                $do_date1 = explode(",", $sub[$i]['first_member_do_date']);
+                $do_date2 = explode(",", $sub[$i]['second_member_do_date']);
                 $salary += $sub[$i]['first_member_section_salary_total']*count($do_date1) + $sub[$i]['second_member_section_salary_total']*count($do_date2);
             }
             return $salary;
@@ -507,8 +510,8 @@ class Mod_trial extends CI_Model
                 }else{
                     $second_member_salary_section = $sub[$i]['second_member_salary_section'];
                 }            
-                $do_date1 = explode("、", $sub[$i]['first_member_do_date']);
-                $do_date2 = explode("、", $sub[$i]['second_member_do_date']);
+                $do_date1 = explode(",", $sub[$i]['first_member_do_date']);
+                $do_date2 = explode(",", $sub[$i]['second_member_do_date']);
                 $lunch += $sub[$i]['first_member_section_lunch_total']*count($do_date1) + $sub[$i]['second_member_section_lunch_total']*count($do_date2);
             }
             return $lunch;
@@ -558,8 +561,8 @@ class Mod_trial extends CI_Model
                 }else{
                     $second_member_salary_section = $sub[$i]['second_member_salary_section'];
                 }            
-                $do_date1 = explode("、", $sub[$i]['first_member_do_date']);
-                $do_date2 = explode("、", $sub[$i]['second_member_do_date']);
+                $do_date1 = explode(",", $sub[$i]['first_member_do_date']);
+                $do_date2 = explode(",", $sub[$i]['second_member_do_date']);
                 $arr[] = array(
                     'sn'=>$sub[$i]['sn'],
                     'field' => $sub[$i]['field'],
@@ -899,7 +902,7 @@ class Mod_trial extends CI_Model
                 # code...
                 $supervisor1 = $this->db->where('member_code', $sub[$i]['supervisor_1_code'])->get('staff_member')->row_array();
                 $supervisor2 = $this->db->where('member_code', $sub[$i]['supervisor_2_code'])->get('staff_member')->row_array();
-                $do_date = explode("、", $sub[$i]['first_member_do_date']);
+                $do_date = explode(",", $sub[$i]['first_member_do_date']);
                 
                 # code...
                 if (strtoupper($sub[$i]['first_member_order_meal']) == "Y") {
@@ -1050,10 +1053,10 @@ class Mod_trial extends CI_Model
         }
 
         $res = $this->db->get('patrol_staff')->result_array();
+        // print_r($res);
         if (!empty($res)) {
             for ($i=0; $i < count($res); $i++) {
                 $do_date = explode(",", $res[$i]['do_date']);
-                
                 # code...
                 $arr[] = array(
                     'job'=> '分區巡場人員',
@@ -1441,7 +1444,7 @@ class Mod_trial extends CI_Model
                 'first_member_salary_section'=>$sub[$i]['first_member_salary_section'],
                 'first_member_section_lunch_total'=>$sub[$i]['first_member_section_lunch_total'],
                 'first_member_section_salary_total'=>$sub[$i]['first_member_section_salary_total'],
-                'order_meal1'=>$supervisor1['order_meal'],
+                'order_meal1'=>$sub[$i]['first_member_order_meal'],
                 'supervisor_1'=>$sub[$i]['supervisor_1'],
                 'supervisor_1_unit' => $supervisor1['member_unit'] ,
                 'supervisor_1_phone' => $supervisor1['member_phone'],
@@ -1451,7 +1454,7 @@ class Mod_trial extends CI_Model
                 'supervisor_2'=>$sub[$i]['supervisor_2'],
                 'supervisor_2_unit' => $supervisor2['member_unit'] ,
                 'supervisor_2_phone' => $supervisor2['member_phone'],
-                'order_meal2'=>$supervisor2['order_meal'],
+                'order_meal2'=>$sub[$i]['second_member_order_meal'],
                 'floor' =>$sub[$i]['floor'],
                 'number'=>$sub[$i]['number'],
                 'start'=>$sub[$i]['start'],
@@ -1505,8 +1508,8 @@ class Mod_trial extends CI_Model
             $course = $this->db->where('year', $year)->where('field', $sub[$i]['field'])->get('exam_area')->row_array();
             $trial = $this->db->get('trial_staff')->result_array();
 
-            $do_date1 = explode("、", $sub[$i]['first_member_do_date']);
-            $do_date2 = explode("、", $sub[$i]['second_member_do_date']);
+            $do_date1 = explode(",", $sub[$i]['first_member_do_date']);
+            $do_date2 = explode(",", $sub[$i]['second_member_do_date']);
             $arr[] = array(
                 'sn'=>$sub[$i]['sn'],
                 'field' => $sub[$i]['field'],

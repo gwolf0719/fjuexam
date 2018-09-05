@@ -314,6 +314,7 @@
                     },
                     dataType: "json"
                 }).done(function(data) {
+                    console.log(data.day);
                     $('input:checkbox[name="day"]').eq(0).prop("checked", data.day[0]);
                     $('input:checkbox[name="day"]').eq(1).prop("checked", data.day[1]);
                     $('input:checkbox[name="day"]').eq(2).prop("checked", data.day[2]);

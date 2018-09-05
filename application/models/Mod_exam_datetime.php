@@ -29,9 +29,9 @@ class Mod_exam_datetime extends CI_Model
                 'field <='=>$end,
                 'field >='=>$start
             );
-            // foreach($day[$i] as $k=>$v){
-            //     $where[$v.'!='] = 0;
-            // }
+            foreach($day[$i] as $k=>$v){
+                $where[$v.'!='] = 0;
+            }
             if($this->db->where($where)->count_all_results('exam_area') != 0){
                 $res[] = true;    
             }else{

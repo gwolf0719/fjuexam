@@ -412,12 +412,14 @@
                 if (confirm("目前處於編輯狀態，若要新增，將會清空所有欄位")) {
                     $("#sn").val("");
                     $("#allocation_code").val("");
+                    $("#section").val("");
                     $("#patrol_staff_code").val("");
                     $("#patrol_staff_name").val("");
                     $("#first_section").val("0");
                     $("#second_section").val("0");
                     $("#third_section").val("0");
                     $("textarea[name='note']").val("");
+                    $(".field").val("");
                 }
             } else {
                 var part = $("#part").val();

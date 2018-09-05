@@ -210,8 +210,8 @@
             $("#second_member_section_total").val(0);
             $("#second_member_day_total").val(0);
             $("#second_member_section_salary_total").val(0);     
-            $("#first_member_meal").hide();
-            $("#second_member_meal").hide();
+            $(".first_member_meal").hide();
+            $(".second_member_meal").hide();
             console.log(newHash);
             if (nowHtml == "d_4") {
                 //開闔div

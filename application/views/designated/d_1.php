@@ -681,17 +681,17 @@
                             <input type="text" class="form-control" id="floor" readonly>
                         </div>
                     </div>
-                    <div class="col-md-3 col-sm-3 col-xs-3 cube" style="background:#afccf0">
+                    <div class="col-md-3 col-sm-3 col-xs-3 cube" style="background:#afccf0"> 
                         <div class="form-group" style="width: 100%;float: left;">
                             <label for="number" class="" style="float:left;">監試人員一</label>
-                            <input type="text" class="form-control" id="trial_staff_code_1" style="width: 25%;margin: 0px 4px;float: left;" placeholder="監試人員編號">
+                            <input type="text" class="form-control" id="trial_staff_code_1" style="width: 25%;margin: 0px 4px;float: left;" placeholder="監試人員編號" readonly>
                             <input type="text" class="form-control" id="supervisor_1" style="width: 25%;float: left;">
                             <input type="hidden" class="form-control" id="supervisor_1_code">
                             <button type="button" class="btn btn-primary assgin" data-toggle="modal" data-target="#exampleModal1" style="float:left;width:15%;margin-left:5px;background:#346a90;border:unset">指派</button>
                         </div>
                         <div class="form-group" style="width: 100%;float: left;">
                             <label for="floor" class="" style="float:left;">監試人員二</label>
-                            <input type="text" class="form-control" id="trial_staff_code_2" style="width: 25%;margin: 0px 4px;float: left;" placeholder="監試人員編號">
+                            <input type="text" class="form-control" id="trial_staff_code_2" style="width: 25%;margin: 0px 4px;float: left;" placeholder="監試人員編號" readonly>
                             <input type="text" class="form-control" id="supervisor_2" style="width: 25%;float: left;">
                             <input type="hidden" class="form-control" id="supervisor_2_code">
                             <button type="button" class="btn btn-primary assgin" data-toggle="modal" data-target="#exampleModal2" style="float:left;width:15%;margin-left:5px;background:#346a90;border:unset">指派</button>

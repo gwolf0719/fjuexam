@@ -574,8 +574,8 @@ class Api extends CI_Controller
         } else {
             $data['year'] = $this->session->userdata('year');
             if ($this->mod_trial->chk_once($data['sn'])) {
-                $member1 = $this->mod_staff->get_staff_member($data['supervisor_1_code']);
-                $member2 = $this->mod_staff->get_staff_member($data['supervisor_2_code']);
+                $member1 = $this->mod_staff->get_staff_member(trim($data['supervisor_1_code']));
+                $member2 = $this->mod_staff->get_staff_member(trim($data['supervisor_2_code']));
                 $max = $this->mod_trial->get_max_field($data['part']);
                 $min = $this->mod_trial->get_min_field($data['part']);
                 $day = $this->mod_exam_datetime->room_use_day($min['field'], $max['field']);
@@ -592,7 +592,7 @@ class Api extends CI_Controller
                 if($day[2] != ""){
                     array_push($do_date,mb_substr($datetime_info['day_3'], 5, 8, 'utf-8'));
                 }                
-                $date = implode("、",$do_date);
+                $date = implode(",",$do_date);
                 if($member1['order_meal'] == "N"){
                     $first_lunch_fee = 0;
                     $first_lunch_total = 0;
@@ -617,12 +617,12 @@ class Api extends CI_Controller
                 }                
                 $sql_data = array (
                     'sn'=>$data['sn'],
-                    'supervisor_1'=>$data['supervisor_1'],
-                    'supervisor_1_code'=>$data['supervisor_1_code'],
-                    'supervisor_2_code'=>$data['supervisor_2_code'],
-                    'supervisor_2'=>$data['supervisor_2'],
-                    'trial_staff_code_1'=>$data['trial_staff_code_1'],
-                    'trial_staff_code_2'=>$data['trial_staff_code_2'],
+                    'supervisor_1'=>trim($data['supervisor_1']),
+                    'supervisor_1_code'=>trim($data['supervisor_1_code']),
+                    'supervisor_2_code'=>trim($data['supervisor_2_code']),
+                    'supervisor_2'=>trim($data['supervisor_2']),
+                    'trial_staff_code_1'=>trim($data['trial_staff_code_1']),
+                    'trial_staff_code_2'=>trim($data['trial_staff_code_2']),
                     'first_member_order_meal'=> $member1['order_meal'],
                     'first_member_meal'=> $member1['meal'],
                     'second_member_order_meal'=> $member2['order_meal'],
@@ -783,7 +783,7 @@ class Api extends CI_Controller
                 $salary_total = ($data['first_section']+$data['second_section']+$data['third_section']) * $fees_info['salary_section'];
                 $total = $salary_total;
             }else{
-                $lunch_price = $fees_info['	lunch_fee'];
+                $lunch_price = $fees_info['lunch_fee'];
                 $lunch_total = $lunch_price * count($do_date);
                 $salary_total = ($data['first_section']+$data['second_section']+$data['third_section']) * $fees_info['salary_section'];
                 $total = $salary_total - $lunch_total;
@@ -792,8 +792,8 @@ class Api extends CI_Controller
                 'part'=>$data['part'],
                 'year'=> $_SESSION['year'],
                 'allocation_code'=>$data['allocation_code'],
-                'trial_staff_code'=>$data['trial_staff_code'],
-                'trial_staff_name'=>$data['trial_staff_name'],
+                'trial_staff_code'=>trim($data['trial_staff_code']),
+                'trial_staff_name'=>trim($data['trial_staff_name']),
                 'first_start'=>$data['first_start'],
                 'first_end'=>$data['first_end'],
                 'first_section'=>$data['first_section'],
@@ -814,6 +814,7 @@ class Api extends CI_Controller
                 'lunch_total'=> $lunch_total,
                 'total'=> $total,
             );
+            // print_r($sql_data);
             $this->mod_trial->add_trial($sql_data);
             $json_arr['sys_code'] = '200';
             $json_arr['sys_msg'] = '資料新增完成';
@@ -941,12 +942,10 @@ class Api extends CI_Controller
             $json_arr['requred'] = $this->getpost->report_requred($requred);
         } else {
             $data['year'] = $this->session->userdata('year');
-            $max = $this->mod_trial->get_max_field($data['part']);
-            $min = $this->mod_trial->get_min_field($data['part']);
-            $day = $this->mod_exam_datetime->room_use_day($min['field'], $max['field']);
+            $day = $this->mod_exam_datetime->room_use_day($data['start'], $data['end']);
             $datetime_info = $this->mod_exam_datetime->get_once($_SESSION['year']);
             $fees_info = $this->mod_exam_fees->get_once($_SESSION['year']);
-            $member = $this->mod_staff->get_staff_member($data['patrol_staff_code']);
+            $member = $this->mod_staff->get_staff_member(trim($data['patrol_staff_code']));
             $do_date = array();
             if($day[0] != ""){
                 array_push($do_date,mb_substr($datetime_info['day_1'], 5, 8, 'utf-8'));
@@ -973,8 +972,8 @@ class Api extends CI_Controller
                 'part'=>$data['part'],
                 'year'=>$_SESSION['year'],
                 'allocation_code'=>$data['allocation_code'],
-                'patrol_staff_code'=>$data['patrol_staff_code'],
-                'patrol_staff_name'=>$data['patrol_staff_name'],
+                'patrol_staff_code'=>trim($data['patrol_staff_code']),
+                'patrol_staff_name'=>trim($data['patrol_staff_name']),
                 'start'=>$data['start'],
                 'end'=>$data['end'],
                 'section'=>$data['section'],

@@ -569,7 +569,7 @@ class Mod_task extends CI_Model
                     'member_code'=>$member['member_code'],
                     'member_name'=>$member['member_name'],
                     'member_unit'=>$member['member_unit'],
-                    'job'=>'監試人員1',
+                    'job'=>'監試人員',
                 );        
             }        
 
@@ -582,7 +582,7 @@ class Mod_task extends CI_Model
                     'member_code'=>$member['member_code'],
                     'member_name'=>$member['member_name'],
                     'member_unit'=>$member['member_unit'],
-                    'job'=>'監試人員2',
+                    'job'=>'監試人員',
                 );  
             }      
             

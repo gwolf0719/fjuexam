@@ -2674,7 +2674,7 @@ class Designated extends CI_Controller
             $objPHPExcel->getActiveSheet()->setCellValue('E'.(2+$i), $res[$i]['supervisor_code']);
             $objPHPExcel->getActiveSheet()->setCellValue('F'.(2+$i), trim($res[$i]['supervisor']));
             $objPHPExcel->getActiveSheet()->setCellValue('G'.(2+$i), $_GET['area']);
-            $objPHPExcel->getActiveSheet()->setCellValue('H'.(2+$i), str_replace(",","、",$res[$i]['do_date']));
+            $objPHPExcel->getActiveSheet()->setCellValue('H'.(2+$i), str_replace("、",",",$res[$i]['do_date']));
             $objPHPExcel->getActiveSheet()->setCellValue('I'.(2+$i), $res[$i]['test_section']);
             $objPHPExcel->getActiveSheet()->setCellValue('J'.(2+$i), $subject_01);
             $objPHPExcel->getActiveSheet()->setCellValue('K'.(2+$i), $subject_02);
