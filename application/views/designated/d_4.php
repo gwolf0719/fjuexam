@@ -461,9 +461,9 @@
 
         $("body").on("click", ".send", function() {
             var day_count1 = $('input:checkbox:checked[name="first_member_day"]').map(function() {return $(this).val();}).get()
-            var first_member_do_date = day_count1.join("、");
+            var first_member_do_date = day_count1.join(",");
             var day_count2 = $('input:checkbox:checked[name="second_member_day"]').map(function() {return $(this).val();}).get()
-            var second_member_do_date = day_count2.join("、");
+            var second_member_do_date = day_count2.join(",");
             if (confirm("是否要儲存?")) {
                 var sn = $("#sn").val();
                 var first_member_meal;

@@ -1014,6 +1014,81 @@ class Mod_trial extends CI_Model
         }
     }
 
+    public function get_date_for_trial_list_test($part = '')
+    {
+        $this->db->select('*');
+        if ($part != '') {
+            $this->db->where('part', $part);
+        }
+        $this->db->from('part_info');
+        $this->db->join('trial_assign', 'part_info.sn = trial_assign.sn');
+        
+        $this->db->where('first_member_do_date !=', "");
+        $year = $this->session->userdata('year');
+
+        $res = $this->db->get()->result_array();
+
+        function even($var)
+        {
+            return($var['year'] == $_SESSION['year']);
+        }
+
+        $sub =  array_filter($res, "even");
+
+        sort($sub);
+
+        // print_r($sub);
+
+        if (!empty($sub)) {
+            for ($i=0; $i < count($sub); $i++) {
+                # code...
+                $supervisor1 = $this->db->where('member_code', $sub[$i]['supervisor_1_code'])->get('staff_member')->row_array();
+                $supervisor2 = $this->db->where('member_code', $sub[$i]['supervisor_2_code'])->get('staff_member')->row_array();
+                $do_date = explode(",", $sub[$i]['first_member_do_date']);
+                
+                # code...
+                if (strtoupper($sub[$i]['first_member_order_meal']) == "Y") {
+                    $first_member_meal = $supervisor1['meal'];
+                } else {
+                    $first_member_meal = '自備';
+                }
+
+                if (strtoupper($sub[$i]['second_member_order_meal']) == "Y") {
+                    $second_member_meal = $supervisor2['meal'];
+                } else {
+                    $second_member_meal = '自備';
+                }
+    
+                for ($d=0; $d < count($do_date); $d++) {
+                    $arr[$do_date[$d]][] = array(
+                        'sn'=>$sub[$i]['sn'],
+                        'field' => $sub[$i]['field'],
+                        'test_section' => $sub[$i]['test_section'],
+                        'part' => $sub[$i]['part'],
+                        'order_meal1'=>$supervisor1['order_meal'],
+                        'meal1'=>$first_member_meal,
+                        'supervisor_1'=>$sub[$i]['supervisor_1'],
+                        'supervisor_1_unit' => $supervisor1['member_unit'] ,
+                        'supervisor_1_phone' => $supervisor1['member_phone'],
+                        'meal2'=>$second_member_meal,
+                        'supervisor_2'=>$sub[$i]['supervisor_2'],
+                        'supervisor_2_unit' => $supervisor2['member_unit'] ,
+                        'supervisor_2_phone' => $supervisor2['member_phone'],
+                        'order_meal2'=>$supervisor2['order_meal'],
+                        'floor' =>$sub[$i]['floor'],
+                        'number'=>$sub[$i]['number'],
+                        'start'=>$sub[$i]['start'],
+                        'end'=>$sub[$i]['end'],
+                    );
+                }
+            }
+            print_r($arr);
+            return $arr;
+        } else {
+            return false;
+        }
+    }
+
     public function get_trial_staff_task_money_list($part = '')
     {
         $this->db->where('year', $this->session->userdata('year'));

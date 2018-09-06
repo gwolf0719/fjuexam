@@ -1370,6 +1370,7 @@ class Designated extends CI_Controller
         $data = array(
             'part' => $this->mod_trial->get_dinner_list_for_pdf($part),
             'area' => $area,
+            'count'=>$this->mod_trial->e_6_1_member_count($part),
             'own' => $this->mod_trial->get_trial_own_meal_count($part),
             'veg' => $this->mod_trial->get_trial_veg_meal_count($part),
             'meat' => $this->mod_trial->get_trial_meat_meal_count($part),

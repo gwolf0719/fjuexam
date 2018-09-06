@@ -47,6 +47,44 @@ class Unit extends CI_Controller
         echo json_encode($res);
 
     }
+
+    public function e_3_2_1_1()
+    {
+        $this->load->library('pdf');
+        $this->load->model('mod_trial');
+        $this->load->model('mod_exam_area');
+        $obj_pdf = new Pdf(PDF_PAGE_ORIENTATION, PDF_UNIT, PDF_PAGE_FORMAT, false, 'UTF-8', false);
+        $obj_pdf->SetCreator(PDF_CREATOR);
+        $title = '試場工作人員分配表';
+        $date = date('yyyy/m/d');
+        $part = $_GET['part'];
+        $area = $_GET['area'];
+
+        $obj_pdf->SetTitle($title);
+        $obj_pdf->SetHeaderData('', '', $title, '印表日期：'.$date);
+        $obj_pdf->setPrintHeader(false);
+        // $obj_pdf->SetHeaderMargin(PDF_MARGIN_HEADER);
+        $obj_pdf->SetFooterMargin(PDF_MARGIN_FOOTER);
+        $obj_pdf->SetMargins(PDF_MARGIN_LEFT, PDF_MARGIN_RIGHT);
+        $obj_pdf->SetAutoPageBreak(true, PDF_MARGIN_BOTTOM);
+        $obj_pdf->SetFont('msungstdlight', '', 12);
+
+        $obj_pdf->setFontSubsetting(false);
+        $obj_pdf->AddPage();
+        $date = $_GET['date'];
+        $data = array(
+            'part' => $this->mod_trial->e_3_2_1($part),
+            'area' => $area,
+            'count'=> $this->mod_trial->get_patrol_member_count($part),
+            'school' => $this->mod_exam_area->year_school_name($part),
+            'date' => $date,
+            'count'=>$this->mod_trial->e_6_1_member_count($part),
+        );
+        // print_r($data);
+        $view =  $this->load->view('designated/e_3_2_1', $data, true);
+        $obj_pdf->writeHTML($view);
+        $obj_pdf->Output('試場工作人員分配表.pdf', 'I');
+    }
 }
 
 /* End of file Unit.php */

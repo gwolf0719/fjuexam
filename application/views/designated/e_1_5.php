@@ -50,6 +50,13 @@
     </tr>
     <?php endforeach; ?>
     <tr>
-        <td colspan="7" style="text-align:left;font-size:16px;">共計：<?=count($part)*2?>人、自備：<?=$own?>人、素食：<?=$veg?>人、葷食：<?=$meat?>人</td>
+        <?php 
+            if(!empty($count)){
+                $count_member = (count($count)*2);
+            }else{
+                $count_member = 0;
+            }
+        ?>        
+        <td colspan="7" style="text-align:left;font-size:16px;">共計：<?=$count_member?>人、自備：<?=$own?>人、素食：<?=$veg?>人、葷食：<?=$meat?>人</td>
     </tr>
 </table>
