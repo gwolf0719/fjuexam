@@ -379,14 +379,14 @@
                         "part": part,
                     },
                     dataType: "json"
-                }).done(function(part) {
+                }).done(function(part_data) {
                     //開始讀取天數
-                    console.log(part);
                     $.ajax({
                         url: 'api/room_use_day',
                         data: {
-                            "start": part.min.field,
-                            "end": part.max.field,
+                            "part": part,
+                            "start": part_data.min.field,
+                            "end": part_data.max.field,
                         },
                         dataType: "json"
                     }).done(function(day) {

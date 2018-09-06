@@ -3,14 +3,14 @@
 defined('BASEPATH') or exit('No direct script access allowed');
 class Mod_exam_datetime extends CI_Model
 {
-    /**
+/**
      * 由試場起迄號得知使用日期
      * start 開始考場 end 結束考場
-     * res 陣列 1=>第一天,2=>第二天,3=>第三天
+     * res 陣列 1=>第一天,2=>第二天,3=>第三天 
      * true 有
-     * flase 沒有.
+     * flase 沒有
      */
-    function room_use_day($start,$end){
+    function room_use_day($start,$end,$part){
         $year  = $this->session->userdata("year");
         // 取得每日考科
         $day = array();
@@ -26,19 +26,27 @@ class Mod_exam_datetime extends CI_Model
         $res = array();
          for($i=1;$i<=3;$i++){
             $where = array(
+                'part'=>$part,
                 'field <='=>$end,
                 'field >='=>$start
             );
             foreach($day[$i] as $k=>$v){
-                $where[$v.'!='] = 0;
+                $where[$v] = 0;
             }
-            if($this->db->where($where)->count_all_results('exam_area') != 0){
-                $res[] = true;    
-            }else{
+            $section = array(
+                'part'=>$part,
+                'field <='=>$end,
+                'field >='=>$start                
+            );
+            
+            $sub1 = $this->db->where($where)->get('exam_area')->result_array();
+            $sub2 = $this->db->where($section)->get('exam_area')->result_array();
+            if(count($sub1) == count($sub2)){
                 $res[] = false;
+            }else{
+                $res[] = true;
             }
         }
-        
         
         return $res;
     }

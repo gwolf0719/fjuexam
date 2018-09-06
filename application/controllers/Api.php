@@ -578,7 +578,7 @@ class Api extends CI_Controller
                 $member2 = $this->mod_staff->get_staff_member(trim($data['supervisor_2_code']));
                 $max = $this->mod_trial->get_max_field($data['part']);
                 $min = $this->mod_trial->get_min_field($data['part']);
-                $day = $this->mod_exam_datetime->room_use_day($min['field'], $max['field']);
+                $day = $this->mod_exam_datetime->room_use_day($min['field'], $max['field'],$data['part']);
                 $datetime_info = $this->mod_exam_datetime->get_once($_SESSION['year']);
                 $fees_info = $this->mod_exam_fees->get_once($_SESSION['year']);
                 $part_info = $this->mod_part_info->get_once($data['sn']);
@@ -942,7 +942,7 @@ class Api extends CI_Controller
             $json_arr['requred'] = $this->getpost->report_requred($requred);
         } else {
             $data['year'] = $this->session->userdata('year');
-            $day = $this->mod_exam_datetime->room_use_day($data['start'], $data['end']);
+            $day = $this->mod_exam_datetime->room_use_day($data['start'], $data['end'],$data['part']);
             $datetime_info = $this->mod_exam_datetime->get_once($_SESSION['year']);
             $fees_info = $this->mod_exam_fees->get_once($_SESSION['year']);
             $member = $this->mod_staff->get_staff_member(trim($data['patrol_staff_code']));
@@ -1136,8 +1136,8 @@ class Api extends CI_Controller
     public function room_use_day()
     {
         $this->load->model('mod_exam_datetime');
-        $getpost = array('start', 'end');
-        $requred = array('start', 'end');
+        $getpost = array('start', 'end','part');
+        $requred = array('start', 'end','part');
         $data = $this->getpost->getpost_array($getpost, $requred);
         if ($data == false) {
             $json_arr['sys_code'] = '000';
@@ -1145,7 +1145,7 @@ class Api extends CI_Controller
             $json_arr['requred'] = $this->getpost->report_requred($requred);
         } else {
             $data['year'] = $this->session->userdata('year');
-            $json_arr['day'] = $res = $this->mod_exam_datetime->room_use_day($data['start'], $data['end']);
+            $json_arr['day'] = $res = $this->mod_exam_datetime->room_use_day($data['start'], $data['end'],$data['part']);
             $json_arr['sys_code'] = '200';
             $json_arr['sys_msg'] = '日期取得完成';
         }

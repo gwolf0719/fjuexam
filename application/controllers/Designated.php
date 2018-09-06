@@ -3519,7 +3519,8 @@ class Designated extends CI_Controller
             'area'=> $area,
             'school' => $this->mod_exam_area->year_school_name($part),
             'salary'=>$this->mod_trial->get_all_salary_trial_total($part),
-            'lunch'=>$this->mod_trial->get_all_trial_lunch_total($part)
+            'lunch'=>$this->mod_trial->get_all_trial_lunch_total($part),
+            'count'=>$this->mod_trial->e_6_1_member_count($part)
         );
         $view =  $this->load->view('designated/e_6_1', $data, true);
         $obj_pdf->writeHTML($view);
@@ -3556,7 +3557,8 @@ class Designated extends CI_Controller
             'area'=> $area,
             'school' => $this->mod_exam_area->year_school_name($part),
             'salary'=>$this->mod_trial->get_all_salary_trial_total_of_obs($part,$obs),
-            'lunch'=>$this->mod_trial->get_all_trial_lunch_total_of_obs($part,$obs)
+            'lunch'=>$this->mod_trial->get_all_trial_lunch_total_of_obs($part,$obs),
+            'count' => $this->mod_trial->get_list_for_obs_member_count($part, $obs),
         );
         $view =  $this->load->view('designated/e_6_2', $data, true);
         $obj_pdf->writeHTML($view);
@@ -3626,7 +3628,8 @@ class Designated extends CI_Controller
             'area'=> $area,
             'school' => $this->mod_exam_area->year_school_name($part),
             'salary'=>$this->mod_trial->get_trial_staff_salary_total($part),
-            'lunch'=>$this->mod_trial->get_trial_staff_lunch_total($part)            
+            'lunch'=>$this->mod_trial->get_trial_staff_lunch_total($part),
+            'count' => $this->mod_trial->get_trial_staff_task_member_count($part),            
         );
         $view =  $this->load->view('designated/e_6_4', $data, true);
         $obj_pdf->writeHTML($view);
@@ -3661,7 +3664,8 @@ class Designated extends CI_Controller
             'area'=> $area,
             'school' => $this->mod_exam_area->year_school_name($part),
             'salary'=>$this->mod_trial->get_patrol_staff_salary_total($part),
-            'lunch'=>$this->mod_trial->get_patrol_staff_lunch_total($part)                  
+            'lunch'=>$this->mod_trial->get_patrol_staff_lunch_total($part),
+            'count' => $this->mod_trial->get_patrol_staff_task_member_count($part),                  
         );
         $view =  $this->load->view('designated/e_6_5', $data, true);
         $obj_pdf->writeHTML($view);

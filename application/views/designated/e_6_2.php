@@ -46,16 +46,18 @@
     <?php foreach ($part as $k => $v): ?>
     <tr>
         <td class="bb"><?=trim($v['field'])?></td>
-        <td class="bb"><?=trim(number_format($v['first_member_salary_section']))?></td>
-        <td class="bb"><?=trim($v['supervisor_1'])?></td>
         <td class="bb">
             <?php
-            if ($v['order_meal1'] == "N") {
-                echo 0;
-            } else {
-                echo trim(number_format(abs($v['first_member_section_lunch_total'])));
-            }
+                if ($v['first_member_salary_section'] == "") {
+                    echo 0;
+                } else {
+                    echo trim(number_format($v['first_member_salary_section']));
+                }
             ?>
+        </td>
+        <td class="bb"><?=trim($v['supervisor_1'])?></td>
+        <td class="bb">
+
         </td>
         <td class="bb">
             <?php
@@ -91,6 +93,13 @@
     </tr>
     <?php endforeach; ?>
     <tr>
-        <td colspan="12" style="text-align:left;font-size:14px;">共計:<?=count($part)*2?>人 實發監考費：<?=number_format($salary)?> + 餐費： <?=number_format($lunch)?> = 總支出費用<?=number_format($salary+$lunch)?> </td>
+        <?php 
+            if(!empty($count)){
+                $count = (count($count)*2);
+            }else{
+                $count = 0;
+            }
+        ?>        
+        <td colspan="12" style="text-align:left;font-size:14px;">共計:<?=$count?>人 實發監考費：<?=number_format($salary)?> + 餐費： <?=number_format($lunch)?> = 總支出費用<?=number_format($salary+$lunch)?> </td>
     </tr>
 </table>

@@ -206,6 +206,7 @@
         $("body").on("click", "tr", function() {
             var sn = $(this).attr("sn");
             var code = $(this).attr("code");
+            var part = $(this).attr("part");
 
 
             $("html, body").animate({
@@ -218,6 +219,7 @@
                 },
                 dataType: "json"
             }).done(function(data) {
+                console.log(data);
                 $("#sn").val(sn);
                 $("#trial_start").val(data.info.start);
                 $("#trial_end").val(data.info.end);
@@ -309,6 +311,7 @@
                 $.ajax({
                     url: 'api/room_use_day',
                     data: {
+                        "part": part,
                         "start": $("#trial_start").val(),
                         "end": $("#trial_end").val(),
                     },
@@ -666,7 +669,7 @@
             </thead>
             <tbody>
                 <?php foreach ($part1 as $k => $v): ?>
-                <tr sn="<?=$v['sn']; ?>" code="<?=$v['patrol_staff_code']; ?>">
+                <tr sn="<?=$v['sn']; ?>" code="<?=$v['patrol_staff_code']; ?>" part="2501">
                     <td>
                         <?=$k + 1; ?>
                     </td>
@@ -710,7 +713,7 @@
             </thead>
             <tbody>
                 <?php foreach ($part2 as $k => $v): ?>
-                <tr sn="<?=$v['sn']; ?>" code="<?=$v['patrol_staff_code']; ?>">
+                <tr sn="<?=$v['sn']; ?>" code="<?=$v['patrol_staff_code']; ?>" part="2502">
                     <td>
                         <?=$k + 1; ?>
                     </td>
@@ -754,7 +757,7 @@
             </thead>
             <tbody>
                 <?php foreach ($part3 as $k => $v): ?>
-                <tr sn="<?=$v['sn']; ?>" code="<?=$v['patrol_staff_code']; ?>">
+                <tr sn="<?=$v['sn']; ?>" code="<?=$v['patrol_staff_code']; ?>" part="2503">
                     <td>
                         <?=$k + 1; ?>
                     </td>
