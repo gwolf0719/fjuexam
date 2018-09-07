@@ -26,7 +26,7 @@
         <td class="bb" colspan="2"><?=trim($v['floor']) ?></td>
         <td class="bb"><?=trim($v['supervisor_1'])?></td>
         <td class="bb"><?=trim($v['supervisor_2'])?></td>
-        <td class="bb" colspan="2"><?=trim($v['allocation_code'])?> <?=trim($v['voucher'])?></td>
+        <td class="bb" colspan="2"><?=trim($v['allocation_code'])?>&emsp;<?=trim($v['voucher'])?></td>
     </tr>
     <?php endforeach; ?>
     <tr>

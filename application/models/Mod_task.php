@@ -531,6 +531,8 @@ class Mod_task extends CI_Model
         $this->db->from('part_info');
         $this->db->join('trial_assign', 'part_info.sn = trial_assign.sn');
         $this->db->where("part_info.year",$_SESSION['year']);
+        $this->db->where('trial_assign.supervisor_1_code !=',"");
+        $this->db->where('trial_assign.supervisor_2_code !=',"");
         $year = $this->session->userdata('year');
         $sub = $this->db->get()->result_array();
 
@@ -609,7 +611,7 @@ class Mod_task extends CI_Model
                     'member_unit'=>$member['member_unit'],
                     'job'=>'巡場人員',
                 );   
-            }                  
+            }            
             return $arr;
         }else{
             return false;
