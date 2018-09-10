@@ -58,7 +58,7 @@
             if ($v['order_meal1'] == "N") {
                 echo 0;
             } else {
-                echo number_format(abs($v['first_member_section_lunch_total']));
+                echo 0 - number_format(abs($v['first_member_section_lunch_total']));
             }
             ?>
         </td>
@@ -80,7 +80,7 @@
             if ($v['order_meal2'] == "N") {
                 echo 0;
             } else {
-                echo trim(number_format(abs($v['second_member_section_lunch_total'])));
+                echo 0 - trim(number_format(abs($v['second_member_section_lunch_total'])));
             }
             ?>
         </td>

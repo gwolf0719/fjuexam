@@ -162,9 +162,9 @@
                         <div class="btn_part btn1" link="./designated/e_7_1?part=2501&area=第一分區" part="2501" area="第一分區">第一分區</div>
                         <div class="btn_part btn2" link="./designated/e_7_2?part=2501&area=第一分區&obs=29" part="2501" area="第一分區" obs="29">第一分區(身障)</div>
                         <div class="btn_part btn1" link="./designated/e_7_1?part=2502&area=第二分區" part="2502" area="第二分區">第二分區</div>
-                        <div class="btn_part btn2" link="./designated/e_7_2?part=2501&area=第二分區&obs=29" part="2502" area="第二分區" obs="29">第二分區(身障)</div>    
+                        <div class="btn_part btn2" link="./designated/e_7_2?part=2502&area=第二分區&obs=29" part="2502" area="第二分區" obs="29">第二分區(身障)</div>    
                         <div class="btn_part btn1" link="./designated/e_7_1?part=2503&area=第三分區" part="2503" area="第三分區">第三分區</div> 
-                        <div class="btn_part btn2" link="./designated/e_7_2?part=2501&area=第三分區&obs=29" part="2503" area="第三分區" obs="29">第三分區(身障)</div> 
+                        <div class="btn_part btn2" link="./designated/e_7_2?part=2503&area=第三分區&obs=29" part="2503" area="第三分區" obs="29">第三分區(身障)</div> 
                     </div>
                 </div>
             </div>

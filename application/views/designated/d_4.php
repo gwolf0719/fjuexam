@@ -285,70 +285,47 @@
             }).done(function(data) {
                 console.log(data.info);
                 $(".field").val(field);
+                $("#sn").val(data.info.sn);
+                //職員一
                 $("#first_member_lunch_price").attr("lunch_price","<?=$fees_info['lunch_fee']; ?>");
                 $("#second_member_lunch_price").attr("lunch_price","<?=$fees_info['lunch_fee']; ?>");
-
-                $("#sn").val(data.info.sn);
-
-                //職員一
-                $("#trial_staff_code_1").val(data.info.trial_staff_code_1);
-                $("#first_member_job_code").val(data.info.supervisor_1_code);
-                $("#first_member_name").val(data.info.supervisor_1);
                 $("#first_member_day_count").val(data.info.first_member_day_count);
-                $("#first_member_section_salary_total").val(data.info.first_member_section_salary_total);
-                if (data.info.first_member_lunch_price == "") {
-                    $("#first_member_lunch_price").val("<?=$fees_info['lunch_fee']; ?>");
-                } else {
-                    $("#first_member_lunch_price").val(data.info.first_member_lunch_price);
-                }
-                $("#first_member_section_lunch_total").val(data.info.first_member_section_lunch_total);
-                if(data.info.first_member_meal != "自備"){
-                    $("#first_member_meal").val(data.info.first_member_meal);
-                }else{
-                    $("#first_member_meal").val("");
-                }
-                $("#first_member_order_meal").val(data.info.first_member_order_meal);
-                if (data.info.first_member_order_meal.toUpperCase() == "Y") {
-                    $("#first_member_order_meal").prop("checked", true);
-                    $("#first_member_lunch_price").attr("readonly", false);
+                $("#first_member_lunch_price").val(data.info.first_member_lunch_price);
+                if(data.info.first_member_order_meal == "Y"){
+                    $("#first_member_order_meal").prop("checked",true);
                     $(".first_member_meal").show();
-                    $("#first_member_meal").val(data.info.first_member_meal);
-                } else {
-                    $("#first_member_order_meal").prop("checked", false);
-                    $("#first_member_lunch_price").attr("readonly", true);
-                    $(".first_member_meal").hide();
-                    $("#first_member_lunch_price").val(0);
-                }
-
-                //職員二
-                $("#trial_staff_code_2").val(data.info.trial_staff_code_2);
-                $("#second_member_job_code").val(data.info.supervisor_2_code);
-                $("#second_member_name").val(data.info.supervisor_2);
-                $("#second_member_day_count").val(data.info.second_member_day_count);
-                $("#second_member_section_salary_total").val(data.info.second_member_section_salary_total);
-                if(data.info.second_member_meal != "自備"){
-                    $("#second_member_meal").val(data.info.second_member_meal);
                 }else{
-                    $("#second_member_meal").val("");
+                    $("#first_member_order_meal").prop("checked",false);
+                    $(".first_member_meal").hide();
                 }
-                if (data.info.second_member_lunch_price == "") {
-                    $("#second_member_lunch_price").val("<?=$fees_info['lunch_fee']; ?>");
-                } else {
-                    $("#second_member_lunch_price").val(data.info.second_member_lunch_price);
-                }
-                $("#second_member_section_lunch_total").val(data.info.second_member_section_lunch_total);
+                $("#first_member_meal").prop("checked",true);
+                $("#first_member_order_meal").val(data.info.first_member_order_meal);
+                $("#first_member_salary_section").val(data.info.first_member_salary_section);
+                $("#first_member_section_lunch_total").val(data.info.first_member_section_lunch_total);
+                $("#first_member_section_salary_total").val(data.info.first_member_section_salary_total);
+                $("#first_member_section_total").val(data.info.first_member_section_total);
+                $("#first_member_name").val(data.info.supervisor_1);
+                $("#first_member_job_code").val(data.info.supervisor_1_code);
+                $("#trial_staff_code_1").val(data.info.trial_staff_code_1);
+                //職員二
+                $("#second_member_day_count").val(data.info.second_member_day_count);
+                $("#second_member_lunch_price").val(data.info.second_member_lunch_price);
                 $("#second_member_meal").val(data.info.second_member_meal);
-                if (data.info.second_member_order_meal.toUpperCase() == "Y") {
-                    $("#second_member_order_meal").prop("checked", true);
-                    $("#second_member_lunch_price").attr("readonly", false);
+                if(data.info.second_member_order_meal == "Y"){
+                    $("#second_member_order_meal").prop("checked",true);
                     $(".second_member_meal").show();
-                    $("#second_member_meal").val(data.info.second_member_meal);
-                } else {
-                    $("#second_member_order_meal").prop("checked", false);
-                    $("#second_member_lunch_price").attr("readonly", true);
+                }else{
+                    $("#second_member_order_meal").prop("checked",false);
                     $(".second_member_meal").hide();
-                    $("#second_member_lunch_price").val(0);
                 }
+                $("#second_member_salary_section").val(data.info.second_member_salary_section);
+                $("#second_member_section_lunch_total").val(data.info.second_member_section_lunch_total);
+                $("#second_member_section_salary_total").val(data.info.second_member_section_salary_total);
+                $("#second_member_section_total").val(data.info.second_member_section_total);
+                $("#second_member_name").val(data.info.supervisor_2);
+                $("#second_member_job_code").val(data.info.supervisor_2_code);
+                $("#trial_staff_code_2").val(data.info.trial_staff_code_2);
+                
                 // 取得職員一資料
                 $.ajax({
                     url: 'api/get_staff_member',
@@ -373,20 +350,12 @@
                     $("#second_member_phone").val(data.info.member_phone);
                 })
                 // 取得試場 start & end get_field_start_end
-                $.ajax({
-                    url: 'api/get_field_start_end',
-                    data: {
-                        "part": part,
-                    },
-                    dataType: "json"
-                }).done(function(part_data) {
-                    //開始讀取天數
                     $.ajax({
                         url: 'api/room_use_day',
                         data: {
                             "part": part,
-                            "start": part_data.min.field,
-                            "end": part_data.max.field,
+                            "start": field,
+                            "end": field,
                         },
                         dataType: "json"
                     }).done(function(day) {
@@ -395,65 +364,12 @@
                         $('input:checkbox[name="first_member_day"]').eq(0).prop("checked", day.day[0]);
                         $('input:checkbox[name="first_member_day"]').eq(1).prop("checked", day.day[1]);
                         $('input:checkbox[name="first_member_day"]').eq(2).prop("checked", day.day[2]);
-                        var day_count1 = $('input:checkbox:checked[name="first_member_day"]').map(function() {return $(this).val();}).get().length;
-                        //天數
-                        $("#first_member_day_count").val(day_count1);
-                        //薪資總計
-                        var first_member_section_salary_total = parseInt(section) * parseInt($("#first_member_salary_section").val());
-                        $("#first_member_section_salary_total").val(first_member_section_salary_total);
-                        //便當總計
-                        var first_member_section_lunch_total = parseInt($("#first_member_day_count").val()) * parseInt($("#first_member_lunch_price").val());
-                        $("#first_member_section_lunch_total").val(first_member_section_lunch_total);
-                        if (data.info.first_member_meal == "") {
-                            $("#first_member_lunch_price").val(0);
-                            $("#first_member_section_lunch_total").val(0);
-                            var first_member_section_salary_total = $(
-                                "#first_member_section_salary_total").val()
-                            $("#first_member_section_total").val(first_member_section_salary_total);
-                        } else {
-                            //計算總金額 (排除沒訂餐)
-                            if ($("#first_member_order_meal").val().toUpperCase() == "N") {
-                                $("#first_member_lunch_price").val(parseInt(0));
-                                $("#first_member_section_lunch_total").val(parseInt(0));
-                                $("#first_member_section_total").val(first_member_section_salary_total);
-                            } else {
-                                var first_member_section_lunch_total = 0 - first_member_section_lunch_total;
-                                $("#first_member_section_lunch_total").val(first_member_section_lunch_total);
-                                var first_member_section_total = parseInt($("#first_member_section_salary_total").val()) + parseInt($("#first_member_section_lunch_total").val());
-                                $("#first_member_section_total").val(first_member_section_total);
-                            }
-                        }
 
                         // 監試人員二天數
                         $('input:checkbox[name="second_member_day"]').eq(0).prop("checked", day.day[0]);
                         $('input:checkbox[name="second_member_day"]').eq(1).prop("checked", day.day[1]);
                         $('input:checkbox[name="second_member_day"]').eq(2).prop("checked", day.day[2]);
-                        var day_count2 = $('input:checkbox:checked[name="second_member_day"]').map(function() {return $(this).val();}).get().length;
-                        $("#second_member_day_count").val(day_count2);
-                        var second_member_section_salary_total = parseInt(section) * parseInt($("#second_member_salary_section").val());
-                        $("#second_member_section_salary_total").val(second_member_section_salary_total);
-                        var second_member_section_lunch_total = parseInt($("#second_member_day_count").val()) * parseInt($("#second_member_lunch_price").val());
-                        $("#second_member_section_lunch_total").val(second_member_section_lunch_total);
-                        if (data.info.second_member_meal == "") {
-                            $("#second_member_lunch_price").val(0);
-                            $("#second_member_section_lunch_total").val(0);
-                            var second_member_section_salary_total = $("#second_member_section_salary_total").val()
-                            $("#second_member_section_total").val(second_member_section_salary_total);
-                        } else {
-                            //計算總金額 (排除沒訂餐)
-                            if ($("#second_member_order_meal").val().toUpperCase() == "N") {
-                                $("#second_member_lunch_price").val(0);
-                                $("#second_member_section_lunch_total").val(0);
-                                $("#second_member_section_total").val(second_member_section_salary_total);
-                            } else {
-                                var second_member_section_lunch_total = 0 - second_member_section_lunch_total;
-                                $("#second_member_section_lunch_total").val(second_member_section_lunch_total);
-                                var second_member_section_total = parseInt($("#second_member_section_salary_total").val()) + parseInt($("#second_member_section_lunch_total").val());
-                                $("#second_member_section_total").val(second_member_section_total);
-                            }
-                        }
                     })
-                })
             })
         })
 
@@ -1051,7 +967,7 @@
                     <div class="col-md-12 col-sm-12 col-xs-12" style="float: left;margin: 50px auto 0;">
                         <div class="form-group" style="text-align:right">
                             <div class="">
-                                <button type="button" class="btn btn-primary send">儲存</button>
+                                <button type="button" class="btn btn-primary send">修改</button>
                             </div>
                         </div>
                     </div>

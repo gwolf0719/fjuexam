@@ -564,8 +564,8 @@ class Api extends CI_Controller
         $this->load->model('mod_exam_datetime');
         $this->load->model('mod_exam_fees');
         $this->load->model('mod_part_info');
-        $getpost = array('sn', 'part','supervisor_1', 'supervisor_1_code', 'supervisor_2', 'supervisor_2_code', 'trial_staff_code_1', 'trial_staff_code_2', 'note');
-        $requred = array('sn', 'part','supervisor_1', 'supervisor_1_code', 'supervisor_2', 'supervisor_2_code', 'trial_staff_code_1', 'trial_staff_code_2');
+        $getpost = array('sn', 'part','supervisor_1', 'supervisor_1_code', 'supervisor_2', 'supervisor_2_code', 'trial_staff_code_1', 'trial_staff_code_2', 'note','field');
+        $requred = array('sn', 'part','supervisor_1', 'supervisor_1_code', 'supervisor_2', 'supervisor_2_code', 'trial_staff_code_1', 'trial_staff_code_2','field');
         $data = $this->getpost->getpost_array($getpost, $requred);
         if ($data == false) {
             $json_arr['sys_code'] = '000';
@@ -576,9 +576,7 @@ class Api extends CI_Controller
             if ($this->mod_trial->chk_once($data['sn'])) {
                 $member1 = $this->mod_staff->get_staff_member(trim($data['supervisor_1_code']));
                 $member2 = $this->mod_staff->get_staff_member(trim($data['supervisor_2_code']));
-                $max = $this->mod_trial->get_max_field($data['part']);
-                $min = $this->mod_trial->get_min_field($data['part']);
-                $day = $this->mod_exam_datetime->room_use_day($min['field'], $max['field'],$data['part']);
+                $day = $this->mod_exam_datetime->room_use_day($data['field'], $data['field'],$data['part']);
                 $datetime_info = $this->mod_exam_datetime->get_once($_SESSION['year']);
                 $fees_info = $this->mod_exam_fees->get_once($_SESSION['year']);
                 $part_info = $this->mod_part_info->get_once($data['sn']);
@@ -694,11 +692,7 @@ class Api extends CI_Controller
             $json_arr['requred'] = $this->getpost->report_requred($requred);
         } else {
             $data['year'] = $this->session->userdata('year');
-            if ($this->mod_trial->chk_once($data['sn'])) {
-                $this->mod_trial->update_once($data['sn'], $data);
-            } else {
-                $this->mod_trial->add_once($data);
-            }
+            $this->mod_trial->update_once($data['sn'], $data);
             $json_arr['sys_code'] = '200';
             $json_arr['sys_msg'] = '資料儲存完成';
         }

@@ -326,6 +326,7 @@
             if (confirm("是否要儲存?")) {
                 var sn = $("#sn").val();
                 var part = $("#part").val();
+                var field = $("#field").val();
                 var supervisor_1 = $("#supervisor_1").val();
                 var supervisor_1_code = $("#supervisor_1_code").val();
                 var supervisor_2 = $("#supervisor_2").val();
@@ -333,12 +334,13 @@
                 var trial_staff_code_1 = $("#trial_staff_code_1").val();
                 var trial_staff_code_2 = $("#trial_staff_code_2").val();
                 var note = $("textarea[name='note']").val();
-                console.log(sn);
+                console.log(field);
                 $.ajax({
                     url: 'api/save_trial',
                     data: {
                         "sn": sn,
                         "part": part,
+                        "field":field,
                         "supervisor_1": supervisor_1,
                         "supervisor_1_code": supervisor_1_code,
                         "supervisor_2": supervisor_2,
@@ -472,7 +474,7 @@
             </thead>
             <tbody>
                 <?php foreach ($part1 as $k => $v): ?>
-                <tr sn="<?=$v['sn']; ?>" part="2501">
+                <tr sn="<?=$v['sn']; ?>" part="2501" field="<?=$v['field']?>">
                     <td>
                         <?=$k + 1; ?>
                     </td>
@@ -537,7 +539,7 @@
             </thead>
             <tbody>
                 <?php foreach ($part2 as $k => $v): ?>
-                <tr sn="<?=$v['sn']; ?>" part="2502">
+                <tr sn="<?=$v['sn']; ?>" part="2502" field="<?=$v['field']?>">
                     <td>
                         <?=$k + 1; ?>
                     </td>
@@ -602,7 +604,7 @@
             </thead>
             <tbody>
                 <?php foreach ($part3 as $k => $v): ?>
-                <tr sn="<?=$v['sn']; ?>" part="2503">
+                <tr sn="<?=$v['sn']; ?>" part="2503" field="<?=$v['field']?>">
                     <td>
                         <?=$k + 1; ?>
                     </td>

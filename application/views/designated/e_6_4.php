@@ -44,7 +44,7 @@
         </td>
         <td class="bb"><?=number_format($v['salary_total'])?>
         </td>
-        <td class="bb"><?=number_format($v['lunch_total'])?></td>
+        <td class="bb"><?=number_format(0 - $v['lunch_total'])?></td>
         <td class="bb"><?=number_format($v['total'])?></td>
         <td colspan="2" style="line-height:20px;" class="bb"></td>
         <td colspan="2" class="bb"></td>

@@ -802,6 +802,7 @@ class Designated extends CI_Controller
             'part2' => $part2,
             'part3' => $part3,
         );
+        
         $this->load->view('layout', $data);
     }
 
@@ -3777,16 +3778,6 @@ class Designated extends CI_Controller
         $arr = $this->mod_trial->get_trial_list_of_obs_for_csv($part, $obs);
         for ($i=0; $i < count($arr); $i++) {
             # code...
-            if ($arr[$i]['order_meal'] == "N") {
-                $section_lunch_total = 0;
-            } else {
-                $section_lunch_total = number_format(abs($arr[$i]['section_lunch_total']));
-            }
-            if ($arr[$i]['order_meal'] == "N") {
-                $salary_total = number_format($arr[$i]['section_salary_total'] - 0);
-            } else {
-                $salary_total =  number_format($arr[$i]['section_salary_total'] - abs($arr[$i]['section_lunch_total']));
-            }
 
             $objPHPExcel->getActiveSheet()->setCellValue('A1', '試場');
             $objPHPExcel->getActiveSheet()->setCellValue('B1', '監考費');
@@ -3794,10 +3785,10 @@ class Designated extends CI_Controller
             $objPHPExcel->getActiveSheet()->setCellValue('D1', '餐費');
             $objPHPExcel->getActiveSheet()->setCellValue('E1', '應領費用');
             $objPHPExcel->getActiveSheet()->setCellValue('A'.(2+$i), $arr[$i]['field']);
-            $objPHPExcel->getActiveSheet()->setCellValue('B'.(2+$i), number_format($arr[$i]['salary_section']));
+            $objPHPExcel->getActiveSheet()->setCellValue('B'.(2+$i), number_format($arr[$i]['section_salary_total']));
             $objPHPExcel->getActiveSheet()->setCellValue('C'.(2+$i), $arr[$i]['supervisor']);
-            $objPHPExcel->getActiveSheet()->setCellValue('D'.(2+$i), $section_lunch_total);
-            $objPHPExcel->getActiveSheet()->setCellValue('E'.(2+$i), $section_salary_total);
+            $objPHPExcel->getActiveSheet()->setCellValue('D'.(2+$i), number_format($arr[$i]['section_lunch_total']));
+            $objPHPExcel->getActiveSheet()->setCellValue('E'.(2+$i), number_format($arr[$i]['section_total']));
         }
 
         $objWriter = PHPExcel_IOFactory::createWriter($objPHPExcel, 'CSV');
@@ -3886,7 +3877,7 @@ class Designated extends CI_Controller
             $objPHPExcel->getActiveSheet()->setCellValue('C'.(2+$i), $school);
             $objPHPExcel->getActiveSheet()->setCellValue('D'.(2+$i), $arr[$i]['name']);
             $objPHPExcel->getActiveSheet()->setCellValue('E'.(2+$i), $arr[$i]['job']);
-            $objPHPExcel->getActiveSheet()->setCellValue('F'.(2+$i), number_format($arr[$i]['one_day_salary']));
+            $objPHPExcel->getActiveSheet()->setCellValue('F'.(2+$i), number_format($arr[$i]['salary_total']));
             $objPHPExcel->getActiveSheet()->setCellValue('G'.(2+$i), number_format($arr[$i]['lunch_total']));
             $objPHPExcel->getActiveSheet()->setCellValue('H'.(2+$i), number_format($arr[$i]['total']));
 
@@ -3932,7 +3923,7 @@ class Designated extends CI_Controller
             $objPHPExcel->getActiveSheet()->setCellValue('C'.(2+$i), $school);
             $objPHPExcel->getActiveSheet()->setCellValue('D'.(2+$i), $arr[$i]['name']);
             $objPHPExcel->getActiveSheet()->setCellValue('E'.(2+$i), $arr[$i]['job']);
-            $objPHPExcel->getActiveSheet()->setCellValue('F'.(2+$i), number_format($arr[$i]['one_day_salary']));
+            $objPHPExcel->getActiveSheet()->setCellValue('F'.(2+$i), number_format($arr[$i]['salary_total']));
             $objPHPExcel->getActiveSheet()->setCellValue('G'.(2+$i), number_format($arr[$i]['lunch_total']));
             $objPHPExcel->getActiveSheet()->setCellValue('H'.(2+$i), number_format($arr[$i]['total']));
 
