@@ -16,10 +16,10 @@
 <table class="" id="" style="padding:4px 0px;text-align:center;">
     <thead>
         <tr>
-            <th colspan="12" style="font-size:18px;"><?=$_SESSION['year']?>學年度指定科目考試新北一考區</th>
+            <th colspan="13" style="font-size:18px;"><?=$_SESSION['year']?>學年度指定科目考試新北一考區</th>
         </tr>
         <tr>
-            <th colspan="12" style="font-size:16px;">監試人員印領清冊</th>
+            <th colspan="13" style="font-size:16px;">監試人員印領清冊</th>
         </tr>        
         <tr>
             <th colspan="4" style="font-size:13px;"> 分區：<?=$area?></th>
@@ -30,7 +30,7 @@
             <th rowspan="2" class="bb">試場</th>
             <th colspan="4" class="bb">監試人員(1)</th>
             <th rowspan="2" colspan="2" class="bb">簽名或蓋章</th>
-            <th colspan="3" class="bb">監試人員(2)</th>
+            <th colspan="4" class="bb">監試人員(2)</th>
             <th rowspan="2" colspan="2" class="bb">簽名或蓋章</th>
         </tr>
         <tr>
@@ -38,6 +38,7 @@
             <td class="bb">姓名</td>
             <td class="bb">餐費</td>
             <td class="bb">應領費用</td>
+            <td class="bb">監考費</td>
             <td class="bb">姓名</td>
             <td class="bb">餐費</td>
             <td class="bb">應領費用</td>
@@ -69,7 +70,9 @@
             ?>
         </td>
         <td colspan="2" class="bb" style="line-height:30px;"></td>
-
+        <td class="bb">
+            <?=trim(number_format($v['second_member_section_salary_total']))?>
+        </td>
         <td class="bb"><?=trim($v['supervisor_2'])?></td>
         <td class="bb">
             <?php
@@ -100,6 +103,6 @@
                 $count = 0;
             }
         ?>        
-        <td colspan="12" style="text-align:left;font-size:14px;">共計:<?=$count?>人 實發監考費：<?=number_format($salary)?> + 餐費： <?=number_format($lunch)?> = 總支出費用<?=number_format($salary+$lunch)?> </td>
+        <td colspan="12" style="text-align:left;font-size:14px;">共計:<?=$count?>人 實發監考費：<?=number_format($salary)?> - 餐費： <?=number_format($lunch)?> = 總支出費用<?=number_format($salary-$lunch)?> </td>
     </tr>
 </table>

@@ -297,6 +297,7 @@
                 }else{
                     $("#first_member_order_meal").prop("checked",false);
                     $(".first_member_meal").hide();
+                    $("#first_member_lunch_price").val(0);
                 }
                 $("#first_member_meal").prop("checked",true);
                 $("#first_member_order_meal").val(data.info.first_member_order_meal);
@@ -317,6 +318,7 @@
                 }else{
                     $("#second_member_order_meal").prop("checked",false);
                     $(".second_member_meal").hide();
+                    $("#second_member_lunch_price").val(0);
                 }
                 $("#second_member_salary_section").val(data.info.second_member_salary_section);
                 $("#second_member_section_lunch_total").val(data.info.second_member_section_lunch_total);

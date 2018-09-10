@@ -236,6 +236,7 @@
                     $("#order_meal").prop("checked", true);
                     $("#lunch_price").attr("readonly", false);
                     $(".meal").show();
+                    $("#lunch_price").val("<?=$fees_info['lunch_fee']; ?>");
                 }
                 if(data.info.meal == "自備"){
                     $("#meal").val("");

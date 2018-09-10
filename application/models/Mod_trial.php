@@ -333,14 +333,14 @@ class Mod_trial extends CI_Model
                     'part' => $sub[$i]['part'],
                     'do_date' => $sub[$i]['first_member_do_date'],
                     'first_member_salary_section'=> $first_member_section_salary_total,
-                    'first_member_section_lunch_total'=>$sub[$i]['first_member_section_lunch_total']*count($do_date1),
+                    'first_member_section_lunch_total'=>$sub[$i]['first_member_section_lunch_total'],
                     'first_member_section_salary_total'=>$sub[$i]['first_member_section_salary_total'],
                     'order_meal1'=>$res[$i]['first_member_order_meal'],
                     'supervisor_1'=>$sub[$i]['supervisor_1'],
                     'supervisor_1_unit' => $supervisor1['member_unit'] ,
                     'supervisor_1_phone' => $supervisor1['member_phone'],
                     'second_member_salary_section'=> $second_member_section_salary_total,
-                    'second_member_section_lunch_total'=>$sub[$i]['second_member_section_lunch_total']*count($do_date2),
+                    'second_member_section_lunch_total'=>$sub[$i]['second_member_section_lunch_total'],
                     'second_member_section_salary_total'=>$sub[$i]['second_member_section_salary_total'],
                     'supervisor_2'=>$sub[$i]['supervisor_2'],
                     'supervisor_2_unit' => $supervisor2['member_unit'] ,
@@ -431,6 +431,7 @@ class Mod_trial extends CI_Model
         if ($part != '') {
             $this->db->where('part_info.part', $part);
         }
+        $this->db->not_like('part_info.field', '29','after');
         $this->db->where("part_info.year",$_SESSION['year']);
 
         $sub = $this->db->get()->result_array();
@@ -472,6 +473,7 @@ class Mod_trial extends CI_Model
         if ($part != '') {
             $this->db->where('part_info.part', $part);
         }
+        $this->db->not_like('part_info.field', '29','after');
         $this->db->where("part_info.year",$_SESSION['year']);
 
         $sub = $this->db->get()->result_array();
@@ -496,7 +498,7 @@ class Mod_trial extends CI_Model
                 }            
                 $do_date1 = explode(",", $sub[$i]['first_member_do_date']);
                 $do_date2 = explode(",", $sub[$i]['second_member_do_date']);
-                $lunch += $sub[$i]['first_member_section_lunch_total']*count($do_date1) + $sub[$i]['second_member_section_lunch_total']*count($do_date2);
+                $lunch += $sub[$i]['first_member_section_lunch_total'] + $sub[$i]['second_member_section_lunch_total'];
             }
             return abs($lunch);
         }else{
@@ -570,7 +572,7 @@ class Mod_trial extends CI_Model
       
                 $do_date1 = explode(",", $sub[$i]['first_member_do_date']);
                 $do_date2 = explode(",", $sub[$i]['second_member_do_date']);
-                $lunch += $sub[$i]['first_member_section_lunch_total'] * count($do_date1) + $sub[$i]['second_member_section_lunch_total'] * count($do_date2);
+                $lunch += $sub[$i]['first_member_section_lunch_total'] + $sub[$i]['second_member_section_lunch_total'];
             }
             return abs($lunch);
         }else{
@@ -628,8 +630,8 @@ class Mod_trial extends CI_Model
                     'part' => $sub[$i]['part'],
                     'do_date' => $sub[$i]['first_member_do_date'],
                     'salary_section'=> $first_member_salary_section,
-                    'section_lunch_total'=>$sub[$i]['first_member_section_lunch_total']*count($do_date1),
-                    'section_salary_total'=>$sub[$i]['first_member_section_salary_total'],
+                    'section_lunch_total'=>$sub[$i]['first_member_section_lunch_total'],
+                    'section_salary_total'=>$sub[$i]['first_member_section_total'],
                     'order_meal'=>$supervisor1['order_meal'],
                     'supervisor'=>$sub[$i]['supervisor_1'],
                 );
@@ -640,8 +642,8 @@ class Mod_trial extends CI_Model
                     'part' => $sub[$i]['part'],
                     'do_date' => $sub[$i]['second_member_do_date'],
                     'salary_section'=>$second_member_salary_section,
-                    'section_lunch_total'=>$sub[$i]['second_member_section_lunch_total']*count($do_date2),
-                    'section_salary_total'=>$sub[$i]['second_member_section_salary_total'],
+                    'section_lunch_total'=>$sub[$i]['second_member_section_lunch_total'],
+                    'section_salary_total'=>$sub[$i]['second_member_section_total'],
                     'supervisor'=>$sub[$i]['supervisor_2'],
                     'order_meal'=>$supervisor2['order_meal'],
                 ); 
@@ -1187,7 +1189,7 @@ class Mod_trial extends CI_Model
 
             }
             
-            return $lunch;
+            return abs($lunch);
         }else{
             return false;
         }
@@ -1281,7 +1283,7 @@ class Mod_trial extends CI_Model
 
             }
             
-            return $lunch;
+            return abs($lunch);
         }else{
             return false;
         }
@@ -1699,33 +1701,41 @@ class Mod_trial extends CI_Model
                 $course = $this->db->where('year', $year)->where('field', $sub[$i]['field'])->get('exam_area')->row_array();
                 $trial = $this->db->get('trial_staff')->result_array();
                 if($sub[$i]['first_member_section_salary_total'] == ""){
-                    $first_member_section_salary_total = 0;
+                    $first_member_salary_section = 0;
                 }else{
-                    $first_member_section_salary_total = $sub[$i]['first_member_section_salary_total'];
+                    $first_member_salary_section = $sub[$i]['first_member_section_salary_total'];
                 }
                 if($sub[$i]['second_member_section_salary_total'] == ""){
-                    $second_member_section_salary_total = 0;
+                    $second_member_salary_section = 0;
                 }else{
-                    $second_member_section_salary_total = $sub[$i]['second_member_section_salary_total'];
+                    $second_member_salary_section = $sub[$i]['second_member_section_salary_total'];
                 }            
                 $do_date1 = explode(",", $sub[$i]['first_member_do_date']);
                 $do_date2 = explode(",", $sub[$i]['second_member_do_date']);
                 $arr[] = array(
-                    'field'=>$sub[$i]['field'],
-                    'section_salary_total'=>$first_member_section_salary_total,
+                    'sn'=>$sub[$i]['sn'],
+                    'field' => $sub[$i]['field'],
+                    'test_section' => $sub[$i]['test_section'],
+                    'part' => $sub[$i]['part'],
+                    'do_date' => $sub[$i]['first_member_do_date'],
+                    'salary_section'=> $first_member_salary_section,
                     'section_lunch_total'=>$sub[$i]['first_member_section_lunch_total'],
-                    'section_total'=>$sub[$i]['first_member_section_total'],
-                    'order_meal'=>$sub[$i]['first_member_order_meal'],
+                    'section_salary_total'=>$sub[$i]['first_member_section_total'],
+                    'order_meal'=>$supervisor1['order_meal'],
                     'supervisor'=>$sub[$i]['supervisor_1'],
                 );
                 $arr[] = array(
-                    'field'=>$sub[$i]['field'],
-                    'section_salary_total'=>$second_member_section_salary_total,
+                    'sn'=>$sub[$i]['sn'],
+                    'field' => $sub[$i]['field'],
+                    'test_section' => $sub[$i]['test_section'],
+                    'part' => $sub[$i]['part'],
+                    'do_date' => $sub[$i]['second_member_do_date'],
+                    'salary_section'=>$second_member_salary_section,
                     'section_lunch_total'=>$sub[$i]['second_member_section_lunch_total'],
-                    'section_total'=>$sub[$i]['second_member_section_total'],
+                    'section_salary_total'=>$sub[$i]['second_member_section_total'],
                     'supervisor'=>$sub[$i]['supervisor_2'],
-                    'order_meal'=>$sub[$i]['second_member_order_meal'],
-                );                
+                    'order_meal'=>$supervisor2['order_meal'],
+                );           
             }
             return $arr;
         }else{

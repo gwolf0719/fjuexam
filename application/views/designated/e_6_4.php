@@ -44,7 +44,7 @@
         </td>
         <td class="bb"><?=number_format($v['salary_total'])?>
         </td>
-        <td class="bb"><?=number_format(0 - $v['lunch_total'])?></td>
+        <td class="bb"><?=number_format($v['lunch_total'])?></td>
         <td class="bb"><?=number_format($v['total'])?></td>
         <td colspan="2" style="line-height:20px;" class="bb"></td>
         <td colspan="2" class="bb"></td>
@@ -58,6 +58,6 @@
                 $count = 0;
             }
         ?>    
-        <td colspan="12" style="text-align:left;font-size:14px;">共計:<?=$count?>人 實發監考費：<?=number_format($salary)?> + 餐費： <?=number_format($lunch)?> = 總支出費用<?=number_format($salary+$lunch)?></td>
+        <td colspan="12" style="text-align:left;font-size:14px;">共計:<?=$count?>人 實發監考費：<?=number_format($salary)?> - 餐費： <?=number_format($lunch)?> = 總支出費用<?=number_format($salary-$lunch)?></td>
     </tr>
 </table>

@@ -510,7 +510,7 @@ class Mod_task extends CI_Model
                 $lunch += $res[$i]['lunch_total'];
 
             }
-            return $lunch;
+            return abs($lunch);
         }else{
             return false;
         }
