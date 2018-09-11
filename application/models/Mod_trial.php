@@ -1185,7 +1185,7 @@ class Mod_trial extends CI_Model
                     'order_meal'=>$res[$i]['order_meal']
                 );
 
-                $lunch += $res[$i]['lunch_total'] * count($do_date); 
+                $lunch += $res[$i]['lunch_total']; 
 
             }
             
@@ -1279,7 +1279,7 @@ class Mod_trial extends CI_Model
             for ($i=0; $i < count($res); $i++) {
                 $do_date = explode(",", $res[$i]['do_date']);
                 
-                $lunch += $res[$i]['lunch_total'] * count($do_date);
+                $lunch += $res[$i]['lunch_total'];
 
             }
             
