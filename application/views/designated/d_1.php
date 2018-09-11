@@ -134,21 +134,21 @@
                     $(".part").hide();
                     $('#part1').show();
                     break;                   
-                case "#1":
-                    $('.tab1').addClass('active');
+                case "#"+nowTabNum:
+                    $('.tab'+nowTabNum).addClass('active');
                     $(".part").hide();
                     $('#part' + nowTabNum).show();
                     break;                    
-                case "#2":
-                    $('.tab2').addClass('active');
-                    $(".part").hide();                
-                    $('#part' + nowTabNum).show();
-                    break;
-                case "#3":
-                    $('.tab3').addClass('active');
-                    $(".part").hide();                 
-                    $('#part' + nowTabNum).show();
-                    break;
+                // case "#2":
+                //     $('.tab2').addClass('active');
+                //     $(".part").hide();                
+                //     $('#part' + nowTabNum).show();
+                //     break;
+                // case "#3":
+                //     $('.tab3').addClass('active');
+                //     $(".part").hide();                 
+                //     $('#part' + nowTabNum).show();
+                //     break;
             }
         }    
 
