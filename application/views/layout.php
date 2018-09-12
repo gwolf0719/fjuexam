@@ -33,8 +33,11 @@
             history.go(-1);
         })
         $("body").on("click","#home",function(){
-            location.href="./";
+            location.href="./designated/index";
         })
+        $("body").on("click","#index",function(){
+            location.href="./";
+        })        
         $("body").on("click","#logout",function(){
             location.href="./logout";
         })
@@ -63,6 +66,7 @@
             <?php if ($path != 'index'):?>    
                 <button type="button" class="btn btn-primary" id="back">回上頁</button>
                 <button type="button" class="btn btn-primary" id="home">主選單</button>
+                <button type="button" class="btn btn-primary" id="index">回平台</button>
             <?php endif; ?>
             
             <button type="button" class="btn btn-primary" id="logout">登出</button>

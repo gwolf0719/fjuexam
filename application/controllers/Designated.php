@@ -3958,9 +3958,9 @@ class Designated extends CI_Controller
             $datetime_info = $this->mod_exam_datetime->get_once($year);
         } else {
             $datetime_info = array(
-                'day_1' => '1911' + $this->session->userdata('year').'/07/01',
-                'day_2' => '1911' + $this->session->userdata('year').'/07/02',
-                'day_3' => '1911' + $this->session->userdata('year').'/07/03',
+                'day_1' => '1911' + $this->session->userdata('year').'年7月1日',
+                'day_2' => '1911' + $this->session->userdata('year').'年7月2日',
+                'day_3' => '1911' + $this->session->userdata('year').'年7月3日',
                 'course_1_start' => '08:40',
                 'course_1_end' => '10:00',
                 'course_2_start' => '10:50',
@@ -4040,9 +4040,9 @@ class Designated extends CI_Controller
             $datetime_info = $this->mod_exam_datetime->get_once($year);
         } else {
             $datetime_info = array(
-                'day_1' => date('Y').'/07/01',
-                'day_2' => date('Y').'/07/02',
-                'day_3' => date('Y').'/07/03',
+                'day_1' => date('Y').'年7月1日',
+                'day_2' => date('Y').'年7月2日',
+                'day_3' => date('Y').'年7月3日',
                 'course_1_start' => '08:40',
                 'course_1_end' => '10:00',
                 'course_2_start' => '10:50',
