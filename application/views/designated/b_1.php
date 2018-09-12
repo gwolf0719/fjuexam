@@ -395,6 +395,7 @@
                 area: "考區",
             }, function(data) {
                 alert(data.sys_msg);
+                console.log(data.info);
                 if (data.sys_code == "200") {
                     $('#exampleModal').modal('hide');
                     $("#member_job_title").val($("#search_job").text());
@@ -402,8 +403,22 @@
                     $("#job_title").val(data.info.member_title);
                     $("#name").val(data.info.member_name);
                     $("#phone").val(data.info.member_phone);
-                    if (data.info.order_meal == "y") {
+                     if (data.info.order_meal == "Y") {
                         $("#order_meal").prop("checked", true);
+                        $(".meal").show();
+                        $("#meal").val(data.info.meal);
+                        $("#lunch_price").attr("readonly", false);
+                        $("#lunch_price").val("<?=$fees_info['lunch_fee']; ?>");    
+                        $("#lunch_total").val($("#day_count").val()*$("#lunch_price").val());
+                        $("#total").val($("#salary_total").val()-$("#lunch_total").val());
+                    }else{
+                        $("#order_meal").prop("checked", false);
+                        $(".meal").hide();
+                        $("#meal").val(data.info.meal);
+                        $("#lunch_price").attr("readonly", true);
+                        $("#lunch_price").val(0);    
+                        $("#lunch_total").val($("#day_count").val()*$("#lunch_price").val());
+                        $("#total").val($("#salary_total").val()-$("#lunch_total").val());  
                     }
                 }
             }, "json")
@@ -640,8 +655,8 @@
                     <div class="form-group meal" style="display:none;">
                         <label for="meal" class="" style="float:left;">餐別</label>
                         <select class="form-control" id="meal">
-                            <option value="葷食">葷食</option>
-                            <option value="素食">素食</option>
+                            <option value="葷">葷食</option>
+                            <option value="素">素食</option>
                         </select>
                     </div>
                     <!-- <div class="by_section">
