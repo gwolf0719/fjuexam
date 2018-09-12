@@ -30,6 +30,6 @@
     </tr>
     <?php endforeach; ?>
     <tr>
-        <td colspan="9" style="text-align:left;">共計：<?=count($part)*2+$count?>人</td>
+        <td colspan="9" style="text-align:left;">共計：<?=count($trial_count)*2?>人</td>
     </tr>
 </table>

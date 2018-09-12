@@ -2740,7 +2740,8 @@ class Designated extends CI_Controller
         $data = array(
             'part' => $this->mod_trial->e_3_2_1($part),
             'area' => $area,
-            'count'=> $this->mod_trial->get_patrol_member_count($part),
+            'patrol_count'=> $this->mod_trial->get_patrol_member_count_1($part),
+            'trial_count'=>$this->mod_trial->get_trial_member_count($part),
             'school' => $this->mod_exam_area->year_school_name($part),
             'date' => $date,
         );
@@ -2777,7 +2778,8 @@ class Designated extends CI_Controller
         $data = array(
             'part' => $this->mod_trial->e_3_2_2($part),
             'area' => $area,
-            'count'=> $this->mod_trial->get_patrol_member_count($part),
+            'patrol_count'=> $this->mod_trial->get_patrol_member_count_2($part),
+            'trial_count'=>$this->mod_trial->get_trial_member_count($part),
             'school' => $this->mod_exam_area->year_school_name($part),
             'date' => $date,
         );
@@ -2814,7 +2816,8 @@ class Designated extends CI_Controller
         $data = array(
             'part' => $this->mod_trial->e_3_2_3($part),
             'area' => $area,
-            'count'=> $this->mod_trial->get_patrol_member_count($part),
+            'patrol_count'=> $this->mod_trial->get_patrol_member_count_3($part),
+            'trial_count'=>$this->mod_trial->get_trial_member_count($part),
             'school' => $this->mod_exam_area->year_school_name($part),
             'date' => $date,
         );
@@ -2851,7 +2854,8 @@ class Designated extends CI_Controller
         $data = array(
             'part' => $this->mod_trial->e_3_2_1($part),
             'area' => $area,
-            'count'=> $this->mod_trial->get_patrol_member_count($part),
+            'patrol_count'=> $this->mod_trial->get_patrol_member_count_1($part),
+            'trial_count'=>$this->mod_trial->get_trial_member_count($part),
             'school' => $this->mod_exam_area->year_school_name($part),
             'date' => $date,
         );
@@ -2888,7 +2892,8 @@ class Designated extends CI_Controller
         $data = array(
             'part' => $this->mod_trial->e_3_2_2($part),
             'area' => $area,
-            'count'=> $this->mod_trial->get_patrol_member_count($part),
+            'patrol_count'=> $this->mod_trial->get_patrol_member_count_2($part),
+            'trial_count'=>$this->mod_trial->get_trial_member_count($part),
             'school' => $this->mod_exam_area->year_school_name($part),
             'date' => $date,
         );
@@ -2925,7 +2930,8 @@ class Designated extends CI_Controller
         $data = array(
             'part' => $this->mod_trial->e_3_2_3($part),
             'area' => $area,
-            'count'=> $this->mod_trial->get_patrol_member_count($part),
+            'patrol_count'=> $this->mod_trial->get_patrol_member_count_3($part),
+            'trial_count'=>$this->mod_trial->get_trial_member_count($part),
             'school' => $this->mod_exam_area->year_school_name($part),
             'date' => $date,
         );
@@ -2962,7 +2968,8 @@ class Designated extends CI_Controller
         $data = array(
             'part' => $this->mod_trial->e_3_2_1($part),
             'area' => $area,
-            'count'=> $this->mod_trial->get_patrol_member_count($part),
+            'patrol_count'=> $this->mod_trial->get_patrol_member_count_1($part),
+            'trial_count'=>$this->mod_trial->get_trial_member_count($part),
             'school' => $this->mod_exam_area->year_school_name($part),
             'date' => $date,
         );
@@ -2999,7 +3006,8 @@ class Designated extends CI_Controller
         $data = array(
             'part' => $this->mod_trial->e_3_2_2($part),
             'area' => $area,
-            'count'=> $this->mod_trial->get_patrol_member_count($part),
+            'patrol_count'=> $this->mod_trial->get_patrol_member_count_2($part),
+            'trial_count'=>$this->mod_trial->get_trial_member_count($part),
             'school' => $this->mod_exam_area->year_school_name($part),
             'date' => $date,
         );
@@ -3036,7 +3044,8 @@ class Designated extends CI_Controller
         $data = array(
             'part' => $this->mod_trial->e_3_2_3($part),
             'area' => $area,
-            'count'=> $this->mod_trial->get_patrol_member_count($part),
+            'patrol_count'=> $this->mod_trial->get_patrol_member_count_3($part),
+            'trial_count'=>$this->mod_trial->get_trial_member_count($part),
             'school' => $this->mod_exam_area->year_school_name($part),
             'date' => $date,
         );

@@ -636,7 +636,7 @@ class Api extends CI_Controller
                     'first_member_section_salary_total'=> $first_member_salary_total,
                     'second_member_section_salary_total'=> $second_member_salary_total,
                     'first_member_section_lunch_total'=> $first_lunch_total,
-                    'second_member_section_lunch_total'=> $first_lunch_total,      
+                    'second_member_section_lunch_total'=> $second_lunch_total,      
                     'first_member_section_total'=> $first_member_total,
                     'second_member_section_total'=> $second_member_total,
                     'note'=>$data['note'],
@@ -691,6 +691,7 @@ class Api extends CI_Controller
             $json_arr['sys_msg'] = '資料不足';
             $json_arr['requred'] = $this->getpost->report_requred($requred);
         } else {
+            print_r($data);
             $data['year'] = $this->session->userdata('year');
             $this->mod_trial->update_once($data['sn'], $data);
             $json_arr['sys_code'] = '200';
@@ -809,9 +810,15 @@ class Api extends CI_Controller
                 'total'=> $total,
             );
             // print_r($sql_data);
-            $this->mod_trial->add_trial($sql_data);
-            $json_arr['sys_code'] = '200';
-            $json_arr['sys_msg'] = '資料新增完成';
+            // if($this->mod_trial->chk_trial_staff_field($data) == true){
+            //     $json_arr['sys_code'] = '500';
+            //     $json_arr['sys_msg'] = '有重複輸入試場';
+            // }else{
+                $this->mod_trial->add_trial($sql_data);
+                $json_arr['sys_code'] = '200';
+                $json_arr['sys_msg'] = '資料新增完成';                
+            // }
+
         }
         echo json_encode($json_arr);
     }
