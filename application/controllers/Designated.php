@@ -3150,7 +3150,7 @@ class Designated extends CI_Controller
         for ($i=0; $i < count($arr); $i++) {
             # code...
             $objPHPExcel->getActiveSheet()->setCellValue('A1', '學年度');
-            $objPHPExcel->getActiveSheet()->setCellValue('B1', '管卷人員');
+            $objPHPExcel->getActiveSheet()->setCellValue('B1', '試務人員');
             $objPHPExcel->getActiveSheet()->setCellValue('C1', '監試日期');
 
             $objPHPExcel->getActiveSheet()->setCellValue('A'.(2+$i), $arr[$i]['year']);
@@ -3182,7 +3182,7 @@ class Designated extends CI_Controller
         for ($i=0; $i < count($arr); $i++) {
             # code...
             $objPHPExcel->getActiveSheet()->setCellValue('A1', '學年度');
-            $objPHPExcel->getActiveSheet()->setCellValue('B1', '巡場人員');
+            $objPHPExcel->getActiveSheet()->setCellValue('B1', '試務人員');
             $objPHPExcel->getActiveSheet()->setCellValue('C1', '監試日期');
 
             $objPHPExcel->getActiveSheet()->setCellValue('A'.(2+$i), $arr[$i]['year']);
@@ -3316,7 +3316,7 @@ class Designated extends CI_Controller
             # code...
             $objPHPExcel->getActiveSheet()->setCellValue('A1', '分區');
             $objPHPExcel->getActiveSheet()->setCellValue('B1', '職務');
-            $objPHPExcel->getActiveSheet()->setCellValue('C1', '管卷人員');
+            $objPHPExcel->getActiveSheet()->setCellValue('C1', '試務人員');
             $objPHPExcel->getActiveSheet()->setCellValue('D1', '編號');
 
 
@@ -3350,7 +3350,7 @@ class Designated extends CI_Controller
             # code...
             $objPHPExcel->getActiveSheet()->setCellValue('A1', '分區');
             $objPHPExcel->getActiveSheet()->setCellValue('B1', '職務');
-            $objPHPExcel->getActiveSheet()->setCellValue('C1', '巡場人員');
+            $objPHPExcel->getActiveSheet()->setCellValue('C1', '試務人員');
             $objPHPExcel->getActiveSheet()->setCellValue('D1', '編號');
 
 
@@ -3443,7 +3443,7 @@ class Designated extends CI_Controller
         for ($i=0; $i < count($arr); $i++) {
             # code...
             $objPHPExcel->getActiveSheet()->setCellValue('A1', '單位');
-            $objPHPExcel->getActiveSheet()->setCellValue('B1', '管卷人員');
+            $objPHPExcel->getActiveSheet()->setCellValue('B1', '試務人員');
 
             $objPHPExcel->getActiveSheet()->setCellValue('A'.(2+$i), $arr[$i]['member_unit']);
             $objPHPExcel->getActiveSheet()->setCellValue('B'.(2+$i), $arr[$i]['member_name']);
@@ -3472,7 +3472,7 @@ class Designated extends CI_Controller
         for ($i=0; $i < count($arr); $i++) {
             # code...
             $objPHPExcel->getActiveSheet()->setCellValue('A1', '單位');
-            $objPHPExcel->getActiveSheet()->setCellValue('B1', '巡場人員');
+            $objPHPExcel->getActiveSheet()->setCellValue('B1', '試務人員');
 
             $objPHPExcel->getActiveSheet()->setCellValue('A'.(2+$i), $arr[$i]['member_unit']);
             $objPHPExcel->getActiveSheet()->setCellValue('B'.(2+$i), $arr[$i]['member_name']);
