@@ -1290,28 +1290,12 @@ class Designated extends CI_Controller
 
     public function e_1_4()
     {
-        $this->load->library('pdf');
         $this->load->model('mod_exam_area');
         $this->load->model('mod_exam_datetime');
-        $obj_pdf = new Pdf(PDF_PAGE_ORIENTATION, PDF_UNIT, PDF_PAGE_FORMAT, false, 'UTF-8', false);
-        $obj_pdf->SetCreator(PDF_CREATOR);
         $title = '缺考人數統計';
         $year = $this->session->userdata('year');
 
         $date = date('yyyy/m/d');
-        $obj_pdf->SetTitle($title);
-        $obj_pdf->setPrintHeader(false);
-        $obj_pdf->SetHeaderMargin(PDF_MARGIN_HEADER);
-        $obj_pdf->SetFooterMargin(PDF_MARGIN_FOOTER);
-        $obj_pdf->SetMargins(3, 2, 3, 0);
-
-        $obj_pdf->SetAutoPageBreak(true, PDF_MARGIN_BOTTOM);
-        $obj_pdf->SetFont('msungstdlight', '', 8);
-
-        $obj_pdf->setFontSubsetting(false);
-        $obj_pdf->SetCellPadding(0);
-
-        $obj_pdf->AddPage();
         $part = $_GET['part'];
         $area = $_GET['area'];
         
@@ -1327,9 +1311,9 @@ class Designated extends CI_Controller
             $datetime_info = $this->mod_exam_datetime->get_once($year);
         } else {
             $datetime_info = array(
-                'day_1' => '07/01',
-                'day_2' => '07/02',
-                'day_3' => '07/03',
+                'day_1' => '7月/1日',
+                'day_2' => '7月/2日',
+                'day_3' => '7月/3日',
             );
         }
         
@@ -1340,9 +1324,25 @@ class Designated extends CI_Controller
             'datetime_info'=>$datetime_info,
             'area'=>$area
         );
-        $view =  $this->load->view('designated/e_1_4', $data, true);
-        $obj_pdf->writeHTML($view);
-        $obj_pdf->Output('缺考人數統計.pdf', 'I');
+        $view = $this->load->view('designated/e_1_4',$data,true);
+
+        if (!is_dir('./html/')) {
+            mkdir('./html/');
+        } else {
+            $path = 'e_1_4.html';
+            $fp = fopen('./html/'.$path,'w');//建檔
+            fwrite($fp,$view);
+            fclose($fp);//關閉開啟的檔案                
+            // copy($path, './html/'.$path);
+
+        }        
+    
+        if (!is_dir('./pdf/')) {
+            mkdir('./pdf/');
+        } else {
+            exec('wkhtmltopdf --lowquality --enable-forms http://uat.fofo.tw/fjuexam/html/e_1_4.html  ./pdf/e_1_4.pdf');
+        }             
+        echo '<script>location.href="http://uat.fofo.tw/fjuexam/pdf/e_1_4.pdf"</script>';        
     }
 
     public function e_1_5()
@@ -1623,88 +1623,29 @@ class Designated extends CI_Controller
             'part' => $this->mod_trial->get_once_date_of_voucher1($part),
             'area' => $area,
             'datetime_info' => $datetime_info,
-            'count'=> $this->mod_trial->get_patrol_member_count($part),
+            'count'=> $this->mod_trial->get_patrol_member_count_1($part),
             'school' => $this->mod_exam_area->year_school_name($part),
         );
         if ($data['part'] != false) {
-            foreach ($data['part'] as $k => $v) {
-                $html = '<table style="padding:4px 0px;text-align:center;">';
-                $html .= '<thead>';
-                $html .=  '<tr>';
-                $html .=  '<td colspan="5" style="font-size:16px;text-align:center;">'.$_SESSION['year'].'學年度指定科目考試新北一考區</td>';
-                $html .=  '</tr>';       
-                $html .=  '<tr>';
-                $html .=  '<td colspan="5" style="font-size:16px;text-align:center;">'.$_GET['area'].$data['school'].'試題本、答案卷收發記錄單</td>';
-                $html .=  '</tr>'; 
-                $html .=  '<tr>';
-                $html .=  '<td colspan="5" style="font-size:13px;text-align:left;">管卷人員：'.$k.'</td>';
-                $html .=  '</tr>';      
-                $html .=  '<tr>';
-                $html .=  '<td style="border: 1px solid #999999;" colspan="2">日期  科目</td>';
-                $html .=  '<td style="border: 1px solid #999999;" colspan="3">'.mb_substr($datetime_info['day_1'], 5, 8, 'utf-8').'</td>';
-                $html .=  '</tr>';              
-                $html .=  '<tr>';        
-                $html .= '<td style="border: 1px solid #999999;">試場</td>';
-                $html .= '<td style="border: 1px solid #999999;">監試人員</td>';
-                $html .= '<td style="border: 1px solid #999999;">第1節<br>物理</td>';
-                $html .= '<td style="border: 1px solid #999999;">第2節<br>化學</td>';
-                $html .= '<td style="border: 1px solid #999999;">第3節<br>生物</td>';
-                $html .=  '</tr>';        
-                $html .= '</thead>';
-                foreach ($v as $kc => $vc) {
-                    switch ($vc['subject_01']) {
-                        case '0':
-                            $subject_01 = 'X';
-                            break;
-                        default:
-                            $subject_01 = '';
-                    }        
-                    switch ($vc['subject_02']) {
-                        case '0':
-                            $subject_02 = 'X';
-                            break;
-                        default:
-                            $subject_02 = '';
-                    }  
-                    switch ($vc['subject_03']) {
-                        case '0':
-                            $subject_03 = 'X';
-                            break;
-                        default:
-                            $subject_03 = '';
-                    }                                                            
-                    $html .=   '<tr>';
-                    $html .=  '<td  style="border: 1px solid #999999;" rowspan="2">'.$vc['field'].'</td>';
-                    $html .=  '<td  style="border: 1px solid #999999;">'.$vc['supervisor_1'].'</td>';
-                    $html .=  '<td  style="border: 1px solid #999999;">'.$subject_01.'</td>';
-                    $html .=  '<td  style="border: 1px solid #999999;">'.$subject_02.'</td>';
-                    $html .=  '<td  style="border: 1px solid #999999;">'.$subject_03.'</td>';
-                    $html .=  '</tr>';
-                    $html .=   '<tr>';
-                    $html .=  '<td  style="border: 1px solid #999999;">'.$vc['supervisor_2'].'</td>';
-                    $html .=  '<td  style="border: 1px solid #999999;">'.$subject_01.'</td>';
-                    $html .=  '<td  style="border: 1px solid #999999;">'.$subject_02.'</td>';
-                    $html .=  '<td  style="border: 1px solid #999999;">'.$subject_03.'</td>';
-                    $html .=  '</tr>';       
-                    $html .=   '<tr>';
-                    $html .=  '<td  style="border: 1px solid #999999;" colspan="2">管卷人員簽收記錄表</td>';
-                    $html .=  '<td  style="border: 1px solid #999999;">'.$subject_01.'</td>';
-                    $html .=  '<td  style="border: 1px solid #999999;">'.$subject_02.'</td>';
-                    $html .=  '<td  style="border: 1px solid #999999;">'.$subject_03.'</td>';
-                    $html .=  '</tr>';                                    
-                }
-                // $html .= '<tr>';
-                // $html .= '<td colspan="5" style="font-size:13px;text-align:left;">共計：'.count($v).'人</td>';
-                // $html .=  '</tr>';
-                    
-                $html .=  '</table>';
-
-                $obj_pdf->AddPage($html);
-
-                $obj_pdf->writeHTML($html);
-            }
+            $view = $this->load->view('designated/e_2_3_1', $data,true);
+            if (!is_dir('./html/')) {
+                mkdir('./html/');
+            } else {
+                $path = 'e_2_3_1.html';
+                $fp = fopen('./html/'.$path,'w');//建檔
+                fwrite($fp,$view);
+                fclose($fp);//關閉開啟的檔案                
+            }        
+            
+            if (!is_dir('./pdf/')) {
+                mkdir('./pdf/');
+            } else {
+                exec('wkhtmltopdf --lowquality --enable-forms http://uat.fofo.tw/fjuexam/html/e_2_3_1.html  ./pdf/e_2_3_1.pdf');
+            }             
+            echo '<script>location.href="http://uat.fofo.tw/fjuexam/pdf/e_2_3_1.pdf"</script>';    
+        }else{
+            return false;
         }
-        $obj_pdf->Output('答案卷卡收發記錄單.pdf', 'I');
     }
 
     public function e_2_3_2()
@@ -1738,99 +1679,29 @@ class Designated extends CI_Controller
             'part' => $this->mod_trial->get_once_date_of_voucher2($part),
             'area' => $area,
             'datetime_info' => $datetime_info,
-            'count'=> $this->mod_trial->get_patrol_member_count($part),
+            'count'=> $this->mod_trial->get_patrol_member_count_2($part),
             'school' => $this->mod_exam_area->year_school_name($part),
         );
         if ($data['part'] != false) {
-            foreach ($data['part'] as $k => $v) {
-                $html = '<table style="padding:4px 0px;text-align:center;">';
-                $html .= '<thead>';
-                $html .=  '<tr>';
-                $html .=  '<td colspan="6" style="font-size:16px;text-align:center;">'.$_SESSION['year'].'學年度指定科目考試新北一考區</td>';
-                $html .=  '</tr>';       
-                $html .=  '<tr>';
-                $html .=  '<td colspan="6" style="font-size:16px;text-align:center;">'.$_GET['area'].$data['school'].'試題本、答案卷收發記錄單</td>';
-                $html .=  '</tr>'; 
-                $html .=  '<tr>';
-                $html .=  '<td colspan="6" style="font-size:13px;text-align:left;">管卷人員：'.$k.'</td>';
-                $html .=  '</tr>';      
-                $html .=  '<tr>';
-                $html .=  '<td style="border: 1px solid #999999;" colspan="2">日期  科目</td>';
-                $html .=  '<td style="border: 1px solid #999999;" colspan="4">'.mb_substr($datetime_info['day_2'], 5, 8, 'utf-8').'</td>';
-                $html .=  '</tr>';              
-                $html .=  '<tr>';        
-                $html .= '<td style="border: 1px solid #999999;">試場</td>';
-                $html .= '<td style="border: 1px solid #999999;">監試人員</td>';
-                $html .= '<td style="border: 1px solid #999999;">第1節<br>數乙</td>';
-                $html .= '<td style="border: 1px solid #999999;">第2節<br>國文</td>';
-                $html .= '<td style="border: 1px solid #999999;">第3節<br>英文</td>';
-                $html .= '<td style="border: 1px solid #999999;">第4節<br>數甲</td>';
-                $html .=  '</tr>';        
-                $html .= '</thead>';
-                foreach ($v as $kc => $vc) {
-                    switch ($vc['subject_04']) {
-                        case '0':
-                            $subject_04 = 'X';
-                            break;
-                        default:
-                            $subject_04 = '';
-                    }        
-                    switch ($vc['subject_05']) {
-                        case '0':
-                            $subject_05 = 'X';
-                            break;
-                        default:
-                            $subject_05 = '';
-                    }  
-                    switch ($vc['subject_06']) {
-                        case '0':
-                            $subject_06 = 'X';
-                            break;
-                        default:
-                            $subject_06 = '';
-                    }   
-                    switch ($vc['subject_07']) {
-                        case '0':
-                            $subject_07 = 'X';
-                            break;
-                        default:
-                            $subject_07 = '';
-                    }                                                                                
-                    $html .=   '<tr>';
-                    $html .=  '<td  style="border: 1px solid #999999;" rowspan="2">'.$vc['field'].'</td>';
-                    $html .=  '<td  style="border: 1px solid #999999;">'.$vc['supervisor_1'].'</td>';
-                    $html .=  '<td  style="border: 1px solid #999999;">'.$subject_04.'</td>';
-                    $html .=  '<td  style="border: 1px solid #999999;">'.$subject_05.'</td>';
-                    $html .=  '<td  style="border: 1px solid #999999;">'.$subject_06.'</td>';
-                    $html .=  '<td  style="border: 1px solid #999999;">'.$subject_07.'</td>';
-                    $html .=  '</tr>';
-                    $html .=   '<tr>';
-                    $html .=  '<td  style="border: 1px solid #999999;">'.$vc['supervisor_2'].'</td>';
-                    $html .=  '<td  style="border: 1px solid #999999;">'.$subject_04.'</td>';
-                    $html .=  '<td  style="border: 1px solid #999999;">'.$subject_05.'</td>';
-                    $html .=  '<td  style="border: 1px solid #999999;">'.$subject_06.'</td>';
-                    $html .=  '<td  style="border: 1px solid #999999;">'.$subject_07.'</td>';
-                    $html .=  '</tr>';       
-                    $html .=   '<tr>';
-                    $html .=  '<td  style="border: 1px solid #999999;" colspan="2">管卷人員簽收記錄表</td>';
-                    $html .=  '<td  style="border: 1px solid #999999;">'.$subject_04.'</td>';
-                    $html .=  '<td  style="border: 1px solid #999999;">'.$subject_05.'</td>';
-                    $html .=  '<td  style="border: 1px solid #999999;">'.$subject_06.'</td>';
-                    $html .=  '<td  style="border: 1px solid #999999;">'.$subject_07.'</td>';
-                    $html .=  '</tr>';                                    
-                }
-                // $html .= '<tr>';
-                // $html .= '<td colspan="5" style="font-size:13px;text-align:left;">共計：'.count($v).'人</td>';
-                // $html .=  '</tr>';
-                    
-                $html .=  '</table>';
-
-                $obj_pdf->AddPage($html);
-
-                $obj_pdf->writeHTML($html);
-            }
+            $view = $this->load->view('designated/e_2_3_2', $data,true);
+            if (!is_dir('./html/')) {
+                mkdir('./html/');
+            } else {
+                $path = 'e_2_3_2.html';
+                $fp = fopen('./html/'.$path,'w');//建檔
+                fwrite($fp,$view);
+                fclose($fp);//關閉開啟的檔案                
+            }        
+            
+            if (!is_dir('./pdf/')) {
+                mkdir('./pdf/');
+            } else {
+                exec('wkhtmltopdf --lowquality --enable-forms http://uat.fofo.tw/fjuexam/html/e_2_3_2.html  ./pdf/e_2_3_2.pdf');
+            }             
+            echo '<script>location.href="http://uat.fofo.tw/fjuexam/pdf/e_2_3_2.pdf"</script>';    
+        }else{
+            return false;
         }
-        $obj_pdf->Output('答案卷卡收發記錄單.pdf', 'I');
     }    
 
     public function e_2_3_3()
@@ -1865,88 +1736,29 @@ class Designated extends CI_Controller
             'part' => $this->mod_trial->get_once_date_of_voucher3($part),
             'area' => $area,
             'datetime_info' => $datetime_info,
-            'count'=> $this->mod_trial->get_patrol_member_count($part),
+            'count'=> $this->mod_trial->get_patrol_member_count_3($part),
             'school' => $this->mod_exam_area->year_school_name($part),
         );
         if ($data['part'] != false) {
-            foreach ($data['part'] as $k => $v) {
-                $html = '<table style="padding:4px 0px;text-align:center;">';
-                $html .= '<thead>';
-                $html .=  '<tr>';
-                $html .=  '<td colspan="5" style="font-size:16px;text-align:center;">'.$_SESSION['year'].'學年度指定科目考試新北一考區</td>';
-                $html .=  '</tr>';       
-                $html .=  '<tr>';
-                $html .=  '<td colspan="5" style="font-size:16px;text-align:center;">'.$_GET['area'].$data['school'].'試題本、答案卷收發記錄單</td>';
-                $html .=  '</tr>'; 
-                $html .=  '<tr>';
-                $html .=  '<td colspan="5" style="font-size:13px;text-align:left;">管卷人員：'.$k.'</td>';
-                $html .=  '</tr>';      
-                $html .=  '<tr>';
-                $html .=  '<td style="border: 1px solid #999999;" colspan="2">日期  科目</td>';
-                $html .=  '<td style="border: 1px solid #999999;" colspan="3">'.mb_substr($datetime_info['day_1'], 5, 8, 'utf-8').'</td>';
-                $html .=  '</tr>';              
-                $html .=  '<tr>';        
-                $html .= '<td style="border: 1px solid #999999;">試場</td>';
-                $html .= '<td style="border: 1px solid #999999;">監試人員</td>';
-                $html .= '<td style="border: 1px solid #999999;">第1節<br>物理</td>';
-                $html .= '<td style="border: 1px solid #999999;">第2節<br>化學</td>';
-                $html .= '<td style="border: 1px solid #999999;">第3節<br>生物</td>';
-                $html .=  '</tr>';        
-                $html .= '</thead>';
-                foreach ($v as $kc => $vc) {
-                    switch ($vc['subject_08']) {
-                        case '0':
-                            $subject_08 = 'X';
-                            break;
-                        default:
-                            $subject_08 = '';
-                    }        
-                    switch ($vc['subject_09']) {
-                        case '0':
-                            $subject_09 = 'X';
-                            break;
-                        default:
-                            $subject_09 = '';
-                    }  
-                    switch ($vc['subject_10']) {
-                        case '0':
-                            $subject_10 = 'X';
-                            break;
-                        default:
-                            $subject_10 = '';
-                    }                                                            
-                    $html .=   '<tr>';
-                    $html .=  '<td  style="border: 1px solid #999999;" rowspan="2">'.$vc['field'].'</td>';
-                    $html .=  '<td  style="border: 1px solid #999999;">'.$vc['supervisor_1'].'</td>';
-                    $html .=  '<td  style="border: 1px solid #999999;">'.$subject_08.'</td>';
-                    $html .=  '<td  style="border: 1px solid #999999;">'.$subject_09.'</td>';
-                    $html .=  '<td  style="border: 1px solid #999999;">'.$subject_10.'</td>';
-                    $html .=  '</tr>';
-                    $html .=   '<tr>';
-                    $html .=  '<td  style="border: 1px solid #999999;">'.$vc['supervisor_2'].'</td>';
-                    $html .=  '<td  style="border: 1px solid #999999;">'.$subject_08.'</td>';
-                    $html .=  '<td  style="border: 1px solid #999999;">'.$subject_09.'</td>';
-                    $html .=  '<td  style="border: 1px solid #999999;">'.$subject_10.'</td>';
-                    $html .=  '</tr>';       
-                    $html .=   '<tr>';
-                    $html .=  '<td  style="border: 1px solid #999999;" colspan="2">管卷人員簽收記錄表</td>';
-                    $html .=  '<td  style="border: 1px solid #999999;">'.$subject_08.'</td>';
-                    $html .=  '<td  style="border: 1px solid #999999;">'.$subject_09.'</td>';
-                    $html .=  '<td  style="border: 1px solid #999999;">'.$subject_10.'</td>';
-                    $html .=  '</tr>';                                    
-                }
-                // $html .= '<tr>';
-                // $html .= '<td colspan="5" style="font-size:13px;text-align:left;">共計：'.count($v).'人</td>';
-                // $html .=  '</tr>';
-                    
-                $html .=  '</table>';
-
-                $obj_pdf->AddPage($html);
-
-                $obj_pdf->writeHTML($html);
-            }
+            $view = $this->load->view('designated/e_2_3_3', $data,true);
+            if (!is_dir('./html/')) {
+                mkdir('./html/');
+            } else {
+                $path = 'e_2_3_3.html';
+                $fp = fopen('./html/'.$path,'w');//建檔
+                fwrite($fp,$view);
+                fclose($fp);//關閉開啟的檔案                
+            }        
+            
+            if (!is_dir('./pdf/')) {
+                mkdir('./pdf/');
+            } else {
+                exec('wkhtmltopdf --lowquality --enable-forms http://uat.fofo.tw/fjuexam/html/e_2_3_3.html  ./pdf/e_2_3_3.pdf');
+            }             
+            echo '<script>location.href="http://uat.fofo.tw/fjuexam/pdf/e_2_3_3.pdf"</script>';    
+        }else{
+            return false;
         }
-        $obj_pdf->Output('答案卷卡收發記錄單.pdf', 'I');
     }        
 
     public function e_2_4()
@@ -2746,9 +2558,22 @@ class Designated extends CI_Controller
             'date' => $date,
         );
         // print_r($data);
-        $view =  $this->load->view('designated/e_3_2_1', $data, true);
-        $obj_pdf->writeHTML($view);
-        $obj_pdf->Output('試場工作人員分配表.pdf', 'I');
+        $view = $this->load->view('designated/e_3_2_1', $data, true);
+        if (!is_dir('./html/')) {
+            mkdir('./html/');
+        } else {
+            $path = 'e_3_2_1.html';
+            $fp = fopen('./html/'.$path,'w');//建檔
+            fwrite($fp,$view);
+            fclose($fp);//關閉開啟的檔案                
+        }        
+            
+        if (!is_dir('./pdf/')) {
+            mkdir('./pdf/');
+        } else {
+            exec('wkhtmltopdf --lowquality --enable-forms http://uat.fofo.tw/fjuexam/html/e_3_2_1.html  ./pdf/e_3_2_1.pdf');
+        }             
+        echo '<script>location.href="http://uat.fofo.tw/fjuexam/pdf/e_3_2_1.pdf"</script>';     
     }
 
     public function e_3_2_1_2()
@@ -2784,9 +2609,22 @@ class Designated extends CI_Controller
             'date' => $date,
         );
         // print_r($data);
-        $view =  $this->load->view('designated/e_3_2_1', $data, true);
-        $obj_pdf->writeHTML($view);
-        $obj_pdf->Output('試場工作人員分配表.pdf', 'I');
+        $view = $this->load->view('designated/e_3_2_1', $data, true);
+        if (!is_dir('./html/')) {
+            mkdir('./html/');
+        } else {
+            $path = 'e_3_2_1.html';
+            $fp = fopen('./html/'.$path,'w');//建檔
+            fwrite($fp,$view);
+            fclose($fp);//關閉開啟的檔案                
+        }        
+            
+        if (!is_dir('./pdf/')) {
+            mkdir('./pdf/');
+        } else {
+            exec('wkhtmltopdf --lowquality --enable-forms http://uat.fofo.tw/fjuexam/html/e_3_2_1.html  ./pdf/e_3_2_1.pdf');
+        }             
+        echo '<script>location.href="http://uat.fofo.tw/fjuexam/pdf/e_3_2_1.pdf"</script>';     
     }
 
     public function e_3_2_1_3()
@@ -2822,9 +2660,22 @@ class Designated extends CI_Controller
             'date' => $date,
         );
         // print_r($data);
-        $view =  $this->load->view('designated/e_3_2_1', $data, true);
-        $obj_pdf->writeHTML($view);
-        $obj_pdf->Output('試場工作人員分配表.pdf', 'I');
+        $view = $this->load->view('designated/e_3_2_1', $data, true);
+        if (!is_dir('./html/')) {
+            mkdir('./html/');
+        } else {
+            $path = 'e_3_2_1.html';
+            $fp = fopen('./html/'.$path,'w');//建檔
+            fwrite($fp,$view);
+            fclose($fp);//關閉開啟的檔案                
+        }        
+            
+        if (!is_dir('./pdf/')) {
+            mkdir('./pdf/');
+        } else {
+            exec('wkhtmltopdf --lowquality --enable-forms http://uat.fofo.tw/fjuexam/html/e_3_2_1.html  ./pdf/e_3_2_1.pdf');
+        }             
+        echo '<script>location.href="http://uat.fofo.tw/fjuexam/pdf/e_3_2_1.pdf"</script>';  
     }    
 
     public function e_3_2_2_1()
@@ -2861,8 +2712,21 @@ class Designated extends CI_Controller
         );
         // print_r($data);
         $view =  $this->load->view('designated/e_3_2_2', $data, true);
-        $obj_pdf->writeHTML($view);
-        $obj_pdf->Output('試場工作人員分配表.pdf', 'I');
+        if (!is_dir('./html/')) {
+            mkdir('./html/');
+        } else {
+            $path = 'e_3_2_2.html';
+            $fp = fopen('./html/'.$path,'w');//建檔
+            fwrite($fp,$view);
+            fclose($fp);//關閉開啟的檔案                
+        }        
+            
+        if (!is_dir('./pdf/')) {
+            mkdir('./pdf/');
+        } else {
+            exec('wkhtmltopdf --lowquality --enable-forms http://uat.fofo.tw/fjuexam/html/e_3_2_2.html  ./pdf/e_3_2_2.pdf');
+        }             
+        echo '<script>location.href="http://uat.fofo.tw/fjuexam/pdf/e_3_2_2.pdf"</script>';  
     }
     
     public function e_3_2_2_2()
@@ -2899,8 +2763,21 @@ class Designated extends CI_Controller
         );
         // print_r($data);
         $view =  $this->load->view('designated/e_3_2_2', $data, true);
-        $obj_pdf->writeHTML($view);
-        $obj_pdf->Output('試場工作人員分配表.pdf', 'I');
+        if (!is_dir('./html/')) {
+            mkdir('./html/');
+        } else {
+            $path = 'e_3_2_2.html';
+            $fp = fopen('./html/'.$path,'w');//建檔
+            fwrite($fp,$view);
+            fclose($fp);//關閉開啟的檔案                
+        }        
+            
+        if (!is_dir('./pdf/')) {
+            mkdir('./pdf/');
+        } else {
+            exec('wkhtmltopdf --lowquality --enable-forms http://uat.fofo.tw/fjuexam/html/e_3_2_2.html  ./pdf/e_3_2_2.pdf');
+        }             
+        echo '<script>location.href="http://uat.fofo.tw/fjuexam/pdf/e_3_2_2.pdf"</script>';  
     }
 
     public function e_3_2_2_3()
@@ -2937,8 +2814,21 @@ class Designated extends CI_Controller
         );
         // print_r($data);
         $view =  $this->load->view('designated/e_3_2_2', $data, true);
-        $obj_pdf->writeHTML($view);
-        $obj_pdf->Output('試場工作人員分配表.pdf', 'I');
+        if (!is_dir('./html/')) {
+            mkdir('./html/');
+        } else {
+            $path = 'e_3_2_2.html';
+            $fp = fopen('./html/'.$path,'w');//建檔
+            fwrite($fp,$view);
+            fclose($fp);//關閉開啟的檔案                
+        }        
+            
+        if (!is_dir('./pdf/')) {
+            mkdir('./pdf/');
+        } else {
+            exec('wkhtmltopdf --lowquality --enable-forms http://uat.fofo.tw/fjuexam/html/e_3_2_2.html  ./pdf/e_3_2_2.pdf');
+        }             
+        echo '<script>location.href="http://uat.fofo.tw/fjuexam/pdf/e_3_2_2.pdf"</script>';  
     }
 
     public function e_3_2_3_1()
@@ -2975,8 +2865,21 @@ class Designated extends CI_Controller
         );
         // print_r($data);
         $view =  $this->load->view('designated/e_3_2_3', $data, true);
-        $obj_pdf->writeHTML($view);
-        $obj_pdf->Output('試場工作人員分配表.pdf', 'I');
+        if (!is_dir('./html/')) {
+            mkdir('./html/');
+        } else {
+            $path = 'e_3_2_3.html';
+            $fp = fopen('./html/'.$path,'w');//建檔
+            fwrite($fp,$view);
+            fclose($fp);//關閉開啟的檔案                
+        }        
+            
+        if (!is_dir('./pdf/')) {
+            mkdir('./pdf/');
+        } else {
+            exec('wkhtmltopdf --lowquality --enable-forms http://uat.fofo.tw/fjuexam/html/e_3_2_3.html  ./pdf/e_3_2_3.pdf');
+        }             
+        echo '<script>location.href="http://uat.fofo.tw/fjuexam/pdf/e_3_2_3.pdf"</script>';  
     }    
 
        public function e_3_2_3_2()
@@ -3013,8 +2916,21 @@ class Designated extends CI_Controller
         );
         // print_r($data);
         $view =  $this->load->view('designated/e_3_2_3', $data, true);
-        $obj_pdf->writeHTML($view);
-        $obj_pdf->Output('試場工作人員分配表.pdf', 'I');
+        if (!is_dir('./html/')) {
+            mkdir('./html/');
+        } else {
+            $path = 'e_3_2_3.html';
+            $fp = fopen('./html/'.$path,'w');//建檔
+            fwrite($fp,$view);
+            fclose($fp);//關閉開啟的檔案                
+        }        
+            
+        if (!is_dir('./pdf/')) {
+            mkdir('./pdf/');
+        } else {
+            exec('wkhtmltopdf --lowquality --enable-forms http://uat.fofo.tw/fjuexam/html/e_3_2_3.html  ./pdf/e_3_2_3.pdf');
+        }             
+        echo '<script>location.href="http://uat.fofo.tw/fjuexam/pdf/e_3_2_3.pdf"</script>';  
     }    
 
        public function e_3_2_3_3()
@@ -3051,8 +2967,21 @@ class Designated extends CI_Controller
         );
         // print_r($data);
         $view =  $this->load->view('designated/e_3_2_3', $data, true);
-        $obj_pdf->writeHTML($view);
-        $obj_pdf->Output('試場工作人員分配表.pdf', 'I');
+        if (!is_dir('./html/')) {
+            mkdir('./html/');
+        } else {
+            $path = 'e_3_2_3.html';
+            $fp = fopen('./html/'.$path,'w');//建檔
+            fwrite($fp,$view);
+            fclose($fp);//關閉開啟的檔案                
+        }        
+            
+        if (!is_dir('./pdf/')) {
+            mkdir('./pdf/');
+        } else {
+            exec('wkhtmltopdf --lowquality --enable-forms http://uat.fofo.tw/fjuexam/html/e_3_2_3.html  ./pdf/e_3_2_3.pdf');
+        }             
+        echo '<script>location.href="http://uat.fofo.tw/fjuexam/pdf/e_3_2_3.pdf"</script>';  
     }    
 
     public function e_4()
@@ -3534,8 +3463,21 @@ class Designated extends CI_Controller
             'count'=>$this->mod_trial->e_6_1_member_count($part)
         );
         $view =  $this->load->view('designated/e_6_1', $data, true);
-        $obj_pdf->writeHTML($view);
-        $obj_pdf->Output('監試人員印領清冊.pdf', 'I');
+        if (!is_dir('./html/')) {
+            mkdir('./html/');
+        } else {
+            $path = 'e_6_1.html';
+            $fp = fopen('./html/'.$path,'w');//建檔
+            fwrite($fp,$view);
+            fclose($fp);//關閉開啟的檔案                
+        }        
+            
+        if (!is_dir('./pdf/')) {
+            mkdir('./pdf/');
+        } else {
+            exec('wkhtmltopdf --lowquality --enable-forms http://uat.fofo.tw/fjuexam/html/e_6_1.html  ./pdf/e_6_1.pdf');
+        }             
+        echo '<script>location.href="http://uat.fofo.tw/fjuexam/pdf/e_6_1.pdf"</script>';  
     }
 
     public function e_6_2()
@@ -3572,8 +3514,21 @@ class Designated extends CI_Controller
             'count' => $this->mod_trial->get_list_for_obs_member_count($part, $obs),
         );
         $view =  $this->load->view('designated/e_6_2', $data, true);
-        $obj_pdf->writeHTML($view);
-        $obj_pdf->Output('監試人員印領清冊.pdf', 'I');
+       if (!is_dir('./html/')) {
+            mkdir('./html/');
+        } else {
+            $path = 'e_6_2.html';
+            $fp = fopen('./html/'.$path,'w');//建檔
+            fwrite($fp,$view);
+            fclose($fp);//關閉開啟的檔案                
+        }        
+            
+        if (!is_dir('./pdf/')) {
+            mkdir('./pdf/');
+        } else {
+            exec('wkhtmltopdf --lowquality --enable-forms http://uat.fofo.tw/fjuexam/html/e_6_2.html  ./pdf/e_6_2.pdf');
+        }             
+        echo '<script>location.href="http://uat.fofo.tw/fjuexam/pdf/e_6_2.pdf"</script>';  
     }
 
     public function e_6_3()
@@ -3607,8 +3562,21 @@ class Designated extends CI_Controller
             'lunch'=>$this->mod_task->get_all_lunch_trial_total_of_district($area)            
         );
         $view =  $this->load->view('designated/e_6_3', $data, true);
-        $obj_pdf->writeHTML($view);
-        $obj_pdf->Output('試務人員印領清冊.pdf', 'I');
+       if (!is_dir('./html/')) {
+            mkdir('./html/');
+        } else {
+            $path = 'e_6_3.html';
+            $fp = fopen('./html/'.$path,'w');//建檔
+            fwrite($fp,$view);
+            fclose($fp);//關閉開啟的檔案                
+        }        
+            
+        if (!is_dir('./pdf/')) {
+            mkdir('./pdf/');
+        } else {
+            exec('wkhtmltopdf --lowquality --enable-forms http://uat.fofo.tw/fjuexam/html/e_6_3.html  ./pdf/e_6_3.pdf');
+        }             
+        echo '<script>location.href="http://uat.fofo.tw/fjuexam/pdf/e_6_3.pdf"</script>';  
     }
 
     public function e_6_4()
@@ -3643,8 +3611,21 @@ class Designated extends CI_Controller
             'count' => $this->mod_trial->get_trial_staff_task_member_count($part),            
         );
         $view =  $this->load->view('designated/e_6_4', $data, true);
-        $obj_pdf->writeHTML($view);
-        $obj_pdf->Output('管卷人員印領清冊.pdf', 'I');
+       if (!is_dir('./html/')) {
+            mkdir('./html/');
+        } else {
+            $path = 'e_6_4.html';
+            $fp = fopen('./html/'.$path,'w');//建檔
+            fwrite($fp,$view);
+            fclose($fp);//關閉開啟的檔案                
+        }        
+            
+        if (!is_dir('./pdf/')) {
+            mkdir('./pdf/');
+        } else {
+            exec('wkhtmltopdf --lowquality --enable-forms http://uat.fofo.tw/fjuexam/html/e_6_4.html  ./pdf/e_6_4.pdf');
+        }             
+        echo '<script>location.href="http://uat.fofo.tw/fjuexam/pdf/e_6_4.pdf"</script>';  
     }
 
     public function e_6_5()
@@ -3679,8 +3660,21 @@ class Designated extends CI_Controller
             'count' => $this->mod_trial->get_patrol_staff_task_member_count($part),                  
         );
         $view =  $this->load->view('designated/e_6_5', $data, true);
-        $obj_pdf->writeHTML($view);
-        $obj_pdf->Output('巡場人員印領清冊.pdf', 'I');
+       if (!is_dir('./html/')) {
+            mkdir('./html/');
+        } else {
+            $path = 'e_6_5.html';
+            $fp = fopen('./html/'.$path,'w');//建檔
+            fwrite($fp,$view);
+            fclose($fp);//關閉開啟的檔案                
+        }        
+            
+        if (!is_dir('./pdf/')) {
+            mkdir('./pdf/');
+        } else {
+            exec('wkhtmltopdf --lowquality --enable-forms http://uat.fofo.tw/fjuexam/html/e_6_5.html  ./pdf/e_6_5.pdf');
+        }             
+        echo '<script>location.href="http://uat.fofo.tw/fjuexam/pdf/e_6_5.pdf"</script>'; 
     }
 
     public function e_7()

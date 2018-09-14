@@ -1,9 +1,26 @@
 <style>
-    .bb{
-
+    .bb {
         border: 1px solid #999999;
-        text-align:center;
     }
+   table{
+        text-align: center;
+        border-spacing: 0px;
+        width:100%;
+    }
+    td{
+        padding: 5px 0px;
+        font-size:18px;
+    }
+    * {
+        overflow: visible !important;
+    }
+    table, tr, td, th, tbody, thead, tfoot {
+        page-break-inside: avoid !important;
+    }    
+    .W50{
+        width:50%;
+        float:left;
+    }   
 </style>
 
 
@@ -16,15 +33,15 @@
 <table class="" id="" style="padding:4px 0px;text-align:center;">
     <thead>
         <tr>
-            <th colspan="13" style="font-size:18px;"><?=$_SESSION['year']?>學年度指定科目考試新北一考區</th>
+            <th colspan="13" style="font-size:21px;"><?=$_SESSION['year']?>學年度指定科目考試新北一考區</th>
         </tr>
         <tr>
-            <th colspan="13" style="font-size:16px;">監試人員印領清冊</th>
+            <th colspan="13" style="font-size:18px;">身障生試場監試人員印領清冊</th>
         </tr>        
         <tr>
-            <th colspan="4" style="font-size:13px;"> 分區：<?=$area?></th>
-            <th colspan="4" style="font-size:13px;">考場：<?=$school?></th>
-            <th colspan="4" style="font-size:13px;"> 印表日期<?=date('Y/m/d')?></th>
+            <th colspan="4" style="font-size:18px;"> 分區：<?=$area?>(身障)</th>
+            <th colspan="4" style="font-size:18px;">考場：<?=$school?></th>
+            <th colspan="4" style="font-size:18px;"> 印表日期<?=date('Y/m/d')?></th>
         </tr>
         <tr>
             <th rowspan="2" class="bb">試場</th>
@@ -103,6 +120,6 @@
                 $count = 0;
             }
         ?>        
-        <td colspan="12" style="text-align:left;font-size:14px;">共計:<?=$count?>人 實發監考費：<?=number_format($salary)?> - 餐費： <?=number_format($lunch)?> = 總支出費用<?=number_format($salary-$lunch)?> </td>
+        <td colspan="12" style="text-align:left;font-size:18px;">共計:<?=$count?>人 實發監考費：<?=number_format($salary)?> - 餐費： <?=number_format($lunch)?> = 總支出費用<?=number_format($salary-$lunch)?> </td>
     </tr>
 </table>

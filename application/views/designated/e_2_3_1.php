@@ -1,26 +1,43 @@
 <style>
-
     .bb {
         border: 1px solid #999999;
     }
-
-
+    table{
+        text-align: center;
+        border-spacing: 0px;
+        width:100%;
+    }
+    td{
+        padding: 5px 0px;
+        font-size:18px;
+    }
+    * {
+        overflow: visible !important;
+    }
+    table, tr, td, th, tbody, thead, tfoot {
+        page-break-inside: avoid !important;
+        page-break-after:always;
+    }    
+    .W50{
+        width:50%;
+        float:left;
+    }
 </style>
 
 <?php foreach ($part as $k => $v): ?>
-<table style="padding:4px 0px;text-align:center;">
+<table style="text-align:center;margin:0px auto;">
     <thead>
         <tr>
-            <td colspan="5" style="font-size:16px;text-align:center;"><?=$_SESSION['year']?>學年度指定科目考試新北一考區</td>
+            <td colspan="5" style="font-size:21px;text-align:center;"><?=$_SESSION['year']?>學年度指定科目考試新北一考區</td>
         </tr>
         <tr>
-            <td colspan="5" style="font-size:16px;text-align:center;"><?=$_GET['area']?><?=$school?>試題本、答案卷收發記錄單</td>
+            <td colspan="5" style="font-size:18px;text-align:center;"><?=$_GET['area']?><?=$school?>試題本、答案卷收發記錄單</td>
         </tr>        
         <tr>
-            <td colspan="5" style="font-size:13px;text-align:left;">管卷人員：<?=$k?></td>
+            <td colspan="5" style="font-size:18px;text-align:left;">管卷人員：<?=$k?></td>
         </tr>    
         <tr>
-            <td class="bb" colspan="2">日期  科目</td>
+            <td class="bb" colspan="2"><div class="W50">日期</div>  <div class="W50">科目</div></td>
             <td class="bb" colspan="3"><?=mb_substr($datetime_info['day_1'], 5, 8, 'utf-8'); ?></td>
         </tr>
         <tr>

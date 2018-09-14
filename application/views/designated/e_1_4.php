@@ -2,28 +2,42 @@
     .bb {
         border: 1px solid #999999;
     }
+    table{
+        text-align: center;
+        border-spacing: 0px;
+        margin: 0 auto;
+    }
+    td{
+        padding: 5px 0px;
+    }
+    * {
+        overflow: visible !important;
+    }
+    table, tr, td, th, tbody, thead, tfoot {
+        page-break-inside: avoid !important;
+    }    
 </style>
 
 
 
-    <table class="" id="" style="padding:4px;text-align:center;">
+<table class="" id="">
 
-        <thead>
+    <thead>
         <tr>
-            <td colspan="22" style="font-size:16px"><?=$_SESSION['year']?>學年度指定科目考試新北一考區缺考人數統計表</td>
+            <td colspan="22" style="font-size:20px;"><?=$_SESSION['year']?>學年度指定科目考試新北一考區缺考人數統計表</td>
         </tr>      
         <tr>
-            <td colspan="22" style="font-size:14px;"><?=$area?><?=$school?></td>
+            <td colspan="22" style="font-size:18px;"><?=$area?><?=$school?></td>
         </tr>
         <tr>
             <td class="bb" colspan="2">日期</td>
-            <td class="bb" colspan="6" class="bb" style="font-size:16px">
+            <td class="bb" colspan="6" class="bb">
                 <?=mb_substr($datetime_info['day_1'], 5, 8, 'utf-8'); ?>
             </td>
-            <td class="bb" colspan="8" class="bb" style="font-size:16px">
+            <td class="bb" colspan="8" class="bb">
                 <?=mb_substr($datetime_info['day_2'], 5, 8, 'utf-8'); ?>
             </td>
-            <td class="bb" colspan="6" class="bb" style="font-size:16px">
+            <td class="bb" colspan="6" class="bb">
                 <?=mb_substr($datetime_info['day_3'], 5, 8, 'utf-8'); ?>
             </td>
         </tr>
@@ -97,7 +111,7 @@
     <tbody>
     <?php foreach ($list as $k => $v): ?>
     <tr>
-        <td class="bb" colspan="2">
+        <td class="bb" colspan="2" style="font-size:18px;">
             <?=$v['field']?>
         </td>
         <td class="bb">
