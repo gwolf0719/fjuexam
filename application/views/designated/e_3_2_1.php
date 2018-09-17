@@ -15,8 +15,8 @@
         overflow: visible !important;
     }
     table, tr, td, th, tbody, thead, tfoot {
-        page-break-inside: avoid !important;
-        page-break-after:always;
+        page-break-before: always;
+        page-break-inside: avoid;
     }    
     .W50{
         width:50%;
@@ -24,7 +24,7 @@
     }    
 </style>
 
-<table class="" id="" style="padding: 4px 0px;text-align:center">
+<table class="" id="" style="padding: 2px 0px;text-align:center">
 
     <tr>
         <td width="100%" colspan="6" style="font-size:21px;text-align:center;"><?=$_SESSION['year']?>學年度指定科目考試新北一考區</td>
@@ -34,11 +34,11 @@
     </tr>
     <tr style="background:#FFE4E7">
         <td class="bb">試場</th>
-        <td class="bb" width="20%">考生起訖號碼</th>
-        <td class="bb" width="35%">樓層別</th>
+        <td class="bb" width="30%">考生起訖號碼</th>
+        <td class="bb" width="25%">樓層別</th>
         <td class="bb">監試人員</th>
         <td class="bb">監試人員</th>
-        <td class="bb">試務人員</th>
+        <td class="bb" width="15%">試務人員</th>
     </tr>
     <?php foreach ($part as $k => $v): ?>
     <tr>

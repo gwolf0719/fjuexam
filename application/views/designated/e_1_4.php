@@ -159,25 +159,25 @@
     <?php endforeach; ?>
     <tr>
         <td class="bb" colspan="2">共計</td>
+        <td class="bb"><?=$count['number1']?></td>
         <td class="bb"></td>
+        <td class="bb"><?=$count['number2']?></td>
         <td class="bb"></td>
+        <td class="bb"><?=$count['number3']?></td>
         <td class="bb"></td>
+        <td class="bb"><?=$count['number4']?></td>
         <td class="bb"></td>
+        <td class="bb"><?=$count['number5']?></td>
         <td class="bb"></td>
+        <td class="bb"><?=$count['number6']?></td>
         <td class="bb"></td>
+        <td class="bb"><?=$count['number7']?></td>
         <td class="bb"></td>
+        <td class="bb"><?=$count['number8']?></td>
         <td class="bb"></td>
+        <td class="bb"><?=$count['number9']?></td>
         <td class="bb"></td>
-        <td class="bb"></td>
-        <td class="bb"></td>
-        <td class="bb"></td>
-        <td class="bb"></td>
-        <td class="bb"></td>
-        <td class="bb"></td>
-        <td class="bb"></td>
-        <td class="bb"></td>
-        <td class="bb"></td>
-        <td class="bb"></td>
+        <td class="bb"><?=$count['number10']?></td>
         <td class="bb"></td>
     </tr>
     </tbody>

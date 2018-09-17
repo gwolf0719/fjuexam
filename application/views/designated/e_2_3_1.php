@@ -15,9 +15,13 @@
         overflow: visible !important;
     }
     table, tr, td, th, tbody, thead, tfoot {
-        page-break-inside: avoid !important;
-        page-break-after:always;
+        page-break-before: always;
+        page-break-inside: avoid;
     }    
+
+    /* table td {
+        word-break: break-all;
+    }     */
     .W50{
         width:50%;
         float:left;

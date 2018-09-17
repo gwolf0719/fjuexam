@@ -1958,7 +1958,8 @@ class Mod_trial extends CI_Model
                     'do_date' => $sub[$i]['first_member_do_date'],
                     'member_unit' => $supervisor1['member_unit'],
                     'member_name'=> $supervisor1['member_name'],
-                    'member_code' =>$supervisor1['member_code']
+                    'member_code' =>$supervisor1['member_code'],
+                    'trial_staff_code'=>$sub[$i]['trial_staff_code_1'],
                 );
             $arr[] = array(
                     'year' => $sub[$i]['year'],
@@ -1966,7 +1967,8 @@ class Mod_trial extends CI_Model
                     'do_date' => $sub[$i]['second_member_do_date'],
                     'member_unit' => $supervisor2['member_unit'],
                     'member_name'=> $supervisor2['member_name'],
-                    'member_code' =>$supervisor2['member_code']
+                    'member_code' =>$supervisor2['member_code'],
+                    'trial_staff_code'=>$sub[$i]['trial_staff_code_2'],
                 );                
             // }
         }

@@ -1319,6 +1319,7 @@ class Designated extends CI_Controller
         
         $data = array(
             'list' => $this->mod_exam_area->year_get_list($part),
+            'count' => $this->mod_exam_area->year_get_member_count_list($part),
             'school' => $this->mod_exam_area->year_school_name($part),
             'course' => $this->mod_exam_datetime->get_course($year),
             'datetime_info'=>$datetime_info,
@@ -2571,7 +2572,7 @@ class Designated extends CI_Controller
         if (!is_dir('./pdf/')) {
             mkdir('./pdf/');
         } else {
-            exec('wkhtmltopdf --lowquality --enable-forms http://uat.fofo.tw/fjuexam/html/e_3_2_1.html  ./pdf/e_3_2_1.pdf');
+            exec('wkhtmltopdf --lowquality http://uat.fofo.tw/fjuexam/html/e_3_2_1.html  ./pdf/e_3_2_1.pdf');
         }             
         echo '<script>location.href="http://uat.fofo.tw/fjuexam/pdf/e_3_2_1.pdf"</script>';     
     }
@@ -2622,7 +2623,7 @@ class Designated extends CI_Controller
         if (!is_dir('./pdf/')) {
             mkdir('./pdf/');
         } else {
-            exec('wkhtmltopdf --lowquality --enable-forms http://uat.fofo.tw/fjuexam/html/e_3_2_1.html  ./pdf/e_3_2_1.pdf');
+            exec('wkhtmltopdf --lowquality http://uat.fofo.tw/fjuexam/html/e_3_2_1.html  ./pdf/e_3_2_1.pdf');
         }             
         echo '<script>location.href="http://uat.fofo.tw/fjuexam/pdf/e_3_2_1.pdf"</script>';     
     }
@@ -2673,7 +2674,7 @@ class Designated extends CI_Controller
         if (!is_dir('./pdf/')) {
             mkdir('./pdf/');
         } else {
-            exec('wkhtmltopdf --lowquality --enable-forms http://uat.fofo.tw/fjuexam/html/e_3_2_1.html  ./pdf/e_3_2_1.pdf');
+            exec('wkhtmltopdf --lowquality http://uat.fofo.tw/fjuexam/html/e_3_2_1.html  ./pdf/e_3_2_1.pdf');
         }             
         echo '<script>location.href="http://uat.fofo.tw/fjuexam/pdf/e_3_2_1.pdf"</script>';  
     }    
@@ -2724,7 +2725,7 @@ class Designated extends CI_Controller
         if (!is_dir('./pdf/')) {
             mkdir('./pdf/');
         } else {
-            exec('wkhtmltopdf --lowquality --enable-forms http://uat.fofo.tw/fjuexam/html/e_3_2_2.html  ./pdf/e_3_2_2.pdf');
+            exec('wkhtmltopdf --lowquality http://uat.fofo.tw/fjuexam/html/e_3_2_2.html  ./pdf/e_3_2_2.pdf');
         }             
         echo '<script>location.href="http://uat.fofo.tw/fjuexam/pdf/e_3_2_2.pdf"</script>';  
     }
@@ -2775,7 +2776,7 @@ class Designated extends CI_Controller
         if (!is_dir('./pdf/')) {
             mkdir('./pdf/');
         } else {
-            exec('wkhtmltopdf --lowquality --enable-forms http://uat.fofo.tw/fjuexam/html/e_3_2_2.html  ./pdf/e_3_2_2.pdf');
+            exec('wkhtmltopdf --lowquality http://uat.fofo.tw/fjuexam/html/e_3_2_2.html  ./pdf/e_3_2_2.pdf');
         }             
         echo '<script>location.href="http://uat.fofo.tw/fjuexam/pdf/e_3_2_2.pdf"</script>';  
     }
@@ -2826,7 +2827,7 @@ class Designated extends CI_Controller
         if (!is_dir('./pdf/')) {
             mkdir('./pdf/');
         } else {
-            exec('wkhtmltopdf --lowquality --enable-forms http://uat.fofo.tw/fjuexam/html/e_3_2_2.html  ./pdf/e_3_2_2.pdf');
+            exec('wkhtmltopdf --lowquality http://uat.fofo.tw/fjuexam/html/e_3_2_2.html  ./pdf/e_3_2_2.pdf');
         }             
         echo '<script>location.href="http://uat.fofo.tw/fjuexam/pdf/e_3_2_2.pdf"</script>';  
     }
@@ -2877,7 +2878,7 @@ class Designated extends CI_Controller
         if (!is_dir('./pdf/')) {
             mkdir('./pdf/');
         } else {
-            exec('wkhtmltopdf --lowquality --enable-forms http://uat.fofo.tw/fjuexam/html/e_3_2_3.html  ./pdf/e_3_2_3.pdf');
+            exec('wkhtmltopdf --lowquality http://uat.fofo.tw/fjuexam/html/e_3_2_3.html  ./pdf/e_3_2_3.pdf');
         }             
         echo '<script>location.href="http://uat.fofo.tw/fjuexam/pdf/e_3_2_3.pdf"</script>';  
     }    
@@ -2928,7 +2929,7 @@ class Designated extends CI_Controller
         if (!is_dir('./pdf/')) {
             mkdir('./pdf/');
         } else {
-            exec('wkhtmltopdf --lowquality --enable-forms http://uat.fofo.tw/fjuexam/html/e_3_2_3.html  ./pdf/e_3_2_3.pdf');
+            exec('wkhtmltopdf --lowquality http://uat.fofo.tw/fjuexam/html/e_3_2_3.html  ./pdf/e_3_2_3.pdf');
         }             
         echo '<script>location.href="http://uat.fofo.tw/fjuexam/pdf/e_3_2_3.pdf"</script>';  
     }    
@@ -2979,7 +2980,7 @@ class Designated extends CI_Controller
         if (!is_dir('./pdf/')) {
             mkdir('./pdf/');
         } else {
-            exec('wkhtmltopdf --lowquality --enable-forms http://uat.fofo.tw/fjuexam/html/e_3_2_3.html  ./pdf/e_3_2_3.pdf');
+            exec('wkhtmltopdf --lowquality http://uat.fofo.tw/fjuexam/html/e_3_2_3.html  ./pdf/e_3_2_3.pdf');
         }             
         echo '<script>location.href="http://uat.fofo.tw/fjuexam/pdf/e_3_2_3.pdf"</script>';  
     }    
@@ -3184,7 +3185,7 @@ class Designated extends CI_Controller
             $objPHPExcel->getActiveSheet()->setCellValue('A'.(2+$i), $arr[$i]['part_name']);
             $objPHPExcel->getActiveSheet()->setCellValue('B'.(2+$i), '監試人員');
             $objPHPExcel->getActiveSheet()->setCellValue('C'.(2+$i), $arr[$i]['member_name']);
-            $objPHPExcel->getActiveSheet()->setCellValue('D'.(2+$i), $arr[$i]['member_code']);
+            $objPHPExcel->getActiveSheet()->setCellValue('D'.(2+$i), $arr[$i]['trial_staff_code']);
         }
 
         $objWriter = PHPExcel_IOFactory::createWriter($objPHPExcel, 'CSV');
