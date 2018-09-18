@@ -120,6 +120,6 @@
                 $count = 0;
             }
         ?>        
-        <td colspan="12" style="text-align:left;font-size:21px;">共計:<?=$count?>人 實發監考費：<?=number_format($salary)?> + 餐費： <?=number_format($lunch)?> = 總支出費用<?=number_format($salary+$lunch)?> </td>
+        <td colspan="12" style="text-align:left;font-size:21px;">共計:<?=$count?>人 實發監考費：<?=number_format($salary)?> - 餐費： <?=number_format($lunch)?> = 總支出費用<?=number_format($salary-$lunch)?> </td>
     </tr>
 </table>
