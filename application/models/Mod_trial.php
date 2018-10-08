@@ -806,29 +806,39 @@ class Mod_trial extends CI_Model
     
 
         $sub = $this->db->get()->result_array();
-        for ($i=0; $i < count($sub); $i++) {
-                # code...
-            $supervisor1 = $this->db->where('member_code', $sub[$i]['supervisor_1_code'])->get('staff_member')->row_array();
-            $supervisor2 = $this->db->where('member_code', $sub[$i]['supervisor_2_code'])->get('staff_member')->row_array();
-            $voucher = $this->db->where('part', $part)->where('first_start <=', $sub[$i]['field'])->where('first_end >=', $sub[$i]['field'])->get('trial_staff')->result_array();
-            $course = $this->db->where('year', $year)->where('field', $sub[$i]['field'])->get('exam_area')->row_array();
-            $trial = $this->db->get('trial_staff')->result_array();
-            for ($v=0; $v < count($voucher); $v++) { 
-                # code...
-                $arr[$voucher[$v]['trial_staff_name']][] = array(
-                    'sn'=>$sub[$i]['sn'],
-                    'field' => $sub[$i]['field'],
-                    'test_section' => $sub[$i]['test_section'],
-                    'part' => $sub[$i]['part'],
-                    'supervisor_1'=>$sub[$i]['supervisor_1'],
-                    'supervisor_2'=>$sub[$i]['supervisor_2'],
-                    'subject_01'=>$course['subject_01'],
-                    'subject_02'=>$course['subject_02'],
-                    'subject_03'=>$course['subject_03'],
-                );                
+        if(!empty($sub)){
+            for ($i=0; $i < count($sub); $i++) {
+                    # code...
+                $supervisor1 = $this->db->where('member_code', $sub[$i]['supervisor_1_code'])->get('staff_member')->row_array();
+                $supervisor2 = $this->db->where('member_code', $sub[$i]['supervisor_2_code'])->get('staff_member')->row_array();
+                $voucher = $this->db->where('part', $part)->where('first_start <=', $sub[$i]['field'])->where('first_end >=', $sub[$i]['field'])->get('trial_staff')->result_array();
+                $course = $this->db->where('year', $year)->where('field', $sub[$i]['field'])->get('exam_area')->row_array();
+                $trial = $this->db->get('trial_staff')->result_array();
+                if(!empty($voucher)){
+                    for ($v=0; $v < count($voucher); $v++) { 
+                        # code...
+                        $arr[$voucher[$v]['trial_staff_name']][] = array(
+                            'sn'=>$sub[$i]['sn'],
+                            'field' => $sub[$i]['field'],
+                            'test_section' => $sub[$i]['test_section'],
+                            'part' => $sub[$i]['part'],
+                            'supervisor_1'=>$sub[$i]['supervisor_1'],
+                            'supervisor_2'=>$sub[$i]['supervisor_2'],
+                            'subject_01'=>$course['subject_01'],
+                            'subject_02'=>$course['subject_02'],
+                            'subject_03'=>$course['subject_03'],
+                        );                
+                    }               
+                }else{
+                    return false;
+                }
+
             }
+            return $arr;
+        }else{
+            return false;
         }
-        return $arr;
+
     }  
     
     public function get_once_date_of_voucher2($part = '')
@@ -844,33 +854,42 @@ class Mod_trial extends CI_Model
     
 
         $sub = $this->db->get()->result_array();
-        for ($i=0; $i < count($sub); $i++) {
-                # code...
-            $supervisor1 = $this->db->where('member_code', $sub[$i]['supervisor_1_code'])->get('staff_member')->row_array();
-            $supervisor2 = $this->db->where('member_code', $sub[$i]['supervisor_2_code'])->get('staff_member')->row_array();
-            $voucher = $this->db->where('part', $part)->where('second_start <=', $sub[$i]['field'])->where('second_end >=', $sub[$i]['field'])->get('trial_staff')->result_array();
-            $course = $this->db->where('year', $year)->where('field', $sub[$i]['field'])->get('exam_area')->row_array();
-            $trial = $this->db->get('trial_staff')->result_array();
-            for ($v=0; $v < count($voucher); $v++) { 
-                # code...
-                $arr[$voucher[$v]['trial_staff_name']][] = array(
-                    'sn'=>$sub[$i]['sn'],
-                    'field' => $sub[$i]['field'],
-                    'test_section' => $sub[$i]['test_section'],
-                    'part' => $sub[$i]['part'],
-                    'supervisor_1'=>$sub[$i]['supervisor_1'],
-                    'supervisor_2'=>$sub[$i]['supervisor_2'],
-                    'subject_04'=>$course['subject_04'],
-                    'subject_05'=>$course['subject_05'],
-                    'subject_06'=>$course['subject_06'],
-                    'subject_07'=>$course['subject_07'],
-                );                
+        if(!empty($sub)){
+            for ($i=0; $i < count($sub); $i++) {
+                    # code...
+                $supervisor1 = $this->db->where('member_code', $sub[$i]['supervisor_1_code'])->get('staff_member')->row_array();
+                $supervisor2 = $this->db->where('member_code', $sub[$i]['supervisor_2_code'])->get('staff_member')->row_array();
+                $voucher = $this->db->where('part', $part)->where('second_start <=', $sub[$i]['field'])->where('second_end >=', $sub[$i]['field'])->get('trial_staff')->result_array();
+                $course = $this->db->where('year', $year)->where('field', $sub[$i]['field'])->get('exam_area')->row_array();
+                $trial = $this->db->get('trial_staff')->result_array();
+                if(!empty($voucher)){
+                    for ($v=0; $v < count($voucher); $v++) { 
+                        # code...
+                        $arr[$voucher[$v]['trial_staff_name']][] = array(
+                            'sn'=>$sub[$i]['sn'],
+                            'field' => $sub[$i]['field'],
+                            'test_section' => $sub[$i]['test_section'],
+                            'part' => $sub[$i]['part'],
+                            'supervisor_1'=>$sub[$i]['supervisor_1'],
+                            'supervisor_2'=>$sub[$i]['supervisor_2'],
+                            'subject_04'=>$course['subject_04'],
+                            'subject_05'=>$course['subject_05'],
+                            'subject_06'=>$course['subject_06'],
+                            'subject_07'=>$course['subject_07'],
+                        );                
+                    }
+                }else{
+                    return false;
+                }
             }
+            return $arr;
+        }else{
+            return false;
         }
-        return $arr;
+        
     }  
 
- public function get_once_date_of_voucher3($part = '')
+    public function get_once_date_of_voucher3($part = '')
     {
         $this->db->select('*');
         $year = $this->session->userdata('year');
@@ -883,29 +902,40 @@ class Mod_trial extends CI_Model
     
 
         $sub = $this->db->get()->result_array();
-        for ($i=0; $i < count($sub); $i++) {
-                # code...
-            $supervisor1 = $this->db->where('member_code', $sub[$i]['supervisor_1_code'])->get('staff_member')->row_array();
-            $supervisor2 = $this->db->where('member_code', $sub[$i]['supervisor_2_code'])->get('staff_member')->row_array();
-            $voucher = $this->db->where('part', $part)->where('third_start <=', $sub[$i]['field'])->where('third_end >=', $sub[$i]['field'])->get('trial_staff')->result_array();
-            $course = $this->db->where('year', $year)->where('field', $sub[$i]['field'])->get('exam_area')->row_array();
-            $trial = $this->db->get('trial_staff')->result_array();
-            for ($v=0; $v < count($voucher); $v++) { 
-                # code...
-                $arr[$voucher[$v]['trial_staff_name']][] = array(
-                    'sn'=>$sub[$i]['sn'],
-                    'field' => $sub[$i]['field'],
-                    'test_section' => $sub[$i]['test_section'],
-                    'part' => $sub[$i]['part'],
-                    'supervisor_1'=>$sub[$i]['supervisor_1'],
-                    'supervisor_2'=>$sub[$i]['supervisor_2'],
-                    'subject_08'=>$course['subject_08'],
-                    'subject_09'=>$course['subject_09'],
-                    'subject_010'=>$course['subject_010'],
-                );                
+        if(!empty($sub)){
+            for ($i=0; $i < count($sub); $i++) {
+                    # code...
+                $supervisor1 = $this->db->where('member_code', $sub[$i]['supervisor_1_code'])->get('staff_member')->row_array();
+                $supervisor2 = $this->db->where('member_code', $sub[$i]['supervisor_2_code'])->get('staff_member')->row_array();
+                $voucher = $this->db->where('part', $part)->where('third_start <=', $sub[$i]['field'])->where('third_end >=', $sub[$i]['field'])->get('trial_staff')->result_array();
+                $course = $this->db->where('year', $year)->where('field', $sub[$i]['field'])->get('exam_area')->row_array();
+                $trial = $this->db->get('trial_staff')->result_array();
+                if(!empty($voucher)){
+                    for ($v=0; $v < count($voucher); $v++) { 
+                        # code...
+                        $arr[$voucher[$v]['trial_staff_name']][] = array(
+                            'sn'=>$sub[$i]['sn'],
+                            'field' => $sub[$i]['field'],
+                            'test_section' => $sub[$i]['test_section'],
+                            'part' => $sub[$i]['part'],
+                            'supervisor_1'=>$sub[$i]['supervisor_1'],
+                            'supervisor_2'=>$sub[$i]['supervisor_2'],
+                            'subject_08'=>$course['subject_08'],
+                            'subject_09'=>$course['subject_09'],
+                            'subject_010'=>$course['subject_10'],
+                        );        
+                    }
+                }else{
+                    return false;
+                }
+
             }
+
+            return $arr;
+        }else{
+            return false;
         }
-        return $arr;
+        
     }      
 
     public function e_3_2_1($part = '')
@@ -921,28 +951,33 @@ class Mod_trial extends CI_Model
     
 
         $sub = $this->db->get()->result_array();
-        for ($i=0; $i < count($sub); $i++) {
+        if(!empty($sub)){
+            for ($i=0; $i < count($sub); $i++) {
                 # code...
-            $supervisor1 = $this->db->where('member_code', $sub[$i]['supervisor_1_code'])->get('staff_member')->row_array();
-            $supervisor2 = $this->db->where('member_code', $sub[$i]['supervisor_2_code'])->get('staff_member')->row_array();
-            $voucher = $this->db->where('part', $part)->where('first_start <=', $sub[$i]['field'])->where('first_end >=', $sub[$i]['field'])->get('trial_staff')->row_array();
-            $course = $this->db->where('year', $year)->where('field', $sub[$i]['field'])->get('exam_area')->row_array();
-            $trial = $this->db->get('trial_staff')->result_array();
-            # code...
-            $arr[] = array(
-                'sn'=>$sub[$i]['sn'],
-                'field' => $sub[$i]['field'],
-                'start'=>$sub[$i]['start'],
-                'end'=>$sub[$i]['end'],
-                'floor'=>$sub[$i]['floor'],
-                'part' => $sub[$i]['part'],
-                'supervisor_1'=>$sub[$i]['supervisor_1'],
-                'supervisor_2'=>$sub[$i]['supervisor_2'],
-                'allocation_code'=>$voucher['allocation_code'],
-                'voucher'=>$voucher['trial_staff_name']
-            );        
+                $supervisor1 = $this->db->where('member_code', $sub[$i]['supervisor_1_code'])->get('staff_member')->row_array();
+                $supervisor2 = $this->db->where('member_code', $sub[$i]['supervisor_2_code'])->get('staff_member')->row_array();
+                $voucher = $this->db->where('part', $part)->where('first_start <=', $sub[$i]['field'])->where('first_end >=', $sub[$i]['field'])->get('trial_staff')->row_array();
+                $course = $this->db->where('year', $year)->where('field', $sub[$i]['field'])->get('exam_area')->row_array();
+                $trial = $this->db->get('trial_staff')->result_array();
+                # code...
+                $arr[] = array(
+                    'sn'=>$sub[$i]['sn'],
+                    'field' => $sub[$i]['field'],
+                    'test_section'=>$sub[$i]['test_section'],
+                    'start'=>$sub[$i]['start'],
+                    'end'=>$sub[$i]['end'],
+                    'floor'=>$sub[$i]['floor'],
+                    'part' => $sub[$i]['part'],
+                    'supervisor_1'=>$sub[$i]['supervisor_1'],
+                    'supervisor_2'=>$sub[$i]['supervisor_2'],
+                    'allocation_code'=>$voucher['allocation_code'],
+                    'voucher'=>$voucher['trial_staff_name']
+                );        
+            }
+            return $arr;
+        }else{
+            return false;
         }
-        return $arr;
     }  
     
     public function e_3_2_2($part = '')
@@ -958,27 +993,32 @@ class Mod_trial extends CI_Model
     
 
         $sub = $this->db->get()->result_array();
-        for ($i=0; $i < count($sub); $i++) {
+        if(!empty($sub)){
+            for ($i=0; $i < count($sub); $i++) {
                 # code...
-            $supervisor1 = $this->db->where('member_code', $sub[$i]['supervisor_1_code'])->get('staff_member')->row_array();
-            $supervisor2 = $this->db->where('member_code', $sub[$i]['supervisor_2_code'])->get('staff_member')->row_array();
-            $voucher = $this->db->where('part', $part)->where('second_start <=', $sub[$i]['field'])->where('second_end >=', $sub[$i]['field'])->get('trial_staff')->row_array();
-            $course = $this->db->where('year', $year)->where('field', $sub[$i]['field'])->get('exam_area')->row_array();
-            $trial = $this->db->get('trial_staff')->result_array();
-            $arr[] = array(
-                'sn'=>$sub[$i]['sn'],
-                'field' => $sub[$i]['field'],
-                'start'=>$sub[$i]['start'],
-                'end'=>$sub[$i]['end'],
-                'floor'=>$sub[$i]['floor'],
-                'part' => $sub[$i]['part'],
-                'supervisor_1'=>$sub[$i]['supervisor_1'],
-                'supervisor_2'=>$sub[$i]['supervisor_2'],
-                'allocation_code'=>$voucher['allocation_code'],
-                'voucher'=>$voucher['trial_staff_name']
-            );        
+                $supervisor1 = $this->db->where('member_code', $sub[$i]['supervisor_1_code'])->get('staff_member')->row_array();
+                $supervisor2 = $this->db->where('member_code', $sub[$i]['supervisor_2_code'])->get('staff_member')->row_array();
+                $voucher = $this->db->where('part', $part)->where('second_start <=', $sub[$i]['field'])->where('second_end >=', $sub[$i]['field'])->get('trial_staff')->row_array();
+                $course = $this->db->where('year', $year)->where('field', $sub[$i]['field'])->get('exam_area')->row_array();
+                $trial = $this->db->get('trial_staff')->result_array();
+                $arr[] = array(
+                    'sn'=>$sub[$i]['sn'],
+                    'field' => $sub[$i]['field'],
+                    'test_section'=>$sub[$i]['test_section'],
+                    'start'=>$sub[$i]['start'],
+                    'end'=>$sub[$i]['end'],
+                    'floor'=>$sub[$i]['floor'],
+                    'part' => $sub[$i]['part'],
+                    'supervisor_1'=>$sub[$i]['supervisor_1'],
+                    'supervisor_2'=>$sub[$i]['supervisor_2'],
+                    'allocation_code'=>$voucher['allocation_code'],
+                    'voucher'=>$voucher['trial_staff_name']
+                );        
+            }
+            return $arr;
+        }else{
+            return false;
         }
-        return $arr;
     }  
 
  public function e_3_2_3($part = '')
@@ -994,27 +1034,32 @@ class Mod_trial extends CI_Model
     
 
         $sub = $this->db->get()->result_array();
-        for ($i=0; $i < count($sub); $i++) {
-                # code...
-            $supervisor1 = $this->db->where('member_code', $sub[$i]['supervisor_1_code'])->get('staff_member')->row_array();
-            $supervisor2 = $this->db->where('member_code', $sub[$i]['supervisor_2_code'])->get('staff_member')->row_array();
-            $voucher = $this->db->where('part', $part)->where('third_start <=', $sub[$i]['field'])->where('third_end >=', $sub[$i]['field'])->get('trial_staff')->row_array();
-            $course = $this->db->where('year', $year)->where('field', $sub[$i]['field'])->get('exam_area')->row_array();
-            $trial = $this->db->get('trial_staff')->result_array();
-            $arr[] = array(
-                'sn'=>$sub[$i]['sn'],
-                'field' => $sub[$i]['field'],
-                'start'=>$sub[$i]['start'],
-                'end'=>$sub[$i]['end'],
-                'floor'=>$sub[$i]['floor'],
-                'part' => $sub[$i]['part'],
-                'supervisor_1'=>$sub[$i]['supervisor_1'],
-                'supervisor_2'=>$sub[$i]['supervisor_2'],
-                'allocation_code'=>$voucher['allocation_code'],
-                'voucher'=>$voucher['trial_staff_name']
-            );        
+        if(!empty($sub)){
+            for ($i=0; $i < count($sub); $i++) {
+                    # code...
+                $supervisor1 = $this->db->where('member_code', $sub[$i]['supervisor_1_code'])->get('staff_member')->row_array();
+                $supervisor2 = $this->db->where('member_code', $sub[$i]['supervisor_2_code'])->get('staff_member')->row_array();
+                $voucher = $this->db->where('part', $part)->where('third_start <=', $sub[$i]['field'])->where('third_end >=', $sub[$i]['field'])->get('trial_staff')->row_array();
+                $course = $this->db->where('year', $year)->where('field', $sub[$i]['field'])->get('exam_area')->row_array();
+                $trial = $this->db->get('trial_staff')->result_array();
+                $arr[] = array(
+                    'sn'=>$sub[$i]['sn'],
+                    'field' => $sub[$i]['field'],
+                    'test_section'=>$sub[$i]['test_section'],
+                    'start'=>$sub[$i]['start'],
+                    'end'=>$sub[$i]['end'],
+                    'floor'=>$sub[$i]['floor'],
+                    'part' => $sub[$i]['part'],
+                    'supervisor_1'=>$sub[$i]['supervisor_1'],
+                    'supervisor_2'=>$sub[$i]['supervisor_2'],
+                    'allocation_code'=>$voucher['allocation_code'],
+                    'voucher'=>$voucher['trial_staff_name']
+                );        
+            }
+            return $arr;
+        }else{
+            return false;
         }
-        return $arr;
     }          
 
     //按照日期取的監試人員資料

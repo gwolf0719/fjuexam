@@ -1854,7 +1854,7 @@ class Designated extends CI_Controller
             foreach ($data['part'] as $k => $v) {
                 $html = '<table style="padding:5px 0px;text-align:center;">';
                 $html .=  '<tr>';
-                $html .=  '<td colspan="10" style="font-size:14px;">大學入學考試中心'.$_SESSION['year'].'學年度指定科目考試新北一考區監試說明會開會通知簽收表</td>';
+                $html .=  '<td colspan="10" style="font-size:14px;">'.$_SESSION['year'].'學年度指定科目考試新北一考區監試說明會開會通知簽收表</td>';
                 $html .=  '</tr>';
 
                 $html .=  '<tr>';
@@ -3688,6 +3688,8 @@ class Designated extends CI_Controller
         $arr = $this->mod_task->get_all_assign_member_list();
         for ($i=0; $i < count($arr); $i++) {
             # code...
+
+            $type = PHPExcel_Cell_DataType::TYPE_STRING;
             $objPHPExcel->getActiveSheet()->setCellValue('A1', '職員代碼');
             $objPHPExcel->getActiveSheet()->setCellValue('B1', '姓名');
             $objPHPExcel->getActiveSheet()->setCellValue('C1', '單位');
@@ -3695,8 +3697,7 @@ class Designated extends CI_Controller
             $objPHPExcel->getActiveSheet()->setCellValue('E1', '執勤日期');
 
 
-
-            $objPHPExcel->getActiveSheet()->setCellValue('A'.(2+$i), $arr[$i]['job_code']);
+            $objPHPExcel->getActiveSheet()->setCellValue('A'.(2+$i), "'".$arr[$i]['job_code']);
             $objPHPExcel->getActiveSheet()->setCellValue('B'.(2+$i), $arr[$i]['name']);
             $objPHPExcel->getActiveSheet()->setCellValue('C'.(2+$i), $arr[$i]['member_unit']);
             $objPHPExcel->getActiveSheet()->setCellValue('D'.(2+$i), $arr[$i]['job']);

@@ -8,9 +8,13 @@
         width:100%;
     }
     td{
-        padding: 5px 0px;
+        padding: 15px 0px;
         font-size:21px;
     }
+    th{
+        padding: 15px 0px;
+        font-size:21px;
+    }    
     * {
         overflow: visible !important;
     }
@@ -30,25 +34,25 @@
    
 </h3> -->
 
-<table class="" id="" style="padding:4px;text-align:center;">
+<table class="" id="" style="padding:15px;text-align:center;">
     <thead>
         <tr>
-            <th colspan="10" style="font-size:36px;"><?=$_SESSION['year']?>學年度指定科目考試新北一考區</th>
+            <th colspan="10" style="font-size:26px;"><?=$_SESSION['year']?>學年度指定科目考試新北一考區</th>
         </tr>
         <tr>
-            <th colspan="10" style="font-size:21px;">試務人員印領清冊</th>
+            <th colspan="10" style="font-size:26px;">試務人員印領清冊</th>
         </tr>        
         <tr>
-            <th colspan="3" style="font-size:21px;text-align:left;"> 分區：<?=$area?></th>
-            <th colspan="4" style="font-size:21px;text-align:center;">考場：<?=$school?></th>
-            <th colspan="3" style="font-size:21px;text-align:right;"> 印表日期<?=date('Y/m/d')?></th>
+            <th colspan="3" style="font-size:26px;text-align:left;"> 分區：<?=$area?></th>
+            <th colspan="4" style="font-size:26px;text-align:center;">考場：<?=$school?></th>
+            <th colspan="3" style="font-size:26px;text-align:right;"> 印表日期<?=date('Y/m/d')?></th>
         </tr>
         <tr>
             <th class="bb">姓名</th>
             <th colspan="2"class="bb">職務</th>
             <th class="bb">工作費</th>
             <th class="bb">餐費</th>
-            <th class="bb">應領費用</th>
+            <th class="bb">實領費用</th>
             <th colspan="2" class="bb">簽名或蓋章</th>
             <th colspan="2"  class="bb">備註</th>
         </tr>
@@ -63,7 +67,7 @@
         </td>
         <td class="bb"><?=number_format($v['lunch_total'])?></td>
         <td class="bb"><?=number_format($v['total'])?></td>
-        <td colspan="2" style="line-height:20px;" class="bb"></td>
+        <td colspan="2" class="bb"></td>
         <td colspan="2" class="bb"></td>
     </tr>
     <?php endforeach; ?>

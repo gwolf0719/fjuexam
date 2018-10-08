@@ -30,18 +30,18 @@
    
 </h3> -->
 
-<table class="" id="" style="padding:4px;text-align:center;">
+<table class="" id="" style="padding:4px 0px;text-align:center;">
     <thead>
         <tr>
-            <th colspan="13" style="font-size:36px;"><?=$_SESSION['year']?>學年度指定科目考試新北一考區</th>
+            <th colspan="12" style="font-size:26px;"><?=$_SESSION['year']?>學年度指定科目考試新北一考區</th>
         </tr>
         <tr>
-            <th colspan="13" style="font-size:21px;">監試人員印領清冊</th>
+            <th colspan="12" style="font-size:26px;">監試人員印領清冊</th>
         </tr>        
         <tr>
-            <th colspan="4" style="font-size:21px;"> 分區：<?=$area?></th>
-            <th colspan="4" style="font-size:21px;">考場：<?=$school?></th>
-            <th colspan="4" style="font-size:21px;"> 印表日期<?=date('Y/m/d')?></th>
+            <th colspan="4" style="font-size:26px;"> 分區：<?=$area?></th>
+            <th colspan="4" style="font-size:26px;">考場：<?=$school?></th>
+            <th colspan="4" style="font-size:26px;"> 印表日期<?=date('Y/m/d')?></th>
         </tr>
         <tr>
             <th rowspan="2" class="bb">試場</th>
@@ -54,16 +54,16 @@
             <td class="bb">監考費</td>
             <td class="bb">姓名</td>
             <td class="bb">餐費</td>
-            <td class="bb">應領費用</td>
+            <td class="bb">實領費用</td>
             <td class="bb">監考費</td>
             <td class="bb">姓名</td>
             <td class="bb">餐費</td>
-            <td class="bb">應領費用</td>
+            <td class="bb">實領費用</td>
         </tr>
     </thead>
     <?php foreach ($part as $k => $v): ?>
     <tr>
-        <td class="bb">
+        <td class="bb"  style="width:8%">
             <?=trim($v['field'])?>
         </td>
         <td class="bb">
@@ -89,7 +89,7 @@
             }
             ?>
         </td>
-        <td colspan="2" class="bb" style="line-height:30px;"></td>
+        <td colspan="2" class="bb" style="padding: 30px 0px;"></td>
         <td class="bb">
             <?=trim(number_format($v['second_member_salary_section']))?>
         </td>
@@ -113,7 +113,7 @@
             }
             ?>
         </td>
-        <td colspan="2" class="bb"></td>
+        <td colspan="2" class="bb" style="padding: 30px 0px;"></td>
     </tr>
     <?php endforeach; ?>
     <tr>
