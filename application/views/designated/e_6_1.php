@@ -8,8 +8,7 @@
         width:100%;
     }
     td{
-        padding: 5px 0px;
-        font-size:21px;
+        font-size:16px;
     }
     * {
         overflow: visible !important;
@@ -30,7 +29,7 @@
    
 </h3> -->
 
-<table class="" id="" style="padding:4px 0px;text-align:center;">
+<table class="" id="" style="text-align:center;">
     <thead>
         <tr>
             <th colspan="12" style="font-size:26px;"><?=$_SESSION['year']?>學年度指定科目考試新北一考區</th>
@@ -44,11 +43,11 @@
             <th colspan="4" style="font-size:26px;"> 印表日期<?=date('Y/m/d')?></th>
         </tr>
         <tr>
-            <th rowspan="2" class="bb">試場</th>
+            <th rowspan="2" class="bb" style="width:5%">試場</th>
             <th colspan="4" class="bb">監試人員(1)</th>
-            <th rowspan="2" colspan="2" class="bb">簽名或蓋章</th>
+            <th rowspan="2" class="bb" style="width:15%">簽名或蓋章</th>
             <th colspan="4" class="bb">監試人員(2)</th>
-            <th rowspan="2" colspan="2" class="bb">簽名或蓋章</th>
+            <th rowspan="2" class="bb" style="width:15%">簽名或蓋章</th>
         </tr>
         <tr>
             <td class="bb">監考費</td>
@@ -89,7 +88,7 @@
             }
             ?>
         </td>
-        <td colspan="2" class="bb" style="padding: 30px 0px;"></td>
+        <td class="bb" style="padding: 30px 0px;"></td>
         <td class="bb">
             <?=trim(number_format($v['second_member_salary_section']))?>
         </td>
@@ -113,7 +112,7 @@
             }
             ?>
         </td>
-        <td colspan="2" class="bb" style="padding: 30px 0px;"></td>
+        <td class="bb" style="padding: 30px 0px;"></td>
     </tr>
     <?php endforeach; ?>
     <tr>

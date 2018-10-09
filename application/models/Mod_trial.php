@@ -1833,7 +1833,7 @@ class Mod_trial extends CI_Model
                     $second_member_section_salary_total = 0;
                 }else{
                     $second_member_section_salary_total = $sub[$i]['second_member_section_salary_total'];
-                }            
+                }               
                 $do_date1 = explode(",", $sub[$i]['first_member_do_date']);
                 $do_date2 = explode(",", $sub[$i]['second_member_do_date']);
                 $arr[] = array(
@@ -1842,6 +1842,7 @@ class Mod_trial extends CI_Model
                     'test_section' => $sub[$i]['test_section'],
                     'part' => $sub[$i]['part'],
                     'do_date' => $sub[$i]['first_member_do_date'],
+                    'first_member_salary_section'=> $first_member_section_salary_total,
                     'first_member_section_salary_total'=>$first_member_section_salary_total,
                     'first_member_section_lunch_total'=>$sub[$i]['first_member_section_lunch_total'],
                     'first_member_section_total'=>$sub[$i]['first_member_section_total'],
@@ -1849,6 +1850,7 @@ class Mod_trial extends CI_Model
                     'supervisor_1'=>$sub[$i]['supervisor_1'],
                     'supervisor_1_unit' => $supervisor1['member_unit'] ,
                     'supervisor_1_phone' => $supervisor1['member_phone'],
+                    'second_member_salary_section'=> $second_member_section_salary_total,
                     'second_member_section_salary_total'=>$second_member_section_salary_total,
                     'second_member_section_lunch_total'=>$sub[$i]['second_member_section_lunch_total'],
                     'second_member_section_total'=>$sub[$i]['second_member_section_total'],

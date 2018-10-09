@@ -3443,18 +3443,6 @@ class Designated extends CI_Controller
         $date = date('yyyy/m/d');
         $part = $_GET['part'];
         $area = $_GET['area'];
-        
-        $obj_pdf->SetTitle($title);
-        $obj_pdf->SetHeaderData('', '', $title, '印表日期：'.$date);
-        $obj_pdf->setPrintHeader(false);
-        // $obj_pdf->SetHeaderMargin(PDF_MARGIN_HEADER);
-        $obj_pdf->SetFooterMargin(PDF_MARGIN_FOOTER);
-        $obj_pdf->SetMargins(3, 3);
-        $obj_pdf->SetAutoPageBreak(true, PDF_MARGIN_BOTTOM);
-        $obj_pdf->SetFont('msungstdlight', '', 10);
-
-        $obj_pdf->setFontSubsetting(false);
-        $obj_pdf->AddPage();
         $data = array(
             'part' => $this->mod_trial->e_6_1($part),
             'area'=> $area,
@@ -3493,19 +3481,6 @@ class Designated extends CI_Controller
         $part = $_GET['part'];
         $area = $_GET['area'];
         $obs = $_GET['obs'];
-
-        
-        $obj_pdf->SetTitle($title);
-        $obj_pdf->SetHeaderData('', '', $title, '印表日期：'.$date);
-        $obj_pdf->setPrintHeader(false);
-        // $obj_pdf->SetHeaderMargin(PDF_MARGIN_HEADER);
-        $obj_pdf->SetFooterMargin(PDF_MARGIN_FOOTER);
-        $obj_pdf->SetMargins(3, 3);
-        $obj_pdf->SetAutoPageBreak(true, PDF_MARGIN_BOTTOM);
-        $obj_pdf->SetFont('msungstdlight', '', 10);
-
-        $obj_pdf->setFontSubsetting(false);
-        $obj_pdf->AddPage();
         $data = array(
             'part' => $this->mod_trial->get_list_for_obs($part, $obs),
             'area'=> $area,
@@ -3515,19 +3490,19 @@ class Designated extends CI_Controller
             'count' => $this->mod_trial->get_list_for_obs_member_count($part, $obs),
         );
         $view =  $this->load->view('designated/e_6_2', $data, true);
-       if (!is_dir('./html/')) {
-            mkdir('./html/');
-        } else {
-            $path = 'e_6_2.html';
-            $fp = fopen('./html/'.$path,'w');//建檔
-            fwrite($fp,$view);
-            fclose($fp);//關閉開啟的檔案                
-        }        
-            
-        if (!is_dir('./pdf/')) {
-            mkdir('./pdf/');
-        } else {
-            exec('wkhtmltopdf --lowquality --enable-forms http://uat.fofo.tw/fjuexam/html/e_6_2.html  ./pdf/e_6_2.pdf');
+        if (!is_dir('./html/')) {
+                mkdir('./html/');
+            } else {
+                $path = 'e_6_2.html';
+                $fp = fopen('./html/'.$path,'w');//建檔
+                fwrite($fp,$view);
+                fclose($fp);//關閉開啟的檔案                
+            }        
+                
+            if (!is_dir('./pdf/')) {
+                mkdir('./pdf/');
+            } else {
+                exec('wkhtmltopdf --lowquality --enable-forms http://uat.fofo.tw/fjuexam/html/e_6_2.html  ./pdf/e_6_2.pdf');
         }             
         echo '<script>location.href="http://uat.fofo.tw/fjuexam/pdf/e_6_2.pdf"</script>';  
     }
