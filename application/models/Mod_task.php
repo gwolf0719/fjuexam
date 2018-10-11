@@ -196,6 +196,9 @@ class Mod_task extends CI_Model
         }
     }  
 
+    
+
+
     public function get_task_own_count($area = '')
     {
         $this->db->where('year', $this->session->userdata('year'));
@@ -209,7 +212,7 @@ class Mod_task extends CI_Model
         $own = 0;
         for ($i=0; $i < count($res); $i++) {
             # code...
-                            if($res[$i]['meal'] == "自備"){
+                if($res[$i]['meal'] == "自備"){
                     $own += 1;
                 }
             $do_date = explode(",", $res[$i]['do_date']);
@@ -542,6 +545,7 @@ class Mod_task extends CI_Model
         $trial_staff = $this->db->get('trial_staff')->result_array();    
         
         //取出巡場人員
+
         $this->db->where('year', $this->session->userdata('year'));
 
         $patrol = $this->db->get('patrol_staff')->result_array();        
@@ -549,12 +553,11 @@ class Mod_task extends CI_Model
         if (!empty($res)) {
             for ($i=0; $i < count($res); $i++) {
                 # code...
-                $member = $this->db->where('year', $this->session->userdata('year'))->where('member_code', $res[$i]['job_code'])->get('staff_member')->result_array();
+                $member = $this->db->order_by('member_unit')->where('year', $this->session->userdata('year'))->where('member_code', $res[$i]['job_code'])->get('staff_member')->result_array();
 
                 for ($m=0; $m < count($member); $m++) { 
                     # code...
-                    $this->db->order_by('member_unit');
-                    $unit = $this->db->where('year', $this->session->userdata('year'))->where('unit', $member[$m]['unit'])->where('member_code',$member[$m]['member_code'])->get('staff_member')->row_array();
+                    $unit = $this->db->order_by('member_unit')->where('year', $this->session->userdata('year'))->where('unit', $member[$m]['unit'])->where('member_code',$member[$m]['member_code'])->get('staff_member')->row_array();
                     $arr[$unit['unit']][] = array(
                         'member_code'=>$member[$m]['member_code'],
                         'member_name'=>$member[$m]['member_name'],
@@ -563,40 +566,34 @@ class Mod_task extends CI_Model
                     );
                 }
             }
-
+            
             for ($i=0; $i < count($sub); $i++) {
                 # code...
-                $this->db->order_by('member_unit');
-                $member = $this->db->where('year', $this->session->userdata('year'))->where('member_code', $sub[$i]['supervisor_1_code'])->get('staff_member')->row_array();
+                $member = $this->db->order_by('member_unit')->where('year', $this->session->userdata('year'))->where('member_code', $sub[$i]['supervisor_2_code'])->get('staff_member')->row_array();
 
-                $unit = $this->db->where('year', $this->session->userdata('year'))->where('unit', $member['unit'])->where('member_code',$member['member_code'])->get('staff_member')->row_array();
-                $arr[$unit['unit']][] = array(
-                    'member_code'=>$member['member_code'],
-                    'member_name'=>$member['member_name'],
-                    'member_unit'=>$member['member_unit'],
-                    'job'=>'監試人員',
-                );        
-            }        
+                $unit = $this->db->order_by('member_unit')->where('year', $this->session->userdata('year'))->where('unit', $member['unit'])->where('member_code',$member['member_code'])->get('staff_member')->row_array();
 
-            for ($i=0; $i < count($sub); $i++) {
-                # code...
-                $this->db->order_by('member_unit');
-                $member = $this->db->where('year', $this->session->userdata('year'))->where('member_code', $sub[$i]['supervisor_2_code'])->get('staff_member')->row_array();
-
-                $unit = $this->db->where('year', $this->session->userdata('year'))->where('unit', $member['unit'])->where('member_code',$member['member_code'])->get('staff_member')->row_array();
+                $member1 = $this->db->order_by('member_unit')->where('year', $this->session->userdata('year'))->where('member_code', $sub[$i]['supervisor_1_code'])->get('staff_member')->row_array();
+                $unit1 = $this->db->order_by('member_unit')->where('year', $this->session->userdata('year'))->where('unit', $member1['unit'])->where('member_code',$member1['member_code'])->get('staff_member')->row_array();
                 $arr[$unit['unit']][] = array(
                     'member_code'=>$member['member_code'],
                     'member_name'=>$member['member_name'],
                     'member_unit'=>$member['member_unit'],
                     'job'=>'監試人員',
                 );  
+                $arr[$unit1['unit']][] = array(
+                    'member_code'=>$member1['member_code'],
+                    'member_name'=>$member1['member_name'],
+                    'member_unit'=>$member1['member_unit'],
+                    'job'=>'監試人員',
+                );                   
             }      
             
             for ($i=0; $i < count($trial_staff); $i++) {
                 # code...
                 $this->db->order_by('member_unit');
-                $member = $this->db->where('year', $this->session->userdata('year'))->where('member_code', $trial_staff[$i]['trial_staff_code'])->get('staff_member')->row_array();
-                $unit = $this->db->where('year', $this->session->userdata('year'))->where('unit', $member['unit'])->where('member_code',$member['member_code'])->get('staff_member')->row_array();
+                $member = $this->db->order_by('member_unit')->where('year', $this->session->userdata('year'))->where('member_code', $trial_staff[$i]['trial_staff_code'])->get('staff_member')->row_array();
+                $unit = $this->db->order_by('member_unit')->where('year', $this->session->userdata('year'))->where('unit', $member['unit'])->where('member_code',$member['member_code'])->get('staff_member')->row_array();
                 $arr[$unit['unit']][] = array(
                     'member_code'=>$member['member_code'],
                     'member_name'=>$member['member_name'],
@@ -608,8 +605,8 @@ class Mod_task extends CI_Model
             for ($i=0; $i < count($patrol); $i++) {
                 # code...
                 $this->db->order_by('member_unit');
-                $member = $this->db->where('year', $this->session->userdata('year'))->where('member_code', $patrol[$i]['patrol_staff_code'])->get('staff_member')->row_array();
-                $unit = $this->db->where('year', $this->session->userdata('year'))->where('unit', $member['unit'])->where('member_code',$member['member_code'])->get('staff_member')->row_array();
+                $member = $this->db->order_by('member_unit')->where('year', $this->session->userdata('year'))->where('member_code', $patrol[$i]['patrol_staff_code'])->get('staff_member')->row_array();
+                $unit = $this->db->order_by('member_unit')->where('year', $this->session->userdata('year'))->where('unit', $member['unit'])->where('member_code',$member['member_code'])->get('staff_member')->row_array();
                 $arr[$unit['unit']][] = array(
                     'member_code'=>$member['member_code'],
                     'member_name'=>$member['member_name'],
@@ -701,7 +698,7 @@ class Mod_task extends CI_Model
             $member_unit = $this->db->where('member_code', $res[$i]['job_code'])->select('member_unit')->get('staff_member')->row_array();
             if ($res[$i]['job_code'] != "") {
                 $arr[] = array(
-                    'job_code' => (string)$res[$i]['job_code'],
+                    'job_code' => $res[$i]['job_code'],
                     'job' => $res[$i]['job'],
                     'name' => $res[$i]['name'],
                     'job_title' => $res[$i]['job_title'],

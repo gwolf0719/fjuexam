@@ -212,6 +212,72 @@ class Mod_trial extends CI_Model
         }
     }
 
+    public function e_2_1_2($part='')
+    {
+        $this->db->where('year', $this->session->userdata('year'));
+        if($part != ''){
+            $this->db->where('part', $part);
+        }
+
+        $res = $this->db->get('trial_staff')->result_array();
+        if (!empty($res)) {
+            for ($i=0; $i < count($res); $i++) {
+                # code...
+                $member = $this->db->where('member_code', $res[$i]['trial_staff_code'])->get('staff_member')->row_array();
+                // $trial = $this->db->where('part',$part)->where('year',$_SESSION['year'])->get('trial_staff')->row_array();
+                $do_date = explode(",", $res[$i]['do_date']);
+                for ($d=0; $d < count($do_date); $d++) {
+
+                    $arr[$do_date[$d]][] = array(
+                        'job_code' => $res[$i]['trial_staff_code'],
+                        'job' => '管券人員',
+                        // 'job_title' => $res[$i]['job_title'],
+                        'name' => $res[$i]['trial_staff_name'],
+                        'member_unit'=>$member['member_unit'],
+                        'meal' => $res[$i]['meal'],
+                        'note' => $res[$i]['note'],
+                    );
+                }
+            }
+            return $arr;
+        }else{
+            return false;
+        }
+    }  
+
+    public function e_2_1_3($part='')
+    {
+        $this->db->where('year', $this->session->userdata('year'));
+        if($part != ''){
+            $this->db->where('part', $part);
+        }
+
+        $res = $this->db->get('patrol_staff')->result_array();
+        if (!empty($res)) {
+            for ($i=0; $i < count($res); $i++) {
+                # code...
+                $member = $this->db->where('member_code', $res[$i]['patrol_staff_code'])->get('staff_member')->row_array();
+                // $trial = $this->db->where('part',$part)->where('year',$_SESSION['year'])->get('trial_staff')->row_array();
+                $do_date = explode(",", $res[$i]['do_date']);
+                for ($d=0; $d < count($do_date); $d++) {
+
+                    $arr[$do_date[$d]][] = array(
+                        'job_code' => $res[$i]['patrol_staff_code'],
+                        'job' => '管券人員',
+                        // 'job_title' => $res[$i]['job_title'],
+                        'name' => $res[$i]['patrol_staff_name'],
+                        'member_unit'=>$member['member_unit'],
+                        'meal' => $res[$i]['meal'],
+                        'note' => $res[$i]['note'],
+                    );
+                }
+            }
+            return $arr;
+        }else{
+            return false;
+        }
+    }  
+
     public function get_list_for_pdf($part = '')
     {
         $this->db->select('*');
