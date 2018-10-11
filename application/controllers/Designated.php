@@ -1458,19 +1458,19 @@ class Designated extends CI_Controller
                 }                                    
                 $html = '<table class="" id="" style="padding:5px 0px;;text-align:center;">';
                 $html .= '<tr>';
-                $html .= '<th style="font-size:16px;lne-height:50px;" colspan="6">'.$_SESSION['year'].'學年度指定科目考試新北一考區試務人員簽到表</th>';
+                $html .= '<td style="font-size:16px;lne-height:50px;" colspan="6">'.$_SESSION['year'].'學年度指定科目考試新北一考區試務人員簽到表</td>';
                 $html .= '</tr>';
                 $html .= '<tr>';
-                $html .= '<th colspan="2" style="font-size:14px;text-align:left;">分區：'.$area.'</th>';
-                $html .= '<th colspan="2" style="font-size:14px;">'.$school.'</th>';
-                $html .= '<th colspan="2" style="font-size:14px;text-align:right;">簽到日期：'.$k.'</th>';
+                $html .= '<td colspan="2" style="font-size:14px;text-align:left;">分區：'.$area.'</td>';
+                $html .= '<td colspan="2" style="font-size:14px;">'.$school.'</td>';
+                $html .= '<td colspan="2" style="font-size:14px;text-align:right;">簽到日期：'.$k.'</td>';
                 $html .= '</tr>';
                 $html .= '<tr>';
-                $html .= '<th style="border:1px solid #999">職務</th>';
-                $html .= '<th style="border:1px solid #999">姓名</th>';
-                $html .= '<th style="border:1px solid #999">單位別</th>';
-                $html .= '<th style="border:1px solid #999">簽名</th>';
-                $html .= '<th style="border:1px solid #999" colspan="2">備註(工作分配)</th>';
+                $html .= '<td style="border:1px solid #999">職務</td>';
+                $html .= '<td style="border:1px solid #999">姓名</td>';
+                $html .= '<td style="border:1px solid #999">單位別</td>';
+                $html .= '<td style="border:1px solid #999">簽名</td>';
+                $html .= '<td style="border:1px solid #999" colspan="2">備註(工作分配)</td>';
                 $html .= '</tr>';
                         
                 foreach ($v as $kc => $vc) {
@@ -1563,19 +1563,19 @@ class Designated extends CI_Controller
                 }                           
                 $html = '<table class="" id="" style="padding:5px 0px;;text-align:center;">';
                 $html .= '<tr>';
-                $html .= '<th style="font-size:16px;lne-height:50px;" colspan="6">'.$_SESSION['year'].'學年度指定科目考試新北一考區試務人員簽到表</th>';
+                $html .= '<td style="font-size:16px;lne-height:50px;" colspan="6">'.$_SESSION['year'].'學年度指定科目考試新北一考區試務人員簽到表</td>';
                 $html .= '</tr>';
                 $html .= '<tr>';
-                $html .= '<th colspan="2" style="font-size:14px;text-align:left;">分區：'.$area.'</th>';
-                $html .= '<th colspan="2" style="font-size:14px;">'.$school.'</th>';
-                $html .= '<th colspan="2" style="font-size:14px;text-align:right;">簽到日期：'.$k.'</th>';
+                $html .= '<td colspan="2" style="font-size:14px;text-align:left;">分區：'.$area.'</td>';
+                $html .= '<td colspan="2" style="font-size:14px;">'.$school.'</td>';
+                $html .= '<td colspan="2" style="font-size:14px;text-align:right;">簽到日期：'.$k.'</td>';
                 $html .= '</tr>';
                 $html .= '<tr>';
-                $html .= '<th style="border:1px solid #999">職務</th>';
-                $html .= '<th style="border:1px solid #999">姓名</th>';
-                $html .= '<th style="border:1px solid #999">單位別</th>';
-                $html .= '<th style="border:1px solid #999">簽名</th>';
-                $html .= '<th style="border:1px solid #999" colspan="2">備註(工作分配)</th>';
+                $html .= '<td style="border:1px solid #999">職務</td>';
+                $html .= '<td style="border:1px solid #999">姓名</td>';
+                $html .= '<td style="border:1px solid #999">單位別</td>';
+                $html .= '<td style="border:1px solid #999">簽名</td>';
+                $html .= '<td style="border:1px solid #999" colspan="2">備註(工作分配)</td>';
                 $html .= '</tr>';
                         
                 foreach ($v as $kc => $vc) {
@@ -1671,16 +1671,16 @@ class Designated extends CI_Controller
                 $html .= '<th style="font-size:16px;lne-height:50px;" colspan="6">'.$_SESSION['year'].'學年度指定科目考試新北一考區試務人員簽到表</th>';
                 $html .= '</tr>';
                 $html .= '<tr>';
-                $html .= '<th colspan="2" style="font-size:14px;text-align:left;">分區：'.$area.'</th>';
-                $html .= '<th colspan="2" style="font-size:14px;">'.$school.'</th>';
-                $html .= '<th colspan="2" style="font-size:14px;text-align:right;">簽到日期：'.$k.'</th>';
+                $html .= '<td colspan="2" style="font-size:14px;text-align:left;">分區：'.$area.'</td>';
+                $html .= '<td colspan="2" style="font-size:14px;">'.$school.'</td>';
+                $html .= '<td colspan="2" style="font-size:14px;text-align:right;">簽到日期：'.$k.'</td>';
                 $html .= '</tr>';
                 $html .= '<tr>';
-                $html .= '<th style="border:1px solid #999">職務</th>';
-                $html .= '<th style="border:1px solid #999">姓名</th>';
-                $html .= '<th style="border:1px solid #999">單位別</th>';
-                $html .= '<th style="border:1px solid #999">簽名</th>';
-                $html .= '<th style="border:1px solid #999" colspan="2">備註(工作分配)</th>';
+                $html .= '<td style="border:1px solid #999">職務</td>';
+                $html .= '<td style="border:1px solid #999">姓名</td>';
+                $html .= '<td style="border:1px solid #999">單位別</td>';
+                $html .= '<td style="border:1px solid #999">簽名</td>';
+                $html .= '<td style="border:1px solid #999" colspan="2">備註(工作分配)</td>';
                 $html .= '</tr>';
                         
                 foreach ($v as $kc => $vc) {
@@ -1758,11 +1758,11 @@ class Designated extends CI_Controller
                 $html .= '<td colspan="2" style="font-size:14px;">簽到日期：'.$k.'</td>';
                 $html .= '</tr>';
                 $html .= '<tr>';
-                $html .= '<th style="border:1px solid #999" rowspan="2">試場</th>';
-                $html .= '<th style="border:1px solid #999" colspan="2" class="bb">監試人員(1)</th>';
-                $html .= '<th style="border:1px solid #999" rowspan="2">簽名</th>';
-                $html .= '<th style="border:1px solid #999" colspan="2" class="bb">監試人員(2)</th>';
-                $html .= '<th style="border:1px solid #999" rowspan="2">簽名</th>';
+                $html .= '<td style="border:1px solid #999" rowspan="2">試場</td>';
+                $html .= '<td style="border:1px solid #999" colspan="2" class="bb">監試人員(1)</td>';
+                $html .= '<td style="border:1px solid #999" rowspan="2">簽名</td>';
+                $html .= '<td style="border:1px solid #999" colspan="2" class="bb">監試人員(2)</td>';
+                $html .= '<td style="border:1px solid #999" rowspan="2">簽名</td>';
                 $html .= '</tr>';
 
                 $html .= '<tr>';
@@ -2004,14 +2004,16 @@ class Designated extends CI_Controller
                 $html .=  '</tr>';        
 
                 $html .=  '<tr style="background:#FFE4E7">';
-                $html .=  '<th style="border: 1px solid #999999;">職務</th>';
-                $html .=  '<th style="border: 1px solid #999999;">姓名</th>';
-                $html .=  '<th style="border: 1px solid #999999;">單位別</th>';
-                $html .=  '<th style="border: 1px solid #999999;">簽名</th>';
-                $html .=  '<th style="border: 1px solid #999999;">備註</th>';
+                $html .=  '<td style="border: 1px solid #999999;">職務</td>';
+                $html .=  '<td style="border: 1px solid #999999;">姓名</td>';
+                $html .=  '<td style="border: 1px solid #999999;">單位別</td>';
+                $html .=  '<td style="border: 1px solid #999999;">簽名</td>';
+                $html .=  '<td style="border: 1px solid #999999;">備註</td>';
                 $html .=  '</tr>';                
                 $html .= '</thead>';
                 foreach ($v as $kc => $vc) {
+                    // array_multisort($vc['member_unit'],SORT_ASC,$vc); 
+
                     $html .=   '<tr>';
                     $html .=  '<td  style="border: 1px solid #999999;">'.$vc['job'].'</td>';
                     $html .=  '<td  style="border: 1px solid #999999;">'.$vc['member_name'].'</td>';
@@ -2063,7 +2065,11 @@ class Designated extends CI_Controller
         $data = array(
             'part' => $this->mod_task->get_sign_list(),
         );
-
+                    function compare($value1, $value2)
+                    {
+                        return strcmp(iconv("UTF-8","big5", $value1),
+                                    iconv("UTF-8","big5", $value2));
+                    }
         if ($data['part'] != false) {
             foreach ($data['part'] as $k => $v) {
                 $html = '<table style="padding:5px 0px;text-align:center;">';
@@ -2075,17 +2081,20 @@ class Designated extends CI_Controller
                 $html .=  '<td colspan="10" style="font-size:13px;text-align:left;">單位：'.$k.'</td>';
                 $html .=  '</tr>';
                 $html .=  '<tr style="background:#FFE4E7">';
-                $html .=  '<th style="border: 1px solid #999999;">編號</th>';
-                $html .=  '<th style="border: 1px solid #999999;" colspan="2">職務</th>';
-                $html .=  '<th style="border: 1px solid #999999;">姓名</th>';
-                $html .=  '<th style="border: 1px solid #999999;" colspan="3">單位別</th>';
-                $html .=  '<th style="border: 1px solid #999999;" colspan="2">簽名</th>';
-                $html .=  '<th style="border: 1px solid #999999;">備註</th>';
+                $html .=  '<td style="border: 1px solid #999999;">編號</td>';
+                $html .=  '<td style="border: 1px solid #999999;" colspan="2">職務</td>';
+                $html .=  '<td style="border: 1px solid #999999;">姓名</td>';
+                $html .=  '<td style="border: 1px solid #999999;" colspan="3">單位別</td>';
+                $html .=  '<td style="border: 1px solid #999999;" colspan="2">簽名</td>';
+                $html .=  '<td style="border: 1px solid #999999;">備註</td>';
                 $html .=  '</tr>';
+                
                 foreach ($v as $kc => $vc) {  
+
+                    usort($vc['member_unit'], "compare");
+                    print_r($vc);
                     $html .=   '<tr>';
                     $html .=  '<td  style="border: 1px solid #999999;">'.($kc+1).'</td>';
-
                     $html .=  '<td  style="border: 1px solid #999999;" colspan="2">'.$vc['job'].'</td>';
                     $html .=  '<td  style="border: 1px solid #999999;">'.$vc['member_name'].'</td>';
                     $html .=  '<td  style="border: 1px solid #999999;" colspan="3">'.$vc['member_unit'].'</td>';
@@ -3665,7 +3674,7 @@ class Designated extends CI_Controller
             'lunch'=>$this->mod_trial->get_all_trial_lunch_total($part),
             'count'=>$this->mod_trial->e_6_1_member_count($part)
         );
-        $view = $this->load->view('designated/e_6_1', $data,true);
+        $view = $this->load->view('designated/e_6_1', $data, true);
         if (!is_dir('./html/')) {
             mkdir('./html/');
         } else {

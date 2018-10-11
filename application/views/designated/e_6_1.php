@@ -32,22 +32,22 @@
 <table class="" id="" style="text-align:center;">
     <thead>
         <tr>
-            <th colspan="11" style="font-size:26px;"><?=$_SESSION['year']?>學年度指定科目考試新北一考區</th>
+            <td colspan="11" style="font-size:26px;"><?=$_SESSION['year']?>學年度指定科目考試新北一考區</td>
         </tr>
         <tr>
-            <th colspan="11" style="font-size:26px;">監試人員印領清冊</th>
+            <td colspan="11" style="font-size:26px;">監試人員印領清冊</td>
         </tr>        
         <tr>
-            <th colspan="3" style="font-size:26px;"> 分區：<?=$area?></th>
-            <th colspan="4" style="font-size:26px;text-align:right">考場：<?=$school?></th>
-            <th colspan="4" style="font-size:26px;"> 印表日期<?=date('Y/m/d')?></th>
+            <td colspan="3" style="font-size:26px;"> 分區：<?=$area?></td>
+            <td colspan="4" style="font-size:26px;text-align:right">考場：<?=$school?></td>
+            <td colspan="4" style="font-size:26px;"> 印表日期<?=date('Y/m/d')?></td>
         </tr>
         <tr>
-            <th rowspan="2" class="bb" style="width:5%">試場</th>
-            <th colspan="4" class="bb">監試人員(1)</th>
-            <th rowspan="2" class="bb" style="width:145">簽名或蓋章</th>
-            <th colspan="4" class="bb">監試人員(2)</th>
-            <th rowspan="2" class="bb" style="width:145">簽名或蓋章</th>
+            <td rowspan="2" class="bb" style="width:5%">試場</td>
+            <td colspan="4" class="bb">監試人員(1)</td>
+            <td rowspan="2" class="bb" style="width:145">簽名或蓋章</td>
+            <td colspan="4" class="bb">監試人員(2)</td>
+            <td rowspan="2" class="bb" style="width:145">簽名或蓋章</td>
         </tr>
         <tr>
             <td class="bb">監考費</td>
