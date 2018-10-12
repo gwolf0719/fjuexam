@@ -2097,7 +2097,6 @@ class Designated extends CI_Controller
                 $html .=  '</tr>';
                 
                 foreach ($v as $kc => $vc) {  
-
                     $html .=   '<tr>';
                     $html .=  '<td  style="border: 1px solid #999999;">'.($kc+1).'</td>';
                     $html .=  '<td  style="border: 1px solid #999999;" colspan="2">'.$vc['job'].'</td>';
@@ -3900,7 +3899,7 @@ class Designated extends CI_Controller
             $objPHPExcel->getActiveSheet()->setCellValue('E1', '執勤日期');
 
 
-            $objPHPExcel->getActiveSheet()->setCellValue('A'.(2+$i), "_".$arr[$i]['job_code']);
+            $objPHPExcel->getActiveSheet()->setCellValue('A'.(2+$i), (string)$arr[$i]['job_code'],PHPExcel_Cell_DataType::TYPE_STRING);
             $objPHPExcel->getActiveSheet()->setCellValue('B'.(2+$i), $arr[$i]['name']);
             $objPHPExcel->getActiveSheet()->setCellValue('C'.(2+$i), $arr[$i]['member_unit']);
             $objPHPExcel->getActiveSheet()->setCellValue('D'.(2+$i), $arr[$i]['job']);
