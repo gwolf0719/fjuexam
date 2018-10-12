@@ -2036,9 +2036,20 @@ class Designated extends CI_Controller
         $obj_pdf->Output('監試說明會簽到表.pdf', 'I');
     }
 
-    public static function cmp($a, $b) 
-    {
-        return strcmp($a->member_unit, $b->member_unit);
+
+    function utf8_array_asort(&$array) { 
+
+        if(!isset($array) || !is_array($array)) { 
+            return false; 
+        } 
+        foreach($array as $k=>$v) { 
+            $array[$k] = iconv('UTF-8', 'GBK',$v); 
+        } 
+        asort($array); 
+        foreach($array as $k=>$v) { 
+            $array[$k] = iconv('GBK', 'UTF-8', $v); 
+        } 
+        return true; 
     }
 
     public function e_2_5()
@@ -2063,15 +2074,11 @@ class Designated extends CI_Controller
 
         $obj_pdf->setFontSubsetting(false);
         $data = array(
-            'part' => $this->mod_task->get_sign_list(),
+            'data' => $this->mod_task->member_map(),
+            'list' => $this->mod_task->get_member_map_list()
         );
-                    function compare($value1, $value2)
-                    {
-                        return strcmp(iconv("UTF-8","big5", $value1),
-                                    iconv("UTF-8","big5", $value2));
-                    }
-        if ($data['part'] != false) {
-            foreach ($data['part'] as $k => $v) {
+        if ($data['list'] != false) {
+            foreach ($data['list'] as $k => $v) {
                 $html = '<table style="padding:5px 0px;text-align:center;">';
                 $html .=  '<tr>';
                 $html .=  '<td colspan="10" style="font-size:14px;">'.$_SESSION['year'].'學年度指定科目考試新北一考區監試說明會開會通知簽收表</td>';
@@ -2091,8 +2098,6 @@ class Designated extends CI_Controller
                 
                 foreach ($v as $kc => $vc) {  
 
-                    usort($vc['member_unit'], "compare");
-                    print_r($vc);
                     $html .=   '<tr>';
                     $html .=  '<td  style="border: 1px solid #999999;">'.($kc+1).'</td>';
                     $html .=  '<td  style="border: 1px solid #999999;" colspan="2">'.$vc['job'].'</td>';

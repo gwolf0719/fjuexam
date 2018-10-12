@@ -32,15 +32,15 @@
 <table class="" id="" style="text-align:center;">
     <thead>
         <tr>
-            <td colspan="11" style="font-size:26px;"><?=$_SESSION['year']?>學年度指定科目考試新北一考區</td>
+            <td colspan="11" style="font-size:21px;"><?=$_SESSION['year']?>學年度指定科目考試新北一考區</td>
         </tr>
         <tr>
-            <td colspan="11" style="font-size:26px;">監試人員印領清冊</td>
+            <td colspan="11" style="font-size:21px;">監試人員印領清冊</td>
         </tr>        
         <tr>
-            <td colspan="3" style="font-size:26px;"> 分區：<?=$area?></td>
-            <td colspan="4" style="font-size:26px;text-align:right">考場：<?=$school?></td>
-            <td colspan="4" style="font-size:26px;"> 印表日期<?=date('Y/m/d')?></td>
+            <td colspan="3" style="font-size:21px;"> 分區：<?=$area?></td>
+            <td colspan="4" style="font-size:21px;text-align:right">考場：<?=$school?></td>
+            <td colspan="4" style="font-size:21px;"> 印表日期<?=date('Y/m/d')?></td>
         </tr>
         <tr>
             <td rowspan="2" class="bb" style="width:5%">試場</td>
