@@ -18,7 +18,7 @@ class Mod_trial extends CI_Model
     }
 
     /**
-     * 檢查管券人員試場是否重複
+     * 檢查管卷人員試場是否重複
      */
     function chk_trial_staff_field($data){
         $this->db->where('part',$data['part']);
@@ -230,7 +230,7 @@ class Mod_trial extends CI_Model
 
                     $arr[$do_date[$d]][] = array(
                         'job_code' => $res[$i]['trial_staff_code'],
-                        'job' => '管券人員',
+                        'job' => '管卷人員',
                         // 'job_title' => $res[$i]['job_title'],
                         'name' => $res[$i]['trial_staff_name'],
                         'member_unit'=>$member['member_unit'],
@@ -263,7 +263,7 @@ class Mod_trial extends CI_Model
 
                     $arr[$do_date[$d]][] = array(
                         'job_code' => $res[$i]['patrol_staff_code'],
-                        'job' => '管券人員',
+                        'job' => '管卷人員',
                         // 'job_title' => $res[$i]['job_title'],
                         'name' => $res[$i]['patrol_staff_name'],
                         'member_unit'=>$member['member_unit'],

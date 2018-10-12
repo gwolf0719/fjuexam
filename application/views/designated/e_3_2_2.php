@@ -9,11 +9,11 @@
     }
     td{
         padding: 15px 0px;
-        font-size:21px;
+        font-size:14px;
     }
     th{
         padding: 15px 0px;
-        font-size:21px;
+        font-size:14px;
     }    
     * {
         overflow: visible !important;
@@ -31,10 +31,10 @@
 <table class="" id="" style="padding: 15px 0px;text-align:center">
 
     <tr>
-        <td width="100%" colspan="7" style="font-size:26px;text-align:center;"><?=$_SESSION['year']?>學年度指定科目考試新北一考區</td>
+        <td width="100%" colspan="7" style="font-size:22px;text-align:center;"><?=$_SESSION['year']?>學年度指定科目考試新北一考區</td>
     </tr>
     <tr>
-        <td width="100%" colspan="7" style="font-size:26px;text-align:center;"><?=$area?><?=$school?>試場工作人員分配表 (<?=$date?>)</td>
+        <td width="100%" colspan="7" style="font-size:18px;text-align:center;"><?=$area?><?=$school?>試場工作人員分配表 (<?=$date?>)</td>
     </tr>
     <tr style="background:#FFE4E7">
         <th class="bb">試場</th>
@@ -57,6 +57,6 @@
     </tr>
     <?php endforeach; ?>
     <tr>
-        <td style="text-align:left;">共計：<?=count($trial_count)*2+$patrol_count?>人</td>
+        <td style="text-align:left;font-size:14px;">共計：<?=count($trial_count)*2+$patrol_count?>人</td>
     </tr>
 </table>

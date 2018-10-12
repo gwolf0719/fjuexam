@@ -740,7 +740,7 @@ class Mod_task extends CI_Model
                 'member_code'=>$res[$i]['member_code'],
                 'member_name'=>$res[$i]['member_name'],
                 'member_unit'=>$res[$i]['member_unit'],
-                'job'=>'巡場人員',                
+                'job'=>$res[$i]['job'],                
             );
         }
         return $arr;

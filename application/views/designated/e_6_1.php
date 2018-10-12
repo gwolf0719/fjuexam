@@ -6,12 +6,15 @@
         text-align: center;
         border-spacing: 0px;
         width:100%;
+        font-family: serif,cursive;
     }
     td{
-        font-size:16px;
+        font-size:14px;
+        font-family: serif,cursive;
     }
     * {
         overflow: visible !important;
+        
     }
     table, tr, td, th, tbody, thead, tfoot {
         page-break-inside: avoid !important;
@@ -32,15 +35,15 @@
 <table class="" id="" style="text-align:center;">
     <thead>
         <tr>
-            <td colspan="11" style="font-size:21px;"><?=$_SESSION['year']?>學年度指定科目考試新北一考區</td>
+            <td colspan="11" style="font-size:22px;font-family: serif,cursive;"><?=$_SESSION['year']?>學年度指定科目考試新北一考區</td>
         </tr>
         <tr>
-            <td colspan="11" style="font-size:21px;">監試人員印領清冊</td>
+            <td colspan="11" style="font-size:18px;">監試人員印領清冊</td>
         </tr>        
         <tr>
-            <td colspan="3" style="font-size:21px;"> 分區：<?=$area?></td>
-            <td colspan="4" style="font-size:21px;text-align:right">考場：<?=$school?></td>
-            <td colspan="4" style="font-size:21px;"> 印表日期<?=date('Y/m/d')?></td>
+            <td colspan="4" style="font-size:18px;"> 分區：<?=$area?></td>
+            <td colspan="4" style="font-size:18px;">考場：<?=$school?></td>
+            <td colspan="4" style="font-size:18px;"> 印表日期<?=date('Y/m/d')?></td>
         </tr>
         <tr>
             <td rowspan="2" class="bb" style="width:5%">試場</td>
@@ -123,6 +126,6 @@
                 $count_member = 0;
             }
         ?>    
-        <td colspan="11" style="text-align:left;font-size:21px;">共計:<?=$count_member?>人 實發監考費：<?=number_format($salary)?> + 餐費： <?=number_format($lunch)?> = 總支出費用<?=number_format($salary+$lunch)?> </td>
+        <td colspan="11" style="text-align:left;font-size:14px;">共計:<?=$count_member?>人 實發監考費：<?=number_format($salary)?> + 餐費： <?=number_format($lunch)?> = 總支出費用<?=number_format($salary+$lunch)?> </td>
     </tr>
 </table>

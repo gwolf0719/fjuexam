@@ -1,14 +1,37 @@
 <style>
     .bb {
         border: 1px solid #999999;
-        vertical-align: middle;
     }
+   table{
+        text-align: center;
+        border-spacing: 0px;
+        width:100%;
+    }
+    td{
+        padding: 15px 0px;
+        font-size:14px;
+    }
+    th{
+        padding: 15px 0px;
+        font-size:14px;
+    }    
+    * {
+        overflow: visible !important;
+    }
+    table, tr, td, th, tbody, thead, tfoot {
+        page-break-before: always;
+        page-break-inside: avoid;
+    }    
+    .W50{
+        width:50%;
+        float:left;
+    }    
 </style>
 
-<table class="" id="" style="padding:4px0 px;text-align:center;">
+<table class="" id="" style="padding:4px 0px;text-align:center;">
     <thead>
         <tr>
-            <td colspan="7" style="font-size:16px;"><?=$_SESSION['year']?>學年度指定科目考試新北一考區<?=$area?>監試人員午餐一覽表</td>
+            <td colspan="7" style="font-size:22px;"><?=$_SESSION['year']?>學年度指定科目考試新北一考區<?=$area?>監試人員午餐一覽表</td>
         </tr>    
         <tr>
             <th class="bb" rowspan="2">試場</th>
@@ -57,6 +80,6 @@
                 $count_member = 0;
             }
         ?>        
-        <td colspan="7" style="text-align:left;font-size:16px;">共計：<?=$count_member?>人、自備：<?=$own?>人、素食：<?=$veg?>人、葷食：<?=$meat?>人</td>
+        <td colspan="7" style="text-align:left;font-size:14px;">共計：<?=$count_member?>人、自備：<?=$own?>人、素食：<?=$veg?>人、葷食：<?=$meat?>人</td>
     </tr>
 </table>

@@ -1027,52 +1027,34 @@ class Designated extends CI_Controller
         $obj_pdf->SetFooterMargin(PDF_MARGIN_FOOTER);
         $obj_pdf->SetMargins(PDF_MARGIN_LEFT, 2,PDF_MARGIN_RIGHT);
         $obj_pdf->SetAutoPageBreak(true, 10);
-        $obj_pdf->SetFont('msungstdlight', 'L', 10);
+        $obj_pdf->SetFont('msungstdlight', 'L', 14);
 
         $obj_pdf->setFontSubsetting(false);
         $data = array(
             'list' => $this->mod_school_unit->year_get_school_unit_list(),
         );
         if ($data['list'] != false) {
-            foreach ($data['list'] as $k => $v) {
-                # code...
-                $html = '<table class="" id="" style="padding:3px 0px;;text-align:center;">';
-                $html .= '<thead>';
-                $html .= '<tr>';
-                $html .= '<td colspan="6" style="font-size:14px;">各單位名稱一覽表</td>';
-                $html .= '</tr>';                
-                $html .= '<tr>';
-                $html .= '<td colspan="3" style="font-size:12px;text-align:left;">單位：'.$k.'</td>';
-                $html .= '<td colspan="3" style="font-size:12px;text-align:right;">印表日期：'.date('Y/m/d').'</td>';
-                $html .= '</tr>';
-                $html .= '<tr>';
-                $html .= '<td colspan="1" style="border:1px solid #999">序號</td>';
-                $html .= '<td colspan="1" style="border:1px solid #999">部別</td>';
-                $html .= '<td colspan="2" style="border:1px solid #999">代碼</td>';
-                $html .= '<td colspan="2" style="border:1px solid #999">單位名稱</td>';
-                $html .= '</tr>';                
-                $html .= '</thead>';
+            $view =  $this->load->view('designated/e_1_1', $data, true);
+            if (!is_dir('./html/')) {
+                mkdir('./html/');
+            } else {
+                $path = 'e_1_1.html';
+                $fp = fopen('./html/'.$path,'w');//建檔
+                fwrite($fp,$view);
+                fclose($fp);//關閉開啟的檔案                
+                // copy($path, './html/'.$path);
 
-                        
-                foreach ($v as $kc => $vc) {
-                    # code...
-                    $html .= '<tr>';
-                        $html .= '<td colspan="1" style="border:1px solid #999">'.($kc+1).'</td>';
-                        $html .= '<td colspan="1" style="border:1px solid #999">'.$vc['department'].'</td>';
-                        $html .= '<td colspan="2" style="border:1px solid #999">'.$vc['code'].'</td>';
-                        $html .= '<td colspan="2" style="border:1px solid #999">'.$vc['company_name_02'].'</td>';
-                    $html .= '</tr>';
-                }
-                $html .= '</table>';
-
-
-                $obj_pdf->AddPage($html);
-
-                $obj_pdf->writeHTML($html);
-            }
+            }        
+        
+            if (!is_dir('./pdf/')) {
+                mkdir('./pdf/');
+            } else {
+                exec('wkhtmltopdf --lowquality --enable-forms http://uat.fofo.tw/fjuexam/html/e_1_1.html  ./pdf/e_1_1.pdf');
+            }             
+            echo '<script>location.href="http://uat.fofo.tw/fjuexam/pdf/e_1_1.pdf"</script>';  
+        }else{
+            return false;
         }
-
-        $obj_pdf->Output('行政單位.pdf', 'I');
     }
 
     public function e_1_2()
@@ -1090,7 +1072,7 @@ class Designated extends CI_Controller
         $obj_pdf->SetFooterMargin(PDF_MARGIN_FOOTER);
         $obj_pdf->SetMargins(PDF_MARGIN_LEFT, 7,PDF_MARGIN_RIGHT);
         $obj_pdf->SetAutoPageBreak(true, PDF_MARGIN_BOTTOM);
-        $obj_pdf->SetFont('msungstdlight', 'B', 10);
+        $obj_pdf->SetFont('msungstdlight', 'L', 14);
         $obj_pdf->SetCellPadding(0);
 
         $obj_pdf->setFontSubsetting(false);
@@ -1101,8 +1083,23 @@ class Designated extends CI_Controller
         );
         // print_r($data);
         $view =  $this->load->view('designated/e_1_2', $data, true);
-        $obj_pdf->writeHTML($view);
-        $obj_pdf->Output('請公假名單.pdf', 'I');
+        if (!is_dir('./html/')) {
+            mkdir('./html/');
+        } else {
+            $path = 'e_1_2.html';
+            $fp = fopen('./html/'.$path,'w');//建檔
+            fwrite($fp,$view);
+            fclose($fp);//關閉開啟的檔案                
+            // copy($path, './html/'.$path);
+
+        }        
+    
+        if (!is_dir('./pdf/')) {
+            mkdir('./pdf/');
+        } else {
+            exec('wkhtmltopdf --lowquality --enable-forms http://uat.fofo.tw/fjuexam/html/e_1_2.html  ./pdf/e_1_2.pdf');
+        }             
+        echo '<script>location.href="http://uat.fofo.tw/fjuexam/pdf/e_1_2.pdf"</script>';  
     }
 
     public function e_1_3()
@@ -1124,7 +1121,7 @@ class Designated extends CI_Controller
         $obj_pdf->SetFooterMargin(PDF_MARGIN_FOOTER);
         $obj_pdf->SetMargins(PDF_MARGIN_LEFT, 5,PDF_MARGIN_RIGHT);
         $obj_pdf->SetAutoPageBreak(true, 10);
-        $obj_pdf->SetFont('msungstdlight', 'B', 10);
+        $obj_pdf->SetFont('msungstdlight', 'L', 14);
 
         $obj_pdf->setFontSubsetting(false);
         $obj_pdf->AddPage();
@@ -1134,8 +1131,23 @@ class Designated extends CI_Controller
             'school' => $this->mod_exam_area->year_school_name($part),
         );
         $view =  $this->load->view('designated/e_1_3', $data, true);
-        $obj_pdf->writeHTML($view);
-        $obj_pdf->Output('監試及試務人員一覽表.pdf', 'I');
+        if (!is_dir('./html/')) {
+            mkdir('./html/');
+        } else {
+            $path = 'e_1_3.html';
+            $fp = fopen('./html/'.$path,'w');//建檔
+            fwrite($fp,$view);
+            fclose($fp);//關閉開啟的檔案                
+            // copy($path, './html/'.$path);
+
+        }        
+    
+        if (!is_dir('./pdf/')) {
+            mkdir('./pdf/');
+        } else {
+            exec('wkhtmltopdf --lowquality --enable-forms http://uat.fofo.tw/fjuexam/html/e_1_3.html  ./pdf/e_1_3.pdf');
+        }             
+        echo '<script>location.href="http://uat.fofo.tw/fjuexam/pdf/e_1_3.pdf"</script>';  
     }
 
     public function e_1_3_3()
@@ -1163,7 +1175,7 @@ class Designated extends CI_Controller
         $obj_pdf->SetFooterMargin(PDF_MARGIN_FOOTER);
         $obj_pdf->SetMargins(PDF_MARGIN_LEFT, PDF_MARGIN_RIGHT);
         $obj_pdf->SetAutoPageBreak(true, PDF_MARGIN_BOTTOM);
-        $obj_pdf->SetFont('msungstdlight', 'B', 10);
+        $obj_pdf->SetFont('msungstdlight', 'L', 14);
 
         $obj_pdf->setFontSubsetting(false);
         $obj_pdf->AddPage();
@@ -1184,8 +1196,23 @@ class Designated extends CI_Controller
             'addr_info' => $addr_info,
         );
         $view =  $this->load->view('designated/e_1_3_3', $data, true);
-        $obj_pdf->writeHTML($view);
-        $obj_pdf->Output('監試及試務人員一覽表.pdf', 'I');
+        if (!is_dir('./html/')) {
+            mkdir('./html/');
+        } else {
+            $path = 'e_1_3_3.html';
+            $fp = fopen('./html/'.$path,'w');//建檔
+            fwrite($fp,$view);
+            fclose($fp);//關閉開啟的檔案                
+            // copy($path, './html/'.$path);
+
+        }        
+    
+        if (!is_dir('./pdf/')) {
+            mkdir('./pdf/');
+        } else {
+            exec('wkhtmltopdf --lowquality --enable-forms http://uat.fofo.tw/fjuexam/html/e_1_3_3.html  ./pdf/e_1_3_3.pdf');
+        }             
+        echo '<script>location.href="http://uat.fofo.tw/fjuexam/pdf/e_1_3_3.pdf"</script>';  
     }    
 
     public function e_1_3_4()
@@ -1213,7 +1240,7 @@ class Designated extends CI_Controller
         $obj_pdf->SetFooterMargin(PDF_MARGIN_FOOTER);
         $obj_pdf->SetMargins(PDF_MARGIN_LEFT, PDF_MARGIN_RIGHT);
         $obj_pdf->SetAutoPageBreak(true, PDF_MARGIN_BOTTOM);
-        $obj_pdf->SetFont('msungstdlight', 'B', 10);
+        $obj_pdf->SetFont('msungstdlight', 'L', 14);
 
         $obj_pdf->setFontSubsetting(false);
         $obj_pdf->AddPage();
@@ -1234,8 +1261,23 @@ class Designated extends CI_Controller
             'addr_info' => $addr_info,
         );
         $view =  $this->load->view('designated/e_1_3_4', $data, true);
-        $obj_pdf->writeHTML($view);
-        $obj_pdf->Output('監試及試務人員一覽表.pdf', 'I');
+        if (!is_dir('./html/')) {
+            mkdir('./html/');
+        } else {
+            $path = 'e_1_3_4.html';
+            $fp = fopen('./html/'.$path,'w');//建檔
+            fwrite($fp,$view);
+            fclose($fp);//關閉開啟的檔案                
+            // copy($path, './html/'.$path);
+
+        }        
+    
+        if (!is_dir('./pdf/')) {
+            mkdir('./pdf/');
+        } else {
+            exec('wkhtmltopdf --lowquality --enable-forms http://uat.fofo.tw/fjuexam/html/e_1_3_4.html  ./pdf/e_1_3_4.pdf');
+        }             
+        echo '<script>location.href="http://uat.fofo.tw/fjuexam/pdf/e_1_3_4.pdf"</script>';   
     }    
 
     public function e_1_3_5()
@@ -1263,7 +1305,7 @@ class Designated extends CI_Controller
         $obj_pdf->SetFooterMargin(PDF_MARGIN_FOOTER);
         $obj_pdf->SetMargins(PDF_MARGIN_LEFT,PDF_MARGIN_RIGHT);
         $obj_pdf->SetAutoPageBreak(true, PDF_MARGIN_BOTTOM);
-        $obj_pdf->SetFont('msungstdlight', 'B', 10);
+        $obj_pdf->SetFont('msungstdlight', 'L', 14);
 
         $obj_pdf->setFontSubsetting(false);
         $obj_pdf->AddPage();
@@ -1284,8 +1326,23 @@ class Designated extends CI_Controller
             'addr_info' => $addr_info,
         );
         $view =  $this->load->view('designated/e_1_3_5', $data, true);
-        $obj_pdf->writeHTML($view);
-        $obj_pdf->Output('監試及試務人員一覽表.pdf', 'I');
+        if (!is_dir('./html/')) {
+            mkdir('./html/');
+        } else {
+            $path = 'e_1_3_5.html';
+            $fp = fopen('./html/'.$path,'w');//建檔
+            fwrite($fp,$view);
+            fclose($fp);//關閉開啟的檔案                
+            // copy($path, './html/'.$path);
+
+        }        
+    
+        if (!is_dir('./pdf/')) {
+            mkdir('./pdf/');
+        } else {
+            exec('wkhtmltopdf --lowquality --enable-forms http://uat.fofo.tw/fjuexam/html/e_1_3_5.html  ./pdf/e_1_3_5.pdf');
+        }             
+        echo '<script>location.href="http://uat.fofo.tw/fjuexam/pdf/e_1_3_5.pdf"</script>';   
     }    
 
     public function e_1_4()
@@ -1364,7 +1421,7 @@ class Designated extends CI_Controller
         $obj_pdf->SetFooterMargin(PDF_MARGIN_FOOTER);
         $obj_pdf->SetMargins(PDF_MARGIN_LEFT, PDF_MARGIN_RIGHT);
         $obj_pdf->SetAutoPageBreak(true, PDF_MARGIN_BOTTOM);
-        $obj_pdf->SetFont('msungstdlight', 'B', 10);
+        $obj_pdf->SetFont('msungstdlight', 'L', 10);
 
         $obj_pdf->setFontSubsetting(false);
         
@@ -1378,8 +1435,23 @@ class Designated extends CI_Controller
             'meat' => $this->mod_trial->get_trial_meat_meal_count($part),
         );
         $view =  $this->load->view('designated/e_1_5', $data, true);
-        $obj_pdf->writeHTML($view);
-        $obj_pdf->Output($area.'監試人員午餐一覽表.pdf', 'I');
+        if (!is_dir('./html/')) {
+            mkdir('./html/');
+        } else {
+            $path = 'e_1_5.html';
+            $fp = fopen('./html/'.$path,'w');//建檔
+            fwrite($fp,$view);
+            fclose($fp);//關閉開啟的檔案                
+            // copy($path, './html/'.$path);
+
+        }        
+    
+        if (!is_dir('./pdf/')) {
+            mkdir('./pdf/');
+        } else {
+            exec('wkhtmltopdf --lowquality --enable-forms http://uat.fofo.tw/fjuexam/html/e_1_5.html  ./pdf/e_1_5.pdf');
+        }             
+        echo '<script>location.href="http://uat.fofo.tw/fjuexam/pdf/e_1_5.pdf"</script>';           
     }
 
     public function e_2()
@@ -1420,7 +1492,7 @@ class Designated extends CI_Controller
         $obj_pdf->SetFooterMargin(PDF_MARGIN_FOOTER);
         $obj_pdf->SetMargins(PDF_MARGIN_LEFT, PDF_MARGIN_RIGHT);
         $obj_pdf->SetAutoPageBreak(true, PDF_MARGIN_BOTTOM);
-        $obj_pdf->SetFont('msungstdlight', 'B', 10);
+        $obj_pdf->SetFont('msungstdlight', 'L', 14);
 
         $obj_pdf->setFontSubsetting(false);
         
@@ -1458,12 +1530,12 @@ class Designated extends CI_Controller
                 }                                    
                 $html = '<table class="" id="" style="padding:5px 0px;;text-align:center;">';
                 $html .= '<tr>';
-                $html .= '<td style="font-size:16px;lne-height:50px;" colspan="6">'.$_SESSION['year'].'學年度指定科目考試新北一考區試務人員簽到表</td>';
+                $html .= '<td style="font-size:22px;lne-height:50px;" colspan="6" >'.$_SESSION['year'].'學年度指定科目考試新北一考區試務人員簽到表</td>';
                 $html .= '</tr>';
                 $html .= '<tr>';
-                $html .= '<td colspan="2" style="font-size:14px;text-align:left;">分區：'.$area.'</td>';
-                $html .= '<td colspan="2" style="font-size:14px;">'.$school.'</td>';
-                $html .= '<td colspan="2" style="font-size:14px;text-align:right;">簽到日期：'.$k.'</td>';
+                $html .= '<td colspan="2" style="font-size:18px;text-align:left;">分區：'.$area.'</td>';
+                $html .= '<td colspan="2" style="font-size:18px;">'.$school.'</td>';
+                $html .= '<td colspan="2" style="font-size:18px;text-align:right;">簽到日期：'.$k.'</td>';
                 $html .= '</tr>';
                 $html .= '<tr>';
                 $html .= '<td style="border:1px solid #999">職務</td>';
@@ -1486,7 +1558,7 @@ class Designated extends CI_Controller
              
                 }
                 $html .= '<tr>';
-                $html .= '<td colspan="7" style="font-size:16px;text-align:left;">共計：'.count($v).'人、自備:'.$own_count.'人、素食：'.$veg_count.'人、葷食：'.$meat_count.'人</td>';
+                $html .= '<td colspan="7" style="font-size:14px;text-align:left;">共計：'.count($v).'人、自備:'.$own_count.'人、素食：'.$veg_count.'人、葷食：'.$meat_count.'人</td>';
                 $html .= '</tr>';       
                 $html .= '</table>';
 
@@ -1525,7 +1597,7 @@ class Designated extends CI_Controller
         $obj_pdf->SetFooterMargin(PDF_MARGIN_FOOTER);
         $obj_pdf->SetMargins(PDF_MARGIN_LEFT, PDF_MARGIN_RIGHT);
         $obj_pdf->SetAutoPageBreak(true, PDF_MARGIN_BOTTOM);
-        $obj_pdf->SetFont('msungstdlight', 'B', 10);
+        $obj_pdf->SetFont('msungstdlight', 'L', 14);
 
         $obj_pdf->setFontSubsetting(false);
         
@@ -1563,12 +1635,12 @@ class Designated extends CI_Controller
                 }                           
                 $html = '<table class="" id="" style="padding:5px 0px;;text-align:center;">';
                 $html .= '<tr>';
-                $html .= '<td style="font-size:16px;lne-height:50px;" colspan="6">'.$_SESSION['year'].'學年度指定科目考試新北一考區試務人員簽到表</td>';
+                $html .= '<td style="font-size:22px;lne-height:50px;" colspan="6">'.$_SESSION['year'].'學年度指定科目考試新北一考區試務人員簽到表</td>';
                 $html .= '</tr>';
                 $html .= '<tr>';
-                $html .= '<td colspan="2" style="font-size:14px;text-align:left;">分區：'.$area.'</td>';
-                $html .= '<td colspan="2" style="font-size:14px;">'.$school.'</td>';
-                $html .= '<td colspan="2" style="font-size:14px;text-align:right;">簽到日期：'.$k.'</td>';
+                $html .= '<td colspan="2" style="font-size:18px;text-align:left;">分區：'.$area.'</td>';
+                $html .= '<td colspan="2" style="font-size:18px;">'.$school.'</td>';
+                $html .= '<td colspan="2" style="font-size:18px;text-align:right;">簽到日期：'.$k.'</td>';
                 $html .= '</tr>';
                 $html .= '<tr>';
                 $html .= '<td style="border:1px solid #999">職務</td>';
@@ -1591,7 +1663,7 @@ class Designated extends CI_Controller
              
                 }
                 $html .= '<tr>';
-                $html .= '<td colspan="7" style="font-size:16px;text-align:left;">共計：'.count($v).'人、自備:'.$own_count.'人、素食：'.$veg_count.'人、葷食：'.$meat_count.'人</td>';
+                $html .= '<td colspan="7" style="font-size:14px;text-align:left;">共計：'.count($v).'人、自備:'.$own_count.'人、素食：'.$veg_count.'人、葷食：'.$meat_count.'人</td>';
                 $html .= '</tr>';       
                 $html .= '</table>';
 
@@ -1630,7 +1702,7 @@ class Designated extends CI_Controller
         $obj_pdf->SetFooterMargin(PDF_MARGIN_FOOTER);
         $obj_pdf->SetMargins(PDF_MARGIN_LEFT, PDF_MARGIN_RIGHT);
         $obj_pdf->SetAutoPageBreak(true, PDF_MARGIN_BOTTOM);
-        $obj_pdf->SetFont('msungstdlight', 'B', 10);
+        $obj_pdf->SetFont('msungstdlight', 'L', 14);
 
         $obj_pdf->setFontSubsetting(false);
         
@@ -1668,12 +1740,12 @@ class Designated extends CI_Controller
                 }                           
                 $html = '<table class="" id="" style="padding:5px 0px;;text-align:center;">';
                 $html .= '<tr>';
-                $html .= '<th style="font-size:16px;lne-height:50px;" colspan="6">'.$_SESSION['year'].'學年度指定科目考試新北一考區試務人員簽到表</th>';
+                $html .= '<td style="font-size:22px;lne-height:50px;" colspan="6">'.$_SESSION['year'].'學年度指定科目考試新北一考區試務人員簽到表</td>';
                 $html .= '</tr>';
                 $html .= '<tr>';
-                $html .= '<td colspan="2" style="font-size:14px;text-align:left;">分區：'.$area.'</td>';
-                $html .= '<td colspan="2" style="font-size:14px;">'.$school.'</td>';
-                $html .= '<td colspan="2" style="font-size:14px;text-align:right;">簽到日期：'.$k.'</td>';
+                $html .= '<td colspan="2" style="font-size:18px;text-align:left;">分區：'.$area.'</td>';
+                $html .= '<td colspan="2" style="font-size:18px;">'.$school.'</td>';
+                $html .= '<td colspan="2" style="font-size:18px;text-align:right;">簽到日期：'.$k.'</td>';
                 $html .= '</tr>';
                 $html .= '<tr>';
                 $html .= '<td style="border:1px solid #999">職務</td>';
@@ -1688,7 +1760,6 @@ class Designated extends CI_Controller
                     $html .= '<tr>';
                     $html .= '<td style="border:1px solid #999">'.$vc['job'].'</td>';
                     $html .= '<td style="border:1px solid #999">'.$vc['name'].'<br><span style="color:#ff0000">'.$vc['meal'].'</span></td>';
-                    '</td>';
                     $html .= '<td style="border:1px solid #999">'.$vc['member_unit'].'</td>';
                     $html .= '<td style="border:1px solid #999"></td>';
                     $html .= '<td style="border:1px solid #999" colspan="2">'.$vc['note'].'</td>';
@@ -1696,7 +1767,7 @@ class Designated extends CI_Controller
              
                 }
                 $html .= '<tr>';
-                $html .= '<td colspan="7" style="font-size:16px;text-align:left;">共計：'.count($v).'人、自備:'.$own_count.'人、素食：'.$veg_count.'人、葷食：'.$meat_count.'人</td>';
+                $html .= '<td colspan="7" style="font-size:14px;text-align:left;">共計：'.count($v).'人、自備:'.$own_count.'人、素食：'.$veg_count.'人、葷食：'.$meat_count.'人</td>';
                 $html .= '</tr>';       
                 $html .= '</table>';
 
@@ -1729,7 +1800,7 @@ class Designated extends CI_Controller
         $obj_pdf->SetFooterMargin(PDF_MARGIN_FOOTER);
         $obj_pdf->SetMargins(PDF_MARGIN_LEFT, PDF_MARGIN_RIGHT);
         $obj_pdf->SetAutoPageBreak(true, PDF_MARGIN_BOTTOM);
-        $obj_pdf->SetFont('msungstdlight', 'B', 10);
+        $obj_pdf->SetFont('msungstdlight', 'L', 14);
 
         $obj_pdf->setFontSubsetting(false);
 
@@ -1744,61 +1815,26 @@ class Designated extends CI_Controller
         );
         
         if ($data['part'] != false) {
-            foreach ($data['part'] as $k => $v) {
-                # code...
-                $html = '<table class="" id="" style="padding:5px 0px;;text-align:center;">';
-                $html .= '<thead>';
-                $html .= '<tr>';
-                $html .= '<td style="font-size:16px;lne-height:50px;" colspan="7">'.$_SESSION['year'].'學年度指定科目考試新北一考區監試人員簽到表</td>';
-                $html .= '</tr>';
-                $html .= '<tr>';
-
-                $html .= '<td colspan="2" style="font-size:14px;">分區：'.$area.'</td>';
-                $html .= '<td colspan="3" style="font-size:14px;">'.$data['school'].'</td>';
-                $html .= '<td colspan="2" style="font-size:14px;">簽到日期：'.$k.'</td>';
-                $html .= '</tr>';
-                $html .= '<tr>';
-                $html .= '<td style="border:1px solid #999" rowspan="2">試場</td>';
-                $html .= '<td style="border:1px solid #999" colspan="2" class="bb">監試人員(1)</td>';
-                $html .= '<td style="border:1px solid #999" rowspan="2">簽名</td>';
-                $html .= '<td style="border:1px solid #999" colspan="2" class="bb">監試人員(2)</td>';
-                $html .= '<td style="border:1px solid #999" rowspan="2">簽名</td>';
-                $html .= '</tr>';
-
-                $html .= '<tr>';
-                $html .= '<td style="border:1px solid #999">姓名</td>';
-                $html .= '<td style="border:1px solid #999">單位別</td>';
-                $html .= '<td style="border:1px solid #999">姓名</td>';
-                $html .= '<td style="border:1px solid #999">單位別</td>';
-                $html .= '</tr>';
-                $html .= '</thead>';        
-                foreach ($v as $kc => $vc) {
-                    # code...
-                    $html .= '<tr>';
-                    $html .= '<td style="border:1px solid #999">'.$vc['field'].'</td>';
-                    $html .= '<td style="border:1px solid #999">'.$vc['supervisor_1'].'<br><span style="color:#ff0000">'.$vc['meal1'].'</span></td>';
-                    $html .= '<td style="border:1px solid #999">'.$vc['supervisor_1_unit'].'</td>';
-                    $html .= '<td style="border:1px solid #999"></td>';
-                    $html .= '<td style="border:1px solid #999">'.$vc['supervisor_2'].'<br><span style="color:#ff0000">'.$vc['meal2'].'</span></td>';
-                    $html .= '<td style="border:1px solid #999">'.$vc['supervisor_2_unit'].'</td>';
-                    $html .= '<td style="border:1px solid #999"></td>';
-                    $html .= '</tr>';
-                }
-                $html .= '<tr>';
-                $html .= '<td colspan="7" style="font-size:16px;text-align:left;">共計：'.(count($v)*2).'人、自備:'.$data['own'].'人、素食：'.$data['veg'].'人、葷食：'.$data['meat'].'人</td>';
-                $html .= '</tr>';
-                $html .= '</table>';
-
-
-                $obj_pdf->AddPage($html);
-
-                $obj_pdf->writeHTML($html);
-            }
+            $view = $this->load->view('designated/e_2_2', $data,true);
+            if (!is_dir('./html/')) {
+                mkdir('./html/');
+            } else {
+                $path = 'e_2_2.html';
+                $fp = fopen('./html/'.$path,'w');//建檔
+                fwrite($fp,$view);
+                fclose($fp);//關閉開啟的檔案                
+            }        
+            
+            if (!is_dir('./pdf/')) {
+                mkdir('./pdf/');
+            } else {
+                exec('wkhtmltopdf --lowquality  --enable-forms http://uat.fofo.tw/fjuexam/html/e_2_2.html  ./pdf/e_2_2.pdf');
+            }             
+            echo '<script>location.href="http://uat.fofo.tw/fjuexam/pdf/e_2_2.pdf"</script>';    
+        }else{
+            return false;
         }
         
-        // $this->load->view('designated/e_2_2', $data);
-        // $obj_pdf->writeHTML($view);
-        $obj_pdf->Output('監試人員執行任務簽到表.pdf', 'I');
     }
 
     public function e_2_3_1()
@@ -1822,7 +1858,7 @@ class Designated extends CI_Controller
         $obj_pdf->SetFooterMargin(PDF_MARGIN_FOOTER);
         $obj_pdf->SetMargins(PDF_MARGIN_LEFT, PDF_MARGIN_RIGHT);
         $obj_pdf->SetAutoPageBreak(true, PDF_MARGIN_BOTTOM);
-        $obj_pdf->SetFont('msungstdlight', 'L', 10);
+        $obj_pdf->SetFont('msungstdlight', 'L', 14);
         $year = $this->session->userdata('year');
 
         $datetime_info = $this->mod_exam_datetime->get_once($year);
@@ -1849,7 +1885,7 @@ class Designated extends CI_Controller
             if (!is_dir('./pdf/')) {
                 mkdir('./pdf/');
             } else {
-                exec('wkhtmltopdf --lowquality --enable-forms http://uat.fofo.tw/fjuexam/html/e_2_3_1.html  ./pdf/e_2_3_1.pdf');
+                exec('wkhtmltopdf --lowquality  --enable-forms http://uat.fofo.tw/fjuexam/html/e_2_3_1.html  ./pdf/e_2_3_1.pdf');
             }             
             echo '<script>location.href="http://uat.fofo.tw/fjuexam/pdf/e_2_3_1.pdf"</script>';    
         }else{
@@ -1905,7 +1941,7 @@ class Designated extends CI_Controller
             if (!is_dir('./pdf/')) {
                 mkdir('./pdf/');
             } else {
-                exec('wkhtmltopdf --lowquality --enable-forms http://uat.fofo.tw/fjuexam/html/e_2_3_2.html  ./pdf/e_2_3_2.pdf');
+                exec('wkhtmltopdf --lowquality  --enable-forms http://uat.fofo.tw/fjuexam/html/e_2_3_2.html  ./pdf/e_2_3_2.pdf');
             }             
             echo '<script>location.href="http://uat.fofo.tw/fjuexam/pdf/e_2_3_2.pdf"</script>';    
         }else{
@@ -1962,7 +1998,7 @@ class Designated extends CI_Controller
             if (!is_dir('./pdf/')) {
                 mkdir('./pdf/');
             } else {
-                exec('wkhtmltopdf --lowquality --enable-forms http://uat.fofo.tw/fjuexam/html/e_2_3_3.html  ./pdf/e_2_3_3.pdf');
+                exec('wkhtmltopdf --lowquality  --enable-forms http://uat.fofo.tw/fjuexam/html/e_2_3_3.html  ./pdf/e_2_3_3.pdf');
             }             
             echo '<script>location.href="http://uat.fofo.tw/fjuexam/pdf/e_2_3_3.pdf"</script>';    
         }else{
@@ -1986,54 +2022,32 @@ class Designated extends CI_Controller
         $obj_pdf->SetFooterMargin(PDF_MARGIN_FOOTER);
         $obj_pdf->SetMargins(PDF_MARGIN_LEFT,3,PDF_MARGIN_RIGHT);
         $obj_pdf->SetAutoPageBreak(true, PDF_MARGIN_BOTTOM);
-        $obj_pdf->SetFont('msungstdlight', 'B', 10);
+        $obj_pdf->SetFont('msungstdlight', 'L', 14);
 
         $obj_pdf->setFontSubsetting(false);
         $data = array(
             'part' => $this->mod_task->get_sign_list(),
         );
         if ($data['part'] != false) {
-            foreach ($data['part'] as $k => $v) {
-                $html = '<table style="padding:8px 0px;text-align:center;">';
-                $html .= '<thead>';
-                $html .=  '<tr>';
-                $html .=  '<td colspan="5" style="font-size:14px;">'.$_SESSION['year'].'學年度指定科目考試新北一考區監試說明會簽到表</td>';
-                $html .=  '</tr>';       
-                $html .=  '<tr>';
-                $html .=  '<td colspan="5" style="font-size:13px;text-align:left;">單位：'.$k.'</td>';
-                $html .=  '</tr>';        
-
-                $html .=  '<tr style="background:#FFE4E7">';
-                $html .=  '<td style="border: 1px solid #999999;">職務</td>';
-                $html .=  '<td style="border: 1px solid #999999;">姓名</td>';
-                $html .=  '<td style="border: 1px solid #999999;">單位別</td>';
-                $html .=  '<td style="border: 1px solid #999999;">簽名</td>';
-                $html .=  '<td style="border: 1px solid #999999;">備註</td>';
-                $html .=  '</tr>';                
-                $html .= '</thead>';
-                foreach ($v as $kc => $vc) {
-                    // array_multisort($vc['member_unit'],SORT_ASC,$vc); 
-
-                    $html .=   '<tr>';
-                    $html .=  '<td  style="border: 1px solid #999999;">'.$vc['job'].'</td>';
-                    $html .=  '<td  style="border: 1px solid #999999;">'.$vc['member_name'].'</td>';
-                    $html .=  '<td  style="border: 1px solid #999999;">'.$vc['member_unit'].'</td>';
-                    $html .=  '<td  style="border: 1px solid #999999;"></td>';
-                    $html .=  '<td  style="border: 1px solid #999999;"></td>';
-                    $html .=  '</tr>';
-                }
-                $html .= '<tr>';
-                $html .= '<td colspan="5" style="font-size:13px;text-align:left;">共計：'.count($v).'人</td>';
-                $html .=  '</tr>';
-                    
-                $html .=  '</table>';
-
-                $obj_pdf->AddPage($html);
-
-                $obj_pdf->writeHTML($html);
-            }
+            $view = $this->load->view('designated/e_2_4',$data,true);
+            if (!is_dir('./html/')) {
+                mkdir('./html/');
+            } else {
+                $path = 'e_2_4.html';
+                $fp = fopen('./html/'.$path,'w');//建檔
+                fwrite($fp,$view);
+                fclose($fp);//關閉開啟的檔案                
+            }        
+            
+            if (!is_dir('./pdf/')) {
+                mkdir('./pdf/');
+            } else {
+                exec('wkhtmltopdf --lowquality  --enable-forms http://uat.fofo.tw/fjuexam/html/e_2_4.html  ./pdf/e_2_4.pdf');
+            }             
+            echo '<script>location.href="http://uat.fofo.tw/fjuexam/pdf/e_2_4.pdf"</script>'; 
+        }else{
+            return false;
         }
-        $obj_pdf->Output('監試說明會簽到表.pdf', 'I');
     }
 
 
@@ -2070,7 +2084,7 @@ class Designated extends CI_Controller
         $obj_pdf->SetFooterMargin(PDF_MARGIN_FOOTER);
         $obj_pdf->SetMargins(PDF_MARGIN_LEFT, PDF_MARGIN_RIGHT);
         $obj_pdf->SetAutoPageBreak(true, PDF_MARGIN_BOTTOM);
-        $obj_pdf->SetFont('msungstdlight', 'B', 10);
+        $obj_pdf->SetFont('msungstdlight', 'L', 14);
 
         $obj_pdf->setFontSubsetting(false);
         $data = array(
@@ -2078,46 +2092,25 @@ class Designated extends CI_Controller
             'list' => $this->mod_task->get_member_map_list()
         );
         if ($data['list'] != false) {
-            foreach ($data['list'] as $k => $v) {
-                $html = '<table style="padding:5px 0px;text-align:center;">';
-                $html .=  '<tr>';
-                $html .=  '<td colspan="10" style="font-size:14px;">'.$_SESSION['year'].'學年度指定科目考試新北一考區監試說明會開會通知簽收表</td>';
-                $html .=  '</tr>';
-
-                $html .=  '<tr>';
-                $html .=  '<td colspan="10" style="font-size:13px;text-align:left;">單位：'.$k.'</td>';
-                $html .=  '</tr>';
-                $html .=  '<tr style="background:#FFE4E7">';
-                $html .=  '<td style="border: 1px solid #999999;">編號</td>';
-                $html .=  '<td style="border: 1px solid #999999;" colspan="2">職務</td>';
-                $html .=  '<td style="border: 1px solid #999999;">姓名</td>';
-                $html .=  '<td style="border: 1px solid #999999;" colspan="3">單位別</td>';
-                $html .=  '<td style="border: 1px solid #999999;" colspan="2">簽名</td>';
-                $html .=  '<td style="border: 1px solid #999999;">備註</td>';
-                $html .=  '</tr>';
+            $view = $this->load->view('designated/e_2_5',$data,true);
+            if (!is_dir('./html/')) {
+                mkdir('./html/');
+            } else {
+                $path = 'e_2_5.html';
+                $fp = fopen('./html/'.$path,'w');//建檔
+                fwrite($fp,$view);
+                fclose($fp);//關閉開啟的檔案                
+            }        
                 
-                foreach ($v as $kc => $vc) {  
-                    $html .=   '<tr>';
-                    $html .=  '<td  style="border: 1px solid #999999;">'.($kc+1).'</td>';
-                    $html .=  '<td  style="border: 1px solid #999999;" colspan="2">'.$vc['job'].'</td>';
-                    $html .=  '<td  style="border: 1px solid #999999;">'.$vc['member_name'].'</td>';
-                    $html .=  '<td  style="border: 1px solid #999999;" colspan="3">'.$vc['member_unit'].'</td>';
-                    $html .=  '<td  style="border: 1px solid #999999;" colspan="2"></td>';
-                    $html .=  '<td  style="border: 1px solid #999999;"></td>';
-                    $html .=  '</tr>';
-                }
-                $html .= '<tr>';
-                $html .= '<td colspan="10" style="font-size:13px;text-align:left;">共計：'.count($v).'人</td>';
-                $html .=  '</tr>';
-                    
-                $html .=  '</table>';
-
-                $obj_pdf->AddPage($html);
-
-                $obj_pdf->writeHTML($html);
-            }
+            if (!is_dir('./pdf/')) {
+                mkdir('./pdf/');
+            } else {
+                exec('wkhtmltopdf --lowquality  --enable-forms http://uat.fofo.tw/fjuexam/html/e_2_5.html  ./pdf/e_2_5.pdf');
+            }             
+            echo '<script>location.href="http://uat.fofo.tw/fjuexam/pdf/e_2_5.pdf"</script>'; 
+        }else{
+            return false;
         }
-        $obj_pdf->Output('大學入學考試中心'.$_SESSION['year'].'學年度指定科目考試新北一考區監試說明會開會通知簽收表'.'.pdf', 'I');
     }
 
 
@@ -2772,7 +2765,7 @@ class Designated extends CI_Controller
         $obj_pdf->SetFooterMargin(PDF_MARGIN_FOOTER);
         $obj_pdf->SetMargins(PDF_MARGIN_LEFT, PDF_MARGIN_RIGHT);
         $obj_pdf->SetAutoPageBreak(true, PDF_MARGIN_BOTTOM);
-        $obj_pdf->SetFont('msungstdlight', '', 12);
+        $obj_pdf->SetFont('msungstdlight', '', 10);
 
         $obj_pdf->setFontSubsetting(false);
         $obj_pdf->AddPage();
@@ -3678,22 +3671,22 @@ class Designated extends CI_Controller
             'lunch'=>$this->mod_trial->get_all_trial_lunch_total($part),
             'count'=>$this->mod_trial->e_6_1_member_count($part)
         );
-        $view = $this->load->view('designated/e_6_1', $data, true);
-        if (!is_dir('./html/')) {
-            mkdir('./html/');
-        } else {
-            $path = 'e_6_1.html';
-            $fp = fopen('./html/'.$path,'w');//建檔
-            fwrite($fp,$view);
-            fclose($fp);//關閉開啟的檔案                
-        }        
+        $this->load->view('designated/e_6_1', $data);
+        // if (!is_dir('./html/')) {
+        //     mkdir('./html/');
+        // } else {
+        //     $path = 'e_6_1.html';
+        //     $fp = fopen('./html/'.$path,'w');//建檔
+        //     fwrite($fp,$view);
+        //     fclose($fp);//關閉開啟的檔案                
+        // }        
             
-        if (!is_dir('./pdf/')) {
-            mkdir('./pdf/');
-        } else {
-            exec('wkhtmltopdf --lowquality --enable-forms http://uat.fofo.tw/fjuexam/html/e_6_1.html  ./pdf/e_6_1.pdf');
-        }             
-        echo '<script>location.href="http://uat.fofo.tw/fjuexam/pdf/e_6_1.pdf"</script>';  
+        // if (!is_dir('./pdf/')) {
+        //     mkdir('./pdf/');
+        // } else {
+        //     exec('wkhtmltopdf --lowquality --enable-forms http://uat.fofo.tw/fjuexam/html/e_6_1.html  ./pdf/e_6_1.pdf');
+        // }             
+        // echo '<script>location.href="http://uat.fofo.tw/fjuexam/pdf/e_6_1.pdf"</script>';  
     }
 
     public function e_6_2()
@@ -3764,8 +3757,8 @@ class Designated extends CI_Controller
             'salary'=>$this->mod_task->get_all_salary_trial_total_of_district($area),
             'lunch'=>$this->mod_task->get_all_lunch_trial_total_of_district($area)            
         );
-        $view =  $this->load->view('designated/e_6_3', $data, true);
-       if (!is_dir('./html/')) {
+        $view =  $this->load->view('designated/e_6_3', $data,true);
+        if (!is_dir('./html/')) {
             mkdir('./html/');
         } else {
             $path = 'e_6_3.html';

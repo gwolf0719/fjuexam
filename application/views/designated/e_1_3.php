@@ -1,18 +1,41 @@
 <style>
-
     .bb {
-        border: 1px solid #000;
+        border: 1px solid #999999;
     }
+   table{
+        text-align: center;
+        border-spacing: 0px;
+        width:100%;
+    }
+    td{
+        padding: 15px 0px;
+        font-size:14px;
+    }
+    th{
+        padding: 15px 0px;
+        font-size:14px;
+    }    
+    * {
+        overflow: visible !important;
+    }
+    table, tr, td, th, tbody, thead, tfoot {
+        page-break-before: always;
+        page-break-inside: avoid;
+    }    
+    .W50{
+        width:50%;
+        float:left;
+    }    
 </style>
 <table class="" id="" style="padding:5px 0px;text-align:center;">
     <thead>
         <tr>
-            <th colspan="9" style="font-size:18px;"><?=$_SESSION['year']?>學年度指定科目考試新北一考區監試人員一覽表</th>
+            <th colspan="9" style="font-size:22px;"><?=$_SESSION['year']?>學年度指定科目考試新北一考區監試人員一覽表</th>
         </tr>
         <tr>
-            <th colspan="3" style="font-size:13px;">分區：<?=$area?></th>
-            <th colspan="3" style="font-size:13px;">考場：<?=$school?></th>
-            <th colspan="3" style="font-size:13px;">印表日期:<?=(date("Y") - 1911).date("/m/d")?></th>
+            <th colspan="3" style="font-size:18px;">分區：<?=$area?></th>
+            <th colspan="3" style="font-size:18px;">考場：<?=$school?></th>
+            <th colspan="3" style="font-size:18px;">印表日期:<?=(date("Y") - 1911).date("/m/d")?></th>
         </tr>        
         <tr>
             <th class="bb" rowspan="2">試場</th>
