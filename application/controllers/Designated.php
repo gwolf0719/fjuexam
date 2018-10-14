@@ -1505,71 +1505,27 @@ class Designated extends CI_Controller
             'school' => $school,
         );
         if ($data['part'] != false) {
-            foreach ($data['part'] as $k => $v) {
-                # code...
-                $own_count = 0;
-                for ($i=0; $i < count($v); $i++) { 
-                    # code...
-                    if($v[$i]['meal'] == '自備'){
-                        $own_count += 1;
-                    }                    
-                }
-                $veg_count = 0;
-                for ($i=0; $i < count($v); $i++) { 
-                    # code...
-                    if($v[$i]['meal'] == '素'){
-                        $veg_count += 1;
-                    }                    
-                }
-                $meat_count = 0;
-                for ($i=0; $i < count($v); $i++) { 
-                    # code...
-                    if($v[$i]['meal'] == '葷'){
-                        $meat_count += 1;
-                    }                    
-                }                                    
-                $html = '<table class="" id="" style="padding:5px 0px;;text-align:center;">';
-                $html .= '<tr>';
-                $html .= '<td style="font-size:22px;lne-height:50px;" colspan="6" >'.$_SESSION['year'].'學年度指定科目考試新北一考區試務人員簽到表</td>';
-                $html .= '</tr>';
-                $html .= '<tr>';
-                $html .= '<td colspan="2" style="font-size:18px;text-align:left;">分區：'.$area.'</td>';
-                $html .= '<td colspan="2" style="font-size:18px;">'.$school.'</td>';
-                $html .= '<td colspan="2" style="font-size:18px;text-align:right;">簽到日期：'.$k.'</td>';
-                $html .= '</tr>';
-                $html .= '<tr>';
-                $html .= '<td style="border:1px solid #999">職務</td>';
-                $html .= '<td style="border:1px solid #999">姓名</td>';
-                $html .= '<td style="border:1px solid #999">單位別</td>';
-                $html .= '<td style="border:1px solid #999">簽名</td>';
-                $html .= '<td style="border:1px solid #999" colspan="2">備註(工作分配)</td>';
-                $html .= '</tr>';
-                        
-                foreach ($v as $kc => $vc) {
-                    # code...
-                    $html .= '<tr>';
-                    $html .= '<td style="border:1px solid #999">'.$vc['job'].'</td>';
-                    $html .= '<td style="border:1px solid #999">'.$vc['name'].'<br><span style="color:#ff0000">'.$vc['meal'].'</span></td>';
-                    '</td>';
-                    $html .= '<td style="border:1px solid #999">'.$vc['member_unit'].'</td>';
-                    $html .= '<td style="border:1px solid #999"></td>';
-                    $html .= '<td style="border:1px solid #999" colspan="2">'.$vc['note'].'</td>';
-                    $html .= '</tr>';
-             
-                }
-                $html .= '<tr>';
-                $html .= '<td colspan="7" style="font-size:14px;text-align:left;">共計：'.count($v).'人、自備:'.$own_count.'人、素食：'.$veg_count.'人、葷食：'.$meat_count.'人</td>';
-                $html .= '</tr>';       
-                $html .= '</table>';
+            $view =  $this->load->view('designated/e_2_1_1', $data, true);
+            if (!is_dir('./html/')) {
+                mkdir('./html/');
+            } else {
+                $path = 'e_2_1_1.html';
+                $fp = fopen('./html/'.$path,'w');//建檔
+                fwrite($fp,$view);
+                fclose($fp);//關閉開啟的檔案                
+                // copy($path, './html/'.$path);
 
-
-                $obj_pdf->AddPage($html);
-
-                $obj_pdf->writeHTML($html);
-            }
+            }        
+        
+            if (!is_dir('./pdf/')) {
+                mkdir('./pdf/');
+            } else {
+                exec('wkhtmltopdf --lowquality --enable-forms http://uat.fofo.tw/fjuexam/html/e_2_1_1.html  ./pdf/e_2_1_1.pdf');
+            }             
+            echo '<script>location.href="http://uat.fofo.tw/fjuexam/pdf/e_2_1_1.pdf"</script>';  
+        }else{
+            return false;
         }
-
-        $obj_pdf->Output('試務人員執行任務簽到表.pdf', 'I');
     }
 
     public function e_2_1_2()
@@ -1610,71 +1566,26 @@ class Designated extends CI_Controller
             'school' => $school,
         );
         if ($data['part'] != false) {
-            foreach ($data['part'] as $k => $v) {
-                # code...
-                $own_count = 0;
-                for ($i=0; $i < count($v); $i++) { 
-                    # code...
-                    if($v[$i]['meal'] == '自備'){
-                        $own_count += 1;
-                    }                    
-                }
-                $veg_count = 0;
-                for ($i=0; $i < count($v); $i++) { 
-                    # code...
-                    if($v[$i]['meal'] == '素'){
-                        $veg_count += 1;
-                    }                    
-                }
-                $meat_count = 0;
-                for ($i=0; $i < count($v); $i++) { 
-                    # code...
-                    if($v[$i]['meal'] == '葷'){
-                        $meat_count += 1;
-                    }                    
-                }                           
-                $html = '<table class="" id="" style="padding:5px 0px;;text-align:center;">';
-                $html .= '<tr>';
-                $html .= '<td style="font-size:22px;lne-height:50px;" colspan="6">'.$_SESSION['year'].'學年度指定科目考試新北一考區試務人員簽到表</td>';
-                $html .= '</tr>';
-                $html .= '<tr>';
-                $html .= '<td colspan="2" style="font-size:18px;text-align:left;">分區：'.$area.'</td>';
-                $html .= '<td colspan="2" style="font-size:18px;">'.$school.'</td>';
-                $html .= '<td colspan="2" style="font-size:18px;text-align:right;">簽到日期：'.$k.'</td>';
-                $html .= '</tr>';
-                $html .= '<tr>';
-                $html .= '<td style="border:1px solid #999">職務</td>';
-                $html .= '<td style="border:1px solid #999">姓名</td>';
-                $html .= '<td style="border:1px solid #999">單位別</td>';
-                $html .= '<td style="border:1px solid #999">簽名</td>';
-                $html .= '<td style="border:1px solid #999" colspan="2">備註(工作分配)</td>';
-                $html .= '</tr>';
-                        
-                foreach ($v as $kc => $vc) {
-                    # code...
-                    $html .= '<tr>';
-                    $html .= '<td style="border:1px solid #999">'.$vc['job'].'</td>';
-                    $html .= '<td style="border:1px solid #999">'.$vc['name'].'<br><span style="color:#ff0000">'.$vc['meal'].'</span></td>';
-                    '</td>';
-                    $html .= '<td style="border:1px solid #999">'.$vc['member_unit'].'</td>';
-                    $html .= '<td style="border:1px solid #999"></td>';
-                    $html .= '<td style="border:1px solid #999" colspan="2">'.$vc['note'].'</td>';
-                    $html .= '</tr>';
-             
-                }
-                $html .= '<tr>';
-                $html .= '<td colspan="7" style="font-size:14px;text-align:left;">共計：'.count($v).'人、自備:'.$own_count.'人、素食：'.$veg_count.'人、葷食：'.$meat_count.'人</td>';
-                $html .= '</tr>';       
-                $html .= '</table>';
+            $view = $this->load->view('designated/e_2_1_2', $data,true);
+            if (!is_dir('./html/')) {
+                mkdir('./html/');
+            } else {
+                $path = 'e_2_1_2.html';
+                $fp = fopen('./html/'.$path,'w');//建檔
+                fwrite($fp,$view);
+                fclose($fp);//關閉開啟的檔案                
+                // copy($path, './html/'.$path);
 
-
-                $obj_pdf->AddPage($html);
-
-                $obj_pdf->writeHTML($html);
-            }
+            }        
+            if (!is_dir('./pdf/')) {
+                mkdir('./pdf/');
+            } else {
+                exec('wkhtmltopdf --lowquality --enable-forms http://uat.fofo.tw/fjuexam/html/e_2_1_2.html  ./pdf/e_2_1_2.pdf');
+            }             
+            echo '<script>location.href="http://uat.fofo.tw/fjuexam/pdf/e_2_1_2.pdf"</script>';  
+        }else{
+            return false;
         }
-
-        $obj_pdf->Output('試務人員執行任務簽到表.pdf', 'I');
     }
 
     public function e_2_1_3()
@@ -1715,70 +1626,26 @@ class Designated extends CI_Controller
             'school' => $school,
         );
         if ($data['part'] != false) {
-            foreach ($data['part'] as $k => $v) {
-                # code...
-                $own_count = 0;
-                for ($i=0; $i < count($v); $i++) { 
-                    # code...
-                    if($v[$i]['meal'] == '自備'){
-                        $own_count += 1;
-                    }                    
-                }
-                $veg_count = 0;
-                for ($i=0; $i < count($v); $i++) { 
-                    # code...
-                    if($v[$i]['meal'] == '素'){
-                        $veg_count += 1;
-                    }                    
-                }
-                $meat_count = 0;
-                for ($i=0; $i < count($v); $i++) { 
-                    # code...
-                    if($v[$i]['meal'] == '葷'){
-                        $meat_count += 1;
-                    }                    
-                }                           
-                $html = '<table class="" id="" style="padding:5px 0px;;text-align:center;">';
-                $html .= '<tr>';
-                $html .= '<td style="font-size:22px;lne-height:50px;" colspan="6">'.$_SESSION['year'].'學年度指定科目考試新北一考區試務人員簽到表</td>';
-                $html .= '</tr>';
-                $html .= '<tr>';
-                $html .= '<td colspan="2" style="font-size:18px;text-align:left;">分區：'.$area.'</td>';
-                $html .= '<td colspan="2" style="font-size:18px;">'.$school.'</td>';
-                $html .= '<td colspan="2" style="font-size:18px;text-align:right;">簽到日期：'.$k.'</td>';
-                $html .= '</tr>';
-                $html .= '<tr>';
-                $html .= '<td style="border:1px solid #999">職務</td>';
-                $html .= '<td style="border:1px solid #999">姓名</td>';
-                $html .= '<td style="border:1px solid #999">單位別</td>';
-                $html .= '<td style="border:1px solid #999">簽名</td>';
-                $html .= '<td style="border:1px solid #999" colspan="2">備註(工作分配)</td>';
-                $html .= '</tr>';
-                        
-                foreach ($v as $kc => $vc) {
-                    # code...
-                    $html .= '<tr>';
-                    $html .= '<td style="border:1px solid #999">'.$vc['job'].'</td>';
-                    $html .= '<td style="border:1px solid #999">'.$vc['name'].'<br><span style="color:#ff0000">'.$vc['meal'].'</span></td>';
-                    $html .= '<td style="border:1px solid #999">'.$vc['member_unit'].'</td>';
-                    $html .= '<td style="border:1px solid #999"></td>';
-                    $html .= '<td style="border:1px solid #999" colspan="2">'.$vc['note'].'</td>';
-                    $html .= '</tr>';
-             
-                }
-                $html .= '<tr>';
-                $html .= '<td colspan="7" style="font-size:14px;text-align:left;">共計：'.count($v).'人、自備:'.$own_count.'人、素食：'.$veg_count.'人、葷食：'.$meat_count.'人</td>';
-                $html .= '</tr>';       
-                $html .= '</table>';
+            $view =  $this->load->view('designated/e_2_1_3', $data, true);
+            if (!is_dir('./html/')) {
+                mkdir('./html/');
+            } else {
+                $path = 'e_2_1_3.html';
+                $fp = fopen('./html/'.$path,'w');//建檔
+                fwrite($fp,$view);
+                fclose($fp);//關閉開啟的檔案                
+                // copy($path, './html/'.$path);
 
-
-                $obj_pdf->AddPage($html);
-
-                $obj_pdf->writeHTML($html);
-            }
+            }        
+            if (!is_dir('./pdf/')) {
+                mkdir('./pdf/');
+            } else {
+                exec('wkhtmltopdf --lowquality --enable-forms http://uat.fofo.tw/fjuexam/html/e_2_1_3.html  ./pdf/e_2_1_3.pdf');
+            }             
+            echo '<script>location.href="http://uat.fofo.tw/fjuexam/pdf/e_2_1_3.pdf"</script>';  
+        }else{
+            return false;
         }
-
-        $obj_pdf->Output('試務人員執行任務簽到表.pdf', 'I');
     }    
 
     public function e_2_2()
