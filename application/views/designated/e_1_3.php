@@ -9,46 +9,46 @@
     }
     td{
         padding: 15px 0px;
-        font-size:14px;
+        font-size:16px;
     }
     th{
         padding: 15px 0px;
-        font-size:14px;
-    }    
+        font-size:16px;
+    }
     * {
         overflow: visible !important;
     }
     table, tr, td, th, tbody, thead, tfoot {
         page-break-before: always;
         page-break-inside: avoid;
-    }    
+    }
     .W50{
         width:50%;
         float:left;
-    }    
+    }
 </style>
 <table class="" id="" style="padding:5px 0px;text-align:center;">
     <thead>
         <tr>
-            <th colspan="9" style="font-size:22px;"><?=$_SESSION['year']?>學年度指定科目考試新北一考區監試人員一覽表</th>
+            <td colspan="9" style="font-size:26px;"><?=$_SESSION['year']?>學年度指定科目考試新北一考區監試人員一覽表</td>
         </tr>
         <tr>
-            <th colspan="3" style="font-size:18px;">分區：<?=$area?></th>
-            <th colspan="3" style="font-size:18px;">考場：<?=$school?></th>
-            <th colspan="3" style="font-size:18px;">印表日期:<?=(date("Y") - 1911).date("/m/d")?></th>
-        </tr>        
+            <td colspan="3" style="font-size:22px;padding:20px 0px;">分區：<?=$area?></td>
+            <td colspan="3" style="font-size:22px;padding:20px 0px;">考場：<?=$school?></td>
+            <td colspan="3" style="font-size:22px;padding:20px 0px;">印表日期：<?=(date("Y") - 1911).date("/m/d")?></td>
+        </tr>
         <tr>
-            <th class="bb" rowspan="2">試場</th>
-            <th class="bb" colspan="2" rowspan="1" class="bb">監考日期</th>
-            <th class="bb" colspan="3" class="bb">監試人員(1)</th>
-            <th class="bb" colspan="3" class="bb">監試人員(2)</th>
+            <td class="bb" rowspan="2">試場</td>
+            <td class="bb" colspan="2" rowspan="1" class="bb">監考日期</td>
+            <td class="bb" colspan="3" class="bb">監試人員(1)</td>
+            <td class="bb" colspan="3" class="bb">監試人員(2)</td>
         </tr>
         <tr>
             <td class="bb" colspan="2" rowspan="1" >監考節數</td>
-            <td class="bb" colspan="1">姓名</td>
-            <td class="bb" colspan="2">單位別＆聯絡電話</td>
-            <td class="bb" colspan="1">姓名</td>
-            <td class="bb" colspan="2">單位別＆聯絡電話</td>
+            <td class="bb" colspan="1" width="10%">姓名</td>
+            <td class="bb" colspan="2" width="20%">單位別＆聯絡電話</td>
+            <td class="bb" colspan="1" width="10%">姓名</td>
+            <td class="bb" colspan="2" width="20%">單位別＆聯絡電話</td>
         </tr>
     </thead>
     <?php foreach ($part as $k => $v): ?>
@@ -76,6 +76,6 @@
     </tr>
     <?php endforeach; ?>
     <tr>
-        <td colspan="9" style="font-size:14px;text-align:left"> 共計：<?=count($part)*2?>人</td>
+        <td colspan="9" style="font-size:16px;text-align:left"> 共計：<?=count($part)*2?>人</td>
     </tr>
 </table>

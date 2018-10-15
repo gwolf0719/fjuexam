@@ -9,49 +9,42 @@
         font-family: serif,cursive;
     }
     td{
-        padding: 15px 0px;
-        font-size:14px;
+        padding: 5px 0px;
+        font-size:16px;
         font-family: serif,cursive;
     }
-    th{
-        padding: 15px 0px;
-        font-size:14px;
-        font-family: serif,cursive;
-    }     
     * {
         overflow: visible !important;
         font-family: serif;
     }
     table, tr, td, th, tbody, thead, tfoot {
         page-break-inside: avoid !important;
-    }    
+    }
     .W50{
         width:50%;
         float:left;
-    }    
+    }
 </style>
 
 
 <!-- <h3 style="text-align:center;">監試人員印領清冊</h3>
 
 <h3>
-   
+
 </h3> -->
 
 <table class="" id="" style="padding:15px;text-align:center;">
     <thead>
         <tr>
-            <td colspan="10" style="font-size:22px;"><?=$_SESSION['year']?>學年度指定科目考試新北一考區</td>
+            <td colspan="10" style="font-size:26px;"><?=$_SESSION['year']?>學年度指定科目考試新北一考區</td>
         </tr>
         <tr>
-        <td colspan="3" style="font-size:18px;text-align:left;"> </td>
-            <td colspan="4" style="font-size:18px;">巡場人員印領清冊</td>
-            <td colspan="3" style="font-size:18px;text-align:left;"></td>
-        </tr>        
+            <td colspan="10" style="font-size:22px;padding:20px 0px">巡場人員印領清冊</td>
+        </tr>
         <tr>
-            <td colspan="3" style="font-size:18px;text-align:left;"> 分區：<?=$area?></td>
-            <td colspan="4" style="font-size:18px;text-align:center;">考場：<?=$school?></td>
-            <td colspan="3" style="font-size:18px;text-align:right;"> 印表日期<?=date('Y/m/d')?></td>
+            <td colspan="3" style="font-size:22px;text-align:left;padding:20px 0px"> 分區：<?=$area?></td>
+            <td colspan="4" style="font-size:22px;text-align:center;padding:20px 0px">考場：<?=$school?></td>
+            <td colspan="3" style="font-size:22px;text-align:right;padding:20px 0px"> 印表日期：<?=date('Y/m/d')?></td>
         </tr>
         <tr>
             <td class="bb">姓名</td>
@@ -69,22 +62,22 @@
         </td>
         <td colspan="2" class="bb"><?=$v['job']?>
         </td>
-        <td class="bb"><?=number_format($v['salary_total'])?>
+        <td class="bb" style="font-size:18px;font-weight:bold;"><?=number_format($v['salary_total'])?>
         </td>
-        <td class="bb"><?=number_format($v['lunch_total'])?></td>
-        <td class="bb"><?=number_format($v['total'])?></td>
+        <td class="bb" style="font-size:18px;font-weight:bold;"><?=number_format($v['lunch_total'])?></td>
+        <td class="bb" style="font-size:18px;font-weight:bold;"><?=number_format($v['total'])?></td>
         <td colspan="2" class="bb"></td>
         <td colspan="2" class="bb"></td>
     </tr>
     <?php endforeach; ?>
     <tr>
-        <?php 
+        <?php
             if(!empty($count)){
                 $count = count($count);
             }else{
                 $count = 0;
             }
-        ?>    
-        <td colspan="12" style="text-align:left;font-size:14px;">共計:<?=$count?>人 實發監考費：<?=number_format($salary)?> + 餐費： <?=number_format($lunch)?> = 總支出費用<?=number_format($salary+$lunch)?></td>
+        ?>
+        <td colspan="12" style="text-align:left;font-size:18px;font-weight:bold;">共計:<?=$count?>人 實發監考費：<?=number_format($salary)?> + 餐費： <?=number_format($lunch)?> = 總支出費用<?=number_format($salary+$lunch)?></td>
     </tr>
 </table>

@@ -9,7 +9,7 @@
     }
     td{
         padding: 8px 0px;
-        font-size:14px;
+        font-size:16px;
     }
     * {
         overflow: visible !important;
@@ -17,7 +17,7 @@
     table, tr, td, th, tbody, thead, tfoot {
         page-break-before: always;
         page-break-inside: avoid;
-    }    
+    }
 
     /* table td {
         word-break: break-all;
@@ -31,12 +31,12 @@
 <table class="" id="" style="padding:5px 0px;;text-align:center;">
     <thead>
         <tr>
-            <td style="font-size:22px;lne-height:50px;" colspan="9"><?=$_SESSION['year']?>學年度指定科目考試新北一考區監試人員簽到表</td>
+            <td style="font-size:26px;lne-height:50px;" colspan="9"><?=$_SESSION['year']?>學年度指定科目考試新北一考區監試人員簽到表</td>
         </tr>
         <tr>
-            <td colspan="3" style="font-size:18px;">分區：<?=$area?></td>
-            <td colspan="3" style="font-size:18px;"><?=$school?></td>
-            <td colspan="3" style="font-size:18px;">簽到日期：<?=$k?></td>
+            <td colspan="3" style="font-size:22px;padding:20px 0px">分區：<?=$area?></td>
+            <td colspan="3" style="font-size:22px;padding:20px 0px"><?=$school?></td>
+            <td colspan="3" style="font-size:22px;padding:20px 0px">簽到日期：<?=$k?></td>
         </tr>
         <tr>
             <td style="border:1px solid #999" rowspan="2" width="10%">試場</td>
@@ -47,12 +47,12 @@
         </tr>
 
         <tr>
-            <td style="border:1px solid #999" width="10%">姓名</td>
+            <td style="border:1px solid #999" width="11%">姓名</td>
             <td style="border:1px solid #999" width="10%">單位別</td>
             <td style="border:1px solid #999" width="10%">姓名</td>
             <td style="border:1px solid #999" width="10%">單位別</td>
         </tr>
-    </thead>     
+    </thead>
     <?php foreach ($v as $kc => $vc): ?>
     <tr>
         <td style="border:1px solid #999"><?=$vc['field']?></td>
@@ -65,7 +65,7 @@
     </tr>
     <?php endforeach;?>
     <tr>
-        <td colspan="9" style="font-size:14px;text-align:left;">共計：<?=(count($v)*2)?>人、自備:<?=$data['own']?>人、素食：<?=$data['veg']?>人、葷食：<?=$data['meat']?>人</td>
+        <td colspan="9" style="font-size:16px;text-align:left;">共計：<?=(count($v)*2)?>人、自備:<?=$own?>人、素食：<?=$veg?>人、葷食：<?=$meat?>人</td>
     </tr>
 </table>
 <?php endforeach;?>

@@ -8,8 +8,8 @@
         width:100%;
     }
     td{
-        padding: 5px 0px;
-        font-size:14px;
+        padding: 10px 0px;
+        font-size:16px;
     }
     * {
         overflow: visible !important;
@@ -17,7 +17,7 @@
     table, tr, td, th, tbody, thead, tfoot {
         page-break-before: always;
         page-break-inside: avoid;
-    }    
+    }
 
     /* table td {
         word-break: break-all;
@@ -32,18 +32,18 @@
 <table class="" id="" style="padding:5px 0px;;text-align:center;">
     <thead>
         <tr>
-            <td colspan="6" style="font-size:22px;">各單位名稱一覽表</td>
-        </tr>             
+            <td colspan="6" style="font-size:26px;">各單位名稱一覽表</td>
+        </tr>
         <tr>
-            <td colspan="3" style="font-size:18px;text-align:left;">單位：<?=$k?></td>
-            <td colspan="3" style="font-size:18px;text-align:right;">印表日期：<?=date('Y/m/d')?></td>
+            <td colspan="3" style="font-size:22px;text-align:left;padding:20px 0px">單位：<?=$k?></td>
+            <td colspan="3" style="font-size:22px;text-align:right;padding:20px 0px">印表日期：<?=date('Y/m/d')?></td>
         </tr>
         <tr>
             <td colspan="1" style="border:1px solid #999">序號</td>
             <td colspan="1" style="border:1px solid #999">部別</td>
             <td colspan="2" style="border:1px solid #999">代碼</td>
             <td colspan="2" style="border:1px solid #999">單位名稱</td>
-        </tr>          
+        </tr>
     </thead>
     <?php foreach ($v as $kc => $vc): ?>
     <tr>

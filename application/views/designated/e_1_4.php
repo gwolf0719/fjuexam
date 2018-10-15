@@ -15,7 +15,7 @@
     }
     table, tr, td, th, tbody, thead, tfoot {
         page-break-inside: avoid !important;
-    }    
+    }
 </style>
 
 
@@ -24,10 +24,10 @@
 
     <thead>
         <tr>
-            <td colspan="22" style="font-size:22px;"><?=$_SESSION['year']?>學年度指定科目考試新北一考區缺考人數統計表</td>
-        </tr>      
+            <td colspan="22" style="font-size:26px;"><?=$_SESSION['year']?>學年度指定科目考試新北一考區缺考人數統計表</td>
+        </tr>
         <tr>
-            <td colspan="22" style="font-size:18px;"><?=$area?><?=$school?></td>
+            <td colspan="22" style="font-size:22px;"><?=$area?><?=$school?></td>
         </tr>
         <tr>
             <td class="bb" colspan="2">日期</td>
@@ -111,7 +111,7 @@
     <tbody>
     <?php foreach ($list as $k => $v): ?>
     <tr>
-        <td class="bb" colspan="2" style="font-size:18px;">
+        <td class="bb" colspan="2" style="font-size:16px;">
             <?=$v['field']?>
         </td>
         <td class="bb">
@@ -181,5 +181,5 @@
         <td class="bb"></td>
     </tr>
     </tbody>
-    
+
 </table>
