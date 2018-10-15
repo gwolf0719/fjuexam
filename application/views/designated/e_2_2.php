@@ -8,7 +8,7 @@
         width:100%;
     }
     td{
-        padding: 5px 0px;
+        padding: 8px 0px;
         font-size:14px;
     }
     * {
@@ -39,18 +39,18 @@
             <td colspan="3" style="font-size:18px;">簽到日期：<?=$k?></td>
         </tr>
         <tr>
-            <td style="border:1px solid #999" rowspan="2">試場</td>
-            <td style="border:1px solid #999" colspan="2" class="bb">監試人員(1)</td>
-            <td style="border:1px solid #999" rowspan="2" colspan="2">簽名</td>
-            <td style="border:1px solid #999" colspan="2" class="bb">監試人員(2)</td>
-            <td style="border:1px solid #999" rowspan="2" colspan="2">簽名</td>
+            <td style="border:1px solid #999" rowspan="2" width="10%">試場</td>
+            <td style="border:1px solid #999" colspan="2" width="10%" class="bb">監試人員(1)</td>
+            <td style="border:1px solid #999" rowspan="2" width="20%" colspan="2">簽名</td>
+            <td style="border:1px solid #999" colspan="2" width="10%" class="bb">監試人員(2)</td>
+            <td style="border:1px solid #999" rowspan="2" width="20%" colspan="2">簽名</td>
         </tr>
 
         <tr>
-            <td style="border:1px solid #999">姓名</td>
-            <td style="border:1px solid #999">單位別</td>
-            <td style="border:1px solid #999">姓名</td>
-            <td style="border:1px solid #999">單位別</td>
+            <td style="border:1px solid #999" width="10%">姓名</td>
+            <td style="border:1px solid #999" width="10%">單位別</td>
+            <td style="border:1px solid #999" width="10%">姓名</td>
+            <td style="border:1px solid #999" width="10%">單位別</td>
         </tr>
     </thead>     
     <?php foreach ($v as $kc => $vc): ?>

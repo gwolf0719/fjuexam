@@ -8,8 +8,8 @@
         width:100%;
     }
     td{
-        padding: 5px 0px;
-        font-size:18px;
+        padding: 20px 0px;
+        font-size:14px;
     }
     * {
         overflow: visible !important;
@@ -25,7 +25,7 @@
 </style>
 
 <?php foreach ($part as $k => $v): ?>
-                <table style="padding:8px 0px;text-align:center;">
+                <table style="padding:10px 0px;text-align:center;">
                 <thead>
                     <tr>
                         <td colspan="5" style="font-size:22px;"><?=$_SESSION['year']?>學年度指定科目考試新北一考區監試說明會簽到表</td>
@@ -34,9 +34,9 @@
                         <td colspan="5" style="font-size:18px;text-align:left;">單位：<?=$k?></td>
                     </tr>    
                     <tr style="background:#FFE4E7">
-                        <td style="border: 1px solid #999999;">職務</td>
-                        <td style="border: 1px solid #999999;">姓名</td>
-                        <td style="border: 1px solid #999999;">單位別</td>
+                        <td style="border: 1px solid #999999;" width="15%">職務</td>
+                        <td style="border: 1px solid #999999;" width="15%">姓名</td>
+                        <td style="border: 1px solid #999999;" width="15%">單位別</td>
                         <td style="border: 1px solid #999999;">簽名</td>
                         <td style="border: 1px solid #999999;">備註</td>
                     </tr>          

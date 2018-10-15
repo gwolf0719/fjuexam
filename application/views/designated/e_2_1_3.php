@@ -43,7 +43,7 @@
         <td style="border:1px solid #999">職務</td>
         <td style="border:1px solid #999">姓名</td>
         <td style="border:1px solid #999">單位別</td>
-        <td style="border:1px solid #999" colspan="2">簽名</td>
+        <td style="border:1px solid #999" width="30%">簽名</td>
         <td style="border:1px solid #999">備註(工作分配)</td>
     </tr>
     <?php foreach ($v as $kc => $vc): ?>
@@ -51,7 +51,7 @@
         <td style="border:1px solid #999"><?=$vc['job']?></td>
         <td style="border:1px solid #999"><?=$vc['name']?><br><span style="color:#ff0000"><?=$vc['meal']?></span></td>
         <td style="border:1px solid #999"><?=$vc['member_unit']?></td>
-        <td style="border:1px solid #999" colspan="2"></td>
+        <td style="border:1px solid #999"></td>
         <td style="border:1px solid #999"><?=$vc['note']?></td>
     </tr>
     <?php endforeach; ?>  

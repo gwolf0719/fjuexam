@@ -43,7 +43,7 @@
         <td style="border:1px solid #999">職務</td>
         <td style="border:1px solid #999">姓名</td>
         <td style="border:1px solid #999">單位別</td>
-        <td style="border:1px solid #999" colspan="2">簽名</td>
+        <td style="border:1px solid #999" colspan="2" width="30%">簽名</td>
         <td style="border:1px solid #999">備註(工作分配)</td>
     </tr>
     <?php foreach ($v as $kc => $vc): ?>
