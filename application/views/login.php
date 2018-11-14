@@ -49,7 +49,7 @@
       <a class="navbar-brand" href="#">大考中心管理平台</a>
       
 
-      <div class="collapse navbar-collapse" id="navbarsExampleDefault">
+      <!-- <div class="collapse navbar-collapse" id="navbarsExampleDefault"> -->
         <!-- <ul class="navbar-nav mr-auto">
           <li class="nav-item active">
             <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
@@ -73,7 +73,7 @@
           <input class="form-control mr-sm-2" type="text" placeholder="Search" aria-label="Search">
           <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
         </form> -->
-      </div>
+      <!-- </div> -->
     </nav>
 
     <main role="main" class="container">
