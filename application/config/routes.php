@@ -51,6 +51,15 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 */
 $route['default_controller'] = 'welcome';
 
+
+// $route['voice'] = 'voice';
+$route['voice/api/(:any)'] = 'voices/api/$1';
+$route['voice/index'] = 'voices/intro/index';
+$route['voice/a'] = 'voices/import/index';
+$route['voice/a/(:any)'] = 'voices/import/$1';
+$route['voice/b'] = 'voices/task_grouping/index';
+// $route['voice/a/(:any)'] = 'Voice/import/$1';
+
 $route['(:any)'] = 'welcome/$1';
 $route['404_override'] = '';
 $route['translate_uri_dashes'] = FALSE;

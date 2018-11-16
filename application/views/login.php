@@ -32,9 +32,11 @@
               user_id:$("#user_id").val(),
               user_pwd:$("#user_pwd").val(),
             },function(data){
-              alert(data.sys_msg);
+              // 
               if(data.sys_code=="200"){
                 location.href="./";
+              }else{
+                alert(data.sys_msg);
               }
             },"json")
         })
