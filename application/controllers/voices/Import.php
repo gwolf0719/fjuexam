@@ -47,14 +47,24 @@ class Import extends CI_Controller {
         $datalist = array();
         $data = array(
             'title' => '考區試場資料',
-            'path' => 'voice/import_test_area',
+            'path' => 'voice/import_staff_member',
             'path_text' => ' > 英聽主選單 > 資料匯入作業 > 考區試場資料',
             "datalist"=>$datalist
         );
         $this->load->view('voice/layout', $data);
     }
-    function a4(){
-
+    /**
+     * a4 職務資料
+     */
+    function position(){
+        $datalist = array();
+        $data = array(
+            'title' => '職務資料',
+            'path' => 'voice/import_position',
+            'path_text' => ' > 英聽主選單 > 資料匯入作業 > 職務資料',
+            "datalist"=>$datalist
+        );
+        $this->load->view('voice/layout', $data);
     }
 
 

@@ -51,7 +51,7 @@
     </div>
     
     <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4 cube text-center">
-        <a href="./voice/a/a_4">
+        <a href="./voice/a/position">
             <img src="assets_voice/images/a4.png" alt="">
         </a>    
     </div>
