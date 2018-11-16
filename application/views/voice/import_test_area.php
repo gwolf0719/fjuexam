@@ -14,14 +14,31 @@ tr{
 </style>
 <script>
     $("body").on("click","#Upload",function(){
+        var formData = new FormData($('#form')[0]); 
         var files = $('input[name="file"]').prop('files');
         if(files.length == 0){
             alert('請先選擇文件');
             return;
         }else{
-            if(confirm("注意！舊資料會全部刪除，新資料將匯入")){
-                $("#form").submit();
+            if(files[0].type == "text/csv"){
+                if(confirm("注意！舊資料會全部刪除，新資料將匯入")){
+                    $.ajax({
+                        type:"post",
+                        dataType: 'json',
+                        url: "./voice/api/import_test_area", 
+                        data: formData, 
+                        cache: false, 
+                        processData: false, 
+                        contentType: false, 
+                    }).done(function(data){
+                        console.log(data);
+                        alert(data.sys_msg);
+                    });
+                }
+            }else{
+                alert('僅支援 csv 檔案上傳');
             }
+            
         }        
     })
 </script>
@@ -122,7 +139,7 @@ tr{
                   
             <div class="input-group mb-3">
             <div class="custom-file">
-                <input type="file" class="" id="inputGroupFile02" name="file">
+                <input type="file" class="" id="file" name="file">
                 <!-- <label class="custom-file-label" for="inputGroupFile02">請選擇檔案</label> -->
             </div>
             <div class="input-group-append">

@@ -27,12 +27,58 @@ class Api extends CI_Controller {
                     $json_arr['sys_code'] = '000';
                     $json_arr['sys_msg'] = '資料格式有誤';
                 }
-                
-                
             } else {
                 $json_arr['sys_code'] = '000';
                 $json_arr['sys_msg'] = '資料格式有誤';
             }
+        }
+        echo json_encode($json_arr);
+    }
+
+
+    /**
+     * 匯入考場資料
+     */
+    function import_test_area(){
+        
+        $this->load->model('mod_voice_area');
+        if (isset($_FILES['file'])) { 
+            $file = $_FILES['file']['tmp_name'];
+            $file_name = './tmp/'.time().'.csv';
+            copy($file, $file_name);
+            $file = fopen($file_name, 'r');
+            $row = 0;
+            $i = 0;
+            while (!feof($file)) {
+                $data = fgetcsv($file);
+                if($row > 0 && $data != false){
+                    
+                    $datas[$i]['year'] = $this->session->userdata('year');
+                    $datas[$i]['ladder'] = $this->session->userdata('ladder');
+                    $datas[$i]['area_id'] = $data[0];
+                    $datas[$i]['area_name'] = $data[1];
+                    $datas[$i]['class'] = $data[2];
+                    $datas[$i]['block_name'] = $data[3];
+                    $datas[$i]['class_room'] = $data[4];
+                    $datas[$i]['start_num'] = $data[5];
+                    $datas[$i]['end_num'] = $data[6];
+                    $datas[$i]['count_num'] = $data[7];
+                    $i = $i + 1;
+                }
+                $row = $row+1;
+            }
+            $this->mod_voice_area->clean_voice_area_main();
+            $this->mod_voice_area->insert_batch($datas);
+            
+            fclose($file);
+            unlink($file_name);
+            $json_arr['sys_code'] = '200';
+            $json_arr['sys_msg'] = '資料上傳完成';
+            $json_arr['datas'] = $datas;
+        }else{
+            $json_arr['sys_code'] = '000';
+            $json_arr['sys_msg'] = '資料上傳錯誤';
+            
         }
         echo json_encode($json_arr);
     }
