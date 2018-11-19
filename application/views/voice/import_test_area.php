@@ -60,7 +60,7 @@ tr{
         <img src="assets/images/a1_title.png" alt="" style="height:50px;">
     </div>
     <div class="p-2 " style="width:300px;text-align:right;">
-      <a  class="btn btn-primary " href="./assets_voice/sample/area_import.csv"> 下載範本</a>
+      <a  class="btn btn-primary " href="./assets_voice/sample/area_exam.csv"> 下載範本</a>
         <button type="button" class="btn btn-primary "  data-toggle="modal" data-target="#exampleModal"  >匯入資料</button>
     </div>
 </div>
