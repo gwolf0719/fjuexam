@@ -10,10 +10,7 @@
         max-width: 100%;
     }
 
-    #order_meal {
-        margin: 0 5px;
-        vertical-align: baseline;
-    }
+ 
 
     .boxs {
         border-top: 1px solid;
@@ -63,15 +60,31 @@
 
 
         $("body").on("click", "#Upload", function() {
-            var files = $('input[name="file"]').prop('files'); //获取到文件列表
-            if (files.length == 0) {
+            var formData = new FormData($('#form')[0]); 
+            var files = $('input[name="file"]').prop('files');
+            if(files.length == 0){
                 alert('請先選擇文件');
                 return;
-            } else {
-                if (confirm("注意！舊資料會全部刪除，新資料將匯入")) {
-                    $("#form").submit();
+            }else{
+                if(confirm("注意！舊資料會全部刪除，新資料將匯入")){
+                    
+                    $.ajax({
+                        type:"post",
+                        dataType: 'json',
+                        url: "./voice/api/import_staff_member", 
+                        data: formData, 
+                        cache: false, 
+                        processData: false, 
+                        contentType: false, 
+                    }).done(function(data){
+                        console.log(data);
+                        alert(data.sys_msg);
+                        window.location.reload();  
+                    });
+                }else{
+                    alert("上傳失敗");
                 }
-            }
+        }  
         })
 
         // 當點選資料的時候可以進行編輯
@@ -101,25 +114,12 @@
                 $(".form").slideUp();
             }
             $.ajax({
-                url: 'api/get_once_staff',
+                url: './voice/api/voice_get_once_staff',
                 data: {
                     "sn": sn,
                 },
                 dataType: "json"
             }).done(function(data) {
-                console.log(data.info.meal);
-                if (data.info.order_meal.toUpperCase() == "Y") {
-                    $("#order_meal").prop("checked", true);
-                    $(".meal").show();
-                } else {
-                    $("#order_meal").prop("checked", false);
-                    $(".meal").hide();
-                }
-                if(data.info.meal == "自備"){
-                    $("#meal").val(" ");
-                }else{
-                    $("#meal").val(data.info.meal);
-                }
                 $("#sn").val(sn);
                 $("#member_code").val(data.info.member_code);
                 $("#member_name").val(data.info.member_name);
@@ -127,20 +127,12 @@
                 $("#member_unit").val(data.info.member_unit);
                 $("#member_phone").val(data.info.member_phone);
                 $("#member_title").val(data.info.member_title);
-                $("#order_meal").val(data.info.order_meal);
-                $("#meal").val(data.info.meal);
+              
             })
         }
 
 
-        $("#order_meal").change(function() {
-            if (this.checked) {
-                $(this).val("Y");
-            } else {
-                $(this).val("N");
-            }
-        });
-
+     
 
 
         $("body").on("click", "#add_info", function() {
@@ -175,15 +167,10 @@
             var unit = $("#unit").val();
             var member_title = $("#member_title").val();
             var member_phone = $("#member_phone").val();
-            var order_meal = $("#order_meal").val();
-            var meal;
-            if($("#order_meal").prop("checked") == false){
-                meal = "自備";
-            }else{
-                meal = $("#meal").val();
-            }
+            
+           
             $.ajax({
-                url: 'api/add_staff',
+                url: './voice/api/voice_add_staff',
                 data: {
                     "member_code": member_code,
                     "member_name": member_name,
@@ -191,8 +178,7 @@
                     "unit":unit,
                     "member_title": member_title,
                     "member_phone": member_phone,
-                    "order_meal": $("#order_meal").val(),
-                    "meal": meal,
+                    
                 },
                 dataType: "json"
             }).done(function(data) {
@@ -211,15 +197,9 @@
                 var unit = $("#unit").val();
                 var member_title = $("#member_title").val();
                 var member_phone = $("#member_phone").val();
-                var order_meal = $("#order_meal").val();
-                var meal;
-                if($("#order_meal").prop("checked") == false){
-                    meal = "自備";
-                }else{
-                    meal = $("#meal").val();
-                }
+              
                 $.ajax({
-                    url: 'api/edit_staff',
+                    url: './voice/api/voice_edit_staff',
                     data: {
                         "sn": sn,
                         "member_code": member_code,
@@ -228,8 +208,7 @@
                         "member_unit": member_unit,
                         "member_title": member_title,
                         "member_phone": member_phone,
-                        "order_meal": $("#order_meal").val(),
-                        "meal": meal,
+                        
                     },
                     dataType: "json"
                 }).done(function(data) {
@@ -245,7 +224,7 @@
             if (confirm("是否確定要刪除？")) {
                 var sn = $("#sn").val();
                 $.ajax({
-                    url: 'api/remove_once_staff',
+                    url: './voice/api/remove_once_staff',
                     data: {
                         "sn": sn,
                     },
@@ -281,7 +260,8 @@
         <img src="assets/images/a3_title.png" alt="" style="height:50px;">
     </div>
     <div class="p-2 " style="width:300px;text-align:right;">
-        <button type="button" class="btn btn-primary "  data-toggle="modal" data-target="#exampleModal"  >匯入資料</button>
+        <a  class="btn btn-primary " href="./assets_voice/sample/people.csv"> 下載範本</a>
+        <button type="button" class="btn btn-primary "  data-toggle="modal" data-target="#exampleModal" >匯入資料</button>
     </div>
 </div>
 <!-- 標題選單列結束 -->
@@ -291,26 +271,22 @@
             <thead>
                 <tr>
                     <th>序號</th>
-                    <!-- <th>年度</th> -->
-                    <th>人員代碼</th>
+                    <th>人員編號</th>
                     <th>姓名</th>
                     <th>單位一</th>
                     <th>單位二</th>
                     <th>職稱</th>
                     <th>聯絡電話</th>
-                    <th>訂餐需求</th>
-                    <th>餐別</th>
                 </tr>
             </thead>
             <tbody>
+              
                 <?php foreach ($datalist as $k => $v): ?>
+                
                 <tr sn="<?=$v['sn']; ?>">
                     <td>
                         <?=$k + 1; ?>
                     </td>
-                    <!-- <td>
-                        <?=$v['year']; ?>
-                    </td> -->
                     <td>
                         <?=$v['member_code']; ?>
                     </td>
@@ -328,12 +304,6 @@
                     </td>
                     <td>
                         <?=$v['member_phone']; ?>
-                    </td>
-                    <td>
-                        <?=$v['order_meal']; ?>
-                    </td>
-                    <td>
-                        <?=$v['meal']; ?>
                     </td>
                 </tr>
                 <?php endforeach; ?>
@@ -373,18 +343,6 @@
                     <div class="form-group">
                         <label for="member_phone">聯絡電話</label>
                         <input type="text" class="form-control" id="member_phone">
-                    </div>
-                    <div class="form-group">
-                        <label for="order_meal">訂餐需求</label>
-                        <input type="checkbox" class="" id="order_meal">
-                        <span class="need">需訂餐</span>
-                    </div>
-                    <div class="form-group meal" style="display:none;">
-                        <label for="meal">餐別</label>
-                        <select name="meal" id="meal" class="form-control">
-                            <option value="葷">葷</option>
-                            <option value="素">素</option>
-                        </select>
                     </div>
                 </div>
                 <div class="col-md-12 col-sm-12 col-xs-12 cube" style="width:100%;float:left;">
@@ -434,15 +392,3 @@
     </div>
 </div>
 <!-- Modal end-->
-<script>
-    $(function() {
-        $("body").on("change", "#order_meal", function() {
-            if ($("#order_meal").prop("checked") == true) {
-                $("#meal").val("葷");
-                $(".meal").show();
-            } else {
-                $(".meal").hide();
-            }
-        })
-    })
-</script>

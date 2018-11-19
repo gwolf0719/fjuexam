@@ -29,13 +29,14 @@ class Import extends CI_Controller {
      * a1 考區試場資料
      */
     function test_area(){
+        $this->load->model('mod_voice_area');
         
         $datalist = array();
         $data = array(
             'title' => '考區試場資料',
             'path' => 'voice/import_test_area',
             'path_text' => ' > 英聽主選單 > 資料匯入作業 > 考區試場資料',
-            "datalist"=>$datalist
+            "datalist"=> $this->mod_voice_area->voice_where_voice_area_main()
         );
         $this->load->view('voice/layout', $data);
     }
@@ -44,12 +45,13 @@ class Import extends CI_Controller {
      */
     function staff_member(){
         
+        $this->load->model('mod_voice_staff');
         $datalist = array();
         $data = array(
             'title' => '考區試場資料',
             'path' => 'voice/import_staff_member',
             'path_text' => ' > 英聽主選單 > 資料匯入作業 > 考區試場資料',
-            "datalist"=>$datalist
+            "datalist"=>$this->mod_voice_staff-> voice_where_voice_import_staff_member()
         );
         $this->load->view('voice/layout', $data);
     }

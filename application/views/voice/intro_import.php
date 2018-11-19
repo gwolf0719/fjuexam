@@ -15,6 +15,17 @@
         max-width:65%;
     }
 </style>
+<script>
+    $(function () {
+        <?php   
+            $years = $this->session->userdata('year');
+            $ladders = $this->session->userdata('ladder');
+            if ($years =="" || $ladders == "") {  ?>
+                alert("請輸入學年度跟場次並點選送出")
+                history.go(-1);
+         <?php  }?>
+    })
+</script>
 <div class="row">
     <div class="input-group col-sm-3">
         <div class="input-group-prepend">

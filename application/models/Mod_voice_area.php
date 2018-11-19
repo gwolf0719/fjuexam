@@ -14,6 +14,18 @@ class Mod_voice_area extends CI_Model {
     function insert_batch($data){
         $this->db->insert_batch('voice_area_main', $data);
     }
+  
+    //把資料丟到陣列
+    function voice_where_voice_area_main()
+    {
+        $this->db->where('year',$this->session->userdata('year'));
+        $this->db->where('ladder',$this->session->userdata('ladder'));
+        return $this->db->get('voice_area_main')->result_array();
+    }
+    
+
+
+   
 
 }
 

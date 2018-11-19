@@ -1,3 +1,4 @@
+
 <style>
     @media (min-width: 1200px){
         .container {
@@ -20,7 +21,7 @@ tr{
             alert('請先選擇文件');
             return;
         }else{
-            if(files[0].type == "text/csv"){
+          
                 if(confirm("注意！舊資料會全部刪除，新資料將匯入")){
                     $.ajax({
                         type:"post",
@@ -33,12 +34,11 @@ tr{
                     }).done(function(data){
                         console.log(data);
                         alert(data.sys_msg);
+                        window.location.reload();  
                     });
+                }else{
+                    alert("上傳失敗");
                 }
-            }else{
-                alert('僅支援 csv 檔案上傳');
-            }
-            
         }        
     })
 </script>
@@ -60,6 +60,7 @@ tr{
         <img src="assets/images/a1_title.png" alt="" style="height:50px;">
     </div>
     <div class="p-2 " style="width:300px;text-align:right;">
+      <a  class="btn btn-primary " href="./assets_voice/sample/area_import.csv"> 下載範本</a>
         <button type="button" class="btn btn-primary "  data-toggle="modal" data-target="#exampleModal"  >匯入資料</button>
     </div>
 </div>
@@ -73,48 +74,32 @@ tr{
                 <tr>
                     <th>序號</th>
                     <th>年度</th>
+                    <th>第幾次</th>
                     <th>分區</th>
                     <th>分區名稱</th>
+                    <th>節次</th>
+                    <th>考區</th>
                     <th>試場</th>
-                    <th>考生應試號起</th>
-                    <th>考生應試號迄</th>
-                    <th>應試人數</th>
-                    <th>物理</th>
-                    <th>化學</th>
-                    <th>生物</th>
-                    <th>數乙</th>
-                    <th>國文</th>
-                    <th>英文</th>
-                    <th>數甲</th>
-                    <th>歷史</th>
-                    <th>地理</th>
-                    <th>公民與社會</th>
-                    <th>冷氣試場</th>
+                    <th>應試號碼起</th>
+                    <th>應試號碼迄</th>
+                    <th>應試號碼數</th>
                 </tr>
             </thead>
             <tbody>
-            <?php foreach ($datalist as $k => $v): ?>
+            <?php foreach ($datalist as $k => $v): ?> 
+           
                 <tr>
                     <td><?=$k + 1; ?></td>
                     <td><?=$v['year']; ?></td>
-                    <td><?=$v['part']; ?></td>
-                    <td><?=$v['part_name']; ?></td>
-                    <td><?=$v['field']; ?></td>
-                    <td><?=$v['start']; ?></td>
-                    <td><?=$v['end']; ?></td>
-                    <td><?=$v['number']; ?></td>
-                    <td><?=$v['subject_01']; ?></td>
-                    <td><?=$v['subject_02']; ?></td>
-                    <td><?=$v['subject_03']; ?></td>
-                    <td><?=$v['subject_04']; ?></td>
-                    <td><?=$v['subject_05']; ?></td>
-                    <td><?=$v['subject_06']; ?></td>
-                    <td><?=$v['subject_07']; ?></td>
-                    <td><?=$v['subject_08']; ?></td>
-                    <td><?=$v['subject_09']; ?></td>
-                    <td><?=$v['subject_10']; ?></td>
-                    <td><?=$v['air_test_field']; ?></td>
-                    
+                    <td><?=$v['ladder']; ?></td>
+                    <td><?=$v['area_id']; ?></td>
+                    <td><?=$v['area_name']; ?></td>
+                    <td><?=$v['class']; ?></td>
+                    <td><?=$v['block_name']; ?></td>
+                    <td><?=$v['class_room']; ?></td>
+                    <td><?=$v['start_num']; ?></td>
+                    <td><?=$v['end_num']; ?></td>
+                    <td><?=$v['count_num']; ?></td>                    
                 </tr>
             <?php endforeach; ?>
             </tbody>
