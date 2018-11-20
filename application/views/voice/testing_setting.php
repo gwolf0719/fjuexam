@@ -22,7 +22,7 @@
 <div class="row">
     
     <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3 cube">
-        <a href="./designated/f_1">
+        <a href="./voice/test_day_time">
             <img src="assets/images/f1.png" alt="">
         </a>    
     </div>
