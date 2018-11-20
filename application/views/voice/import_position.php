@@ -69,6 +69,7 @@ img{
                 }).done(function(data){
                     console.log(data);
                     alert(data.sys_msg);
+                    location.reload(); 
                         
                 });
             }else{
@@ -130,7 +131,7 @@ $(function(){
         <div class="tab" area="4"><div class="tab_text">第三分區</div></div>
     </div>
 </div>
-<div class="row cube" id="b0">
+<div class="row cube" id="b0" >
    <div class="col-12" style="margin-top: 10px;">
         <table class="table table-hover" id="" style="text-align:center;">
             <thead>
@@ -141,18 +142,18 @@ $(function(){
                 </tr>
             </thead>
             <tbody>
-            <!-- <?php foreach ($all as $k => $v): ?>
+            <?php foreach ($datalist as $k => $v): ?>
                 <tr sn="<?=$v['sn']; ?>">
                     <td><?=$k + 1; ?></td>
                     <td><?=$v['area']; ?></td>
                     <td><?=$v['job']; ?></td>
                 </tr>
-            <?php endforeach; ?> -->
+            <?php endforeach; ?>
             </tbody>
         </table>
      </div>
 </div>
-<div class="row cube" id="b1">
+<div class="row cube" id="b1" >
    <div class="col-12" style="margin-top: 10px;">
         <table class="table table-hover" id="" style="text-align:center;">
             <thead>
@@ -163,18 +164,18 @@ $(function(){
                 </tr>
             </thead>
             <tbody>
-            <!-- <?php foreach ($b1 as $k => $v): ?>
+            <?php foreach ($datalist as $k => $v): ?>
                 <tr sn="<?=$v['sn']; ?>">
                     <td><?=$k + 1; ?></td>
                     <td><?=$v['area']; ?></td>
                     <td><?=$v['job']; ?></td>
                 </tr>
-            <?php endforeach; ?> -->
+            <?php endforeach; ?>
             </tbody>
         </table>
      </div>
 </div>
-<div class="row cube" id="b2">
+<div class="row cube" id="b2" >
    <div class="col-12" style="margin-top: 10px;">
         <table class="table table-hover" id="" style="text-align:center;">
             <thead>
@@ -185,18 +186,18 @@ $(function(){
                 </tr>
             </thead>
             <tbody>
-            <!-- <?php foreach ($b2 as $k => $v): ?>
+            <?php foreach ($datalist as $k => $v): ?>
                 <tr sn="<?=$v['sn']; ?>">
                     <td><?=$k + 1; ?></td>
                     <td><?=$v['area']; ?></td>
                     <td><?=$v['job']; ?></td>
                 </tr>
-            <?php endforeach; ?> -->
+            <?php endforeach; ?>
             </tbody>
         </table>
      </div>
 </div>
-<div class="row cube" id="b3">
+<div class="row cube" id="b3" >
    <div class="col-12" style="margin-top: 10px;">
         <table class="table table-hover" id="" style="text-align:center;">
             <thead>
@@ -207,18 +208,18 @@ $(function(){
                 </tr>
             </thead>
             <tbody>
-            <!-- <?php foreach ($b3 as $k => $v): ?>
+            <?php foreach ($datalist as $k => $v): ?>
                 <tr sn="<?=$v['sn']; ?>">
                     <td><?=$k + 1; ?></td>
                     <td><?=$v['area']; ?></td>
                     <td><?=$v['job']; ?></td>
                 </tr>
-            <?php endforeach; ?> -->
+            <?php endforeach; ?>
             </tbody>
         </table>
      </div>
 </div>
-<div class="row cube" id="b4">
+<div class="row cube" id="b4"  >
    <div class="col-12" style="margin-top: 10px;">
         <table class="table table-hover" id="" style="text-align:center;">
             <thead>
@@ -229,13 +230,13 @@ $(function(){
                 </tr>
             </thead>
             <tbody>
-            <!-- <?php foreach ($b4 as $k => $v): ?>
+            <?php foreach ($datalist as $k => $v): ?>
                 <tr sn="<?=$v['sn']; ?>">
                     <td><?=$k + 1; ?></td>
                     <td><?=$v['area']; ?></td>
                     <td><?=$v['job']; ?></td>
                 </tr>
-            <?php endforeach; ?> -->
+            <?php endforeach; ?>
             </tbody>
         </table>
      </div>
