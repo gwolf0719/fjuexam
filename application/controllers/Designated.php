@@ -306,48 +306,7 @@ class Designated extends CI_Controller
                     'total' => '',
                     'status' => '1',
                  );
-                // $area_2[] = array(
-                //     'year' => $this->session->userdata('year'),
-                //     'area' => '第二分區',
-                //     'job' => $data[0],
-                //     'job_code' => '',
-                //     'job_title' => '',
-                //     'name' => '',
-                //     'trial_start' => $start_2['field'],
-                //     'trial_end' => $end_2['field'],
-                //     'number' => '',
-                //     'phone' => '',
-                //     'note' => '',
-                //     'do_date' => '',
-                //     'day_count' => '',
-                //     'one_day_salary' => '',
-                //     'salary_total' => '',
-                //     'lunch_price' => '',
-                //     'lunch_total' => '',
-                //     'total' => '',
-                //     'status' => '1',
-                //  );
-                // $area_3[] = array(
-                //     'year' => $this->session->userdata('year'),
-                //     'area' => '第三分區',
-                //     'job' => $data[0],
-                //     'job_code' => '',
-                //     'job_title' => '',
-                //     'name' => '',
-                //     'trial_start' => $start_3['field'],
-                //     'trial_end' => $end_3['field'],
-                //     'number' => '',
-                //     'phone' => '',
-                //     'note' => '',
-                //     'do_date' => '',
-                //     'day_count' => '',
-                //     'one_day_salary' => '',
-                //     'salary_total' => '',
-                //     'lunch_price' => '',
-                //     'lunch_total' => '',
-                //     'total' => '',
-                //     'status' => '1',
-                //  );
+             
             }
             // echo json_encode($datas);
 

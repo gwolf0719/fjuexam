@@ -46,11 +46,10 @@ img{
 }
 </style>
 <script>
-    $("body").on("click","#Upload",function(){
+    $(function(){
+
+        $("body").on("click","#Upload",function() {
         var formData = new FormData($('#form')[0]); 
-        
-        
-        
         var files = $('input[name="file"]').prop('files');
         console.log(files);
         if(files.length == 0){
@@ -62,7 +61,7 @@ img{
                 $.ajax({
                     type:"post",
                     dataType: 'json',
-                    url: "./unit/import_position", 
+                    url: "./voice/api/import_position", 
                     data: formData, 
                     cache: false, 
                     processData: false, 
@@ -70,12 +69,17 @@ img{
                 }).done(function(data){
                     console.log(data);
                     alert(data.sys_msg);
+                        
                 });
+            }else{
+                alert("上傳失敗");
             }
             
             
         }        
     })
+    })
+  
 </script>
 <script>
 $(function(){
@@ -128,27 +132,112 @@ $(function(){
 </div>
 <div class="row cube" id="b0">
    <div class="col-12" style="margin-top: 10px;">
-        
+        <table class="table table-hover" id="" style="text-align:center;">
+            <thead>
+                <tr>
+                    <th>序號</th>
+                    <th>考區</th>
+                    <th>職務</th>
+                </tr>
+            </thead>
+            <tbody>
+            <!-- <?php foreach ($all as $k => $v): ?>
+                <tr sn="<?=$v['sn']; ?>">
+                    <td><?=$k + 1; ?></td>
+                    <td><?=$v['area']; ?></td>
+                    <td><?=$v['job']; ?></td>
+                </tr>
+            <?php endforeach; ?> -->
+            </tbody>
+        </table>
      </div>
 </div>
 <div class="row cube" id="b1">
    <div class="col-12" style="margin-top: 10px;">
-        
+        <table class="table table-hover" id="" style="text-align:center;">
+            <thead>
+                <tr>
+                    <th>序號</th>
+                    <th>考區</th>
+                    <th>職務</th>
+                </tr>
+            </thead>
+            <tbody>
+            <!-- <?php foreach ($b1 as $k => $v): ?>
+                <tr sn="<?=$v['sn']; ?>">
+                    <td><?=$k + 1; ?></td>
+                    <td><?=$v['area']; ?></td>
+                    <td><?=$v['job']; ?></td>
+                </tr>
+            <?php endforeach; ?> -->
+            </tbody>
+        </table>
      </div>
 </div>
 <div class="row cube" id="b2">
    <div class="col-12" style="margin-top: 10px;">
-        
+        <table class="table table-hover" id="" style="text-align:center;">
+            <thead>
+                <tr>
+                    <th>序號</th>
+                    <th>考區</th>
+                    <th>職務</th>
+                </tr>
+            </thead>
+            <tbody>
+            <!-- <?php foreach ($b2 as $k => $v): ?>
+                <tr sn="<?=$v['sn']; ?>">
+                    <td><?=$k + 1; ?></td>
+                    <td><?=$v['area']; ?></td>
+                    <td><?=$v['job']; ?></td>
+                </tr>
+            <?php endforeach; ?> -->
+            </tbody>
+        </table>
      </div>
 </div>
 <div class="row cube" id="b3">
    <div class="col-12" style="margin-top: 10px;">
-        
+        <table class="table table-hover" id="" style="text-align:center;">
+            <thead>
+                <tr>
+                    <th>序號</th>
+                    <th>考區</th>
+                    <th>職務</th>
+                </tr>
+            </thead>
+            <tbody>
+            <!-- <?php foreach ($b3 as $k => $v): ?>
+                <tr sn="<?=$v['sn']; ?>">
+                    <td><?=$k + 1; ?></td>
+                    <td><?=$v['area']; ?></td>
+                    <td><?=$v['job']; ?></td>
+                </tr>
+            <?php endforeach; ?> -->
+            </tbody>
+        </table>
      </div>
 </div>
 <div class="row cube" id="b4">
    <div class="col-12" style="margin-top: 10px;">
-        
+        <table class="table table-hover" id="" style="text-align:center;">
+            <thead>
+                <tr>
+                    <th>序號</th>
+                    <th>考區</th>
+                    <th>職務</th>
+                </tr>
+            </thead>
+            <tbody>
+            <!-- <?php foreach ($b4 as $k => $v): ?>
+                <tr sn="<?=$v['sn']; ?>">
+                    <td><?=$k + 1; ?></td>
+                    <td><?=$v['area']; ?></td>
+                    <td><?=$v['job']; ?></td>
+                </tr>
+            <?php endforeach; ?> -->
+            </tbody>
+        </table>
      </div>
 </div>
 

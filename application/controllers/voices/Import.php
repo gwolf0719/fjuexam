@@ -59,6 +59,7 @@ class Import extends CI_Controller {
      * a4 職務資料
      */
     function position(){
+        // $this->load->model('Mod_voice_postiton_lsit');
         $datalist = array();
         $data = array(
             'title' => '職務資料',

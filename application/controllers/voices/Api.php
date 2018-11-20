@@ -88,7 +88,7 @@ class Api extends CI_Controller {
     /**
      * 匯入工作人員資料
      */
-    function import_staff_member(Type $var = null)
+    function import_staff_member()
     {
         $this->load->model("mod_voice_staff");
         if (isset($_FILES['file'])) { 
@@ -215,6 +215,51 @@ class Api extends CI_Controller {
             $this->mod_voice_staff->voice_remove_once($data['sn']);
             $json_arr['sys_code'] = '200';
             $json_arr['sys_msg'] = '刪除成功';
+        }
+        echo json_encode($json_arr);
+    }
+    /**
+    a4 上傳資料
+    
+    */
+
+    public function import_position(){
+
+        $this->load->model('mod_voice_position_list');
+
+      if (isset($_FILES['file'])) { 
+            $file = $_FILES['file']['tmp_name'];
+            $file_name = './tmp/'.time().'.csv';
+            copy($file, $file_name);
+            $file = fopen($file_name, 'r');
+            $row = 0;
+            $i = 0;
+            while (!feof($file)) {
+                $data = fgetcsv($file);
+                if($row > 0 && $data != false){
+                    
+                    $datas[$i]['year'] = $this->session->userdata('year');
+                    $datas[$i]['ladder'] = $this->session->userdata('ladder');
+                    $datas[$i]['area'] = $data[0];
+                    $datas[$i]['job'] = $data[1];
+                
+                    $i = $i + 1;
+                }
+                $row = $row+1;
+            }
+            // $this->mod_voice_area->clean_voice_area_main();
+            // $this->mod_voice_position_list->insert_member($datas);
+            
+            fclose($file);
+            unlink($file_name);
+            $json_arr['sys_code'] = '200';
+            $json_arr['sys_msg'] = '資料上傳完成';
+            $json_arr['datas'] = $datas;
+            
+        }else{
+            $json_arr['sys_code'] = '000';
+            $json_arr['sys_msg'] = '資料上傳錯誤';
+            
         }
         echo json_encode($json_arr);
     }
