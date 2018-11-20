@@ -59,13 +59,13 @@ class Import extends CI_Controller {
      * a4 職務資料
      */
     function position(){
-        // $this->load->model('Mod_voice_postiton_lsit');
+        $this->load->model('mod_voice_job_list');
         $datalist = array();
         $data = array(
             'title' => '職務資料',
             'path' => 'voice/import_position',
             'path_text' => ' > 英聽主選單 > 資料匯入作業 > 職務資料',
-            "datalist"=>$datalist
+            "datalist"=>$this->mod_voice_job_list->voice_where_voice_position()
         );
         $this->load->view('voice/layout', $data);
     }

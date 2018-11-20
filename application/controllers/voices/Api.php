@@ -225,7 +225,7 @@ class Api extends CI_Controller {
 
     public function import_position(){
 
-        $this->load->model('mod_voice_position_list');
+        $this->load->model('mod_voice_job_list');
 
       if (isset($_FILES['file'])) { 
             $file = $_FILES['file']['tmp_name'];
@@ -234,10 +234,12 @@ class Api extends CI_Controller {
             $file = fopen($file_name, 'r');
             $row = 0;
             $i = 0;
+            $datas = array();
             while (!feof($file)) {
                 $data = fgetcsv($file);
                 if($row > 0 && $data != false){
-                    
+                    // print_r($data);
+                    echo $data[0];
                     $datas[$i]['year'] = $this->session->userdata('year');
                     $datas[$i]['ladder'] = $this->session->userdata('ladder');
                     $datas[$i]['area'] = $data[0];
@@ -247,19 +249,20 @@ class Api extends CI_Controller {
                 }
                 $row = $row+1;
             }
-            // $this->mod_voice_area->clean_voice_area_main();
-            // $this->mod_voice_position_list->insert_member($datas);
+    //         // $this->mod_voice_area->clean_voice_area_main();
+    //         // $this->mod_voice_job_list->insert_member($datas);
+            
+            
             
             fclose($file);
             unlink($file_name);
             $json_arr['sys_code'] = '200';
             $json_arr['sys_msg'] = '資料上傳完成';
             $json_arr['datas'] = $datas;
-            
+    //         // echo json_encode($json_arr);
         }else{
             $json_arr['sys_code'] = '000';
             $json_arr['sys_msg'] = '資料上傳錯誤';
-            
         }
         echo json_encode($json_arr);
     }
