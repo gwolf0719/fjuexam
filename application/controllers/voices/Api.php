@@ -115,7 +115,7 @@ class Api extends CI_Controller {
                 $row = $row+1;
             }
             // $this->mod_voice_area->clean_voice_area_main();
-            $this->mod_voice_staff->insert_member($datas);
+            $this->mod_voice_staff->insert_job($datas);
             
             fclose($file);
             unlink($file_name);
@@ -262,6 +262,37 @@ class Api extends CI_Controller {
             $json_arr['sys_msg'] = '資料上傳錯誤';
         }
        
+    }
+
+
+    /* 
+    f 頁  考試日期修改
+    */
+    public function save_datetime()
+    {
+        $this->load->model('mod_voice_exam_datetime');
+        $getpost = array('year','day','pre_1','pre_2','course_1_start','course_1_end','course_2_start','course_2_end');
+        $requred = array('year','day','pre_1','pre_2','course_1_start','course_1_end','course_2_start','course_2_end');
+        $data = $this->getpost->getpost_array($getpost,$requred);
+        $year = $this->session->userdata('year');
+        if ($data == false) {
+            $json_arr['sys_code'] = '000';
+            $json_arr['sys_msg'] = '資料不足';
+            $json_arr['requred'] = $this->getpost->report_requred($requred);
+            
+        }else{
+            if($this->mod_voice_exam_datetime->chk_once($year)){
+                $this->mod_voice_exam_datetime->update_once($year,$data);
+            }else{
+                $this->mod_voice_exam_datetime->add_once($data);
+            }
+            $json_arr['sys_code'] = '200';
+            $json_arr['sys_msg'] = '儲存成功';
+            
+        }
+        echo json_encode($json_arr);
+
+
     }
 
 }

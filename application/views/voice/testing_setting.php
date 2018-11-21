@@ -6,6 +6,17 @@
         margin:80px auto;
     }
 </style>
+<script>
+    $(function () {
+        <?php   
+            $years = $this->session->userdata('year');
+            $ladders = $this->session->userdata('ladder');
+            if ($years =="" || $ladders == "") {  ?>
+                alert("請輸入學年度跟場次並點選送出")
+                history.go(-1);
+         <?php  }?>
+    })
+</script>
 <div class="row">
     <div class="input-group col-sm-3">
 
@@ -26,7 +37,7 @@
     </div>
 
     <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3 cube">
-        <a href="./designated/f_2">
+        <a href="./voice/f/test_subjects">
             <img src="assets/images/f2.png" alt="">
         </a>    
     </div>
