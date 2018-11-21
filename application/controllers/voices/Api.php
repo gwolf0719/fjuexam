@@ -294,6 +294,37 @@ class Api extends CI_Controller {
 
 
     }
+    
+    /** 
+    f2頁 考試科目
+    */
+    public function save_subject()
+    {
+        $this->load->model('mod_voice_subject');
+        $getpost = array('subject_1','subject_2');
+        $requred = array('subject_1','subject_2');
+        $data = $this->getpost->getpost_array($getpost,$requred);
+        $year = $this->session->userdata('year');
+        if ($data == false) {
+            $json_arr['sys_code'] = '000';
+            $json_arr['sys_msg'] = '資料不足';
+            $json_arr['requred'] = $this->getpost->report_requred($requred);
+
+        }else{
+            if($this->mod_voice_subject->chk_once($year)){
+                $this->mod_voice_subject->update_once($year,$data);
+            }else{
+                $this->mod_voice_subject->add_once($data);
+            }
+            $json_arr['sys_code'] = '200';
+            $json_arr['sys_msg'] = '儲存成功';
+
+
+        }
+        echo json_encode($json_arr);
+
+
+    }
 
 }
 
