@@ -31,6 +31,8 @@
                $.ajax({
                     url: './voice/api/save_subject',
                     data:{
+                        "year":$("#year").val(),
+                        'ladder':$('#ladder').val(),
                         'subject_1': $('#1_1').val(),
                         'subject_2': $('#2_2').val(),
 
@@ -50,7 +52,7 @@
 
 </script>
 <div class="row">
-<div class="p-2 "  style="width:300px;">
+    <div class="p-2 "  style="width:300px;">
         <div class="input-group">
 
             <div class="input-group-prepend">
@@ -77,6 +79,8 @@
         <div class="row table-form" >
             
             <div class="col-5 text-right">上午場</div>
+            <input type="hidden" class="col-6" id="year" name="year" value="<?=$_SESSION['year']; ?>">
+                <input type="hidden" class="col-6" id="ladder" name="ladder" value="<?=$_SESSION['ladder']; ?>">
             <select name="1_1" id="1_1" class="col-7 course" name="上午場">
                     <option><?=$data_subject['subject_1'];?></option> 
             </select>

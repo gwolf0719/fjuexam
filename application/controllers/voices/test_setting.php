@@ -55,7 +55,7 @@ class Test_setting extends CI_Controller {
         } else {
             $datetime_info = array(
                 'day' => '1911' + $this->session->userdata('year').'年10月20日',
-               
+                
             );
          
          }
@@ -73,6 +73,36 @@ class Test_setting extends CI_Controller {
             'path_text' => ' > 指考主選單 > 考程設定 > 考試科目',
             'datetime_info' => $datetime_info,
             'data_subject' =>$data_subject,
+
+        );
+        $this->load->view('layout',$data);
+    }
+
+
+
+    public function test_pay()
+    {
+        $this->mod_user->chk_status();
+        $this->load->model('mod_voice_test_pay');
+        $year = $this->session->userdata('year');
+        if ($this->mod_voice_test_pay->chk_once($year)) {
+            $data_pay = $this->mod_voice_test_pay->get_once($year);
+        } else {
+            $data_pay = array(
+                'one_day_salary' => '',
+                'salary_section' => '',
+               
+            );
+        }
+       
+
+
+        $data = array(
+
+            'title' => '考試科目',
+            'path' => 'voice/test_pay',
+            'path_text' => ' > 指考主選單 > 考程設定 > 考試科目',
+            'data_pay'=>$data_pay,
 
         );
         $this->load->view('layout',$data);

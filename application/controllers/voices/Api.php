@@ -301,8 +301,8 @@ class Api extends CI_Controller {
     public function save_subject()
     {
         $this->load->model('mod_voice_subject');
-        $getpost = array('subject_1','subject_2');
-        $requred = array('subject_1','subject_2');
+        $getpost = array('year','ladder','subject_1','subject_2');
+        $requred = array('year','ladder','subject_1','subject_2');
         $data = $this->getpost->getpost_array($getpost,$requred);
         $year = $this->session->userdata('year');
         if ($data == false) {
@@ -325,6 +325,37 @@ class Api extends CI_Controller {
 
 
     }
+     /** 
+    f4頁 考科費用
+    */
+    public function save_pay()
+    {
+        $this->load->model('mod_voice_test_pay');
+        $getpost = array('year','ladder','pay_1','pay_2');
+        $requred = array('year','ladder','pay_1','pay_2');
+        $data = $this->getpost->getpost_array($getpost,$requred);
+        $year = $this->session->userdata('year');
+        if ($data == false) {
+            $json_arr['sys_code'] = '000';
+            $json_arr['sys_msg'] = '資料不足';
+            $json_arr['requred'] = $this->getpost->report_requred($requred);
+
+        }else{
+            if($this->mod_voice_test_pay->chk_once($year)){
+                $this->mod_voice_test_pay->update_once($year,$data);
+            }else{
+                $this->mod_voice_test_pay->add_once($data);
+            }
+            $json_arr['sys_code'] = '200';
+            $json_arr['sys_msg'] = '儲存成功';
+
+
+        }
+        echo json_encode($json_arr);
+
+
+    }
+
 
 }
 

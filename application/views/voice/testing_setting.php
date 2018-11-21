@@ -49,7 +49,7 @@
     </div>
 
     <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3 cube">
-        <a href="./designated/f_4">
+        <a href="./voice/f/test_pay">
             <img src="assets/images/f4.png" alt="">
         </a>    
     </div>    
