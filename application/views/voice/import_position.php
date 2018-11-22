@@ -51,7 +51,6 @@ img{
         $("body").on("click","#Upload",function() {
         var formData = new FormData($('#form')[0]); 
         var files = $('input[name="file"]').prop('files');
-        console.log(files);
         if(files.length == 0){
             alert('請先選擇文件');
             return;
@@ -62,7 +61,7 @@ img{
                     type:"post",
                     dataType: 'json',
                     url: "./voice/api/import_position", 
-                    data: formData, 
+                    data: formData,
                     cache: false, 
                     processData: false, 
                     contentType: false, 
@@ -77,8 +76,8 @@ img{
             }
             
             
-        }        
-    })
+            }        
+        })
     })
   
 </script>
@@ -94,6 +93,7 @@ $(function(){
         // 點擊到的追加active以及打開相對應table
         $this.addClass("active");
         var area = $this.attr("area");
+        console.log("#b"+area);
         $("#b"+area).show()
     })
 })
@@ -103,7 +103,6 @@ $(function(){
 <div class="d-flex justify-content-between">
     <div class="p-2 "  style="width:300px;">
         <div class="input-group">
-
             <div class="input-group-prepend">
                 <span class="input-group-text" id="inputGroup-sizing-default">學年度</span>
             </div>
@@ -124,11 +123,11 @@ $(function(){
 
 <div class="row" style="position: relative;top: 20px;left: 10px;">
     <div style="width:95%;margin:0 auto">
-        <div class="tab active" area="0"><div class="tab_text">ALL</div></div>
-        <div class="tab" area="1"><div class="tab_text">考區</div></div>
-        <div class="tab" area="2"><div class="tab_text">第一分區</div></div>
-        <div class="tab" area="3"><div class="tab_text">第二分區</div></div>
-        <div class="tab" area="4"><div class="tab_text">第三分區</div></div>
+        <div class="tab active tab_text" area="0">ALL</div>
+        <div class="tab tab_text" area="1">考區</div>
+        <div class="tab tab_text" area="2">第一分區</div>
+        <div class="tab tab_text" area="3">第二分區</div>
+        <div class="tab tab_text" area="4">第三分區</div>
     </div>
 </div>
 <div class="row cube" id="b0" >
@@ -164,7 +163,7 @@ $(function(){
                 </tr>
             </thead>
             <tbody>
-            <?php foreach ($datalist as $k => $v): ?>
+            <?php foreach ($datalist1 as $k => $v): ?>
                 <tr sn="<?=$v['sn']; ?>">
                     <td><?=$k + 1; ?></td>
                     <td><?=$v['area']; ?></td>
@@ -186,7 +185,7 @@ $(function(){
                 </tr>
             </thead>
             <tbody>
-            <?php foreach ($datalist as $k => $v): ?>
+            <?php foreach ($datalist2 as $k => $v): ?>
                 <tr sn="<?=$v['sn']; ?>">
                     <td><?=$k + 1; ?></td>
                     <td><?=$v['area']; ?></td>
@@ -208,7 +207,7 @@ $(function(){
                 </tr>
             </thead>
             <tbody>
-            <?php foreach ($datalist as $k => $v): ?>
+            <?php foreach ($datalist3 as $k => $v): ?>
                 <tr sn="<?=$v['sn']; ?>">
                     <td><?=$k + 1; ?></td>
                     <td><?=$v['area']; ?></td>
@@ -230,7 +229,7 @@ $(function(){
                 </tr>
             </thead>
             <tbody>
-            <?php foreach ($datalist as $k => $v): ?>
+            <?php foreach ($datalist4 as $k => $v): ?>
                 <tr sn="<?=$v['sn']; ?>">
                     <td><?=$k + 1; ?></td>
                     <td><?=$v['area']; ?></td>
@@ -258,7 +257,7 @@ $(function(){
         <form method="POST" enctype="multipart/form-data"  action="" id="form" class="page_form">
         
             <div class="input-group mb-3">
-                <select class="custom-select" id="select_area" name="area">
+                <select class="custom-select" id="select_area" name="test_partition">
                     <option selected value="">選擇分區</option>
                     <option value="0">考區</option>
                     <option value="1">第一分區</option>

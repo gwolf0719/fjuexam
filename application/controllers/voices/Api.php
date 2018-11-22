@@ -243,6 +243,7 @@ class Api extends CI_Controller {
                     $datas[$i]['ladder'] = $this->session->userdata('ladder');
                     $datas[$i]['area'] = $data[0];
                     $datas[$i]['job'] = $data[1];
+                    $datas[$i]['test_partition'] = $this->input->post('test_partition');
                 
                     $i = $i + 1;
                 }
