@@ -44,6 +44,64 @@ class Mod_voice_job_list extends CI_Model
         return $this->db->get('voice_job_list')->result_array();
     }
 
+    public function get_part_for_once($part)
+    {
+        return $this->db->where('area', $part)->get('voice_job_list')->row_array();
+    }
+        /**
+     * 建立新職務.
+     */
+     public function add_job($year,$area, $job, $trial_start, $trial_end)
+     {
+         $data = array(
+             'year' => $year,
+             'ladder'=>$this->session->userdata('ladder'),
+             'test_partition'=>'0',
+             'area' => $area,
+             'job' => $job,
+             'trial_start' => $trial_start,
+             'trial_end' => $trial_end,
+         );
+         $this->db->insert('voice_job_list', $data);
+     }
+
+     public function get_once($sn)
+     {
+         return $this->db->where('sn', $sn)->get('voice_job_list')->row_array();
+     }
+
+        // 用代號取得完整資料
+    public function get_once_info($job_code)
+    {
+        $this->db->where('member_code', $job_code);
+
+        return $this->db->get('voice_import_member')->row_array();
+    }
+
+
+        // 取得姓名
+    public function get_member_info()
+    {
+        $this->db->distinct();
+        $this->db->select('member_code,member_name');
+
+        $data = $this->db->get('voice_import_member')->result_array();
+        // echo $this->db->last_query();
+        return $data;
+    }
+
+      /**
+     * 取得職務列表.
+     */
+     public function get_job_list($year, $area)
+     {
+         $this->db->where('year', $year);
+         $this->db->where('area', $area);
+         $this->db->select('job');
+ 
+         return $this->db->get('voice_job_list')->result_array();
+     }
+
 
 
 

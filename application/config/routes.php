@@ -58,6 +58,7 @@ $route['voice/index'] = 'voices/intro/index';
 $route['voice/a'] = 'voices/import/index';
 $route['voice/a/(:any)'] = 'voices/import/$1';
 $route['voice/b'] = 'voices/Test_duty/index';
+$route['voice/b/(:any)'] = 'voices/Test_duty/$1';
 
 $route['voice/f'] = 'voices/test_setting/index';
 $route['voice/f/(:any)'] = 'voices/test_setting/$1';
