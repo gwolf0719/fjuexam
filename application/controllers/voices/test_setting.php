@@ -8,7 +8,7 @@ class Test_setting extends CI_Controller {
         $this->mod_user->chk_status();
         $data = array(
             'title' => '考程設定',
-            'path' => 'voice/testing_setting',
+            'path' => 'voice/testing_setting_index',
             'path_text' => ' > 考程設定',
         );
         $this->load->view('layout', $data);
@@ -89,8 +89,8 @@ class Test_setting extends CI_Controller {
             $data_pay = $this->mod_voice_test_pay->get_once($year);
         } else {
             $data_pay = array(
-                'one_day_salary' => '',
-                'salary_section' => '',
+                'pay_1' => '0',
+                'pay_2' => '0',
                
             );
         }
