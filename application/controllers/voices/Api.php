@@ -339,6 +339,24 @@ class Api extends CI_Controller {
         }
         echo json_encode($json_arr);
     }
+    
+    public function voice_edit_task()
+    {
+        $this->load->model('mod_voice_job_list');
+        $getpost = array('sn', 'area', 'job_code', 'job_title', 'name', 'phone',  'note', 'day_count', 'one_day_salary', 'salary_total', 'total', 'do_date');
+        $requred = array('sn', 'area', 'job_code', 'job_title', 'name', 'phone',  'day_count', 'one_day_salary', 'salary_total', 'total', 'do_date',);
+        $data = $this->getpost->getpost_array($getpost, $requred);
+        if ($data == false) {
+            $json_arr['sys_code'] = '000';
+            $json_arr['sys_msg'] = '資料不足';
+            $json_arr['requred'] = $this->getpost->report_requred($requred);
+        } else {
+            $this->mod_voice_job_list->update_once($data['sn'], $data);
+            $json_arr['sys_code'] = '200';
+            $json_arr['sys_msg'] = '資料編輯完成';
+        }
+        echo json_encode($json_arr);
+    }
 
  
 

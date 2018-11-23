@@ -103,6 +103,15 @@ class Mod_voice_job_list extends CI_Model
      }
 
 
+     public function update_once($sn,$data)
+     {
+
+        $this->db->where('sn',$sn);
+        $this->db->update('voice_job_list',$data);
+        return true;
+     }
+
+
 
 
 

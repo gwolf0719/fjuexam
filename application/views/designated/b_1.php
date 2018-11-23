@@ -470,25 +470,6 @@
             $("#total").val(total)
         })
 
-        $("body").on("change", ".section_count", function() {
-            if ($("#calculation").val() == "by_section") {
-                //以節計算
-                var price = $("#section").val() * $("#salary_section").val();
-                $("#price").val(price);
-                var lunch_price = $("#lunch_count").val() * $("#lunch_fee").val();
-                $("#lunch_price").val(lunch_price);
-                var total = price + lunch_price;
-                $("#total").val(total);
-            } else {
-                //以天計算
-                var price = $("#day_count").val() * $("#one_day_salary").val();
-                $("#price").val(price);
-                var lunch_price = $("#lunch_count").val() * $("#lunch_fee").val();
-                $("#lunch_price").val(lunch_price);
-                var total = price + lunch_price;
-                $("#total").val(total);
-            }
-        })
     });
 </script>
 

@@ -51,6 +51,7 @@ class Test_duty extends CI_Controller {
         );
         $this->load->view('layout', $data);
     }
+    
 
 
 
