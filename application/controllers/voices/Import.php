@@ -51,7 +51,7 @@ class Import extends CI_Controller {
             'title' => '考區試場資料',
             'path' => 'voice/import_staff_member',
             'path_text' => ' > 英聽主選單 > 資料匯入作業 > 考區試場資料',
-            "datalist"=>$this->mod_voice_staff-> voice_where_voice_import_staff_member()
+            "datalist"=>$this->mod_voice_staff->voice_where_voice_import_staff_member()
         );
         $this->load->view('voice/layout', $data);
     }

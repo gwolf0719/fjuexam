@@ -210,14 +210,14 @@
         $("body").on("click", "#send", function() {
             if (confirm("確定儲存修改資料？")) {
                 var sn = $("#sn").val();
-                var area = "考區";
+                var area = "第一分區";
                 var job = $("#member_job_title").val();
                 var job_code = $("#job_code").val();
                 var job_title = $("#job_title").val();
                 var name = $("#name").val();
                 var phone = $("#phone").val();
                 var note = $("textarea[name='note']").val();
-                var cla = "考區";
+                var cla = "第一分區";
                 var arr = $('input:checkbox:checked[name="day"]').map(function() {
                     return $(this).val();
                 }).get();
@@ -258,7 +258,7 @@
             $.post("./voice/api/assignment", {
                 job_code: code[0],
                 job: $("#search_job").text(),
-                area: "考區",
+                area: "第一分區",
             }, function(data) {
                 alert(data.sys_msg);
               
@@ -305,9 +305,9 @@
                 if (job == "") {
                     alert("需要輸入內容");
                 } else {
-                    $.getJSON("./voice/api/job_add", {
+                    $.getJSON("./voice/api/job_add_b2", {
                         job: job,
-                        area: "考區"
+                        area: "第一分區"
                     }, function(data) {
                         alert(data.sys_msg);
                         location.reload();
@@ -392,7 +392,7 @@
     </div>
 
     <div class="col-sm-8" style="text-align: center;">
-        <img src="assets/images/b1_title.png" alt="" style="width: 15%;">
+        <img src="assets/images/b2_title.png" alt="" style="width: 15%;">
     </div>
 
 </div>

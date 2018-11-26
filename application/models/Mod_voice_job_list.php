@@ -48,7 +48,7 @@ class Mod_voice_job_list extends CI_Model
     {
         return $this->db->where('area', $part)->get('voice_job_list')->row_array();
     }
-        /**
+    /**
      * 建立新職務.
      */
      public function add_job($year,$area, $job, $trial_start, $trial_end)
@@ -64,13 +64,52 @@ class Mod_voice_job_list extends CI_Model
          );
          $this->db->insert('voice_job_list', $data);
      }
+     public function add_job_b2($year,$area, $job, $trial_start, $trial_end)
+     {
+         $data = array(
+             'year' => $year,
+             'ladder'=>$this->session->userdata('ladder'),
+             'test_partition'=>'1',
+             'area' => $area,
+             'job' => $job,
+             'trial_start' => $trial_start,
+             'trial_end' => $trial_end,
+         );
+         $this->db->insert('voice_job_list', $data);
+     }
+     public function add_job_b3($year,$area, $job, $trial_start, $trial_end)
+     {
+         $data = array(
+             'year' => $year,
+             'ladder'=>$this->session->userdata('ladder'),
+             'test_partition'=>'2',
+             'area' => $area,
+             'job' => $job,
+             'trial_start' => $trial_start,
+             'trial_end' => $trial_end,
+         );
+         $this->db->insert('voice_job_list', $data);
+     }
+     public function add_job_b4($year,$area, $job, $trial_start, $trial_end)
+     {
+         $data = array(
+             'year' => $year,
+             'ladder'=>$this->session->userdata('ladder'),
+             'test_partition'=>'3',
+             'area' => $area,
+             'job' => $job,
+             'trial_start' => $trial_start,
+             'trial_end' => $trial_end,
+         );
+         $this->db->insert('voice_job_list', $data);
+     }
 
      public function get_once($sn)
      {
          return $this->db->where('sn', $sn)->get('voice_job_list')->row_array();
      }
 
-        // 用代號取得完整資料
+    // 用代號取得完整資料
     public function get_once_info($job_code)
     {
         $this->db->where('member_code', $job_code);
@@ -79,7 +118,7 @@ class Mod_voice_job_list extends CI_Model
     }
 
 
-        // 取得姓名
+    // 取得姓名
     public function get_member_info()
     {
         $this->db->distinct();
@@ -109,6 +148,14 @@ class Mod_voice_job_list extends CI_Model
         $this->db->where('sn',$sn);
         $this->db->update('voice_job_list',$data);
         return true;
+     }
+
+     public function remove_once($sn)
+     {
+         $this->db->where('sn',$sn);
+         $this->db->delete('voice_job_list');
+         
+         return true;
      }
 
 
