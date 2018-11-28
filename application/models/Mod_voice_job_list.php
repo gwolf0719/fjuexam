@@ -132,10 +132,10 @@ class Mod_voice_job_list extends CI_Model
       /**
      * 取得職務列表.
      */
-     public function get_job_list($year, $area)
+     public function get_job_list($year, $block)
      {
          $this->db->where('year', $year);
-         $this->db->where('area', $area);
+         $this->db->where('area', $block);
          $this->db->select('job');
  
          return $this->db->get('voice_job_list')->result_array();

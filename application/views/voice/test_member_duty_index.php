@@ -50,19 +50,19 @@
         </a>    
     </div>
     <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4 cube text-center">
-        <a href="./voice/b/duty_b2">
+        <a href="./voice/b/duty/第一分區">
             <img src="assets/images/b2.png" alt="">
         </a>    
     
     </div>
     <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4 cube text-center">
-        <a href="./voice/b/duty_b3">
+        <a href="./voice/b/duty/第二分區">
             <img src="assets/images/b3.png" alt="">
         </a>    
     
     </div>
     <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4 cube text-center">
-        <a href="./voice/b/duty_b4">
+        <a href="./voice/b/duty/第三分區">
             <img src="assets/images/b4.png" alt="">
         </a>    
     </div>

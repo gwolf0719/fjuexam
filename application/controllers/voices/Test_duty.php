@@ -215,7 +215,7 @@ class Test_duty extends CI_Controller {
         $data = array(
             'title' => '預覽任務編組表',
             'path' => 'voice/duty_b5',
-            'path_text' => ' > 指考主選單 > 考區任務編組 > 預覽任務編組表',
+            'path_text' => ' > 英聽主選單 > 考區任務編組 > 預覽任務編組表',
             'all' => $this->mod_voice_job_list->get_list(),
             'b1' => $this->mod_voice_job_list->get_list('考區'),
             'b2' => $this->mod_voice_job_list->get_list('第一分區'),
