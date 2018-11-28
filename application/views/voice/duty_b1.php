@@ -513,8 +513,7 @@
                         <input type="text" class="form-control" id="trial_end" readonly>
                     </div>
                 </div>
-    </div>
-    <div class="col-md-3 col-sm-3 col-xs-3 cube" style="float:left">
+                <div class="col-md-3 col-sm-3 col-xs-3 cube" style="float:left">
         <div class="form-group">
             <label for="start_date" class="" style="float:left;">天數</label>
             <input type="text" class="form-control" id="day_count" value="0" readonly>
@@ -537,11 +536,14 @@
     <div class="col-md-6 col-sm-6 col-xs-6 " style="float:left;margin: 20px auto;">
         <div class="">
             <div class="">
-                <label for="note" class="" style="float:left;text-align:left;width: 15%;text-align:center;">備註</label>
+                <label for="note" class="" style="float:left;text-align:left;width: 8%;text-align:center;">備註</label>
                 <textarea name="note" id="note" class="" style="width:300px"></textarea>
             </div>
         </div>
     </div>
+    </div>
+
+   
     <div class="col-md-6 col-sm-6 col-xs-6" style="float:left;margin: 20px auto;">
         <div class="form-group" style="text-align:right">
             <div class="">

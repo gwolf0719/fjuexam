@@ -24,26 +24,6 @@ class Mod_voice_job_list extends CI_Model
         $this->db->where('test_partition',$test_partition);
         return $this->db->get('voice_job_list')->result_array();
     }
-
-    // function voice_where_voice_area2()
-    // {
-    //     $this->db->where('year',$this->session->userdata('year'));
-    //     $this->db->where('test_partition','1');
-    //     return $this->db->get('voice_job_list')->result_array();
-    // }
-    // function voice_where_voice_area3()
-    // {
-    //     $this->db->where('year',$this->session->userdata('year'));
-    //     $this->db->where('test_partition','2');
-    //     return $this->db->get('voice_job_list')->result_array();
-    // }
-    // function voice_where_voice_area4()
-    // {
-    //     $this->db->where('year',$this->session->userdata('year'));
-    //     $this->db->where('test_partition','3');
-    //     return $this->db->get('voice_job_list')->result_array();
-    // }
-
     public function get_part_for_once($part)
     {
         return $this->db->where('area', $part)->get('voice_job_list')->row_array();
@@ -138,8 +118,8 @@ class Mod_voice_job_list extends CI_Model
          $this->db->where('year', $year);
          $this->db->where('area', $block);
          $this->db->select('job');
-        $data = $this->db->get('voice_job_list')->result_array();
-        echo $this->db->last_query();
+         $data = $this->db->get('voice_job_list')->result_array();
+       
          return $data;
      }
 
