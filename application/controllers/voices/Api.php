@@ -447,7 +447,7 @@ class Api extends CI_Controller {
     {
         $this->load->model('mod_voice_job_list');
         $getpost = array('sn', 'area', 'job_code', 'job_title', 'name', 'phone',  'note', 'day_count', 'one_day_salary', 'salary_total', 'total', 'do_date');
-        $requred = array('sn', 'area', 'job_code', 'job_title', 'name', 'phone',  'day_count', 'one_day_salary', 'salary_total', 'total', 'do_date','note');
+        $requred = array('sn', 'area', 'job_code', 'job_title', 'name', 'phone',  'day_count', 'one_day_salary', 'salary_total', 'total', 'do_date');
         $data = $this->getpost->getpost_array($getpost, $requred);
         if ($data == false) {
             $json_arr['sys_code'] = '000';

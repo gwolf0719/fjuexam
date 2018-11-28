@@ -165,6 +165,40 @@ class Test_duty extends CI_Controller {
         );
         $this->load->view('layout', $data);
     }
+    public function duty_b5()
+    {
+        $this->load->model('mod_voice_test_pay');
+        $this->load->model('mod_voice_job_list');
+        $this->load->model('mod_voice_exam_datetime');
+        $this->mod_user->chk_status();
+        $data = array(
+            'title' => '預覽任務編組表',
+            'path' => 'voice/duty_b5',
+            'path_text' => ' > 指考主選單 > 考區任務編組 > 預覽任務編組表',
+            'all' => $this->mod_voice_job_list->get_list(),
+            'b1' => $this->mod_voice_job_list->get_list('考區'),
+            'b2' => $this->mod_voice_job_list->get_list('第一分區'),
+            'b3' => $this->mod_voice_job_list->get_list('第二分區'),
+            'b4' => $this->mod_voice_job_list->get_list('第三分區'),
+        );
+        $this->load->view('layout', $data);
+    }
+
+    /**
+     * C 試場分配.
+     */
+    public function c()
+    {
+        $this->load->model('mod_part_info');
+        $this->mod_user->chk_status();
+        $data = array(
+            'title' => '試場分配',
+            'path' => 'designated/c',
+            'path_text' => ' > 指考主選單 > 試場分配',
+            'datalist' => $this->mod_part_info->get_list(),
+        );
+        $this->load->view('layout', $data);
+    }
     
     
 

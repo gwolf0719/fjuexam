@@ -157,6 +157,17 @@ class Mod_voice_job_list extends CI_Model
          
          return true;
      }
+     
+    public function get_list($area = '')
+    {
+        $this->db->where('year', $this->session->userdata('year'));
+        if ($area != '') {
+            $this->db->where('area', $area);
+        }
+        $this->db->order_by('sn', 'asc');
+
+        return $this->db->get('voice_job_list')->result_array();
+    }
 
 
 
