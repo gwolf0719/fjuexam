@@ -45,7 +45,7 @@
 <div class="row" >
     
     <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4 cube text-center">
-        <a href="./voice/b/duty_b1">
+        <a href="./voice/b/duty/考區">
             <img src="assets/images/b1.png" alt="">
         </a>    
     </div>
