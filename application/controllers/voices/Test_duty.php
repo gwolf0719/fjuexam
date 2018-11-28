@@ -26,6 +26,16 @@ class Test_duty extends CI_Controller {
     }
     function duty($block){
         $block = urldecode($block);
+        switch ($block) {
+            case '考區':
+                # code...
+                $test_partition = 0;
+                break;
+            
+            default:
+                # code...
+                break;
+        }
         $year = $this->session->userdata('year');
         $job = $this->mod_voice_job_list->get_job_list($year,$block);
         if ($this->mod_voice_test_pay->chk_once($year)) {
@@ -51,7 +61,7 @@ class Test_duty extends CI_Controller {
             'title'=> $block.'任務編組主選單',
             'path'=> 'voice/duty_b1',
             'path_text'=>' > '.$block.'任務編組主選單',
-            'datalist'=> $this->mod_voice_job_list->voice_where_voice_area1(),
+            'datalist'=> $this->mod_voice_job_list->voice_where_voice_area($test_partition),
             'fees_info'=>$fees_info,
             'job'=>$job,
             'datatime_info'=>$datatime_info,
