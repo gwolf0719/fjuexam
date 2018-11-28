@@ -146,7 +146,6 @@ $(function(){
 </div>
 
 <div class="row" style="height:700px;overflow: auto;">
-<?php print_r($datalist);?>
    <div class="col-12" style="margin-top: 10px;">
         <table class="table table-hover" id="">
             <thead>
@@ -166,7 +165,7 @@ $(function(){
                 </tr>
             </thead>
             <tbody>
-            <!-- <?php foreach ($datalist as $k => $v): ?>
+            <?php foreach ($datalist as $k => $v): ?>
                 <tr sn="<?=$v['sn']; ?>">
                     <td><?=$k + 1; ?></td>
                     <td><?=$v['year']; ?></td>
@@ -177,11 +176,11 @@ $(function(){
                     <td><?=$v['start']; ?></td>
                     <td><?=$v['end']; ?></td>
                     <td><?=$v['number']; ?></td>
-                    <td><?=$addr_info['part_addr_1']; ?></td>
+                    <!-- <td><?=$addr_info['part_addr_1']; ?></td> -->
                     <td><?=$v['floor']; ?></td>
                     <td><?=$v['note']; ?></td>
                 </tr>                    
-            <?php endforeach; ?> -->
+            <?php endforeach; ?>
             </tbody>
         </table>
      </div>
