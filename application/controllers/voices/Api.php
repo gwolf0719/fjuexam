@@ -313,8 +313,8 @@ class Api extends CI_Controller {
      public function job_add()
      {
          $this->load->model('mod_voice_job_list');
-         $getpost = array('job', 'area');
-         $requred = array('job', 'area');
+         $getpost = array('job', 'area','test_partition');
+         $requred = array('job', 'area','test_partition');
          $data = $this->getpost->getpost_array($getpost, $requred);
          if ($data == false) {
              $json_arr['sys_code'] = '000';
@@ -323,8 +323,7 @@ class Api extends CI_Controller {
          } else {
              $year = $this->session->userdata('year');
              $part = $this->mod_voice_job_list->get_part_for_once($data['area']);
- 
-             $this->mod_voice_job_list->add_job($year, $data['area'], $data['job'], $part['trial_start'], $part['trial_end']);
+             $this->mod_voice_job_list->add_job($year, $data['test_partition'],$data['area'], $data['job'], $part['trial_start'], $part['trial_end']);
              $json_arr['sys_code'] = '200';
              $json_arr['sys_msg'] = '新增完成';
          }

@@ -298,7 +298,8 @@
          */
         $("body").on("click", "#new_job", function() {
             var job = prompt("請輸入職務名稱");
-
+            var area = "<?= $block ?>";
+            var test_partition = '<?=$test_partition?>'
             if (job == null) {
                 alert("動作取消");
             } else {
@@ -306,8 +307,9 @@
                     alert("需要輸入內容");
                 } else {
                     $.getJSON("./voice/api/job_add", {
+                        test_partition:'<?=$test_partition?>',
                         job: job,
-                        area: "考區"
+                        area: '<?= $block?>',
                     }, function(data) {
                         alert(data.sys_msg);
                         location.reload();
@@ -384,7 +386,7 @@
 $(function(){
     
     $('#title_img').attr('src','assets/images/b<?=$test_partition+1?>_title.png');
-
+    
 })
 
 
@@ -409,7 +411,6 @@ $(function(){
 
 </div>
 <div class="row" style="height:700px;overflow: auto;">
-
     <div class="col-12" style="margin-top: 10px;">
         <table class="table table-hover" id="">
             <thead>
@@ -429,19 +430,13 @@ $(function(){
                 <tr sn="<?=$v['sn']; ?>">
                     <td>
                         <?=$k + 1; ?>
-                    </td>
-                    <!-- <td>
-                        <?=$v['year']; ?>
-                    </td> -->
+                    </td>                 
                     <td>
                         <?=$v['area']; ?>
                     </td>
                     <td>
                         <?=$v['job']; ?>
                     </td>
-                    <!-- <td>
-                        <?=$v['job_code']; ?>
-                    </td> -->
                     <td>
                         <?=$v['job_title']; ?>
                     </td>
@@ -471,7 +466,6 @@ $(function(){
         <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4" style="margin:20px 0px 20px 25px">
             <div class="row">
                 <div for="" class="col-2" style="display: inline-block;line-height:40px;text-align:right;">職務</div>
-                <?php print_r($job);?>
                 <select class="form-control col-4" id="job" disabled>
                     <?php foreach ($job as $k => $v): ?>
                     <option value = "<?=$v['job']?>">
