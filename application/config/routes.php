@@ -58,7 +58,9 @@ $route['voice/index'] = 'voices/intro/index';
 $route['voice/a'] = 'voices/import/index';
 $route['voice/a/(:any)'] = 'voices/import/$1';
 $route['voice/b'] = 'voices/test_duty/index';
-$route['voice/b/(:any)'] = 'voices/test_duty/$1';
+$route['voice/b/duty/預覽任務編組表'] = 'voices/test_duty/duty_b5';
+$route['voice/b/duty/(:any)'] = 'voices/test_duty/duty/$1';
+// $route['voice/b/(:any)'] = 'voices/test_duty/$1';
 
 
 $route['voice/f'] = 'voices/test_setting/index';
