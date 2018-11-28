@@ -26,7 +26,7 @@ class Test_duty extends CI_Controller {
     }
     function duty($block){
         $block = urldecode($block);
-        echo $block;
+        
         switch ($block) {
             case '考區':
                 
@@ -73,6 +73,7 @@ class Test_duty extends CI_Controller {
             'fees_info'=>$fees_info,
             'job'=>$job,
             'datatime_info'=>$datatime_info,
+            'test_partition'=>$test_partition,
         );
         $this->load->view('layout', $data);
     }

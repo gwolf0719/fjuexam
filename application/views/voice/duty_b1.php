@@ -375,8 +375,19 @@
             var total = day_total;
             $("#total").val(total)
         })
+        
 
     });
+</script>
+<script>
+
+$(function(){
+    
+    $('#title_img').attr('src','assets/images/b<?=$test_partition+1?>_title.png');
+
+})
+
+
 </script>
 
 <div class="row">
@@ -391,8 +402,9 @@
 
     </div>
 
-    <div class="col-sm-8" style="text-align: center;">
-        <img src="assets/images/b1_title.png" alt="" style="width: 15%;">
+    <div class="col-sm-8 title_img" style="text-align: center;">
+    
+        <img  id='title_img' src="assets/images/b1_title.png" alt="" style="width: 15%;">
     </div>
 
 </div>
@@ -459,6 +471,7 @@
         <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4" style="margin:20px 0px 20px 25px">
             <div class="row">
                 <div for="" class="col-2" style="display: inline-block;line-height:40px;text-align:right;">職務</div>
+                <?php print_r($job);?>
                 <select class="form-control col-4" id="job" disabled>
                     <?php foreach ($job as $k => $v): ?>
                     <option value = "<?=$v['job']?>">

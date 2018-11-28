@@ -4,7 +4,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 class Test_assign extends CI_Controller {
 
 
-    public function assign_c()
+    public function index()
     {
         // $this->load->model('mod_voice_assign');
         $this->mod_user->chk_status();

@@ -26,6 +26,22 @@ $(function(){
     })
 })
 </script>
+<script>
+
+     $(function () {
+        <?php
+            $year = $this->session->userdata('year');
+            $ladder = $this->session->userdata('ladder');
+            if($year =="" || $ladder ==""){ ?>
+
+                alert('請輸入學年度跟場次並點選送出')
+                history.go(-1);
+        <?php  }?>  
+
+    })
+
+
+</script>
 <div class="row">
     <div class="input-group col-sm-3">
 
@@ -33,14 +49,14 @@ $(function(){
             <span class="input-group-text" id="inputGroup-sizing-default">學年度</span>
         </div>
         <input type="text" class="form-control" aria-label="Default" aria-describedby="inputGroup-sizing-default" value="<?=$this->session->userdata('year'); ?>" readonly>
-        
+        <input type="text" class="form-control"  value="<?=$this->session->userdata('ladder'); ?>" style="width:100px;" readonly>
         
         
     </div>
     
 </div>
 <div class="row" >
-    <input type="hidden" arr="<?php print_r($datalist); ?>" id="arr">
+   
     <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4 cube text-center">
         <a href="./designated/c_1">
             <img src="assets/images/c1.png" alt="">
