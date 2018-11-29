@@ -11,3 +11,9 @@ $config['course']['subject_07'] = '數甲';
 $config['course']['subject_08'] = '歷史';
 $config['course']['subject_09'] = '地理';
 $config['course']['subject_10'] = '公民與社會';
+
+
+$config['partition']['0'] = '考區';
+$config['partition']['1'] = '第一分區';
+$config['partition']['2'] = '第二分區';
+$config['partition']['3'] = '第三分區';

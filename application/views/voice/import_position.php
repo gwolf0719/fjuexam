@@ -131,6 +131,7 @@ $(function(){
     </div>
 </div>
 <div class="row cube" id="b0" >
+
    <div class="col-12" style="margin-top: 10px;">
         <table class="table table-hover" id="" style="text-align:center;">
             <thead>
@@ -144,7 +145,7 @@ $(function(){
             <?php foreach ($datalist as $k => $v): ?>
                 <tr sn="<?=$v['sn']; ?>">
                     <td><?=$k + 1; ?></td>
-                    <td><?=$v['area']; ?></td>
+                    <td><?=$this->config->item('partition')[$v['area']] ?></td>
                     <td><?=$v['job']; ?></td>
                 </tr>
             <?php endforeach; ?>
@@ -154,6 +155,7 @@ $(function(){
 </div>
 <div class="row cube" id="b1" >
    <div class="col-12" style="margin-top: 10px;">
+
         <table class="table table-hover" id="" style="text-align:center;">
             <thead>
                 <tr>
@@ -166,7 +168,7 @@ $(function(){
             <?php foreach ($datalist1 as $k => $v): ?>
                 <tr sn="<?=$v['sn']; ?>">
                     <td><?=$k + 1; ?></td>
-                    <td><?=$v['area']; ?></td>
+                    <td>考區</td>
                     <td><?=$v['job']; ?></td>
                 </tr>
             <?php endforeach; ?>
@@ -188,7 +190,7 @@ $(function(){
             <?php foreach ($datalist2 as $k => $v): ?>
                 <tr sn="<?=$v['sn']; ?>">
                     <td><?=$k + 1; ?></td>
-                    <td><?=$v['area']; ?></td>
+                    <td>第一分區</td>
                     <td><?=$v['job']; ?></td>
                 </tr>
             <?php endforeach; ?>
@@ -210,7 +212,7 @@ $(function(){
             <?php foreach ($datalist3 as $k => $v): ?>
                 <tr sn="<?=$v['sn']; ?>">
                     <td><?=$k + 1; ?></td>
-                    <td><?=$v['area']; ?></td>
+                    <td>第二分區</td>
                     <td><?=$v['job']; ?></td>
                 </tr>
             <?php endforeach; ?>
@@ -232,7 +234,7 @@ $(function(){
             <?php foreach ($datalist4 as $k => $v): ?>
                 <tr sn="<?=$v['sn']; ?>">
                     <td><?=$k + 1; ?></td>
-                    <td><?=$v['area']; ?></td>
+                    <td>第三分區</td>
                     <td><?=$v['job']; ?></td>
                 </tr>
             <?php endforeach; ?>

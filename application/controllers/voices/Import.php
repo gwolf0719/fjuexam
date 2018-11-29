@@ -61,6 +61,7 @@ class Import extends CI_Controller {
     function position(){
 
         $this->load->model('mod_voice_job_list');
+        $test_partition =  $this->input->get('area');
         $datalist = array();
         $datalist1 = array();
         $datalist2 = array();
@@ -71,10 +72,10 @@ class Import extends CI_Controller {
             'path' => 'voice/import_position',
             'path_text' => ' > 英聽主選單 > 資料匯入作業 > 職務資料',
             "datalist"=>$this->mod_voice_job_list->voice_where_voice_position(),
-            'datalist1'=>$this->mod_voice_job_list->voice_where_voice_area1(),
-            'datalist2'=>$this->mod_voice_job_list->voice_where_voice_area2(),
-            'datalist3'=>$this->mod_voice_job_list->voice_where_voice_area3(),
-            'datalist4'=>$this->mod_voice_job_list->voice_where_voice_area4()
+            'datalist1'=>$this->mod_voice_job_list->voice_where_voice_area(0),
+            'datalist2'=>$this->mod_voice_job_list->voice_where_voice_area(1),
+            'datalist3'=>$this->mod_voice_job_list->voice_where_voice_area(2),
+            'datalist4'=>$this->mod_voice_job_list->voice_where_voice_area(3)
         );
         $this->load->view('voice/layout', $data);
     }

@@ -226,7 +226,7 @@ class Api extends CI_Controller {
     public function import_position(){
 
         $this->load->model('mod_voice_job_list');
-
+        
       if (isset($_FILES['file'])) { 
             $file = $_FILES['file']['tmp_name'];
             $file_name = './tmp/'.time().'.csv';
@@ -241,8 +241,8 @@ class Api extends CI_Controller {
                    
                     $datas[$i]['year'] = $this->session->userdata('year');
                     $datas[$i]['ladder'] = $this->session->userdata('ladder');
-                    $datas[$i]['area'] = $data[0];
-                    $datas[$i]['job'] = $data[1];
+                    $datas[$i]['area'] = $this->input->post('test_partition');  
+                    $datas[$i]['job'] = $data[0];
                     $datas[$i]['test_partition'] = $this->input->post('test_partition');
                 
                     $i = $i + 1;
