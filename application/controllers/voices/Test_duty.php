@@ -45,7 +45,7 @@ class Test_duty extends CI_Controller {
                
         }
         $year = $this->session->userdata('year');
-        $job = $this->mod_voice_job_list->get_job_list($year,$block);
+        $job = $this->mod_voice_job_list->get_job_list($year,$test_partition);
         if ($this->mod_voice_test_pay->chk_once($year)) {
             $fees_info = $this->mod_voice_test_pay->get_once($year);
         } else {
@@ -74,6 +74,8 @@ class Test_duty extends CI_Controller {
             'job'=>$job,
             'datatime_info'=>$datatime_info,
             'test_partition'=>$test_partition,
+            'block'=> $block,
+
         );
         $this->load->view('layout', $data);
     }
@@ -83,19 +85,17 @@ class Test_duty extends CI_Controller {
      */
     public function duty_b5()
     {
-        $this->load->model('mod_voice_test_pay');
         $this->load->model('mod_voice_job_list');
-        $this->load->model('mod_voice_exam_datetime');
         $this->mod_user->chk_status();
         $data = array(
             'title' => '預覽任務編組表',
             'path' => 'voice/duty_b5',
             'path_text' => ' > 英聽主選單 > 考區任務編組 > 預覽任務編組表',
             'all' => $this->mod_voice_job_list->get_list(),
-            'b1' => $this->mod_voice_job_list->get_list('考區'),
-            'b2' => $this->mod_voice_job_list->get_list('第一分區'),
-            'b3' => $this->mod_voice_job_list->get_list('第二分區'),
-            'b4' => $this->mod_voice_job_list->get_list('第三分區'),
+            'b1' => $this->mod_voice_job_list->get_list(0),
+            'b2' => $this->mod_voice_job_list->get_list(1),
+            'b3' => $this->mod_voice_job_list->get_list(2),
+            'b4' => $this->mod_voice_job_list->get_list(3),
         );
         $this->load->view('layout', $data);
     }

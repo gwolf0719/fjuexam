@@ -121,7 +121,7 @@
                 },
                 dataType: "json"
             }).done(function(data) {
-
+                console.log(data);
                 if (data.info.do_date == "") {
                     $('input:checkbox[name="day"]').eq(0).prop("checked", true);
                 } else {
@@ -258,7 +258,7 @@
             $.post("./voice/api/assignment", {
                 job_code: code[0],
                 job: $("#search_job").text(),
-                area: "考區",
+                area:  "<?=$block?>",
             }, function(data) {
                 alert(data.sys_msg);
               
@@ -298,7 +298,7 @@
          */
         $("body").on("click", "#new_job", function() {
             var job = prompt("請輸入職務名稱");
-            var area = "<?= $block ?>";
+            var area = "<?=$block ?>";
             var test_partition = '<?=$test_partition?>'
             if (job == null) {
                 alert("動作取消");
@@ -309,7 +309,7 @@
                     $.getJSON("./voice/api/job_add", {
                         test_partition:'<?=$test_partition?>',
                         job: job,
-                        area: '<?= $block?>',
+                        area: '<?=$block?>',
                     }, function(data) {
                         alert(data.sys_msg);
                         location.reload();
@@ -432,7 +432,7 @@ $(function(){
                         <?=$k + 1; ?>
                     </td>                 
                     <td>
-                        <?=$v['area']; ?>
+                        <?=$this->config->item('partition')[$v['test_partition']];?>
                     </td>
                     <td>
                         <?=$v['job']; ?>

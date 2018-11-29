@@ -17,10 +17,10 @@ class Mod_voice_job_list extends CI_Model
         $this->db->where('ladder',$this->session->userdata('ladder'));
         return $this->db->get('voice_job_list')->result_array();
     }
-    public function get_job_list($year, $block)
+    public function get_job_list($year, $test_partition)
     {
         $this->db->where('year', $year);
-        $this->db->where('area', $block);
+        $this->db->where('test_partition', $test_partition);
         $this->db->select('job');
 
         return $this->db->get('voice_job_list')->result_array();
@@ -32,29 +32,12 @@ class Mod_voice_job_list extends CI_Model
         $this->db->where('test_partition',$test_partition);
         return $this->db->get('voice_job_list')->result_array();
     }
-    // function voice_where_voice_area1($partition)
-    // {
-    //     $this->db->where('year',$this->session->userdata('year'));
-    //     $this->db->where('test_partition',$partition); 
-    //     return $this->db->get('voice_job_list')->result_array();
-    // }
+
 
     // function voice_where_voice_area2()
     // {
     //     $this->db->where('year',$this->session->userdata('year'));
     //     $this->db->where('test_partition','1');
-    //     return $this->db->get('voice_job_list')->result_array();
-    // }
-    // function voice_where_voice_area3()
-    // {
-    //     $this->db->where('year',$this->session->userdata('year'));
-    //     $this->db->where('test_partition','2');
-    //     return $this->db->get('voice_job_list')->result_array();
-    // }
-    // function voice_where_voice_area4()
-    // {
-    //     $this->db->where('year',$this->session->userdata('year'));
-    //     $this->db->where('test_partition','3');
     //     return $this->db->get('voice_job_list')->result_array();
     // }
 
@@ -65,12 +48,12 @@ class Mod_voice_job_list extends CI_Model
     /**
      * 建立新職務.
      */
-     public function add_job($year,$area, $job, $trial_start, $trial_end)
+     public function add_job($year,$test_partition,$area, $job, $trial_start, $trial_end)
      {
          $data = array(
              'year' => $year,
              'ladder'=>$this->session->userdata('ladder'),
-             'test_partition'=>'0',
+             'test_partition'=>$test_partition,
              'area' => $area,
              'job' => $job,
              'trial_start' => $trial_start,
@@ -162,15 +145,17 @@ class Mod_voice_job_list extends CI_Model
          return true;
      }
      
-    public function get_list($area = '')
+    public function get_list($test_partition = '')
     {
         $this->db->where('year', $this->session->userdata('year'));
-        if ($area != '') {
-            $this->db->where('area', $area);
+        if ($test_partition !== '') {
+            $this->db->where('test_partition', $test_partition);
         }
         $this->db->order_by('sn', 'asc');
-
-        return $this->db->get('voice_job_list')->result_array();
+        
+         $list =  $this->db->get('voice_job_list')->result_array();
+    
+         return $list;
     }
 
 
