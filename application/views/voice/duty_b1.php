@@ -393,16 +393,17 @@ $(function(){
 </script>
 
 <div class="row">
-    <div class="input-group col-sm-2">
+<div class="p-2 "  style="width:300px;">
+        <div class="input-group">
 
-        <div class="input-group-prepend">
-            <span class="input-group-text" id="inputGroup-sizing-default">學年度</span>
-        </div>
-        <input type="text" class="form-control" aria-label="Default" aria-describedby="inputGroup-sizing-default" value="<?=$this->session->userdata('year'); ?>"
-            readonly>
+            <div class="input-group-prepend">
+                <span class="input-group-text" id="inputGroup-sizing-default">學年度</span>
+            </div>
+            <input type="text" class="form-control"  value="<?=$this->session->userdata('year'); ?>" style="width:60px;" readonly>
             <input type="text" class="form-control"  value="<?=$this->session->userdata('ladder'); ?>" style="width:100px;" readonly>
-
-    </div>
+            
+        </div>
+ </div>
 
     <div class="col-sm-8 title_img" style="text-align: center;">
     
@@ -461,7 +462,6 @@ $(function(){
 
 <div class="bottom">
     <div class="row boxs">
-
         <!-- 職務選擇開始 -->
         <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4" style="margin:20px 0px 20px 25px">
             <div class="row">

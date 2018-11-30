@@ -56,13 +56,13 @@ class Api extends CI_Controller {
                     
                     $datas[$i]['year'] = $this->session->userdata('year');
                     $datas[$i]['ladder'] = $this->session->userdata('ladder');
-                    $datas[$i]['area_id'] = $data[0];
+                    $datas[$i]['part'] = $data[0];
                     $datas[$i]['area_name'] = $data[1];
                     $datas[$i]['class'] = $data[2];
                     $datas[$i]['block_name'] = $data[3];
-                    $datas[$i]['class_room'] = $data[4];
-                    $datas[$i]['start_num'] = $data[5];
-                    $datas[$i]['end_num'] = $data[6];
+                    $datas[$i]['field'] = $data[4];
+                    $datas[$i]['start'] = $data[5];
+                    $datas[$i]['end'] = $data[6];
                     $datas[$i]['count_num'] = $data[7];
                     $i = $i + 1;
                 }
@@ -460,9 +460,83 @@ class Api extends CI_Controller {
         echo json_encode($json_arr);
     }
 
+    /**
+     * C 相關api.
+     */
+     public function get_once_part()
+     {
+         $this->load->model('mod_voice_part_info');
+         $getpost = array('sn');
+         $requred = array('sn');
+         $data = $this->getpost->getpost_array($getpost, $requred);
+         if ($data == false) {
+             $json_arr['sys_code'] = '000';
+             $json_arr['sys_msg'] = '資料不足';
+             $json_arr['requred'] = $this->getpost->report_requred($requred);
+         } else {
+             $json_arr['info'] = $this->mod_voice_part_info->get_once($data['sn']);
+             $json_arr['sys_code'] = '200';
+             $json_arr['sys_msg'] = '資料處理完成';
+         }
+         echo json_encode($json_arr);
+     }
+     public function save_part()
+    {
+        $this->load->model('mod_voice_part_info');
+        $getpost = array('sn', 'part', 'start','end', 'floor','note');
+        $requred = array('sn','start', 'end','floor', );
+        $data = $this->getpost->getpost_array($getpost, $requred);
+        if ($data == false) {
+            $json_arr['sys_code'] = '000';
+            $json_arr['sys_msg'] = '資料不足';
+            $json_arr['requred'] = $this->getpost->report_requred($requred);
+        } else {
+            $this->mod_voice_part_info->update_once($data['sn'], $data);
+            $json_arr['sys_code'] = '200';
+            $json_arr['sys_msg'] = '資料儲存完成';
+        }
+        echo json_encode($json_arr);
+    }
+    public function save_floor()
+    {
+        $this->load->model('mod_voice_part_info');
+        $getpost = array('sn','part','start', 'end','floor','note');
+        $requred = array('part','start', 'end','floor');
+        $data = $this->getpost->getpost_array($getpost, $requred);
+        if ($data == false) {
+            $json_arr['sys_code'] = '000';
+            $json_arr['sys_msg'] = '資料不足';
+            $json_arr['requred'] = $this->getpost->report_requred($requred);
+        } else {
+            $this->mod_voice_part_info->update_floor($data);
+            $json_arr['sys_code'] = '200';
+            $json_arr['sys_msg'] = '資料儲存完成';
+        }
+        echo json_encode($json_arr);
+    }
+    public function save_addr()
+    {
+        $this->load->model('mod_voice_part_addr');
+        $getpost = array('year', 'part_addr_1', 'part_addr_2', 'part_addr_3');
+        $requred = array('year', 'part_addr_1', 'part_addr_2', 'part_addr_3');
+        $data = $this->getpost->getpost_array($getpost, $requred);
+        $year = $this->session->userdata('year');
+        if ($data == false) {
+            $json_arr['sys_code'] = '000';
+            $json_arr['sys_msg'] = '資料不足';
+            $json_arr['requred'] = $this->getpost->report_requred($requred);
+        } else {
+            if ($this->mod_voice_part_addr->chk_once($year)) {
+                $this->mod_voice_part_addr->update_once($year, $data);
+            } else {
+                $this->mod_voice_part_addr->add_once($data);
+            }
+            $json_arr['sys_code'] = '200';
+            $json_arr['sys_msg'] = '儲存成功';
+        }
+        echo json_encode($json_arr);
+    }
  
-
-
     /* 
     f 頁  考試日期修改
     */

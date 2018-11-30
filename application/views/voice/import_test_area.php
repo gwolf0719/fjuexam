@@ -67,7 +67,6 @@ tr{
 <!-- 標題選單列結束 -->
 
 <div class="row">
-    
    <div class="col-12" style="margin-top: 10px;">
         <table class="table table-hover" id="">
             <thead>
@@ -92,13 +91,13 @@ tr{
                     <td><?=$k + 1; ?></td>
                     <td><?=$v['year']; ?></td>
                     <td><?=$v['ladder']; ?></td>
-                    <td><?=$v['area_id']; ?></td>
+                    <td><?=$v['part']; ?></td>
                     <td><?=$v['area_name']; ?></td>
                     <td><?=$v['class']; ?></td>
                     <td><?=$v['block_name']; ?></td>
-                    <td><?=$v['class_room']; ?></td>
-                    <td><?=$v['start_num']; ?></td>
-                    <td><?=$v['end_num']; ?></td>
+                    <td><?=$v['field']; ?></td>
+                    <td><?=$v['start']; ?></td>
+                    <td><?=$v['end']; ?></td>
                     <td><?=$v['count_num']; ?></td>                    
                 </tr>
             <?php endforeach; ?>

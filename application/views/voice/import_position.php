@@ -131,7 +131,6 @@ $(function(){
     </div>
 </div>
 <div class="row cube" id="b0" >
-
    <div class="col-12" style="margin-top: 10px;">
         <table class="table table-hover" id="" style="text-align:center;">
             <thead>
@@ -145,7 +144,7 @@ $(function(){
             <?php foreach ($datalist as $k => $v): ?>
                 <tr sn="<?=$v['sn']; ?>">
                     <td><?=$k + 1; ?></td>
-                    <td><?=$this->config->item('partition')[$v['area']] ?></td>
+                    <td><?=$this->config->item('partition')[$v['test_partition']] ?></td>
                     <td><?=$v['job']; ?></td>
                 </tr>
             <?php endforeach; ?>
