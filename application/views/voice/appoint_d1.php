@@ -139,16 +139,7 @@
                     $(".part").hide();
                     $('#part' + nowTabNum).show();
                     break;                    
-                // case "#2":
-                //     $('.tab2').addClass('active');
-                //     $(".part").hide();                
-                //     $('#part' + nowTabNum).show();
-                //     break;
-                // case "#3":
-                //     $('.tab3').addClass('active');
-                //     $(".part").hide();                 
-                //     $('#part' + nowTabNum).show();
-                //     break;
+            
             }
         }    
 
@@ -209,18 +200,6 @@
             });
         })
 
-        // $(".part").eq(0).show();
-        // $("body").on("click", ".tab", function() {
-        //     var $this = $(this);
-
-        //     // //點擊先做還原動作
-        //     // $(".tab").removeClass("active");
-        //     // $(".part").hide();
-        //     // // 點擊到的追加active以及打開相對應table
-        //     // $this.addClass("active");
-        //     // var area = $this.attr("area");
-        //     // $("#part" + area).show();
-        // })
 
         // 監試人員一指派動作 
         $("body").on("click", "#sure1", function() {
@@ -271,7 +250,7 @@
                 scrollTop: $("body").height()
             }, 1000);
             $.ajax({
-                url: 'api/get_once_part',
+                url: './voice/api/get_once_part',
                 data: {
                     "sn": sn,
                 },
@@ -306,7 +285,7 @@
 
                 //取得監試人員資料
                 $.ajax({
-                    url: 'api/get_once_assign',
+                    url: './voice/api/get_once_assign',
                     data: {
                         "sn": sn,
                     },
@@ -336,7 +315,7 @@
                 var note = $("textarea[name='note']").val();
                 console.log(field);
                 $.ajax({
-                    url: 'api/save_trial',
+                    url: './voice/api/save_trial',
                     data: {
                         "sn": sn,
                         "part": part,
@@ -441,6 +420,7 @@
 
 </div>
 <div class="row" style="position: relative;top: 20px;left: 10px;">
+<?php print_r($part1);?>
     <div style="width:95%;margin:5px auto;">
         <div class="tab tab1 active" area="1" part="2501" eng="first">
             <div class="tab_text">第一分區</div>
@@ -454,7 +434,6 @@
     </div>
 </div>
 <div class="row part" id="part1" style="height:700px;overflow: auto;">
-
     <div class="col-12" style="margin-top: 10px;">
         <table class="table table-hover" id="">
             <thead>
@@ -483,7 +462,7 @@
                         <?=$v['field']; ?>
                     </td>
                     <td>
-                        <?=$v['test_section']; ?>
+                        <?=$v['class']; ?>
                     </td>
                     <td>
                         <?=$v['start']; ?>
@@ -492,7 +471,7 @@
                         <?=$v['end']; ?>
                     </td>
                     <td>
-                        <?=$v['number']; ?>
+                        <?=$v['count_num']; ?>
                     </td>
                     <td>
                         <?=$v['floor']; ?>

@@ -33,4 +33,5 @@ class Mod_exam_fees extends CI_Model
     }
 }
 
+
 /* End of file Mod_exam_area.php */

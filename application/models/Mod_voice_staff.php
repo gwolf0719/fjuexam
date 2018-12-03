@@ -56,6 +56,11 @@ class Mod_voice_staff extends CI_Model
 
         return true;
     }
+    
+    public function get_staff_member($code)
+    {
+        return $this->db->where('member_code', $code)->get('voice_import_member')->row_array();
+    }
 
     
 
