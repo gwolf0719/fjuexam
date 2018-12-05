@@ -4,6 +4,26 @@ defined('BASEPATH') or exit('No direct script access allowed');
 
 class Unit extends CI_Controller
 {
+    // 資料庫匯出備份
+    public function db_backup()
+    {
+        $DBUSER=$this->db->username;
+        $DBPASSWD=$this->db->password;
+        $DATABASE=$this->db->database;
+
+        $filename = $DATABASE . "-" . date("Y-m-d_H-i-s") . ".sql.gz";
+        $mime = "application/x-gzip";
+
+        header( "Content-Type: " . $mime );
+        header( 'Content-Disposition: attachment; filename="' . $filename . '"' );
+
+        // $cmd = "mysqldump -u $DBUSER --password=$DBPASSWD $DATABASE | gzip --best";   
+        $cmd = "mysqldump -u $DBUSER --password=$DBPASSWD --no-create-info --complete-insert $DATABASE | gzip --best";
+
+        passthru( $cmd );
+
+        exit(0);
+    }
     function import_position(){
         if (isset($_FILES['file'])) { 
             $file = $_FILES['file']['tmp_name'];
