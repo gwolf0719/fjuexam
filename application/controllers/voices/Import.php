@@ -34,30 +34,9 @@ class Import extends CI_Controller {
         $this->load->model('mod_voice_exam_area');
         
         $datalist = array();
-        $datas_trial[] = array(
-            'year' => $this->session->userdata('year'),
-            'supervisor_1' => '',
-            'supervisor_1_code' => '',
-            'supervisor_2' => '',
-            'supervisor_2_code' => '',
-            'trial_staff_code_1' => '',
-            'trial_staff_code_2' => '',
-            'first_member_do_date' => '',
-            'first_member_day_count' => '',
-            'first_member_salary_section' => '',
-            'first_member_section_salary_total' => '',
-            'first_member_section_total' => '',
-            'second_member_do_date' => '',
-            'second_member_day_count' => '',
-            'second_member_salary_section' => '',
-            'second_member_section_salary_total' => '',
-            'second_member_section_total' => '',
-            'note' => '',
-        );
-  
 
-        $this->mod_voice_trial->import($datas_trial);
-     
+  
+       
 
         $data = array(
             'title' => '考區試場資料',
@@ -65,7 +44,7 @@ class Import extends CI_Controller {
             'path_text' => ' > 英聽主選單 > 資料匯入作業 > 考區試場資料',
             "datalist"=> $this->mod_voice_area->voice_where_voice_area_main()
         );
-        $this->load->view('voice/layout', $data);
+        $this->load->view('voice/voice_layout', $data);
     }
     /**
      * a3 工作人員資料
@@ -80,7 +59,7 @@ class Import extends CI_Controller {
             'path_text' => ' > 英聽主選單 > 資料匯入作業 > 考區試場資料',
             "datalist"=>$this->mod_voice_staff->voice_where_voice_import_staff_member()
         );
-        $this->load->view('voice/layout', $data);
+        $this->load->view('voice/voice_layout', $data);
     }
     /**
      * a4 職務資料
@@ -104,7 +83,7 @@ class Import extends CI_Controller {
             'datalist3'=>$this->mod_voice_job_list->voice_where_voice_area(2),
             'datalist4'=>$this->mod_voice_job_list->voice_where_voice_area(3)
         );
-        $this->load->view('voice/layout', $data);
+        $this->load->view('voice/voice_layout', $data);
     }
 
 

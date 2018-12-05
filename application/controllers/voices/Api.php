@@ -38,60 +38,115 @@ class Api extends CI_Controller {
 
 
     /**
-     * 匯入考場資料
+     *  a1 匯入考場資料 
      */
     function import_test_area(){
-        
+
+        $this->load->model('mod_voice_trial');
         $this->load->model('mod_voice_area');
+        $this->load->model('mod_voice_exam_area');
+       
         if (isset($_FILES['file'])) { 
+            
             $file = $_FILES['file']['tmp_name'];
             $file_name = './tmp/'.time().'.csv';
             copy($file, $file_name);
             $file = fopen($file_name, 'r');
             $row = 0;
             $i = 0;
+            $datas = array();
             while (!feof($file)) {
                 $data = fgetcsv($file);
+
                 if($row > 0 && $data != false){
                     
                     $datas[$i]['year'] = $this->session->userdata('year');
                     $datas[$i]['ladder'] = $this->session->userdata('ladder');
                     $datas[$i]['part'] = $data[0];
                     $datas[$i]['area_name'] = $data[1];
-                    $datas[$i]['class'] = $data[2];
-                    $datas[$i]['block_name'] = $data[3];
-                    $datas[$i]['field'] = $data[4];
-                    $datas[$i]['start'] = $data[5];
-                    $datas[$i]['end'] = $data[6];
-                    $datas[$i]['count_num'] = $data[7];
+                    $datas[$i]['class'] = '1';
+                    $datas[$i]['block_name'] = $data[2];
+                    $datas[$i]['field'] = $data[3];
+                    $datas[$i]['start'] = $data[4];
+                    $datas[$i]['end'] = $data[5];
+                    $datas[$i]['count_num'] = $data[6];
                     $i = $i + 1;
+                   
                 }
+                
                 $row = $row+1;
+               
+                $datalist = array();
+                
 
-                // $datas[] = array(
-                //     'year' => $this->session->userdata('year'),
-                //     'part' => $data[0],
-                //     'part_name' => $data[1],
-                //     'field' => $data[2],
-                //     'start' => $data[3],
-                //     'end' => $data[4],
-                //     'number' => $data[5],
-                //     'subject_01' => $data[6],
-                //     'subject_02' => $data[7],
-                //     'subject_03' => $data[8],
-                //     'subject_04' => $data[9],
-                //     'subject_05' => $data[10],
-                //     'subject_06' => $data[11],
-                //     'subject_07' => $data[12],
-                //     'subject_08' => $data[13],
-                //     'subject_09' => $data[14],
-                //     'subject_10' => $data[15],
-                //     'air_test_field' => $data[16],
-                // );
+                    $datas_trial[] = array(
+                        'year' => $this->session->userdata('year'),
+                        'ladder'=>$this->session->userdata('ladder'),
+                        'supervisor_1' => '',
+                        'supervisor_1_code' => '',
+                        'supervisor_2' => '',
+                        'supervisor_2_code' => '',
+                        'trial_staff_code_1' => '',
+                        'trial_staff_code_2' => '',
+                        'first_member_do_date' => '',
+                        'first_member_day_count' => '',
+                        'first_member_salary_section' => '',
+                        'first_member_section_salary_total' => '',
+                        'first_member_section_total' => '',
+                        'second_member_do_date' => '',
+                        'second_member_day_count' => '',
+                        'second_member_salary_section' => '',
+                        'second_member_section_salary_total' => '',
+                        'second_member_section_total' => '',
+                        'note' => '',
+                    );
+
+
+                    $data_1 = array();
+
+                    if($row > 0 && $data != false){
+
+                        $data_1[$i]['year'] = $this->session->userdata('year');
+                        $data_1[$i]['ladder'] = $this->session->userdata('ladder');
+                        $data_1[$i]['part'] = $data[0];
+                        $data_1[$i]['area_name'] = $data[1];
+                        $data_1[$i]['class'] = '1';
+                        $data_1[$i]['block_name'] = $data[2];
+                        $data_1[$i]['field'] = $data[3];
+                        $data_1[$i]['start'] = $data[4];
+                        $data_1[$i]['end'] = $data[5];
+                        $data_1[$i]['number'] = $data[6];
+                        $data_1[$i]['subject_01'] = '';
+                        $data_1[$i]['air_test_field'] = '';
+                        $i = $i + 1;
+
+                    }
+                    
+                    $row = $row+1;
+                    // $data_1[] = array(
+                    //     'year' => $this->session->userdata('year'),
+                    //     'ladder'=>$this->session->userdata('ladder'),
+                    //     'part' => $data[0],
+                    //     'area_name' => $data[1],
+                    //     'class'=> "1",
+                    //     'block_name'=>$data[2],
+                    //     'field' => $data[3],
+                    //     'start' => $data[4],
+                    //     'end' => $data[5],
+                    //     'number' => $data[6],
+                    //     'subject_01' =>"",
+                    //     'air_test_field' =>"",
+                    // );
+
+
+                    
+                
             }
             $this->mod_voice_area->clean_voice_area_main();
             $this->mod_voice_area->insert_batch($datas);
-            // $this->mod_vocie_exam_area->import($datas);
+            $this->mod_voice_exam_area->import($data_1);
+            $this->mod_voice_trial->import($datas_trial);
+
             
             fclose($file);
             unlink($file_name);
@@ -435,6 +490,7 @@ class Api extends CI_Controller {
          $this->load->model('mod_voice_job_list');
  
          $res = $this->mod_voice_job_list->get_member_info();
+         
          foreach ($res as $key => $value) {
              $json_arr['info'][$key]['id'] = $value['member_code'];
              $json_arr['info'][$key]['name'] = $value['member_code'].' - '.$value['member_name'];
@@ -444,6 +500,7 @@ class Api extends CI_Controller {
  
          echo json_encode($json_arr);
      }
+
 
       //確定指派
     public function assignment()
@@ -460,6 +517,31 @@ class Api extends CI_Controller {
             $json_arr['info'] = $this->mod_voice_job_list->get_once_info($data['job_code']);
             $json_arr['sys_code'] = '200';
             $json_arr['sys_msg'] = '資料處理完成';
+        }
+        echo json_encode($json_arr);
+    }
+
+     /**
+    * 檢查監試人員是否指派過
+    */
+    public function chk_trial_assigned(){
+        $this->load->model('mod_voice_trial');
+        $getpost = array('code');
+        $requred = array('code');
+        $data = $this->getpost->getpost_array($getpost, $requred);
+        if ($data == false) {
+            $json_arr['sys_code'] = '000';
+            $json_arr['sys_msg'] = '資料不足';
+            $json_arr['requred'] = $this->getpost->report_requred($requred);
+        } else {
+            if($this->mod_voice_trial->chk_trial_assigned($data['code'])){
+                $json_arr['sys_code'] = '500';
+                $json_arr['sys_msg'] = '該人員已經被指派過，請選擇其他人員';
+            }else{
+                $json_arr['sys_code'] = '200';
+                $json_arr['sys_msg'] = 'success';
+            }
+            $json_arr['sql'] = $this->db->last_query();
         }
         echo json_encode($json_arr);
     }
@@ -583,15 +665,10 @@ class Api extends CI_Controller {
                 $fees_info = $this->mod_voice_test_pay->get_once($_SESSION['year']);
                 $part_info = $this->mod_voice_part_info->get_once($data['sn']);
                 $do_date = array();
-                if($day[0] != ""){
-                    array_push($do_date,mb_substr($datetime_info['day_1'], 5, 8, 'utf-8'));
-                }
-                if($day[1] != ""){
-                    array_push($do_date,mb_substr($datetime_info['day_2'], 5, 8, 'utf-8'));
-                }   
-                if($day[2] != ""){
-                    array_push($do_date,mb_substr($datetime_info['day_3'], 5, 8, 'utf-8'));
-                }                
+                $first_member_salary_total = $part_info['class'] * $fees_info['pay_1'];
+                $first_member_total = $first_member_salary_total; 
+                $second_member_salary_total = $part_info['class'] * $fees_info['pay_1'];
+                $second_member_total = $second_member_salary_total ;                          
                 $date = implode(",",$do_date);
 
                 $sql_data = array (
@@ -606,8 +683,8 @@ class Api extends CI_Controller {
                     'second_member_do_date'=>$date,
                     'first_member_day_count'=>count($do_date),
                     'second_member_day_count'=>count($do_date),
-                    'first_member_salary_section'=> $fees_info['salary_section'],
-                    'second_member_salary_section'=> $fees_info['salary_section'],
+                    'first_member_salary_section'=> $fees_info['pay_1'],
+                    'second_member_salary_section'=> $fees_info['pay_1'],
                     'first_member_section_salary_total'=> $first_member_salary_total,
                     'second_member_section_salary_total'=> $second_member_salary_total,    
                     'first_member_section_total'=> $first_member_total,
@@ -642,6 +719,35 @@ class Api extends CI_Controller {
         }
         echo json_encode($json_arr);
     }
+
+    /*
+    清空Data
+    */
+    public function remove_trial()
+    {
+        $this->load->model('mod_vocie_trial');
+        $this->load->model('mod_voice_staff');
+        $getpost = array('sn', 'supervisor_1', 'supervisor_1_code', 'supervisor_2', 'supervisor_2_code', 'trial_staff_code_1', 'trial_staff_code_2', 'note','first_member_do_date','first_member_day_count','first_member_salary_section','first_member_section_salary_total','first_member_section_total','second_member_do_date','second_member_day_count','second_member_salary_section','second_member_section_salary_total','second_member_section_total');
+        $requred = array('sn', 'supervisor_1', 'supervisor_1_code', 'supervisor_2', 'supervisor_2_code', 'trial_staff_code_1', 'trial_staff_code_2', 'note','first_member_do_date','first_member_day_count','first_member_salary_section','first_member_section_salary_total','first_member_section_total','second_member_do_date','second_member_day_count','second_member_salary_section','second_member_section_salary_total','second_member_section_total');
+        $data = $this->getpost->getpost_array($getpost, $requred);
+        if ($data == false) {
+            $json_arr['sys_code'] = '000';
+            $json_arr['sys_msg'] = '資料不足';
+            $json_arr['requred'] = $this->getpost->report_requred($requred);
+        } else {
+            $data['year'] = $this->session->userdata('year');
+            if ($this->mod_vocie_trial->chk_once($data['sn'])) {
+
+                $this->mod_vocie_trial->update_once($data['sn'], $data);
+            } else {
+                $json_arr['sys_code'] = '404';
+                $json_arr['sys_msg'] = '查無此資料';
+            }
+            $json_arr['sys_code'] = '200';
+            $json_arr['sys_msg'] = '資料刪除完成';
+        }
+        echo json_encode($json_arr);
+    }  
  
     /* 
     f 頁  考試日期修改

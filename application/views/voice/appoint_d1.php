@@ -161,7 +161,7 @@
             $("#supervisor_2_code").val("");
             $("#note").val("");            
             console.log(newHash);
-            if (nowHtml == "d_1") {
+            if (nowHtml == "appoint_d1") {
                 //開闔div
                 $(".part").css({
                     "display": "none"
@@ -174,7 +174,7 @@
                 location.hash = '#' + newHash;
             } else {
                 //如果本頁不是f_2_2則為一般超連結
-                location.href = './designated/d_1' + newHash;
+                location.href = './voice/d/appoint_d1' + newHash;
                 $('#part' + newHash).show();
             }
         })            
@@ -188,9 +188,10 @@
             }
         })
 
+       
         /**自動完成 */
         var data;
-        $.getJSON("./api/get_member_info", function(data) {
+        $.getJSON("./voice/api/get_member_info", function(data) {
             data = data.info;
             // console.log(data);
             var $input = $(".typeahead");
@@ -227,7 +228,7 @@
         * 檢查監試人員是否指派過
         */
         function chk_code_use(code,callback){
-            $.getJSON("./api/chk_trial_assigned",{
+            $.getJSON("./voice/api/chk_trial_assigned",{
                 code:code
                 },
                 function (data) {
@@ -301,6 +302,37 @@
             })
         })
 
+         $('body').on('click','tr',function () {
+
+           var td_field= $(this).find('td').eq(2).text();
+           console.log(td_field);
+           switch (td_field) {
+
+               case "上午場":
+                    // readonly();
+                    removeMenu();
+                    $("#do_date").prop("checked",true);
+                    $("#morning").prop("checked",true);
+                   break;
+                case "下午場":
+                // readonly();
+                removeMenu();
+                $("#do_date").prop("checked",true);
+                $("#aftermorning").prop("checked",true);
+                   break;
+               
+           } 
+           function removeMenu(){
+                $("input[type='checkbox']").prop('checked', false);
+            }
+            function readonly() {
+                $("input[type='checkbox']").prop('disabled', true);
+            }
+            
+             
+         })
+
+
         $("body").on("click", "#send", function() {
             if (confirm("是否要儲存?")) {
                 var sn = $("#sn").val();
@@ -332,7 +364,7 @@
                 }).done(function(data) {
                     alert(data.sys_msg);
                     if (data.sys_code == "200") {
-                        // location.reload();
+                        location.reload();
                         console.log(note);
                         $("tr").each(function(){
                             if($(this).attr("sn") == $("#sn").val()){
@@ -353,7 +385,7 @@
                 var sn = $("#sn").val();
                 console.log(sn);
                 $.ajax({
-                    url: 'api/remove_trial',
+                    url: './voice/api/remove_trial',
                     data: {
                         "sn": sn,
                         "supervisor_1": " ",
@@ -362,23 +394,15 @@
                         "supervisor_2_code": " ",
                         "trial_staff_code_1": " ",
                         "trial_staff_code_2": " ",
-                        "first_member_order_meal":" ",
-                        "first_member_meal":" ",
-                        "second_member_order_meal":" ",
-                        "second_member_meal":" ",  
                         "first_member_do_date":" ",
                         "first_member_day_count":" ",
                         "first_member_salary_section":" ",
                         "first_member_section_salary_total":" ",
-                        "first_member_lunch_price":" ",
-                        "first_member_section_lunch_total":" ",
                         "first_member_section_total":" ",
                         "second_member_do_date":" ",
                         "second_member_day_count":" ",
                         "second_member_salary_section":" ",
                         "second_member_section_salary_total":" ",
-                        "second_member_lunch_price":" ",
-                        "second_member_section_lunch_total":" ",
                         "second_member_section_total":" ",
                         "note": " "
                     },
@@ -411,6 +435,7 @@
         </div>
         <input type="text" class="form-control" aria-label="Default" aria-describedby="inputGroup-sizing-default" value="<?=$this->session->userdata('year'); ?>"
             readonly>
+            <input type="text" class="form-control"  value="<?=$this->session->userdata('ladder'); ?>" style="width:100px;" readonly>
 
     </div>
 
@@ -420,7 +445,6 @@
 
 </div>
 <div class="row" style="position: relative;top: 20px;left: 10px;">
-<?php print_r($part1);?>
     <div style="width:95%;margin:5px auto;">
         <div class="tab tab1 active" area="1" part="2501" eng="first">
             <div class="tab_text">第一分區</div>
@@ -440,10 +464,7 @@
                 <tr>
                     <th>序號</th>
                     <th>試場</th>
-                    <th>考試節數</th>
-                    <th>考生應試號起</th>
-                    <th>考生應試號迄</th>
-                    <th>應試人數</th>
+                    <th>場次</th>
                     <th>樓層別</th>
                     <th>監試人員一編號</th>
                     <th>監試人員一</th>
@@ -458,21 +479,8 @@
                     <td>
                         <?=$k + 1; ?>
                     </td>
-                    <td>
-                        <?=$v['field']; ?>
-                    </td>
-                    <td>
-                        <?=$v['class']; ?>
-                    </td>
-                    <td>
-                        <?=$v['start']; ?>
-                    </td>
-                    <td>
-                        <?=$v['end']; ?>
-                    </td>
-                    <td>
-                        <?=$v['count_num']; ?>
-                    </td>
+                    <td><?=$v['field']; ?></td>
+                    <td><?=$v['block_name']; ?></td>
                     <td>
                         <?=$v['floor']; ?>
                     </td>
@@ -505,10 +513,7 @@
                 <tr>
                     <th>序號</th>
                     <th>試場</th>
-                    <th>考試節數</th>
-                    <th>考生應試號起</th>
-                    <th>考生應試號迄</th>
-                    <th>應試人數</th>
+                    <th>場次</th>
                     <th>樓層別</th>
                     <th>監試人員一編號</th>
                     <th>監試人員一</th>
@@ -523,21 +528,8 @@
                     <td>
                         <?=$k + 1; ?>
                     </td>
-                    <td>
-                        <?=$v['field']; ?>
-                    </td>
-                    <td>
-                        <?=$v['test_section']; ?>
-                    </td>
-                    <td>
-                        <?=$v['start']; ?>
-                    </td>
-                    <td>
-                        <?=$v['end']; ?>
-                    </td>
-                    <td>
-                        <?=$v['number']; ?>
-                    </td>
+                    <td><?=$v['field']; ?></td>
+                    <td><?=$v['block_name']; ?></td>
                     <td>
                         <?=$v['floor']; ?>
                     </td>
@@ -570,10 +562,7 @@
                 <tr>
                     <th>序號</th>
                     <th>試場</th>
-                    <th>考試節數</th>
-                    <th>考生應試號起</th>
-                    <th>考生應試號迄</th>
-                    <th>應試人數</th>
+                    <th>場次</th>
                     <th>樓層別</th>
                     <th>監試人員一編號</th>
                     <th>監試人員一</th>
@@ -591,18 +580,7 @@
                     <td>
                         <?=$v['field']; ?>
                     </td>
-                    <td>
-                        <?=$v['test_section']; ?>
-                    </td>
-                    <td>
-                        <?=$v['start']; ?>
-                    </td>
-                    <td>
-                        <?=$v['end']; ?>
-                    </td>
-                    <td>
-                        <?=$v['number']; ?>
-                    </td>
+                    <td><?=$v['block_name']; ?></td>
                     <td>
                         <?=$v['floor']; ?>
                     </td>
@@ -641,26 +619,28 @@
                             <input type="hidden" class="form-control" id="part">
                         </div>
                         <div class="form-group">
-                            <label for="section" class="" style="float:left;">考試節數</label>
-                            <input type="text" class="form-control" id="section" readonly>
-                        </div>
-                        <div class="form-group">
-                            <label for="start" class="" style="float:left;">考生應試號起</label>
-                            <input type="text" class="form-control" id="start" readonly>
-                        </div>
-                        <div class="form-group">
-                            <label for="end" class="" style="float:left;">考生應試號迄</label>
-                            <input type="text" class="form-control" id="end" readonly>
+                            <label for="floor" class="" style="float:left;">樓層別</label>
+                            <input type="text" class="form-control" id="floor" readonly>
                         </div>
                     </div>
                     <div class="col-md-3 col-sm-3 col-xs-3 cube">
                         <div class="form-group">
-                            <label for="number" class="" style="float:left;">應試人數</label>
-                            <input type="text" class="form-control" id="number" readonly>
+                            <label for="start_date" class="" style="float:left;" value="<?=$datatime_info['day'];?>">執行日</label>
+                            <input type="checkbox" class="chbox" id="do_date" name="day" checked>
+                            <span class="chbox"  >
+                                <?=$datatime_info['day']; ?>
+                            </span>
                         </div>
                         <div class="form-group">
-                            <label for="floor" class="" style="float:left;">樓層別</label>
-                            <input type="text" class="form-control" id="floor" readonly>
+                            <label for="floor" class="" style="float:left;">場次</label>
+                            <input type="checkbox" class="chbox" id='morning'  name="day" >
+                            <span class="chbox"  >
+                                 上午場
+                            </span>
+                            <input type="checkbox" class="chbox" id='aftermorning' name="day"  >
+                            <span class="chbox"  >
+                                 下午場
+                            </span>
                         </div>
                     </div>
                     <div class="col-md-3 col-sm-3 col-xs-3 cube" style="background:#afccf0"> 

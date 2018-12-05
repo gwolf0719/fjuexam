@@ -22,7 +22,7 @@ class Test_duty extends CI_Controller {
             'path' => 'voice/test_member_duty_index',
             'path_text' => ' > 考區任務編組主選單',
         );
-        $this->load->view('layout', $data);
+        $this->load->view('voice_layout', $data);
     }
     function duty($block){
         $block = urldecode($block);
@@ -77,7 +77,7 @@ class Test_duty extends CI_Controller {
             'block'=> $block,
 
         );
-        $this->load->view('layout', $data);
+        $this->load->view('voice_layout', $data);
     }
 
     /**
@@ -97,7 +97,7 @@ class Test_duty extends CI_Controller {
             'b3' => $this->mod_voice_job_list->get_list(2),
             'b4' => $this->mod_voice_job_list->get_list(3),
         );
-        $this->load->view('layout', $data);
+        $this->load->view('voice_layout', $data);
     }
 
   

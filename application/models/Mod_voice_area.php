@@ -11,8 +11,9 @@ class Mod_voice_area extends CI_Model {
         return true;
     }
     // 多筆輸入
-    function insert_batch($data){
-        $this->db->insert_batch('voice_area_main', $data);
+    function insert_batch($datas){
+        $this->db->where('year', $this->session->userdata('year'))->delete('voice_area_main');
+        $this->db->insert_batch('voice_area_main', $datas);
     }
   
     //把資料丟到陣列

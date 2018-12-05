@@ -11,7 +11,7 @@ class Intro extends CI_Controller {
             'path' => 'voice/index',
             'path_text' => ' > 英聽主選單',
         );
-        $this->load->view('voice/layout', $data);
+        $this->load->view('voice/voice_layout', $data);
     }
 
 

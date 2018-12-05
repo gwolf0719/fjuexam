@@ -22,7 +22,7 @@ class Test_assign extends CI_Controller {
             'datalist'=> $this->mod_part_info->get_list(),   
         );
 
-         $this->load->view('layout', $data);
+         $this->load->view('voice_layout', $data);
 
     }
     
@@ -64,7 +64,7 @@ class Test_assign extends CI_Controller {
             'test_partition'=>$test_partition,
 
        );
-       $this->load->view('layout',$data);
+       $this->load->view('voice_layout',$data);
     }
 
     public function  assign_c4()
@@ -89,7 +89,7 @@ class Test_assign extends CI_Controller {
             'path_text' => ' > 英聽主選單 > 分區地址',
             'addr_info' => $addr_info,
         );
-        $this->load->view('layout', $data);
+        $this->load->view('voice_layout', $data);
     }
 
 

@@ -9,10 +9,10 @@ class Mod_voice_trial extends CI_Model
     {
         $this->db->select('*');
         if ($part != '') {
-            $this->db->where('part', $part);
+            $this->db->where('voice_area_main.part', $part);
         }
         $this->db->from('voice_area_main');
-        // $this->db->join('voice_trial_assign', 'voice_area_main.sn = voice_trial_assign.sn');
+        $this->db->join('voice_trial_assign', 'voice_area_main.sn = voice_trial_assign.sn','left');
         return $this->db->get()->result_array();
     }
 
@@ -47,6 +47,28 @@ class Mod_voice_trial extends CI_Model
         }
     }
 
+    public function get_trial_list($part = '')
+    {
+        $this->db->where('year', $this->session->userdata('year'));
+        if ($part != '') {
+            $this->db->where('part', $part);
+        }
+
+        return $this->db->get('voice_trial_assign')->result_array();
+    }
+
+      /**
+     * 檢查監試人員是否指派過
+     */
+     public function chk_trial_assigned($trial_staff_code){
+        $this->db->where('supervisor_1_code',$trial_staff_code);
+        $this->db->or_where('supervisor_2_code',$trial_staff_code);
+        if($this->db->count_all_results('voice_trial_assign') == 0){
+            return false;
+        }else{
+            return true;
+        }
+    }
 
 
 

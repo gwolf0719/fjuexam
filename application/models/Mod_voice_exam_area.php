@@ -4,11 +4,11 @@ defined('BASEPATH') or exit('No direct script access allowed');
 
 class Mod_voice_exam_area extends CI_Model
 {
-    public function import($datas)
+    public function import($data_1)
     {
         // 先清除當年資料
         $this->db->where('year', $this->session->userdata('year'))->delete('voice_exam_area');
-        $this->db->insert('voice_exam_area', $datas);
+        $this->db->insert_batch('voice_exam_area', $data_1);
     }
 
     public function year_get_list($part='')
@@ -30,40 +30,16 @@ class Mod_voice_exam_area extends CI_Model
 
         $res = $this->db->get('voice_exam_area')->result_array();
         $number1 = 0;
-        $number2 = 0;
-        $number3 = 0;
-        $number4 = 0;
-        $number5 = 0;
-        $number6 = 0;
-        $number7 = 0;
-        $number8 = 0;
-        $number9 = 0;
-        $number10 = 0;
-        for ($i=0; $i < count($res); $i++) { 
+ 
+       
             # code...
             $number1 += $res[$i]['subject_01'];
-            $number2 += $res[$i]['subject_02'];
-            $number3 += $res[$i]['subject_03'];
-            $number4 += $res[$i]['subject_04'];
-            $number5 += $res[$i]['subject_05'];
-            $number6 += $res[$i]['subject_06'];
-            $number7 += $res[$i]['subject_07'];
-            $number8 += $res[$i]['subject_08'];
-            $number9 += $res[$i]['subject_09'];
-            $number10 += $res[$i]['subject_10'];
+      
             $arr = array(
                 'number1'=> $number1,
-                'number2'=> $number2,
-                'number3'=> $number3,
-                'number4'=> $number4,
-                'number5'=> $number5,
-                'number6'=> $number6,
-                'number7'=> $number7,
-                'number8'=> $number8,
-                'number9'=> $number9,
-                'number10'=> $number10,
+               
             );
-        }
+        
         return $arr;
     }
 
@@ -140,3 +116,4 @@ class Mod_voice_exam_area extends CI_Model
 }
 
 /* End of file Mod_exam_area.php */
+?>

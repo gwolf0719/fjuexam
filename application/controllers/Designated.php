@@ -40,7 +40,7 @@ class Designated extends CI_Controller
         $this->load->model('mod_patrol');
         $this->mod_user->chk_status();
         if (isset($_FILES['file'])) { // 如果有接收到上傳檔案資料
-            // print_r($_FILES);
+            
             $file = $_FILES['file']['tmp_name'];
             $file_name = './tmp/'.time().'.csv';
             copy($file, $file_name);
@@ -51,6 +51,7 @@ class Designated extends CI_Controller
                 $data = fgetcsv($file);
                 $arr = array();
                 array_push($arr, $data['6'], $data['7'], $data['8'], $data['9'], $data['10'], $data['11'], $data['12'], $data['13'], $data['14'], $data['15']);
+                
                 foreach ($arr as $k => $v) {
                     if ($v == '0') {
                         unset($arr[$k]);

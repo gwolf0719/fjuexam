@@ -36,25 +36,24 @@ function room_use_day($start,$end,$part){
     $year  = $this->session->userdata("year");
     // 取得每日考科
     $day = array();
-    for($i=1;$i<=3;$i++){
-        foreach ($this->db->select('subject')->where('year',$year)->where('day',$i)->get('exam_course')->result_array() as $key => $value) {
-            # code...
-            if($value['subject'] != "subject_00"){
-                $day[$i][] = $value['subject'];
-            }
-        }
-    }
+    // for($i=1;$i<=3;$i++){
+    //     foreach ($this->db->select('subject')->where('year',$year)->where('day',$i)->get('exam_course')->result_array() as $key => $value) {
+    //         # code...
+    //         if($value['subject'] != "subject_00"){
+    //             $day[$i][] = $value['subject'];
+    //         }
+    //     }
+    // }
     // 確認每一天
     $res = array();
-     for($i=1;$i<=3;$i++){
         $where = array(
             'part'=>$part,
             'field <='=>$end,
             'field >='=>$start
         );
-        foreach($day[$i] as $k=>$v){
-            $where[$v] = 0;
-        }
+        // foreach($day[$i] as $k=>$v){
+        //     $where[$v] = 0;
+        // }
         $section = array(
             'part'=>$part,
             'field <='=>$end,
@@ -68,7 +67,7 @@ function room_use_day($start,$end,$part){
         }else{
             $res[] = true;
         }
-    }
+   
     
     return $res;
 }

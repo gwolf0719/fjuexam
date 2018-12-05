@@ -76,7 +76,6 @@ tr{
                     <th>第幾次</th>
                     <th>分區</th>
                     <th>分區名稱</th>
-                    <th>節次</th>
                     <th>考區</th>
                     <th>試場</th>
                     <th>應試號碼起</th>
@@ -93,7 +92,6 @@ tr{
                     <td><?=$v['ladder']; ?></td>
                     <td><?=$v['part']; ?></td>
                     <td><?=$v['area_name']; ?></td>
-                    <td><?=$v['class']; ?></td>
                     <td><?=$v['block_name']; ?></td>
                     <td><?=$v['field']; ?></td>
                     <td><?=$v['start']; ?></td>

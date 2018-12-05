@@ -11,7 +11,7 @@ class Test_setting extends CI_Controller {
             'path' => 'voice/testing_setting_index',
             'path_text' => ' > 考程設定',
         );
-        $this->load->view('layout', $data);
+        $this->load->view('voice_layout', $data);
     }
 
     /*
@@ -42,7 +42,7 @@ class Test_setting extends CI_Controller {
             'path_text' => ' > 指考主選單 > 考程設定 > 考試日期與時間',
             'datetime_info' => $datetime_info,
         );
-        $this->load->view('layout', $data);
+        $this->load->view('voice_layout', $data);
     }
     public function test_subjects()
     {
@@ -75,7 +75,7 @@ class Test_setting extends CI_Controller {
             'data_subject' =>$data_subject,
 
         );
-        $this->load->view('layout',$data);
+        $this->load->view('voice_layout',$data);
     }
 
 
@@ -105,7 +105,7 @@ class Test_setting extends CI_Controller {
             'data_pay'=>$data_pay,
 
         );
-        $this->load->view('layout',$data);
+        $this->load->view('voice_layout',$data);
     }
 
     
