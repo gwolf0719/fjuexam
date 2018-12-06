@@ -52,7 +52,7 @@
         </a>    
     </div>
     <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4 cube text-center">
-        <a href="./designated/d_2#1">
+        <a href="./voice/d/appoint_d2">
             <img src="assets/images/d2.png" alt="">
         </a>    
     

@@ -30,6 +30,10 @@ class Mod_voice_trial extends CI_Model
 
         return true;
     }
+    public function get_once_trial_by_code($trial_staff_code)
+    {
+        return $this->db->where('member_code', $trial_staff_code)->get('voice_import_member')->row_array();
+    }  
 
     
     public function get_once_assign($sn)
@@ -54,7 +58,13 @@ class Mod_voice_trial extends CI_Model
             $this->db->where('part', $part);
         }
 
-        return $this->db->get('voice_trial_assign')->result_array();
+        return $this->db->get('voice_trial_staff')->result_array();
+    }
+    public function add_trial($data)
+    {
+        $this->db->insert('voice_trial_staff', $data);
+
+        return true;
     }
 
       /**

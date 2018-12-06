@@ -54,26 +54,24 @@ class Appoint extends CI_Controller {
     {
         $this->load->model('mod_voice_part_info');
         $this->load->model('mod_voice_trial');
-        $this->load->model('mod_exam_area');
+        $this->load->model('mod_voice_exam_area');
         $this->load->model('mod_voice_exam_datetime');
         $this->mod_user->chk_status();
         $year = $this->session->userdata('year');
-        $part = $this->mod_exam_area->get_part('2501');
+        $part = $this->mod_voice_exam_area->get_part('2501');
         $part1 = $this->mod_voice_trial->get_trial_list('2501');
         $part2 = $this->mod_voice_trial->get_trial_list('2502');
         $part3 = $this->mod_voice_trial->get_trial_list('2503');
-        if ($this->mod_exam_datetime->chk_once($year)) {
-            $datetime_info = $this->mod_exam_datetime->get_once($year);
+        if ($this->mod_voice_exam_datetime->chk_once($year)) {
+            $datetime_info = $this->mod_voice_exam_datetime->get_once($year);
         } else {
             $datetime_info = array(
-                'day_1' => '07/01',
-                'day_2' => '07/02',
-                'day_3' => '07/03',
+                'day_1' => '10/22',
             );
         }
         $data = array(
             'title' => '管卷人員指派',
-            'path' => 'designated/d_2',
+            'path' => 'voice/appoint_d2',
             'path_text' => ' > 指考主選單 > 試場人員指派 > 管卷人員指派',
             'part' => $part,
             'part1' => $part1,

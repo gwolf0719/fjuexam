@@ -70,11 +70,13 @@ class Api extends CI_Controller {
                     $datas[$i]['start'] = $data[4];
                     $datas[$i]['end'] = $data[5];
                     $datas[$i]['count_num'] = $data[6];
+                    $datas[$i]['subject_01'] = '';
+                    $datas[$i]['air_test_field'] = '';
                     $i = $i + 1;
                    
                 }
-                
                 $row = $row+1;
+               
                
                 $datalist = array();
                 
@@ -100,51 +102,12 @@ class Api extends CI_Controller {
                         'second_member_section_total' => '',
                         'note' => '',
                     );
-
-
-                    $data_1 = array();
-
-                    if($row > 0 && $data != false){
-
-                        $data_1[$i]['year'] = $this->session->userdata('year');
-                        $data_1[$i]['ladder'] = $this->session->userdata('ladder');
-                        $data_1[$i]['part'] = $data[0];
-                        $data_1[$i]['area_name'] = $data[1];
-                        $data_1[$i]['class'] = '1';
-                        $data_1[$i]['block_name'] = $data[2];
-                        $data_1[$i]['field'] = $data[3];
-                        $data_1[$i]['start'] = $data[4];
-                        $data_1[$i]['end'] = $data[5];
-                        $data_1[$i]['number'] = $data[6];
-                        $data_1[$i]['subject_01'] = '';
-                        $data_1[$i]['air_test_field'] = '';
-                        $i = $i + 1;
-
-                    }
-                    
-                    $row = $row+1;
-                    // $data_1[] = array(
-                    //     'year' => $this->session->userdata('year'),
-                    //     'ladder'=>$this->session->userdata('ladder'),
-                    //     'part' => $data[0],
-                    //     'area_name' => $data[1],
-                    //     'class'=> "1",
-                    //     'block_name'=>$data[2],
-                    //     'field' => $data[3],
-                    //     'start' => $data[4],
-                    //     'end' => $data[5],
-                    //     'number' => $data[6],
-                    //     'subject_01' =>"",
-                    //     'air_test_field' =>"",
-                    // );
-
-
-                    
+                   
                 
             }
             $this->mod_voice_area->clean_voice_area_main();
             $this->mod_voice_area->insert_batch($datas);
-            $this->mod_voice_exam_area->import($data_1);
+            $this->mod_voice_exam_area->import($datas);
             $this->mod_voice_trial->import($datas_trial);
 
             
@@ -673,6 +636,7 @@ class Api extends CI_Controller {
 
                 $sql_data = array (
                     'sn'=>$data['sn'],
+                    'part'=>$data['part'],
                     'supervisor_1'=>trim($data['supervisor_1']),
                     'supervisor_1_code'=>trim($data['supervisor_1_code']),
                     'supervisor_2_code'=>trim($data['supervisor_2_code']),
@@ -748,7 +712,77 @@ class Api extends CI_Controller {
         }
         echo json_encode($json_arr);
     }  
- 
+
+        /**
+     * D 相關api.
+     */
+     public function get_part()
+     {
+         $this->load->model('mod_voice_exam_area');
+         $getpost = array('part');
+         $requred = array('part');
+         $data = $this->getpost->getpost_array($getpost, $requred);
+         if ($data == false) {
+             $json_arr['sys_code'] = '000';
+             $json_arr['sys_msg'] = '資料不足';
+             $json_arr['requred'] = $this->getpost->report_requred($requred);
+         } else {
+             $json_arr['part'] = $this->mod_voice_exam_area->get_part($data['part']);
+             $json_arr['sys_code'] = '200';
+             $json_arr['sys_msg'] = '資料處理完成';
+         }
+         echo json_encode($json_arr);
+        }
+
+        public function add_trial_staff()
+        {
+            $this->load->model('mod_voice_trial');
+            $this->load->model('mod_voice_test_pay');
+            $getpost = array('part', 'allocation_code', 'trial_staff_code', 'trial_staff_name', 'first_start', 'first_end', 'first_section','note','do_date');
+            $requred = array('part', 'allocation_code', 'trial_staff_code', 'trial_staff_name', 'first_start', 'first_end', 'first_section','do_date');
+            $data = $this->getpost->getpost_array($getpost, $requred);
+            if ($data == false) {
+                $json_arr['sys_code'] = '000';
+                $json_arr['sys_msg'] = '資料不足';
+                $json_arr['requred'] = $this->getpost->report_requred($requred);
+            } else {
+                $data['year'] = $this->session->userdata('year');
+                $member = $this->mod_voice_test_pay->get_once_trial_by_code($data['trial_staff_code']);
+                $do_date = explode(",", $data['do_date']);
+                $fees_info = $this->mod_voice_test_pay->get_once($_SESSION['year']);  
+                $salary_total = ($data['first_section']+$data['second_section']+$data['third_section']) * $fees_info['salary_section'];
+                $total = $salary_total;
+
+                $sql_data = array(
+                    'part'=>$data['part'],
+                    'year'=> $_SESSION['year'],
+                    'allocation_code'=>$data['allocation_code'],
+                    'trial_staff_code'=>trim($data['trial_staff_code']),
+                    'trial_staff_name'=>trim($data['trial_staff_name']),
+                    'first_start'=>$data['first_start'],
+                    'first_end'=>$data['first_end'],
+                    'first_section'=>$data['first_section'],
+                    'calculation'=>'by_section',
+                    'do_date'=>$data['do_date'],
+                    'count'=>count($do_date),
+                    'salary'=>$fees_info['salary_section'],
+                    'salary_total'=> $salary_total,
+                    'total'=> $total,
+                );
+                // print_r($sql_data);
+                // if($this->mod_trial->chk_trial_staff_field($data) == true){
+                //     $json_arr['sys_code'] = '500';
+                //     $json_arr['sys_msg'] = '有重複輸入試場';
+                // }else{
+                    $this->mod_voice_trial->add_trial($sql_data);
+                    $json_arr['sys_code'] = '200';
+                    $json_arr['sys_msg'] = '資料新增完成';                
+                // }
+    
+            }
+            echo json_encode($json_arr);
+        }
+    
     /* 
     f 頁  考試日期修改
     */
@@ -779,7 +813,7 @@ class Api extends CI_Controller {
 
     }
     
-    /** 
+    /*
     f2頁 考試科目
     */
     public function save_subject()
@@ -809,7 +843,7 @@ class Api extends CI_Controller {
 
 
     }
-     /** 
+     /*
     f4頁 考科費用
     */
     public function save_pay()

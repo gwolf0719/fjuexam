@@ -346,6 +346,7 @@
                 var trial_staff_code_2 = $("#trial_staff_code_2").val();
                 var note = $("textarea[name='note']").val();
                 console.log(field);
+                console.log(part);
                 $.ajax({
                     url: './voice/api/save_trial',
                     data: {
