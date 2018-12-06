@@ -739,7 +739,7 @@ class Api extends CI_Controller {
             $this->load->model('mod_voice_trial');
             $this->load->model('mod_voice_test_pay');
             $getpost = array('part', 'allocation_code', 'trial_staff_code', 'trial_staff_name', 'first_start', 'first_end', 'first_section','note','do_date');
-            $requred = array('part', 'allocation_code', 'trial_staff_code', 'trial_staff_name', 'first_start', 'first_end', 'first_section','do_date');
+            $requred = array('part', 'allocation_code', 'trial_staff_code', 'trial_staff_name', 'first_start', 'first_end', 'first_section');
             $data = $this->getpost->getpost_array($getpost, $requred);
             if ($data == false) {
                 $json_arr['sys_code'] = '000';
@@ -747,10 +747,10 @@ class Api extends CI_Controller {
                 $json_arr['requred'] = $this->getpost->report_requred($requred);
             } else {
                 $data['year'] = $this->session->userdata('year');
-                $member = $this->mod_voice_test_pay->get_once_trial_by_code($data['trial_staff_code']);
+                $member = $this->mod_voice_trial->get_once_trial_by_code($data['trial_staff_code']);
                 $do_date = explode(",", $data['do_date']);
                 $fees_info = $this->mod_voice_test_pay->get_once($_SESSION['year']);  
-                $salary_total = ($data['first_section']+$data['second_section']+$data['third_section']) * $fees_info['salary_section'];
+                $salary_total = $data['first_section']*$fees_info['pay_2'];
                 $total = $salary_total;
 
                 $sql_data = array(
@@ -765,7 +765,7 @@ class Api extends CI_Controller {
                     'calculation'=>'by_section',
                     'do_date'=>$data['do_date'],
                     'count'=>count($do_date),
-                    'salary'=>$fees_info['salary_section'],
+                    'salary'=>$fees_info['pay_2'],
                     'salary_total'=> $salary_total,
                     'total'=> $total,
                 );
@@ -782,6 +782,41 @@ class Api extends CI_Controller {
             }
             echo json_encode($json_arr);
         }
+         //取得當天節數
+    public function get_once_day_section()
+    {
+        $this->load->model('mod_voice_exam_datetime');
+        $getpost = array('day', 'start', 'end');
+        $requred = array('day', 'start', 'end');
+        $data = $this->getpost->getpost_array($getpost, $requred);
+        if ($data == false) {
+            $json_arr['sys_code'] = '000';
+            $json_arr['sys_msg'] = '資料不足';
+            $json_arr['requred'] = $this->getpost->report_requred($requred);
+        } else {
+            $json_arr['section'] = $this->mod_voice_exam_datetime->get_once_day_section($data['day'], $data['start'], $data['end']);
+            $json_arr['sys_code'] = '200';
+            $json_arr['sys_msg'] = '資料處理完成';
+        }
+        echo json_encode($json_arr);
+    }
+    public function get_patrol_list()
+    {
+        $this->load->model('mod_voice_patrol');
+        $getpost = array('part');
+        $requred = array('part');
+        $data = $this->getpost->getpost_array($getpost, $requred);
+        if ($data == false) {
+            $json_arr['sys_code'] = '000';
+            $json_arr['sys_msg'] = '資料不足';
+            $json_arr['requred'] = $this->getpost->report_requred($requred);
+        } else {
+            $json_arr['info'] = $this->mod_voice_patrol->get_patrol_list($data['part']);
+            $json_arr['sys_code'] = '200';
+            $json_arr['sys_msg'] = '資料處理完成';
+        }
+        echo json_encode($json_arr);
+    }
     
     /* 
     f 頁  考試日期修改
@@ -842,6 +877,27 @@ class Api extends CI_Controller {
         echo json_encode($json_arr);
 
 
+    }
+    public function add_course()
+    {
+        $this->load->model('mod_voice_exam_datetime');
+        // echo json_encode($_POST);
+        $getpost = array('data');
+        $requred = array('data');
+        $data = $this->getpost->getpost_array($getpost, $requred);
+
+        if ($data == false) {
+            $json_arr['sys_code'] = '000';
+            $json_arr['sys_msg'] = '資料不足';
+            $json_arr['requred'] = $this->getpost->report_requred($requred);
+        } else {
+            $year = $this->session->userdata('year');
+            $this->mod_voice_exam_datetime->clean_course($year);
+            $this->mod_voice_exam_datetime->setting_course($year, $data['data']);
+            $json_arr['sys_code'] = '200';
+            $json_arr['sys_msg'] = '修改成功';
+        }
+        echo json_encode($json_arr);
     }
      /*
     f4頁 考科費用

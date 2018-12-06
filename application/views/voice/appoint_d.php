@@ -58,23 +58,23 @@
     
     </div>
     <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4 cube text-center">
-        <a href="./designated/d_3">
+        <a href="./voice/d/appoint_d3">
             <img src="assets/images/d3.png" alt="">
         </a>   
     </div>
     <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4 cube text-center">
-        <a href="./designated/d_4">
+        <a href="./voice/d/appoint_d4">
             <img src="assets/images/d4.png" alt="">
         </a>    
     </div>
     <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4 cube text-center">
-        <a href="./designated/d_5">
+        <a href="./voice/d/appoint_d5">
             <img src="assets/images/d5.png" alt="">
         </a>    
     
     </div>
     <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4 cube text-center">
-        <a href="./designated/d_6">
+        <a href="./voice/d/appoint_d6">
             <img src="assets/images/d6.png" alt="">
         </a>   
     </div>    

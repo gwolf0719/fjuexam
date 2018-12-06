@@ -213,7 +213,7 @@
         $("body").on("click", ".tab", function(e) {
             e.preventDefault();
             var newHash = $(this).attr("area"); //點到的id
-            console.log(newHash);
+            // console.log(newHash);
             var part = $(this).attr("part");
             $("#part").val(part);
             //點擊先做還原動作
@@ -222,11 +222,9 @@
             $("#trial_staff_code").val("");
             $("#trial_staff_name").val("");
             $("#first_section").val("0");
-            $("#second_section").val("0");
-            $("#third_section").val("0");
             $("textarea[name='note']").val("");
             $.ajax({
-                url: 'api/get_part',
+                url: './voice/api/get_part',
                 data: {
                     "part": part,
                 },
@@ -239,7 +237,7 @@
                 })
                 $(".field").html(html);
             })            
-            if (nowHtml == "d_2") {
+            if (nowHtml == "appoint_d2") {
                 //開闔div
                 $(".part").hide();
                 $('#part' + newHash).show();
@@ -248,7 +246,7 @@
                 $(this).addClass('active');
                 location.hash = '#' + newHash;
             } else {
-                location.href = './designated/d_2' + newHash;
+                location.href = './voice/d/appoint_d2' + newHash;
                 $('#part' + newHash).show();
             }
         })                 
@@ -312,7 +310,7 @@
             })
             var part = $(this).attr("part");
             $.ajax({
-                url: 'api/get_patrol_list',
+                url: './voice/api/get_patrol_list',
                 data: {
                     "part": part,
                 },
@@ -327,61 +325,61 @@
             })
         })
 
-        $("body").on("change", ".field1", function() {
-            var start = $("#first_start").val();
-            var end = $("#first_end").val();
-            var day = $("#day1").val();
-            console.log(day);
-            $.ajax({
-                url: 'api/get_once_day_section',
-                data: {
-                    "day": day,
-                    "start": start,
-                    "end": end,
-                },
-                dataType: "json"
-            }).done(function(data) {
-                console.log(data);
-                $("#first_section").val(data.section);
-            })
-        })
+        // $("body").on("change", ".field1", function() {
+        //     var start = $("#first_start").val();
+        //     var end = $("#first_end").val();
+        //     var day = $("#day1").val();
+        //     console.log(day);
+        //     $.ajax({
+        //         url: 'api/get_once_day_section',
+        //         data: {
+        //             "day": day,
+        //             "start": start,
+        //             "end": end,
+        //         },
+        //         dataType: "json"
+        //     }).done(function(data) {
+        //         console.log(data);
+        //         $("#first_section").val(data.section);
+        //     })
+        // })
 
-        $("body").on("change", ".field2", function() {
-            var start = $("#second_start").val();
-            var end = $("#second_end").val();
-            var day = $("#day2").val();
-            console.log(day);
-            $.ajax({
-                url: 'api/get_once_day_section',
-                data: {
-                    "day": day,
-                    "start": start,
-                    "end": end,
-                },
-                dataType: "json"
-            }).done(function(data) {
-                console.log(data);
-                $("#second_section").val(data.section);
-            })
-        })
+        // $("body").on("change", ".field2", function() {
+        //     var start = $("#second_start").val();
+        //     var end = $("#second_end").val();
+        //     var day = $("#day2").val();
+        //     console.log(day);
+        //     $.ajax({
+        //         url: 'api/get_once_day_section',
+        //         data: {
+        //             "day": day,
+        //             "start": start,
+        //             "end": end,
+        //         },
+        //         dataType: "json"
+        //     }).done(function(data) {
+        //         console.log(data);
+        //         $("#second_section").val(data.section);
+        //     })
+        // })
 
-        $("body").on("change", ".field3", function() {
-            var start = $("#third_start").val();
-            var end = $("#third_end").val();
-            var day = $("#day3").val();
-            console.log(day);
-            $.ajax({
-                url: 'api/get_once_day_section',
-                data: {
-                    "day": day,
-                    "start": start,
-                    "end": end,
-                },
-                dataType: "json"
-            }).done(function(data) {
-                $("#third_section").val(data.section);
-            })
-        })
+        // $("body").on("change", ".field3", function() {
+        //     var start = $("#third_start").val();
+        //     var end = $("#third_end").val();
+        //     var day = $("#day3").val();
+        //     console.log(day);
+        //     $.ajax({
+        //         url: 'api/get_once_day_section',
+        //         data: {
+        //             "day": day,
+        //             "start": start,
+        //             "end": end,
+        //         },
+        //         dataType: "json"
+        //     }).done(function(data) {
+        //         $("#third_section").val(data.section);
+        //     })
+        // })
 
         // $("body").on("change",".field_start",function(){
         //     $(".field_start").each(function(){
@@ -477,12 +475,12 @@
         })        
 
         $("body").on("click", "#add", function() {
-            if ($("#sn").val() == "") {
+            if ($("#sn").val() != "") {
                 if (confirm("目前處於編輯狀態，若要新增，將會清空所有欄位")) {
                     $("#sn").val("")
-                    $("#allocation_code").val("");
-                    $("#trial_staff_code").val("");
-                    $("#trial_staff_name").val("");
+                    $("#allocation_code").val("")
+                    $("#trial_staff_code").val("")
+                    $("#trial_staff_name").val("")
                     $("#first_section").val("0");
                     $("textarea[name='note']").val("");
                 }
@@ -536,6 +534,7 @@
         </div>
         <input type="text" class="form-control" aria-label="Default" aria-describedby="inputGroup-sizing-default" value="<?=$this->session->userdata('year'); ?>"
             readonly>
+            <input type="text" class="form-control"  value="<?=$this->session->userdata('ladder'); ?>" style="width:100px;" readonly>
 
     </div>
 
@@ -741,7 +740,7 @@
                     </div>
                     <div class="form-group">
                         <label for="start" class="" style="float:left;">節數</label>
-                        <input type="text" class="form-control day" id="first_section" value="0" readonly day="<?=mb_substr($datetime_info['day'], 5, 8, 'utf-8'); ?>">
+                        <input type="text" class="form-control day" id="first_section" value="1" readonly day="<?=mb_substr($datetime_info['day'], 5, 8, 'utf-8'); ?>">
                     </div>
                 </div>
 
