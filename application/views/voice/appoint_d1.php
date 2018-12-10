@@ -179,15 +179,7 @@
             }
         })            
 
-        $(window).on("load", function() {
-            var addr = $("#addr").val();
-            // console.log(arr);
-            if (addr == "") {
-                alert("目前 C1 考試地址尚未填寫資料，請先填寫資料再進行操作");
-                location.href = "./designated/c_4";
-            }
-        })
-
+        
        
         /**自動完成 */
         var data;
@@ -257,6 +249,7 @@
                 },
                 dataType: "json"
             }).done(function(data) {
+                console.log(data);
                 $("#sn").val(sn);
                 $("#field").val(data.info.field);
                 $("#start").val(data.info.start);
@@ -476,6 +469,7 @@
             </thead>
             <tbody>
                 <?php foreach ($part1 as $k => $v): ?>
+                
                 <tr sn="<?=$v['sn']; ?>" part="2501" field="<?=$v['field']?>">
                     <td>
                         <?=$k + 1; ?>
