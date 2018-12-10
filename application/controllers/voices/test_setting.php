@@ -77,20 +77,20 @@ class Test_setting extends CI_Controller {
         $this->mod_user->chk_status();
         $this->load->model('mod_voice_test_pay');
         $year = $this->session->userdata('year');
-        if ($this->mod_voice_test_pay->chk_once($year)) {
-            $data_pay = $this->mod_voice_test_pay->get_once($year);
+        $ladder = $this->session->userdata('ladder');
+        if ($this->mod_voice_test_pay->chk_once($year,$ladder)) {
+            $data_pay = $this->mod_voice_test_pay->get_once($year,$ladder);
         } else {
             $data_pay = array(
                 'pay_1' => '0',
                 'pay_2' => '0',
-               
             );
         }
        
         $data = array(
-            'title' => '考試科目',
+            'title' => '考科費用',
             'path' => 'voice/test_pay',
-            'path_text' => ' > 指考主選單 > 考程設定 > 考試科目',
+            'path_text' => ' > 指考主選單 > 考程設定 > 考科費用',
             'data_pay'=>$data_pay,
         );
         $this->load->view('voice_layout',$data);

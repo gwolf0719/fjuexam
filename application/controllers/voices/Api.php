@@ -1023,7 +1023,7 @@ class Api extends CI_Controller {
             $json_arr['requred'] = $this->getpost->report_requred($requred);
 
         }else{
-            if($this->mod_voice_subject->chk_once($year)){
+            if($this->mod_voice_subject->chk_once($year,$data['ladder'])){
                 $this->mod_voice_subject->update_once($year,$data['ladder'],$data);
             }else{
                 $this->mod_voice_subject->add_once($data);
@@ -1068,14 +1068,15 @@ class Api extends CI_Controller {
         $requred = array('year','ladder','pay_1','pay_2');
         $data = $this->getpost->getpost_array($getpost,$requred);
         $year = $this->session->userdata('year');
+        $ladder = $this->session->userdata('ladder');
         if ($data == false) {
             $json_arr['sys_code'] = '000';
             $json_arr['sys_msg'] = '資料不足';
             $json_arr['requred'] = $this->getpost->report_requred($requred);
 
         }else{
-            if($this->mod_voice_test_pay->chk_once($year)){
-                $this->mod_voice_test_pay->update_once($year,$data);
+            if($this->mod_voice_test_pay->chk_once($year,$ladder)){
+                $this->mod_voice_test_pay->update_once($year,$ladder,$data);
             }else{
                 $this->mod_voice_test_pay->add_once($data);
             }
