@@ -626,7 +626,7 @@
                     </div>
                     <div class="col-md-3 col-sm-3 col-xs-3 cube">
                         <div class="form-group">
-                            <label for="start_date" class="" style="float:left;" value="<?=$datatime_info['day'];?>">執行日</label>
+                            <label for="start_date" class=""  value="<?=$datatime_info['day'];?>">執行日</label>
                             <input type="checkbox" class="chbox" id="do_date" name="day" checked>
                             <span class="chbox"  >
                                 <?=$datatime_info['day']; ?>

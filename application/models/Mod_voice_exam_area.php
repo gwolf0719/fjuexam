@@ -108,11 +108,26 @@ class Mod_voice_exam_area extends CI_Model
         $this->db->where('year', $this->session->userdata('year'));
         if ($part != '') {
             $this->db->where('part', $part);
+       
         }
         $this->db->select('part,field');
 
         return $this->db->get('voice_exam_area')->result_array();
     }
+
+    public function get_part_block($part = '',$time)
+    {
+        $this->db->where('year', $this->session->userdata('year'));
+        if ($part != ''&& $time != '') {
+            $this->db->where('part', $part);
+            $this->db->where('block_name',$time);
+        }
+        $this->db->select('part,block_name,field');
+
+        return $this->db->get('voice_exam_area')->result_array();
+    }
+
+
 }
 
 /* End of file Mod_exam_area.php */

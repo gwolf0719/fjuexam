@@ -734,12 +734,127 @@ class Api extends CI_Controller {
          echo json_encode($json_arr);
         }
 
+        public function get_once_patrol()
+        {
+            $this->load->model('mod_voice_patrol');
+            $getpost = array('sn');
+            $requred = array('sn');
+            $data = $this->getpost->getpost_array($getpost, $requred);
+            if ($data == false) {
+                $json_arr['sys_code'] = '000';
+                $json_arr['sys_msg'] = '資料不足';
+                $json_arr['requred'] = $this->getpost->report_requred($requred);
+            } else {
+                $json_arr['info'] = $this->mod_voice_patrol->get_once($data['sn']);
+                $json_arr['sys_code'] = '200';
+                $json_arr['sys_msg'] = '資料處理完成';
+            }
+            echo json_encode($json_arr);
+        }
+
+        public function save_patrol_staff()
+        {
+            $this->load->model('mod_voice_patrol');
+            $getpost = array('sn', 'part', 'allocation_code', 'patrol_staff_code', 'patrol_staff_name', 'start', 'end', 'section', 'note');
+            $requred = array('sn', 'part', 'allocation_code', 'patrol_staff_name', 'start', 'end', 'section');
+            $data = $this->getpost->getpost_array($getpost, $requred);
+            if ($data == false) {
+                $json_arr['sys_code'] = '000';
+                $json_arr['sys_msg'] = '資料不足';
+                $json_arr['requred'] = $this->getpost->report_requred($requred);
+            } else {
+                $data['year'] = $this->session->userdata('year');
+                $this->mod_voice_patrol->update_once($data['sn'], $data);
+                $json_arr['sys_code'] = '200';
+                $json_arr['sys_msg'] = '資料儲存完成';
+            }
+            echo json_encode($json_arr);
+        }
+        public function remove_patrol_staff()
+        {
+            $this->load->model('mod_voice_patrol');
+            $getpost = array('sn');
+            $requred = array('sn');
+            $data = $this->getpost->getpost_array($getpost, $requred);
+            if ($data == false) {
+                $json_arr['sys_code'] = '000';
+                $json_arr['sys_msg'] = '資料不足';
+                $json_arr['requred'] = $this->getpost->report_requred($requred);
+            } else {
+                $data['year'] = $this->session->userdata('year');
+                $this->mod_voice_patrol->remove_patrol_staff($data['sn'], $data);
+                $json_arr['sys_code'] = '200';
+                $json_arr['sys_msg'] = '資料刪除完成';
+            }
+            echo json_encode($json_arr);
+        }
+        public function add_patrol_staff()
+        {
+            $this->load->model('mod_voice_patrol');
+            $this->load->model('mod_voice_exam_datetime');
+            $this->load->model('Mod_voice_test_pay');
+            $this->load->model('mod_voice_staff');
+            $getpost = array('part', 'allocation_code', 'patrol_staff_code', 'patrol_staff_name',  'first_start', 'first_end', 'first_section', 'second_start', 'second_end', 'second_section', 'note');
+            $requred = array('part', 'allocation_code', 'patrol_staff_code', 'patrol_staff_name');
+            $data = $this->getpost->getpost_array($getpost, $requred);
+            if ($data == false) {
+                $json_arr['sys_code'] = '000';
+                $json_arr['sys_msg'] = '資料不足';
+                $json_arr['requred'] = $this->getpost->report_requred($requred);
+            } else {
+                $data['year'] = $this->session->userdata('year');
+                // $day = $this->mod_voice_exam_datetime->room_use_day($data['first_start'], $data['first_end'],$data['part']);
+                $datetime_info = $this->mod_voice_exam_datetime->get_once($_SESSION['year']);
+                $fees_info = $this->Mod_voice_test_pay->get_once($_SESSION['year']);
+                $member = $this->mod_voice_staff->get_staff_member(trim($data['patrol_staff_code']));
+                // $do_date = array();
+                // if($day[0] != ""){
+                //     array_push($do_date,mb_substr($datetime_info['day_1'], 5, 8, 'utf-8'));
+                // }
+                // if($day[1] != ""){
+                //     array_push($do_date,mb_substr($datetime_info['day_2'], 5, 8, 'utf-8'));
+                // }   
+                // if($day[2] != ""){
+                //     array_push($do_date,mb_substr($datetime_info['day_3'], 5, 8, 'utf-8'));
+                // }                
+                // $date = implode(",",$do_date);    
+                    $salary_total = $fees_info['pay_1']*$data['first_section'];
+                    $total = $salary_total;            
+                
+                $data = array(
+                    'part'=>$data['part'],
+                    'year'=>$_SESSION['year'],
+                    'allocation_code'=>$data['allocation_code'],
+                    'patrol_staff_code'=>trim($data['patrol_staff_code']),
+                    'patrol_staff_name'=>trim($data['patrol_staff_name']),
+                    'first_start'=>$data['first_start'],
+                    'first_end'=>$data['first_end'],
+                    'first_section'=>$data['first_section'],
+                    'second_start'=>$data['second_start'],
+                    'second_end'=>$data['second_end'],
+                    'second_section'=>$data['second_section'],
+                    'note'=>$data['note'],
+                    // 'do_date'=>$date,
+                    'calculation'=> 'by_section',
+                    // 'count'=> count($do_date),
+                    'salary'=>$fees_info['pay_1'],
+                    'salary_total'=>$salary_total,
+                    'total'=>$total,
+
+                );
+                $this->mod_voice_patrol->add_once($data);
+                $json_arr['sys_code'] = '200';
+                $json_arr['sys_msg'] = '資料儲存完成';
+            }
+            echo json_encode($json_arr);
+        }
+
         public function add_trial_staff()
         {
             $this->load->model('mod_voice_trial');
             $this->load->model('mod_voice_test_pay');
-            $getpost = array('part', 'allocation_code', 'trial_staff_code', 'trial_staff_name', 'first_start', 'first_end', 'first_section','note','do_date');
-            $requred = array('part', 'allocation_code', 'trial_staff_code', 'trial_staff_name', 'first_start', 'first_end', 'first_section');
+            $getpost = array('part', 'allocation_code', 'trial_staff_code', 'trial_staff_name', 'first_start', 'first_end', 'first_section', 'second_start', 'second_end', 'second_section','note','do_date');
+            $requred = array('part', 'allocation_code');
             $data = $this->getpost->getpost_array($getpost, $requred);
             if ($data == false) {
                 $json_arr['sys_code'] = '000';
@@ -750,7 +865,7 @@ class Api extends CI_Controller {
                 $member = $this->mod_voice_trial->get_once_trial_by_code($data['trial_staff_code']);
                 $do_date = explode(",", $data['do_date']);
                 $fees_info = $this->mod_voice_test_pay->get_once($_SESSION['year']);  
-                $salary_total = $data['first_section']*$fees_info['pay_2'];
+                $salary_total = $data['first_section']*$fees_info['pay_1'];
                 $total = $salary_total;
 
                 $sql_data = array(
@@ -759,26 +874,71 @@ class Api extends CI_Controller {
                     'allocation_code'=>$data['allocation_code'],
                     'trial_staff_code'=>trim($data['trial_staff_code']),
                     'trial_staff_name'=>trim($data['trial_staff_name']),
+                    'second_start'=>$data['second_start'],
+                    'second_end'=>$data['second_end'],
+                    'second_section'=>$data['second_section'],
                     'first_start'=>$data['first_start'],
                     'first_end'=>$data['first_end'],
                     'first_section'=>$data['first_section'],
+                    'second_start'=>$data['second_start'],
+                    'second_end'=>$data['second_end'],
+                    'second_section'=>$data['second_section'],
                     'calculation'=>'by_section',
                     'do_date'=>$data['do_date'],
                     'count'=>count($do_date),
-                    'salary'=>$fees_info['pay_2'],
+                    'salary'=>$fees_info['pay_1'],
                     'salary_total'=> $salary_total,
                     'total'=> $total,
                 );
-                // print_r($sql_data);
-                // if($this->mod_trial->chk_trial_staff_field($data) == true){
-                //     $json_arr['sys_code'] = '500';
-                //     $json_arr['sys_msg'] = '有重複輸入試場';
-                // }else{
+                if($this->mod_voice_trial->chk_trial_staff_field($data) == true){
+                    $json_arr['sys_code'] = '500';
+                    $json_arr['sys_msg'] = '有重複輸入試場';
+                }else{
                     $this->mod_voice_trial->add_trial($sql_data);
                     $json_arr['sys_code'] = '200';
                     $json_arr['sys_msg'] = '資料新增完成';                
-                // }
+                }
     
+            }
+            echo json_encode($json_arr);
+        }
+        public function save_trial_staff()
+        {
+            $this->load->model('mod_voice_trial');
+            $getpost = array('sn', 'part', 'allocation_code', 'trial_staff_code', 'trial_staff_name', 'first_start', 'first_end', 'first_section', 'second_start', 'second_end', 'second_section','note');
+            $requred = array('sn', 'part', 'allocation_code', 'trial_staff_code', 'trial_staff_name', 'first_start', 'first_end', 'first_section', 'second_start', 'second_end', 'second_section');
+            $data = $this->getpost->getpost_array($getpost, $requred);
+            if ($data == false) {
+                $json_arr['sys_code'] = '000';
+                $json_arr['sys_msg'] = '資料不足';
+                $json_arr['requred'] = $this->getpost->report_requred($requred);
+            } else {
+                $data['year'] = $this->session->userdata('year');
+                if ($this->mod_voice_trial->chk_trial($data['sn'])) {
+                    $this->mod_voice_trial->update_trial($data['sn'], $data);
+                } else {
+                    $this->mod_voice_trial->add_trial($data);
+                }
+                $json_arr['sys_code'] = '200';
+                $json_arr['sys_msg'] = '資料儲存完成';
+            }
+            echo json_encode($json_arr);
+        }
+
+        public function get_once_trial()
+        {
+            $this->load->model('mod_voice_trial');
+            $getpost = array('sn');
+            $requred = array('sn');
+            $data = $this->getpost->getpost_array($getpost, $requred);
+            if ($data == false) {
+                $json_arr['sys_code'] = '000';
+                $json_arr['sys_msg'] = '資料不足';
+                $json_arr['requred'] = $this->getpost->report_requred($requred);
+            } else {
+                $json_arr['info'] = $this->mod_voice_trial->get_once_trial($data['sn']);
+                $json_arr['sys_code'] = '200';
+                $json_arr['sys_msg'] = '資料處理完成';
             }
             echo json_encode($json_arr);
         }

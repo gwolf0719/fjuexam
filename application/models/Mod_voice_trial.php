@@ -35,6 +35,11 @@ class Mod_voice_trial extends CI_Model
         return $this->db->where('member_code', $trial_staff_code)->get('voice_import_member')->row_array();
     }  
 
+    public function get_once_trial($sn)
+    {
+        return $this->db->where('sn', $sn)->get('voice_trial_staff')->row_array();
+    }
+
     
     public function get_once_assign($sn)
     {
@@ -66,6 +71,13 @@ class Mod_voice_trial extends CI_Model
 
         return true;
     }
+    public function update_trial($sn, $data)
+    {
+        $this->db->where('sn', $sn);
+        $this->db->update('voice_trial_staff', $data);
+
+        return true;
+    }
 
       /**
      * 檢查監試人員是否指派過
@@ -79,6 +91,23 @@ class Mod_voice_trial extends CI_Model
             return true;
         }
     }
+
+    /**
+     * 檢查管卷人員試場是否重複
+     */
+    function chk_trial_staff_field($data){
+        $this->db->where('part',$data['part']);
+        $this->db->where('first_start',$data['first_start']);
+        $this->db->where('first_end',$data['first_end']);
+        $this->db->where('second_start',$data['second_start']);
+        $this->db->where('second_end',$data['second_end']);
+        if($this->db->count_all_results('voice_trial_staff') == 0){
+            return false;
+        }else{
+            return true;
+        }
+    }
+
 
 
 

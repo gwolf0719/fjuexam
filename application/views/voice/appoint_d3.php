@@ -33,7 +33,7 @@
         border-radius: 10px;
         float: left;
         flex: 0 0 30%;
-        max-width: 35%;
+        max-width: 32%;
         height: auto;
     }
 
@@ -55,12 +55,13 @@
 
     .form-control {
         display: block;
-        width: 75%;
+        width: 65%;
         padding: .375rem .75rem;
-        font-size: 1rem;
+        font-size: 14px;
         line-height: 1.5;
         color: #495057;
         background-color: #fff;
+        background-clip: padding-boxs;
         border: 1px solid #ced4da;
         border-radius: .25rem;
         transition: border-color .15s ease-in-out, boxs-shadow .15s ease-in-out;
@@ -107,27 +108,6 @@
         font-size: 21px;
     }
 
-    .table thead th {
-        vertical-align: middle;
-        border-bottom: 0;
-
-    }
-
-    .table td,
-    .table th {
-        padding: .75rem;
-        vertical-align: top;
-        border-top: 0;
-    }
-
-    .bt {
-        border-top: 1px solid #dee2e6 !important;
-    }
-
-    .bb {
-        border-bottom: 1px solid #dee2e6 !important;
-    }
-
     tr {
         cursor: pointer;
     }
@@ -149,7 +129,7 @@
         var nowHash = location.hash; //取得loading進來後目前#
         var nowTabNum = nowHash.slice(-1);
         var nowHtml = location.pathname.split("/").pop();
-        console.log(nowHash);
+        console.log(nowTabNum);
         var part;
         switch (nowHash) {
             case "#1":
@@ -170,12 +150,13 @@
             dataType: "json"
         }).done(function(data) {
             var html = "";
-            console.log(data);
+            html = '<option value="">請選擇</option>';
             $.each(data.part, function(k, v) {
                 html += '<option value="' + v.field + '">' + v.field + '</option>';
             })
-            $(".field").html(html);
-        })            
+            $("#start").html(html);
+            $("#end").html(html);
+        })               
         if (nowHash != "") {
             $(".part").hide();
             $('#part' + nowTabNum).show();
@@ -184,12 +165,12 @@
         } else {
             //如果loading進來的網址沒有hash，判斷是不是tab頁面
             // console.log(object);
-            switch (nowHash) {     
+            switch (nowHash) {
                 case "":
                     $('.tab1').addClass('active');
                     $(".part").hide();
                     $('#part1').show();
-                    break;                            
+                    break;                   
                 case "#1":
                     $('.tab1').addClass('active');
                     $(".part").hide();
@@ -198,32 +179,47 @@
                 case "#2":
                     $('.tab2').addClass('active');
                     $(".part").hide();                
-                    $('#part' + nowTabNum).show(); 
+                    $('#part' + nowTabNum).show();
                     break;
                 case "#3":
                     $('.tab3').addClass('active');
                     $(".part").hide();                 
-                    $('#part' + nowTabNum).show();                             
+                    $('#part' + nowTabNum).show();
                     break;
             }
-            console.log(part);
-
         }    
 
         $("body").on("click", ".tab", function(e) {
             e.preventDefault();
             var newHash = $(this).attr("area"); //點到的id
-            // console.log(newHash);
-            var part = $(this).attr("part");
-            $("#part").val(part);
-            //點擊先做還原動作
             $("#sn").val("");
-            $("#allocation_code").val("");
-            $("#trial_staff_code").val("");
-            $("#trial_staff_name").val("");
+            $("#allocation_code").val("")
+            $("#patrol_staff_code").val("");
+            $("#patrol_staff_name").val("");
             $("#first_section").val("0");
             $("#second_section").val("0");
             $("textarea[name='note']").val("");
+            $("#section").val(0);     
+
+            console.log(newHash);
+            if (nowHtml == "appoint_d3") {
+                //開闔div
+                $(".part").css({
+                    "display": "none"
+                });
+                $('#part' + newHash).show();
+                //tab樣式
+                $(".tab").removeClass('active');
+                $(this).addClass('active');
+                //修正網址
+                location.hash = '#' + newHash;
+            } else {
+                //如果本頁不是f_2_2則為一般超連結
+                location.href = './voice/d/appoint_d3' + newHash;
+                $('#part' + newHash).show();
+            }
+            var part = $(this).attr("part");
+            $("#part").val(part);
             $.ajax({
                 url: './voice/api/get_part',
                 data: {
@@ -232,25 +228,14 @@
                 dataType: "json"
             }).done(function(data) {
                 var html = "";
+                html = '<option value="">請選擇</option>';
                 $.each(data.part, function(k, v) {
-
                     html += '<option value="' + v.field + '">' + v.field + '</option>';
                 })
-                $(".field").html(html);
+                $("#start").html(html);
+                $("#end").html(html);
             })            
-            if (nowHtml == "appoint_d2") {
-                //開闔div
-                $(".part").hide();
-                $('#part' + newHash).show();
-                //tab樣式
-                $(".tab").removeClass('active');
-                $(this).addClass('active');
-                location.hash = '#' + newHash;
-            } else {
-                location.href = './voice/d/appoint_d2' + newHash;
-                $('#part' + newHash).show();
-            }
-        })                 
+        })              
 
         /**自動完成 */
         var data;
@@ -264,19 +249,13 @@
             });
         })
 
+
         $("body").on("click", "#sure3", function() {
             var code = $(".typeahead").val().split("-");
-            $("#trial_staff_code").val(code[0]);
-            $("#trial_staff_name").val(code[1]);
+            $("#patrol_staff_code").val(code[0]);
+            $("#patrol_staff_name").val(code[1]);
             $('#exampleModal').modal('hide');
         })
-
-        // $(".part").eq(0).show();
-        // $("body").on("click", ".tab", function() {
-        //     var part = $(this).attr("part");
-        //     var $this = $(this);
-
-        // })
 
 
         $("body").on("click", "tr", function() {
@@ -286,7 +265,7 @@
                 scrollTop: $("body").height()
             }, 1000);
             $.ajax({
-                url: './voice/api/get_once_trial',
+                url: './voice/api/get_once_patrol',
                 data: {
                     "sn": sn,
                 },
@@ -296,8 +275,8 @@
                 $("#sn").val(sn);
                 $("#part").val(part);
                 $("#allocation_code").val(data.info.allocation_code);
-                $("#trial_staff_code").val(data.info.trial_staff_code);
-                $("#trial_staff_name").val(data.info.trial_staff_name);
+                $("#patrol_staff_code").val(data.info.patrol_staff_code);
+                $("#patrol_staff_name").val(data.info.patrol_staff_name);
                 $("#first_start").val(data.info.first_start);
                 $("#first_end").val(data.info.first_end);
                 $("#first_section").val(data.info.first_section);
@@ -306,88 +285,25 @@
                 $("#second_section").val(data.info.second_section);
                 $("#note").val(data.info.note);
             })
-            var part = $(this).attr("part");
-            $.ajax({
-                url: './voice/api/get_patrol_list',
-                data: {
-                    "part": part,
-                },
-                dataType: "json"
-            }).done(function(data) {
-                var html = "";
-                $.each(data.info, function(k, v) {
-                    html += '<option value="' + v.field + '">' + v.field + '</option>';
-                })
-                $("#start").html(html);
-                $("#end").html(html);
-            })
+
         })
 
-        // $("body").on("change", ".field1", function() {
-        //     var start = $("#first_start").val();
-        //     var end = $("#first_end").val();
-        //     var day = $("#day1").val();
-        //     console.log(day);
+        // $("body").on("change", ".field", function() {
+        //     var start = $("#start").val();
+        //     var end = $("#end").val();
+        //     console.log(start);
+        //     console.log(end);
+
         //     $.ajax({
-        //         url: 'api/get_once_day_section',
+        //         url: 'api/get_day_section',
         //         data: {
-        //             "day": day,
         //             "start": start,
         //             "end": end,
         //         },
         //         dataType: "json"
         //     }).done(function(data) {
         //         console.log(data);
-        //         $("#first_section").val(data.section);
-        //     })
-        // })
-
-        // $("body").on("change", ".field2", function() {
-        //     var start = $("#second_start").val();
-        //     var end = $("#second_end").val();
-        //     var day = $("#day2").val();
-        //     console.log(day);
-        //     $.ajax({
-        //         url: 'api/get_once_day_section',
-        //         data: {
-        //             "day": day,
-        //             "start": start,
-        //             "end": end,
-        //         },
-        //         dataType: "json"
-        //     }).done(function(data) {
-        //         console.log(data);
-        //         $("#second_section").val(data.section);
-        //     })
-        // })
-
-        // $("body").on("change", ".field3", function() {
-        //     var start = $("#third_start").val();
-        //     var end = $("#third_end").val();
-        //     var day = $("#day3").val();
-        //     console.log(day);
-        //     $.ajax({
-        //         url: 'api/get_once_day_section',
-        //         data: {
-        //             "day": day,
-        //             "start": start,
-        //             "end": end,
-        //         },
-        //         dataType: "json"
-        //     }).done(function(data) {
-        //         $("#third_section").val(data.section);
-        //     })
-        // })
-
-        // $("body").on("change",".field_start",function(){
-        //     $(".field_start").each(function(){
-        //         $('.field_start').val($(this).val());
-        //     })
-        // })
-
-        // $("body").on("change",".field_end",function(){
-        //     $(".field_end").each(function(){
-        //         $('.field_end').val($(this).val());
+        //         $("#section").val(data.section);
         //     })
         // })
 
@@ -396,24 +312,21 @@
                 var sn = $("#sn").val();
                 var part = $("#part").val();
                 var allocation_code = $("#allocation_code").val();
-                var trial_staff_code = $("#trial_staff_code").val();
-                var trial_staff_name = $("#trial_staff_name").val();
-                var first_start = $("#first_start").val();
-                var first_end = $("#first_end").val();
-                var first_section = $("#first_section").val();
-                var second_start = $("#second_start").val();
-                var second_end = $("#second_end").val();
-                var second_section = $("#second_section").val();
+                var patrol_staff_code = $("#patrol_staff_code").val();
+                var patrol_staff_name = $("#patrol_staff_name").val();
+                var start = $("#start").val();
+                var end = $("#end").val();
+                var section = $("#section").val();
                 var note = $("textarea[name='note']").val();
                 console.log(sn);
                 $.ajax({
-                    url: './voice/api/save_trial_staff',
+                    url: './voice/api/save_patrol_staff',
                     data: {
                         "sn": sn,
                         "part": part,
                         "allocation_code": allocation_code,
-                        "trial_staff_code": trial_staff_code,
-                        "trial_staff_name": trial_staff_name,
+                        "patrol_staff_code": patrol_staff_code,
+                        "patrol_staff_name": patrol_staff_name,
                         "first_start": first_start,
                         "first_end": first_end,
                         "first_section": first_section,
@@ -430,19 +343,13 @@
                         $("tr").each(function(){
                             if($(this).attr("sn") == $("#sn").val()){
                                 $(this).find("td").eq(1).text(allocation_code);
-                                $(this).find("td").eq(2).text(trial_staff_name)
-                                $(this).find("td").eq(3).text(first_start)
-                                $(this).find("td").eq(4).text(first_end)
-                                $(this).find("td").eq(5).text(first_section)
-                                $(this).find("td").eq(6).text(second_start)
-                                $(this).find("td").eq(7).text(second_end)
-                                $(this).find("td").eq(8).text(second_section)
-                                $(this).find("td").eq(9).text(third_start)
-                                $(this).find("td").eq(10).text(third_end)
-                                $(this).find("td").eq(11).text(third_section)
-                                $(this).find("td").eq(12).text(note)
+                                $(this).find("td").eq(2).text(patrol_staff_name)
+                                $(this).find("td").eq(3).text(start)
+                                $(this).find("td").eq(4).text(end)
+                                $(this).find("td").eq(5).text(section)
+                                $(this).find("td").eq(6).text(note)
                             }
-                        })
+                        })                        
                     }
                 })
             }
@@ -451,8 +358,9 @@
         $("body").on("click", "#remove", function() {
             if (confirm("是否要取消指派?")) {
                 var sn = $("#sn").val();
+                console.log(sn);
                 $.ajax({
-                    url: 'api/remove_trial_staff',
+                    url: 'api/remove_patrol_staff',
                     data: {
                         "sn": sn,
                     },
@@ -464,24 +372,26 @@
                     }
                 })
             }
-        })        
+        })
 
         $("body").on("click", "#add", function() {
             if ($("#sn").val() != "") {
                 if (confirm("目前處於編輯狀態，若要新增，將會清空所有欄位")) {
-                    $("#sn").val("")
-                    $("#allocation_code").val("")
-                    $("#trial_staff_code").val("")
-                    $("#trial_staff_name").val("")
+                    $("#sn").val("");
+                    $("#allocation_code").val("");
+                    $("#section").val("");
+                    $("#patrol_staff_code").val("");
+                    $("#patrol_staff_name").val("");
                     $("#first_section").val("0");
                     $("#second_section").val("0");
                     $("textarea[name='note']").val("");
+                    $(".field").val("");
                 }
             } else {
                 var part = $("#part").val();
                 var allocation_code = $("#allocation_code").val();
-                var trial_staff_code = $("#trial_staff_code").val();
-                var trial_staff_name = $("#trial_staff_name").val();
+                var patrol_staff_code = $("#patrol_staff_code").val();
+                var patrol_staff_name = $("#patrol_staff_name").val();
                 var first_start = $("#first_start").val();
                 var first_end = $("#first_end").val();
                 var first_section = $("#first_section").val();
@@ -489,21 +399,13 @@
                 var second_end = $("#second_end").val();
                 var second_section = $("#second_section").val();
                 var note = $("textarea[name='note']").val();
-                var arr  = [];
-                $(".day").each(function(){
-                    if($(this).val() != 0){
-                        arr.push($(this).attr("day"));
-                    }
-                })
-                var do_date = arr.join(",");       
-                  
                 $.ajax({
-                    url: './voice/api/add_trial_staff',
+                    url: './voice/api/add_patrol_staff',
                     data: {
                         "part": part,
                         "allocation_code": allocation_code,
-                        "trial_staff_code": trial_staff_code,
-                        "trial_staff_name": trial_staff_name,
+                        "patrol_staff_code": patrol_staff_code,
+                        "patrol_staff_name": patrol_staff_name,
                         "first_start": first_start,
                         "first_end": first_end,
                         "first_section": first_section,
@@ -511,19 +413,18 @@
                         "second_end": second_end,
                         "second_section": second_section,
                         "note": note,
-                        "do_date":do_date
                     },
                     dataType: "json"
                 }).done(function(data) {
                     alert(data.sys_msg);
                     if (data.sys_code == "200") {
-                        window.location.reload();
+                        location.reload();
                     }
                 })
             }
         })
 
-
+        
         $('body').on('click','#morning',function () {
 
             if(this.checked){
@@ -536,7 +437,7 @@
           
             
         })
-          $('body').on('click','#aftermorning',function () {
+        $('body').on('click','#aftermorning',function () {
 
             if(this.checked){
                 $('#second_start').attr('disabled',false);
@@ -565,76 +466,59 @@
     </div>
 
     <div class="col-sm-8" style="text-align: center;">
-        <img src="assets/images/d2_title.png" alt="" style="width: 15%;">
+        <img src="assets/images/d3_title.png" alt="" style="width: 15%;">
     </div>
 
 </div>
 <div class="row" style="position: relative;top: 20px;left: 10px;">
     <div style="width:95%;margin:5px auto;">
-        <div class="tab tab1 active" area="1" part="2501" eng="first">
+        <div class="tab tab1 active" area="1" part="2501">
             <div class="tab_text">第一分區</div>
         </div>
-        <div class="tab tab2" area="2" part="2502" eng="second">
+        <div class="tab tab2" area="2" part="2502">
             <div class="tab_text">第二分區</div>
         </div>
-        <div class="tab tab3" area="3" part="2503" eng="third">
+        <div class="tab tab3" area="3" part="2503">
             <div class="tab_text">第三分區</div>
         </div>
     </div>
 </div>
 <div class="row part" id="part1" style="height:700px;overflow: auto;">
     <div class="col-12" style="margin-top: 10px;">
-        <table class="table table-hover" id="" style="text-align:center">
+        <table class="table table-hover" id="">
             <thead>
                 <tr>
-                    <th rowspan="2">序號</th>
-                    <th rowspan="2">管卷人員編號</th>
-                    <th rowspan="2">管卷人員</th>
-                    <th colspan="3" class="bb">上午場</th>
-                    <th colspan="3" class="bb">下午場</th>
-                    <th rowspan="2">備註</th>
-                </tr>
-                <tr>
-                    <td>試場號起</td>
-                    <td>試場號迄</td>
-                    <td>最大試節數</td>
-                    <td>試場號起</td>
-                    <td>試場號迄</td>
-                    <td>最大試節數</td>
+                    <th>序號</th>
+                    <th>巡場人員編號</th>
+                    <th>巡場人員</th>
+                    <th>試場號起</th>
+                    <th>試場號迄</th>
+                    <th>最大試節數</th>
+                    <th>備註</th>
                 </tr>
             </thead>
             <tbody>
                 <?php foreach ($part1 as $k => $v): ?>
                 <tr sn="<?=$v['sn']; ?>" part="<?=$v['part']; ?>">
-                    <td class="bt">
+                    <td>
                         <?=$k + 1; ?>
                     </td>
-                    <td class="bt">
+                    <td>
                         <?=$v['allocation_code']; ?>
                     </td>
-                    <td class="bt">
-                        <?=$v['trial_staff_name']; ?>
+                    <td>
+                        <?=$v['patrol_staff_name']; ?>
                     </td>
-                    <td class="bt">
+                    <td>
                         <?=$v['first_start']; ?>
                     </td>
-                    <td class="bt">
+                    <td>
                         <?=$v['first_end']; ?>
                     </td>
-                    <td class="bt">
+                    <td>
                         <?=$v['first_section']; ?>
                     </td>
-                    <td class="bt">
-                        <?=$v['second_start']; ?>
-                    </td>
-                    <td class="bt">
-                        <?=$v['second_end']; ?>
-                    </td>
-                 
-                    <td class="bt">
-                        <?=$v['second_section']; ?>
-                    </td>
-                    <td class="bt">
+                    <td>
                         <?=$v['note']; ?>
                     </td>
                 </tr>
@@ -645,117 +529,84 @@
 </div>
 <div class="row part" id="part2" style="height:700px;overflow: auto;">
     <div class="col-12" style="margin-top: 10px;">
-        <table class="table table-hover" id="" style="text-align:center">
+        <table class="table table-hover" id="">
             <thead>
                 <tr>
-                    <th rowspan="2">序號</th>
-                    <th rowspan="2">管卷人員編號</th>
-                    <th rowspan="2">管卷人員</th>
-                    <th colspan="3" class="bb">上午場</th>
-                    <th colspan="3" class="bb">下午場</th>
-                    <th rowspan="2">備註</th>
-                </tr>
-                <tr>
-                    <td>試場號起</td>
-                    <td>試場號迄</td>
-                    <td>最大試節數</td>
-                    <td>試場號起</td>
-                    <td>試場號迄</td>
-                    <td>最大試節數</td>
+                    <th>序號</th>
+                    <th>巡場人員編號</th>
+                    <th>巡場人員</th>
+                    <th>試場號起</th>
+                    <th>試場號迄</th>
+                    <th>最大試節數</th>
+                    <th>備註</th>
                 </tr>
             </thead>
             <tbody>
                 <?php foreach ($part2 as $k => $v): ?>
-                <tr sn="<?=$v['sn']; ?>" part="<?=$v['part']; ?>">
-                    <td class="bt">
-                        <?=$k + 1; ?>
-                    </td>
-                    <td class="bt">
-                        <?=$v['allocation_code']; ?>
-                    </td>
-                    <td class="bt">
-                        <?=$v['trial_staff_name']; ?>
-                    </td>
-                    <td class="bt">
-                        <?=$v['first_start']; ?>
-                    </td>
-                    <td class="bt">
-                        <?=$v['first_end']; ?>
-                    </td>
-                    <td class="bt">
-                        <?=$v['second_start']; ?>
-                    </td>
-                    <td class="bt">
-                        <?=$v['second_end']; ?>
-                    </td>
-                    <td class="bt">
-                        <?=$v['first_section']; ?>
-                    </td>
-                    <td class="bt">
-                        <?=$v['second_section']; ?>
-                    </td>
-                    <td class="bt">
-                        <?=$v['note']; ?>
-                    </td>
-                </tr>
+                    <tr sn="<?=$v['sn']; ?>" part="<?=$v['part']; ?>">
+                        <td>
+                            <?=$k + 1; ?>
+                        </td>
+                        <td>
+                            <?=$v['allocation_code']; ?>
+                        </td>
+                        <td>
+                            <?=$v['patrol_staff_name']; ?>
+                        </td>
+                        <td>
+                            <?=$v['first_start']; ?>
+                        </td>
+                        <td>
+                            <?=$v['first_end']; ?>
+                        </td>
+                        <td>
+                            <?=$v['first_section']; ?>
+                        </td>
+                        <td>
+                            <?=$v['note']; ?>
+                        </td>
+                    </tr>
                 <?php endforeach; ?>
             </tbody>
         </table>
     </div>
 </div>
-<div class="row part" id="part3" style="height:700px;overflow: auto; " >
+<div class="row part" id="part3" style="height:700px;overflow: auto;">
     <div class="col-12" style="margin-top: 10px;">
-        <table class="table table-hover" id="" style="text-align:center">
+        <table class="table table-hover" id="">
             <thead>
                 <tr>
-                    <th rowspan="2">序號</th>
-                    <th rowspan="2">管卷人員編號</th>
-                    <th rowspan="2">管卷人員</th>
-                    <th colspan="3" class="bb">上午場</th>
-                    <th colspan="3" class="bb">下午場</th>
-                    <th rowspan="2">備註</th>
-                </tr>
-                <tr>
-                    <td>試場號起</td>
-                    <td>試場號迄</td>
-                    <td>最大試節數</td>
-                    <td>試場號起</td>
-                    <td>試場號迄</td>
-                    <td>最大試節數</td>
+                    <th>序號</th>
+                    <th>巡場人員編號</th>
+                    <th>巡場人員</th>
+                    <th>試場號起</th>
+                    <th>試場號迄</th>
+                    <th>最大試節數</th>
+                    <th>備註</th>
                 </tr>
             </thead>
             <tbody>
                 <?php foreach ($part3 as $k => $v): ?>
                 <tr sn="<?=$v['sn']; ?>" part="<?=$v['part']; ?>">
-                    <td class="bt">
+                    <td>
                         <?=$k + 1; ?>
                     </td>
-                    <td class="bt">
+                    <td>
                         <?=$v['allocation_code']; ?>
                     </td>
-                    <td class="bt">
-                        <?=$v['trial_staff_name']; ?>
+                    <td>
+                        <?=$v['patrol_staff_name']; ?>
                     </td>
-                    <td class="bt">
+                    <td>
                         <?=$v['first_start']; ?>
                     </td>
-                    <td class="bt">
+                    <td>
                         <?=$v['first_end']; ?>
                     </td>
-                    <td class="bt">
+                    <td>
                         <?=$v['first_section']; ?>
                     </td>
-                    <td class="bt">
-                        <?=$v['second_start']; ?>
-                    </td>
-                    <td class="bt">
-                        <?=$v['second_end']; ?>
-                    </td>
-                 
-                    <td class="bt">
-                        <?=$v['second_section']; ?>
-                    </td>
-                    <td class="bt">
+                    <td>
                         <?=$v['note']; ?>
                     </td>
                 </tr>
@@ -768,82 +619,84 @@
     <div class="row boxs">
         <div class="col-md-12 col-sm-12 col-xs-12 ">
             <form method="POST" enctype="multipart/form-data" action="" id="form" class="">
+
                 <div class="col-md-3 col-sm-3 col-xs-3 cube" style="background:#afccf0">
                     <div class="form-group" style="width: 100%;float: left;">
-                        <label for="floor" class="" style="float:left;">管卷人員</label>
+                        <label for="floor" class="" style="float:left;">巡場人員</label>
                         <input type="hidden" class="form-control" id="sn">
-                        <input type="text" class="form-control" id="allocation_code" style="width: 28%;float: left;" placeholder="管卷人員編號">
-                        <input type="hidden" class="form-control" id="part" style="" placeholder="" value="2501">
-                        <input type="hidden" class="form-control" id="trial_staff_code" style="width: 20%;float: left;" placeholder="">
-                        <input type="text" class="form-control" id="trial_staff_name" style="width: 24%;float: left;margin-left: 5px;">
-                        <button type="button" class="btn btn-primary assgin" data-toggle="modal" data-target="#exampleModal" style="float:left;width:20%;margin-left:5px;background:#346a90;border:unset">指派</button>
+                        <input type="hidden" class="form-control" id="part" value="2501">
+                        <input type="text" class="form-control" id="allocation_code" style="width: 25%;float: left;" placeholder="巡場人員編號">
+                        <input type="hidden" class="form-control" id="patrol_staff_code" style="width: 20%;float: left;" placeholder="">
+                        <input type="text" class="form-control" id="patrol_staff_name" style="width: 25%;float: left;margin-left: 5px;">
+                        <button type="button" class="btn btn-primary assgin" data-toggle="modal" data-target="#exampleModal" style="float:left;width:15%;margin-left:5px;background:#346a90;border:unset">指派</button>
                     </div>
                 </div>
-                <div class="col-md-3 col-sm-3 col-xs-3 cube" style="max-width: 20%; " id="morning_field"> 
-                    <p style="text-align:center">上午場
+                <div class="col-md-3 col-sm-3 col-xs-3 cube">
+                <p style="text-align:center">上午場
                         <?=$datetime_info['day']; ?>
                     </p>
-                    <div class="form-group" >
-                        <label for="field" class="" style="float:left;">試場號起</label>
-                        <input type="hidden" value="1" id="day1" >
-                        <select name="start" id="first_start" class="field field_start field1 form-control" disabled="disabled">
-                        <option value="">請選擇</option>
-                            <?php foreach ($part as $k => $v): ?>
-                            <option value="<?=$v['field']; ?>" day="1" >
-                                <?=$v['field']; ?>
-                            </option>
-                            <?php endforeach; ?>
-                        </select>
+                    <div id="field1" class="field">
+                        <div class="form-group">
+                            <label for="field" class="" style="float:left;">試場號起</label>
+                            <select name="start" id="first_start" class="field form-control" disabled="disabled">
+                                <option value="">請選擇</option>
+                                <?php foreach ($part as $k => $v): ?>
+                                <option value="<?=$v['field']; ?>">
+                                    <?=$v['field']; ?>
+                                </option>
+                                <?php endforeach; ?>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="section" class="" style="float:left;">試場號迄</label>
+                            <select name="end" id="first_end" class="field form-control" disabled="disabled">
+                                <option value="">請選擇</option>
+                                <?php foreach ($part as $k => $v): ?>
+                                <option value="<?=$v['field']; ?>">
+                                    <?=$v['field']; ?>
+                                </option>
+                                <?php endforeach; ?>
+                            </select>
+                        </div>
                     </div>
                     <div class="form-group">
-                        <label for="section" class="" style="float:left;">試場號迄</label>
-                        <select name="end" id="first_end" class="field field1 field_end form-control" disabled="disabled">
-                        <option value="">請選擇</option>   
-                            <?php foreach ($part as $k => $v): ?>
-                            <option value="<?=$v['field']; ?>" day="1">
-                                <?=$v['field']; ?>
-                            </option>
-                            <?php endforeach; ?>
-                        </select>
-                    </div>
-                    <div class="form-group">
-                        <label for="start" class="" style="float:left;">節數</label>
-                        <input type="text" class="form-control day" id="first_section" value="1" readonly day="<?=mb_substr($datetime_info['day'], 5, 8, 'utf-8'); ?>">
+                        <label for="start" class="" style="float:left;" >節數</label>
+                        <input type="text" class="form-control" id="first_section" value="1" readonly>
                     </div>
                 </div>
-                <div class="col-md-3 col-sm-3 col-xs-3 cube" style="max-width: 20%; " id="aftermorning_field">
-                    <p style="text-align:center">下午場
+                 <div class="col-md-3 col-sm-3 col-xs-3 cube">
+                 <p style="text-align:center">下午場
                         <?=$datetime_info['day']; ?>
                     </p>
-                    <div class="form-group">
-                        <label for="field" class="" style="float:left;">試場號起</label>
-                        <input type="hidden" value="1" id="day1">
-                        <select name="start" id="second_start" class="field field_start field1 form-control" disabled="disabled">
-                        <option value="">請選擇</option> 
-                            <?php foreach ($part_aftermoon as $k => $v): ?>
-                            <option value="<?=$v['field']; ?>" day="1">
-                                <?=$v['field']; ?>
-                            </option>
-                            <?php endforeach; ?>
-                        </select>
+                    <div id="field1" class="field">
+                        <div class="form-group">
+                            <label for="field" class="" style="float:left;">試場號起</label>
+                            <select name="start" id="second_start" class="field form-control" disabled="disabled">
+                                <option value="">請選擇</option>
+                                <?php foreach ($part as $k => $v): ?>
+                                <option value="<?=$v['field']; ?>">
+                                    <?=$v['field']; ?>
+                                </option>
+                                <?php endforeach; ?>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="section" class="" style="float:left;">試場號迄</label>
+                            <select name="end" id="second_end" class="field form-control" disabled="disabled">
+                                <option value="">請選擇</option>
+                                <?php foreach ($part as $k => $v): ?>
+                                <option value="<?=$v['field']; ?>">
+                                    <?=$v['field']; ?>
+                                </option>
+                                <?php endforeach; ?>
+                            </select>
+                        </div>
                     </div>
                     <div class="form-group">
-                        <label for="section" class="" style="float:left;">試場號迄</label>
-                        <select name="end" id="second_end" class="field field1 field_end form-control" disabled="disabled">
-                        <option value="">請選擇</option>    
-                            <?php foreach ($part_aftermoon as $k => $v): ?>
-                            <option value="<?=$v['field']; ?>" day="1">
-                                <?=$v['field']; ?>
-                            </option>
-                            <?php endforeach; ?>
-                        </select>
-                    </div>
-                    <div class="form-group">
-                        <label for="start" class="" style="float:left;">節數</label>
-                        <input type="text" class="form-control day" id="second_section" value="1" readonly day="<?=mb_substr($datetime_info['day'], 5, 8, 'utf-8'); ?>">
+                        <label for="start" class="" style="float:left;" >節數</label>
+                        <input type="text" class="form-control" id="second_section" value="1" readonly>
                     </div>
                 </div>
-                
                 <div class="col-md-3 col-sm-3 col-xs-3 cube">
                     <div class='form-group'>
                             <label for="start_date" class="" value="<?=$datetime_info['day'];?>">執行日</label>
@@ -865,7 +718,6 @@
                         </div>
                     </div>
                 </div>
-                      
                 <div class="col-md-6 col-sm-6 col-xs-6 " style="float:left;margin: 20px auto;">
                     <div class="">
                         <div class="">
