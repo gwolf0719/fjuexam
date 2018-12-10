@@ -92,7 +92,7 @@ class Appoint extends CI_Controller {
         $this->mod_user->chk_status();
         $year = $this->session->userdata('year');
         $part = $this->mod_voice_exam_area->get_part_block('2501','上午場');
-        $part_aftermoon = $this->mod_voice_exam_area->get_part_block('2501','下午場');
+        
         $part1 = $this->mod_voice_patrol->get_patrol_list('2501');
         $part2 = $this->mod_voice_patrol->get_patrol_list('2502');
         $part3 = $this->mod_voice_patrol->get_patrol_list('2503');
@@ -103,12 +103,13 @@ class Appoint extends CI_Controller {
                 'day' => '10/22',
             );
         }
+
         $data = array(
             'title' => '巡場人員指派',
             'path' => 'voice/appoint_d3',
             'path_text' => ' > 英聽主選單 > 試場人員指派 > 巡場人員指派',
             'part' => $part,
-            'part_aftermoon'=>$part_aftermoon,
+            
             'part1' => $part1,
             'part2' => $part2,
             'part3' => $part3,
@@ -165,6 +166,8 @@ class Appoint extends CI_Controller {
         $part1 = $this->mod_voice_trial->get_trial_list('2501');
         $part2 = $this->mod_voice_trial->get_trial_list('2502');
         $part3 = $this->mod_voice_trial->get_trial_list('2503');
+
+        // 取得薪資單價，如果沒有預設給 0
         if ($this->mod_voice_test_pay->chk_once($year)) {
             $fees_info = $this->mod_voice_test_pay->get_once($year);
         } else {
@@ -173,13 +176,8 @@ class Appoint extends CI_Controller {
                 'salary_section' => '0',
             );
         }
-        if ($this->mod_voice_exam_datetime->chk_once($year)) {
-            $datetime_info = $this->mod_voice_exam_datetime->get_once($year);
-        } else {
-            $datetime_info = array(
-                'day' => '10/22',
-            );
-        }
+        $datetime_info = $this->mod_voice_exam_datetime->get_once($year);
+        
         $data = array(
             'title' => '管卷人員列表',
             'path' => 'voice/appoint_d5',

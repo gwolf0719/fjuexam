@@ -806,14 +806,8 @@
                             <span class="chbox">
                                 <?=mb_substr($datetime_info['day_1'], 5, 8, 'utf-8'); ?>
                             </span>
-                            <input disabled type="checkbox" class="chbox" id="" name="first_member_day" value="<?=mb_substr($datetime_info['day_2'], 5, 8, 'utf-8'); ?>">
-                            <span class="chbox">
-                                <?=mb_substr($datetime_info['day_2'], 5, 8, 'utf-8'); ?>
-                            </span>
-                            <input disabled type="checkbox" class="chbox" id="" name="first_member_day" value="<?=mb_substr($datetime_info['day_3'], 5, 8, 'utf-8'); ?>">
-                            <span class="chbox">
-                                <?=mb_substr($datetime_info['day_3'], 5, 8, 'utf-8'); ?>
-                            </span>
+                            
+                            
                         </div>
                         <div class="form-group">
                             <label for="order_meal">訂餐需求</label>
@@ -908,14 +902,8 @@
                             <span class="chbox">
                                 <?=mb_substr($datetime_info['day_1'], 5, 8, 'utf-8'); ?>
                             </span>
-                            <input disabled type="checkbox" class="chbox" id="" name="second_member_day" value="<?=mb_substr($datetime_info['day_2'], 5, 8, 'utf-8'); ?>">
-                            <span class="chbox">
-                                <?=mb_substr($datetime_info['day_2'], 5, 8, 'utf-8'); ?>
-                            </span>
-                            <input disabled type="checkbox" class="chbox" id="" name="second_member_day" value="<?=mb_substr($datetime_info['day_3'], 5, 8, 'utf-8'); ?>">
-                            <span class="chbox">
-                                <?=mb_substr($datetime_info['day_3'], 5, 8, 'utf-8'); ?>
-                            </span>
+                            
+                            
                         </div>
                         <div class="form-group">
                             <label for="order_meal">訂餐需求</label>
