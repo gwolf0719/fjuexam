@@ -4,9 +4,10 @@ defined('BASEPATH') or exit('No direct script access allowed');
 class Mod_voice_exam_datetime extends CI_Model
 {
 
-function chk_once($year)
+function chk_once($year,$ladder)
 {
     $this->db->where('year',$year);
+    $this->db->where('ladder',$ladder);
     if ($this->db->count_all_results('voice_exam_datetime')==0) {
         return false ;
     }else {
@@ -15,15 +16,17 @@ function chk_once($year)
 
 }
 
-function get_once($year)
+function get_once($year,$ladder)
 {
     $this->db->where('year',$year);
+    $this->db->where('ladder',$ladder);
     return $this->db->get('voice_exam_datetime')->row_array();
 }
 
-function update_once($year,$data)
+function update_once($year,$ladder,$data)
 {
     $this->db->where('year',$year);
+    $this->db->where('ladder',$ladder);
     $this->db->update('voice_exam_datetime',$data);
 }
 

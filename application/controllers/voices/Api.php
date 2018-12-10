@@ -984,18 +984,17 @@ class Api extends CI_Controller {
     public function save_datetime()
     {
         $this->load->model('mod_voice_exam_datetime');
-        $getpost = array('year','day','pre_1','pre_2','course_1_start','course_1_end','course_2_start','course_2_end');
-        $requred = array('year','day','pre_1','pre_2','course_1_start','course_1_end','course_2_start','course_2_end');
+        $getpost = array('year','ladder','day','pre_1','pre_2','course_1_start','course_1_end','course_2_start','course_2_end');
+        $requred = array('year','ladder','day','pre_1','pre_2','course_1_start','course_1_end','course_2_start','course_2_end');
         $data = $this->getpost->getpost_array($getpost,$requred);
-        $year = $this->session->userdata('year');
+        
         if ($data == false) {
             $json_arr['sys_code'] = '000';
             $json_arr['sys_msg'] = '資料不足';
             $json_arr['requred'] = $this->getpost->report_requred($requred);
-            
         }else{
-            if($this->mod_voice_exam_datetime->chk_once($year)){
-                $this->mod_voice_exam_datetime->update_once($year,$data);
+            if($this->mod_voice_exam_datetime->chk_once($data['year'],$data['ladder'])){
+                $this->mod_voice_exam_datetime->update_once($data['year'],$data['ladder'],$data);
             }else{
                 $this->mod_voice_exam_datetime->add_once($data);
             }
