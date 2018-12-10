@@ -42,21 +42,24 @@ class Test_setting extends CI_Controller {
         );
         $this->load->view('voice_layout', $data);
     }
+    /*
+    ** 考試科目
+    */
     public function test_subjects()
     {
         $this->mod_user->chk_status();
         $this->load->model('mod_voice_exam_datetime');
         $year = $this->session->userdata('year');
-        if ($this->mod_voice_exam_datetime->chk_once($year)) {
-            $datetime_info = $this->mod_voice_exam_datetime->get_once($year);
+        $ladder = $this->session->userdata('ladder');
+        if ($this->mod_voice_exam_datetime->chk_once($year,$ladder)) {
+            $datetime_info = $this->mod_voice_exam_datetime->get_once($year,$ladder);
         } else {
             $datetime_info = array(
-                'day' => '1911' + $this->session->userdata('year').'年10月20日',
-                
+                'day' => ''
             );
          
          }
-         $data_subject = array(
+        $data_subject = array(
             'subject_1' => '英聽',
             'subject_2' => '英聽',
         );

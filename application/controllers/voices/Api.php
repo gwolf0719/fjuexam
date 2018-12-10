@@ -1024,7 +1024,7 @@ class Api extends CI_Controller {
 
         }else{
             if($this->mod_voice_subject->chk_once($year)){
-                $this->mod_voice_subject->update_once($year,$data);
+                $this->mod_voice_subject->update_once($year,$data['ladder'],$data);
             }else{
                 $this->mod_voice_subject->add_once($data);
             }
