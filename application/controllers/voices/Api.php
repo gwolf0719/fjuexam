@@ -804,8 +804,8 @@ class Api extends CI_Controller {
             } else {
                 $data['year'] = $this->session->userdata('year');
                 // $day = $this->mod_voice_exam_datetime->room_use_day($data['first_start'], $data['first_end'],$data['part']);
-                $datetime_info = $this->mod_voice_exam_datetime->get_once($_SESSION['year']);
-                $fees_info = $this->Mod_voice_test_pay->get_once($_SESSION['year']);
+                $datetime_info = $this->mod_voice_exam_datetime->get_once($_SESSION['year'],$_SESSION['ladder']);
+                $fees_info = $this->Mod_voice_test_pay->get_once($_SESSION['year'],$_SESSION['ladder']);
                 $member = $this->mod_voice_staff->get_staff_member(trim($data['patrol_staff_code']));
                 // $do_date = array();
                 // if($day[0] != ""){
@@ -864,7 +864,7 @@ class Api extends CI_Controller {
                 $data['year'] = $this->session->userdata('year');
                 $member = $this->mod_voice_trial->get_once_trial_by_code($data['trial_staff_code']);
                 $do_date = explode(",", $data['do_date']);
-                $fees_info = $this->mod_voice_test_pay->get_once($_SESSION['year']);  
+                $fees_info = $this->mod_voice_test_pay->get_once($_SESSION['year'],$_SESSION['ladder']);  
                 $salary_total = $data['first_section']*$fees_info['pay_1'];
                 $total = $salary_total;
 

@@ -19,7 +19,6 @@ class Mod_voice_test_pay extends CI_Model
     {
         $this->db->where('year', $year);
         $this->db->where('ladder', $ladder);
-
         return $this->db->get('voice_test_pay')->row_array();
     }
 

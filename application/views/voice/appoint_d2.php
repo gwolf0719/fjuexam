@@ -549,6 +549,15 @@
             
         })
 
+        $('body').on('click','#morning',function () {
+            if ($(this).checked == false) {
+                $('#first_section').attr('value','1');
+                
+            }else{
+                $('#first_section').val('0');
+            }
+        })
+
     });
 </script>
 
@@ -808,7 +817,7 @@
                     </div>
                     <div class="form-group">
                         <label for="start" class="" style="float:left;">節數</label>
-                        <input type="text" class="form-control day" id="first_section" value="1" readonly day="<?=mb_substr($datetime_info['day'], 5, 8, 'utf-8'); ?>">
+                        <input type="text" class="form-control day" id="first_section" value="0" readonly day="<?=mb_substr($datetime_info['day'], 5, 8, 'utf-8'); ?>">
                     </div>
                 </div>
                 <div class="col-md-3 col-sm-3 col-xs-3 cube" style="max-width: 20%; " id="aftermorning_field">
@@ -840,7 +849,7 @@
                     </div>
                     <div class="form-group">
                         <label for="start" class="" style="float:left;">節數</label>
-                        <input type="text" class="form-control day" id="second_section" value="1" readonly day="<?=mb_substr($datetime_info['day'], 5, 8, 'utf-8'); ?>">
+                        <input type="text" class="form-control day" id="second_section" value="0" readonly day="<?=mb_substr($datetime_info['day'], 5, 8, 'utf-8'); ?>">
                     </div>
                 </div>
                 

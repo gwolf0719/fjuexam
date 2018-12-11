@@ -55,13 +55,14 @@ class Appoint extends CI_Controller {
         $this->load->model('mod_voice_exam_datetime');
         $this->mod_user->chk_status();
         $year = $this->session->userdata('year');
+        $ladder = $this->session->userdata('ladder');
         $part = $this->mod_voice_exam_area->get_part_block('2501','上午場');
         $part_aftermoon = $this->mod_voice_exam_area->get_part_block('2501','下午場');
         $part1 = $this->mod_voice_trial->get_trial_list('2501');
         $part2 = $this->mod_voice_trial->get_trial_list('2502');
         $part3 = $this->mod_voice_trial->get_trial_list('2503');
-        if ($this->mod_voice_exam_datetime->chk_once($year)) {
-            $datetime_info = $this->mod_voice_exam_datetime->get_once($year);
+        if ($this->mod_voice_exam_datetime->chk_once($year,$ladder)) {
+            $datetime_info = $this->mod_voice_exam_datetime->get_once($year,$ladder);
         } else {
             $datetime_info = array(
                 'day' => '10/22',
@@ -88,13 +89,14 @@ class Appoint extends CI_Controller {
         $this->load->model('mod_voice_exam_datetime');
         $this->mod_user->chk_status();
         $year = $this->session->userdata('year');
+        $ladder = $this->session->userdata('ladder');
         $part = $this->mod_voice_exam_area->get_part_block('2501','上午場');
         
         $part1 = $this->mod_voice_patrol->get_patrol_list('2501');
         $part2 = $this->mod_voice_patrol->get_patrol_list('2502');
         $part3 = $this->mod_voice_patrol->get_patrol_list('2503');
-        if ($this->mod_voice_exam_datetime->chk_once($year)) {
-            $datetime_info = $this->mod_voice_exam_datetime->get_once($year);
+        if ($this->mod_voice_exam_datetime->chk_once($year,$ladder)) {
+            $datetime_info = $this->mod_voice_exam_datetime->get_once($year,$ladder);
         } else {
             $datetime_info = array(
                 'day' => '10/22',
@@ -122,11 +124,12 @@ class Appoint extends CI_Controller {
         $this->load->model('mod_voice_test_pay');
         $this->mod_user->chk_status();
         $year = $this->session->userdata('year');
+        $ladder = $this->session->userdata('ladder');
         $part1 = $this->mod_voice_trial->get_list('2501');
         $part2 = $this->mod_voice_trial->get_list('2502');
         $part3 = $this->mod_voice_trial->get_list('2503');
         if ($this->mod_voice_test_pay->chk_once($year)) {
-            $fees_info = $this->mod_voice_test_pay->get_once($year);
+            $fees_info = $this->mod_voice_test_pay->get_once($year,$ladder);
         } else {
             $fees_info = array(
                 'one_day_salary' => '0',
@@ -160,13 +163,14 @@ class Appoint extends CI_Controller {
         $this->load->model('mod_voice_test_pay');
         $this->mod_user->chk_status();
         $year = $this->session->userdata('year');
+        $ladder = $this->session->userdata('ladder');
         $part1 = $this->mod_voice_trial->get_trial_list('2501');
         $part2 = $this->mod_voice_trial->get_trial_list('2502');
         $part3 = $this->mod_voice_trial->get_trial_list('2503');
 
         // 取得薪資單價，如果沒有預設給 0
-        if ($this->mod_voice_test_pay->chk_once($year)) {
-            $fees_info = $this->mod_voice_test_pay->get_once($year);
+        if ($this->mod_voice_test_pay->chk_once($year,$ladder)) {
+            $fees_info = $this->mod_voice_test_pay->get_once($year,$ladder);
         } else {
             $fees_info = array(
                 'one_day_salary' => '0',
@@ -195,11 +199,12 @@ class Appoint extends CI_Controller {
         $this->load->model('mod_voice_test_pay');
         $this->mod_user->chk_status();
         $year = $this->session->userdata('year');
+        $ladder = $this->session->userdata('ladder');
         $part1 = $this->mod_voice_patrol->get_patrol_list('2501');
         $part2 = $this->mod_voice_patrol->get_patrol_list('2502');
         $part3 = $this->mod_voice_patrol->get_patrol_list('2503');
         if ($this->mod_voice_test_pay->chk_once($year)) {
-            $fees_info = $this->mod_voice_test_pay->get_once($year);
+            $fees_info = $this->mod_voice_test_pay->get_once($year,$ladder);
         } else {
             $fees_info = array(
                 'one_day_salary' => '0',
@@ -207,7 +212,7 @@ class Appoint extends CI_Controller {
             );
         }
         if ($this->mod_voice_exam_datetime->chk_once($year)) {
-            $datetime_info = $this->mod_voice_exam_datetime->get_once($year);
+            $datetime_info = $this->mod_voice_exam_datetime->get_once($year,$ladder);
         } else {
             $datetime_info = array(
                 'day' => '10/22',
