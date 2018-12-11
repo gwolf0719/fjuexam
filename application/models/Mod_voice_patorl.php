@@ -5,8 +5,6 @@ defined('BASEPATH') or exit('No direct script access allowed');
 class Mod_voice_patorl extends CI_Model
 {
     
-
-
     public function import($datas)
     {
         // 先清除當年資料
@@ -133,7 +131,7 @@ class Mod_voice_patorl extends CI_Model
         return true;
     }
 
-        public function remove_patrol_staff($sn)
+    public function remove_patrol_staff($sn)
     {
         $this->db->where('sn', $sn);
         $this->db->delete('voice_patrol_staff');

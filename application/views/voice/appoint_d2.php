@@ -524,39 +524,25 @@
         })
 
 
-        $('body').on('click','#morning',function () {
-
-            if(this.checked){
-                $('#first_start').attr('disabled',false);
-                $('#first_end').attr('disabled',false);
-            }else{
-                $('#first_start').attr('disabled',true);
-                $('#first_end').attr('disabled',true);
-            }
-          
-            
-        })
-          $('body').on('click','#aftermorning',function () {
-
-            if(this.checked){
-                $('#second_start').attr('disabled',false);
-                $('#second_end').attr('disabled',false);
-            }else{
-                $('#second_start').attr('disabled',true);
-                $('#second_end').attr('disabled',true);
-            }
-          
-            
-        })
-
-        $('body').on('click','#morning',function () {
-            if ($(this).checked == false) {
-                $('#first_section').attr('value','1');
-                
-            }else{
-                $('#first_section').val('0');
+        // 點選擇上下午後 開關起訖節數控制
+        $("body").on('click',"input[name=day]",function(){
+            var block_val = $(this).val();
+            var block_id = block_val+"_field";
+            switch ($(this).prop("checked")) {
+                case true:
+                    $("#"+block_id).find('.field_start').attr('disabled',false);
+                    $("#"+block_id).find('.field_end').attr('disabled',false);
+                    $("#"+block_id).find('.day').val("1");
+                    break;
+                case false:
+                    $("#"+block_id).find('.field_start').attr('disabled',true);
+                    $("#"+block_id).find('.field_end').attr('disabled',true);
+                    $("#"+block_id).find('.day').val("0");
+                    break;
             }
         })
+
+
 
     });
 </script>
@@ -867,7 +853,7 @@
                             <span class="chbox"  >
                                  上午場
                             </span>
-                            <input type="checkbox" class="chbox" id='aftermorning' name="day"  >
+                            <input type="checkbox" class="chbox" id='aftermorning'  value="aftermorning" name="day"  >
                             <span class="chbox"  >
                                  下午場
                             </span>
