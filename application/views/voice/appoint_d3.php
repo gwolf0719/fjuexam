@@ -314,11 +314,14 @@
                 var allocation_code = $("#allocation_code").val();
                 var patrol_staff_code = $("#patrol_staff_code").val();
                 var patrol_staff_name = $("#patrol_staff_name").val();
-                var start = $("#start").val();
-                var end = $("#end").val();
-                var section = $("#section").val();
+                var first_start = $("#first_start").val();
+                var first_end = $("#first_end").val();
+                var first_section = $("#first_section").val();
+                var second_start = $("#second_start").val();
+                var second_end = $("#second_end").val();
+                var second_section = $("#second_section").val();
                 var note = $("textarea[name='note']").val();
-                console.log(sn);
+                console.log(part);
                 $.ajax({
                     url: './voice/api/save_patrol_staff',
                     data: {
@@ -339,15 +342,17 @@
                 }).done(function(data) {
                     alert(data.sys_msg);
                     if (data.sys_code == "200") {
-                        // location.reload();
+                        location.reload();
                         $("tr").each(function(){
                             if($(this).attr("sn") == $("#sn").val()){
                                 $(this).find("td").eq(1).text(allocation_code);
                                 $(this).find("td").eq(2).text(patrol_staff_name)
-                                $(this).find("td").eq(3).text(start)
-                                $(this).find("td").eq(4).text(end)
-                                $(this).find("td").eq(5).text(section)
-                                $(this).find("td").eq(6).text(note)
+                                $(this).find("td").eq(4).text(first_end)
+                                $(this).find("td").eq(5).text(first_section)
+                                $(this).find("td").eq(6).text(second_start)
+                                $(this).find("td").eq(7).text(second_end)
+                                $(this).find("td").eq(8).text(second_section)
+                                $(this).find("td").eq(9).text(note)
                             }
                         })                        
                     }
@@ -425,30 +430,24 @@
         })
 
         
-        $('body').on('click','#morning',function () {
-
-            if(this.checked){
-                $('#first_start').attr('disabled',false);
-                $('#first_end').attr('disabled',false);
-            }else{
-                $('#first_start').attr('disabled',true);
-                $('#first_end').attr('disabled',true);
+        // 點選擇上下午後 開關起訖節數控制
+        $("body").on('click',"input[name=day]",function(){
+            var block_val = $(this).val();
+            var block_id = block_val+"_field";
+            switch ($(this).prop("checked")) {
+                case true:
+                    $("#"+block_id).find('.field_start').attr('disabled',false);
+                    $("#"+block_id).find('.field_end').attr('disabled',false);
+                    $("#"+block_id).find('.day').val("1");
+                    break;
+                case false:
+                    $("#"+block_id).find('.field_start').attr('disabled',true);
+                    $("#"+block_id).find('.field_end').attr('disabled',true);
+                    $("#"+block_id).find('.day').val("0");
+                    break;
             }
-          
-            
         })
-        $('body').on('click','#aftermorning',function () {
 
-            if(this.checked){
-                $('#second_start').attr('disabled',false);
-                $('#second_end').attr('disabled',false);
-            }else{
-                $('#second_start').attr('disabled',true);
-                $('#second_end').attr('disabled',true);
-            }
-          
-            
-        })
 
     });
 </script>
@@ -631,72 +630,71 @@
                         <button type="button" class="btn btn-primary assgin" data-toggle="modal" data-target="#exampleModal" style="float:left;width:15%;margin-left:5px;background:#346a90;border:unset">指派</button>
                     </div>
                 </div>
-                <div class="col-md-3 col-sm-3 col-xs-3 cube">
-                <p style="text-align:center">上午場
+                <div class="col-md-3 col-sm-3 col-xs-3 cube" style="max-width: 20%; " id="morning_field"> 
+                    <p style="text-align:center">上午場
                         <?=$datetime_info['day']; ?>
                     </p>
-                    <div id="field1" class="field">
-                        <div class="form-group">
-                            <label for="field" class="" style="float:left;">試場號起</label>
-                            <select name="start" id="first_start" class="field form-control" disabled="disabled">
-                                <option value="">請選擇</option>
-                                <?php foreach ($part as $k => $v): ?>
-                                <option value="<?=$v['field']; ?>">
-                                    <?=$v['field']; ?>
-                                </option>
-                                <?php endforeach; ?>
-                            </select>
-                        </div>
-                        <div class="form-group">
-                            <label for="section" class="" style="float:left;">試場號迄</label>
-                            <select name="end" id="first_end" class="field form-control" disabled="disabled">
-                                <option value="">請選擇</option>
-                                <?php foreach ($part as $k => $v): ?>
-                                <option value="<?=$v['field']; ?>">
-                                    <?=$v['field']; ?>
-                                </option>
-                                <?php endforeach; ?>
-                            </select>
-                        </div>
+                    <div class="form-group" >
+                        <label for="field" class="" style="float:left;">試場號起</label>
+                        <input type="hidden" value="1" id="day1" >
+                        <select name="start" id="first_start" class="field field_start field1 form-control" disabled="disabled">
+                        <option value="">請選擇</option>
+                            <?php foreach ($part as $k => $v): ?>
+                            <option value="<?=$v['field']; ?>" day="1" >
+                                <?=$v['field']; ?>
+                            </option>
+                            <?php endforeach; ?>
+                        </select>
                     </div>
                     <div class="form-group">
-                        <label for="start" class="" style="float:left;" >節數</label>
-                        <input type="text" class="form-control" id="first_section" value="1" readonly>
+                        <label for="section" class="" style="float:left;">試場號迄</label>
+                        <select name="end" id="first_end" class="field field1 field_end form-control" disabled="disabled">
+                        <option value="">請選擇</option>   
+                            <?php foreach ($part as $k => $v): ?>
+                            <option value="<?=$v['field']; ?>" day="1">
+                                <?=$v['field']; ?>
+                            </option>
+                            <?php endforeach; ?>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="start" class="" style="float:left;">節數</label>
+                        <input type="text" class="form-control day" id="first_section" value="0" readonly day="<?=mb_substr($datetime_info['day'], 5, 8, 'utf-8'); ?>">
                     </div>
                 </div>
-                 <div class="col-md-3 col-sm-3 col-xs-3 cube">
-                 <p style="text-align:center">下午場
+                <div class="col-md-3 col-sm-3 col-xs-3 cube" style="max-width: 20%; " id="aftermorning_field">
+                   
+                    <p style="text-align:center">下午場
                         <?=$datetime_info['day']; ?>
                     </p>
-                    <div id="field1" class="field">
-                        <div class="form-group">
-                            <label for="field" class="" style="float:left;">試場號起</label>
-                            <select name="start" id="second_start" class="field form-control" disabled="disabled">
-                                <option value="">請選擇</option>
-                                <?php foreach ($part as $k => $v): ?>
-                                <option value="<?=$v['field']; ?>">
-                                    <?=$v['field']; ?>
-                                </option>
-                                <?php endforeach; ?>
-                            </select>
-                        </div>
-                        <div class="form-group">
-                            <label for="section" class="" style="float:left;">試場號迄</label>
-                            <select name="end" id="second_end" class="field form-control" disabled="disabled">
-                                <option value="">請選擇</option>
-                                <?php foreach ($part as $k => $v): ?>
-                                <option value="<?=$v['field']; ?>">
-                                    <?=$v['field']; ?>
-                                </option>
-                                <?php endforeach; ?>
-                            </select>
-                        </div>
+                    <div class="form-group">
+                        <label for="field" class="" style="float:left;">試場號起</label>
+                        <input type="hidden" value="1" id="day1">
+                        <select name="start" id="second_start" class="field field_start field1 form-control" disabled="disabled">
+                        <option value="">請選擇</option> 
+                            <?php foreach ($part_aftermoon as $k => $v): ?>
+                            <option value="<?=$v['field']; ?>" day="1">
+                                <?=$v['field']; ?>
+                            </option>
+                            <?php endforeach; ?>
+                        </select>
                     </div>
                     <div class="form-group">
-                        <label for="start" class="" style="float:left;" >節數</label>
-                        <input type="text" class="form-control" id="second_section" value="1" readonly>
+                        <label for="section" class="" style="float:left;">試場號迄</label>
+                        <select name="end" id="second_end" class="field field1 field_end form-control" disabled="disabled">
+                        <option value="">請選擇</option>    
+                            <?php foreach ($part_aftermoon as $k => $v): ?>
+                            <option value="<?=$v['field']; ?>" day="1">
+                                <?=$v['field']; ?>
+                            </option>
+                            <?php endforeach; ?>
+                        </select>
                     </div>
-                </div>
+                    <div class="form-group">
+                        <label for="start" class="" style="float:left;">節數</label>
+                        <input type="text" class="form-control day" id="second_section" value="0" readonly day="<?=mb_substr($datetime_info['day'], 5, 8, 'utf-8'); ?>">
+                    </div>
+                </div>   
                 <div class="col-md-3 col-sm-3 col-xs-3 cube">
                     <div class='form-group'>
                             <label for="start_date" class="" value="<?=$datetime_info['day'];?>">執行日</label>
@@ -711,7 +709,7 @@
                             <span class="chbox"  >
                                  上午場
                             </span>
-                            <input type="checkbox" class="chbox" id='aftermorning' name="day"  >
+                            <input type="checkbox" class="chbox" id='aftermorning' value="aftermorning" name="day"  >
                             <span class="chbox"  >
                                  下午場
                             </span>

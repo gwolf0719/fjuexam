@@ -613,12 +613,14 @@ class Api extends CI_Controller {
         $getpost = array('sn','part','supervisor_1', 'supervisor_1_code', 'supervisor_2', 'supervisor_2_code', 'trial_staff_code_1', 'trial_staff_code_2', 'note','field');
         $requred = array('sn','part','supervisor_1', 'supervisor_1_code', 'supervisor_2', 'supervisor_2_code', 'trial_staff_code_1', 'trial_staff_code_2','field');
         $data = $this->getpost->getpost_array($getpost, $requred);
+        
         if ($data == false) {
             $json_arr['sys_code'] = '000';
             $json_arr['sys_msg'] = '資料不足';
             $json_arr['requred'] = $this->getpost->report_requred($requred);
         } else {
             $data['year'] = $this->session->userdata('year');
+            $data['ladder'] = $this->session->userdata('ladder');
             if ($this->mod_voice_trial->chk_once($this->session->userdata('year'),$this->session->userdata('ladder'),$data['field'],$data['part'])) {
                 $member1 = $this->mod_voice_staff->get_staff_member(trim($data['supervisor_1_code']));
                 $member2 = $this->mod_voice_staff->get_staff_member(trim($data['supervisor_2_code']));
@@ -653,17 +655,26 @@ class Api extends CI_Controller {
                     'second_member_section_total'=> $second_member_total,
                     'note'=>$data['note'],
                 );
-                $this->mod_voice_trial->update_once($this->session->userdata('year'),$this->session->userdata('ladder'),$data['field'],$data['part'], $sql_data);
-                $$json_arr['sql'] = $this->db->last_query();
-                $json_arr['sys_code'] = '200';
-                $json_arr['sys_msg'] = '資料儲存完成';
-            } else {
-                $json_arr['sys_code'] = '404';
-                $json_arr['sys_msg'] = '查無此資料';
-            }
+
+
+                
+                  $this->mod_voice_trial->update_once($data['field'], $sql_data);
+
+                
+                
+              
+                // print_r($this->db->last_query());
+                // $json_arr['sql'] = $this->db->last_query();
+                // $json_arr['sys_code'] = '200';
+                // $json_arr['sys_msg'] = '資料儲存完成';
+            } 
+            // else {
+            //     $json_arr['sys_code'] = '404';
+            //     $json_arr['sys_msg'] = '查無此資料';
+            // }
             
         }
-        echo json_encode($json_arr);
+        // echo json_encode($json_arr);
     }
 
     public function get_once_assign()
@@ -755,8 +766,8 @@ class Api extends CI_Controller {
         public function save_patrol_staff()
         {
             $this->load->model('mod_voice_patrol');
-            $getpost = array('sn', 'part', 'allocation_code', 'patrol_staff_code', 'patrol_staff_name', 'start', 'end', 'section', 'note');
-            $requred = array('sn', 'part', 'allocation_code', 'patrol_staff_name', 'start', 'end', 'section');
+            $getpost = array('sn', 'part', 'allocation_code', 'patrol_staff_code', 'patrol_staff_name', 'first_start', 'first_end', 'first_section', 'second_start', 'second_end', 'second_section','note');
+            $requred = array('sn', 'part', 'allocation_code', 'patrol_staff_name');
             $data = $this->getpost->getpost_array($getpost, $requred);
             if ($data == false) {
                 $json_arr['sys_code'] = '000';

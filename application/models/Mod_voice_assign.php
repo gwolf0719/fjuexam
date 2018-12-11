@@ -13,6 +13,12 @@ class Mod_voice_assign extends CI_Controller{
         }
         return $this->db->get('voice_area_main')->result_array();
 
+
+    }
+    
+    public function get_once_assign($sn)
+    {
+        return $this->db->where('sn', $sn)->get('voice_trial_assign')->row_array();
     }
 
 

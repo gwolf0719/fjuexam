@@ -58,9 +58,9 @@ class Mod_voice_trial extends CI_Model
 
     }
 
-    public function update_once($sn, $data)
+    public function update_once($field, $data)
     {
-        $this->db->where('sn',$sn);
+        $this->db->where('field',$field);
         $this->db->update('voice_trial_assign',$data);
 
         return true;
@@ -123,6 +123,15 @@ class Mod_voice_trial extends CI_Model
         if($this->db->count_all_results('voice_trial_assign') == 0){
             return false;
         }else{
+            return true;
+        }
+    }
+    public function chk_trial($sn)
+    {
+        $this->db->where('sn', $sn);
+        if ($this->db->count_all_results('voice_trial_staff') == 0) {
+            return false;
+        } else {
             return true;
         }
     }

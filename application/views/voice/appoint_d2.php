@@ -426,7 +426,7 @@
                 }).done(function(data) {
                     alert(data.sys_msg);
                     if (data.sys_code == "200") {
-                        // location.reload();
+                        location.reload();
                         $("tr").each(function(){
                             if($(this).attr("sn") == $("#sn").val()){
                                 $(this).find("td").eq(1).text(allocation_code);
@@ -437,10 +437,7 @@
                                 $(this).find("td").eq(6).text(second_start)
                                 $(this).find("td").eq(7).text(second_end)
                                 $(this).find("td").eq(8).text(second_section)
-                                $(this).find("td").eq(9).text(third_start)
-                                $(this).find("td").eq(10).text(third_end)
-                                $(this).find("td").eq(11).text(third_section)
-                                $(this).find("td").eq(12).text(note)
+                                $(this).find("td").eq(9).text(note)
                             }
                         })
                     }
@@ -837,8 +834,7 @@
                         <label for="start" class="" style="float:left;">節數</label>
                         <input type="text" class="form-control day" id="second_section" value="0" readonly day="<?=mb_substr($datetime_info['day'], 5, 8, 'utf-8'); ?>">
                     </div>
-                </div>
-                
+                </div>          
                 <div class="col-md-3 col-sm-3 col-xs-3 cube">
                     <div class='form-group'>
                             <label for="start_date" class="" value="<?=$datetime_info['day'];?>">執行日</label>

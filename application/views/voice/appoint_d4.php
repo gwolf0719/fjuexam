@@ -187,11 +187,8 @@
             $("#first_member_order_meal").prop("checked",false);
             $("#first_member_day_count").val(0);
             $("#first_member_section_count").val(0);
-            $("#first_member_one_day_salary").val(<?=$fees_info['one_day_salary']; ?>);
-            $("#first_member_salary_section").val(<?=$fees_info['salary_section']; ?>);
-            $("#first_member_lunch_price").val(0);
-            $("#first_member_day_lunch_total").val(0);
-            $("#first_member_section_lunch_total").val(0);
+            $("#first_member_one_day_salary").val(<?=$fees_info['pay_1']; ?>);
+            $("#first_member_salary_section").val(<?=$fees_info['pay_2']; ?>);
             $("#first_member_section_total").val(0);
             $("#first_member_day_total").val(0);
             $("#first_member_section_salary_total").val(0);
@@ -202,31 +199,22 @@
             $("#second_member_order_meal").prop("checked",false);
             $("#second_member_day_count").val(0);
             $("#second_member_section_count").val(0);
-            $("#second_member_one_day_salary").val(<?=$fees_info['one_day_salary']; ?>);
-            $("#second_member_salary_section").val(<?=$fees_info['salary_section']; ?>);
-            $("#second_member_lunch_price").val(0);
-            $("#second_member_day_lunch_total").val(0);
-            $("#second_member_section_lunch_total").val(0);
+            $("#second_member_one_day_salary").val(<?=$fees_info['pay_1']; ?>);
+            $("#second_member_salary_section").val(<?=$fees_info['pay_2']; ?>);
             $("#second_member_section_total").val(0);
             $("#second_member_day_total").val(0);
             $("#second_member_section_salary_total").val(0);     
-            $(".first_member_meal").hide();
-            $(".second_member_meal").hide();
             console.log(newHash);
-            if (nowHtml == "d_4") {
+            if (nowHtml == "appoint_d4") {
                 //開闔div
-                $(".part").css({
-                    "display": "none"
-                });
+                $(".part").hide();
                 $('#part' + newHash).show();
                 //tab樣式
                 $(".tab").removeClass('active');
                 $(this).addClass('active');
-                //修正網址
                 location.hash = '#' + newHash;
             } else {
-                //如果本頁不是f_2_2則為一般超連結
-                location.href = './designated/d_4' + newHash;
+                location.href = './voice/d/appoint_d4' + newHash;
                 $('#part' + newHash).show();
             }
         })                   
@@ -287,20 +275,6 @@
                 $(".field").val(field);
                 $("#sn").val(data.info.sn);
                 //職員一
-                $("#first_member_lunch_price").attr("lunch_price","<?=$fees_info['lunch_fee']; ?>");
-                $("#second_member_lunch_price").attr("lunch_price","<?=$fees_info['lunch_fee']; ?>");
-                $("#first_member_day_count").val(data.info.first_member_day_count);
-                $("#first_member_lunch_price").val(data.info.first_member_lunch_price);
-                if(data.info.first_member_order_meal == "Y"){
-                    $("#first_member_order_meal").prop("checked",true);
-                    $(".first_member_meal").show();
-                }else{
-                    $("#first_member_order_meal").prop("checked",false);
-                    $(".first_member_meal").hide();
-                    $("#first_member_lunch_price").val(0);
-                }
-                $("#first_member_meal").prop("checked",true);
-                $("#first_member_order_meal").val(data.info.first_member_order_meal);
                 $("#first_member_salary_section").val(data.info.first_member_salary_section);
                 $("#first_member_section_lunch_total").val(data.info.first_member_section_lunch_total);
                 $("#first_member_section_salary_total").val(data.info.first_member_section_salary_total);
@@ -310,18 +284,7 @@
                 $("#trial_staff_code_1").val(data.info.trial_staff_code_1);
                 //職員二
                 $("#second_member_day_count").val(data.info.second_member_day_count);
-                $("#second_member_lunch_price").val(data.info.second_member_lunch_price);
-                $("#second_member_meal").val(data.info.second_member_meal);
-                if(data.info.second_member_order_meal == "Y"){
-                    $("#second_member_order_meal").prop("checked",true);
-                    $(".second_member_meal").show();
-                }else{
-                    $("#second_member_order_meal").prop("checked",false);
-                    $(".second_member_meal").hide();
-                    $("#second_member_lunch_price").val(0);
-                }
                 $("#second_member_salary_section").val(data.info.second_member_salary_section);
-                $("#second_member_section_lunch_total").val(data.info.second_member_section_lunch_total);
                 $("#second_member_section_salary_total").val(data.info.second_member_section_salary_total);
                 $("#second_member_section_total").val(data.info.second_member_section_total);
                 $("#second_member_name").val(data.info.supervisor_2);
@@ -384,30 +347,6 @@
             var second_member_do_date = day_count2.join(",");
             if (confirm("是否要儲存?")) {
                 var sn = $("#sn").val();
-                var first_member_meal;
-                if ($("#first_member_order_meal").prop("checked") == true) {
-                    first_member_meal = $("#first_member_meal").val()
-                } else {
-                    first_member_meal = "自備";
-                }
-                var second_member_meal;
-                if ($("#second_member_order_meal").prop("checked") == true) {
-                    second_member_meal = $("#second_member_meal").val()
-                } else {
-                    second_member_meal = "自備";
-                }
-                var first_member_order_meal;
-                if($("#first_member_order_meal").prop("checked") == false){
-                    first_member_order_meal = "N";
-                }else{
-                    first_member_order_meal = "Y"
-                }                
-                var second_member_order_meal;
-                if($("#second_member_order_meal").prop("checked") == false){
-                    second_member_order_meal = "N";
-                }else{
-                    second_member_order_meal = "Y"
-                }
                 $.ajax({
                     url: 'api/save_trial_for_price',
                     data: {
@@ -416,20 +355,12 @@
                         "first_member_day_count": $("#first_member_day_count").val(),
                         "first_member_salary_section": $("#first_member_salary_section").val(),
                         "first_member_section_salary_total": $("#first_member_section_salary_total").val(),
-                        "first_member_order_meal": first_member_order_meal,
-                        "first_member_lunch_price": $("#first_member_lunch_price").val(),
-                        "first_member_section_lunch_total": $("#first_member_section_lunch_total").val(),
                         "first_member_section_total": $("#first_member_section_total").val(),
                         "second_member_do_date": second_member_do_date,
                         "second_member_day_count": $("#second_member_day_count").val(),
                         "second_member_salary_section": $("#second_member_salary_section").val(),
                         "second_member_section_salary_total": $("#second_member_section_salary_total").val(),
-                        "second_member_order_meal": second_member_order_meal,
-                        "second_member_lunch_price": $("#second_member_lunch_price").val(),
-                        "second_member_section_lunch_total": $("#second_member_section_lunch_total").val(),
                         "second_member_section_total": $("#second_member_section_total").val(),
-                        "first_member_meal": first_member_meal,
-                        "second_member_meal": second_member_meal
                     },
                     dataType: "json"
                 }).done(function(data) {
@@ -441,72 +372,7 @@
             }
         })
 
-        $("body").on("keyup", "#first_member_lunch_price", function() {
-            var lunch_total = 0 - $(this).val() * $("#first_member_day_count").val();
-            $("#first_member_section_lunch_total").val(lunch_total);
-            var first_member_section_total = parseInt($("#first_member_section_salary_total").val()) + parseInt($("#first_member_section_lunch_total").val());
-            $("#first_member_section_total").val(first_member_section_total);
-        })
 
-        $("body").on("keyup", "#second_member_lunch_price", function() {
-            var lunch_total = 0 - $(this).val() * $("#second_member_day_count").val();
-            $("#second_member_section_lunch_total").val(lunch_total);
-            var second_member_section_total = parseInt($("#second_member_section_salary_total").val()) + parseInt($("#second_member_section_lunch_total").val());
-            $("#second_member_section_total").val(second_member_section_total);
-        })
-
-        $("#first_member_order_meal").change(function() {
-            if (this.checked) {
-                $(this).val("Y");
-                $(".first_member_meal").show();
-                $("#first_member_lunch_price").attr("readonly", false);
-                $("#first_member_meal").val("葷");
-                //判斷有沒有編輯過便當價格決定要不要帶入預設值
-                if ($("#first_member_lunch_price").attr("lunch_price") == "<?=$fees_info['lunch_fee']; ?>" || $("#first_member_lunch_price").attr("#first_member_lunch_price") == undefined) {
-                    $("#first_member_lunch_price").val($("#first_member_lunch_price").attr("lunch_price"));
-                    var lunch_total = 0 - $("#first_member_lunch_price").val() * $("#first_member_day_count").val();
-                    $("#first_member_section_lunch_total").val(lunch_total);
-                    var first_member_section_total = parseInt($("#first_member_section_salary_total").val()) + parseInt($("#first_member_section_lunch_total").val());
-                    $("#first_member_section_total").val(first_member_section_total);
-                } else {
-                    $("#first_member_lunch_price").val("<?=$fees_info['lunch_fee']; ?>");
-                }
-            } else {
-                $(this).val("N");
-                $(".first_member_meal").hide();
-                $("#first_member_lunch_price").attr("readonly", true);
-                $("#first_member_lunch_price").val(0);
-                $("#first_member_section_lunch_total").val(0);
-                var first_member_section_total = parseInt($("#first_member_section_salary_total").val()) + parseInt($("#first_member_section_lunch_total").val());
-                $("#first_member_section_total").val(first_member_section_total);
-            }
-        });
-
-        $("#second_member_order_meal").change(function() {
-            if (this.checked) {
-                $(this).val("Y");
-                $(".second_member_meal").show();
-                $("#second_member_lunch_price").attr("readonly", false);
-                $("#second_member_meal").val("葷");
-                //判斷有沒有編輯過便當價格決定要不要帶入預設值
-                if ($("#second_member_lunch_price").attr("lunch_price") == "<?=$fees_info['lunch_fee']; ?>" || $("#second_member_lunch_price").attr("#second_member_lunch_price") == undefined) {
-                    $("#second_member_lunch_price").val($("#second_member_lunch_price").attr("lunch_price"));
-                    var lunch_total = 0 - $("#second_member_lunch_price").val() * $("#second_member_day_count").val();
-                    $("#second_member_section_lunch_total").val(lunch_total);
-                    var second_member_section_total = parseInt($("#second_member_section_salary_total").val()) + parseInt($("#second_member_section_lunch_total").val());
-                    $("#second_member_section_total").val(second_member_section_total);
-                } else {
-                    $("#second_member_lunch_price").val("<?=$fees_info['lunch_fee']; ?>");
-                }
-            } else {
-                $(this).val("N");
-                $(".second_member_meal").hide();
-                $("#second_member_lunch_price").attr("readonly", true);
-                $("#second_member_lunch_price").val(0);
-                $("#second_member_section_lunch_total").val(0);
-                var second_member_day_total = parseInt($("#second_member_section_salary_total").val()) + parseInt($("#second_member_section_lunch_total").val());
-                $("#second_member_section_total").val(second_member_day_total);
-            }
         });
 
         $("body").on("keyup", "#first_member_salary_section", function() {
@@ -538,7 +404,7 @@
                 $("#second_member_section_total").val(second_member_section_total);
             }
         })
-    });
+    
 </script>
 
 <div class="row">
@@ -571,6 +437,7 @@
     </div>
 </div>
 <div class="row part" id="part1" style="height:700px;overflow: auto;">
+<?php print_r($part1);?>
     <div class="col-12" style="margin-top: 10px;">
         <table class="table table-hover" id="">
             <thead>
@@ -592,7 +459,7 @@
             <tbody>
                 <?php foreach ($part1 as $k => $v): ?>
                 <tr sn="<?=$v['sn']; ?>" part="2501" field="<?=$v['field']; ?>"
-                    section="<?=$v['test_section']; ?>">
+                    section="<?=$v['class']; ?>">
                     <td>
                         <?=$k + 1; ?>
                     </td>
@@ -600,7 +467,7 @@
                         <?=$v['field']; ?>
                     </td>
                     <td>
-                        <?=$v['test_section']; ?>
+                        <?=$v['class']; ?>
                     </td>
                     <td>
                         <?=$v['start']; ?>
@@ -609,7 +476,7 @@
                         <?=$v['end']; ?>
                     </td>
                     <td>
-                        <?=$v['number']; ?>
+                        <?=$v['count_num']; ?>
                     </td>
                     <td>
                         <?=$v['floor']; ?>
@@ -657,7 +524,7 @@
             </thead>
             <tbody>
                 <?php foreach ($part2 as $k => $v): ?>
-                <tr sn="<?=$v['sn']; ?>" part="2502" field="<?=$v['field']; ?>" section="<?=$v['test_section']; ?>">
+                <tr sn="<?=$v['sn']; ?>" part="2502" field="<?=$v['field']; ?>" section="<?=$v['class']; ?>">
                     <td>
                         <?=$k + 1; ?>
                     </td>
@@ -665,7 +532,7 @@
                         <?=$v['field']; ?>
                     </td>
                     <td>
-                        <?=$v['test_section']; ?>
+                        <?=$v['class']; ?>
                     </td>
                     <td>
                         <?=$v['start']; ?>
@@ -674,7 +541,7 @@
                         <?=$v['end']; ?>
                     </td>
                     <td>
-                        <?=$v['number']; ?>
+                        <?=$v['count_num']; ?>
                     </td>
                     <td>
                         <?=$v['floor']; ?>
@@ -722,7 +589,7 @@
             </thead>
             <tbody>
                 <?php foreach ($part3 as $k => $v): ?>
-                <tr sn="<?=$v['sn']; ?>" part="2503" field="<?=$v['field']; ?>" section="<?=$v['test_section']; ?>">
+                <tr sn="<?=$v['sn']; ?>" part="2503" field="<?=$v['field']; ?>" section="<?=$v['class']; ?>">
                     <td>
                         <?=$k + 1; ?>
                     </td>
@@ -730,7 +597,7 @@
                         <?=$v['field']; ?>
                     </td>
                     <td>
-                        <?=$v['test_section']; ?>
+                        <?=$v['class']; ?>
                     </td>
                     <td>
                         <?=$v['start']; ?>
@@ -739,7 +606,7 @@
                         <?=$v['end']; ?>
                     </td>
                     <td>
-                        <?=$v['number']; ?>
+                        <?=$v['count_num']; ?>
                     </td>
                     <td>
                         <?=$v['floor']; ?>
@@ -801,34 +668,28 @@
                             <input type="text" class="form-control field" readonly>
                         </div>
                         <div class="form-group">
+                        
                             <label for="start_date" class="" style="float:left;">執行日</label>
-                            <input disabled type="checkbox" class="chbox" id="" name="first_member_day" value="<?=mb_substr($datetime_info['day_1'], 5, 8, 'utf-8'); ?>">
-                            <span class="chbox">
-                                <?=mb_substr($datetime_info['day_1'], 5, 8, 'utf-8'); ?>
-                            </span>
-                            <input disabled type="checkbox" class="chbox" id="" name="first_member_day" value="<?=mb_substr($datetime_info['day_2'], 5, 8, 'utf-8'); ?>">
-                            <span class="chbox">
-                                <?=mb_substr($datetime_info['day_2'], 5, 8, 'utf-8'); ?>
-                            </span>
-                            <input disabled type="checkbox" class="chbox" id="" name="first_member_day" value="<?=mb_substr($datetime_info['day_3'], 5, 8, 'utf-8'); ?>">
-                            <span class="chbox">
-                                <?=mb_substr($datetime_info['day_3'], 5, 8, 'utf-8'); ?>
+                            <input type="checkbox" class="chbox" id="do_date" name="day" checked>
+                            <span class="chbox"  >
+                                <?=$datetime_info['day']; ?>
                             </span>
                         </div>
                         <div class="form-group">
-                            <label for="order_meal">訂餐需求</label>
-                            <input type="checkbox" class="" name="need" id="first_member_order_meal">
-                            <span>需訂餐</span>
-                        </div>
-                        <div class="form-group first_member_meal">
-                            <label for="first_member_meal" class="" style="float:left;">餐別</label>
-                            <select class="form-control" id="first_member_meal">
-                                <option value="葷">葷</option>
-                                <option value="素">素</option>
-                            </select>
+                        <label for="floor" class="">場次</label>
+                            <input type="checkbox" class="chbox" id='morning'  value="morning" name="day" >
+                            <span class="chbox"  >
+                                 上午場
+                            </span>
+                            <input type="checkbox" class="chbox" id='aftermorning'  value="aftermorning" name="day"  >
+                            <span class="chbox"  >
+                                 下午場
+                            </span>
                         </div>
                     </div>
+                    </div>
                     <div class="col-md-3 col-sm-3 col-xs-3 cube W20">
+                    <?php print_r($fees_info);?>
                         <div class="form-group">
                             <label for="start_date" class="" style="float:left;">天數/節數</label>
                             <input type="hidden" class="form-control" id="first_member_day_count" readonly>
@@ -837,24 +698,13 @@
                         <div class="form-group" style="padding: 0% 3%;">
                             <div class="W50">
                                 <label for="trial_start" class="" style="float:left;width: 50%;">薪資單價</label>
-                                <input type="hidden" class="form-control" id="first_member_one_day_salary" value="<?=$fees_info['one_day_salary']; ?>">
-                                <input type="text" class="form-control" id="first_member_salary_section" value="<?=$fees_info['salary_section']; ?>">
+                                <input type="hidden" class="form-control" id="first_member_one_day_salary" value="<?=$fees_info['pay_1']; ?>">
+                                <input type="text" class="form-control" id="first_member_salary_section" value="<?=$fees_info['pay_2']; ?>">
                             </div>
                             <div class="W50">
                                 <label for="trial_start" class="" style="float:left;width: 50%;">薪資總計</label>
                                 <input type="hidden" class="form-control" id="first_member_day_salary_total" value="0" readonly>
                                 <input type="text" class="form-control" id="first_member_section_salary_total" value="0" readonly>
-                            </div>
-                        </div>
-                        <div class="form-group" style="padding: 0% 3%;">
-                            <div class="W50">
-                                <label for="trial_start" class="" style="float:left;width: 50%;">便當費 </label>
-                                <input type="text" class="form-control" id="first_member_lunch_price" value="<?=$fees_info['lunch_fee']; ?>">
-                            </div>
-                            <div class="W50">
-                                <label for="trial_start" class="" style="float:left;width: 50%;">便當總計</label>
-                                <input type="hidden" class="form-control" id="first_member_day_lunch_total" value="0" readonly>
-                                <input type="text" class="form-control" id="first_member_section_lunch_total" value="0" readonly>
                             </div>
                         </div>
                         <div class="form-group">
@@ -903,31 +753,23 @@
                             <input type="text" class="form-control field" readonly>
                         </div>
                         <div class="form-group">
+                        
                             <label for="start_date" class="" style="float:left;">執行日</label>
-                            <input disabled type="checkbox" class="chbox" id="" name="second_member_day" value="<?=mb_substr($datetime_info['day_1'], 5, 8, 'utf-8'); ?>">
-                            <span class="chbox">
-                                <?=mb_substr($datetime_info['day_1'], 5, 8, 'utf-8'); ?>
-                            </span>
-                            <input disabled type="checkbox" class="chbox" id="" name="second_member_day" value="<?=mb_substr($datetime_info['day_2'], 5, 8, 'utf-8'); ?>">
-                            <span class="chbox">
-                                <?=mb_substr($datetime_info['day_2'], 5, 8, 'utf-8'); ?>
-                            </span>
-                            <input disabled type="checkbox" class="chbox" id="" name="second_member_day" value="<?=mb_substr($datetime_info['day_3'], 5, 8, 'utf-8'); ?>">
-                            <span class="chbox">
-                                <?=mb_substr($datetime_info['day_3'], 5, 8, 'utf-8'); ?>
+                            <input type="checkbox" class="chbox" id="do_date" name="day" checked>
+                            <span class="chbox"  >
+                                <?=$datetime_info['day']; ?>
                             </span>
                         </div>
                         <div class="form-group">
-                            <label for="order_meal">訂餐需求</label>
-                            <input type="checkbox" class="" name="need" id="second_member_order_meal">
-                            <span>需訂餐</span>
-                        </div>
-                        <div class="form-group second_member_meal">
-                            <label for="second_member_meal" class="" style="float:left;">餐別</label>
-                            <select class="form-control" id="second_member_meal">
-                                <option value="葷">葷</option>
-                                <option value="素">素</option>
-                            </select>
+                        <label for="floor" class="">場次</label>
+                            <input type="checkbox" class="chbox" id='morning'  value="morning" name="day" >
+                            <span class="chbox"  >
+                                 上午場
+                            </span>
+                            <input type="checkbox" class="chbox" id='aftermorning'  value="aftermorning" name="day"  >
+                            <span class="chbox"  >
+                                 下午場
+                            </span>
                         </div>
                     </div>
                     <div class="col-md-3 col-sm-3 col-xs-3 cube W20">
@@ -939,24 +781,13 @@
                         <div class="form-group" style="padding: 0% 3%;">
                             <div class="W50">
                                 <label for="trial_start" class="" style="float:left;width: 50%;">薪資單價</label>
-                                <input type="hidden" class="form-control" id="second_member_one_day_salary" value="<?=$fees_info['one_day_salary']; ?>">
-                                <input type="text" class="form-control" id="second_member_salary_section" value="<?=$fees_info['salary_section']; ?>">
+                                <input type="hidden" class="form-control" id="second_member_one_day_salary" value="<?=$fees_info['pay_1']; ?>">
+                                <input type="text" class="form-control" id="second_member_salary_section" value="<?=$fees_info['pay_2']; ?>">
                             </div>
                             <div class="W50">
                                 <label for="trial_start" class="" style="float:left;width: 50%;">薪資總計</label>
                                 <input type="hidden" class="form-control" id="second_member_day_salary_total" value="0" readonly>
                                 <input type="text" class="form-control" id="second_member_section_salary_total" value="0" readonly>
-                            </div>
-                        </div>
-                        <div class="form-group" style="padding: 0% 3%;">
-                            <div class="W50">
-                                <label for="trial_start" class="" style="float:left;width: 50%;">便當費 </label>
-                                <input type="text" class="form-control" id="second_member_lunch_price" value="<?=$fees_info['lunch_fee']; ?>">
-                            </div>
-                            <div class="W50">
-                                <label for="trial_start" class="" style="float:left;width: 50%;">便當總計</label>
-                                <input type="hidden" class="form-control" id="second_member_day_lunch_total" value="0" readonly>
-                                <input type="text" class="form-control" id="second_member_section_lunch_total" value="0" readonly>
                             </div>
                         </div>
                         <div class="form-group">
