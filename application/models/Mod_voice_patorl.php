@@ -4,7 +4,7 @@ defined('BASEPATH') or exit('No direct script access allowed');
 
 class Mod_voice_patorl extends CI_Model
 {
-    <?php
+    
 
 
     public function import($datas)
