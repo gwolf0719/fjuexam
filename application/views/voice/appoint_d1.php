@@ -286,11 +286,11 @@
                     dataType: "json"
                 }).done(function(data) {
                     console.log(data);
-                    // $("#supervisor_1").val(data.info.supervisor_1);
-                    // $("#supervisor_2").val(data.info.supervisor_2);
-                    // $("#supervisor_1_code").val(data.info.supervisor_1_code);
-                    // $("#supervisor_2_code").val(data.info.supervisor_2_code);
-                    // $("#note").val(data.info.note);
+                    $("#supervisor_1").val(data.info.supervisor_1);
+                    $("#supervisor_2").val(data.info.supervisor_2);
+                    $("#supervisor_1_code").val(data.info.supervisor_1_code);
+                    $("#supervisor_2_code").val(data.info.supervisor_2_code);
+                    $("#note").val(data.info.note);
                 })
             })
         })
@@ -302,13 +302,13 @@
            switch (td_field) {
 
                case "上午場":
-                    // readonly();
+                    readonly();
                     removeMenu();
                     $("#do_date").prop("checked",true);
                     $("#morning").prop("checked",true);
                    break;
                 case "下午場":
-                // readonly();
+                readonly();
                 removeMenu();
                 $("#do_date").prop("checked",true);
                 $("#aftermorning").prop("checked",true);
@@ -423,7 +423,6 @@
 
 <div class="row">
     <div class="input-group col-sm-2">
-
         <div class="input-group-prepend">
             <span class="input-group-text" id="inputGroup-sizing-default">學年度</span>
         </div>
@@ -470,7 +469,7 @@
             <tbody>
                 <?php foreach ($part1 as $k => $v): ?>
                 
-                <tr sn="<?=$v['sn']; ?>" part="2501" field="<?=$v['field']?>">
+                <tr sn="<?=$v['sn']; ?>" part="2501" field="<?=$v['field']?>" block_name='<?=$v['block_name']?>'>
                     <td>
                         <?=$k + 1; ?>
                     </td>

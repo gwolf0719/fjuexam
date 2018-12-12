@@ -271,6 +271,11 @@
                 },
                 dataType: "json"
             }).done(function(data) {
+                var first_section = $('#first_section').val();
+                var second_section = $('#second_section').val();
+                console.log(first_section);
+                console.log(second_section);
+
                 console.log(data.info);
                 $("#sn").val(sn);
                 $("#part").val(part);
@@ -284,6 +289,26 @@
                 $("#second_end").val(data.info.second_end);
                 $("#second_section").val(data.info.second_section);
                 $("#note").val(data.info.note);
+
+                  switch (first_section) {
+                    case '0':
+                        $("#morning").prop("checked",false);
+                        break;
+                    case '1':
+                        $("#morning").prop("checked",true);
+                       
+
+                }
+                switch (second_section) {
+                    case '0':
+                        $("#aftermorning").prop("checked",false);
+                        break;
+                
+                    case '1':
+                        $("#aftermorning").prop("checked",true);
+                        break;
+                }
+
             })
 
         })
@@ -454,7 +479,6 @@
 
 <div class="row">
     <div class="input-group col-sm-2">
-
         <div class="input-group-prepend">
             <span class="input-group-text" id="inputGroup-sizing-default">學年度</span>
         </div>
@@ -484,40 +508,57 @@
 </div>
 <div class="row part" id="part1" style="height:700px;overflow: auto;">
     <div class="col-12" style="margin-top: 10px;">
-        <table class="table table-hover" id="">
+        <table class="table table-hover" id="" style="text-align:center">
             <thead>
                 <tr>
-                    <th>序號</th>
-                    <th>巡場人員編號</th>
-                    <th>巡場人員</th>
-                    <th>試場號起</th>
-                    <th>試場號迄</th>
-                    <th>最大試節數</th>
-                    <th>備註</th>
+                    <th rowspan="2">序號</th>
+                    <th rowspan="2">管卷人員編號</th>
+                    <th rowspan="2">管卷人員</th>
+                    <th colspan="3" class="bb">上午場</th>
+                    <th colspan="3" class="bb">下午場</th>
+                    <th rowspan="2">備註</th>
+                </tr>
+                <tr>
+                    <td>試場號起</td>
+                    <td>試場號迄</td>
+                    <td>最大試節數</td>
+                    <td>試場號起</td>
+                    <td>試場號迄</td>
+                    <td>最大試節數</td>
                 </tr>
             </thead>
             <tbody>
                 <?php foreach ($part1 as $k => $v): ?>
                 <tr sn="<?=$v['sn']; ?>" part="<?=$v['part']; ?>">
-                    <td>
+                    <td class="bt">
                         <?=$k + 1; ?>
                     </td>
-                    <td>
+                    <td class="bt">
                         <?=$v['allocation_code']; ?>
                     </td>
-                    <td>
+                    <td class="bt">
                         <?=$v['patrol_staff_name']; ?>
                     </td>
-                    <td>
+                    <td class="bt">
                         <?=$v['first_start']; ?>
                     </td>
-                    <td>
+                    <td class="bt">
                         <?=$v['first_end']; ?>
                     </td>
-                    <td>
+                    <td class="bt">
                         <?=$v['first_section']; ?>
                     </td>
-                    <td>
+                    <td class="bt">
+                        <?=$v['second_start']; ?>
+                    </td>
+                    <td class="bt">
+                        <?=$v['second_end']; ?>
+                    </td>
+                 
+                    <td class="bt">
+                        <?=$v['second_section']; ?>
+                    </td>
+                    <td class="bt">
                         <?=$v['note']; ?>
                     </td>
                 </tr>
@@ -528,84 +569,117 @@
 </div>
 <div class="row part" id="part2" style="height:700px;overflow: auto;">
     <div class="col-12" style="margin-top: 10px;">
-        <table class="table table-hover" id="">
+        <table class="table table-hover" id="" style="text-align:center">
             <thead>
                 <tr>
-                    <th>序號</th>
-                    <th>巡場人員編號</th>
-                    <th>巡場人員</th>
-                    <th>試場號起</th>
-                    <th>試場號迄</th>
-                    <th>最大試節數</th>
-                    <th>備註</th>
+                    <th rowspan="2">序號</th>
+                    <th rowspan="2">管卷人員編號</th>
+                    <th rowspan="2">管卷人員</th>
+                    <th colspan="3" class="bb">上午場</th>
+                    <th colspan="3" class="bb">下午場</th>
+                    <th rowspan="2">備註</th>
+                </tr>
+                <tr>
+                    <td>試場號起</td>
+                    <td>試場號迄</td>
+                    <td>最大試節數</td>
+                    <td>試場號起</td>
+                    <td>試場號迄</td>
+                    <td>最大試節數</td>
                 </tr>
             </thead>
             <tbody>
                 <?php foreach ($part2 as $k => $v): ?>
-                    <tr sn="<?=$v['sn']; ?>" part="<?=$v['part']; ?>">
-                        <td>
-                            <?=$k + 1; ?>
-                        </td>
-                        <td>
-                            <?=$v['allocation_code']; ?>
-                        </td>
-                        <td>
-                            <?=$v['patrol_staff_name']; ?>
-                        </td>
-                        <td>
-                            <?=$v['first_start']; ?>
-                        </td>
-                        <td>
-                            <?=$v['first_end']; ?>
-                        </td>
-                        <td>
-                            <?=$v['first_section']; ?>
-                        </td>
-                        <td>
-                            <?=$v['note']; ?>
-                        </td>
-                    </tr>
+                <tr sn="<?=$v['sn']; ?>" part="<?=$v['part']; ?>">
+                    <td class="bt">
+                        <?=$k + 1; ?>
+                    </td>
+                    <td class="bt">
+                        <?=$v['allocation_code']; ?>
+                    </td>
+                    <td class="bt">
+                        <?=$v['patrol_staff_name']; ?>
+                    </td>
+                    <td class="bt">
+                        <?=$v['first_start']; ?>
+                    </td>
+                    <td class="bt">
+                        <?=$v['first_end']; ?>
+                    </td>
+                    <td class="bt">
+                        <?=$v['second_start']; ?>
+                    </td>
+                    <td class="bt">
+                        <?=$v['second_end']; ?>
+                    </td>
+                    <td class="bt">
+                        <?=$v['first_section']; ?>
+                    </td>
+                    <td class="bt">
+                        <?=$v['second_section']; ?>
+                    </td>
+                    <td class="bt">
+                        <?=$v['note']; ?>
+                    </td>
+                </tr>
                 <?php endforeach; ?>
             </tbody>
         </table>
     </div>
 </div>
-<div class="row part" id="part3" style="height:700px;overflow: auto;">
+<div class="row part" id="part3" style="height:700px;overflow: auto; " >
     <div class="col-12" style="margin-top: 10px;">
-        <table class="table table-hover" id="">
+        <table class="table table-hover" id="" style="text-align:center">
             <thead>
                 <tr>
-                    <th>序號</th>
-                    <th>巡場人員編號</th>
-                    <th>巡場人員</th>
-                    <th>試場號起</th>
-                    <th>試場號迄</th>
-                    <th>最大試節數</th>
-                    <th>備註</th>
+                    <th rowspan="2">序號</th>
+                    <th rowspan="2">管卷人員編號</th>
+                    <th rowspan="2">管卷人員</th>
+                    <th colspan="3" class="bb">上午場</th>
+                    <th colspan="3" class="bb">下午場</th>
+                    <th rowspan="2">備註</th>
+                </tr>
+                <tr>
+                    <td>試場號起</td>
+                    <td>試場號迄</td>
+                    <td>最大試節數</td>
+                    <td>試場號起</td>
+                    <td>試場號迄</td>
+                    <td>最大試節數</td>
                 </tr>
             </thead>
             <tbody>
                 <?php foreach ($part3 as $k => $v): ?>
                 <tr sn="<?=$v['sn']; ?>" part="<?=$v['part']; ?>">
-                    <td>
+                    <td class="bt">
                         <?=$k + 1; ?>
                     </td>
-                    <td>
+                    <td class="bt">
                         <?=$v['allocation_code']; ?>
                     </td>
-                    <td>
+                    <td class="bt">
                         <?=$v['patrol_staff_name']; ?>
                     </td>
-                    <td>
+                    <td class="bt">
                         <?=$v['first_start']; ?>
                     </td>
-                    <td>
+                    <td class="bt">
                         <?=$v['first_end']; ?>
                     </td>
-                    <td>
+                    <td class="bt">
                         <?=$v['first_section']; ?>
                     </td>
-                    <td>
+                    <td class="bt">
+                        <?=$v['second_start']; ?>
+                    </td>
+                    <td class="bt">
+                        <?=$v['second_end']; ?>
+                    </td>
+                 
+                    <td class="bt">
+                        <?=$v['second_section']; ?>
+                    </td>
+                    <td class="bt">
                         <?=$v['note']; ?>
                     </td>
                 </tr>

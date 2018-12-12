@@ -315,12 +315,40 @@
                 dataType: "json"
             }).done(function(data) {
                 var html = "";
+                var first_section = $('#first_section').val();
+                var second_section = $('#second_section').val();
+
                 $.each(data.info, function(k, v) {
                     html += '<option value="' + v.field + '">' + v.field + '</option>';
                 })
+                switch (first_section) {
+                    case '0':
+                        $("#morning").prop("checked",false);
+                        break;
+                    case '1':
+                        $("#morning").prop("checked",true);
+                       
+
+                }
+                switch (second_section) {
+                    case '0':
+                        $("#aftermorning").prop("checked",false);
+                        break;
+                
+                    case '1':
+                        $("#aftermorning").prop("checked",true);
+                        break;
+                }
+                
                 $("#start").html(html);
                 $("#end").html(html);
             })
+            
+
+              function removeMenu(){
+                $("input[type='checkbox']").prop('checked', false);
+            }
+
         })
 
         // $("body").on("change", ".field1", function() {
@@ -538,6 +566,9 @@
                     break;
             }
         })
+
+       
+
 
 
 

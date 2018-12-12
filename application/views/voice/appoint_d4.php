@@ -437,7 +437,6 @@
     </div>
 </div>
 <div class="row part" id="part1" style="height:700px;overflow: auto;">
-<?php print_r($part1);?>
     <div class="col-12" style="margin-top: 10px;">
         <table class="table table-hover" id="">
             <thead>
@@ -689,7 +688,6 @@
                     </div>
                     </div>
                     <div class="col-md-3 col-sm-3 col-xs-3 cube W20">
-                    <?php print_r($fees_info);?>
                         <div class="form-group">
                             <label for="start_date" class="" style="float:left;">天數/節數</label>
                             <input type="hidden" class="form-control" id="first_member_day_count" readonly>

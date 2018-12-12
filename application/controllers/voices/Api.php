@@ -104,7 +104,7 @@ class Api extends CI_Controller {
                
                 
             }
-            $this->mod_voice_area->clean_voice_area_main();
+           
             $this->mod_voice_area->insert_batch($datas);
             $this->mod_voice_exam_area->import($datas);
             $this->mod_voice_trial->import($datas_trial);
@@ -540,7 +540,7 @@ class Api extends CI_Controller {
              $json_arr['sys_msg'] = '資料不足';
              $json_arr['requred'] = $this->getpost->report_requred($requred);
          } else {
-             $json_arr['info'] = $this->mod_voice_part_info->get_once($data['sn']);
+            $json_arr['info'] = $this->mod_voice_part_info->get_once($data['sn']);
              $json_arr['sys_code'] = '200';
              $json_arr['sys_msg'] = '資料處理完成';
          }
@@ -613,7 +613,10 @@ class Api extends CI_Controller {
         $getpost = array('sn','part','supervisor_1', 'supervisor_1_code', 'supervisor_2', 'supervisor_2_code', 'trial_staff_code_1', 'trial_staff_code_2', 'note','field');
         $requred = array('sn','part','supervisor_1', 'supervisor_1_code', 'supervisor_2', 'supervisor_2_code', 'trial_staff_code_1', 'trial_staff_code_2','field');
         $data = $this->getpost->getpost_array($getpost, $requred);
-        
+        $year = $this->session->userdata('year');
+        $ladder = $this->session->userdata('ladder');
+        $field = $data['field'];
+        $part = $data['part'];
         if ($data == false) {
             $json_arr['sys_code'] = '000';
             $json_arr['sys_msg'] = '資料不足';
@@ -621,7 +624,7 @@ class Api extends CI_Controller {
         } else {
             $data['year'] = $this->session->userdata('year');
             $data['ladder'] = $this->session->userdata('ladder');
-            if ($this->mod_voice_trial->chk_once($this->session->userdata('year'),$this->session->userdata('ladder'),$data['field'],$data['part'])) {
+            if ($this->mod_voice_trial->chk_once($year,$ladder,$field,$part)) {
                 $member1 = $this->mod_voice_staff->get_staff_member(trim($data['supervisor_1_code']));
                 $member2 = $this->mod_voice_staff->get_staff_member(trim($data['supervisor_2_code']));
                 $day = $this->mod_voice_exam_datetime->room_use_day($data['field'], $data['field'],$data['part']);
@@ -635,7 +638,7 @@ class Api extends CI_Controller {
                 $second_member_total = $second_member_salary_total ;                          
                 $date = implode(",",$do_date);
                 $sql_data = array (
-                    'sn'=>$data['sn'],
+                    // 'sn'=>$data['sn'],
                     'part'=>$data['part'],
                     'supervisor_1'=>trim($data['supervisor_1']),
                     'supervisor_1_code'=>trim($data['supervisor_1_code']),
@@ -655,26 +658,18 @@ class Api extends CI_Controller {
                     'second_member_section_total'=> $second_member_total,
                     'note'=>$data['note'],
                 );
-
-
-                
-                  $this->mod_voice_trial->update_once($data['field'], $sql_data);
-
-                
-                
-              
-                // print_r($this->db->last_query());
-                // $json_arr['sql'] = $this->db->last_query();
-                // $json_arr['sys_code'] = '200';
-                // $json_arr['sys_msg'] = '資料儲存完成';
+                $this->mod_voice_trial->update_once($year,$ladder,$field,$part,$sql_data);         
+                $json_arr['sql'] = $this->db->last_query();
+                $json_arr['sys_code'] = '200';
+                $json_arr['sys_msg'] = '資料儲存完成';
             } 
-            // else {
-            //     $json_arr['sys_code'] = '404';
-            //     $json_arr['sys_msg'] = '查無此資料';
-            // }
+            else {
+                $json_arr['sys_code'] = '404';
+                $json_arr['sys_msg'] = '查無此資料';
+            }
             
         }
-        // echo json_encode($json_arr);
+        echo json_encode($json_arr);
     }
 
     public function get_once_assign()

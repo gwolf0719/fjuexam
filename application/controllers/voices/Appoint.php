@@ -27,6 +27,7 @@ class Appoint extends CI_Controller {
         $this->mod_user->chk_status();
         $year = $this->session->userdata('year');
         $ladder = $this->session->userdata('ladder');
+       
         $part1 = $this->mod_voice_trial->get_list('2501');
         $part2 = $this->mod_voice_trial->get_list('2502');
         $part3 = $this->mod_voice_trial->get_list('2503');

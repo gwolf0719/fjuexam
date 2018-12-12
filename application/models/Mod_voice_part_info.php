@@ -7,7 +7,7 @@ class Mod_voice_part_info extends CI_Model
     public function import($datas)
     {
         // 先清除當年資料
-        $this->db->where('year', $this->session->userdata('year'))->delete('voice_area_main');
+        $this->db->where('year', $this->session->userdata('year'))->truncate('voice_area_main');
         $this->db->insert_batch('voice_area_main', $datas);
     }
 
@@ -28,7 +28,7 @@ class Mod_voice_part_info extends CI_Model
 
     public function get_once($sn)
     {
-        return $this->db->where('sn', $sn)->get('voice_area_main')->row_array();
+        return $this->db->where('sn', $sn)->get('voice_exam_area')->row_array();
     }
 
     public function update_once($sn, $data)
