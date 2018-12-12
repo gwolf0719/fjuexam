@@ -252,6 +252,7 @@
                 console.log(data);
                 $("#sn").val(sn);
                 $("#field").val(data.info.field);
+                $('#morning').val(data.info.block_name);
                 $("#start").val(data.info.start);
                 $("#end").val(data.info.end);
                 $("#floor").val(data.info.floor);
@@ -331,6 +332,7 @@
                 var sn = $("#sn").val();
                 var part = $("#part").val();
                 var field = $("#field").val();
+                var block_name = $('.block').val();
                 var supervisor_1 = $("#supervisor_1").val();
                 var supervisor_1_code = $("#supervisor_1_code").val();
                 var supervisor_2 = $("#supervisor_2").val();
@@ -345,6 +347,7 @@
                     data: {
                         "sn": sn,
                         "part": part,
+                        'block_name':block_name,
                         "field":field,
                         "supervisor_1": supervisor_1,
                         "supervisor_1_code": supervisor_1_code,
@@ -627,14 +630,10 @@
                         </div>
                         <div class="form-group">
                             <label for="floor" class="" style="float:left;">場次</label>
-                            <input type="checkbox" class="chbox" id='morning'  name="day" >
-                            <span class="chbox"  >
-                                 上午場
-                            </span>
-                            <input type="checkbox" class="chbox" id='aftermorning' name="day"  >
-                            <span class="chbox"  >
-                                 下午場
-                            </span>
+                            <input type="checkbox" class="chbox block" id='morning' value='上午場'  name="day" >
+                            <span class="chbox">上午場</span>
+                            <input type="checkbox" class="chbox block" id='aftermorning' value='下午場' name="day"  >
+                            <span class="chbox">下午場</span>
                         </div>
                     </div>
                     <div class="col-md-3 col-sm-3 col-xs-3 cube" style="background:#afccf0"> 

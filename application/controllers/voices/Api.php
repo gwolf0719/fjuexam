@@ -80,6 +80,7 @@ class Api extends CI_Controller {
                         'ladder'=>$this->session->userdata('ladder'),
                         'part'=>$data[0],
                         'field'=>$data[3],
+                        'block_name'=>$data[2],
                         'supervisor_1' => '',
                         'supervisor_1_code' => '',
                         'supervisor_2' => '',
@@ -610,13 +611,14 @@ class Api extends CI_Controller {
         $this->load->model('mod_voice_exam_datetime');
         $this->load->model('mod_voice_test_pay');
         $this->load->model('mod_voice_part_info');
-        $getpost = array('sn','part','supervisor_1', 'supervisor_1_code', 'supervisor_2', 'supervisor_2_code', 'trial_staff_code_1', 'trial_staff_code_2', 'note','field');
-        $requred = array('sn','part','supervisor_1', 'supervisor_1_code', 'supervisor_2', 'supervisor_2_code', 'trial_staff_code_1', 'trial_staff_code_2','field');
+        $getpost = array('sn','part','block_name','supervisor_1', 'supervisor_1_code', 'supervisor_2', 'supervisor_2_code', 'trial_staff_code_1', 'trial_staff_code_2', 'note','field');
+        $requred = array('sn','part','block_name','supervisor_1', 'supervisor_1_code', 'supervisor_2', 'supervisor_2_code', 'trial_staff_code_1', 'trial_staff_code_2','field');
         $data = $this->getpost->getpost_array($getpost, $requred);
         $year = $this->session->userdata('year');
         $ladder = $this->session->userdata('ladder');
         $field = $data['field'];
         $part = $data['part'];
+        $block_name = $data['block_name'];
         if ($data == false) {
             $json_arr['sys_code'] = '000';
             $json_arr['sys_msg'] = '資料不足';
@@ -658,7 +660,7 @@ class Api extends CI_Controller {
                     'second_member_section_total'=> $second_member_total,
                     'note'=>$data['note'],
                 );
-                $this->mod_voice_trial->update_once($year,$ladder,$field,$part,$sql_data);         
+                $this->mod_voice_trial->update_once($year,$ladder,$field,$part,$block_name,$sql_data);         
                 $json_arr['sql'] = $this->db->last_query();
                 $json_arr['sys_code'] = '200';
                 $json_arr['sys_msg'] = '資料儲存完成';
@@ -668,6 +670,69 @@ class Api extends CI_Controller {
                 $json_arr['sys_msg'] = '查無此資料';
             }
             
+        }
+        echo json_encode($json_arr);
+    }
+
+
+    //取得職員資料
+    public function get_staff_member()
+    {
+        $this->load->model('mod_voice_staff');
+        $getpost = array('code');
+        $requred = array('code');
+        $data = $this->getpost->getpost_array($getpost, $requred);
+
+        if ($data == false) {
+            $json_arr['sys_code'] = '000';
+            $json_arr['sys_msg'] = '資料不足';
+            $json_arr['requred'] = $this->getpost->report_requred($requred);
+        } else {
+            $json_arr['info'] = $this->mod_voice_staff->get_staff_member($data['code']);
+            $json_arr['sys_code'] = '200';
+            $json_arr['sys_msg'] = '資料處理完成';
+        }
+        echo json_encode($json_arr);
+    }
+    //取得天數
+    public function room_use_day()
+    {
+        $this->load->model('mod_voice_exam_datetime');
+        $getpost = array('start', 'end','part');
+        $requred = array('start', 'end','part');
+        $data = $this->getpost->getpost_array($getpost, $requred);
+        if ($data == false) {
+            $json_arr['sys_code'] = '000';
+            $json_arr['sys_msg'] = '資料不足';
+            $json_arr['requred'] = $this->getpost->report_requred($requred);
+        } else {
+            $data['year'] = $this->session->userdata('year');
+            $json_arr['day'] = $res = $this->mod_voice_exam_datetime->room_use_day($data['start'], $data['end'],$data['part']);
+            $json_arr['sys_code'] = '200';
+            $json_arr['sys_msg'] = '日期取得完成';
+        }
+        echo json_encode($json_arr);
+    }
+    //儲存$資料
+    public function save_trial_for_price()
+    {
+        $this->load->model('mod_voice_trial');
+        $getpost = array('sn','part','field','block_name','first_member_salary_section', 'first_member_section_salary_total','first_member_section_total', 'second_member_day_count', 'second_member_salary_section', 'second_member_section_salary_total','second_member_section_total');
+        $requred = array('sn', 'first_member_salary_section', 'first_member_section_salary_total','first_member_section_total', 'second_member_day_count', 'second_member_salary_section', 'second_member_section_salary_total','second_member_section_total');
+        $data = $this->getpost->getpost_array($getpost, $requred);
+        $year = $this->session->userdata('year');
+        $ladder = $this->session->userdata('ladder');
+        $field = $data['field'];
+        $part = $data['part'];
+        $block_name = $data['block_name'];
+        if ($data == false) {
+            $json_arr['sys_code'] = '000';
+            $json_arr['sys_msg'] = '資料不足';
+            $json_arr['requred'] = $this->getpost->report_requred($requred);
+        } else {
+            $this->mod_voice_trial->update_once($year,$ladder,$field,$part,$block_name,$data);
+            $json_arr['sys_code'] = '200';
+            $json_arr['sys_msg'] = '資料儲存完成';
         }
         echo json_encode($json_arr);
     }
@@ -697,8 +762,8 @@ class Api extends CI_Controller {
     {
         $this->load->model('mod_vocie_trial');
         $this->load->model('mod_voice_staff');
-        $getpost = array('sn', 'supervisor_1', 'supervisor_1_code', 'supervisor_2', 'supervisor_2_code', 'trial_staff_code_1', 'trial_staff_code_2', 'note','first_member_do_date','first_member_day_count','first_member_salary_section','first_member_section_salary_total','first_member_section_total','second_member_do_date','second_member_day_count','second_member_salary_section','second_member_section_salary_total','second_member_section_total');
-        $requred = array('sn', 'supervisor_1', 'supervisor_1_code', 'supervisor_2', 'supervisor_2_code', 'trial_staff_code_1', 'trial_staff_code_2', 'note','first_member_do_date','first_member_day_count','first_member_salary_section','first_member_section_salary_total','first_member_section_total','second_member_do_date','second_member_day_count','second_member_salary_section','second_member_section_salary_total','second_member_section_total');
+        $getpost = array('sn', 'supervisor_1', 'supervisor_1_code', 'supervisor_2', 'supervisor_2_code', 'trial_staff_code_1', 'trial_staff_code_2', 'note','first_member_do_date','first_member_salary_section','first_member_section_salary_total','first_member_section_total','second_member_do_date','second_member_day_count','second_member_salary_section','second_member_section_salary_total','second_member_section_total');
+        $requred = array('sn', 'supervisor_1', 'supervisor_1_code', 'supervisor_2', 'supervisor_2_code', 'trial_staff_code_1', 'trial_staff_code_2', 'note','first_member_do_date','first_member_salary_section','first_member_section_salary_total','first_member_section_total','second_member_do_date','second_member_day_count','second_member_salary_section','second_member_section_salary_total','second_member_section_total');
         $data = $this->getpost->getpost_array($getpost, $requred);
         if ($data == false) {
             $json_arr['sys_code'] = '000';
