@@ -373,7 +373,7 @@
 
 
         $("body").on("click", ".send", function() {
-            var part =  $(this).attr("part");
+            var part =$('.tab.active').attr('part');
             var field = $("#field").val();
             var block_name = $('.block').val();
             var day_count1 = $('input:checkbox:checked[name="first_member_day"]').map(function() {return $(this).val();}).get()
@@ -408,7 +408,7 @@
                 }).done(function(data) {
                     alert(data.sys_msg);
                     if (data.sys_code == "200") {
-                        // location.reload();
+                        location.reload();
                     }
                 })
             }
@@ -807,7 +807,7 @@
                             <div class="W50">
                                 <label for="trial_start" class="" style="float:left;width: 50%;">薪資單價</label>
                                 <input type="hidden" class="form-control" id="second_member_one_day_salary" value="<?=$fees_info['pay_1']; ?>">
-                                <input type="text" class="form-control" id="second_member_salary_section" value="<?=$fees_info['pay_2']; ?>">
+                                <input type="text" class="form-control" id="second_member_salary_section" value="<?=$fees_info['pay_1']; ?>">
                             </div>
                             <div class="W50">
                                 <label for="trial_start" class="" style="float:left;width: 50%;">薪資總計</label>

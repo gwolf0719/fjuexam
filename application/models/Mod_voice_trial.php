@@ -59,6 +59,16 @@ class Mod_voice_trial extends CI_Model
 
     }
 
+    public function get_trial_list($part = '')
+    {
+        $this->db->where('year', $this->session->userdata('year'));
+        if ($part != '') {
+            $this->db->where('part', $part);
+        }
+
+        return $this->db->get('voice_trial_staff')->result_array();
+    }
+
     public function import($datas)
     {
         $this->db->where('year', $this->session->userdata('year'))->truncate('voice_trial_assign');
@@ -68,7 +78,7 @@ class Mod_voice_trial extends CI_Model
 
     public function update_once($year,$ladder,$field,$part,$block_name,$data)
     {
-        print_r($data);
+    //    print_r($data);
         $this->db->where('year', $year);
         $this->db->where('ladder', $ladder);
         $this->db->where('field', $field);
@@ -109,15 +119,6 @@ class Mod_voice_trial extends CI_Model
         }
     }
 
-    public function get_trial_list($part = '')
-    {
-        $this->db->where('year', $this->session->userdata('year'));
-        if ($part != '') {
-            $this->db->where('part', $part);
-        }
-
-        return $this->db->get('voice_trial_staff')->result_array();
-    }
     public function add_trial($data)
     {
         $this->db->insert('voice_trial_staff', $data);
@@ -126,6 +127,7 @@ class Mod_voice_trial extends CI_Model
     }
     public function update_trial($sn, $data)
     {
+       
         $this->db->where('sn', $sn);
         $this->db->update('voice_trial_staff', $data);
 

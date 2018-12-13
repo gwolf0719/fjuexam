@@ -713,6 +713,43 @@ class Api extends CI_Controller {
         }
         echo json_encode($json_arr);
     }
+
+    public function get_day_section()
+    {
+        $this->load->model('mod_voice_exam_datetime');
+        $getpost = array('start', 'end');
+        $requred = array('start', 'end');
+        $data = $this->getpost->getpost_array($getpost, $requred);
+        if ($data == false) {
+            $json_arr['sys_code'] = '000';
+            $json_arr['sys_msg'] = '資料不足';
+            $json_arr['requred'] = $this->getpost->report_requred($requred);
+        } else {
+            $json_arr['section'] = $this->mod_voice_exam_datetime->get_day_section($data['start'], $data['end']);
+            $json_arr['sys_code'] = '200';
+            $json_arr['sys_msg'] = '資料處理完成';
+        }
+        echo json_encode($json_arr);
+    }
+    public function save_patrol_staff_for_list()
+    {
+
+        $this->load->model('mod_voice_patrol');
+        $getpost = array('sn','count', 'salary', 'salary_total', 'total','note');
+        $requred = array('sn');
+        $data = $this->getpost->getpost_array($getpost, $requred);
+        if ($data == false) {
+            $json_arr['sys_code'] = '000';
+            $json_arr['sys_msg'] = '資料不足';
+            $json_arr['requred'] = $this->getpost->report_requred($requred);
+        } else {
+            $data['year'] = $this->session->userdata('year');
+            $this->mod_voice_patrol->update_once($data['sn'], $data);
+            $json_arr['sys_code'] = '200';
+            $json_arr['sys_msg'] = '資料修改完成';
+        }
+        echo json_encode($json_arr);
+    }
     //儲存$資料
     public function save_trial_for_price()
     {
@@ -977,7 +1014,7 @@ class Api extends CI_Controller {
         {
             $this->load->model('mod_voice_trial');
             $getpost = array('sn', 'part', 'allocation_code', 'trial_staff_code', 'trial_staff_name', 'first_start', 'first_end', 'first_section', 'second_start', 'second_end', 'second_section','note');
-            $requred = array('sn', 'part', 'allocation_code', 'trial_staff_code', 'trial_staff_name', 'first_start', 'first_end', 'first_section', 'second_start', 'second_end', 'second_section');
+            $requred = array('sn', 'part', 'allocation_code', 'trial_staff_code', 'trial_staff_name');
             $data = $this->getpost->getpost_array($getpost, $requred);
             if ($data == false) {
                 $json_arr['sys_code'] = '000';
@@ -992,6 +1029,26 @@ class Api extends CI_Controller {
                 }
                 $json_arr['sys_code'] = '200';
                 $json_arr['sys_msg'] = '資料儲存完成';
+            }
+            echo json_encode($json_arr);
+        }
+        //儲存管券人員
+        public function save_trial_staff_for_list()
+        {
+            $this->load->model('mod_voice_trial');
+            $getpost = array('sn', 'do_date', 'count', 'salary', 'salary_total', 'total', 'note');
+            $requred = array('sn','do_date');
+            $data = $this->getpost->getpost_array($getpost, $requred);
+            if ($data == false) {
+                $json_arr['sys_code'] = '000';
+                $json_arr['sys_msg'] = '資料不足';
+                $json_arr['requred'] = $this->getpost->report_requred($requred);
+            } else {
+                $data['year'] = $this->session->userdata('year');
+                $this->mod_voice_trial->update_trial($data['sn'], $data);
+                                   
+                $json_arr['sys_code'] = '200';
+                $json_arr['sys_msg'] = '資料修改完成';
             }
             echo json_encode($json_arr);
         }
