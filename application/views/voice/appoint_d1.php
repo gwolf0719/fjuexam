@@ -273,7 +273,7 @@
                         break;
                 }
                 //監試人員編號第二碼產生
-                var c2 = data.info.field.substring(3, 6);
+                var c2 = data.info.field.substring(1,4);
                 console.log(c2);
                 $("#trial_staff_code_1").val(c1 + c2 + "1");
                 $("#trial_staff_code_2").val(c1 + c2 + "2");

@@ -78,7 +78,6 @@ class Mod_voice_trial extends CI_Model
 
     public function update_once($year,$ladder,$field,$part,$block_name,$data)
     {
-    //    print_r($data);
         $this->db->where('year', $year);
         $this->db->where('ladder', $ladder);
         $this->db->where('field', $field);

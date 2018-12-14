@@ -112,7 +112,6 @@ class Mod_voice_patorl extends CI_Model
 
     public function update_once($sn, $data)
     {
-        print_r($data);
         $this->db->where('sn', $sn);
         $this->db->update('voice_patrol_staff', $data);
 

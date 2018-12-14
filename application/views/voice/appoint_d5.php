@@ -384,7 +384,7 @@
                 }).done(function(data) {
                     alert(data.sys_msg);
                     if (data.sys_code == "200") {
-                        // location.reload();                   
+                        location.reload();                   
                     }
                 })
             }
@@ -435,6 +435,7 @@
         </div>
         <input type="text" class="form-control" aria-label="Default" aria-describedby="inputGroup-sizing-default" value="<?=$this->session->userdata('year'); ?>"
             readonly>
+            <input type="text" class="form-control"  value="<?=$this->session->userdata('ladder'); ?>" style="width:100px;" readonly>
 
     </div>
 
