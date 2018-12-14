@@ -302,18 +302,19 @@
            console.log(td_field);
            switch (td_field) {
 
-               case "上午場":
+               case "上午場,下午場":
                     readonly();
                     removeMenu();
                     $("#do_date").prop("checked",true);
                     $("#morning").prop("checked",true);
+                    $("#aftermorning").prop("checked",true);
                    break;
-                case "下午場":
-                readonly();
-                removeMenu();
-                $("#do_date").prop("checked",true);
-                $("#aftermorning").prop("checked",true);
-                   break;
+                // case "下午場":
+                // readonly();
+                // removeMenu();
+                // $("#do_date").prop("checked",true);
+                // $("#aftermorning").prop("checked",true);
+                //    break;
                
            } 
            function removeMenu(){
