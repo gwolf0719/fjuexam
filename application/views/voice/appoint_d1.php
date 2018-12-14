@@ -252,6 +252,7 @@
                 console.log(data);
                 $("#sn").val(sn);
                 $("#field").val(data.info.field);
+                $('#morning').val(data.info.block_name);
                 $("#start").val(data.info.start);
                 $("#end").val(data.info.end);
                 $("#floor").val(data.info.floor);
@@ -272,7 +273,7 @@
                         break;
                 }
                 //監試人員編號第二碼產生
-                var c2 = data.info.field.substring(3, 6);
+                var c2 = data.info.field.substring(1,4);
                 console.log(c2);
                 $("#trial_staff_code_1").val(c1 + c2 + "1");
                 $("#trial_staff_code_2").val(c1 + c2 + "2");
@@ -286,29 +287,29 @@
                     dataType: "json"
                 }).done(function(data) {
                     console.log(data);
-                    // $("#supervisor_1").val(data.info.supervisor_1);
-                    // $("#supervisor_2").val(data.info.supervisor_2);
-                    // $("#supervisor_1_code").val(data.info.supervisor_1_code);
-                    // $("#supervisor_2_code").val(data.info.supervisor_2_code);
-                    // $("#note").val(data.info.note);
+                    $("#supervisor_1").val(data.info.supervisor_1);
+                    $("#supervisor_2").val(data.info.supervisor_2);
+                    $("#supervisor_1_code").val(data.info.supervisor_1_code);
+                    $("#supervisor_2_code").val(data.info.supervisor_2_code);
+                    $("#note").val(data.info.note);
                 })
             })
         })
 
          $('body').on('click','tr',function () {
 
-           var td_field= $(this).find('td').eq(2).text();
+           var td_field= $(this).attr('block_name');
            console.log(td_field);
            switch (td_field) {
 
                case "上午場":
-                    // readonly();
+                    readonly();
                     removeMenu();
                     $("#do_date").prop("checked",true);
                     $("#morning").prop("checked",true);
                    break;
                 case "下午場":
-                // readonly();
+                readonly();
                 removeMenu();
                 $("#do_date").prop("checked",true);
                 $("#aftermorning").prop("checked",true);
@@ -331,6 +332,7 @@
                 var sn = $("#sn").val();
                 var part = $("#part").val();
                 var field = $("#field").val();
+                var block_name = $('.block').val();
                 var supervisor_1 = $("#supervisor_1").val();
                 var supervisor_1_code = $("#supervisor_1_code").val();
                 var supervisor_2 = $("#supervisor_2").val();
@@ -345,6 +347,7 @@
                     data: {
                         "sn": sn,
                         "part": part,
+                        'block_name':block_name,
                         "field":field,
                         "supervisor_1": supervisor_1,
                         "supervisor_1_code": supervisor_1_code,
@@ -423,7 +426,6 @@
 
 <div class="row">
     <div class="input-group col-sm-2">
-
         <div class="input-group-prepend">
             <span class="input-group-text" id="inputGroup-sizing-default">學年度</span>
         </div>
@@ -458,7 +460,6 @@
                 <tr>
                     <th>序號</th>
                     <th>試場</th>
-                    <th>場次</th>
                     <th>樓層別</th>
                     <th>監試人員一編號</th>
                     <th>監試人員一</th>
@@ -470,12 +471,11 @@
             <tbody>
                 <?php foreach ($part1 as $k => $v): ?>
                 
-                <tr sn="<?=$v['sn']; ?>" part="2501" field="<?=$v['field']?>">
+                <tr sn="<?=$v['sn']; ?>" part="2501" field="<?=$v['field']?>" block_name='<?=$v['block_name']?>'>
                     <td>
                         <?=$k + 1; ?>
                     </td>
                     <td><?=$v['field']; ?></td>
-                    <td><?=$v['block_name']; ?></td>
                     <td>
                         <?=$v['floor']; ?>
                     </td>
@@ -508,7 +508,6 @@
                 <tr>
                     <th>序號</th>
                     <th>試場</th>
-                    <th>場次</th>
                     <th>樓層別</th>
                     <th>監試人員一編號</th>
                     <th>監試人員一</th>
@@ -519,12 +518,11 @@
             </thead>
             <tbody>
                 <?php foreach ($part2 as $k => $v): ?>
-                <tr sn="<?=$v['sn']; ?>" part="2502" field="<?=$v['field']?>">
+                <tr sn="<?=$v['sn']; ?>" part="2502" field="<?=$v['field']?>" block_name='<?=$v['block_name']?>'>
                     <td>
                         <?=$k + 1; ?>
                     </td>
                     <td><?=$v['field']; ?></td>
-                    <td><?=$v['block_name']; ?></td>
                     <td>
                         <?=$v['floor']; ?>
                     </td>
@@ -557,7 +555,6 @@
                 <tr>
                     <th>序號</th>
                     <th>試場</th>
-                    <th>場次</th>
                     <th>樓層別</th>
                     <th>監試人員一編號</th>
                     <th>監試人員一</th>
@@ -568,14 +565,13 @@
             </thead>
             <tbody>
                 <?php foreach ($part3 as $k => $v): ?>
-                <tr sn="<?=$v['sn']; ?>" part="2503" field="<?=$v['field']?>">
+                <tr sn="<?=$v['sn']; ?>" part="2503" field="<?=$v['field']?>"  block_name='<?=$v['block_name']?>'>
                     <td>
                         <?=$k + 1; ?>
                     </td>
                     <td>
                         <?=$v['field']; ?>
                     </td>
-                    <td><?=$v['block_name']; ?></td>
                     <td>
                         <?=$v['floor']; ?>
                     </td>
@@ -628,14 +624,10 @@
                         </div>
                         <div class="form-group">
                             <label for="floor" class="" style="float:left;">場次</label>
-                            <input type="checkbox" class="chbox" id='morning'  name="day" >
-                            <span class="chbox"  >
-                                 上午場
-                            </span>
-                            <input type="checkbox" class="chbox" id='aftermorning' name="day"  >
-                            <span class="chbox"  >
-                                 下午場
-                            </span>
+                            <input type="checkbox" class="chbox block" id='morning' value='上午場'  name="day" >
+                            <span class="chbox">上午場</span>
+                            <input type="checkbox" class="chbox block" id='aftermorning' value='下午場' name="day"  >
+                            <span class="chbox">下午場</span>
                         </div>
                     </div>
                     <div class="col-md-3 col-sm-3 col-xs-3 cube" style="background:#afccf0"> 

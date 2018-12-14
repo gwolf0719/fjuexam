@@ -133,7 +133,6 @@
         cursor: pointer;
     }
 </style>
-</style>
 
 <script>
     $(function() {

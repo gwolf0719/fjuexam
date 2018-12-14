@@ -4,6 +4,11 @@ defined('BASEPATH') or exit('No direct script access allowed');
 
 class Mod_voice_trial extends CI_Model
 {
+    // public function get_field()
+    // {
+    //    $this->db->where('field');
+    //    return true
+    // }
 
     public function get_list($part = '')
     {
@@ -26,10 +31,14 @@ class Mod_voice_trial extends CI_Model
             $this->db->where('ladder',$this->session->userdata('ladder'));
             if($part!=""){
                 $this->db->where('part',$part);
+                $this->db->where('field',$value['field']);
+                // $this->db->distinct();
+                // $this->db->get('voice_trial_assign');
             }
-            $this->db->select('trial_staff_code_1,supervisor_1,trial_staff_code_2,supervisor_2,note');
+            $this->db->select('field,trial_staff_code_1,supervisor_1,trial_staff_code_2,supervisor_2,note');
             $assign = $this->db->get('voice_trial_assign')->row_array();
-            
+
+            $res[$key]['field'] = $assign['field'];            
             $res[$key]['trial_staff_code_1'] = $assign['trial_staff_code_1'];
             $res[$key]['supervisor_1'] = $assign['supervisor_1'];
             $res[$key]['trial_staff_code_2'] = $assign['trial_staff_code_2'];
@@ -51,16 +60,31 @@ class Mod_voice_trial extends CI_Model
 
     }
 
+    public function get_trial_list($part = '')
+    {
+        $this->db->where('year', $this->session->userdata('year'));
+        if ($part != '') {
+            $this->db->where('part', $part);
+        }
+
+        return $this->db->get('voice_trial_staff')->result_array();
+    }
+
     public function import($datas)
     {
-        $this->db->where('year', $this->session->userdata('year'))->delete('voice_trial_assign');
+        $this->db->where('year', $this->session->userdata('year'))->truncate('voice_trial_assign');
         $this->db->insert_batch('voice_trial_assign',$datas);
 
     }
 
-    public function update_once($field, $data)
+    public function update_once($year,$ladder,$field,$part,$data)
     {
-        $this->db->where('field',$field);
+        $this->db->where('year', $year);
+        $this->db->where('ladder', $ladder);
+        $this->db->where('field', $field);
+        $this->db->where('part', $part);
+        
+    
         $this->db->update('voice_trial_assign',$data);
 
         return true;
@@ -81,9 +105,13 @@ class Mod_voice_trial extends CI_Model
         return $this->db->where('sn', $sn)->get('voice_trial_assign')->row_array();
     }
 
-    public function chk_once($sn)
+    public function chk_once($year,$ladder,$field,$part)
     {
-        $this->db->where('sn', $sn);
+        $this->db->where('year', $year);
+        $this->db->where('ladder', $ladder);
+        $this->db->where('field', $field);
+        $this->db->where('part', $part);
+
         if ($this->db->count_all_results('voice_trial_assign') == 0) {
             return false;
         } else {
@@ -91,15 +119,6 @@ class Mod_voice_trial extends CI_Model
         }
     }
 
-    public function get_trial_list($part = '')
-    {
-        $this->db->where('year', $this->session->userdata('year'));
-        if ($part != '') {
-            $this->db->where('part', $part);
-        }
-
-        return $this->db->get('voice_trial_staff')->result_array();
-    }
     public function add_trial($data)
     {
         $this->db->insert('voice_trial_staff', $data);
@@ -108,6 +127,7 @@ class Mod_voice_trial extends CI_Model
     }
     public function update_trial($sn, $data)
     {
+       
         $this->db->where('sn', $sn);
         $this->db->update('voice_trial_staff', $data);
 

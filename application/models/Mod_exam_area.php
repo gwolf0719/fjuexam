@@ -7,7 +7,7 @@ class Mod_exam_area extends CI_Model
     public function import($datas)
     {
         // 先清除當年資料
-        $this->db->where('year', $this->session->userdata('year'))->delete('exam_area');
+        $this->db->where('year', $this->session->userdata('year'))->truncate('exam_area');
         $this->db->insert_batch('exam_area', $datas);
     }
 

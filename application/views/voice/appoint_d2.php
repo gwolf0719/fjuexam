@@ -315,12 +315,40 @@
                 dataType: "json"
             }).done(function(data) {
                 var html = "";
+                var first_section = $('#first_section').val();
+                var second_section = $('#second_section').val();
+
                 $.each(data.info, function(k, v) {
                     html += '<option value="' + v.field + '">' + v.field + '</option>';
                 })
+                switch (first_section) {
+                    case '0':
+                        $("#morning").prop("checked",false);
+                        break;
+                    case '1':
+                        $("#morning").prop("checked",true);
+                       
+
+                }
+                switch (second_section) {
+                    case '0':
+                        $("#aftermorning").prop("checked",false);
+                        break;
+                
+                    case '1':
+                        $("#aftermorning").prop("checked",true);
+                        break;
+                }
+                
                 $("#start").html(html);
                 $("#end").html(html);
             })
+            
+
+              function removeMenu(){
+                $("input[type='checkbox']").prop('checked', false);
+            }
+
         })
 
         // $("body").on("change", ".field1", function() {
@@ -538,6 +566,9 @@
                     break;
             }
         })
+
+       
+
 
 
 
@@ -799,8 +830,7 @@
                         </select>
                     </div>
                     <div class="form-group">
-                        <label for="start" class="" style="float:left;">節數</label>
-                        <input type="text" class="form-control day" id="first_section" value="0" readonly day="<?=mb_substr($datetime_info['day'], 5, 8, 'utf-8'); ?>">
+                        <input type="hidden" class="form-control day" id="first_section" value="0" readonly day="<?=mb_substr($datetime_info['day'], 5, 8, 'utf-8'); ?>">
                     </div>
                 </div>
                 <div class="col-md-3 col-sm-3 col-xs-3 cube" style="max-width: 20%; " id="aftermorning_field">
@@ -831,28 +861,16 @@
                         </select>
                     </div>
                     <div class="form-group">
-                        <label for="start" class="" style="float:left;">節數</label>
-                        <input type="text" class="form-control day" id="second_section" value="0" readonly day="<?=mb_substr($datetime_info['day'], 5, 8, 'utf-8'); ?>">
+                        <input type="hidden" class="form-control day" id="second_section" value="0" readonly day="<?=mb_substr($datetime_info['day'], 5, 8, 'utf-8'); ?>">
                     </div>
                 </div>          
-                <div class="col-md-3 col-sm-3 col-xs-3 cube">
+                <div class="">
                     <div class='form-group'>
-                            <label for="start_date" class="" value="<?=$datetime_info['day'];?>">執行日</label>
-                            <input type="checkbox" class="chbox" id="do_date" name="day" checked>
-                            <span class="chbox"  >
-                                <?=$datetime_info['day']; ?>
-                            </span>
+                            <input type="hidden" class="chbox" id="do_date" name="day" checked>
                     </div>
-                    <div class="form-group">
-                        <label for="floor" class="">場次</label>
-                            <input type="checkbox" class="chbox" id='morning'  value="morning" name="day" >
-                            <span class="chbox"  >
-                                 上午場
-                            </span>
-                            <input type="checkbox" class="chbox" id='aftermorning'  value="aftermorning" name="day"  >
-                            <span class="chbox"  >
-                                 下午場
-                            </span>
+                    <div class="">
+                            <input type="hidden" class="chbox" id='morning'  value="morning" name="day" >
+                            <input type="hidden" class="chbox" id='aftermorning'  value="aftermorning" name="day"  >
                         </div>
                     </div>
                 </div>

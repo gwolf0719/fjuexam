@@ -9,7 +9,7 @@ class Mod_voice_exam_area extends CI_Model
         // 先清除當年資料
         $this->db->where('year', $this->session->userdata('year'));
         $this->db->where('ladder', $this->session->userdata('ladder'));
-        $this->db->delete('voice_exam_area');
+        $this->db->truncate('voice_exam_area');
         $this->db->insert_batch('voice_exam_area', $data_1);
     }
 

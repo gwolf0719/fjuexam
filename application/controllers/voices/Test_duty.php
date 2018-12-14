@@ -47,7 +47,7 @@ class Test_duty extends CI_Controller {
         $year = $this->session->userdata('year');
         $ladder = $this->session->userdata('ladder');
         $job = $this->mod_voice_job_list->get_job_list($year,$test_partition);
-        if ($this->mod_voice_test_pay->chk_once($year)) {
+        if ($this->mod_voice_test_pay->chk_once($year,$ladder)) {
             $fees_info = $this->mod_voice_test_pay->get_once($year,$ladder);
         } else {
             $fees_info = array(
@@ -55,7 +55,7 @@ class Test_duty extends CI_Controller {
                 'pay_2' => '0',
             );
         }
-        if($this->mod_voice_exam_datetime->chk_once($year)){
+        if($this->mod_voice_exam_datetime->chk_once($year,$ladder)){
             $datatime_info = $this->mod_voice_exam_datetime->get_once($year,$ladder);
         }else{
             $datatime_info = array(

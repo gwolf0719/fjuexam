@@ -74,6 +74,40 @@ function room_use_day($start,$end,$part){
     
     return $res;
 }
+
+ public function get_day_section($start, $end)
+    {
+        $year = $this->session->userdata('year');
+        // 取得每日考科
+        $day = array();
+        // for ($i = 1; $i <= 3; ++$i) {
+        //     foreach ($this->db->select('subject')->where('year', $year)->where('day', $i)->get('exam_course')->result_array() as $key => $value) {
+        //         // code...
+        //         // if ($value['subject'] != 'subject_00') {
+        //         $day[$i][] = $value['subject'];
+        //         // }
+        //     }
+        // }
+        $count = 0;
+        $where = array();
+        // for ($i = 1; $i <= 3; ++$i) {
+            foreach ($day[$i] as $k => $v) {
+                // if ($v != "subject_00") {
+                    $where = array(
+                        'year' => $year,
+                        'field <=' => $end,
+                        'field >=' => $start,
+                        $v.'!=' => 0,
+                    );
+                    if ($this->db->where($where)->count_all_results('exam_area') != 0) {
+                        $count = $count + 1;
+                    }
+                // }
+            }
+        // }
+
+        return $count;
+    }
   /**
      * 清除當年考試課程表.
      */
