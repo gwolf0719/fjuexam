@@ -73,6 +73,11 @@ $route['voice/f'] = 'voices/test_setting/index';
 $route['voice/f/(:any)'] = 'voices/test_setting/$1';
 // $route['voice/a/(:any)'] = 'Voice/import/$1';
 
+/**學測 */
+$route['subject_ability'] = 'subject_ability/console/index';
+$route['subject_ability/(:any)'] = 'subject_ability/console/$1';
+$route['subject_ability/api/(:any)'] = 'subject_ability/api/$1';
+
 $route['(:any)'] = 'welcome/$1';
 $route['404_override'] = '';
 $route['translate_uri_dashes'] = FALSE;
