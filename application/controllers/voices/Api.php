@@ -618,7 +618,6 @@ class Api extends CI_Controller {
         $ladder = $this->session->userdata('ladder');
         $field = $data['field'];
         $part = $data['part'];
-        $block_name = $data['block_name'];
         if ($data == false) {
             $json_arr['sys_code'] = '000';
             $json_arr['sys_msg'] = '資料不足';
@@ -660,7 +659,7 @@ class Api extends CI_Controller {
                     'second_member_section_total'=> $second_member_total,
                     'note'=>$data['note'],
                 );
-                $this->mod_voice_trial->update_once($year,$ladder,$field,$part,$block_name,$sql_data);         
+                $this->mod_voice_trial->update_once($year,$ladder,$field,$part,$sql_data);         
                 $json_arr['sql'] = $this->db->last_query();
                 $json_arr['sys_code'] = '200';
                 $json_arr['sys_msg'] = '資料儲存完成';

@@ -298,7 +298,7 @@
 
          $('body').on('click','tr',function () {
 
-           var td_field= $(this).find('td').eq(2).text();
+           var td_field= $(this).attr('block_name');
            console.log(td_field);
            switch (td_field) {
 
@@ -460,7 +460,6 @@
                 <tr>
                     <th>序號</th>
                     <th>試場</th>
-                    <th>場次</th>
                     <th>樓層別</th>
                     <th>監試人員一編號</th>
                     <th>監試人員一</th>
@@ -477,7 +476,6 @@
                         <?=$k + 1; ?>
                     </td>
                     <td><?=$v['field']; ?></td>
-                    <td><?=$v['block_name']; ?></td>
                     <td>
                         <?=$v['floor']; ?>
                     </td>
@@ -510,7 +508,6 @@
                 <tr>
                     <th>序號</th>
                     <th>試場</th>
-                    <th>場次</th>
                     <th>樓層別</th>
                     <th>監試人員一編號</th>
                     <th>監試人員一</th>
@@ -521,12 +518,11 @@
             </thead>
             <tbody>
                 <?php foreach ($part2 as $k => $v): ?>
-                <tr sn="<?=$v['sn']; ?>" part="2502" field="<?=$v['field']?>">
+                <tr sn="<?=$v['sn']; ?>" part="2502" field="<?=$v['field']?>" block_name='<?=$v['block_name']?>'>
                     <td>
                         <?=$k + 1; ?>
                     </td>
                     <td><?=$v['field']; ?></td>
-                    <td><?=$v['block_name']; ?></td>
                     <td>
                         <?=$v['floor']; ?>
                     </td>
@@ -559,7 +555,6 @@
                 <tr>
                     <th>序號</th>
                     <th>試場</th>
-                    <th>場次</th>
                     <th>樓層別</th>
                     <th>監試人員一編號</th>
                     <th>監試人員一</th>
@@ -570,14 +565,13 @@
             </thead>
             <tbody>
                 <?php foreach ($part3 as $k => $v): ?>
-                <tr sn="<?=$v['sn']; ?>" part="2503" field="<?=$v['field']?>">
+                <tr sn="<?=$v['sn']; ?>" part="2503" field="<?=$v['field']?>"  block_name='<?=$v['block_name']?>'>
                     <td>
                         <?=$k + 1; ?>
                     </td>
                     <td>
                         <?=$v['field']; ?>
                     </td>
-                    <td><?=$v['block_name']; ?></td>
                     <td>
                         <?=$v['floor']; ?>
                     </td>

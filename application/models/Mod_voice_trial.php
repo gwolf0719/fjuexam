@@ -32,7 +32,8 @@ class Mod_voice_trial extends CI_Model
             if($part!=""){
                 $this->db->where('part',$part);
                 $this->db->where('field',$value['field']);
-                $this->db->where('block_name',$value['block_name']);
+                // $this->db->distinct();
+                // $this->db->get('voice_trial_assign');
             }
             $this->db->select('field,trial_staff_code_1,supervisor_1,trial_staff_code_2,supervisor_2,note');
             $assign = $this->db->get('voice_trial_assign')->row_array();
@@ -76,13 +77,13 @@ class Mod_voice_trial extends CI_Model
 
     }
 
-    public function update_once($year,$ladder,$field,$part,$block_name,$data)
+    public function update_once($year,$ladder,$field,$part,$data)
     {
         $this->db->where('year', $year);
         $this->db->where('ladder', $ladder);
         $this->db->where('field', $field);
         $this->db->where('part', $part);
-        $this->db->where('block_name',$block_name);
+        
     
         $this->db->update('voice_trial_assign',$data);
 
