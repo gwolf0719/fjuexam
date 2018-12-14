@@ -46,13 +46,14 @@
         </div>
         <input type="text" class="form-control" aria-label="Default" aria-describedby="inputGroup-sizing-default" value="<?=$this->session->userdata('year'); ?>"
             readonly>
+            <input type="text" class="form-control"  value="<?=$this->session->userdata('ladder'); ?>" style="width:100px;" readonly>
 
     </div>
 
 </div>
 <div class="row">
     <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6 cube text-center">
-        <a href="./designated/e_1_1" target="_blank">
+        <a href="./voice/e/form_e1_1" target="_blank">
             <img src="assets/images/e_1_1.png" alt="">
         </a>
     </div>
@@ -62,7 +63,7 @@
     </div>
 
     <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6 cube text-center">
-        <a href="./designated/e_1_2" target="_blank">
+        <a href="./voice/e/form_e1_2" target="_blank">
             <img src="assets/images/e_1_2.png" alt="">
         </a>
     </div>

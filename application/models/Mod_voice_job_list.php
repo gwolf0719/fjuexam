@@ -158,6 +158,105 @@ class Mod_voice_job_list extends CI_Model
          return $list;
     }
 
+    public function get_all_assign_member_list()
+    {
+        //取出試務人員
+        $this->db->where('year', $this->session->userdata('year'));
+        $res = $this->db->get('voice_job_list')->result_array();
+
+        //取出監試人員
+        $this->db->select('*');
+        $this->db->from('voice_exam_area');
+        $this->db->join('voice_trial_assign', 'voice_exam_area.sn = voice_trial_assign.sn');
+        $this->db->where("voice_exam_area.year",$_SESSION['year']);
+        $year = $this->session->userdata('year');
+        $sub = $this->db->get()->result_array();
+
+        //取出管卷人員
+        $this->db->where('year', $this->session->userdata('year'));
+        $trial_staff = $this->db->get('voice_trial_staff')->result_array();    
+        
+        //取出巡場人員
+        $this->db->where('year', $this->session->userdata('year'));
+
+        $patrol = $this->db->get('voice_patrol_staff')->result_array();
+
+        for ($i=0; $i < count($res); $i++) {
+            # code...
+            $member_unit = $this->db->where('member_code', $res[$i]['job_code'])->select('member_unit')->get('voice_import_member')->row_array();
+            if ($res[$i]['job_code'] != "") {
+                $arr[] = array(
+                    'job_code' => $res[$i]['job_code'],
+                    'job' => $res[$i]['job'],
+                    'name' => $res[$i]['name'],
+                    'job_title' => $res[$i]['job_title'],
+                    'member_unit'=>$member_unit['member_unit'],
+                    'do_date' => $res[$i]['do_date']
+                );
+            }
+        }
+        for ($i=0; $i < count($sub); $i++) {
+            # code...
+            $supervisor_1 = $this->db->where('member_code', $sub[$i]['supervisor_1_code'])->get('voice_import_member')->row_array();
+            if($sub[$i]['trial_staff_code_1'] != ""){
+                $arr[] = array(
+                    'job_code' => $sub[$i]['trial_staff_code_1'],
+                    'job' => '監試人員',
+                    'name' => $sub[$i]['supervisor_1'],
+                    'job_title' => $supervisor_1['member_title'],
+                    'member_unit'=>$supervisor_1['member_unit'],
+                    'do_date' => $sub[$i]['first_member_do_date']
+                );
+            }
+        }    
+
+        for ($i=0; $i < count($sub); $i++) {
+            # code...
+            $supervisor_2 = $this->db->where('member_code', $sub[$i]['supervisor_2_code'])->get('voice_import_member')->row_array();
+            if($sub[$i]['trial_staff_code_2'] != ""){
+                $arr[] = array(
+                    'job_code' => $sub[$i]['trial_staff_code_2'],
+                    'job' => '監試人員',
+                    'name' => $sub[$i]['supervisor_2'],
+                    'job_title' => $supervisor_2['member_title'],
+                    'member_unit'=>$supervisor_2['member_unit'],
+                    'do_date' => $sub[$i]['second_member_do_date']
+                );
+            }
+        }      
+        
+        for ($i=0; $i < count($trial_staff); $i++) {
+            # code...
+            $trial_staff_member = $this->db->where('member_code', $trial_staff[$i]['trial_staff_code'])->get('voice_import_member')->row_array();
+            if($trial_staff[$i]['trial_staff_code'] != ""){
+                $arr[] = array(
+                    'job_code' => $trial_staff[$i]['trial_staff_code'],
+                    'job' => '管卷人員',
+                    'name' => $trial_staff[$i]['trial_staff_name'],
+                    'job_title' => $trial_staff_member['member_title'],
+                    'member_unit'=>$trial_staff_member['member_unit'],
+                    'do_date' => $trial_staff[$i]['do_date']
+                );
+            }
+        }    
+        
+        for ($i=0; $i < count($patrol); $i++) {
+            # code...
+            $patrol_member = $this->db->where('member_code', $patrol[$i]['patrol_staff_code'])->get('voice_import_member')->row_array();
+            if($patrol[$i]['patrol_staff_code'] != ""){
+                $arr[] = array(
+                    'job_code' => $patrol[$i]['patrol_staff_code'],
+                    'job' => '巡場人員',
+                    'name' => $patrol[$i]['patrol_staff_name'],
+                    'job_title' => $patrol_member['member_title'],
+                    'member_unit'=>$patrol_member['member_unit'],
+                    'do_date' => $patrol[$i]['do_date']
+                );
+            }
+        }            
+        return $arr;
+    }
+
 
 
 

@@ -69,7 +69,7 @@ class Appoint extends CI_Controller {
             $datetime_info = $this->mod_voice_exam_datetime->get_once($year,$ladder);
         } else {
             $datetime_info = array(
-                'day' => '10/22',
+                'day' => '10/25',
             );
         }
         $data = array(
@@ -103,7 +103,7 @@ class Appoint extends CI_Controller {
             $datetime_info = $this->mod_voice_exam_datetime->get_once($year,$ladder);
         } else {
             $datetime_info = array(
-                'day' => '10/22',
+                'day' => '10/25',
             );
         }
 
@@ -144,7 +144,7 @@ class Appoint extends CI_Controller {
             $datetime_info = $this->mod_voice_exam_datetime->get_once($year,$ladder);
         } else {
             $datetime_info = array(
-                'day' => '10/22',
+                'day' => '10/25',
             );
         }
         $data = array(
@@ -187,7 +187,7 @@ class Appoint extends CI_Controller {
             $datetime_info = $this->mod_voice_exam_datetime->get_once($year,$ladder);
         } else {
             $datetime_info = array(
-                'day' => '10/22',
+                'day' => '10/25',
             );
         }
         
@@ -227,7 +227,7 @@ class Appoint extends CI_Controller {
             $datetime_info = $this->mod_voice_exam_datetime->get_once($year,$ladder);
         } else {
             $datetime_info = array(
-                'day' => '10/22',
+                'day' => '10/25',
             );
         }
         $data = array(

@@ -54,7 +54,7 @@
 </div>
 <div class="row">
     <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6 cube text-center">
-        <a href="./voice/form_e1">
+        <a href="./voice/e/form_e1">
             <img src="assets/images/e1.png" alt="">
         </a>
     </div>

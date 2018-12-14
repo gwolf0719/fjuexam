@@ -66,7 +66,7 @@ $route['voice/c/assign_c4'] = 'voices/test_assign/assign_c4';
 $route['voice/d'] = 'voices/appoint/index';
 $route['voice/d/(:any)'] = 'voices/appoint/$1';
 $route['voice/e'] = 'voices/test_form/index';
-$route['voice/e/form/(:any)'] = 'voices/test_form/$1';
+$route['voice/e/(:any)'] = 'voices/test_form/$1';
 
 
 
