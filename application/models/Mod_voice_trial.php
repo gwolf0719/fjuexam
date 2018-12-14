@@ -14,6 +14,7 @@ class Mod_voice_trial extends CI_Model
     {
         $this->db->where('year',$this->session->userdata('year'));
         $this->db->where('ladder',$this->session->userdata('ladder'));
+        $this->db->where('block_name','上午場');
         if($part!=""){
             $this->db->where('part',$part);
         }
@@ -32,31 +33,25 @@ class Mod_voice_trial extends CI_Model
             if($part!=""){
                 $this->db->where('part',$part);
                 $this->db->where('field',$value['field']);
-                // $this->db->distinct();
-                // $this->db->get('voice_trial_assign');
             }
-            $this->db->select('field,trial_staff_code_1,supervisor_1,trial_staff_code_2,supervisor_2,note');
-            $assign = $this->db->get('voice_trial_assign')->row_array();
+            $this->db->select('field,trial_staff_code_1,supervisor_1,trial_staff_code_2,supervisor_2,note,block_name');
+            $assign = $this->db->get('voice_trial_assign')->result_array();
+            // 整合 block_name
+            $block_name = array();
+            foreach($assign as $kb=>$kv){
+                $block_name[] = $kv['block_name'] ;
+            }
 
-            $res[$key]['field'] = $assign['field'];            
-            $res[$key]['trial_staff_code_1'] = $assign['trial_staff_code_1'];
-            $res[$key]['supervisor_1'] = $assign['supervisor_1'];
-            $res[$key]['trial_staff_code_2'] = $assign['trial_staff_code_2'];
-            $res[$key]['supervisor_2'] = $assign['supervisor_2'];
-            $res[$key]['note'] = $assign['note'];
+            $res[$key]['block_name'] = implode(",",$block_name);        
+            $res[$key]['field'] = $assign[0]['field'];            
+            $res[$key]['trial_staff_code_1'] = $assign[0]['trial_staff_code_1'];
+            $res[$key]['supervisor_1'] = $assign[0]['supervisor_1'];
+            $res[$key]['trial_staff_code_2'] = $assign[0]['trial_staff_code_2'];
+            $res[$key]['supervisor_2'] = $assign[0]['supervisor_2'];
+            $res[$key]['note'] = $assign[0]['note'];
         }
-        // echo $this->db->last_query();
-        return $res;
-        // $this->db->select('*');
-        // if ($part != '') {
-        //     $this->db->where('voice_area_main.part', $part);
-        // }
-        // $this->db->from('voice_area_main');
-        // $this->db->join('voice_trial_assign', 'voice_area_main.sn = voice_trial_assign.sn','left');
         
-        // $data = $this->db->get()->result_array();
-        // // echo $this->db->last_query();
-        // return $data;
+        return $res;
 
     }
 
