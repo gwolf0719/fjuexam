@@ -31,11 +31,11 @@ class Mod_voice_part_info extends CI_Model
         return $this->db->where('sn', $sn)->get('voice_exam_area')->row_array();
     }
 
+    
     public function update_once($sn, $data)
     {
         $this->db->where('sn', $sn);
         $this->db->update('voice_area_main', $data);
-
         return true;
     }
 

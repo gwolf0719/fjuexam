@@ -39,8 +39,6 @@ class Test_assign extends CI_Controller {
             case '2503':
                  $test_partition = '第三分區';
                   break;
-            
-           
         }
         $year = $this->session->userdata('year');
         if ($this->mod_voice_part_addr->chk_once($year)) {

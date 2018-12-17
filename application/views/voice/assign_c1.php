@@ -110,24 +110,31 @@ $(function(){
             var start = $("#start").val();
             var end = $("#end").val();
             var note = $("textarea[name='note']").val();
-            
-            $.ajax({
-                url: './voice/api/save_part',
-                data:{
-                    "sn":sn,
-                    "part":part,
-                    "floor":floor,
-                    "start":start,
-                    "end":end,
-                    "note":note
-                },
-                dataType:"json"
-            }).done(function(data){
-                alert(data.sys_msg);
-                if(data.sys_code == "200"){
-                    location.reload();
+            $("tr").each(function(k,v){
+                var _sn = $(this).attr('sn');
+                var _this = $(this);
+                // 篩選需要修改的區間範圍
+                if($(this).attr('field') >= start && $(this).attr('field')<=end ){
+                    $.ajax({
+                        url: './voice/api/save_part',
+                        data:{
+                            "sn":_sn,
+                            "floor":floor,
+                            "note":note
+                        },
+                        dataType:"json"
+                    }).done(function(data){
+                        if(data.sys_code == "200"){
+                            _this.find('td').eq(-2).text(floor);
+                            _this.find('td').eq(-1).text(note);
+                            if(_this.attr('field') == end){
+                                alert('資料更新完成');
+                            }
+                        }
+                    })
                 }
             })
+            
         }
     })
 });
@@ -194,7 +201,7 @@ $(function(){
             </thead>
             <tbody>
             <?php foreach ($datalist as $k => $v): ?>
-                <tr sn="<?=$v['sn']; ?>">
+                <tr sn="<?=$v['sn']; ?>" field="<?=$v['field']?>">
                     <td><?=$k + 1; ?></td>
                     <td><?=$v['year']; ?></td>
                     <td><?=$v['part']; ?></td>

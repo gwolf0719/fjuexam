@@ -549,15 +549,15 @@ class Api extends CI_Controller {
      public function save_part()
     {
         $this->load->model('mod_voice_part_info');
-        $getpost = array('sn', 'part', 'start','end', 'floor','note');
-        $requred = array('sn','start', 'end','floor', );
+        $getpost = array('sn',  'floor','note');
+        $requred = array('sn', 'floor' );
         $data = $this->getpost->getpost_array($getpost, $requred);
         if ($data == false) {
             $json_arr['sys_code'] = '000';
             $json_arr['sys_msg'] = '資料不足';
             $json_arr['requred'] = $this->getpost->report_requred($requred);
         } else {
-            $this->mod_voice_part_info->update_once($data['sn'], $data);
+            $this->mod_voice_part_info->update_once($data['sn'],$data);
             $json_arr['sys_code'] = '200';
             $json_arr['sys_msg'] = '資料儲存完成';
         }
