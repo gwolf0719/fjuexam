@@ -31,29 +31,29 @@
 <div class="row" >
     
     <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4 cube text-center">
-        <a href="./designated/b_1">
+        <a href="./subject_ability/b_1">
             <img src="assets/images/b1.png" alt="">
         </a>    
     </div>
     <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4 cube text-center">
-        <a href="./designated/b_2">
+        <a href="./subject_ability/b_2">
             <img src="assets/images/b2.png" alt="">
         </a>    
     
     </div>
     <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4 cube text-center">
-        <a href="./designated/b_3">
+        <a href="./subject_ability/b_3">
             <img src="assets/images/b3.png" alt="">
         </a>    
     
     </div>
     <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4 cube text-center">
-        <a href="./designated/b_4">
+        <a href="./subject_ability/b_4">
             <img src="assets/images/b4.png" alt="">
         </a>    
     </div>
     <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4 cube text-center">
-        <a href="./designated/b_5">
+        <a href="./subject_ability/b_5">
             <img src="assets/images/b5.png" alt="">
         </a>    
     </div> 

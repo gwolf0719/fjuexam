@@ -42,29 +42,29 @@ $(function(){
 <div class="row" >
     <input type="hidden" arr="<?php print_r($datalist); ?>" id="arr">
     <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4 cube text-center">
-        <a href="./designated/c_1">
+        <a href="./subject_ability/c_1">
             <img src="assets/images/c1.png" alt="">
         </a>    
     </div>
     <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4 cube text-center">
-        <a href="./designated/c_2">
+        <a href="./subject_ability/c_2">
             <img src="assets/images/c2.png" alt="">
         </a>    
     
     </div>
     <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4 cube text-center">
-        <a href="./designated/c_3">
+        <a href="./subject_ability/c_3">
             <img src="assets/images/c3.png" alt="">
         </a>    
     
     </div>
     <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4 cube text-center">
-        <a href="./designated/c_4">
+        <a href="./subject_ability/c_4">
             <img src="assets/images/c4.png" alt="">
         </a>    
     </div>
     <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4 cube text-center">
-        <a href="./designated/c_5">
+        <a href="./subject_ability/c_5">
             <img src="assets/images/c5.png" alt="">
         </a>    
     </div> 
