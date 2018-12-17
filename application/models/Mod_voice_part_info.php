@@ -41,9 +41,11 @@ class Mod_voice_part_info extends CI_Model
     }
 
     
-    public function update_once($sn, $data)
+    public function update_once($field, $data)
     {
-        $this->db->where('sn', $sn);
+         $this->db->where('year', $this->session->userdata('year'));
+        $this->db->where('ladder', $this->session->userdata('ladder'));
+        $this->db->where('field', $field);
         $this->db->update('voice_area_main', $data);
         return true;
     }

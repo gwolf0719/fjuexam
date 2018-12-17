@@ -111,14 +111,14 @@ $(function(){
             var end = $("#end").val();
             var note = $("textarea[name='note']").val();
             $("tr").each(function(k,v){
-                var _sn = $(this).attr('sn');
                 var _this = $(this);
+                var _field = $(this).attr('field');
                 // 篩選需要修改的區間範圍
-                if($(this).attr('field') >= start && $(this).attr('field')<=end ){
+                if(_field >= start && _field<=end ){
                     $.ajax({
                         url: './voice/api/save_part',
                         data:{
-                            "sn":_sn,
+                            "field":_field,
                             "floor":floor,
                             "note":note
                         },
