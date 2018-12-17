@@ -67,7 +67,7 @@ tr{
             $(".form").slideUp();
         }                   
         $.ajax({
-            url: 'api/get_once_school_unit',
+            url: './subject_ability/api/get_once_school_unit',
             data:{
                 "sn":sn,
             },
@@ -103,7 +103,7 @@ tr{
         var department = $("#department").val();
         var code = $("#code").val();
         $.ajax({
-            url: 'api/add_school_unit',
+            url: './subject_ability/api/add_school_unit',
             data:{
                 "company_name_01":company_name_01,
                 "company_name_02":company_name_02,
@@ -126,7 +126,7 @@ tr{
             var department = $("#department").val();
             var code = $("#code").val();
             $.ajax({
-                url: 'api/edit_school_unit',
+                url: './subject_ability/api/edit_school_unit',
                 data:{
                     "sn":sn,
                     "company_name_01":company_name_01,
@@ -152,7 +152,7 @@ tr{
         if(confirm("是否確定要刪除？")){
             var sn = $("#sn").val();
             $.ajax({
-                url: 'api/remove_once_school_unit',
+                url: './subject_ability/api/remove_once_school_unit',
                 data:{
                     "sn":sn,
                 },

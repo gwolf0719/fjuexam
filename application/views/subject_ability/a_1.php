@@ -59,10 +59,10 @@ tr{
                     <th>考生應試號起</th>
                     <th>考生應試號迄</th>
                     <th>應試人數</th>
-                    <th>物理</th>
-                    <th>化學</th>
-                    <th>生物</th>
-                    <th>數乙</th>
+                    <th>國文</th>
+                    <th>英文</th>
+                    <th>數學</th>
+                    <th>社會</th>
                     <th>國文</th>
                     <th>英文</th>
                     <th>數甲</th>

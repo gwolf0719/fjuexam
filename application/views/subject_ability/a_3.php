@@ -101,7 +101,7 @@
                 $(".form").slideUp();
             }
             $.ajax({
-                url: 'api/get_once_staff',
+                url: './subject_ability/api/get_once_staff',
                 data: {
                     "sn": sn,
                 },
@@ -183,7 +183,7 @@
                 meal = $("#meal").val();
             }
             $.ajax({
-                url: 'api/add_staff',
+                url: './subject_ability/api/add_staff',
                 data: {
                     "member_code": member_code,
                     "member_name": member_name,
@@ -219,7 +219,7 @@
                     meal = $("#meal").val();
                 }
                 $.ajax({
-                    url: 'api/edit_staff',
+                    url: './subject_ability/api/edit_staff',
                     data: {
                         "sn": sn,
                         "member_code": member_code,
@@ -245,7 +245,7 @@
             if (confirm("是否確定要刪除？")) {
                 var sn = $("#sn").val();
                 $.ajax({
-                    url: 'api/remove_once_staff',
+                    url: './subject_ability/api/remove_once_staff',
                     data: {
                         "sn": sn,
                     },

@@ -52,7 +52,7 @@
 </div>
 <div class="row">
     <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6 cube text-center">
-        <a href="./designated/e_1_1" target="_blank">
+        <a href="./subject_ability/e_1_1" target="_blank">
             <img src="assets/images/e_1_1.png" alt="">
         </a>
     </div>
@@ -62,7 +62,7 @@
     </div>
 
     <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6 cube text-center">
-        <a href="./designated/e_1_2" target="_blank">
+        <a href="./subject_ability/e_1_2" target="_blank">
             <img src="assets/images/e_1_2.png" alt="">
         </a>
     </div>
@@ -124,9 +124,9 @@
             <div class="modal-body">
                 <div class="row">
                     <div class="col-md-12 col-sm-12 col-xs-12">
-                        <div class="btn_part btn1" part="2501" area="第一分區" link="./designated/e_1_3?part=2501&area=第一分區">第一分區</div>
-                        <div class="btn_part btn1" part="2502" area="第二分區" link="./designated/e_1_3?part=2502&area=第二分區">第二分區</div>
-                        <div class="btn_part btn1" part="2503" area="第三分區" link="./designated/e_1_3?part=2503&area=第三分區">第三分區</div>
+                        <div class="btn_part btn1" part="2501" area="第一分區" link="./subject_ability/e_1_3?part=2501&area=第一分區">第一分區</div>
+                        <div class="btn_part btn1" part="2502" area="第二分區" link="./subject_ability/e_1_3?part=2502&area=第二分區">第二分區</div>
+                        <div class="btn_part btn1" part="2503" area="第三分區" link="./subject_ability/e_1_3?part=2503&area=第三分區">第三分區</div>
                     </div>
                 </div>
             </div>
@@ -147,10 +147,10 @@
             <div class="modal-body">
                 <div class="row">
                     <div class="col-md-12 col-sm-12 col-xs-12">
-                        <div class="btn_part btn2" part="2500" area="考區" link="./designated/e_1_3_3?part=2501&area=考區">考區</div>
-                        <div class="btn_part btn2" part="2501" area="第一分區" link="./designated/e_1_3_3?part=2501&area=第一分區">第一分區</div>
-                        <div class="btn_part btn2" part="2502" area="第二分區" link="./designated/e_1_3_3?part=2502&area=第二分區">第二分區</div>
-                        <div class="btn_part btn2" part="2503" area="第三分區" link="./designated/e_1_3_3?part=2503&area=第三分區">第三分區</div>
+                        <div class="btn_part btn2" part="2500" area="考區" link="./subject_ability/e_1_3_3?part=2501&area=考區">考區</div>
+                        <div class="btn_part btn2" part="2501" area="第一分區" link="./subject_ability/e_1_3_3?part=2501&area=第一分區">第一分區</div>
+                        <div class="btn_part btn2" part="2502" area="第二分區" link="./subject_ability/e_1_3_3?part=2502&area=第二分區">第二分區</div>
+                        <div class="btn_part btn2" part="2503" area="第三分區" link="./subject_ability/e_1_3_3?part=2503&area=第三分區">第三分區</div>
                     </div>
                 </div>
             </div>
@@ -171,13 +171,13 @@
             <div class="modal-body">
                 <div class="row">
                     <div class="col-md-12 col-sm-12 col-xs-12">
-                        <a href="./designated/e_1_5?part=2501&area=第一分區" target="_blank">
+                        <a href="./subject_ability/e_1_5?part=2501&area=第一分區" target="_blank">
                             <div class="btn_part">第一分區</div>
                         </a>
-                        <a href="./designated/e_1_5?part=2502&area=第二分區" target="_blank">
+                        <a href="./subject_ability/e_1_5?part=2502&area=第二分區" target="_blank">
                             <div class="btn_part">第二分區</div>
                         </a>
-                        <a href="./designated/e_1_5?part=2503&area=第三分區" target="_blank">
+                        <a href="./subject_ability/e_1_5?part=2503&area=第三分區" target="_blank">
                             <div class="btn_part">第三分區</div>
                         </a>
                     </div>
@@ -201,13 +201,13 @@
             <div class="modal-body">
                 <div class="row">
                     <div class="col-md-12 col-sm-12 col-xs-12">
-                        <a href="./designated/e_1_4?part=2501&area=第一分區" target="_blank">
+                        <a href="./subject_ability/e_1_4?part=2501&area=第一分區" target="_blank">
                             <div class="btn_part">第一分區</div>
                         </a>
-                        <a href="./designated/e_1_4?part=2502&area=第二分區" target="_blank">
+                        <a href="./subject_ability/e_1_4?part=2502&area=第二分區" target="_blank">
                             <div class="btn_part">第二分區</div>
                         </a>
-                        <a href="./designated/e_1_4?part=2503&area=第三分區" target="_blank">
+                        <a href="./subject_ability/e_1_4?part=2503&area=第三分區" target="_blank">
                             <div class="btn_part">第三分區</div>
                         </a>
                     </div>
@@ -230,13 +230,13 @@
             <div class="modal-body">
                 <div class="row">
                     <div class="col-md-12 col-sm-12 col-xs-12">
-                        <a href="./designated/e_1_3_4?part=2501&area=第一分區" target="_blank">
+                        <a href="./subject_ability/e_1_3_4?part=2501&area=第一分區" target="_blank">
                             <div class="btn_part">第一分區</div>
                         </a>
-                        <a href="./designated/e_1_3_4?part=2502&area=第二分區" target="_blank">
+                        <a href="./subject_ability/e_1_3_4?part=2502&area=第二分區" target="_blank">
                             <div class="btn_part">第二分區</div>
                         </a>
-                        <a href="./designated/e_1_3_4?part=2503&area=第三分區" target="_blank">
+                        <a href="./subject_ability/e_1_3_4?part=2503&area=第三分區" target="_blank">
                             <div class="btn_part">第三分區</div>
                         </a>
                     </div>
@@ -259,13 +259,13 @@
             <div class="modal-body">
                 <div class="row">
                     <div class="col-md-12 col-sm-12 col-xs-12">
-                        <a href="./designated/e_1_3_5?part=2501&area=第一分區" target="_blank">
+                        <a href="./subject_ability/e_1_3_5?part=2501&area=第一分區" target="_blank">
                             <div class="btn_part">第一分區</div>
                         </a>
-                        <a href="./designated/e_1_3_5?part=2502&area=第二分區" target="_blank">
+                        <a href="./subject_ability/e_1_3_5?part=2502&area=第二分區" target="_blank">
                             <div class="btn_part">第二分區</div>
                         </a>
-                        <a href="./designated/e_1_3_5?part=2503&area=第三分區" target="_blank">
+                        <a href="./subject_ability/e_1_3_5?part=2503&area=第三分區" target="_blank">
                             <div class="btn_part">第三分區</div>
                         </a>
                     </div>
