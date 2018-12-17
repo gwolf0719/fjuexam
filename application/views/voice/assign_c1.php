@@ -65,16 +65,7 @@ tr{
 
 <script>
 $(function(){
-
-    $(window).on("load",function(){
-        var addr = $("#addr").val();
-        // console.log(arr);
-        if(addr == ""){
-            alert("目前 C1 考試地址尚未填寫資料，請先填寫資料再進行操作");
-            location.href="./designated/c_4";
-        }
-    })
-
+    // 載入預設資料到下方編輯表單
     $("body").on("click","tr",function(){
         var sn = $(this).attr("sn");
         $("html, body").animate({
@@ -88,9 +79,8 @@ $(function(){
         $("#floor").val(_this.find("td").eq(-2).text());
         
     })
-
+    // 送出
     $("body").on("click","#send",function(){
-
         if(confirm("是否要儲存?")){
             var sn = $("#sn").val();
             var part = $("#part").val();            
@@ -125,29 +115,9 @@ $(function(){
             
         }
     })
+    // 送出結尾
+
 });
-</script>
-<script>
-
-$(function(){
-    <?php switch ($test_partition) {
-        case '第一分區':
-            $partition = '1';
-            break;
-        case '第二分區':
-            $partition = '2';
-            break;
-        case '第三分區':
-            $partition = '3';
-            break;
-        
-        
-    }?>
-    
-    $('#title_img').attr('src','assets/images/c<?=$partition?>_title.png');
-    
-})
-
 </script>
 
 <div class="row">
