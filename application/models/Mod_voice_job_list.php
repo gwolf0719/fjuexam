@@ -272,8 +272,8 @@ class Mod_voice_job_list extends CI_Model
     function chk_job_code($code){
         $this->db->where('year',$this->session->userdata('year'));
         $this->db->where('ladder',$this->session->userdata('ladder'));
-        $this->db->where('job_code',$this->session->userdata('job_code'));
-        if($this->db->count_all_results('voice_job_list') ==0 ){
+        $this->db->where('job_code',$code);
+        if($this->db->count_all_results('voice_job_list') == 0 ){
             return false;
         }else{
             return true;
