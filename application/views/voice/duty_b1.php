@@ -98,92 +98,7 @@
         })
 
 
-        // $("body").on("click", "#Upload", function() {
-        //     if (confirm("注意！舊資料會全部刪除，新資料將匯入")) {
-        //         $("#form").submit();
-        //     }
-        // })
-
-        $("body").on("click", "tr", function() {
-            var sn = $(this).attr("sn");
-            $("#job_code").attr("readonly", true);
-            $('input:checkbox[name="day"]').eq(0).prop("checked", false);
-            $('input:checkbox[name="day"]').eq(1).prop("checked", false);
-            $('input:checkbox[name="day"]').eq(2).prop("checked", false);
-            $("html, body").animate({
-                scrollTop: $("body").height()
-            }, 1000);
-
-            $.ajax({
-                url: './voice/api/get_once_task',
-                data: {
-                    "sn": sn,
-                },
-                dataType: "json"
-            }).done(function(data) {
-                console.log(data);
-                if (data.info.do_date == "") {
-                    $('input:checkbox[name="day"]').eq(0).prop("checked", true);
-                } else {
-                    var chk = data.info.do_date.split(",")
-                    var lenght = data.info.do_date.split(",").length;
-                    $('input:checkbox[name="day"]').each(function() {
-                        for (let index = 0; index < lenght; index++) {
-                            if (chk[index] == $(this).val()) {
-                                $(this).prop("checked", true);
-
-                            }
-                        }
-                    })
-                }
-                var day_arr = $('input:checkbox:checked[name="day"]').map(function() {
-                    return $(this).val();
-                }).get().length;
-                console.log(day_arr);
-                $("#assign").show();
-                $("#job").attr("readonly", false);
-                $("#job_code").attr("readonly", false);
-                $("#job_title").attr("readonly", false);
-                $("#name").attr("readonly", false);
-                $("#phone").attr("readonly", false);
-                $("#sn").val(sn);
-                $("#job").val(data.info.job)
-                $("#job_code").val(data.info.job_code)
-                $("#job_title").val(data.info.job_title)
-                $("#name").val(data.info.name)
-                $("#start_date").val(data.info.start_date)
-                $("#number").val(data.info.number)
-                $("#section").val(data.info.section)
-                $("#price").val(data.info.price)
-                $("#phone").val(data.info.phone)
-                $("#note").val(data.info.note)
-
-                if (data.info.day_count != "") {
-                    $("#day_count").val(data.info.day_count);
-                } else {
-                    $("#day_count").val(day_arr);
-                }
-
-                if (data.info.salary_total != "") {
-                    $("#salary_total").val(data.info.salary_total);
-                } else {
-                    var one_day_salary = $("#one_day_salary").val() * day_arr;
-                    $("#salary_total").val(one_day_salary);
-                }
-                if (data.info.one_day_salary != "") {
-                    $("#one_day_salary").val(data.info.one_day_salary);
-                } else {
-                    $("#one_day_salary").val( <?=$fees_info['pay_1']; ?> )
-                }
-
-                if (data.info.total != "") {
-                    $("#total").val(data.info.salary_total);
-                } else {
-                    $("#total").val("0");
-                }
-
-            })
-        })
+        
 
         $("body").on("click", "#add_info", function() {
             $(this).hide();
@@ -206,21 +121,34 @@
             $("#member_job_title").val($(this).val());
         })
 
-        
+        // 點選列表顯示內容
+        $("body").on("click", "tr", function() {
+            var sn = $(this).attr("sn");
+            $("#job_code").val($(this).attr('job_code'));
+            $("#job_title").val($(this).find('td').eq(3).text().trim());
+            $("#name").val($(this).find('td').eq(4).text().trim());
+            $("#phone").val($(this).find('td').eq(6).text().trim());
+            $("#assign").show();
+            $("#sn").val(sn);
+            $("html, body").animate({
+                scrollTop: $("body").height()
+            }, 1000);
+
+            
+        })
+
+        // 送出修改內容
         $("body").on("click", "#send", function() {
             if (confirm("確定儲存修改資料？")) {
                 var sn = $("#sn").val();
-                var area = "考區";
+                var area = "<?=$block?>";
                 var job = $("#member_job_title").val();
                 var job_code = $("#job_code").val();
                 var job_title = $("#job_title").val();
                 var name = $("#name").val();
                 var phone = $("#phone").val();
                 var note = $("textarea[name='note']").val();
-                var cla = "考區";
-                var arr = $('input:checkbox:checked[name="day"]').map(function() {
-                    return $(this).val();
-                }).get();
+                
                 var do_date = $('#do_date').val();
                 var day_count = $("#day_count").val();
                 var one_day_salary = $("#one_day_salary").val();
@@ -237,7 +165,6 @@
                         "name": name,
                         "phone": phone,
                         "note": note,
-                        "class": cla,
                         "do_date": do_date,
                         "day_count": day_count,
                         "one_day_salary": one_day_salary,
@@ -253,6 +180,9 @@
                 })
             }
         })
+
+
+        // 指派人員確認
         $("body").on("click", "#sure", function() {
             var code = $(".typeahead").val().split("-");
             $.post("./voice/api/assignment", {
@@ -260,8 +190,7 @@
                 job: $("#search_job").text(),
                 area:  "<?=$block?>",
             }, function(data) {
-                alert(data.sys_msg);
-              
+                // alert(data.sys_msg);
                 if (data.sys_code == "200") {
                     $('#exampleModal').modal('hide');
                     $("#member_job_title").val($("#search_job").text());
@@ -269,9 +198,23 @@
                     $("#job_title").val(data.info.member_title);
                     $("#name").val(data.info.member_name);
                     $("#phone").val(data.info.member_phone);
+                    // 給預設金額
+                    $("#day_count").val(1);
+                    $("#one_day_salary").val(<?=$fees_info['pay_1'];?>);
+                    $("#salary_total").val($("#one_day_salary").val());
+                    $("#total").val($("#one_day_salary").val());
+                }else{
+                    alert(data.sys_msg);
                 }
             }, "json")
         })
+
+        // 即時運算變動金額
+        $("body").on('change','#one_day_salary',function set_total(){
+            $("#salary_total").val($("#one_day_salary").val());
+            $("#total").val($("#one_day_salary").val());
+        })
+
 
         $("body").on("click", "#remove", function() {
             if (confirm("是否確定要刪除？")) {
@@ -298,8 +241,7 @@
          */
         $("body").on("click", "#new_job", function() {
             var job = prompt("請輸入職務名稱");
-            var area = "<?=$block ?>";
-            var test_partition = '<?=$test_partition?>'
+            var test_partition = '<?=$block?>';
             if (job == null) {
                 alert("動作取消");
             } else {
@@ -308,8 +250,7 @@
                 } else {
                     $.getJSON("./voice/api/job_add", {
                         test_partition:'<?=$test_partition?>',
-                        job: job,
-                        area: '<?=$block?>',
+                        job: job
                     }, function(data) {
                         alert(data.sys_msg);
                         location.reload();
@@ -345,38 +286,6 @@
         })
 
 
-    
-
-        $('input:checkbox[name="day"]').click(function() {
-            var arr_lenght = $('input:checkbox:checked[name="day"]').map(function() {
-                return $(this).val();
-            }).get().length;
-            $("#day_count").val(arr_lenght);
-            var day_total = $("#one_day_salary").val() * arr_lenght;
-            $("#salary_total").val(day_total);
-            $("#total").val($("#salary_total").val());
-        })
-
-        // $('input:checkbox[name="need"]').change(function() {
-        //     if ($(this).prop("checked") == true) {
-        //         var lunch_total = 0 - $("#day_count").val() * $("#lunch_price").val();
-        //         $("#lunch_total").val(lunch_total);
-        //         var total = parseInt($("#salary_total").val()) + parseInt($("#lunch_total").val());
-        //         $("#total").val(total);
-        //     } else {
-        //         $("#lunch_total").val(0);
-        //         var lunch = (parseInt($("#lunch_price").val()) * parseInt($("#day_count").val()));
-        //         var total = parseInt($("#total").val()) + lunch;
-        //         $("#total").val(total);
-        //     }
-        // })
-
-        $("body").on("keyup", "#one_day_salary", function() {
-            var day_total = $(this).val() * $("#day_count").val();
-            $("#salary_total").val(day_total);
-            var total = day_total;
-            $("#total").val(total)
-        })
         
 
     });
@@ -428,7 +337,7 @@ $(function(){
             </thead>
             <tbody>
                 <?php foreach ($datalist as $k => $v): ?> 
-                <tr sn="<?=$v['sn']; ?>">
+                <tr job_code="<?=$v['job_code']?>" sn="<?=$v['sn']; ?>" >
                     <td>
                         <?=$k + 1; ?>
                     </td>                 
@@ -506,7 +415,7 @@ $(function(){
                 <div class="col-md-3 col-sm-3 col-xs-3 cube">
                     <div class="form-group">
                         <label for="start_date" class="" style="float:left;">執行日</label>
-                        <input type="checkbox" class="chbox" id="do_date" name="day" value=<?=$datatime_info['day'];?> checked>
+                        <input type="checkbox" class="chbox" id="do_date" name="day" value=<?=$datatime_info['day'];?> checked readonly>
                         <span class="chbox"  >
                             <?=$datatime_info['day']; ?>
                         </span>

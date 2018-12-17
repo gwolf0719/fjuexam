@@ -352,8 +352,8 @@ class Api extends CI_Controller {
      public function job_add()
      {
          $this->load->model('mod_voice_job_list');
-         $getpost = array('job', 'area','test_partition');
-         $requred = array('job', 'area','test_partition');
+         $getpost = array('job', 'test_partition');
+         $requred = array('job', 'test_partition');
          $data = $this->getpost->getpost_array($getpost, $requred);
          if ($data == false) {
              $json_arr['sys_code'] = '000';
@@ -361,8 +361,9 @@ class Api extends CI_Controller {
              $json_arr['requred'] = $this->getpost->report_requred($requred);
          } else {
              $year = $this->session->userdata('year');
-             $part = $this->mod_voice_job_list->get_part_for_once($data['area']);
-             $this->mod_voice_job_list->add_job($year, $data['test_partition'],$data['area'], $data['job'], $part['trial_start'], $part['trial_end']);
+             $ladder = $this->session->userdata('ladder');
+             $part = $this->mod_voice_job_list->get_part_for_once($data['test_partition']);
+             $this->mod_voice_job_list->add_job($data['test_partition'], $data['job'], $part['trial_start'], $part['trial_end']);
              $json_arr['sys_code'] = '200';
              $json_arr['sys_msg'] = '新增完成';
          }
@@ -511,8 +512,8 @@ class Api extends CI_Controller {
     public function voice_edit_task()
     {
         $this->load->model('mod_voice_job_list');
-        $getpost = array('sn', 'area', 'job_code', 'job_title', 'name', 'phone',  'note', 'day_count', 'one_day_salary', 'salary_total', 'total', 'do_date');
-        $requred = array('sn', 'area', 'job_code', 'job_title', 'name', 'phone',  'day_count', 'one_day_salary', 'salary_total', 'total', 'do_date');
+        $getpost = array('sn', 'job_code', 'job_title', 'name', 'phone',  'note', 'day_count', 'one_day_salary', 'salary_total', 'total', 'do_date');
+        $requred = array('sn',  'job_code', 'job_title', 'name', 'phone',  'day_count', 'one_day_salary', 'salary_total', 'total', 'do_date');
         $data = $this->getpost->getpost_array($getpost, $requred);
         if ($data == false) {
             $json_arr['sys_code'] = '000';

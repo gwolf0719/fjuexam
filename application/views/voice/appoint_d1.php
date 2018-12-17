@@ -115,6 +115,10 @@
 <script>
     $(function() {
 
+        // 預設全部不能點
+        // $("#do_date,#morning,#aftermorning,#supervisor_2,#supervisor_1,#note,button").attr('disabled',true);
+       
+
         //tab設定
         var nowHash = location.hash; //取得loading進來後目前#
         var nowTabNum = nowHash.slice(-1);
@@ -235,65 +239,48 @@
         }
 
 
+
+        // 選擇列表資料 把資料往下丟
         $("body").on("click", "tr", function() {
+            $("#supervisor_2,#supervisor_1,#note,button").attr('disabled',false);
+            $("#do_date,#morning,#aftermorning").attr("checked",true);
+            
             var sn = $(this).attr("sn");
             var part = $(this).attr("part");
+            var notice = $(this).find('td').eq(-1).text().trim();
             $("#part").val(part);
             $("html, body").animate({
                 scrollTop: $("body").height()
             }, 1000);
-            $.ajax({
-                url: './voice/api/get_once_part',
-                data: {
-                    "sn": sn,
-                },
-                dataType: "json"
-            }).done(function(data) {
-                console.log(data);
-                $("#sn").val(sn);
-                $("#field").val(data.info.field);
-                $('#morning').val(data.info.block_name);
-                $("#start").val(data.info.start);
-                $("#end").val(data.info.end);
-                $("#floor").val(data.info.floor);
-                $("#number").val(data.info.number);
-                $("#section").val(data.info.test_section);
-                $("#trial_staff_code_1").val();
-                //監試人員編號第一碼產生
+            var field = $(this).find('td').eq(1).text().trim();
+            $("#field").val(field);
+            $("#floor").val( $(this).find('td').eq(2).text().trim());
 
-                switch (part) {
-                    case "2501":
-                        var c1 = "1";
-                        break;
-                    case "2502":
-                        var c1 = "2";
-                        break;
-                    case "2503":
-                        var c1 = "3";
-                        break;
-                }
-                //監試人員編號第二碼產生
-                var c2 = data.info.field.substring(1,4);
-                console.log(c2);
-                $("#trial_staff_code_1").val(c1 + c2 + "1");
-                $("#trial_staff_code_2").val(c1 + c2 + "2");
+            // 產生監試人員
+            //監試人員編號第一碼產生
+            switch (part) {
+                case "2501":
+                    var c1 = "1";
+                    break;
+                case "2502":
+                    var c1 = "2";
+                    break;
+                case "2503":
+                    var c1 = "3";
+                    break;
+            }
+            //監試人員編號第二碼產生
+            var c2 = field.substring(1,4);
+            $("#sn").val($(this).attr("sn"));
+            $("#trial_staff_code_1").val(c1 + c2 + "1");
+            $("#trial_staff_code_2").val(c1 + c2 + "2");
+            $("#supervisor_1").val(data.info.supervisor_1);
+            $("#supervisor_2").val(data.info.supervisor_2);
+            $("#supervisor_1_code").val(data.info.supervisor_1_code);
+            $("#supervisor_2_code").val(data.info.supervisor_2_code);
+            $("#note").val(notice);
 
-                //取得監試人員資料
-                $.ajax({
-                    url: './voice/api/get_once_assign',
-                    data: {
-                        "sn": sn,
-                    },
-                    dataType: "json"
-                }).done(function(data) {
-                    console.log(data);
-                    $("#supervisor_1").val(data.info.supervisor_1);
-                    $("#supervisor_2").val(data.info.supervisor_2);
-                    $("#supervisor_1_code").val(data.info.supervisor_1_code);
-                    $("#supervisor_2_code").val(data.info.supervisor_2_code);
-                    $("#note").val(data.info.note);
-                })
-            })
+            
         })
 
          $('body').on('click','tr',function () {
@@ -625,9 +612,9 @@
                         </div>
                         <div class="form-group">
                             <label for="floor" class="" style="float:left;">場次</label>
-                            <input type="checkbox" class="chbox block" id='morning' value='上午場'  name="day" >
+                            <input type="checkbox" class="chbox block" id='morning' value='上午場'  name="day" checked="true">
                             <span class="chbox">上午場</span>
-                            <input type="checkbox" class="chbox block" id='aftermorning' value='下午場' name="day"  >
+                            <input type="checkbox" class="chbox block" id='aftermorning' value='下午場' name="day"   checked="true">
                             <span class="chbox">下午場</span>
                         </div>
                     </div>
@@ -724,39 +711,6 @@
                             </div>
                             <div class="" style="text-align: right;margin: 20px;">
                                 <button type="button" class="btn btn-primary" id="sure2">確定指派</button>
-                                <button type="button" class="btn btn-success" data-dismiss="modal" aria-label="Close" id="">取消</button>
-                            </div>
-                        </form>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
-<!-- Modal end-->
-<!-- Modal start-->
-<div class="modal fade" id="exampleModal3" tabindex="-1" role="dialog" aria-labelledby="exampleModal" aria-hidden="true">
-    <div class="modal-dialog" role="document">
-        <div class="modal-content">
-            <div class="modal-header" style="border-bottom: none;">
-                <h5 class="modal-title" id="exampleModalLabel" style="">指派職務</h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-            </div>
-            <div class="modal-body">
-                <div class="row">
-                    <div class="col-md-12 col-sm-12 col-xs-12">
-                        <form method="POST" enctype="multipart/form-data" action="" id="form" class="page_form">
-                            <div style="width: 255px;margin: 0 auto;">
-                                <div>
-                                    <p>關鍵字
-                                        <input type="text" class="typeahead" id="number_3">
-                                    </p>
-                                </div>
-                            </div>
-                            <div class="" style="text-align: right;margin: 20px;">
-                                <button type="button" class="btn btn-primary" id="sure3">確定指派</button>
                                 <button type="button" class="btn btn-success" data-dismiss="modal" aria-label="Close" id="">取消</button>
                             </div>
                         </form>
