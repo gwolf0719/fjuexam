@@ -1043,6 +1043,32 @@ class Api extends CI_Controller {
             }
             echo json_encode($json_arr);
         }
+        // 取消指派管卷人員
+        public function remove_trial_staff()
+        {
+            $this->load->model('mod_voice_trial');
+            $getpost = array('sn');
+            $requred = array('sn');
+            $data = $this->getpost->getpost_array($getpost, $requred);
+            if ($data == false) {
+                $json_arr['sys_code'] = '000';
+                $json_arr['sys_msg'] = '資料不足';
+                $json_arr['requred'] = $this->getpost->report_requred($requred);
+            } else {
+                $data['year'] = $this->session->userdata('year');
+                if ($this->mod_voice_trial->chk_trial($data['sn'])) {
+                    $this->mod_voice_trial->remove_trial_staff($data['sn']);
+                } else {
+                    $json_arr['sys_code'] = '404';
+                    $json_arr['sys_msg'] = '查無資料';
+                }
+                $json_arr['sys_code'] = '200';
+                $json_arr['sys_msg'] = '資料刪除完成';
+            }
+            echo json_encode($json_arr);
+        } 
+
+
         //儲存管券人員
         public function save_trial_staff_for_list()
         {

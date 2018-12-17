@@ -167,6 +167,13 @@ class Mod_voice_trial extends CI_Model
         }
     }
 
+    public function remove_trial_staff($sn)
+    {
+        $this->db->where('sn', $sn);
+        $this->db->delete('voice_trial_staff');
+
+        return true;
+    }
 
 
 
