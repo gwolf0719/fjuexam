@@ -85,6 +85,7 @@
 
 <script>
     $(function() {
+        $('#title_img').attr('src','assets/images/b<?=$test_partition+1?>_title.png');
         /**自動完成 */
         var data;
         $.getJSON("./voice/api/get_member_info", function(data) {
@@ -133,6 +134,17 @@
             $("html, body").animate({
                 scrollTop: $("body").height()
             }, 1000);
+
+            $.getJSON('./voice/api/get_job_once',{
+                sn:sn
+            },function(jsonData){
+                console.log(jsonData.info);
+                $("#one_day_salary").val(jsonData.info.one_day_salary);
+                $("#day_count").val(jsonData.info.day_count);
+                $("#salary_total").val(jsonData.info.salary_total);
+                $("#total").val(jsonData.info.total);
+                $("#note").val(jsonData.info.note);
+            })
 
             
         })
@@ -289,16 +301,6 @@
         
 
     });
-</script>
-<script>
-
-$(function(){
-    
-    $('#title_img').attr('src','assets/images/b<?=$test_partition+1?>_title.png');
-    
-})
-
-
 </script>
 
 <div class="row">

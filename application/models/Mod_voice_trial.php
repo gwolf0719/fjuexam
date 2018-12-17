@@ -31,6 +31,7 @@ class Mod_voice_trial extends CI_Model
             $res[$key]['supervisor_2'] = '';
             $res[$key]['supervisor_2_code'] = '';
             $res[$key]['note'] = '';
+            $res[$key]['assign_sn'] = '';
             $assign = array();
             $this->db->where('year',$this->session->userdata('year'));
             $this->db->where('ladder',$this->session->userdata('ladder'));
@@ -38,14 +39,17 @@ class Mod_voice_trial extends CI_Model
                 $this->db->where('part',$part);
                 $this->db->where('field',$value['field']);
             }
-            $this->db->select('field,trial_staff_code_1,supervisor_1,supervisor_1_code,trial_staff_code_2,supervisor_2,supervisor_2_code,note,block_name');
+            $this->db->select('sn,field,trial_staff_code_1,supervisor_1,supervisor_1_code,trial_staff_code_2,supervisor_2,supervisor_2_code,note,block_name');
             $assign = $this->db->get('voice_trial_assign')->result_array();
             // 整合 block_name
             $block_name = array();
+            $assign_sn = array();
             foreach($assign as $kb=>$kv){
                 $block_name[] = $kv['block_name'] ;
+                $assign_sn[] = $kv['sn'] ;
             }
-
+            
+            $res[$key]['assign_sn'] = implode(",",$assign_sn);
             $res[$key]['block_name'] = implode(",",$block_name);        
             $res[$key]['field'] = $assign[0]['field'];            
             $res[$key]['trial_staff_code_1'] = $assign[0]['trial_staff_code_1'];
