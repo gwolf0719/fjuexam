@@ -8,7 +8,13 @@ class Mod_voice_staff extends CI_Model
       //工作人員寫入
     function insert_job($data)
     {
-          $this->db->insert_batch('voice_import_member', $data);
+        $where = array(
+            'year'=>$this->session->userdata('year'),
+            "ladder"=>$this->session->userdata('ladder')
+        );
+        $this->db->where($where);
+        $this->db->delete('voice_import_member');
+        $this->db->insert_batch('voice_import_member', $data);
     }
 
     function voice_where_voice_import_staff_member()

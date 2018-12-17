@@ -154,7 +154,7 @@ class Api extends CI_Controller {
                 }
                 $row = $row+1;
             }
-            // $this->mod_voice_area->clean_voice_area_main();
+            
             $this->mod_voice_staff->insert_job($datas);
             
             fclose($file);
@@ -259,10 +259,12 @@ class Api extends CI_Controller {
         echo json_encode($json_arr);
     }
     /**
-    a4 上傳資料
+    *a4 上傳資料
     
     */
 
+    // 職務匯入
+    // 2018-12-17@James 移除 area 欄位（由test_partition共用取代
     public function import_position(){
 
         $this->load->model('mod_voice_job_list');
@@ -278,18 +280,15 @@ class Api extends CI_Controller {
             while (!feof($file)) {
                 $data = fgetcsv($file);
                 if($row > 0 && $data != false){
-                   
                     $datas[$i]['year'] = $this->session->userdata('year');
                     $datas[$i]['ladder'] = $this->session->userdata('ladder');
-                    $datas[$i]['area'] = $this->input->post('test_partition');  
                     $datas[$i]['job'] = $data[0];
                     $datas[$i]['test_partition'] = $this->input->post('test_partition');
-                
                     $i = $i + 1;
                 }
                 $row = $row+1;
             }
-    //         // $this->mod_voice_area->clean_voice_area_main();
+            
             $this->mod_voice_job_list->insert_member($datas);
     
             fclose($file);

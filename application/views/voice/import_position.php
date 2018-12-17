@@ -270,14 +270,13 @@ $(function(){
                 </div> -->
             </div>
 
-
+            
             <div class="input-group mb-3">
                 <div class="custom-file">
-                    <input type="file" class="custom-file-input" id="file" name="file">
-                    <label class="custom-file-label" for="file">Choose file</label>
+                    <input type="file" id="file" name="file">
                 </div>
                 <div class="input-group-append">
-                    <span class="input-group-text" id="Upload">Upload</span>
+                    <span class="input-group-text" id="Upload">上傳</span>
                 </div>
             </div>
 

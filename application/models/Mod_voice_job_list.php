@@ -7,7 +7,21 @@ class Mod_voice_job_list extends CI_Model
 
     function insert_member($data)
     {
-          $this->db->insert_batch('voice_job_list', $data);
+
+                    // $datas[$i]['year'] = $this->session->userdata('year');
+                    // $datas[$i]['ladder'] = $this->session->userdata('ladder');
+                    // $datas[$i]['area'] = $this->input->post('test_partition');  
+                    // $datas[$i]['job'] = $data[0];
+                    // $datas[$i]['test_partition'] = $this->input->post('test_partition');
+                
+        $where= array(
+            'year'=>$this->session->userdata('year'),
+            "ladder"=>$this->session->userdata('ladder'),
+            'test_partition'=>$this->input->post('test_partition')
+        );
+        $this->db->where($where);
+        $this->db->delete('voice_job_list');
+        $this->db->insert_batch('voice_job_list', $data);
     }
 
 
@@ -29,6 +43,7 @@ class Mod_voice_job_list extends CI_Model
     function voice_where_voice_area($test_partition)
     {
         $this->db->where('year',$this->session->userdata('year'));
+        $this->db->where('ladder',$this->session->userdata('ladder'));
         $this->db->where('test_partition',$test_partition);
         return $this->db->get('voice_job_list')->result_array();
     }
