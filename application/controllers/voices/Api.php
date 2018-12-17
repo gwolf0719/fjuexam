@@ -512,6 +512,7 @@ class Api extends CI_Controller {
     public function voice_edit_task()
     {
         $this->load->model('mod_voice_job_list');
+        $this->load->model('mod_voice_trial');
         $getpost = array('sn', 'job_code', 'job_title', 'name', 'phone',  'note', 'day_count', 'one_day_salary', 'salary_total', 'total', 'do_date');
         $requred = array('sn',  'job_code', 'job_title', 'name', 'phone',  'day_count', 'one_day_salary', 'salary_total', 'total', 'do_date');
         $data = $this->getpost->getpost_array($getpost, $requred);
@@ -520,9 +521,19 @@ class Api extends CI_Controller {
             $json_arr['sys_msg'] = '資料不足';
             $json_arr['requred'] = $this->getpost->report_requred($requred);
         } else {
-            $this->mod_voice_job_list->update_once($data['sn'], $data);
-            $json_arr['sys_code'] = '200';
-            $json_arr['sys_msg'] = '資料編輯完成';
+            // 確認重複
+            if($this->mod_voice_trial->chk_trial_assigned($data['job_code'])){
+                $json_arr['sys_code'] = '500';
+                $json_arr['sys_msg'] = '該人員已經被指派過，請選擇其他人員';
+            }else if($this->mod_voice_job_list->chk_job_code($data['job_code'])){
+                $json_arr['sys_code'] = '500';
+                $json_arr['sys_msg'] = '該人員已經被指派過，請選擇其他人員';
+            }else{
+                $this->mod_voice_job_list->update_once($data['sn'], $data);
+                $json_arr['sys_code'] = '200';
+                $json_arr['sys_msg'] = '資料編輯完成';
+            }
+            
         }
         echo json_encode($json_arr);
     }
