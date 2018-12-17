@@ -23,6 +23,7 @@
                     url: './voice/api/save_addr',
                     data:{
                         "year":$("#year").val(),
+                        "ladder":$("#ladder").val(),
                         "part_addr_1":$("#part_addr_1").val(),
                         "part_addr_2":$("#part_addr_2").val(),
                         "part_addr_3":$("#part_addr_3").val()
@@ -46,8 +47,8 @@
             <div class="input-group-prepend">
                 <span class="input-group-text" id="inputGroup-sizing-default">學年度</span>
             </div>
-            <input type="text" class="form-control"  value="<?=$this->session->userdata('year'); ?>" style="width:60px;" readonly>
-            <input type="text" class="form-control"  value="<?=$this->session->userdata('ladder'); ?>" style="width:100px;" readonly>
+            <input type="text" class="form-control" id="year"  value="<?=$this->session->userdata('year'); ?>" style="width:60px;" readonly>
+            <input type="text" class="form-control" id="ladder" value="<?=$this->session->userdata('ladder'); ?>" style="width:100px;" readonly>
             
         </div>
  </div>

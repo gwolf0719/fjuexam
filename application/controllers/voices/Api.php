@@ -583,17 +583,18 @@ class Api extends CI_Controller {
     public function save_addr()
     {
         $this->load->model('mod_voice_part_addr');
-        $getpost = array('year', 'part_addr_1', 'part_addr_2', 'part_addr_3');
-        $requred = array('year', 'part_addr_1', 'part_addr_2', 'part_addr_3');
+        $getpost = array('year','ladder', 'part_addr_1', 'part_addr_2', 'part_addr_3');
+        $requred = array('year','ladder', 'part_addr_1', 'part_addr_2', 'part_addr_3');
         $data = $this->getpost->getpost_array($getpost, $requred);
         $year = $this->session->userdata('year');
+        $ladder = $this->session->userdata('ladder');
         if ($data == false) {
             $json_arr['sys_code'] = '000';
             $json_arr['sys_msg'] = '資料不足';
             $json_arr['requred'] = $this->getpost->report_requred($requred);
         } else {
-            if ($this->mod_voice_part_addr->chk_once($year)) {
-                $this->mod_voice_part_addr->update_once($year, $data);
+            if ($this->mod_voice_part_addr->chk_once($year,$ladder)) {
+                $this->mod_voice_part_addr->update_once($year,$ladder, $data);
             } else {
                 $this->mod_voice_part_addr->add_once($data);
             }

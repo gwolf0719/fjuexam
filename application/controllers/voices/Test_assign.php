@@ -41,8 +41,9 @@ class Test_assign extends CI_Controller {
                   break;
         }
         $year = $this->session->userdata('year');
-        if ($this->mod_voice_part_addr->chk_once($year)) {
-            $addr_info = $this->mod_voice_part_addr->get_once($year);
+        $ladder = $this->session->userdata('ladder');
+        if ($this->mod_voice_part_addr->chk_once($year,$ladder)) {
+            $addr_info = $this->mod_voice_part_addr->get_once($year,$ladder);
         } else {
             $addr_info = array(
                 'part_addr_1' => '',
@@ -70,9 +71,10 @@ class Test_assign extends CI_Controller {
         $this->mod_user->chk_status();
         $this->load->model('mod_voice_part_addr');
         $year = $this->session->userdata('year');
+        $ladder = $this->session->userdata('ladder');
 
-        if ($this->mod_voice_part_addr->chk_once($year)) {
-            $addr_info = $this->mod_voice_part_addr->get_once($year);
+        if ($this->mod_voice_part_addr->chk_once($year,$ladder)) {
+            $addr_info = $this->mod_voice_part_addr->get_once($year,$ladder);
         } else {
             $addr_info = array(
                 'part_addr_1' => '',
