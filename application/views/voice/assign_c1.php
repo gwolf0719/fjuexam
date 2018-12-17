@@ -134,7 +134,8 @@ $(function(){
  </div>
 
     <div class="col-sm-8" style="text-align: center;">
-        <img  id='title_img' src="assets/images/c1_title.png" alt="" style="width: 15%;">
+        
+        <img id='title_img' src="assets/images/<?=$title_img;?>.png" alt="" style="width: 15%;">
     </div>
     
 </div>

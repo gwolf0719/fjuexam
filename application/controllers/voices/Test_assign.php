@@ -32,12 +32,15 @@ class Test_assign extends CI_Controller {
         switch ($part) {
             case '2501':
                $test_partition = '第一分區';
+               $title_img = 'c1_title';
                 break;
             case '2502':
                 $test_partition = '第二分區';
+                $title_img = 'c2_title';
                  break;
             case '2503':
                  $test_partition = '第三分區';
+                 $title_img = 'c3_title';
                   break;
         }
         $year = $this->session->userdata('year');
@@ -61,7 +64,7 @@ class Test_assign extends CI_Controller {
             'datalist'=> $this->mod_voice_part_info->get_list($part,'上午場'),
             'addr_info'=> $addr_info,
             'test_partition'=>$test_partition,
-
+            'title_img'=>$title_img
        );
        $this->load->view('voice_layout',$data);
     }
