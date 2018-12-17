@@ -78,27 +78,15 @@ $(function(){
     $("body").on("click","tr",function(){
         var sn = $(this).attr("sn");
         $("html, body").animate({
-        scrollTop: $("body").height()
+            scrollTop: $("body").height()
         }, 1000);         
-        $.ajax({
-            url: './voice/api/get_once_part',
-            data:{
-                "sn":sn,
-            },
-            dataType:"json"
-        }).done(function(data){
-            console.log(data.info);
-            $("#sn").val(sn);
-            $("#part").val(data.info.part);
-            $("#part_name").val(data.info.area_name);
-            $("#field").val(data.info.field);
-            $("#start").val(data.info.field);
-            $("#end").val(data.info.field);
-            $("#floor").val(data.info.floor);
-            $("#number").val(data.info.number);
-            $("#section").val(data.info.test_section);
-            $("#note").val(data.info.note);
-        })
+        var _this = $(this);
+        
+        $("#start").val(_this.find("td").eq(4).text());
+        $("#end").val(_this.find("td").eq(4).text());
+        $("#note").val(_this.find("td").eq(-1).text());
+        $("#floor").val(_this.find("td").eq(-2).text());
+        
     })
 
     $("body").on("click","#send",function(){
@@ -228,11 +216,11 @@ $(function(){
                     <div class="form-group">
                         <label for="part" class=""  style="float:left;">分區</label>
                         <input type="hidden" id="sn">
-                        <input type="text" class="form-control" id="part" readonly>
+                        <input type="text" class="form-control" id="part" readonly value="<?=$v['part']?>">
                     </div>  
                     <div class="form-group">
                         <label for="part_name" class="" style="float:left;">分區名稱</label>
-                        <input type="text" class="form-control" id="part_name" readonly>
+                        <input type="text" class="form-control" id="part_name" readonly value="<?=$v['area_name']?>">
                     </div>     
                 </div>
                 <div class="col-md-3 col-sm-3 col-xs-3 cube">
@@ -256,10 +244,7 @@ $(function(){
                     </div>     
                 </div>                    
                 <div class="col-md-3 col-sm-3 col-xs-3 cube">   
-                    <div class="form-group" style="display:none">
-                        <label for="addr" class="" style="float:left;">考試地址</label>
-                        <input type="text" class="form-control" id="addr" value="<?=$addr_info['part_addr_1']; ?>" readonly>
-                    </div>  
+                    
                     <div class="form-group">
                         <label for="floor" class="" style="float:left;">樓層別</label>
                         <input type="text" class="form-control" id="floor">
@@ -284,45 +269,6 @@ $(function(){
         </div>
     </div> 
 </div> 
-<!-- Modal start-->
-<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModal" aria-hidden="true">
-  <div class="modal-dialog" role="document">
-    <div class="modal-content">
-      <div class="modal-header" style="border-bottom: none;">
-        <h5 class="modal-title" id="exampleModalLabel" style="">指派職務</h5>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
-      </div>
-      <div class="modal-body">
-        <div class="row">
-            <div class="col-md-12 col-sm-12 col-xs-12">      
-                <form method="POST" enctype="multipart/form-data"  action="" id="form" class="page_form">                                            
-                    <div style="width: 255px;margin: 0 auto;">
-                        <div>
-                            <p>職務：<span id="search_job"></span></p>
-                        </div>         
-                        <div>
-                            <p>關鍵字<input type="text" class="typeahead" ></p>
-                        </div>  
-                        <!-- <div>
-                            <p>職員姓名<input type="text" class="" id="search_name" style="margin-left: 10px;"></p>
-                        </div>                           -->
-                    </div>       
-                    <!-- <div class="" style="text-align: center;border-bottom: 1px solid #f2f2f2;padding: 20px 0px;">
-                        <button class="btn btn-primary" type="button" id="search_btn">搜尋</button>
-                    </div>        -->
-                    <div class="" style="text-align: right;margin: 20px;">
-                        <button type="button" class="btn btn-primary" id="sure">確定指派</button>
-                        <button type="button" class="btn btn-success" data-dismiss="modal" aria-label="Close" id="">取消</button>
-                    </div>                                                                                                   
-                </form>
-            </div>
-        </div>    
-      </div>
-    </div>
-  </div>
-</div>
-<!-- Modal end-->
+
 
 
