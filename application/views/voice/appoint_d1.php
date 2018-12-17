@@ -244,7 +244,8 @@
         $("body").on("click", "tr", function() {
             $("#supervisor_2,#supervisor_1,#note,button").attr('disabled',false);
             $("#do_date,#morning,#aftermorning").attr("checked",true);
-            
+            $("#supervisor_1_code").val($(this).attr('supervisor_1_code'));
+            $("#supervisor_2_code").val($(this).attr('supervisor_2_code'));
             var sn = $(this).attr("sn");
             var part = $(this).attr("part");
             var notice = $(this).find('td').eq(-1).text().trim();
@@ -274,10 +275,9 @@
             $("#sn").val($(this).attr("sn"));
             $("#trial_staff_code_1").val(c1 + c2 + "1");
             $("#trial_staff_code_2").val(c1 + c2 + "2");
-            $("#supervisor_1").val(data.info.supervisor_1);
-            $("#supervisor_2").val(data.info.supervisor_2);
-            $("#supervisor_1_code").val(data.info.supervisor_1_code);
-            $("#supervisor_2_code").val(data.info.supervisor_2_code);
+            $("#supervisor_1").val($(this).find('td').eq(4).text());
+            $("#supervisor_2").val($(this).find('td').eq(6).text());
+            
             $("#note").val(notice);
 
             
@@ -457,31 +457,18 @@
                 </tr>
             </thead>
             <tbody>
+            
                 <?php foreach ($part1 as $k => $v): ?>
                 
-                <tr sn="<?=$v['sn']; ?>" part="2501" field="<?=$v['field']?>" block_name='<?=$v['block_name']?>'>
-                    <td>
-                        <?=$k + 1; ?>
-                    </td>
+                <tr sn="<?=$v['sn']; ?>" part="2501" field="<?=$v['field']?>" block_name='<?=$v['block_name']?>' supervisor_1_code="<?=$v['supervisor_1_code']?>" supervisor_2_code="<?=$v['supervisor_2_code']?>">
+                    <td><?=$k + 1; ?></td>
                     <td><?=$v['field']; ?></td>
-                    <td>
-                        <?=$v['floor']; ?>
-                    </td>
-                    <td>
-                        <?=$v['trial_staff_code_1']; ?>
-                    </td>
-                    <td>
-                        <?=$v['supervisor_1']; ?>
-                    </td>
-                    <td>
-                        <?=$v['trial_staff_code_2']; ?>
-                    </td>
-                    <td>
-                        <?=$v['supervisor_2']; ?>
-                    </td>
-                    <td>
-                        <?=$v['note']; ?>
-                    </td>
+                    <td><?=$v['floor']; ?></td>
+                    <td ><?=$v['trial_staff_code_1']; ?></td>
+                    <td><?=$v['supervisor_1']; ?></td>
+                    <td><?=$v['trial_staff_code_2']; ?></td>
+                    <td><?=$v['supervisor_2']; ?></td>
+                    <td><?=$v['note']; ?></td>
                 </tr>
                 <?php endforeach; ?>
             </tbody>
@@ -506,7 +493,7 @@
             </thead>
             <tbody>
                 <?php foreach ($part2 as $k => $v): ?>
-                <tr sn="<?=$v['sn']; ?>" part="2502" field="<?=$v['field']?>" block_name='<?=$v['block_name']?>'>
+                <tr sn="<?=$v['sn']; ?>" part="2502" field="<?=$v['field']?>" block_name='<?=$v['block_name']?>' supervisor_1_code="<?=$v['supervisor_1_code']?>" supervisor_2_code="<?=$v['supervisor_2_code']?>">
                     <td>
                         <?=$k + 1; ?>
                     </td>
@@ -553,7 +540,7 @@
             </thead>
             <tbody>
                 <?php foreach ($part3 as $k => $v): ?>
-                <tr sn="<?=$v['sn']; ?>" part="2503" field="<?=$v['field']?>"  block_name='<?=$v['block_name']?>'>
+                <tr sn="<?=$v['sn']; ?>" part="2503" field="<?=$v['field']?>" block_name='<?=$v['block_name']?>' supervisor_1_code="<?=$v['supervisor_1_code']?>" supervisor_2_code="<?=$v['supervisor_2_code']?>">
                     <td>
                         <?=$k + 1; ?>
                     </td>

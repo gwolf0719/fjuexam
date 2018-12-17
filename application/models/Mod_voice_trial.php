@@ -10,6 +10,8 @@ class Mod_voice_trial extends CI_Model
     //    return true
     // }
 
+
+    
     public function get_list($part = '')
     {
         $this->db->where('year',$this->session->userdata('year'));
@@ -24,8 +26,10 @@ class Mod_voice_trial extends CI_Model
             $res[$key]=$value;
             $res[$key]['trial_staff_code_1'] = '';
             $res[$key]['supervisor_1'] = '';
+            $res[$key]['supervisor_1_code'] = '';
             $res[$key]['trial_staff_code_2'] = '';
             $res[$key]['supervisor_2'] = '';
+            $res[$key]['supervisor_2_code'] = '';
             $res[$key]['note'] = '';
             $assign = array();
             $this->db->where('year',$this->session->userdata('year'));
@@ -34,7 +38,7 @@ class Mod_voice_trial extends CI_Model
                 $this->db->where('part',$part);
                 $this->db->where('field',$value['field']);
             }
-            $this->db->select('field,trial_staff_code_1,supervisor_1,trial_staff_code_2,supervisor_2,note,block_name');
+            $this->db->select('field,trial_staff_code_1,supervisor_1,supervisor_1_code,trial_staff_code_2,supervisor_2,supervisor_2_code,note,block_name');
             $assign = $this->db->get('voice_trial_assign')->result_array();
             // 整合 block_name
             $block_name = array();
@@ -46,8 +50,10 @@ class Mod_voice_trial extends CI_Model
             $res[$key]['field'] = $assign[0]['field'];            
             $res[$key]['trial_staff_code_1'] = $assign[0]['trial_staff_code_1'];
             $res[$key]['supervisor_1'] = $assign[0]['supervisor_1'];
+            $res[$key]['supervisor_1_code'] = $assign[0]['supervisor_1_code'];
             $res[$key]['trial_staff_code_2'] = $assign[0]['trial_staff_code_2'];
             $res[$key]['supervisor_2'] = $assign[0]['supervisor_2'];
+            $res[$key]['supervisor_2_code'] = $assign[0]['supervisor_2_code'];
             $res[$key]['note'] = $assign[0]['note'];
         }
         
