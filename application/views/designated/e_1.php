@@ -281,6 +281,7 @@
             var part = $(this).attr("part");
             var area = $(this).attr("area");
             var link = $(this).attr("link");
+            console.log(link);
             $.ajax({
                 url: 'api/chk_part_list',
                 data: {
