@@ -982,7 +982,8 @@ class Api extends CI_Controller {
                 $member = $this->mod_voice_trial->get_once_trial_by_code($data['trial_staff_code']);
                 $do_date = explode(",", $data['do_date']);
                 $fees_info = $this->mod_voice_test_pay->get_once($data['year'],$data['ladder']);  
-                $salary_total = $data['first_section']*$fees_info['pay_1'];
+                $count = $data['first_section']+$data['second_section'];
+                $salary_total = $count*$fees_info['pay_2'];
                 $total = $salary_total;
 
                 $sql_data = array(
@@ -1003,8 +1004,8 @@ class Api extends CI_Controller {
                     'second_section'=>$data['second_section'],
                     'calculation'=>'by_section',
                     'do_date'=>$data['do_date'],
-                    'count'=>count($do_date),
-                    'salary'=>$fees_info['pay_1'],
+                    'count'=>$count,
+                    'salary'=>$fees_info['pay_2'],
                     'salary_total'=> $salary_total,
                     'total'=> $total,
                 );

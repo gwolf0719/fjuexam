@@ -339,7 +339,7 @@
             }).done(function(data) {
                 var first_section = $('#first_section').val();
                 var second_section = $('#second_section').val();
-
+                var html = '<option value="">請選擇</option>';
                 $.each(data.info, function(k, v) {
                     html += '<option value="' + v.field + '">' + v.field + '</option>';
                 })
