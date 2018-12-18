@@ -891,6 +891,7 @@ class Api extends CI_Controller {
         public function save_patrol_staff()
         {
             $this->load->model('mod_voice_patrol');
+            $this->load->model('mod_voice_test_pay');
             $getpost = array('sn', 'part', 'allocation_code', 'patrol_staff_code', 'patrol_staff_name', 'first_start', 'first_end', 'first_section', 'second_start', 'second_end', 'second_section','note');
             $requred = array('sn', 'part', 'allocation_code', 'patrol_staff_name');
             $data = $this->getpost->getpost_array($getpost, $requred);
@@ -899,7 +900,11 @@ class Api extends CI_Controller {
                 $json_arr['sys_msg'] = '資料不足';
                 $json_arr['requred'] = $this->getpost->report_requred($requred);
             } else {
-                $data['year'] = $this->session->userdata('year');
+                $fees_info = $this->mod_voice_test_pay->get_once($this->session->userdata('year'),$this->session->userdata('ladder'));  
+                $data['count'] = $data['first_section']+$data['second_section'];
+                $data['salary'] = $fees_info['pay_2'];
+                $data['salary_total'] = $data['count']*$fees_info['pay_2'];
+                $data['total'] = $data['salary_total'];
                 $this->mod_voice_patrol->update_once($data['sn'], $data);
                 $json_arr['sys_code'] = '200';
                 $json_arr['sys_msg'] = '資料儲存完成';
@@ -1051,6 +1056,7 @@ class Api extends CI_Controller {
                 $data['ladder'] = $this->session->userdata('ladder');
                 $fees_info = $this->mod_voice_test_pay->get_once($data['year'],$data['ladder']);  
                 $data['count'] = $data['first_section']+$data['second_section'];
+                $data['salary'] = $fees_info['pay_2'];
                 $data['salary_total'] = $data['count']*$fees_info['pay_2'];
                 $data['total'] = $data['salary_total'];
                     

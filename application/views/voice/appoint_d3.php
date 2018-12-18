@@ -125,23 +125,7 @@
         $("#send").attr('disabled',true);
         $("#remove").attr('disabled',true);
         $("#add").attr('disabled',false);
-        $.ajax({
-            url: './voice/api/get_part',
-            data: {
-                "part": get_part(),
-            },
-            dataType: "json"
-        }).done(function(data) {
-            var html = "";
-            html = '<option value="">請選擇</option>';
-            $.each(data.part, function(k, v) {
-                html += '<option value="' + v.field + '">' + v.field + '</option>';
-            })
-            $("#first_start").html(html);
-            $("#first_end").html(html);
-            $("#second_start").html(html);
-            $("#second_end").html(html);
-        })
+        create_field_select();
     }
     function get_part(){
         var nowHash = location.hash; //取得loading進來後目前#
@@ -162,6 +146,39 @@
         console.log(part);
         return part;
     }
+    // 選擇試場選單
+    function create_field_select(){
+        $.ajax({
+            url: './voice/api/get_part',
+            data: {
+                "part": get_part()
+            },
+            dataType: "json"
+        }).done(function(data) {
+            var f_html = "<option value=''>請選擇</option>";
+            var s_html = "<option value=''>請選擇</option>";
+            console.log(data);
+
+            $.each(data.part, function(k, v) {
+                switch (v.block_name) {
+                    case '上午場':
+                        f_html += '<option value="' + v.field + '">' + v.field + '</option>';        
+                        break;
+                    case '下午場':
+                        s_html += '<option value="' + v.field + '">' + v.field + '</option>';        
+                    default:
+                        break;
+                }
+                
+            })
+            
+            $(".field").eq(0).html(f_html);
+            $(".field").eq(1).html(f_html);
+            $(".field").eq(2).html(s_html);
+            $(".field").eq(3).html(s_html);
+        })  
+    }
+
     $(function() {
 
         init();
@@ -226,24 +243,7 @@
             console.log(part);
             $("#part").val(part);
             init(); 
-            // $.ajax({
-            //     url: './voice/api/get_part',
-            //     data: {
-            //         "part": part,
-            //     },
-            //     dataType: "json"
-            // }).done(function(data) {
-                
-            //     var html = "";
-            //     html = '<option value="">請選擇</option>';
-            //     $.each(data.part, function(k, v) {
-            //         html += '<option value="' + v.field + '">' + v.field + '</option>';
-            //     })
-            //     $("#first_start").html(html);
-            //     $("#first_end").html(html);
-            //     $("#second_start").html(html);
-            //     $("#second_end").html(html);
-            // })            
+                    
         })              
 
         /**自動完成 */
@@ -302,8 +302,8 @@
                 },
                 dataType: "json"
             }).done(function(data) {
-                var first_section = $('#first_section').val();
-                var second_section = $('#second_section').val();
+                // var first_section = $('#first_section').val();
+                // var second_section = $('#second_section').val();
                 $("#sn").val(sn);
                 $("#part").val(part);
                 $("#allocation_code").val(data.info.allocation_code);
@@ -317,47 +317,12 @@
                 $("#second_section").val(data.info.second_section);
                 $("#note").val(data.info.note);
 
-                //   switch (first_section) {
-                //     case '0':
-                //         $("#morning").prop("checked",false);
-                //         break;
-                //     case '1':
-                //         $("#morning").prop("checked",true);
-                       
-
-                // }
-                // switch (second_section) {
-                //     case '0':
-                //         $("#aftermorning").prop("checked",false);
-                //         break;
-                
-                //     case '1':
-                //         $("#aftermorning").prop("checked",true);
-                //         break;
-                // }
+               
 
             })
 
         })
 
-        // $("body").on("change", ".field", function() {
-        //     var start = $("#start").val();
-        //     var end = $("#end").val();
-        //     console.log(start);
-        //     console.log(end);
-
-        //     $.ajax({
-        //         url: 'api/get_day_section',
-        //         data: {
-        //             "start": start,
-        //             "end": end,
-        //         },
-        //         dataType: "json"
-        //     }).done(function(data) {
-        //         console.log(data);
-        //         $("#section").val(data.section);
-        //     })
-        // })
 
         $("body").on("click", "#send", function() {
             if (confirm("是否要儲存?")) {
