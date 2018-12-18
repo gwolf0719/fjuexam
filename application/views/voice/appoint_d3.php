@@ -114,17 +114,41 @@
 </style>
 
 <script>
-    $(function() {
-
-
-        //tab設定
+ // 初始化 （新增
+    function init(){
+        $("#allocation_code").val('');
+        $("#trial_staff_code").val('');
+        $("#trial_staff_name").val('');
+        $("#note").val('');
+        // $("select").val('');
+        $("#send").attr('disabled',true);
+        $("#remove").attr('disabled',true);
+        $("#add").attr('disabled',false);
+        $.ajax({
+            url: './voice/api/get_part',
+            data: {
+                "part": get_part(),
+            },
+            dataType: "json"
+        }).done(function(data) {
+            var html = "";
+            html = '<option value="">請選擇</option>';
+            $.each(data.part, function(k, v) {
+                html += '<option value="' + v.field + '">' + v.field + '</option>';
+            })
+            $("#first_start").html(html);
+            $("#first_end").html(html);
+            $("#second_start").html(html);
+            $("#second_end").html(html);
+        })
+    }
+    function get_part(){
         var nowHash = location.hash; //取得loading進來後目前#
         var nowTabNum = nowHash.slice(-1);
         var nowHtml = location.pathname.split("/").pop();
-        console.log(nowTabNum);
-        var part;
         switch (nowHash) {
             case "#1":
+            case "":
                 part = '2501';
                 break;
             case "#2":
@@ -134,21 +158,19 @@
                 part = '2503'
                 break;                
         }
-        $.ajax({
-            url: './voice/api/get_part',
-            data: {
-                "part": part,
-            },
-            dataType: "json"
-        }).done(function(data) {
-            var html = "";
-            html = '<option value="">請選擇</option>';
-            $.each(data.part, function(k, v) {
-                html += '<option value="' + v.field + '">' + v.field + '</option>';
-            })
-            $("#start").html(html);
-            $("#end").html(html);
-        })               
+        console.log(part);
+        return part;
+    }
+    $(function() {
+
+        init();
+        //tab設定
+        var nowHash = location.hash; //取得loading進來後目前#
+        var nowTabNum = nowHash.slice(-1);
+        var nowHtml = location.pathname.split("/").pop();
+        console.log(nowTabNum);
+        console.log(get_part());
+                       
         if (nowHash != "") {
             $(".part").hide();
             $('#part' + nowTabNum).show();
@@ -184,16 +206,7 @@
         $("body").on("click", ".tab", function(e) {
             e.preventDefault();
             var newHash = $(this).attr("area"); //點到的id
-            $("#sn").val("");
-            $("#allocation_code").val("")
-            $("#patrol_staff_code").val("");
-            $("#patrol_staff_name").val("");
-            $("#first_section").val("0");
-            $("#second_section").val("0");
-            $("textarea[name='note']").val("");
-            $("#section").val(0);     
-
-            console.log(newHash);
+            
             if (nowHtml == "appoint_d3") {
                 //開闔div
                 $(".part").css({
@@ -203,30 +216,33 @@
                 //tab樣式
                 $(".tab").removeClass('active');
                 $(this).addClass('active');
-                //修正網址
                 location.hash = '#' + newHash;
             } else {
-                //如果本頁不是f_2_2則為一般超連結
                 location.href = './voice/d/appoint_d3' + newHash;
                 $('#part' + newHash).show();
             }
             var part = $(this).attr("part");
+            console.log(part);
             $("#part").val(part);
-            $.ajax({
-                url: './voice/api/get_part',
-                data: {
-                    "part": part,
-                },
-                dataType: "json"
-            }).done(function(data) {
-                var html = "";
-                html = '<option value="">請選擇</option>';
-                $.each(data.part, function(k, v) {
-                    html += '<option value="' + v.field + '">' + v.field + '</option>';
-                })
-                $("#start").html(html);
-                $("#end").html(html);
-            })            
+            init(); 
+            // $.ajax({
+            //     url: './voice/api/get_part',
+            //     data: {
+            //         "part": part,
+            //     },
+            //     dataType: "json"
+            // }).done(function(data) {
+                
+            //     var html = "";
+            //     html = '<option value="">請選擇</option>';
+            //     $.each(data.part, function(k, v) {
+            //         html += '<option value="' + v.field + '">' + v.field + '</option>';
+            //     })
+            //     $("#first_start").html(html);
+            //     $("#first_end").html(html);
+            //     $("#second_start").html(html);
+            //     $("#second_end").html(html);
+            // })            
         })              
 
         /**自動完成 */
@@ -242,17 +258,39 @@
         })
 
 
+        // 點選確定指派
         $("body").on("click", "#sure3", function() {
             var code = $(".typeahead").val().split("-");
-            $("#patrol_staff_code").val(code[0]);
-            $("#patrol_staff_name").val(code[1]);
-            $('#exampleModal').modal('hide');
+            
+            // 先確認這個人有沒有事
+            $.getJSON('./voice/api/chk_job_code_can_use',{
+                job_code:code[0]
+            },function(jsonData){
+                if(jsonData.sys_code == '200'){
+                    $("#patrol_staff_code").val(code[0]);
+                    $("#patrol_staff_name").val(code[1]);
+                    $('#exampleModal').modal('hide');
+                }else{
+                    alert(jsonData.sys_msg);
+                }
+            })
+            
         })
 
 
         $("body").on("click", "tr", function() {
             var sn = $(this).attr("sn");
             var part = $(this).attr("part");
+
+            $("#allocation_code").val('');
+            $("#trial_staff_code").val('');
+            $("#trial_staff_name").val('');
+            $("#note").val('');
+            $("#send").attr('disabled',false);
+            $("#remove").attr('disabled',false);
+            $("#add").attr('disabled',true);
+
+
             $("html, body").animate({
                 scrollTop: $("body").height()
             }, 1000);
@@ -265,10 +303,6 @@
             }).done(function(data) {
                 var first_section = $('#first_section').val();
                 var second_section = $('#second_section').val();
-                console.log(first_section);
-                console.log(second_section);
-
-                console.log(data.info);
                 $("#sn").val(sn);
                 $("#part").val(part);
                 $("#allocation_code").val(data.info.allocation_code);
@@ -282,24 +316,24 @@
                 $("#second_section").val(data.info.second_section);
                 $("#note").val(data.info.note);
 
-                  switch (first_section) {
-                    case '0':
-                        $("#morning").prop("checked",false);
-                        break;
-                    case '1':
-                        $("#morning").prop("checked",true);
+                //   switch (first_section) {
+                //     case '0':
+                //         $("#morning").prop("checked",false);
+                //         break;
+                //     case '1':
+                //         $("#morning").prop("checked",true);
                        
 
-                }
-                switch (second_section) {
-                    case '0':
-                        $("#aftermorning").prop("checked",false);
-                        break;
+                // }
+                // switch (second_section) {
+                //     case '0':
+                //         $("#aftermorning").prop("checked",false);
+                //         break;
                 
-                    case '1':
-                        $("#aftermorning").prop("checked",true);
-                        break;
-                }
+                //     case '1':
+                //         $("#aftermorning").prop("checked",true);
+                //         break;
+                // }
 
             })
 
@@ -327,23 +361,33 @@
         $("body").on("click", "#send", function() {
             if (confirm("是否要儲存?")) {
                 var sn = $("#sn").val();
-                var part = $("#part").val();
+                
                 var allocation_code = $("#allocation_code").val();
                 var patrol_staff_code = $("#patrol_staff_code").val();
                 var patrol_staff_name = $("#patrol_staff_name").val();
                 var first_start = $("#first_start").val();
                 var first_end = $("#first_end").val();
-                var first_section = $("#first_section").val();
+                
                 var second_start = $("#second_start").val();
                 var second_end = $("#second_end").val();
-                var second_section = $("#second_section").val();
+                
                 var note = $("textarea[name='note']").val();
+                if(first_start != "" && first_end != ""){
+                    var first_section = 1;
+                }else{
+                    var first_section = 0;
+                }
+                if(second_start != "" && second_end != ""){
+                    var second_section = 1;
+                }else{
+                    var second_section = 0;
+                }
                 console.log(part);
                 $.ajax({
                     url: './voice/api/save_patrol_staff',
                     data: {
                         "sn": sn,
-                        "part": part,
+                        "part": get_part(),
                         "allocation_code": allocation_code,
                         "patrol_staff_code": patrol_staff_code,
                         "patrol_staff_name": patrol_staff_name,
@@ -416,11 +460,19 @@
                 var patrol_staff_name = $("#patrol_staff_name").val();
                 var first_start = $("#first_start").val();
                 var first_end = $("#first_end").val();
-                var first_section = $("#first_section").val();
                 var second_start = $("#second_start").val();
                 var second_end = $("#second_end").val();
-                var second_section = $("#second_section").val();
                 var note = $("textarea[name='note']").val();
+                if(first_start != "" && first_end != ""){
+                    var first_section = 1;
+                }else{
+                    var first_section = 0;
+                }
+                if(second_start != "" && second_end != ""){
+                    var second_section = 1;
+                }else{
+                    var second_section = 0;
+                }
                 $.ajax({
                     url: './voice/api/add_patrol_staff',
                     data: {
@@ -481,7 +533,7 @@
     </div>
 
     <div class="col-sm-8" style="text-align: center;">
-        <img src="assets/images/d3_title.png" alt="" style="width: 15%;">
+        <img src="assets/images/d3_title.png" alt="" style="height:45px;">
     </div>
 
 </div>
@@ -599,14 +651,15 @@
                         <?=$v['first_end']; ?>
                     </td>
                     <td class="bt">
+                        <?=$v['first_section']; ?>
+                    </td>
+                    <td class="bt">
                         <?=$v['second_start']; ?>
                     </td>
                     <td class="bt">
                         <?=$v['second_end']; ?>
                     </td>
-                    <td class="bt">
-                        <?=$v['first_section']; ?>
-                    </td>
+                    
                     <td class="bt">
                         <?=$v['second_section']; ?>
                     </td>
@@ -703,24 +756,14 @@
                     <div class="form-group" >
                         <label for="field" class="" style="float:left;">試場號起</label>
                         <input type="hidden" value="1" id="day1" >
-                        <select name="start" id="first_start" class="field field_start field1 form-control" disabled="disabled">
-                        <option value="">請選擇</option>
-                            <?php foreach ($part as $k => $v): ?>
-                            <option value="<?=$v['field']; ?>" day="1" >
-                                <?=$v['field']; ?>
-                            </option>
-                            <?php endforeach; ?>
+                        <select name="start" id="first_start" class="field field_start field1 form-control">
+                        
                         </select>
                     </div>
                     <div class="form-group">
                         <label for="section" class="" style="float:left;">試場號迄</label>
-                        <select name="end" id="first_end" class="field field1 field_end form-control" disabled="disabled">
-                        <option value="">請選擇</option>   
-                            <?php foreach ($part as $k => $v): ?>
-                            <option value="<?=$v['field']; ?>" day="1">
-                                <?=$v['field']; ?>
-                            </option>
-                            <?php endforeach; ?>
+                        <select name="end" id="first_end" class="field field1 field_end form-control" >
+                        
                         </select>
                     </div>
                     <div class="form-group">
@@ -735,24 +778,14 @@
                     <div class="form-group">
                         <label for="field" class="" style="float:left;">試場號起</label>
                         <input type="hidden" value="1" id="day1">
-                        <select name="start" id="second_start" class="field field_start field1 form-control" disabled="disabled">
-                        <option value="">請選擇</option> 
-                            <?php foreach ($part_aftermoon as $k => $v): ?>
-                            <option value="<?=$v['field']; ?>" day="1">
-                                <?=$v['field']; ?>
-                            </option>
-                            <?php endforeach; ?>
+                        <select name="start" id="second_start" class="field field_start field1 form-control" >
+                        
                         </select>
                     </div>
                     <div class="form-group">
                         <label for="section" class="" style="float:left;">試場號迄</label>
-                        <select name="end" id="second_end" class="field field1 field_end form-control" disabled="disabled">
-                        <option value="">請選擇</option>    
-                            <?php foreach ($part_aftermoon as $k => $v): ?>
-                            <option value="<?=$v['field']; ?>" day="1">
-                                <?=$v['field']; ?>
-                            </option>
-                            <?php endforeach; ?>
+                        <select name="end" id="second_end" class="field field1 field_end form-control">
+                        
                         </select>
                     </div>
                     <div class="form-group">
