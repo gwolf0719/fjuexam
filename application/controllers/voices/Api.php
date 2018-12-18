@@ -1038,6 +1038,7 @@ class Api extends CI_Controller {
         public function save_trial_staff()
         {
             $this->load->model('mod_voice_trial');
+            $this->load->model('mod_voice_test_pay');
             $getpost = array('sn', 'part', 'allocation_code', 'trial_staff_code', 'trial_staff_name', 'first_start', 'first_end', 'first_section', 'second_start', 'second_end', 'second_section','note');
             $requred = array('sn', 'part', 'allocation_code', 'trial_staff_code', 'trial_staff_name');
             $data = $this->getpost->getpost_array($getpost, $requred);
@@ -1048,15 +1049,15 @@ class Api extends CI_Controller {
             } else {
                 $data['year'] = $this->session->userdata('year');
                 $data['ladder'] = $this->session->userdata('ladder');
-                // if($this->mod_voice_trial->chk_trial_staff_field($data) == true){
-                //     $json_arr['sys_code'] = '500';
-                //     $json_arr['sys_msg'] = '有重複輸入試場';
-                // }else{
+                $fees_info = $this->mod_voice_test_pay->get_once($data['year'],$data['ladder']);  
+                $data['count'] = $data['first_section']+$data['second_section'];
+                $data['salary_total'] = $data['count']*$fees_info['pay_2'];
+                $data['total'] = $data['salary_total'];
                     
                     $this->mod_voice_trial->update_trial($data['sn'], $data);
                     $json_arr['sys_code'] = '200';
                     $json_arr['sys_msg'] = '資料儲存完成';
-                // }
+                
                 
             }
             echo json_encode($json_arr);

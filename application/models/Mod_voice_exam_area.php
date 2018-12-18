@@ -113,7 +113,7 @@ class Mod_voice_exam_area extends CI_Model
         if ($part != '') {
             $this->db->where('part', $part);
         }
-        $this->db->select('part,field');
+        $this->db->select('part,field,block_name');
 
         return $this->db->get('voice_exam_area')->result_array();
     }
