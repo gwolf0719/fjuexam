@@ -144,7 +144,6 @@
         $("#send").attr('disabled',true);
         $("#remove").attr('disabled',true);
         $("#add").attr('disabled',false);
-
     }
     $(function() {
 
@@ -174,8 +173,9 @@
             },
             dataType: "json"
         }).done(function(data) {
-            var html = "";
+            var html = "<option value=''>請選擇</option>";
             console.log(data);
+
             $.each(data.part, function(k, v) {
                 html += '<option value="' + v.field + '">' + v.field + '</option>';
             })
@@ -408,7 +408,7 @@
                 }).done(function(data) {
                     alert(data.sys_msg);
                     if (data.sys_code == "200") {
-                        // location.reload();
+                        location.reload();
                     }
                 })
             }
@@ -417,13 +417,7 @@
         $("body").on("click", "#add", function() {
             if ($("#sn").val() != "") {
                 if (confirm("目前處於編輯狀態，若要新增，將會清空所有欄位")) {
-                    $("#sn").val("")
-                    $("#allocation_code").val("")
-                    $("#trial_staff_code").val("")
-                    $("#trial_staff_name").val("")
-                    $("#first_section").val("0");
-                    $("#second_section").val("0");
-                    $("textarea[name='note']").val("");
+                    init();
                 }
             } else {
                 var part = $("#part").val();
@@ -637,13 +631,13 @@
                         <?=$v['first_end']; ?>
                     </td>
                     <td class="bt">
+                        <?=$v['first_section']; ?>
+                    </td>
+                    <td class="bt">
                         <?=$v['second_start']; ?>
                     </td>
                     <td class="bt">
                         <?=$v['second_end']; ?>
-                    </td>
-                    <td class="bt">
-                        <?=$v['first_section']; ?>
                     </td>
                     <td class="bt">
                         <?=$v['second_section']; ?>
@@ -741,23 +735,13 @@
                         <label for="field" class="" style="float:left;">試場號起</label>
                         <input type="hidden" value="1" id="day1" >
                         <select name="start" id="first_start" class="field field_start field1 form-control">
-                        <option value="">請選擇</option>
-                            <?php foreach ($part as $k => $v): ?>
-                            <option value="<?=$v['field']; ?>" day="1" >
-                                <?=$v['field']; ?>
-                            </option>
-                            <?php endforeach; ?>
+                           
                         </select>
                     </div>
                     <div class="form-group">
                         <label for="section" class="" style="float:left;">試場號迄</label>
                         <select name="end" id="first_end" class="field field1 field_end form-control">
-                        <option value="">請選擇</option>   
-                            <?php foreach ($part as $k => $v): ?>
-                            <option value="<?=$v['field']; ?>" day="1">
-                                <?=$v['field']; ?>
-                            </option>
-                            <?php endforeach; ?>
+                            
                         </select>
                     </div>
                     <div class="form-group">
@@ -772,23 +756,13 @@
                         <label for="field" class="" style="float:left;">試場號起</label>
                         <input type="hidden" value="1" id="day1">
                         <select name="start" id="second_start" class="field field_start field1 form-control" >
-                        <option value="">請選擇</option> 
-                            <?php foreach ($part_aftermoon as $k => $v): ?>
-                            <option value="<?=$v['field']; ?>" day="1">
-                                <?=$v['field']; ?>
-                            </option>
-                            <?php endforeach; ?>
+                        
                         </select>
                     </div>
                     <div class="form-group">
                         <label for="section" class="" style="float:left;">試場號迄</label>
                         <select name="end" id="second_end" class="field field1 field_end form-control" >
-                        <option value="">請選擇</option>
-                            <?php foreach ($part_aftermoon as $k => $v): ?>
-                            <option value="<?=$v['field']; ?>" day="1">
-                                <?=$v['field']; ?>
-                            </option>
-                            <?php endforeach; ?>
+                        
                         </select>
                     </div>
                     <div class="form-group">
