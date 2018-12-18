@@ -773,7 +773,15 @@ class Api extends CI_Controller {
             $json_arr['sys_msg'] = '資料不足';
             $json_arr['requred'] = $this->getpost->report_requred($requred);
         } else {
-            $this->mod_voice_trial->update_once($year,$ladder,$field,$part,$block_name,$data);
+            $update_data = array(
+                "first_member_salary_section"=>$data['first_member_salary_section'],
+                "first_member_section_salary_total"=>$data['first_member_salary_section'],
+                "first_member_section_total"=>$data['first_member_salary_section'],
+                "second_member_salary_section"=>$data['second_member_salary_section'],
+                "second_member_section_salary_total"=>$data['second_member_salary_section'],
+                "second_member_section_total"=>$data['second_member_salary_section'],
+            );
+            $this->mod_voice_trial->update_once($year,$ladder,$field,$part,$update_data);
             $json_arr['sys_code'] = '200';
             $json_arr['sys_msg'] = '資料儲存完成';
         }
@@ -814,28 +822,26 @@ class Api extends CI_Controller {
             $json_arr['sys_msg'] = '資料不足';
             $json_arr['requred'] = $this->getpost->report_requred($requred);
         } else {
-            
-            
-                $remove_data = array(
-                    "supervisor_1"=>"",
-                    "supervisor_1_code"=>"",
-                    "supervisor_2"=>"",
-                    "supervisor_2_code"=>"",
-                    "trial_staff_code_1"=>"",
-                    "trial_staff_code_2"=>"",
-                    "first_member_do_date"=>"",
-                    "first_member_day_count"=>"",
-                    "first_member_salary_section"=>"",
-                    "first_member_section_salary_total"=>"",
-                    "first_member_section_total"=>"",
-                    "second_member_do_date"=>"",
-                    "second_member_day_count"=>"",
-                    "second_member_salary_section"=>"",
-                    "second_member_section_salary_total"=>"",
-                    "second_member_section_total"=>"",
-                    "note"=>"",
-                );
-                $this->mod_voice_trial->update_once($this->session->userdata('year'),$this->session->userdata('ladder'),$data['field'],$data['part'],$remove_data);
+            $remove_data = array(
+                "supervisor_1"=>"",
+                "supervisor_1_code"=>"",
+                "supervisor_2"=>"",
+                "supervisor_2_code"=>"",
+                "trial_staff_code_1"=>"",
+                "trial_staff_code_2"=>"",
+                "first_member_do_date"=>"",
+                "first_member_day_count"=>"",
+                "first_member_salary_section"=>"",
+                "first_member_section_salary_total"=>"",
+                "first_member_section_total"=>"",
+                "second_member_do_date"=>"",
+                "second_member_day_count"=>"",
+                "second_member_salary_section"=>"",
+                "second_member_section_salary_total"=>"",
+                "second_member_section_total"=>"",
+                "note"=>"",
+            );
+            $this->mod_voice_trial->update_once($this->session->userdata('year'),$this->session->userdata('ladder'),$data['field'],$data['part'],$remove_data);
             
             $json_arr['sys_code'] = '200';
             $json_arr['sys_msg'] = '資料刪除完成';

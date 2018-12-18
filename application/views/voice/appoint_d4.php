@@ -122,7 +122,42 @@
 </style>
 
 <script>
+    function init(){
+        $(".chbox").attr('disabled',true);
+        $("#trial_staff_code_1").val("");
+        $("#trial_staff_code_2").val("");
+        $("#sn").val("");
+        $("#member_job_title").val("");
+        $("#first_member_job_code").val("");
+        $("#first_member_job_title").val("");
+        $("#first_member_name").val("");
+        $("#first_member_phone").val("");
+        $(".field").val("");
+        $("#first_member_meal").val("");
+        $("#second_member_meal").val("");
+        $("#first_member_order_meal").prop("checked",false);
+        $("#first_member_day_count").val('');
+        $("#first_member_section_count").val('');
+        $("#first_member_one_day_salary").val('');
+        $("#first_member_salary_section").val('');
+        $("#first_member_section_total").val('');
+        $("#first_member_day_total").val('');
+        $("#first_member_section_salary_total").val('');
+        $("#second_member_job_code").val("");
+        $("#second_member_job_title").val("");
+        $("#second_member_name").val("");
+        $("#second_member_phone").val("");
+        $("#second_member_order_meal").prop("checked",false);
+        $("#second_member_day_count").val('');
+        $("#second_member_section_count").val('');
+        $("#second_member_one_day_salary").val('');
+        $("#second_member_salary_section").val('');
+        $("#second_member_section_total").val('');
+        $("#second_member_day_total").val('');
+        $("#second_member_section_salary_total").val('');     
+    }
     $(function() {
+        init();
         var nowHash = location.hash; //取得loading進來後目前#
         var nowTabNum = nowHash.slice(-1);
         var nowHtml = location.pathname.split("/").pop();
@@ -173,37 +208,7 @@
                     $(this).prop("checked", false);
                 }
             })            
-            $("#trial_staff_code_1").val("");
-            $("#trial_staff_code_2").val("");
-            $("#sn").val("");
-            $("#member_job_title").val("");
-            $("#first_member_job_code").val("");
-            $("#first_member_job_title").val("");
-            $("#first_member_name").val("");
-            $("#first_member_phone").val("");
-            $(".field").val("");
-            $("#first_member_meal").val("");
-            $("#second_member_meal").val("");
-            $("#first_member_order_meal").prop("checked",false);
-            $("#first_member_day_count").val(0);
-            $("#first_member_section_count").val(0);
-            $("#first_member_one_day_salary").val(<?=$fees_info['pay_1']; ?>);
-            $("#first_member_salary_section").val(<?=$fees_info['pay_2']; ?>);
-            $("#first_member_section_total").val(0);
-            $("#first_member_day_total").val(0);
-            $("#first_member_section_salary_total").val(0);
-            $("#second_member_job_code").val("");
-            $("#second_member_job_title").val("");
-            $("#second_member_name").val("");
-            $("#second_member_phone").val("");
-            $("#second_member_order_meal").prop("checked",false);
-            $("#second_member_day_count").val(0);
-            $("#second_member_section_count").val(0);
-            $("#second_member_one_day_salary").val(<?=$fees_info['pay_1']; ?>);
-            $("#second_member_salary_section").val(<?=$fees_info['pay_2']; ?>);
-            $("#second_member_section_total").val(0);
-            $("#second_member_day_total").val(0);
-            $("#second_member_section_salary_total").val(0);     
+            init();
             console.log(newHash);
             if (nowHtml == "appoint_d4") {
                 //開闔div
@@ -240,9 +245,10 @@
             var sn = $(this).attr("sn");
             var part = $(this).attr("part");
             var field = $(this).attr("field");
+            var tr = $(this);
             $("#sn").val(sn);
-            $("#first_member_section_count").val(section);
-            $("#second_member_section_count").val(section);
+            // $("#first_member_section_count").val(section);
+            // $("#second_member_section_count").val(section);
             
             $("html, body").animate({
                 scrollTop: $("body").height()
@@ -260,65 +266,70 @@
                 //職員一
                 $("#first_member_salary_section").val(data.info.first_member_salary_section);
                 $("#first_member_section_salary_total").val(data.info.first_member_section_salary_total);
-                $("#first_member_section_total").val(data.info.first_member_section_total);
+                
                 $("#first_member_name").val(data.info.supervisor_1);
                 $("#first_member_job_code").val(data.info.supervisor_1_code);
                 $("#trial_staff_code_1").val(data.info.trial_staff_code_1);
+                // console.log(tr.find('td').eq(2).text());
+                var block_names_1 = tr.find('td').eq(2).text().split(',');
+                console.log(block_names_1);
+                if(block_names_1.indexOf('上午場') >= 0){
+                    $('.block').eq(0).prop("checked",true);
+                }
+                if(block_names_1.indexOf('下午場') >= 0){
+                    $('.block').eq(1).prop("checked",true);
+                }
+                $("#first_member_section_count").val(block_names_1.length);
+                $("#first_member_section_total").val(block_names_1.length*data.info.first_member_section_total);
+                
                 //職員二
                 $("#second_member_day_count").val(data.info.second_member_day_count);
                 $("#second_member_salary_section").val(data.info.second_member_salary_section);
                 $("#second_member_section_salary_total").val(data.info.second_member_section_salary_total);
-                $("#second_member_section_total").val(data.info.second_member_section_total);
+                
                 $("#second_member_name").val(data.info.supervisor_2);
                 $("#second_member_job_code").val(data.info.supervisor_2_code);
                 $("#trial_staff_code_2").val(data.info.trial_staff_code_2);
-
+                var block_names_2 = tr.find('td').eq(2).text().split(',');
+                if(block_names_2.indexOf('上午場') >= 0){
+                    $('.block').eq(2).prop("checked",true);
+                }
+                if(block_names_2.indexOf('下午場') >= 0){
+                    $('.block').eq(3).prop("checked",true);
+                }
+                $("#second_member_section_count").val(block_names_2.length);
+                $("#second_member_section_total").val(block_names_2.length*data.info.second_member_section_total);
                 
                 // 取得職員一資料
-                $.ajax({
-                    url: './voice/api/get_staff_member',
-                    data: {
-                        "code": data.info.supervisor_1_code,
-                    },
-                    dataType: "json"
-                }).done(function(member) {
-                    console.log(member);
-                    $("#first_member_job_title").val(member.info.member_title);
-                    $("#first_member_phone").val(member.info.member_phone);
-                })
-                // // 取得職員二資料
-                $.ajax({
-                    url: './voice/api/get_staff_member',
-                    data: {
-                        "code": data.info.supervisor_2_code,
-                    },
-                    dataType: "json"
-                }).done(function(data) {
-                    console.log(data);
-                    $("#second_member_job_title").val(data.info.member_title);
-                    $("#second_member_phone").val(data.info.member_phone);
-                })
-                // 取得試場 start & end get_field_start_end
+                if(data.info.supervisor_1_code != ""){
                     $.ajax({
-                        url: './voice/api/room_use_day',
+                        url: './voice/api/get_staff_member',
                         data: {
-                            "part": part,
-                            "start": field,
-                            "end": field,
+                            "code": data.info.supervisor_1_code,
                         },
                         dataType: "json"
-                    }).done(function(day) {
-                        console.log(day.day);
-                        // 監試人員一天數
-                        $('input:checkbox[name="first_member_day"]').eq(0).prop("checked", day.day[0]);
-                        $('input:checkbox[name="first_member_day"]').eq(1).prop("checked", day.day[1]);
-                        $('input:checkbox[name="first_member_day"]').eq(2).prop("checked", day.day[2]);
-
-                        // 監試人員二天數
-                        $('input:checkbox[name="second_member_day"]').eq(0).prop("checked", day.day[0]);
-                        $('input:checkbox[name="second_member_day"]').eq(1).prop("checked", day.day[1]);
-                        $('input:checkbox[name="second_member_day"]').eq(2).prop("checked", day.day[2]);
+                    }).done(function(member) {
+                        console.log(member);
+                        $("#first_member_job_title").val(member.info.member_title);
+                        $("#first_member_phone").val(member.info.member_phone);
                     })
+                }
+                
+                // // 取得職員二資料
+                if(data.info.supervisor_2_code != ""){
+                    $.ajax({
+                        url: './voice/api/get_staff_member',
+                        data: {
+                            "code": data.info.supervisor_2_code,
+                        },
+                        dataType: "json"
+                    }).done(function(data) {
+                        console.log(data);
+                        $("#second_member_job_title").val(data.info.member_title);
+                        $("#second_member_phone").val(data.info.member_phone);
+                    })
+                }
+                
             })
         })
 
@@ -362,7 +373,7 @@
                 }).done(function(data) {
                     alert(data.sys_msg);
                     if (data.sys_code == "200") {
-                        location.reload();
+                        // location.reload();
                     }
                 })
             }
@@ -677,19 +688,19 @@
                         <div class="form-group" style="padding: 0% 3%;">
                             <div class="W50">
                                 <label for="trial_start" class="" style="float:left;width: 50%;">薪資單價</label>
-                                <input type="hidden" class="form-control" id="first_member_one_day_salary" value="<?=$fees_info['pay_1']; ?>">
-                                <input type="text" class="form-control" id="first_member_salary_section" value="<?=$fees_info['pay_2']; ?>">
+                                <input type="hidden" class="form-control" id="first_member_one_day_salary" value="">
+                                <input type="text" class="form-control" id="first_member_salary_section" value="">
                             </div>
                             <div class="W50">
                                 <label for="trial_start" class="" style="float:left;width: 50%;">薪資總計</label>
-                                <input type="hidden" class="form-control" id="first_member_day_salary_total" value="0" readonly>
-                                <input type="text" class="form-control" id="first_member_section_salary_total" value="0" readonly>
+                                <input type="hidden" class="form-control" id="first_member_day_salary_total" value="" readonly>
+                                <input type="text" class="form-control" id="first_member_section_salary_total" value="" readonly>
                             </div>
                         </div>
                         <div class="form-group">
                             <label for="trial_end" class="" style="float:left;">總計</label>
-                            <input type="hidden" class="form-control" id="first_member_day_total" value="0">
-                            <input type="text" class="form-control" id="first_member_section_total" value="0" readonly>
+                            <input type="hidden" class="form-control" id="first_member_day_total" value="">
+                            <input type="text" class="form-control" id="first_member_section_total" value="" readonly>
                         </div>
                     </div>
                     <div class="col-md-12 col-sm-12 col-xs-12" style="float: left;margin: 50px auto 0;">
@@ -759,19 +770,19 @@
                         <div class="form-group" style="padding: 0% 3%;">
                             <div class="W50">
                                 <label for="trial_start" class="" style="float:left;width: 50%;">薪資單價</label>
-                                <input type="hidden" class="form-control" id="second_member_one_day_salary" value="<?=$fees_info['pay_1']; ?>">
-                                <input type="text" class="form-control" id="second_member_salary_section" value="<?=$fees_info['pay_1']; ?>">
+                                <input type="hidden" class="form-control" id="second_member_one_day_salary" value="">
+                                <input type="text" class="form-control" id="second_member_salary_section" value="">
                             </div>
                             <div class="W50">
                                 <label for="trial_start" class="" style="float:left;width: 50%;">薪資總計</label>
-                                <input type="hidden" class="form-control" id="second_member_day_salary_total" value="0" readonly>
-                                <input type="text" class="form-control" id="second_member_section_salary_total" value="0" readonly>
+                                <input type="hidden" class="form-control" id="second_member_day_salary_total" value="" readonly>
+                                <input type="text" class="form-control" id="second_member_section_salary_total" value="" readonly>
                             </div>
                         </div>
                         <div class="form-group">
                             <label for="trial_end" class="" style="float:left;">總計</label>
-                            <input type="hidden" class="form-control" id="second_member_day_total" value="0">
-                            <input type="text" class="form-control" id="second_member_section_total" value="0" readonly>
+                            <input type="hidden" class="form-control" id="second_member_day_total" value="">
+                            <input type="text" class="form-control" id="second_member_section_total" value="" readonly>
                         </div>
                     </div>
 
