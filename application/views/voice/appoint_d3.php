@@ -116,14 +116,6 @@
 <script>
     $(function() {
 
-        $(window).on("load", function() {
-            var addr = $("#addr").val();
-            // console.log(arr);
-            if (addr == "") {
-                alert("目前 C1 考試地址尚未填寫資料，請先填寫資料再進行操作");
-                location.href = "./voice/assign_c4";
-            }
-        })
 
         //tab設定
         var nowHash = location.hash; //取得loading進來後目前#

@@ -252,7 +252,7 @@
                 },
                 dataType: "json"
             }).done(function(data) {
-                var html = "";
+                var html = "<option>請選擇</option>";
                 $.each(data.part, function(k, v) {
                     html += '<option value="' + v.field + '">' + v.field + '</option>';
                 })
@@ -337,7 +337,6 @@
                 },
                 dataType: "json"
             }).done(function(data) {
-                var html = "";
                 var first_section = $('#first_section').val();
                 var second_section = $('#second_section').val();
 

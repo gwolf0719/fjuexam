@@ -1009,14 +1009,14 @@ class Api extends CI_Controller {
                     'total'=> $total,
                 );
                 
-                if($this->mod_voice_trial->chk_trial_staff_field($data) == true){
-                    $json_arr['sys_code'] = '500';
-                    $json_arr['sys_msg'] = '有重複輸入試場';
-                }else{
+                // if($this->mod_voice_trial->chk_trial_staff_field($data) == true){
+                //     $json_arr['sys_code'] = '500';
+                //     $json_arr['sys_msg'] = '有重複輸入試場';
+                // }else{
                     $this->mod_voice_trial->add_trial($sql_data);
                     $json_arr['sys_code'] = '200';
                     $json_arr['sys_msg'] = '資料新增完成';                
-                }
+                // }
     
             }
             echo json_encode($json_arr);
@@ -1035,15 +1035,15 @@ class Api extends CI_Controller {
             } else {
                 $data['year'] = $this->session->userdata('year');
                 $data['ladder'] = $this->session->userdata('ladder');
-                if($this->mod_voice_trial->chk_trial_staff_field($data) == true){
-                    $json_arr['sys_code'] = '500';
-                    $json_arr['sys_msg'] = '有重複輸入試場';
-                }else{
+                // if($this->mod_voice_trial->chk_trial_staff_field($data) == true){
+                //     $json_arr['sys_code'] = '500';
+                //     $json_arr['sys_msg'] = '有重複輸入試場';
+                // }else{
                     
                     $this->mod_voice_trial->update_trial($data['sn'], $data);
                     $json_arr['sys_code'] = '200';
                     $json_arr['sys_msg'] = '資料儲存完成';
-                }
+                // }
                 
             }
             echo json_encode($json_arr);
