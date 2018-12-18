@@ -618,8 +618,8 @@ class Api extends CI_Controller {
         $this->load->model('mod_voice_exam_datetime');
         $this->load->model('mod_voice_test_pay');
         $this->load->model('mod_voice_part_info');
-        $getpost = array('sn','part','block_name','supervisor_1', 'supervisor_1_code', 'supervisor_2', 'supervisor_2_code', 'trial_staff_code_1', 'trial_staff_code_2', 'note','field');
-        $requred = array('sn','part','block_name','supervisor_1', 'supervisor_1_code', 'supervisor_2', 'supervisor_2_code', 'trial_staff_code_1', 'trial_staff_code_2','field');
+        $getpost = array('sn','part','supervisor_1', 'supervisor_1_code', 'supervisor_2', 'supervisor_2_code', 'trial_staff_code_1', 'trial_staff_code_2', 'note','field');
+        $requred = array('sn','part','supervisor_1', 'supervisor_1_code', 'supervisor_2', 'supervisor_2_code', 'trial_staff_code_1', 'trial_staff_code_2','field');
         $data = $this->getpost->getpost_array($getpost, $requred);
         $year = $this->session->userdata('year');
         $ladder = $this->session->userdata('ladder');
