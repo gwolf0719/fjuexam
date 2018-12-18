@@ -117,8 +117,9 @@
  // 初始化 （新增
     function init(){
         $("#allocation_code").val('');
-        $("#trial_staff_code").val('');
-        $("#trial_staff_name").val('');
+        
+        $("#patrol_staff_code").val('');
+        $("#patrol_staff_name").val('');
         $("#note").val('');
         // $("select").val('');
         $("#send").attr('disabled',true);
