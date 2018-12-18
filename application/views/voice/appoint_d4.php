@@ -241,6 +241,7 @@
        
         // 點選列表
         $("body").on("click", "tr", function() {
+            init();
             var section = $(this).attr("section");
             var sn = $(this).attr("sn");
             var part = $(this).attr("part");
