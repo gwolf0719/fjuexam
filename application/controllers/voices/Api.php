@@ -918,27 +918,18 @@ class Api extends CI_Controller {
                 $json_arr['requred'] = $this->getpost->report_requred($requred);
             } else {
                 $data['year'] = $this->session->userdata('year');
-                // $day = $this->mod_voice_exam_datetime->room_use_day($data['first_start'], $data['first_end'],$data['part']);
-                $datetime_info = $this->mod_voice_exam_datetime->get_once($_SESSION['year'],$_SESSION['ladder']);
-                $fees_info = $this->Mod_voice_test_pay->get_once($_SESSION['year'],$_SESSION['ladder']);
-                $member = $this->mod_voice_staff->get_staff_member(trim($data['patrol_staff_code']));
-                // $do_date = array();
-                // if($day[0] != ""){
-                //     array_push($do_date,mb_substr($datetime_info['day_1'], 5, 8, 'utf-8'));
-                // }
-                // if($day[1] != ""){
-                //     array_push($do_date,mb_substr($datetime_info['day_2'], 5, 8, 'utf-8'));
-                // }   
-                // if($day[2] != ""){
-                //     array_push($do_date,mb_substr($datetime_info['day_3'], 5, 8, 'utf-8'));
-                // }                
-                // $date = implode(",",$do_date);    
-                    $salary_total = $fees_info['pay_1']*$data['first_section'];
-                    $total = $salary_total;            
+                $data['ladder'] = $this->session->userdata('ladder');
+                $datetime_info = $this->mod_voice_exam_datetime->get_once($data['year'],$data['ladder']);
+                $fees_info = $this->Mod_voice_test_pay->get_once($data['year'],$data['ladder']);
+                $member = $this->mod_voice_staff->get_staff_member(trim($data['patrol_staff_code'])); 
+                
+                $count = $data['first_section']+$data['second_section'];
+                $salary_total = $fees_info['pay_2']*$count;
+                $total = $salary_total;     
                 
                 $data = array(
                     'part'=>$data['part'],
-                    'year'=>$_SESSION['year'],
+                    'year'=>$data['year'],
                     'allocation_code'=>$data['allocation_code'],
                     'patrol_staff_code'=>trim($data['patrol_staff_code']),
                     'patrol_staff_name'=>trim($data['patrol_staff_name']),
@@ -951,8 +942,8 @@ class Api extends CI_Controller {
                     'note'=>$data['note'],
                     // 'do_date'=>$date,
                     'calculation'=> 'by_section',
-                    // 'count'=> count($do_date),
-                    'salary'=>$fees_info['pay_1'],
+                    'count'=> $count,
+                    'salary'=>$fees_info['pay_2'],
                     'salary_total'=>$salary_total,
                     'total'=>$total,
 

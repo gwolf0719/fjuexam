@@ -101,6 +101,35 @@
 </style>
 
 <script>
+    function init(){
+        $("#sn").val("");
+        $("#member_job_title").val("");
+        $("#job_code").val("");
+        $("#job_title").val("");
+        $("#name").val("");
+        $("#phone").val("");
+        $("#first_start").val("");
+        $("#first_end").val("");
+        $("#first_section").val("");
+        $("#second_start").val("");
+        $("#second_end").val("");
+        $("#second_section").val("");
+        $("#trial_start").val("");
+        $("#trial_end").val("");
+        $("#calculation").val("by_section");
+        
+        $("#section_count").val('');
+        $("#salary_section").val('');
+        
+        $("#day_salary_total").val('');
+        $("#section_salary_total").val('');
+        $("#lunch_price").val('');
+        $("#section_lunch_total").val('');
+        $("#day_lunch_total").val('');
+        $("#section_total").val('');
+        $("#day_total").val('');
+        $("#note").val('');
+    }
     $(function() {
         /**自動完成 */
         var data;
@@ -155,34 +184,7 @@
             var newHash = $(this).attr("area"); //點到的id
            //點擊先做還原動作
             //點擊先做還原動作
-            $("#sn").val("");
-            $("#member_job_title").val("");
-            $("#job_code").val("");
-            $("#job_title").val("");
-            $("#name").val("");
-            $("#phone").val("");
-            $('input[name="day"]').each(function() {
-                for (let index = 0; index < 3; index++) {
-                    $(this).prop("checked", false);
-                }
-            })
-            $("#trial_start").val("");
-            $("#trial_end").val("");
-            $("#calculation").val("by_section");
-            $("#order_meal").prop("checked", false);
-            $("#section_count").val(0);
-            $("#day_count").val(0)
-            $("#salary_section").val(
-                "<?=$fees_info['pay_1']; ?>");
-            $("#one_day_salary").val(
-                "<?=$fees_info['pay_1']; ?>");
-            $("#day_salary_total").val(0);
-            $("#section_salary_total").val(0);
-            $("#lunch_price").val(0);
-            $("#section_lunch_total").val(0);
-            $("#day_lunch_total").val(0);
-            $("#section_total").val(0);
-            $("#day_total").val(0);
+            init();
             console.log(newHash);
             if (nowHtml == "appoint_d6") {
                 //開闔div
@@ -235,23 +237,7 @@
                 });
                 var uses_day_count = day_arr.length;
                 console.log(data.info);
-                
-                //取得節數
-                // $.ajax({
-                //     url: './voice/api/get_day_section',
-                //     data: {
-                //         "start": data.info.start,
-                //         "end": data.info.end,
-                //     },
-                //     dataType: "json"
-                // }).done(function(data) {
-                //     console.log(data.section);
-                   
-                //     // $("#section_count").val(data.section);
-                // })
-                switch (data.info.calculation) {
-                    case "by_section":
-                        $("#calculation").val("by_section");
+                $("#calculation").val("by_section");
                         $("#day_count").hide();
                         $("#one_day_salary").hide();
                         $("#day_salary_total").hide();
@@ -264,86 +250,11 @@
                         $("#salary_section").val(data.info.salary);
                         $("#section_salary_total").val(data.info.salary_total);
                         // $("#section_total").val(data.info.total);
-                        var section_salary_total = parseInt($("#salary_section").val()) *
-                            parseInt($(
-                                "#section_count").val());
+                        var section_salary_total = parseInt($("#salary_section").val()) *parseInt($("#section_count").val());
                         $("#section_salary_total").val(section_salary_total);
                         var section_total = section_salary_total;
                         $("#section_total").val(section_total);
-                        break;
-                        break;
-                    case "by_day":
-                        $("#calculation").val("by_day");
-                        $("#day_count").show();
-                        $("#one_day_salary").show();
-                        $("#day_salary_total").show();
-                        $("#day_total").show();
-                        $("#section_count").hide();
-                        $("#salary_section").hide()
-                        $("#section_salary_total").hide();
-                        $("#section_total").hide();
-                        $("#day_count").val(data.info.count);
-                        $("#one_day_salary").val(data.info.salary);
-                        $("#day_salary_total").val(data.info.salary_total);
-                        $("#day_total").val(data.info.total);
-                        break;
-                    case "":
-                        $("#calculation").val("by_section");
-                        $("#section_count").show();
-                        $("#salary_section").show()
-                        $("#section_salary_total").show();
-                        $("#section_lunch_total").show();
-                        $("#section_total").show();
-                        $("#day_count").hide();
-                        $("#one_day_salary").hide();
-                        $("#day_salary_total").hide();
-                        $("#day_total").hide();
-                        var section_salary_total = parseInt($("#salary_section").val()) * parseInt($("#section_count").val());
-                            $("#section_salary_total").val(section_salary_total);
-                            var section_total = section_salary_total;
-                            $("#section_total").val(section_total);                            
-                            var section_salary_total = parseInt($("#salary_section").val()) * parseInt($("#section_count").val());
-                            $("#section_salary_total").val(section_salary_total);
-                            var section_total = section_salary_total;
-                            $("#section_total").val(section_total);                       
-
-
-                        break;
-
-                }
-                //開始讀取天數
-                // $.ajax({
-                //     url: './voice/api/room_use_day',
-                //     data: {
-                //         "part": part,
-                //         "start": $("#trial_start").val(),
-                //         "end": $("#trial_end").val(),
-                //     },
-                //     dataType: "json"
-                // }).done(function(data) {
-                //     console.log(data.day);
-                //     $('input:checkbox[name="day"]').eq(0).prop("checked", data.day[0]);
-                //     $('input:checkbox[name="day"]').eq(1).prop("checked", data.day[1]);
-                //     $('input:checkbox[name="day"]').eq(2).prop("checked", data.day[2]);
-                //     var day_count = $('input:checkbox:checked[name="day"]').map(
-                //         function() {
-                //             return $(this).val();
-                //         }).get().length;
-                //     $("#day_count").val(day_count);
-                //     var day_salary_total = parseInt($("#one_day_salary").val()) *
-                //         parseInt($("#day_count").val());
-                //     $("#day_salary_total").val(day_salary_total);
-                //     if ($("#order_meal").val() == "N") {
-                //         $("#day_total").val(day_salary_total);
-                //     } else {
-                //         var day_lunch_total = 0 - parseInt($("#lunch_price").val()) *
-                //             parseInt($("#day_count").val());
-                //         $("#day_lunch_total").val(day_lunch_total);
-                //         var day_total = parseInt($("#day_salary_total").val()) +
-                //             parseInt($("#day_lunch_total").val());
-                //         $("#day_total").val(day_total);
-                //     }
-                // })
+                
             })
             //取得職員資料     
             $.ajax({
@@ -379,17 +290,7 @@
                 var salary_total;
                 var total;
                 var note = $("textarea[name='note']").val();
-                // if (calculation == "by_section") {
-                //     count = $("#section_count").val();
-                //     salary = $("#salary_section").val();
-                //     salary_total = $("#section_salary_total").val()
-                //     total = $("#section_total").val()
-                // } else {
-                //     count = $("#day_count").val();
-                //     salary = $("#one_day_salary").val();
-                //     salary_total = $("#day_salary_total").val()
-                //     total = $("#day_total").val()
-                // }
+                
                 $.ajax({
                     url: './voice/api/save_patrol_staff_for_list',
                     data: {
@@ -727,8 +628,8 @@
                     <div class="form-group" style="padding: 0% 3%;">
                         <div class="W50">
                             <label for="trial_start" class="" style="float:left;width: 50%;">薪資單價</label>
-                            <input type="text" class="form-control" id="one_day_salary" style="display:none" value="<?=$fees_info['pay_1']; ?>">
-                            <input type="text" class="form-control" id="salary_section" value="<?=$fees_info['pay_1']; ?>">
+                            <input type="text" class="form-control" id="one_day_salary" style="display:none" >
+                            <input type="text" class="form-control" id="salary_section" >
                         </div>
                         <div class="W50">
                             <label for="trial_start" class="" style="float:left;width: 50%;">薪資總計</label>
