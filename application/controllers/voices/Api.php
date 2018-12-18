@@ -994,6 +994,7 @@ class Api extends CI_Controller {
             echo json_encode($json_arr);
         }
 
+        // 新增管卷人員指派
         public function add_trial_staff()
         {
             $this->load->model('mod_voice_trial');
@@ -1015,7 +1016,8 @@ class Api extends CI_Controller {
 
                 $sql_data = array(
                     'part'=>$data['part'],
-                    'year'=> $_SESSION['year'],
+                    'year'=> $this->session->userdata('year'),
+                    'ladder'=> $this->session->userdata('ladder'),
                     'allocation_code'=>$data['allocation_code'],
                     'trial_staff_code'=>trim($data['trial_staff_code']),
                     'trial_staff_name'=>trim($data['trial_staff_name']),
@@ -1047,6 +1049,7 @@ class Api extends CI_Controller {
             }
             echo json_encode($json_arr);
         }
+        // 修改管卷人員指派
         public function save_trial_staff()
         {
             $this->load->model('mod_voice_trial');
@@ -1059,13 +1062,17 @@ class Api extends CI_Controller {
                 $json_arr['requred'] = $this->getpost->report_requred($requred);
             } else {
                 $data['year'] = $this->session->userdata('year');
-                if ($this->mod_voice_trial->chk_trial($data['sn'])) {
+                $data['ladder'] = $this->session->userdata('ladder');
+                if($this->mod_voice_trial->chk_trial_staff_field($data) == true){
+                    $json_arr['sys_code'] = '500';
+                    $json_arr['sys_msg'] = '有重複輸入試場';
+                }else{
+                    
                     $this->mod_voice_trial->update_trial($data['sn'], $data);
-                } else {
-                    $this->mod_voice_trial->add_trial($data);
+                    $json_arr['sys_code'] = '200';
+                    $json_arr['sys_msg'] = '資料儲存完成';
                 }
-                $json_arr['sys_code'] = '200';
-                $json_arr['sys_msg'] = '資料儲存完成';
+                
             }
             echo json_encode($json_arr);
         }
@@ -1188,8 +1195,10 @@ class Api extends CI_Controller {
             else {
                 $json_arr['sys_code'] = '404';
                 $json_arr['sys_msg'] = '查無此資料，請確認是否有資料';
+                echo $json_arr['sql'] = $this->db->last_query();
             }
         }
+        
         echo json_encode($json_arr);
     }
     

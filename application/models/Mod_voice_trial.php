@@ -165,6 +165,8 @@ class Mod_voice_trial extends CI_Model
      * 檢查管卷人員試場是否重複
      */
     function chk_trial_staff_field($data){
+        $this->db->where('year',$this->session->userdata('year'));
+        $this->db->where('ladder',$this->session->userdata('ladder'));
         $this->db->where('part',$data['part']);
         $this->db->where('first_start',$data['first_start']);
         $this->db->where('first_end',$data['first_end']);
