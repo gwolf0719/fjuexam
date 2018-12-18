@@ -252,7 +252,7 @@
                 },
                 dataType: "json"
             }).done(function(data) {
-                var html = "<option>請選擇</option>";
+                var html = "<option value=''>請選擇</option>";
                 $.each(data.part, function(k, v) {
                     html += '<option value="' + v.field + '">' + v.field + '</option>';
                 })
