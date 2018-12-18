@@ -273,11 +273,22 @@
             });
         })
 
+        // 點選確定指派
         $("body").on("click", "#sure3", function() {
             var code = $(".typeahead").val().split("-");
-            $("#trial_staff_code").val(code[0]);
-            $("#trial_staff_name").val(code[1]);
-            $('#exampleModal').modal('hide');
+            // 先確認這個人有沒有事
+            $.getJSON('./voice/api/chk_job_code_can_use',{
+                job_code:code[0]
+            },function(jsonData){
+                if(jsonData.sys_code == '200'){
+                    $("#trial_staff_code").val(code[0]);
+                    $("#trial_staff_name").val(code[1]);
+                    $('#exampleModal').modal('hide');
+                }else{
+                    alert(jsonData.sys_msg);
+                }
+            })
+            
         })
 
 
@@ -305,10 +316,6 @@
                 },
                 dataType: "json"
             }).done(function(data) {
-                
-                console.log("點選列表顯示內容");
-                console.log(data.info);
-                console.log(tr.find('td').eq(3).text().trim());
                 $("#sn").val(sn);
                 $("#part").val(get_part());
                 $("#allocation_code").val(data.info.allocation_code);

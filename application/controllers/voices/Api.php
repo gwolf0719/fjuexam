@@ -385,66 +385,7 @@ class Api extends CI_Controller {
          }
          echo json_encode($json_arr);
      }
-    //  public function job_add_b2()
-    //  {
-    //      $this->load->model('mod_voice_job_list');
-    //      $getpost = array('job', 'area');
-    //      $requred = array('job', 'area');
-    //      $data = $this->getpost->getpost_array($getpost, $requred);
-    //      if ($data == false) {
-    //          $json_arr['sys_code'] = '000';
-    //          $json_arr['sys_msg'] = '資料不足';
-    //          $json_arr['requred'] = $this->getpost->report_requred($requred);
-    //      } else {
-    //          $year = $this->session->userdata('year');
-    //          $part = $this->mod_voice_job_list->get_part_for_once($data['area']);
- 
-    //          $this->mod_voice_job_list->add_job_b2($year, $data['area'], $data['job'], $part['trial_start'], $part['trial_end']);
-    //          $json_arr['sys_code'] = '200';
-    //          $json_arr['sys_msg'] = '新增完成';
-    //      }
-    //      echo json_encode($json_arr);
-    //  }
-    //  public function job_add_b3()
-    //  {
-    //      $this->load->model('mod_voice_job_list');
-    //      $getpost = array('job', 'area');
-    //      $requred = array('job', 'area');
-    //      $data = $this->getpost->getpost_array($getpost, $requred);
-    //      if ($data == false) {
-    //          $json_arr['sys_code'] = '000';
-    //          $json_arr['sys_msg'] = '資料不足';
-    //          $json_arr['requred'] = $this->getpost->report_requred($requred);
-    //      } else {
-    //          $year = $this->session->userdata('year');
-    //          $part = $this->mod_voice_job_list->get_part_for_once($data['area']);
- 
-    //          $this->mod_voice_job_list->add_job_b3($year, $data['area'], $data['job'], $part['trial_start'], $part['trial_end']);
-    //          $json_arr['sys_code'] = '200';
-    //          $json_arr['sys_msg'] = '新增完成';
-    //      }
-    //      echo json_encode($json_arr);
-    //  }
-    //  public function job_add_b4()
-    //  {
-    //      $this->load->model('mod_voice_job_list');
-    //      $getpost = array('job', 'area');
-    //      $requred = array('job', 'area');
-    //      $data = $this->getpost->getpost_array($getpost, $requred);
-    //      if ($data == false) {
-    //          $json_arr['sys_code'] = '000';
-    //          $json_arr['sys_msg'] = '資料不足';
-    //          $json_arr['requred'] = $this->getpost->report_requred($requred);
-    //      } else {
-    //          $year = $this->session->userdata('year');
-    //          $part = $this->mod_voice_job_list->get_part_for_once($data['area']);
- 
-    //          $this->mod_voice_job_list->add_job_b4($year, $data['area'], $data['job'], $part['trial_start'], $part['trial_end']);
-    //          $json_arr['sys_code'] = '200';
-    //          $json_arr['sys_msg'] = '新增完成';
-    //      }
-    //      echo json_encode($json_arr);
-    //  }
+    
 
      public function get_once_task()
      {
@@ -559,6 +500,35 @@ class Api extends CI_Controller {
                 
             }
             
+        }
+        echo json_encode($json_arr);
+    }
+
+    /**
+     * 2018-12-18 @ James 確認人員沒事可以指派
+     */
+    function chk_job_code_can_use(){
+        $this->load->model('mod_voice_job_list');
+        $this->load->model('mod_voice_trial');
+        $getpost = array('job_code');
+        $requred = array('job_code');
+        $data = $this->getpost->getpost_array($getpost, $requred);
+        if ($data == false) {
+            $json_arr['sys_code'] = '000';
+            $json_arr['sys_msg'] = '資料不足';
+            $json_arr['requred'] = $this->getpost->report_requred($requred);
+        } else {
+            if($this->mod_voice_trial->chk_trial_assigned($data['job_code'])){
+                $json_arr['sys_code'] = '500';
+                $json_arr['sys_msg'] = '該人員已經被指派過，請選擇其他人員';
+            }else if($this->mod_voice_job_list->chk_job_code($data['job_code'])){
+                $json_arr['sys_code'] = '500';
+                $json_arr['sys_msg'] = '該人員已經被指派過，請選擇其他人員';
+            }else{
+                $json_arr['sys_code'] = '200';
+                $json_arr['sys_msg'] = 'data can use';
+            }
+               
         }
         echo json_encode($json_arr);
     }
