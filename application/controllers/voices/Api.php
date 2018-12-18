@@ -858,7 +858,7 @@ class Api extends CI_Controller {
         echo json_encode($json_arr);
     }  
 
-        /**
+    /**
      * D 相關api.
      */
      public function get_part()
@@ -1008,9 +1008,10 @@ class Api extends CI_Controller {
                 $json_arr['requred'] = $this->getpost->report_requred($requred);
             } else {
                 $data['year'] = $this->session->userdata('year');
+                $data['ladder'] = $this->session->userdata('ladder');
                 $member = $this->mod_voice_trial->get_once_trial_by_code($data['trial_staff_code']);
                 $do_date = explode(",", $data['do_date']);
-                $fees_info = $this->mod_voice_test_pay->get_once($_SESSION['year'],$_SESSION['ladder']);  
+                $fees_info = $this->mod_voice_test_pay->get_once($data['year'],$data['ladder']);  
                 $salary_total = $data['first_section']*$fees_info['pay_1'];
                 $total = $salary_total;
 
@@ -1037,6 +1038,7 @@ class Api extends CI_Controller {
                     'salary_total'=> $salary_total,
                     'total'=> $total,
                 );
+                
                 if($this->mod_voice_trial->chk_trial_staff_field($data) == true){
                     $json_arr['sys_code'] = '500';
                     $json_arr['sys_msg'] = '有重複輸入試場';

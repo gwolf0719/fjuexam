@@ -126,6 +126,7 @@ class Mod_voice_trial extends CI_Model
 
     public function add_trial($data)
     {
+        
         $this->db->insert('voice_trial_staff', $data);
 
         return true;

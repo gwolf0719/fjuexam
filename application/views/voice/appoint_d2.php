@@ -371,7 +371,7 @@
                 if(second_start != "" && second_end != ""){
                     var second_section = 1;
                 }else{
-                    var first_section = 0;
+                    var second_section = 0;
                 }
                 
                 var note = $("textarea[name='note']").val();
@@ -396,7 +396,7 @@
                 }).done(function(data) {
                     alert(data.sys_msg);
                     if (data.sys_code == "200") {
-                        // location.reload();
+                        location.reload();
                         
                     }
                 })
@@ -443,7 +443,7 @@
                 if(second_start != "" && second_end != ""){
                     var second_section = 1;
                 }else{
-                    var first_section = 0;
+                    var second_section = 0;
                 }
                 var note = $("textarea[name='note']").val();
                 var arr  = [];
@@ -474,7 +474,7 @@
                 }).done(function(data) {
                     alert(data.sys_msg);
                     if (data.sys_code == "200") {
-                        // window.location.reload();
+                        window.location.reload();
                     }
                 })
             }
