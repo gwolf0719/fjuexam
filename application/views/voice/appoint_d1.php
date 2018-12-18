@@ -372,39 +372,15 @@
                 $.ajax({
                     url: './voice/api/remove_trial',
                     data: {
-                        "sn": sn,
-                        "supervisor_1": " ",
-                        "supervisor_1_code": " ",
-                        "supervisor_2": " ",
-                        "supervisor_2_code": " ",
-                        "trial_staff_code_1": " ",
-                        "trial_staff_code_2": " ",
-                        "first_member_do_date":" ",
-                        "first_member_day_count":" ",
-                        "first_member_salary_section":" ",
-                        "first_member_section_salary_total":" ",
-                        "first_member_section_total":" ",
-                        "second_member_do_date":" ",
-                        "second_member_day_count":" ",
-                        "second_member_salary_section":" ",
-                        "second_member_section_salary_total":" ",
-                        "second_member_section_total":" ",
-                        "note": " "
+                        "field": $("#field").val(),
+                        "part": $("#part").val()
                     },
                     dataType: "json"
                 }).done(function(data) {
                     alert(data.sys_msg);
                     if (data.sys_code == "200") {
-                        // location.reload();
-                        $("tr").each(function(){
-                            if($(this).attr("sn") == $("#sn").val()){
-                                $(this).find("td").eq(7).text("");
-                                $(this).find("td").eq(8).text("")
-                                $(this).find("td").eq(9).text("")
-                                $(this).find("td").eq(10).text("")
-                                $(this).find("td").eq(11).text("")
-                            }
-                        })
+                        location.reload();
+                        
                     }
                 })
             }            

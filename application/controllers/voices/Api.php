@@ -640,9 +640,9 @@ class Api extends CI_Controller {
                 $fees_info = $this->mod_voice_test_pay->get_once($this->session->userdata('year'),$this->session->userdata('ladder'));
                 $part_info = $this->mod_voice_part_info->get_once($data['sn']);
                 $do_date = array();
-                $first_member_salary_total = $part_info['class'] * $fees_info['pay_1'];
+                $first_member_salary_total = $part_info['class'] * $fees_info['pay_2'];
                 $first_member_total = $first_member_salary_total; 
-                $second_member_salary_total = $part_info['class'] * $fees_info['pay_1'];
+                $second_member_salary_total = $part_info['class'] * $fees_info['pay_2'];
                 $second_member_total = $second_member_salary_total ;                          
                 $date = implode(",",$do_date);
                 $sql_data = array (
@@ -656,10 +656,10 @@ class Api extends CI_Controller {
                     'trial_staff_code_2'=>trim($data['trial_staff_code_2']),
                     'first_member_do_date'=>$date,
                     'second_member_do_date'=>$date,
-                    'first_member_day_count'=>count($do_date),
-                    'second_member_day_count'=>count($do_date),
-                    'first_member_salary_section'=> $fees_info['pay_1'],
-                    'second_member_salary_section'=> $fees_info['pay_1'],
+                    'first_member_day_count'=>1,
+                    'second_member_day_count'=>1,
+                    'first_member_salary_section'=> $fees_info['pay_2'],
+                    'second_member_salary_section'=> $fees_info['pay_2'],
                     'first_member_section_salary_total'=> $first_member_salary_total,
                     'second_member_section_salary_total'=> $second_member_salary_total,    
                     'first_member_section_total'=> $first_member_total,
@@ -804,24 +804,39 @@ class Api extends CI_Controller {
     */
     public function remove_trial()
     {
-        $this->load->model('mod_vocie_trial');
+        $this->load->model('mod_voice_trial');
         $this->load->model('mod_voice_staff');
-        $getpost = array('sn', 'supervisor_1', 'supervisor_1_code', 'supervisor_2', 'supervisor_2_code', 'trial_staff_code_1', 'trial_staff_code_2', 'note','first_member_do_date','first_member_salary_section','first_member_section_salary_total','first_member_section_total','second_member_do_date','second_member_day_count','second_member_salary_section','second_member_section_salary_total','second_member_section_total');
-        $requred = array('sn', 'supervisor_1', 'supervisor_1_code', 'supervisor_2', 'supervisor_2_code', 'trial_staff_code_1', 'trial_staff_code_2', 'note','first_member_do_date','first_member_salary_section','first_member_section_salary_total','first_member_section_total','second_member_do_date','second_member_day_count','second_member_salary_section','second_member_section_salary_total','second_member_section_total');
+        $getpost = array('field','part');
+        $requred = array('field','part');
         $data = $this->getpost->getpost_array($getpost, $requred);
         if ($data == false) {
             $json_arr['sys_code'] = '000';
             $json_arr['sys_msg'] = '資料不足';
             $json_arr['requred'] = $this->getpost->report_requred($requred);
         } else {
-            $data['year'] = $this->session->userdata('year');
-            if ($this->mod_vocie_trial->chk_once($data['sn'])) {
-
-                $this->mod_vocie_trial->update_once($data['sn'], $data);
-            } else {
-                $json_arr['sys_code'] = '404';
-                $json_arr['sys_msg'] = '查無此資料';
-            }
+            
+            
+                $remove_data = array(
+                    "supervisor_1"=>"",
+                    "supervisor_1_code"=>"",
+                    "supervisor_2"=>"",
+                    "supervisor_2_code"=>"",
+                    "trial_staff_code_1"=>"",
+                    "trial_staff_code_2"=>"",
+                    "first_member_do_date"=>"",
+                    "first_member_day_count"=>"",
+                    "first_member_salary_section"=>"",
+                    "first_member_section_salary_total"=>"",
+                    "first_member_section_total"=>"",
+                    "second_member_do_date"=>"",
+                    "second_member_day_count"=>"",
+                    "second_member_salary_section"=>"",
+                    "second_member_section_salary_total"=>"",
+                    "second_member_section_total"=>"",
+                    "note"=>"",
+                );
+                $this->mod_voice_trial->update_once($this->session->userdata('year'),$this->session->userdata('ladder'),$data['field'],$data['part'],$remove_data);
+            
             $json_arr['sys_code'] = '200';
             $json_arr['sys_msg'] = '資料刪除完成';
         }
