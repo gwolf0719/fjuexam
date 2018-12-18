@@ -46,6 +46,49 @@ class Import extends CI_Controller {
         );
         $this->load->view('voice/voice_layout', $data);
     }
+
+    public function school_data()
+    {
+        $this->load->model('mod_school_unit');
+        $this->mod_user->chk_status();
+        if (isset($_FILES['file'])) { // 如果有接收到上傳檔案資料
+            // print_r($_FILES);
+            $file = $_FILES['file']['tmp_name'];
+            $file_name = './tmp/'.time().'.csv';
+            copy($file, $file_name);
+            $file = fopen($file_name, 'r');
+            $datas = array();
+            fgetcsv($file);
+            while (!feof($file)) {
+                $data = fgetcsv($file);
+                // print_r($data);
+                $datas[] = array(
+                     'sn' => uniqid(),
+                     'year' => $this->session->userdata('year'),
+                     'department' => $data[0],
+                     'code' => $data[1],
+                     'company_name_01' => $data[2],
+                     'company_name_02' => $data[3],
+                 );
+                // print_r($datas);
+            }
+            // echo json_encode($datas);
+
+            $this->mod_school_unit->import($datas);
+            fclose($file);
+            unlink($file_name);
+            //  print_r(fgetcsv($file));
+            redirect('voice/school_data');
+        } else {
+            $data = array(
+                'title' => '本校單位資料',
+                'path' => 'voice/school_data',
+                'path_text' => ' > 指考主選單 > 資料匯入作業 > 本校單位資料',
+                'datalist' => $this->mod_school_unit->year_get_list(),
+            );
+            $this->load->view('voice/voice_layout', $data);
+        }
+    }
     /**
      * a3 工作人員資料
      */

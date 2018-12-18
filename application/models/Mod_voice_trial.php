@@ -186,6 +186,40 @@ class Mod_voice_trial extends CI_Model
     }
 
 
+    public function chk_part_list($part, $area)
+    {
+        $this->db->select('*');
+        if ($part != '') {
+            $this->db->where('part', $part);
+            // $this->db->where('year',$year);
+            // $this->db->where('ladder',$ladder);
+        }
+        $this->db->from('voice_area_main');
+        $this->db->join('voice_trial_assign', 'voice_area_main.sn = voice_trial_assign.sn');
+        
+        $this->db->where('first_member_do_date !=', "");
+        $year = $this->session->userdata('year');
+
+        $res = $this->db->get()->result_array();
+
+
+        function even($var)
+        {
+            return($var['year'] == $_SESSION['year']);
+        }
+
+        $sub =  array_filter($res, "even");
+
+        sort($sub);
+
+
+        if (!empty($sub)) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
 
 
 

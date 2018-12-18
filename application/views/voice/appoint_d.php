@@ -17,10 +17,12 @@
 </style>
 <script>
     $(function () {
+
+        
         <?php
             $year = $this->session->userdata('year');
             $ladder = $this->session->userdata('ladder');
-            if($year =="" || $ladder ==""){ ?>
+            if($year =="" || $ladder ==""){   ?>
                 
                 alert('請輸入學年度跟場次並點選送出');
                 history.go(-1);

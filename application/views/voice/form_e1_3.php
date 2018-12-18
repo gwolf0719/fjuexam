@@ -30,7 +30,7 @@
 <table class="" id="" style="padding:5px 0px;text-align:center;">
     <thead>
         <tr>
-            <td colspan="9" style="font-size:26px;"><?=$_SESSION['year']?>學年度指定科目考試新北一考區監試人員一覽表</td>
+            <td colspan="9" style="font-size:26px;"><?=$_SESSION['year']?>學年度高中英語能力測驗新北一考區監試人員一覽表</td>
         </tr>
         <tr>
             <td colspan="3" style="font-size:22px;padding:20px 0px;">分區：<?=$area?></td>

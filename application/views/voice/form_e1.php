@@ -58,9 +58,7 @@
         </a>
     </div>
 
-    <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6 cube text-center">
-        <img src="assets/images/e_1_5.png" alt="" style="cursor: pointer;" data-toggle="modal" data-target="#exampleModal1">
-    </div>
+    <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6 cube text-center"></div>
 
     <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6 cube text-center">
         <a href="./voice/e/form_e1_2" target="_blank">
@@ -125,9 +123,9 @@
             <div class="modal-body">
                 <div class="row">
                     <div class="col-md-12 col-sm-12 col-xs-12">
-                        <div class="btn_part btn1" part="2501" area="第一分區" link="./voice/form_e1_3?part=2501&area=第一分區">第一分區</div>
-                        <div class="btn_part btn1" part="2502" area="第二分區" link="./voice/form_e1_3?part=2502&area=第二分區">第二分區</div>
-                        <div class="btn_part btn1" part="2503" area="第三分區" link="./voice/form_e1_3?part=2503&area=第三分區">第三分區</div>
+                        <div class="btn_part btn1" part="2501" area="第一分區" year='<?=$this->session->userdata('year');?>' ladder='<?=$this->session->userdata('ladder');?>' link="./voice/form_e1_3?part=2501&area=第一分區">第一分區</div>
+                        <div class="btn_part btn1" part="2502" area="第二分區" year='<?=$this->session->userdata('year');?>' ladder='<?=$this->session->userdata('ladder');?>' link="./voice/form_e1_3?part=2502&area=第二分區">第二分區</div>
+                        <div class="btn_part btn1" part="2503" area="第三分區" year='<?=$this->session->userdata('year');?>' ladder='<?=$this->session->userdata('ladder');?>' link="./voice/form_e1_3?part=2503&area=第三分區">第三分區</div>
                     </div>
                 </div>
             </div>
@@ -152,35 +150,6 @@
                         <div class="btn_part btn2" part="2501" area="第一分區" link="./designated/e_1_3_3?part=2501&area=第一分區">第一分區</div>
                         <div class="btn_part btn2" part="2502" area="第二分區" link="./designated/e_1_3_3?part=2502&area=第二分區">第二分區</div>
                         <div class="btn_part btn2" part="2503" area="第三分區" link="./designated/e_1_3_3?part=2503&area=第三分區">第三分區</div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
-<!-- Modal end-->
-<!-- Modal start-->
-<div class="modal fade" id="exampleModal1" tabindex="-1" role="dialog" aria-labelledby="exampleModal1" aria-hidden="true">
-    <div class="modal-dialog" role="document">
-        <div class="modal-content">
-            <div class="modal-header" style="border-bottom: none;">
-                <h5 class="modal-title" id="exampleModalLabel" style="">選擇分區</h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-            </div>
-            <div class="modal-body">
-                <div class="row">
-                    <div class="col-md-12 col-sm-12 col-xs-12">
-                        <a href="./designated/e_1_5?part=2501&area=第一分區" target="_blank">
-                            <div class="btn_part">第一分區</div>
-                        </a>
-                        <a href="./designated/e_1_5?part=2502&area=第二分區" target="_blank">
-                            <div class="btn_part">第二分區</div>
-                        </a>
-                        <a href="./designated/e_1_5?part=2503&area=第三分區" target="_blank">
-                            <div class="btn_part">第三分區</div>
-                        </a>
                     </div>
                 </div>
             </div>
@@ -280,13 +249,19 @@
     $(function() {
         $("body").on("click", ".btn1", function() {
             var part = $(this).attr("part");
-            var area = $(this).attr("area");
+            var year = $(this).attr('year');
+            var ladder = $(this).attr('ladder');
+            var area = $(this).attr('area');
             var link = $(this).attr("link");
+            console.log(area);
             $.ajax({
-                url: 'api/chk_part_list',
+                url: './voice/api/chk_part_list',
                 data: {
+                    year:year,
+                    ladder:ladder,
                     part: part,
-                    area: area,
+                    area:area,
+                   
                 },
                 dataType: "json"
             }).done(function(data) {
