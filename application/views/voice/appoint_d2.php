@@ -140,24 +140,18 @@
         $("#trial_staff_code").val('');
         $("#trial_staff_name").val('');
         $("#note").val('');
-        $("select").val('');
+        // $("select").val('');
         $("#send").attr('disabled',true);
         $("#remove").attr('disabled',true);
         $("#add").attr('disabled',false);
-
     }
-    $(function() {
-
-       init();
-
-        //tab設定
+    function get_part(){
         var nowHash = location.hash; //取得loading進來後目前#
         var nowTabNum = nowHash.slice(-1);
         var nowHtml = location.pathname.split("/").pop();
-        console.log(nowHash);
-        var part;
         switch (nowHash) {
             case "#1":
+            case "":
                 part = '2501';
                 break;
             case "#2":
@@ -167,15 +161,30 @@
                 part = '2503'
                 break;                
         }
+        return part;
+    }
+    $(function() {
+
+        init();
+
+        //tab設定
+        var nowHash = location.hash; //取得loading進來後目前#
+        var nowTabNum = nowHash.slice(-1);
+        var nowHtml = location.pathname.split("/").pop();
+        console.log(nowHash);
+        var part = get_part();
+        console.log("part="+part);
+        
         $.ajax({
             url: './voice/api/get_part',
             data: {
-                "part": part,
+                "part": get_part(),
             },
             dataType: "json"
         }).done(function(data) {
-            var html = "";
+            var html = "<option value=''>請選擇</option>";
             console.log(data);
+
             $.each(data.part, function(k, v) {
                 html += '<option value="' + v.field + '">' + v.field + '</option>';
             })
@@ -219,30 +228,6 @@
             e.preventDefault();
             var newHash = $(this).attr("area"); //點到的id
             // console.log(newHash);
-            var part = $(this).attr("part");
-            $("#part").val(part);
-            //點擊先做還原動作
-            $("#sn").val("");
-            $("#allocation_code").val("");
-            $("#trial_staff_code").val("");
-            $("#trial_staff_name").val("");
-            $("#first_section").val("0");
-            $("#second_section").val("0");
-            $("textarea[name='note']").val("");
-            $.ajax({
-                url: './voice/api/get_part',
-                data: {
-                    "part": part,
-                },
-                dataType: "json"
-            }).done(function(data) {
-                var html = "";
-                $.each(data.part, function(k, v) {
-
-                    html += '<option value="' + v.field + '">' + v.field + '</option>';
-                })
-                $(".field").html(html);
-            })            
             if (nowHtml == "appoint_d2") {
                 //開闔div
                 $(".part").hide();
@@ -255,6 +240,25 @@
                 location.href = './voice/d/appoint_d2' + newHash;
                 $('#part' + newHash).show();
             }
+            var part = get_part();
+            console.log(part);
+            $("#part").val(part);
+            //點擊先做還原動作
+            init();
+            $.ajax({
+                url: './voice/api/get_part',
+                data: {
+                    "part": get_part(),
+                },
+                dataType: "json"
+            }).done(function(data) {
+                var html = "";
+                $.each(data.part, function(k, v) {
+                    html += '<option value="' + v.field + '">' + v.field + '</option>';
+                })
+                $(".field").html(html);
+            })            
+            
         })                 
 
         /**自動完成 */
@@ -281,11 +285,11 @@
         $("body").on("click", "tr", function() {
             var sn = $(this).attr("sn");
             var part = $(this).attr("part");
+            var tr = $(this);
             $("#allocation_code").val('');
             $("#trial_staff_code").val('');
             $("#trial_staff_name").val('');
             $("#note").val('');
-            $("select").val('');
             $("#send").attr('disabled',false);
             $("#remove").attr('disabled',false);
             $("#add").attr('disabled',true);
@@ -301,17 +305,20 @@
                 },
                 dataType: "json"
             }).done(function(data) {
+                
+                console.log("點選列表顯示內容");
                 console.log(data.info);
+                console.log(tr.find('td').eq(3).text().trim());
                 $("#sn").val(sn);
-                $("#part").val(part);
+                $("#part").val(get_part());
                 $("#allocation_code").val(data.info.allocation_code);
                 $("#trial_staff_code").val(data.info.trial_staff_code);
                 $("#trial_staff_name").val(data.info.trial_staff_name);
-                $("#first_start").val(data.info.first_start);
-                $("#first_end").val(data.info.first_end);
+                $("#first_start").val(tr.find('td').eq(3).text().trim());
+                $("#first_end").val(tr.find('td').eq(4).text().trim());
                 $("#first_section").val(data.info.first_section);
-                $("#second_start").val(data.info.second_start);
-                $("#second_end").val(data.info.second_end);
+                $("#second_start").val(tr.find('td').eq(6).text().trim());
+                $("#second_end").val(tr.find('td').eq(7).text().trim());
                 $("#second_section").val(data.info.second_section);
                 $("#note").val(data.info.note);
             })
@@ -319,7 +326,7 @@
             $.ajax({
                 url: './voice/api/get_patrol_list',
                 data: {
-                    "part": part,
+                    "part": get_part(),
                 },
                 dataType: "json"
             }).done(function(data) {
@@ -373,7 +380,7 @@
                     url: './voice/api/save_trial_staff',
                     data: {
                         "sn": sn,
-                        "part": part,
+                        "part": get_part(),
                         "allocation_code": allocation_code,
                         "trial_staff_code": trial_staff_code,
                         "trial_staff_name": trial_staff_name,
@@ -389,7 +396,7 @@
                 }).done(function(data) {
                     alert(data.sys_msg);
                     if (data.sys_code == "200") {
-                        location.reload();
+                        // location.reload();
                         
                     }
                 })
@@ -408,7 +415,7 @@
                 }).done(function(data) {
                     alert(data.sys_msg);
                     if (data.sys_code == "200") {
-                        // location.reload();
+                        location.reload();
                     }
                 })
             }
@@ -417,13 +424,7 @@
         $("body").on("click", "#add", function() {
             if ($("#sn").val() != "") {
                 if (confirm("目前處於編輯狀態，若要新增，將會清空所有欄位")) {
-                    $("#sn").val("")
-                    $("#allocation_code").val("")
-                    $("#trial_staff_code").val("")
-                    $("#trial_staff_name").val("")
-                    $("#first_section").val("0");
-                    $("#second_section").val("0");
-                    $("textarea[name='note']").val("");
+                    init();
                 }
             } else {
                 var part = $("#part").val();
@@ -456,7 +457,7 @@
                 $.ajax({
                     url: './voice/api/add_trial_staff',
                     data: {
-                        "part": part,
+                        "part": get_part(),
                         "allocation_code": allocation_code,
                         "trial_staff_code": trial_staff_code,
                         "trial_staff_name": trial_staff_name,
@@ -473,7 +474,7 @@
                 }).done(function(data) {
                     alert(data.sys_msg);
                     if (data.sys_code == "200") {
-                        window.location.reload();
+                        // window.location.reload();
                     }
                 })
             }
@@ -514,7 +515,7 @@
         </div>
         <input type="text" class="form-control" aria-label="Default" aria-describedby="inputGroup-sizing-default" value="<?=$this->session->userdata('year'); ?>"
             readonly>
-            <input type="text" class="form-control"  value="<?=$this->session->userdata('ladder'); ?>" style="width:100px;" readonly>
+            <input type="text" class="form-control"  id="ladder" value="<?=$this->session->userdata('ladder'); ?>" style="width:100px;" readonly>
 
     </div>
 
@@ -637,13 +638,13 @@
                         <?=$v['first_end']; ?>
                     </td>
                     <td class="bt">
+                        <?=$v['first_section']; ?>
+                    </td>
+                    <td class="bt">
                         <?=$v['second_start']; ?>
                     </td>
                     <td class="bt">
                         <?=$v['second_end']; ?>
-                    </td>
-                    <td class="bt">
-                        <?=$v['first_section']; ?>
                     </td>
                     <td class="bt">
                         <?=$v['second_section']; ?>
@@ -741,23 +742,13 @@
                         <label for="field" class="" style="float:left;">試場號起</label>
                         <input type="hidden" value="1" id="day1" >
                         <select name="start" id="first_start" class="field field_start field1 form-control">
-                        <option value="">請選擇</option>
-                            <?php foreach ($part as $k => $v): ?>
-                            <option value="<?=$v['field']; ?>" day="1" >
-                                <?=$v['field']; ?>
-                            </option>
-                            <?php endforeach; ?>
+                           
                         </select>
                     </div>
                     <div class="form-group">
                         <label for="section" class="" style="float:left;">試場號迄</label>
                         <select name="end" id="first_end" class="field field1 field_end form-control">
-                        <option value="">請選擇</option>   
-                            <?php foreach ($part as $k => $v): ?>
-                            <option value="<?=$v['field']; ?>" day="1">
-                                <?=$v['field']; ?>
-                            </option>
-                            <?php endforeach; ?>
+                            
                         </select>
                     </div>
                     <div class="form-group">
@@ -772,23 +763,13 @@
                         <label for="field" class="" style="float:left;">試場號起</label>
                         <input type="hidden" value="1" id="day1">
                         <select name="start" id="second_start" class="field field_start field1 form-control" >
-                        <option value="">請選擇</option> 
-                            <?php foreach ($part_aftermoon as $k => $v): ?>
-                            <option value="<?=$v['field']; ?>" day="1">
-                                <?=$v['field']; ?>
-                            </option>
-                            <?php endforeach; ?>
+                        
                         </select>
                     </div>
                     <div class="form-group">
                         <label for="section" class="" style="float:left;">試場號迄</label>
                         <select name="end" id="second_end" class="field field1 field_end form-control" >
-                        <option value="">請選擇</option>
-                            <?php foreach ($part_aftermoon as $k => $v): ?>
-                            <option value="<?=$v['field']; ?>" day="1">
-                                <?=$v['field']; ?>
-                            </option>
-                            <?php endforeach; ?>
+                        
                         </select>
                     </div>
                     <div class="form-group">

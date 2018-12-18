@@ -109,9 +109,9 @@ class Mod_voice_exam_area extends CI_Model
     public function get_part($part = '')
     {
         $this->db->where('year', $this->session->userdata('year'));
+        $this->db->where('ladder', $this->session->userdata('ladder'));
         if ($part != '') {
             $this->db->where('part', $part);
-       
         }
         $this->db->select('part,field');
 
@@ -121,6 +121,7 @@ class Mod_voice_exam_area extends CI_Model
     public function get_part_block($part = '',$time)
     {
         $this->db->where('year', $this->session->userdata('year'));
+        $this->db->where('ladder', $this->session->userdata('ladder'));
         if ($part != ''&& $time != '') {
             $this->db->where('part', $part);
             $this->db->where('block_name',$time);
