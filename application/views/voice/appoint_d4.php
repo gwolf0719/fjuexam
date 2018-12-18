@@ -219,14 +219,7 @@
             }
         })                   
 
-        $(window).on("load", function() {
-            var addr = $("#addr").val();
-            // console.log(arr);
-            if (addr == "") {
-                alert("目前 C1 考試地址尚未填寫資料，請先填寫資料再進行操作");
-                location.href = "./designated/c_4";
-            }
-        })
+       
 
         /**自動完成 */
         var data;
@@ -240,27 +233,16 @@
             });
         })
 
-        // $(".part").eq(0).show();
-        // $("body").on("click", ".tab", function() {
-        //     var $this = $(this);
-            
-        //     $(".tab").removeClass("active");
-        //     $(".part").hide();
-        //     // 點擊到的追加active以及打開相對應table
-        //     $this.addClass("active");
-        //     var area = $this.attr("area");
-        //     $("#part" + area).show();
-        // })
-
+       
+        // 點選列表
         $("body").on("click", "tr", function() {
             var section = $(this).attr("section");
-            $("#first_member_section_count").val(section);
-            $("#second_member_section_count").val(section);
             var sn = $(this).attr("sn");
-            $("#sn").val(sn);
             var part = $(this).attr("part");
             var field = $(this).attr("field");
-            console.log(part);
+            $("#sn").val(sn);
+            $("#first_member_section_count").val(section);
+            $("#second_member_section_count").val(section);
             
             $("html, body").animate({
                 scrollTop: $("body").height()
@@ -272,7 +254,7 @@
                 },
                 dataType: "json"
             }).done(function(data) {
-                console.log(data.info);
+                console.log(data);
                 $(".field").val(field);
                 $("#sn").val(data.info.sn);
                 //職員一
@@ -340,35 +322,7 @@
             })
         })
 
-          $('body').on('click','tr',function () {
-
-                var td_field= $(this).find('td').eq(2).text();
-                console.log(td_field);
-                switch (td_field) {
-
-                    case "上午場":
-                        readonly();
-                        removeMenu();
-                        $("#do_date").prop("checked",true);
-                        $("#morning").prop("checked",true);
-                        break;
-                    case "下午場":
-                    readonly();
-                    removeMenu();
-                    $("#do_date").prop("checked",true);
-                    $("#aftermorning").prop("checked",true);
-                        break;
-                    
-                } 
-                function removeMenu(){
-                    $("input[type='checkbox']").prop('checked', false);
-                }
-                function readonly() {
-                    $("input[type='checkbox']").prop('disabled', true);
-                }
- 
-  
-        })
+       
 
 
 
@@ -492,8 +446,7 @@
             </thead>
             <tbody>
                 <?php foreach ($part1 as $k => $v): ?>
-                <tr sn="<?=$v['sn']; ?>" part="2501" field="<?=$v['field']; ?>"
-                    section="<?=$v['class']; ?>">
+                <tr sn="<?=$v['sn']; ?>" part="2501" field="<?=$v['field']; ?>" section="<?=$v['class']; ?>" assign_sn="<?=$v['assign_sn']?>">
                     <td>
                         <?=$k + 1; ?>
                     </td>

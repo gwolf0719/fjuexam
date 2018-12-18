@@ -352,8 +352,8 @@ class Api extends CI_Controller {
      public function job_add()
      {
          $this->load->model('mod_voice_job_list');
-         $getpost = array('job', 'area','test_partition');
-         $requred = array('job', 'area','test_partition');
+         $getpost = array('job', 'test_partition');
+         $requred = array('job', 'test_partition');
          $data = $this->getpost->getpost_array($getpost, $requred);
          if ($data == false) {
              $json_arr['sys_code'] = '000';
@@ -361,73 +361,90 @@ class Api extends CI_Controller {
              $json_arr['requred'] = $this->getpost->report_requred($requred);
          } else {
              $year = $this->session->userdata('year');
-             $part = $this->mod_voice_job_list->get_part_for_once($data['area']);
-             $this->mod_voice_job_list->add_job($year, $data['test_partition'],$data['area'], $data['job'], $part['trial_start'], $part['trial_end']);
+             $ladder = $this->session->userdata('ladder');
+             $part = $this->mod_voice_job_list->get_part_for_once($data['test_partition']);
+             $this->mod_voice_job_list->add_job($data['test_partition'], $data['job'], $part['trial_start'], $part['trial_end']);
              $json_arr['sys_code'] = '200';
              $json_arr['sys_msg'] = '新增完成';
          }
          echo json_encode($json_arr);
      }
-     public function job_add_b2()
-     {
-         $this->load->model('mod_voice_job_list');
-         $getpost = array('job', 'area');
-         $requred = array('job', 'area');
+     function get_job_once(){
+        $this->load->model('mod_voice_job_list');
+         $getpost = array('sn');
+         $requred = array('sn');
          $data = $this->getpost->getpost_array($getpost, $requred);
          if ($data == false) {
              $json_arr['sys_code'] = '000';
              $json_arr['sys_msg'] = '資料不足';
              $json_arr['requred'] = $this->getpost->report_requred($requred);
          } else {
-             $year = $this->session->userdata('year');
-             $part = $this->mod_voice_job_list->get_part_for_once($data['area']);
+             $json_arr['info'] = $this->mod_voice_job_list->get_once($data['sn']);
+             $json_arr['sys_code'] = '200';
+             $json_arr['sys_msg'] = 'success';
+         }
+         echo json_encode($json_arr);
+     }
+    //  public function job_add_b2()
+    //  {
+    //      $this->load->model('mod_voice_job_list');
+    //      $getpost = array('job', 'area');
+    //      $requred = array('job', 'area');
+    //      $data = $this->getpost->getpost_array($getpost, $requred);
+    //      if ($data == false) {
+    //          $json_arr['sys_code'] = '000';
+    //          $json_arr['sys_msg'] = '資料不足';
+    //          $json_arr['requred'] = $this->getpost->report_requred($requred);
+    //      } else {
+    //          $year = $this->session->userdata('year');
+    //          $part = $this->mod_voice_job_list->get_part_for_once($data['area']);
  
-             $this->mod_voice_job_list->add_job_b2($year, $data['area'], $data['job'], $part['trial_start'], $part['trial_end']);
-             $json_arr['sys_code'] = '200';
-             $json_arr['sys_msg'] = '新增完成';
-         }
-         echo json_encode($json_arr);
-     }
-     public function job_add_b3()
-     {
-         $this->load->model('mod_voice_job_list');
-         $getpost = array('job', 'area');
-         $requred = array('job', 'area');
-         $data = $this->getpost->getpost_array($getpost, $requred);
-         if ($data == false) {
-             $json_arr['sys_code'] = '000';
-             $json_arr['sys_msg'] = '資料不足';
-             $json_arr['requred'] = $this->getpost->report_requred($requred);
-         } else {
-             $year = $this->session->userdata('year');
-             $part = $this->mod_voice_job_list->get_part_for_once($data['area']);
+    //          $this->mod_voice_job_list->add_job_b2($year, $data['area'], $data['job'], $part['trial_start'], $part['trial_end']);
+    //          $json_arr['sys_code'] = '200';
+    //          $json_arr['sys_msg'] = '新增完成';
+    //      }
+    //      echo json_encode($json_arr);
+    //  }
+    //  public function job_add_b3()
+    //  {
+    //      $this->load->model('mod_voice_job_list');
+    //      $getpost = array('job', 'area');
+    //      $requred = array('job', 'area');
+    //      $data = $this->getpost->getpost_array($getpost, $requred);
+    //      if ($data == false) {
+    //          $json_arr['sys_code'] = '000';
+    //          $json_arr['sys_msg'] = '資料不足';
+    //          $json_arr['requred'] = $this->getpost->report_requred($requred);
+    //      } else {
+    //          $year = $this->session->userdata('year');
+    //          $part = $this->mod_voice_job_list->get_part_for_once($data['area']);
  
-             $this->mod_voice_job_list->add_job_b3($year, $data['area'], $data['job'], $part['trial_start'], $part['trial_end']);
-             $json_arr['sys_code'] = '200';
-             $json_arr['sys_msg'] = '新增完成';
-         }
-         echo json_encode($json_arr);
-     }
-     public function job_add_b4()
-     {
-         $this->load->model('mod_voice_job_list');
-         $getpost = array('job', 'area');
-         $requred = array('job', 'area');
-         $data = $this->getpost->getpost_array($getpost, $requred);
-         if ($data == false) {
-             $json_arr['sys_code'] = '000';
-             $json_arr['sys_msg'] = '資料不足';
-             $json_arr['requred'] = $this->getpost->report_requred($requred);
-         } else {
-             $year = $this->session->userdata('year');
-             $part = $this->mod_voice_job_list->get_part_for_once($data['area']);
+    //          $this->mod_voice_job_list->add_job_b3($year, $data['area'], $data['job'], $part['trial_start'], $part['trial_end']);
+    //          $json_arr['sys_code'] = '200';
+    //          $json_arr['sys_msg'] = '新增完成';
+    //      }
+    //      echo json_encode($json_arr);
+    //  }
+    //  public function job_add_b4()
+    //  {
+    //      $this->load->model('mod_voice_job_list');
+    //      $getpost = array('job', 'area');
+    //      $requred = array('job', 'area');
+    //      $data = $this->getpost->getpost_array($getpost, $requred);
+    //      if ($data == false) {
+    //          $json_arr['sys_code'] = '000';
+    //          $json_arr['sys_msg'] = '資料不足';
+    //          $json_arr['requred'] = $this->getpost->report_requred($requred);
+    //      } else {
+    //          $year = $this->session->userdata('year');
+    //          $part = $this->mod_voice_job_list->get_part_for_once($data['area']);
  
-             $this->mod_voice_job_list->add_job_b4($year, $data['area'], $data['job'], $part['trial_start'], $part['trial_end']);
-             $json_arr['sys_code'] = '200';
-             $json_arr['sys_msg'] = '新增完成';
-         }
-         echo json_encode($json_arr);
-     }
+    //          $this->mod_voice_job_list->add_job_b4($year, $data['area'], $data['job'], $part['trial_start'], $part['trial_end']);
+    //          $json_arr['sys_code'] = '200';
+    //          $json_arr['sys_msg'] = '新增完成';
+    //      }
+    //      echo json_encode($json_arr);
+    //  }
 
      public function get_once_task()
      {
@@ -511,17 +528,37 @@ class Api extends CI_Controller {
     public function voice_edit_task()
     {
         $this->load->model('mod_voice_job_list');
-        $getpost = array('sn', 'area', 'job_code', 'job_title', 'name', 'phone',  'note', 'day_count', 'one_day_salary', 'salary_total', 'total', 'do_date');
-        $requred = array('sn', 'area', 'job_code', 'job_title', 'name', 'phone',  'day_count', 'one_day_salary', 'salary_total', 'total', 'do_date');
+        $this->load->model('mod_voice_trial');
+        $getpost = array('sn', 'job_code', 'job_title', 'name', 'phone',  'note', 'day_count', 'one_day_salary', 'salary_total', 'total', 'do_date');
+        $requred = array('sn',  'job_code', 'job_title', 'name', 'phone',  'day_count', 'one_day_salary', 'salary_total', 'total', 'do_date');
         $data = $this->getpost->getpost_array($getpost, $requred);
         if ($data == false) {
             $json_arr['sys_code'] = '000';
             $json_arr['sys_msg'] = '資料不足';
             $json_arr['requred'] = $this->getpost->report_requred($requred);
         } else {
-            $this->mod_voice_job_list->update_once($data['sn'], $data);
-            $json_arr['sys_code'] = '200';
-            $json_arr['sys_msg'] = '資料編輯完成';
+            // 確認有沒有換人
+            $job = $this->mod_voice_job_list->get_once($data['sn']);
+            if($job['job_code'] == $data['job_code']){
+                $this->mod_voice_job_list->update_once($data['sn'], $data);
+                $json_arr['sys_code'] = '200';
+                $json_arr['sys_msg'] = '資料編輯完成';
+            }else{
+                // 確認重複
+                if($this->mod_voice_trial->chk_trial_assigned($data['job_code'])){
+                    $json_arr['sys_code'] = '500';
+                    $json_arr['sys_msg'] = '該人員已經被指派過，請選擇其他人員';
+                }else if($this->mod_voice_job_list->chk_job_code($data['job_code'])){
+                    $json_arr['sys_code'] = '500';
+                    $json_arr['sys_msg'] = '該人員已經被指派過，請選擇其他人員';
+                }else{
+                    $this->mod_voice_job_list->update_once($data['sn'], $data);
+                    $json_arr['sys_code'] = '200';
+                    $json_arr['sys_msg'] = '資料編輯完成';
+                }
+                
+            }
+            
         }
         echo json_encode($json_arr);
     }
@@ -784,6 +821,7 @@ class Api extends CI_Controller {
             $json_arr['sys_msg'] = '資料不足';
             $json_arr['requred'] = $this->getpost->report_requred($requred);
         } else {
+
             $json_arr['info'] = $this->mod_voice_trial->get_once_assign($data['sn']);
             $json_arr['sys_code'] = '200';
             $json_arr['sys_msg'] = '資料處理完成';
@@ -1031,6 +1069,32 @@ class Api extends CI_Controller {
             }
             echo json_encode($json_arr);
         }
+        // 取消指派管卷人員
+        public function remove_trial_staff()
+        {
+            $this->load->model('mod_voice_trial');
+            $getpost = array('sn');
+            $requred = array('sn');
+            $data = $this->getpost->getpost_array($getpost, $requred);
+            if ($data == false) {
+                $json_arr['sys_code'] = '000';
+                $json_arr['sys_msg'] = '資料不足';
+                $json_arr['requred'] = $this->getpost->report_requred($requred);
+            } else {
+                $data['year'] = $this->session->userdata('year');
+                if ($this->mod_voice_trial->chk_trial($data['sn'])) {
+                    $this->mod_voice_trial->remove_trial_staff($data['sn']);
+                } else {
+                    $json_arr['sys_code'] = '404';
+                    $json_arr['sys_msg'] = '查無資料';
+                }
+                $json_arr['sys_code'] = '200';
+                $json_arr['sys_msg'] = '資料刪除完成';
+            }
+            echo json_encode($json_arr);
+        } 
+
+
         //儲存管券人員
         public function save_trial_staff_for_list()
         {

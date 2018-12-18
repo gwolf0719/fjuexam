@@ -8,12 +8,6 @@ class Mod_voice_job_list extends CI_Model
     function insert_member($data)
     {
 
-                    // $datas[$i]['year'] = $this->session->userdata('year');
-                    // $datas[$i]['ladder'] = $this->session->userdata('ladder');
-                    // $datas[$i]['area'] = $this->input->post('test_partition');  
-                    // $datas[$i]['job'] = $data[0];
-                    // $datas[$i]['test_partition'] = $this->input->post('test_partition');
-                
         $where= array(
             'year'=>$this->session->userdata('year'),
             "ladder"=>$this->session->userdata('ladder'),
@@ -46,6 +40,7 @@ class Mod_voice_job_list extends CI_Model
         $this->db->where('ladder',$this->session->userdata('ladder'));
         $this->db->where('test_partition',$test_partition);
         return $this->db->get('voice_job_list')->result_array();
+
     }
 
 
@@ -56,20 +51,21 @@ class Mod_voice_job_list extends CI_Model
     //     return $this->db->get('voice_job_list')->result_array();
     // }
 
-    public function get_part_for_once($part)
+    public function get_part_for_once($test_partition)
     {
-        return $this->db->where('area', $part)->get('voice_job_list')->row_array();
+        $this->db->where('year',$this->session->userdata('year'));
+        $this->db->where('ladder',$this->session->userdata('ladder'));
+        return $this->db->where('test_partition', $test_partition)->get('voice_job_list')->row_array();
     }
     /**
      * 建立新職務.
      */
-     public function add_job($year,$test_partition,$area, $job, $trial_start, $trial_end)
+     public function add_job($test_partition, $job, $trial_start, $trial_end)
      {
          $data = array(
-             'year' => $year,
+             'year' => $this->session->userdata('year'),
              'ladder'=>$this->session->userdata('ladder'),
              'test_partition'=>$test_partition,
-             'area' => $area,
              'job' => $job,
              'trial_start' => $trial_start,
              'trial_end' => $trial_end,
@@ -270,6 +266,18 @@ class Mod_voice_job_list extends CI_Model
             }
         }            
         return $arr;
+    }
+
+    // 確認人員有沒有被指派過
+    function chk_job_code($code){
+        $this->db->where('year',$this->session->userdata('year'));
+        $this->db->where('ladder',$this->session->userdata('ladder'));
+        $this->db->where('job_code',$code);
+        if($this->db->count_all_results('voice_job_list') == 0 ){
+            return false;
+        }else{
+            return true;
+        }
     }
 
 
