@@ -53,7 +53,8 @@ class Mod_voice_exam_area extends CI_Model
         }
 
         $school = $this->db->get('voice_exam_area')->row_array();
-        return $school['part_name'];
+     
+        return $school;
     }   
     
     public function year_addr_name($part='')

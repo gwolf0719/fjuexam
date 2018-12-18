@@ -122,9 +122,10 @@ class Test_form extends CI_Controller
         $this->load->library('pdf');
         $this->load->model('mod_voice_trial');
         $this->load->model('mod_voice_exam_area');
-
+        
         $part = $_GET['part'];
         $area = $_GET['area'];
+        
         $obj_pdf = new Pdf(PDF_PAGE_ORIENTATION, PDF_UNIT, PDF_PAGE_FORMAT, false, 'UTF-8', false);
         $obj_pdf->SetCreator(PDF_CREATOR);
         $title = '監試及試務人員一覽表';
@@ -141,10 +142,13 @@ class Test_form extends CI_Controller
         $obj_pdf->setFontSubsetting(false);
         $obj_pdf->AddPage();
         $data = array(
+            
             'part' => $this->mod_voice_trial->get_list_for_pdf($part),
             'area' => $area,
             'school' => $this->mod_voice_exam_area->year_school_name($part),
         );
+       
+       
         if($data['part'] != false){
           $view =  $this->load->view('voice/form_e1_3', $data, true);
           if (!is_dir('./html/')) {
