@@ -1172,18 +1172,20 @@ class Api extends CI_Controller {
     public function chk_part_list()
     {
         $this->load->model('mod_voice_trial');
-        $getpost = array('part','area');
-        $requred = array('part','area');
+        $getpost = array('part','area','year','ladder');
+        $requred = array('part','area','year','ladder');
         $data = $this->getpost->getpost_array($getpost, $requred);
+        
         if ($data == false) {
             $json_arr['sys_code'] = '000';
             $json_arr['sys_msg'] = '資料不足';
             $json_arr['requred'] = $this->getpost->report_requred($requred);
         } else {
-            if ($this->mod_voice_trial->chk_part_list($data['part'], $data['area']) == true) {
+            if ($this->mod_voice_trial->chk_part_list($data['part'], $data['area'],$data['year'],$data['ladder']) == true) {
                 $json_arr['sys_code'] = '200';
                 $json_arr['sys_msg'] = '匯出完成';
-            } else {
+            } 
+            else {
                 $json_arr['sys_code'] = '404';
                 $json_arr['sys_msg'] = '查無此資料，請確認是否有資料';
             }

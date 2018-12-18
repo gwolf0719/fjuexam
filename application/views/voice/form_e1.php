@@ -253,7 +253,7 @@
             var ladder = $(this).attr('ladder');
             var area = $(this).attr('area');
             var link = $(this).attr("link");
-            console.log(area);
+            console.log(link);
             $.ajax({
                 url: './voice/api/chk_part_list',
                 data: {
