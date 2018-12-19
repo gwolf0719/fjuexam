@@ -243,7 +243,18 @@
         // 選擇列表資料 把資料往下丟
         $("body").on("click", "tr", function() {
             $("#supervisor_2,#supervisor_1,#note,button").attr('disabled',false);
-            $("#do_date,#morning,#aftermorning").attr("checked",true);
+            // $("#do_date,#morning,#aftermorning").attr("checked",true);
+            // $("#do_date").val()
+
+            var block_names = $(this).attr('block_name').split(',');
+            $('.block').prop("checked",false);
+                if(block_names.indexOf('上午場') >= 0){
+                    $('.block').eq(0).prop("checked",true);
+                }
+                if(block_names.indexOf('下午場') >= 0){
+                    $('.block').eq(1).prop("checked",true);
+                }
+
             $("#supervisor_1_code").val($(this).attr('supervisor_1_code'));
             $("#supervisor_2_code").val($(this).attr('supervisor_2_code'));
             var sn = $(this).attr("sn");
@@ -283,36 +294,7 @@
             
         })
 
-         $('body').on('click','tr',function () {
-
-           var td_field= $(this).attr('block_name');
-           console.log(td_field);
-           switch (td_field) {
-
-               case "上午場,下午場":
-                    readonly();
-                    removeMenu();
-                    $("#do_date").prop("checked",true);
-                    $("#morning").prop("checked",true);
-                    $("#aftermorning").prop("checked",true);
-                   break;
-                // case "下午場":
-                // readonly();
-                // removeMenu();
-                // $("#do_date").prop("checked",true);
-                // $("#aftermorning").prop("checked",true);
-                //    break;
-               
-           } 
-           function removeMenu(){
-                $("input[type='checkbox']").prop('checked', false);
-            }
-            function readonly() {
-                $("input[type='checkbox']").prop('disabled', true);
-            }
-            
-             
-         })
+         
 
 
         $("body").on("click", "#send", function() {
@@ -320,7 +302,7 @@
                 var sn = $("#sn").val();
                 var part = $("#part").val();
                 var field = $("#field").val();
-                var block_name = $('.block').val();
+                // var block_name = $('.block').val();
                 var supervisor_1 = $("#supervisor_1").val();
                 var supervisor_1_code = $("#supervisor_1_code").val();
                 var supervisor_2 = $("#supervisor_2").val();
@@ -335,7 +317,7 @@
                     data: {
                         "sn": sn,
                         "part": part,
-                        'block_name':block_name,
+                        // 'block_name':block_name,
                         "field":field,
                         "supervisor_1": supervisor_1,
                         "supervisor_1_code": supervisor_1_code,
@@ -568,16 +550,16 @@
                     <div class="col-md-3 col-sm-3 col-xs-3 cube">
                         <div class="form-group">
                             <label for="start_date" class=""  value="<?=$datatime_info['day'];?>">執行日</label>
-                            <input type="checkbox" class="chbox" id="do_date" name="day" checked>
+                            <input type="checkbox" class="chbox" id="do_date" name="day" checked disabled>
                             <span class="chbox"  >
                                 <?=$datatime_info['day']; ?>
                             </span>
                         </div>
                         <div class="form-group">
                             <label for="floor" class="" style="float:left;">場次</label>
-                            <input type="checkbox" class="chbox block" id='morning' value='上午場'  name="day" checked="true">
+                            <input type="checkbox" class="chbox block" id='morning' value='上午場'  name="day" disabled>
                             <span class="chbox">上午場</span>
-                            <input type="checkbox" class="chbox block" id='aftermorning' value='下午場' name="day"   checked="true">
+                            <input type="checkbox" class="chbox block" id='aftermorning' value='下午場' name="day" disabled >
                             <span class="chbox">下午場</span>
                         </div>
                     </div>

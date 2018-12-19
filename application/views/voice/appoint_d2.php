@@ -144,6 +144,7 @@
         $("#send").attr('disabled',true);
         $("#remove").attr('disabled',true);
         $("#add").attr('disabled',false);
+        create_field_select();
     }
     function get_part(){
         var nowHash = location.hash; //取得loading進來後目前#
@@ -163,10 +164,44 @@
         }
         return part;
     }
+
+    // 選擇試場選單
+    function create_field_select(){
+        $.ajax({
+            url: './voice/api/get_part',
+            data: {
+                "part": get_part()
+            },
+            dataType: "json"
+        }).done(function(data) {
+            var f_html = "<option value=''>請選擇</option>";
+            var s_html = "<option value=''>請選擇</option>";
+            console.log(data);
+
+            $.each(data.part, function(k, v) {
+                switch (v.block_name) {
+                    case '上午場':
+                        f_html += '<option value="' + v.field + '">' + v.field + '</option>';        
+                        break;
+                    case '下午場':
+                        s_html += '<option value="' + v.field + '">' + v.field + '</option>';        
+                    default:
+                        break;
+                }
+                
+            })
+            
+            $(".field").eq(0).html(f_html);
+            $(".field").eq(1).html(f_html);
+            $(".field").eq(2).html(s_html);
+            $(".field").eq(3).html(s_html);
+        })  
+    }
+
     $(function() {
 
         init();
-
+        
         //tab設定
         var nowHash = location.hash; //取得loading進來後目前#
         var nowTabNum = nowHash.slice(-1);
@@ -175,21 +210,7 @@
         var part = get_part();
         console.log("part="+part);
         
-        $.ajax({
-            url: './voice/api/get_part',
-            data: {
-                "part": get_part(),
-            },
-            dataType: "json"
-        }).done(function(data) {
-            var html = "<option value=''>請選擇</option>";
-            console.log(data);
-
-            $.each(data.part, function(k, v) {
-                html += '<option value="' + v.field + '">' + v.field + '</option>';
-            })
-            $(".field").html(html);
-        })            
+                  
         if (nowHash != "") {
             $(".part").hide();
             $('#part' + nowTabNum).show();
@@ -245,19 +266,7 @@
             $("#part").val(part);
             //點擊先做還原動作
             init();
-            $.ajax({
-                url: './voice/api/get_part',
-                data: {
-                    "part": get_part(),
-                },
-                dataType: "json"
-            }).done(function(data) {
-                var html = "<option value=''>請選擇</option>";
-                $.each(data.part, function(k, v) {
-                    html += '<option value="' + v.field + '">' + v.field + '</option>';
-                })
-                $(".field").html(html);
-            })            
+                   
             
         })                 
 
@@ -329,30 +338,10 @@
                 $("#second_section").val(data.info.second_section);
                 $("#note").val(data.info.note);
             })
-            var part = $(this).attr("part");
-            $.ajax({
-                url: './voice/api/get_patrol_list',
-                data: {
-                    "part": get_part(),
-                },
-                dataType: "json"
-            }).done(function(data) {
-                var first_section = $('#first_section').val();
-                var second_section = $('#second_section').val();
-                var html = '<option value="">請選擇</option>';
-                $.each(data.info, function(k, v) {
-                    html += '<option value="' + v.field + '">' + v.field + '</option>';
-                })
-                
-                
-                $("#start").html(html);
-                $("#end").html(html);
-            })
+            
+           
             
 
-              function removeMenu(){
-                $("input[type='checkbox']").prop('checked', false);
-            }
 
         })
 
