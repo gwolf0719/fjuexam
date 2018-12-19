@@ -52,6 +52,7 @@
 
 </div>
 <div class="row">
+    <!-- 1-1 -->
     <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6 cube text-center">
         <a href="./voice/e/form_e1_1" target="_blank">
             <img src="assets/images/e_1_1.png" alt="">
@@ -60,6 +61,7 @@
 
     <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6 cube text-center"></div>
 
+    <!-- 1-2 -->
     <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6 cube text-center">
         <a href="./voice/e/form_e1_2" target="_blank">
             <img src="assets/images/e_1_2.png" alt="">
@@ -69,6 +71,7 @@
     <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6 cube text-center">
     </div>
 
+    <!-- 1-3 -->
     <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6 cube text-center">
         <img src="assets/images/e_1_3.png" alt="" style="cursor: pointer;" data-toggle="modal" data-target="#staff">
     </div>
@@ -76,8 +79,9 @@
     <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6 cube text-center">
     </div>
 
+    <!-- 1-4 -->
     <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6 cube text-center">
-        <img src="assets/images/e_1_4.png" alt="" style="cursor: pointer;" data-toggle="modal" data-target="#exampleModal2">
+        <img src="assets/images/e_1_4.png" alt="" style="cursor: pointer;" data-toggle="modal" data-target="#exampleModal4">
     </div>
 
     <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6 cube text-center">
@@ -99,10 +103,10 @@
             <div class="modal-body">
                 <div class="row">
                     <div class="col-md-12 col-sm-12 col-xs-12">
-                        <div class="btn_part" style="cursor: pointer;" data-toggle="modal" data-target="#exampleModal">監試人員</div>
-                        <div class="btn_part" style="cursor: pointer;" data-toggle="modal" data-target="#exampleModal4">試務人員</div>
-                        <div class="btn_part" style="cursor: pointer;" data-toggle="modal" data-target="#exampleModal5">管卷人員</div>
-                        <div class="btn_part" style="cursor: pointer;" data-toggle="modal" data-target="#exampleModal6">巡場人員</div>
+                        <div class="btn_part" style="cursor: pointer;" data-toggle="modal" data-target="#exampleModal-3-1">監試人員</div>
+                        <div class="btn_part" style="cursor: pointer;" data-toggle="modal" data-target="#exampleModal-3-2">試務人員</div>
+                        <div class="btn_part" style="cursor: pointer;" data-toggle="modal" data-target="#exampleModal-3-3">管卷人員</div>
+                        <div class="btn_part" style="cursor: pointer;" data-toggle="modal" data-target="#exampleModal-3-4">巡場人員</div>
                     </div>
                 </div>
             </div>
@@ -111,7 +115,7 @@
 </div>
 <!-- Modal end-->
 <!-- Modal start-->
-<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModal" aria-hidden="true">
+<div class="modal fade" id="exampleModal-3-1" tabindex="-1" role="dialog" aria-labelledby="exampleModal-3-1" aria-hidden="true">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header" style="border-bottom: none;">
@@ -123,9 +127,92 @@
             <div class="modal-body">
                 <div class="row">
                     <div class="col-md-12 col-sm-12 col-xs-12">
-                        <div class="btn_part btn1" part="2501" area="第一分區" year='<?=$this->session->userdata('year');?>' ladder='<?=$this->session->userdata('ladder');?>' link="./voice/e/form_e1_3?part=2501&area=第一分區">第一分區</div>
-                        <div class="btn_part btn1" part="2502" area="第二分區" year='<?=$this->session->userdata('year');?>' ladder='<?=$this->session->userdata('ladder');?>' link="./voice/e/form_e1_3?part=2502&area=第二分區">第二分區</div>
-                        <div class="btn_part btn1" part="2503" area="第三分區" year='<?=$this->session->userdata('year');?>' ladder='<?=$this->session->userdata('ladder');?>' link="./voice/e/form_e1_3?part=2503&area=第三分區">第三分區</div>
+                        <div class="btn_part btn1" part="2501" area="第一分區" year='<?=$this->session->userdata('year');?>' ladder='<?=$this->session->userdata('ladder');?>' link="./voice/e/form_e1_3_1?part=2501&area=第一分區">第一分區</div>
+                        <div class="btn_part btn1" part="2502" area="第二分區" year='<?=$this->session->userdata('year');?>' ladder='<?=$this->session->userdata('ladder');?>' link="./voice/e/form_e1_3_1?part=2502&area=第二分區">第二分區</div>
+                        <div class="btn_part btn1" part="2503" area="第三分區" year='<?=$this->session->userdata('year');?>' ladder='<?=$this->session->userdata('ladder');?>' link="./voice/e/form_e1_3_1?part=2503&area=第三分區">第三分區</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Modal end-->
+<!-- Modal start-->
+<div class="modal fade" id="exampleModal-3-2" tabindex="-1" role="dialog" aria-labelledby="exampleModal-3-2" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header" style="border-bottom: none;">
+                <h5 class="modal-title" id="exampleModalLabel" style="">選擇分區</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-md-12 col-sm-12 col-xs-12">
+                        <div class="btn_part btn2" part="2500" area="考區" link="./voice/e/form_e1_3_2?part=2501&area=考區">考區</div>
+                        <div class="btn_part btn2" part="2501" area="第一分區" link="./voice/e/form_e1_3_2?part=2501&area=第一分區">第一分區</div>
+                        <div class="btn_part btn2" part="2502" area="第二分區" link="./voice/e/form_e1_3_2?part=2502&area=第二分區">第二分區</div>
+                        <div class="btn_part btn2" part="2503" area="第三分區" link="./voice/e/form_e1_3_2?part=2503&area=第三分區">第三分區</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Modal end-->
+
+<!-- Modal start-->
+<div class="modal fade" id="exampleModal-3-3" tabindex="-1" role="dialog" aria-labelledby="exampleModal-3-3" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header" style="border-bottom: none;">
+                <h5 class="modal-title" id="exampleModalLabel" style="">選擇分區</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-md-12 col-sm-12 col-xs-12">
+                        <a href="./voice/e/form_e1_3_3?part=2501&area=第一分區" target="_blank">
+                            <div class="btn_part">第一分區</div>
+                        </a>
+                        <a href="./voice/e/form_e1_3_3?part=2502&area=第二分區" target="_blank">
+                            <div class="btn_part">第二分區</div>
+                        </a>
+                        <a href="./voice/e/form_e1_3_3?part=2503&area=第三分區" target="_blank">
+                            <div class="btn_part">第三分區</div>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Modal end-->
+<!-- Modal start-->
+<div class="modal fade" id="exampleModal-3-4" tabindex="-1" role="dialog" aria-labelledby="exampleModal-3-4" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header" style="border-bottom: none;">
+                <h5 class="modal-title" id="exampleModalLabel" style="">選擇分區</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-md-12 col-sm-12 col-xs-12">
+                        <a href="./voice/e/form_e1_3_4?part=2501&area=第一分區" target="_blank">
+                            <div class="btn_part">第一分區</div>
+                        </a>
+                        <a href="./voice/e/form_e1_3_4?part=2502&area=第二分區" target="_blank">
+                            <div class="btn_part">第二分區</div>
+                        </a>
+                        <a href="./voice/e/form_e1_3_4?part=2503&area=第三分區" target="_blank">
+                            <div class="btn_part">第三分區</div>
+                        </a>
                     </div>
                 </div>
             </div>
@@ -146,96 +233,13 @@
             <div class="modal-body">
                 <div class="row">
                     <div class="col-md-12 col-sm-12 col-xs-12">
-                        <div class="btn_part btn2" part="2500" area="考區" link="./voice/e/form_e_1_3_3?part=2501&area=考區">考區</div>
-                        <div class="btn_part btn2" part="2501" area="第一分區" link="./voice/e/form_e_1_3_3?part=2501&area=第一分區">第一分區</div>
-                        <div class="btn_part btn2" part="2502" area="第二分區" link="./voice/e/form_e_1_3_3?part=2502&area=第二分區">第二分區</div>
-                        <div class="btn_part btn2" part="2503" area="第三分區" link="./voice/e/form_e_1_3_3?part=2503&area=第三分區">第三分區</div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
-<!-- Modal end-->
-
-<!-- Modal start-->
-<div class="modal fade" id="exampleModal2" tabindex="-1" role="dialog" aria-labelledby="exampleModal4" aria-hidden="true">
-    <div class="modal-dialog" role="document">
-        <div class="modal-content">
-            <div class="modal-header" style="border-bottom: none;">
-                <h5 class="modal-title" id="exampleModalLabel" style="">選擇分區</h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-            </div>
-            <div class="modal-body">
-                <div class="row">
-                    <div class="col-md-12 col-sm-12 col-xs-12">
-                        <a href="./voice/e/form_e_1_4?part=2501&area=第一分區" target="_blank">
+                        <a href="./voice/e/form_e1_4?part=2501&area=第一分區" target="_blank">
                             <div class="btn_part">第一分區</div>
                         </a>
-                        <a href="./voice/e/form_e_1_4?part=2502&area=第二分區" target="_blank">
+                        <a href="./voice/e/form_e1_4?part=2502&area=第二分區" target="_blank">
                             <div class="btn_part">第二分區</div>
                         </a>
-                        <a href="./voice/e/form_e_1_4?part=2503&area=第三分區" target="_blank">
-                            <div class="btn_part">第三分區</div>
-                        </a>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
-<!-- Modal end-->
-<!-- Modal start-->
-<div class="modal fade" id="exampleModal5" tabindex="-1" role="dialog" aria-labelledby="exampleModal5" aria-hidden="true">
-    <div class="modal-dialog" role="document">
-        <div class="modal-content">
-            <div class="modal-header" style="border-bottom: none;">
-                <h5 class="modal-title" id="exampleModalLabel" style="">選擇分區</h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-            </div>
-            <div class="modal-body">
-                <div class="row">
-                    <div class="col-md-12 col-sm-12 col-xs-12">
-                        <a href="./voice/e/form_e_1_3_4?part=2501&area=第一分區" target="_blank">
-                            <div class="btn_part">第一分區</div>
-                        </a>
-                        <a href="./voice/e/form_e_1_3_4?part=2502&area=第二分區" target="_blank">
-                            <div class="btn_part">第二分區</div>
-                        </a>
-                        <a href="./voice/e/form_e_1_3_4?part=2503&area=第三分區" target="_blank">
-                            <div class="btn_part">第三分區</div>
-                        </a>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
-<!-- Modal end-->
-<!-- Modal start-->
-<div class="modal fade" id="exampleModal6" tabindex="-1" role="dialog" aria-labelledby="exampleModal6" aria-hidden="true">
-    <div class="modal-dialog" role="document">
-        <div class="modal-content">
-            <div class="modal-header" style="border-bottom: none;">
-                <h5 class="modal-title" id="exampleModalLabel" style="">選擇分區</h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-            </div>
-            <div class="modal-body">
-                <div class="row">
-                    <div class="col-md-12 col-sm-12 col-xs-12">
-                        <a href="./voice/e/form_e_1_3_5?part=2501&area=第一分區" target="_blank">
-                            <div class="btn_part">第一分區</div>
-                        </a>
-                        <a href="./voice/e/form_e_1_3_5?part=2502&area=第二分區" target="_blank">
-                            <div class="btn_part">第二分區</div>
-                        </a>
-                        <a href="./voice/e/form_e_1_3_5?part=2503&area=第三分區" target="_blank">
+                        <a href="./voice/e/form_e1_4?part=2503&area=第三分區" target="_blank">
                             <div class="btn_part">第三分區</div>
                         </a>
                     </div>

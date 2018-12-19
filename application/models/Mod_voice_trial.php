@@ -251,7 +251,7 @@ class Mod_voice_trial extends CI_Model
                 # code...
                 $supervisor1 = $this->db->where('member_code', $sub[$i]['supervisor_1_code'])->get('voice_import_member')->row_array();
                 $supervisor2 = $this->db->where('member_code', $sub[$i]['supervisor_2_code'])->get('voice_import_member')->row_array();
-                $patrol = $this->db->where('first_start <=', $sub[$i]['start'])->where('first_end >=', $sub[$i]['end'])->get('voice_patrol_staff')->row_array();
+                $patrol = $this->db->where('start <=', $sub[$i]['start'])->where('end >=', $sub[$i]['end'])->get('voice_patrol_staff')->row_array();
                 $course = $this->db->where('year', $year)->where('field', $sub[$i]['field'])->get('voice_exam_area')->row_array();
                 $trial = $this->db->get('voice_trial_staff')->result_array();
                 // $trial_staff = $this->db->where('start <=', $sub[$i]['start'])->where('end >=', $sub[$i]['end'])->get('trial_staff')->row_array();

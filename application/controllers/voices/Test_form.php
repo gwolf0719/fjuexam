@@ -16,6 +16,11 @@ class Test_form extends CI_Controller
         $this->load->view('voice_layout', $data);
     }
 
+    /**********************************************
+     * 
+     *  E1
+     */
+
     public function form_e1()
     {
         $this->mod_user->chk_status();
@@ -31,20 +36,7 @@ class Test_form extends CI_Controller
     {
         $this->load->library('pdf');
         $this->load->model('mod_school_unit');
-        $obj_pdf = new Pdf(PDF_PAGE_ORIENTATION, PDF_UNIT, PDF_PAGE_FORMAT, false, 'UTF-8', false);
-        $obj_pdf->SetCreator(PDF_CREATOR);
-        $title = '行政單位';
-        $date = date('yyyy/m/d');
-        $obj_pdf->SetTitle($title);
-        $obj_pdf->SetHeaderData('', '', $title, '印表日期：'.$date);
-        $obj_pdf->setPrintHeader(false);
-        // $obj_pdf->SetHeaderMargin(PDF_MARGIN_HEADER);
-        $obj_pdf->SetFooterMargin(PDF_MARGIN_FOOTER);
-        $obj_pdf->SetMargins(PDF_MARGIN_LEFT, 2,PDF_MARGIN_RIGHT);
-        $obj_pdf->SetAutoPageBreak(true, 10);
-        $obj_pdf->SetFont('msungstdlight', 'L', 14);
-
-        $obj_pdf->setFontSubsetting(false);
+        
         $data = array(
             'list' => $this->mod_school_unit->year_get_school_unit_list(),
         );
@@ -76,23 +68,7 @@ class Test_form extends CI_Controller
     {
         $this->load->library('pdf');
         $this->load->model('mod_voice_job_list');
-        $obj_pdf = new Pdf(PDF_PAGE_ORIENTATION, PDF_UNIT, PDF_PAGE_FORMAT, false, 'UTF-8', false);
-        $obj_pdf->SetCreator(PDF_CREATOR);
-        $title = '請公假名單';
-        $date = date('yyyy/m/d');
-        $obj_pdf->SetTitle($title);
-        $obj_pdf->SetHeaderData('', '', $title, '印表日期：'.$date);
-        $obj_pdf->setPrintHeader(false);
-        // $obj_pdf->SetHeaderMargin(PDF_MARGIN_HEADER);
-        $obj_pdf->SetFooterMargin(PDF_MARGIN_FOOTER);
-        $obj_pdf->SetMargins(PDF_MARGIN_LEFT, 7,PDF_MARGIN_RIGHT);
-        $obj_pdf->SetAutoPageBreak(true, PDF_MARGIN_BOTTOM);
-        $obj_pdf->SetFont('msungstdlight', 'L', 14);
-        $obj_pdf->SetCellPadding(0);
-
-        $obj_pdf->setFontSubsetting(false);
-
-        $obj_pdf->AddPage();
+        
         $data = array(
             'list' => $this->mod_voice_job_list->get_all_assign_member_list(),
         );
@@ -117,7 +93,10 @@ class Test_form extends CI_Controller
         echo '<script>location.href="http://uat.fofo.tw/fjuexam/pdf/form_e1_2.pdf"</script>';
     }
 
-    public function form_e1_3()
+    /**
+     * 監試及試務人員 > 監試人員
+     */
+    public function form_e1_3_1()
     {
         $this->load->library('pdf');
         $this->load->model('mod_voice_trial');
@@ -126,21 +105,7 @@ class Test_form extends CI_Controller
         $part = $_GET['part'];
         $area = $_GET['area'];
         
-        $obj_pdf = new Pdf(PDF_PAGE_ORIENTATION, PDF_UNIT, PDF_PAGE_FORMAT, false, 'UTF-8', false);
-        $obj_pdf->SetCreator(PDF_CREATOR);
-        $title = '監試及試務人員一覽表';
-        $date = date('yyyy/m/d');
-        $obj_pdf->SetTitle($title);
-        $obj_pdf->SetHeaderData('', '', $title, '印表日期：'.$date);
-        $obj_pdf->setPrintHeader(false);
-        // $obj_pdf->SetHeaderMargin(PDF_MARGIN_HEADER);
-        $obj_pdf->SetFooterMargin(PDF_MARGIN_FOOTER);
-        $obj_pdf->SetMargins(PDF_MARGIN_LEFT, 5,PDF_MARGIN_RIGHT);
-        $obj_pdf->SetAutoPageBreak(true, 10);
-        $obj_pdf->SetFont('msungstdlight', 'L', 14);
-
-        $obj_pdf->setFontSubsetting(false);
-        $obj_pdf->AddPage();
+        
         $data = array(
             
             'part' => $this->mod_voice_trial->get_list_for_pdf($part),
@@ -172,9 +137,65 @@ class Test_form extends CI_Controller
           return false;
         }
     }
+    /**
+     * 監試及試務人員 > 試務
+     */
+    function form_e1_3_2(){
+        $this->load->library('pdf');
+        $this->load->model('mod_voice_task');
+        $this->load->model('mod_voice_area');
+        $this->load->model("mod_voice_part_addr");
+        $part = $_GET['part'];
+        $area = $_GET['area'];
+        if ($_GET['part'] != "2500") {
+            $part = $_GET['part'];
+            $school = $this->mod_exam_area->year_school_name($part);
+        } else {
+            $school = "";
+        }
+       
+        $year = $this->input->get('year');
+        $ladder = $this->input->get('ladder');
+        // if ($this->mod_part_addr->chk_once($year)) {
+        //     $addr_info = $this->mod_part_addr->get_once($year);
+        // } else {
+        //     $addr_info = array(
+        //         'part_addr_1' => '',
+        //         'part_addr_2' => '',
+        //         'part_addr_3' => '',
+        //     );
+        // }
+        $data = array(
+            'part' => $this->mod_task->get_district_task($area,$part),
+            'area' => $area,
+            'school' => $this->mod_exam_area->year_school_name($part),
+            'addr_info' => $addr_info,
+        );
+        if($data['part'] != false){
+          $view =  $this->load->view('voice/form_e_1_3_3', $data, true);
+          if (!is_dir('./html/')) {
+              mkdir('./html/');
+          } else {
+              $path = 'e_1_3_3.html';
+              $fp = fopen('./html/'.$path,'w');//建檔
+              fwrite($fp,$view);
+              fclose($fp);//關閉開啟的檔案
+              // copy($path, './html/'.$path);
 
+          }
 
-    public function form_e_1_3()
+          if (!is_dir('./pdf/')) {
+              mkdir('./pdf/');
+          } else {
+              exec('wkhtmltopdf --lowquality --enable-forms http://uat.fofo.tw/fjuexam/html/e_1_3_3.html  ./pdf/e_1_3_3.pdf');
+          }
+          echo '<script>location.href="http://uat.fofo.tw/fjuexam/pdf/e_1_3_3.pdf"</script>';
+        }else{
+          return false;
+        }
+    }
+
+    public function form_e1_3_3()
     {
         $this->load->library('pdf');
         $this->load->model('mod_voice_trial');
@@ -182,28 +203,15 @@ class Test_form extends CI_Controller
 
         $part = $_GET['part'];
         $area = $_GET['area'];
-        $obj_pdf = new Pdf(PDF_PAGE_ORIENTATION, PDF_UNIT, PDF_PAGE_FORMAT, false, 'UTF-8', false);
-        $obj_pdf->SetCreator(PDF_CREATOR);
-        $title = '監試及試務人員一覽表';
-        $date = date('yyyy/m/d');
-        $obj_pdf->SetTitle($title);
-        $obj_pdf->SetHeaderData('', '', $title, '印表日期：'.$date);
-        $obj_pdf->setPrintHeader(false);
-        // $obj_pdf->SetHeaderMargin(PDF_MARGIN_HEADER);
-        $obj_pdf->SetFooterMargin(PDF_MARGIN_FOOTER);
-        $obj_pdf->SetMargins(PDF_MARGIN_LEFT, 5,PDF_MARGIN_RIGHT);
-        $obj_pdf->SetAutoPageBreak(true, 10);
-        $obj_pdf->SetFont('msungstdlight', 'L', 14);
-
-        $obj_pdf->setFontSubsetting(false);
-        $obj_pdf->AddPage();
+        
         $data = array(
             'part' => $this->mod_voice_trial->get_list_for_pdf($part),
             'area' => $area,
             'school' => $this->mod_voice_exam_area->year_school_name($part),
         );
         if($data['part'] != false){
-          $view =  $this->load->view('designated/e_1_3', $data, true);
+              $this->load->view('voice/form_e_1_3', $data);
+          $view =  $this->load->view('voice/form_e_1_3', $data, true);
           if (!is_dir('./html/')) {
               mkdir('./html/');
           } else {
@@ -225,7 +233,7 @@ class Test_form extends CI_Controller
           return false;
         }
     }
-    public function e_1_3_4()
+    public function form_e1_3_4()
     {
         $this->load->library('pdf');
         $this->load->model('mod_voice_task');
@@ -239,21 +247,7 @@ class Test_form extends CI_Controller
         } else {
             $school = "";
         }
-        $obj_pdf = new Pdf(PDF_PAGE_ORIENTATION, PDF_UNIT, PDF_PAGE_FORMAT, false, 'UTF-8', false);
-        $obj_pdf->SetCreator(PDF_CREATOR);
-        $title = '監試及試務人員一覽表';
-        $date = date('yyyy/m/d');
-        $obj_pdf->SetTitle($title);
-        $obj_pdf->SetHeaderData('', '', $title, '印表日期：'.$date);
-        $obj_pdf->setPrintHeader(false);
-        // $obj_pdf->SetHeaderMargin(PDF_MARGIN_HEADER);
-        $obj_pdf->SetFooterMargin(PDF_MARGIN_FOOTER);
-        $obj_pdf->SetMargins(PDF_MARGIN_LEFT, PDF_MARGIN_RIGHT);
-        $obj_pdf->SetAutoPageBreak(true, PDF_MARGIN_BOTTOM);
-        $obj_pdf->SetFont('msungstdlight', 'L', 14);
-
-        $obj_pdf->setFontSubsetting(false);
-        $obj_pdf->AddPage();
+        
         $year = $_SESSION['year'];
         if ($this->mod_voice_part_addr->chk_once($year)) {
             $addr_info = $this->mod_voice_part_addr->get_once($year);
@@ -294,7 +288,7 @@ class Test_form extends CI_Controller
         }
     }
 
-    public function e_1_3_5()
+    public function form_e1_4()
     {
         $this->load->library('pdf');
         $this->load->model('mod_voice_task');
@@ -308,21 +302,7 @@ class Test_form extends CI_Controller
         } else {
             $school = "";
         }
-        $obj_pdf = new Pdf(PDF_PAGE_ORIENTATION, PDF_UNIT, PDF_PAGE_FORMAT, false, 'UTF-8', false);
-        $obj_pdf->SetCreator(PDF_CREATOR);
-        $title = '監試及試務人員一覽表';
-        $date = date('yyyy/m/d');
-        $obj_pdf->SetTitle($title);
-        $obj_pdf->SetHeaderData('', '', $title, '印表日期：'.$date);
-        $obj_pdf->setPrintHeader(false);
-        // $obj_pdf->SetHeaderMargin(PDF_MARGIN_HEADER);
-        $obj_pdf->SetFooterMargin(PDF_MARGIN_FOOTER);
-        $obj_pdf->SetMargins(PDF_MARGIN_LEFT,PDF_MARGIN_RIGHT);
-        $obj_pdf->SetAutoPageBreak(true, PDF_MARGIN_BOTTOM);
-        $obj_pdf->SetFont('msungstdlight', 'L', 14);
-
-        $obj_pdf->setFontSubsetting(false);
-        $obj_pdf->AddPage();
+        
         $year = $_SESSION['year'];
         if ($this->mod_voice_part_addr->chk_once($year)) {
             $addr_info = $this->mod_voice_part_addr->get_once($year);
@@ -363,122 +343,9 @@ class Test_form extends CI_Controller
         }
     }
 
-    public function e_1_4()
-    {
-        $this->load->model('mod_voice_exam_area');
-        $this->load->model('mod_voice_exam_datetime');
-        $title = '缺考人數統計';
-        $year = $this->session->userdata('year');
-
-        $date = date('yyyy/m/d');
-        $part = $_GET['part'];
-        $area = $_GET['area'];
-
-        if ($this->mod_exam_datetime->chk_course($year)) {
-            $course = $this->mod_exam_datetime->get_course($year);
-        } else {
-            $course = array();
-            for ($i = 0; $i <= 12; ++$i) {
-                $course[$i]['subject'] = '';
-            }
-        }
-        if ($this->mod_voice_exam_datetime->chk_once($year)) {
-            $datetime_info = $this->mod_voice_exam_datetime->get_once($year);
-        } else {
-            $datetime_info = array(
-                'day_1' => '7月/1日',
-                'day_2' => '7月/2日',
-                'day_3' => '7月/3日',
-            );
-        }
-
-        $data = array(
-            'list' => $this->mod_voice_exam_area->year_get_list($part),
-            'count' => $this->mod_voice_exam_area->year_get_member_count_list($part),
-            'school' => $this->mod_voice_exam_area->year_school_name($part),
-            'course' => $this->mod_voice_exam_datetime->get_course($year),
-            'datetime_info'=>$datetime_info,
-            'area'=>$area
-        );
-        if($data['list'] != false){
-            $view = $this->load->view('designated/e_1_4',$data,true);
-
-            if (!is_dir('./html/')) {
-                mkdir('./html/');
-            } else {
-                $path = 'e_1_4.html';
-                $fp = fopen('./html/'.$path,'w');//建檔
-                fwrite($fp,$view);
-                fclose($fp);//關閉開啟的檔案
-                // copy($path, './html/'.$path);
-
-            }
-
-            if (!is_dir('./pdf/')) {
-                mkdir('./pdf/');
-            } else {
-                exec('wkhtmltopdf --lowquality --enable-forms http://uat.fofo.tw/fjuexam/html/e_1_4.html  ./pdf/e_1_4.pdf');
-            }
-            echo '<script>location.href="http://uat.fofo.tw/fjuexam/pdf/e_1_4.pdf"</script>';
-        }else{
-          return false;
-        }
-    }
-
-    public function form_e_1_5()
-    {
-        $this->load->library('pdf');
-        $this->load->model('mod_voice_trial');
-        $obj_pdf = new Pdf(PDF_PAGE_ORIENTATION, PDF_UNIT, PDF_PAGE_FORMAT, false, 'UTF-8', false);
-        $obj_pdf->SetCreator(PDF_CREATOR);
-        $part = $_GET['part'];
-        $area = $_GET['area'];
-
-        $title = $area.'監試人員午餐一覽表';
-        $date = date('yyyy/m/d');
-        $obj_pdf->SetTitle($title);
-        $obj_pdf->SetHeaderData('', '', $title, '印表日期：'.$date);
-        $obj_pdf->setPrintHeader(false);
-        // $obj_pdf->SetHeaderMargin(PDF_MARGIN_HEADER);
-        $obj_pdf->SetFooterMargin(PDF_MARGIN_FOOTER);
-        $obj_pdf->SetMargins(PDF_MARGIN_LEFT, PDF_MARGIN_RIGHT);
-        $obj_pdf->SetAutoPageBreak(true, PDF_MARGIN_BOTTOM);
-        $obj_pdf->SetFont('msungstdlight', 'L', 10);
-
-        $obj_pdf->setFontSubsetting(false);
-
-        $obj_pdf->AddPage();
-        $data = array(
-            'part' => $this->mod_voice_trial->get_dinner_list_for_pdf($part),
-            'area' => $area,
-            'count'=>$this->mod_voice_trial->e_6_1_member_count($part),
-            'own' => $this->mod_voice_trial->get_trial_own_meal_count($part),
-            'veg' => $this->mod_voice_trial->get_trial_veg_meal_count($part),
-            'meat' => $this->mod_voice_trial->get_trial_meat_meal_count($part),
-        );
-        if($data['part'] != false){
-          $view =  $this->load->view('voice/form_e_1_5', $data, true);
-          if (!is_dir('./html/')) {
-              mkdir('./html/');
-          } else {
-              $path = 'form_e_1_5.html';
-              $fp = fopen('./html/'.$path,'w');//建檔
-              fwrite($fp,$view);
-              fclose($fp);//關閉開啟的檔案
-              // copy($path, './html/'.$path);
-
-          }
-
-          if (!is_dir('./pdf/')) {
-              mkdir('./pdf/');
-          } else {
-              exec('wkhtmltopdf --lowquality --enable-forms http://uat.fofo.tw/fjuexam/html/form_e_1_5.html  ./pdf/form_e_1_5.pdf');
-          }
-          echo '<script>location.href="http://uat.fofo.tw/fjuexam/pdf/form_e_1_5.pdf"</script>';
-        }else{
-          return false;
-        }
-    }
+   /********************************************
+    * E2
+    */
 
     public function form_e_2()
     {
@@ -499,29 +366,7 @@ class Test_form extends CI_Controller
         $this->load->library('pdf');
         $this->load->model('mod_voice_job_list');
         $this->load->model('mod_voice_exam_area');
-        $obj_pdf = new Pdf(PDF_PAGE_ORIENTATION, PDF_UNIT, PDF_PAGE_FORMAT, false, 'UTF-8', false);
-        $obj_pdf->SetCreator(PDF_CREATOR);
-        $title = '試務人員執行任務簽到表';
-        $area = $_GET['area'];
-        $part = $_GET['part'];
-        if ($_GET['part'] != "2500") {
-            $part = $_GET['part'];
-            $school = $this->mod_voice_exam_area->year_school_name($part);
-        } else {
-            $school = "";
-        }
-       
-        $date = date('yyyy/m/d');
-        $obj_pdf->SetTitle($title);
-        $obj_pdf->SetHeaderData('', '', $title, '印表日期：'.$date);
-        $obj_pdf->setPrintHeader(false);
-        // $obj_pdf->SetHeaderMargin(PDF_MARGIN_HEADER);
-        $obj_pdf->SetFooterMargin(PDF_MARGIN_FOOTER);
-        $obj_pdf->SetMargins(PDF_MARGIN_LEFT, PDF_MARGIN_RIGHT);
-        $obj_pdf->SetAutoPageBreak(true, PDF_MARGIN_BOTTOM);
-        $obj_pdf->SetFont('msungstdlight', 'L', 14);
-
-        $obj_pdf->setFontSubsetting(false);
+        
 
         $data = array(
             'part' => $this->mod_voice_job_list->e_2_1($area,$part),
@@ -560,8 +405,7 @@ class Test_form extends CI_Controller
         $this->load->library('pdf');
         $this->load->model('mod_voice_trial');
         $this->load->model('mod_voice_exam_area');
-        $obj_pdf = new Pdf(PDF_PAGE_ORIENTATION, PDF_UNIT, PDF_PAGE_FORMAT, false, 'UTF-8', false);
-        $obj_pdf->SetCreator(PDF_CREATOR);
+        
         $title = '試務人員執行任務簽到表';
         $area = $_GET['area'];
         $part = $_GET['part'];
@@ -572,16 +416,7 @@ class Test_form extends CI_Controller
             $school = "";
         }
         $date = date('yyyy/m/d');
-        $obj_pdf->SetTitle($title);
-        $obj_pdf->SetHeaderData('', '', $title, '印表日期：'.$date);
-        $obj_pdf->setPrintHeader(false);
-        // $obj_pdf->SetHeaderMargin(PDF_MARGIN_HEADER);
-        $obj_pdf->SetFooterMargin(PDF_MARGIN_FOOTER);
-        $obj_pdf->SetMargins(PDF_MARGIN_LEFT, PDF_MARGIN_RIGHT);
-        $obj_pdf->SetAutoPageBreak(true, PDF_MARGIN_BOTTOM);
-        $obj_pdf->SetFont('msungstdlight', 'L', 14);
-
-        $obj_pdf->setFontSubsetting(false);
+        
 
         $data = array(
             'part' => $this->mod_voice_trial->e_2_1_2($part),
@@ -619,8 +454,7 @@ class Test_form extends CI_Controller
         $this->load->library('pdf');
         $this->load->model('mod_voice_trial');
         $this->load->model('mod_voice_exam_area');
-        $obj_pdf = new Pdf(PDF_PAGE_ORIENTATION, PDF_UNIT, PDF_PAGE_FORMAT, false, 'UTF-8', false);
-        $obj_pdf->SetCreator(PDF_CREATOR);
+        
         $title = '試務人員執行任務簽到表';
         $area = $_GET['area'];
         $part = $_GET['part'];
@@ -631,16 +465,7 @@ class Test_form extends CI_Controller
             $school = "";
         }
         $date = date('yyyy/m/d');
-        $obj_pdf->SetTitle($title);
-        $obj_pdf->SetHeaderData('', '', $title, '印表日期：'.$date);
-        $obj_pdf->setPrintHeader(false);
-        // $obj_pdf->SetHeaderMargin(PDF_MARGIN_HEADER);
-        $obj_pdf->SetFooterMargin(PDF_MARGIN_FOOTER);
-        $obj_pdf->SetMargins(PDF_MARGIN_LEFT, PDF_MARGIN_RIGHT);
-        $obj_pdf->SetAutoPageBreak(true, PDF_MARGIN_BOTTOM);
-        $obj_pdf->SetFont('msungstdlight', 'L', 14);
-
-        $obj_pdf->setFontSubsetting(false);
+        
 
         $data = array(
             'part' => $this->mod_voice_trial->e_2_1_3($part),
@@ -678,23 +503,13 @@ class Test_form extends CI_Controller
         $this->load->library('pdf');
         $this->load->model('mod_voice_trial');
         $this->load->model('mod_voice_exam_area');
-        $obj_pdf = new Pdf(PDF_PAGE_ORIENTATION, PDF_UNIT, PDF_PAGE_FORMAT, false, 'UTF-8', false);
-        $obj_pdf->SetCreator(PDF_CREATOR);
+        
         $title = '監試人員執行任務簽到表';
         $date = date('yyyy/m/d');
         $part = $_GET['part'];
         $area = $_GET['area'];
 
-        $obj_pdf->SetTitle($title);
-        $obj_pdf->SetHeaderData('', '', $title, '印表日期：'.$date);
-        $obj_pdf->setPrintHeader(false);
-        // $obj_pdf->SetHeaderMargin(PDF_MARGIN_HEADER);
-        $obj_pdf->SetFooterMargin(PDF_MARGIN_FOOTER);
-        $obj_pdf->SetMargins(PDF_MARGIN_LEFT, PDF_MARGIN_RIGHT);
-        $obj_pdf->SetAutoPageBreak(true, PDF_MARGIN_BOTTOM);
-        $obj_pdf->SetFont('msungstdlight', 'L', 14);
-
-        $obj_pdf->setFontSubsetting(false);
+        
 
         $year = $this->session->userdata('year');
         $data = array(
@@ -734,22 +549,11 @@ class Test_form extends CI_Controller
         $this->load->model('mod_voice_exam_area');
         $this->load->model('mod_voice_exam_datetime');
 
-        $obj_pdf = new Pdf(PDF_PAGE_ORIENTATION, PDF_UNIT, PDF_PAGE_FORMAT, false, 'UTF-8', false);
-        $obj_pdf->SetCreator(PDF_CREATOR);
         $title = '答案卷卡收發記錄單';
         $date = date('yyyy/m/d');
         $part = $_GET['part'];
         $area = $_GET['area'];
 
-
-        $obj_pdf->SetTitle($title);
-        $obj_pdf->SetHeaderData('', '', $title, '印表日期：'.$date);
-        $obj_pdf->setPrintHeader(false);
-        // $obj_pdf->SetHeaderMargin(PDF_MARGIN_HEADER);
-        $obj_pdf->SetFooterMargin(PDF_MARGIN_FOOTER);
-        $obj_pdf->SetMargins(PDF_MARGIN_LEFT, PDF_MARGIN_RIGHT);
-        $obj_pdf->SetAutoPageBreak(true, PDF_MARGIN_BOTTOM);
-        $obj_pdf->SetFont('msungstdlight', 'L', 14);
         $year = $this->session->userdata('year');
         $ladder = $this->session->userdata('ladder');
 
@@ -757,7 +561,7 @@ class Test_form extends CI_Controller
 
         $datetime_info = $this->mod_voice_exam_datetime->get_once($year,$ladder);
 
-        $obj_pdf->setFontSubsetting(false);
+
         $data = array(
             'part' => $this->mod_voice_trial->get_once_date_of_voucher1($part),
             'area' => $area,
@@ -794,21 +598,11 @@ class Test_form extends CI_Controller
         $this->load->model('mod_voice_exam_area');
         $this->load->model('mod_voice_exam_datetime');
 
-        $obj_pdf = new Pdf(PDF_PAGE_ORIENTATION, PDF_UNIT, PDF_PAGE_FORMAT, false, 'UTF-8', false);
-        $obj_pdf->SetCreator(PDF_CREATOR);
         $title = '答案卷卡收發記錄單';
         $date = date('yyyy/m/d');
         $part = $_GET['part'];
         $area = $_GET['area'];
 
-        $obj_pdf->SetTitle($title);
-        $obj_pdf->SetHeaderData('', '', $title, '印表日期：'.$date);
-        $obj_pdf->setPrintHeader(false);
-        // $obj_pdf->SetHeaderMargin(PDF_MARGIN_HEADER);
-        $obj_pdf->SetFooterMargin(PDF_MARGIN_FOOTER);
-        $obj_pdf->SetMargins(PDF_MARGIN_LEFT, PDF_MARGIN_RIGHT);
-        $obj_pdf->SetAutoPageBreak(true, PDF_MARGIN_BOTTOM);
-        $obj_pdf->SetFont('msungstdlight', 'L', 10);
         $year = $this->session->userdata('year');
 
         $datetime_info = $this->mod_voice_exam_datetime->get_once($year);
@@ -850,27 +644,11 @@ class Test_form extends CI_Controller
         $this->load->model('mod_voice_exam_area');
         $this->load->model('mod_voice_exam_datetime');
 
-        $obj_pdf = new Pdf(PDF_PAGE_ORIENTATION, PDF_UNIT, PDF_PAGE_FORMAT, false, 'UTF-8', false);
-        $obj_pdf->SetCreator(PDF_CREATOR);
-        $title = '答案卷卡收發記錄單';
-        $date = date('yyyy/m/d');
-        $part = $_GET['part'];
-        $area = $_GET['area'];
-
-        $obj_pdf->SetTitle($title);
-        $obj_pdf->SetHeaderData('', '', $title, '印表日期：'.$date);
-        $obj_pdf->setPrintHeader(false);
-        // $obj_pdf->SetHeaderMargin(PDF_MARGIN_HEADER);
-        $obj_pdf->SetFooterMargin(PDF_MARGIN_FOOTER);
-        $obj_pdf->SetMargins(PDF_MARGIN_LEFT, PDF_MARGIN_RIGHT);
-        $obj_pdf->SetAutoPageBreak(true, PDF_MARGIN_BOTTOM);
-        $obj_pdf->SetFont('msungstdlight', 'L', 10);
+        
         $year = $this->session->userdata('year');
 
         $datetime_info = $this->mod_voice_exam_datetime->get_once($year);
 
-        $obj_pdf->setFontSubsetting(false);
-        $obj_pdf->AddPage();
         $data = array(
             'part' => $this->mod_voice_trial->get_once_date_of_voucher3($part),
             'area' => $area,
@@ -904,21 +682,7 @@ class Test_form extends CI_Controller
     {
         $this->load->library('pdf');
         $this->load->model('mod_voice_job_list');
-        $obj_pdf = new Pdf(PDF_PAGE_ORIENTATION, PDF_UNIT, PDF_PAGE_FORMAT, false, 'UTF-8', false);
-        $obj_pdf->SetCreator(PDF_CREATOR);
-        $title = '監試說明會簽到表';
-        $date = date('yyyy/m/d');
-
-        $obj_pdf->SetTitle($title);
-        $obj_pdf->SetHeaderData('', '', $title, '印表日期：'.$date);
-        $obj_pdf->setPrintHeader(false);
-        // $obj_pdf->SetHeaderMargin(PDF_MARGIN_HEADER);
-        $obj_pdf->SetFooterMargin(PDF_MARGIN_FOOTER);
-        $obj_pdf->SetMargins(PDF_MARGIN_LEFT,3,PDF_MARGIN_RIGHT);
-        $obj_pdf->SetAutoPageBreak(true, PDF_MARGIN_BOTTOM);
-        $obj_pdf->SetFont('msungstdlight', 'L', 14);
-
-        $obj_pdf->setFontSubsetting(false);
+        
         $data = array(
             'part' => $this->mod_voice_job_list->get_sign_list(),
         );
@@ -966,21 +730,7 @@ class Test_form extends CI_Controller
         $this->load->model('mod_voice_job_list');
         $this->load->model('mod_voice_exam_area');
 
-        $obj_pdf = new Pdf(PDF_PAGE_ORIENTATION, PDF_UNIT, PDF_PAGE_FORMAT, false, 'UTF-8', false);
-        $obj_pdf->SetCreator(PDF_CREATOR);
-        $title = '大學入學考試中心'.$_SESSION['year'].'學年度指定科目考試新北一考區監試說明會開會通知簽收表';
-
-        $date = date('yyyy/m/d');
-        $obj_pdf->SetTitle($title);
-        $obj_pdf->SetHeaderData('', '', $title, '印表日期：'.$date);
-        $obj_pdf->setPrintHeader(false);
-        // $obj_pdf->SetHeaderMargin(PDF_MARGIN_HEADER);
-        $obj_pdf->SetFooterMargin(PDF_MARGIN_FOOTER);
-        $obj_pdf->SetMargins(PDF_MARGIN_LEFT, PDF_MARGIN_RIGHT);
-        $obj_pdf->SetAutoPageBreak(true, PDF_MARGIN_BOTTOM);
-        $obj_pdf->SetFont('msungstdlight', 'L', 14);
-
-        $obj_pdf->setFontSubsetting(false);
+        
         $data = array(
             'data' => $this->mod_voice_job_list->member_map(),
             'list' => $this->mod_voice_job_list->get_member_map_list()
@@ -1138,24 +888,7 @@ class Test_form extends CI_Controller
         $this->load->library('pdf');
         $this->load->model('mod_voice_trial');
         $this->load->model('mod_voice_exam_area');
-        $obj_pdf = new Pdf(PDF_PAGE_ORIENTATION, PDF_UNIT, PDF_PAGE_FORMAT, false, 'UTF-8', false);
-        $obj_pdf->SetCreator(PDF_CREATOR);
-        $title = '試場工作人員分配表';
-        $date = date('yyyy/m/d');
-        $part = $_GET['part'];
-        $area = $_GET['area'];
-
-        $obj_pdf->SetTitle($title);
-        $obj_pdf->SetHeaderData('', '', $title, '印表日期：'.$date);
-        $obj_pdf->setPrintHeader(false);
-        // $obj_pdf->SetHeaderMargin(PDF_MARGIN_HEADER);
-        $obj_pdf->SetFooterMargin(PDF_MARGIN_FOOTER);
-        $obj_pdf->SetMargins(PDF_MARGIN_LEFT, PDF_MARGIN_RIGHT);
-        $obj_pdf->SetAutoPageBreak(true, PDF_MARGIN_BOTTOM);
-        $obj_pdf->SetFont('msungstdlight', '', 10);
-
-        $obj_pdf->setFontSubsetting(false);
-        $obj_pdf->AddPage();
+        
         $date = $_GET['date'];
         $data = array(
             'part' => $this->mod_voice_trial->e_3_2_1($part),
@@ -1189,24 +922,7 @@ class Test_form extends CI_Controller
         $this->load->library('pdf');
         $this->load->model('mod_trial');
         $this->load->model('mod_exam_area');
-        $obj_pdf = new Pdf(PDF_PAGE_ORIENTATION, PDF_UNIT, PDF_PAGE_FORMAT, false, 'UTF-8', false);
-        $obj_pdf->SetCreator(PDF_CREATOR);
-        $title = '試場工作人員分配表';
-        $date = date('yyyy/m/d');
-        $part = $_GET['part'];
-        $area = $_GET['area'];
-
-        $obj_pdf->SetTitle($title);
-        $obj_pdf->SetHeaderData('', '', $title, '印表日期：'.$date);
-        $obj_pdf->setPrintHeader(false);
-        // $obj_pdf->SetHeaderMargin(PDF_MARGIN_HEADER);
-        $obj_pdf->SetFooterMargin(PDF_MARGIN_FOOTER);
-        $obj_pdf->SetMargins(PDF_MARGIN_LEFT, PDF_MARGIN_RIGHT);
-        $obj_pdf->SetAutoPageBreak(true, PDF_MARGIN_BOTTOM);
-        $obj_pdf->SetFont('msungstdlight', '', 12);
-
-        $obj_pdf->setFontSubsetting(false);
-        $obj_pdf->AddPage();
+        
         $date = $_GET['date'];
         $data = array(
             'part' => $this->mod_trial->e_3_2_2($part),
@@ -1235,56 +951,6 @@ class Test_form extends CI_Controller
         echo '<script>location.href="http://uat.fofo.tw/fjuexam/pdf/e_3_2_1.pdf"</script>';
     }
 
-    // public function e_3_2_1_3()
-    // {
-    //     $this->load->library('pdf');
-    //     $this->load->model('mod_trial');
-    //     $this->load->model('mod_exam_area');
-    //     $obj_pdf = new Pdf(PDF_PAGE_ORIENTATION, PDF_UNIT, PDF_PAGE_FORMAT, false, 'UTF-8', false);
-    //     $obj_pdf->SetCreator(PDF_CREATOR);
-    //     $title = '試場工作人員分配表';
-    //     $date = date('yyyy/m/d');
-    //     $part = $_GET['part'];
-    //     $area = $_GET['area'];
-
-    //     $obj_pdf->SetTitle($title);
-    //     $obj_pdf->SetHeaderData('', '', $title, '印表日期：'.$date);
-    //     $obj_pdf->setPrintHeader(false);
-    //     // $obj_pdf->SetHeaderMargin(PDF_MARGIN_HEADER);
-    //     $obj_pdf->SetFooterMargin(PDF_MARGIN_FOOTER);
-    //     $obj_pdf->SetMargins(PDF_MARGIN_LEFT, PDF_MARGIN_RIGHT);
-    //     $obj_pdf->SetAutoPageBreak(true, PDF_MARGIN_BOTTOM);
-    //     $obj_pdf->SetFont('msungstdlight', '', 12);
-
-    //     $obj_pdf->setFontSubsetting(false);
-    //     $obj_pdf->AddPage();
-    //     $date = $_GET['date'];
-    //     $data = array(
-    //         'part' => $this->mod_trial->e_3_2_3($part),
-    //         'area' => $area,
-    //         'patrol_count'=> $this->mod_trial->get_patrol_member_count_3($part),
-    //         'trial_count'=>$this->mod_trial->get_trial_member_count($part),
-    //         'school' => $this->mod_exam_area->year_school_name($part),
-    //         'date' => $date,
-    //     );
-    //     // print_r($data);
-    //     $view = $this->load->view('designated/e_3_2_1', $data, true);
-    //     if (!is_dir('./html/')) {
-    //         mkdir('./html/');
-    //     } else {
-    //         $path = 'e_3_2_1.html';
-    //         $fp = fopen('./html/'.$path,'w');//建檔
-    //         fwrite($fp,$view);
-    //         fclose($fp);//關閉開啟的檔案
-    //     }
-
-    //     if (!is_dir('./pdf/')) {
-    //         mkdir('./pdf/');
-    //     } else {
-    //         exec('wkhtmltopdf --lowquality http://uat.fofo.tw/fjuexam/html/e_3_2_1.html  ./pdf/e_3_2_1.pdf');
-    //     }
-    //     echo '<script>location.href="http://uat.fofo.tw/fjuexam/pdf/e_3_2_1.pdf"</script>';
-    // }
 
     public function form_e_3_2_2()
     {
@@ -1298,17 +964,6 @@ class Test_form extends CI_Controller
         $part = $_GET['part'];
         $area = $_GET['area'];
 
-        $obj_pdf->SetTitle($title);
-        $obj_pdf->SetHeaderData('', '', $title, '印表日期：'.$date);
-        $obj_pdf->setPrintHeader(false);
-        // $obj_pdf->SetHeaderMargin(PDF_MARGIN_HEADER);
-        $obj_pdf->SetFooterMargin(PDF_MARGIN_FOOTER);
-        $obj_pdf->SetMargins(PDF_MARGIN_LEFT, PDF_MARGIN_RIGHT);
-        $obj_pdf->SetAutoPageBreak(true, PDF_MARGIN_BOTTOM);
-        $obj_pdf->SetFont('msungstdlight', '', 12);
-
-        $obj_pdf->setFontSubsetting(false);
-        $obj_pdf->AddPage();
         $date = $_GET['date'];
         $data = array(
             'part' => $this->mod_voice_trial->e_3_2_1($part),
@@ -1346,24 +1001,7 @@ class Test_form extends CI_Controller
         $this->load->library('pdf');
         $this->load->model('mod_voice_trial');
         $this->load->model('mod_voice_exam_area');
-        $obj_pdf = new Pdf(PDF_PAGE_ORIENTATION, PDF_UNIT, PDF_PAGE_FORMAT, false, 'UTF-8', false);
-        $obj_pdf->SetCreator(PDF_CREATOR);
-        $title = '試場工作人員分配表';
-        $date = date('yyyy/m/d');
-        $part = $_GET['part'];
-        $area = $_GET['area'];
-
-        $obj_pdf->SetTitle($title);
-        $obj_pdf->SetHeaderData('', '', $title, '印表日期：'.$date);
-        $obj_pdf->setPrintHeader(false);
-        // $obj_pdf->SetHeaderMargin(PDF_MARGIN_HEADER);
-        $obj_pdf->SetFooterMargin(PDF_MARGIN_FOOTER);
-        $obj_pdf->SetMargins(PDF_MARGIN_LEFT, PDF_MARGIN_RIGHT);
-        $obj_pdf->SetAutoPageBreak(true, PDF_MARGIN_BOTTOM);
-        $obj_pdf->SetFont('msungstdlight', '', 12);
-
-        $obj_pdf->setFontSubsetting(false);
-        $obj_pdf->AddPage();
+        
         $date = $_GET['date'];
         $data = array(
             'part' => $this->mod_voice_trial->e_3_2_1($part),
@@ -1844,8 +1482,7 @@ class Test_form extends CI_Controller
         $this->load->library('pdf');
         $this->load->model('mod_voice_trial');
         $this->load->model('mod_exam_area');
-        $obj_pdf = new Pdf(PDF_PAGE_ORIENTATION, PDF_UNIT, PDF_PAGE_FORMAT, false, 'UTF-8', false);
-        $obj_pdf->SetCreator(PDF_CREATOR);
+        
         $title = '監試人員印領清冊';
         $date = date('yyyy/m/d');
         $part = $_GET['part'];
@@ -1880,8 +1517,7 @@ class Test_form extends CI_Controller
         $this->load->library('pdf');
         $this->load->model('mod_trial');
         $this->load->model('mod_exam_area');
-        $obj_pdf = new Pdf(PDF_PAGE_ORIENTATION, PDF_UNIT, PDF_PAGE_FORMAT, false, 'UTF-8', false);
-        $obj_pdf->SetCreator(PDF_CREATOR);
+        
         $title = '監試人員印領清冊';
         $date = date('yyyy/m/d');
         $part = $_GET['part'];
@@ -1921,24 +1557,12 @@ class Test_form extends CI_Controller
         $this->load->library('pdf');
         $this->load->model('mod_task');
         $this->load->model('mod_exam_area');
-        $obj_pdf = new Pdf(PDF_PAGE_ORIENTATION, PDF_UNIT, PDF_PAGE_FORMAT, false, 'UTF-8', false);
-        $obj_pdf->SetCreator(PDF_CREATOR);
+        
         $title = '試務人員印領清冊';
         $date = date('yyyy/m/d');
         $part = $_GET['part'];
         $area = $_GET['area'];
 
-        $obj_pdf->SetTitle($title);
-        $obj_pdf->SetHeaderData('', '', $title, '印表日期：'.$date);
-        $obj_pdf->setPrintHeader(false);
-        // $obj_pdf->SetHeaderMargin(PDF_MARGIN_HEADER);
-        $obj_pdf->SetFooterMargin(PDF_MARGIN_FOOTER);
-        $obj_pdf->SetMargins(3, 3);
-        $obj_pdf->SetAutoPageBreak(true, PDF_MARGIN_BOTTOM);
-        $obj_pdf->SetFont('msungstdlight', '', 10);
-
-        $obj_pdf->setFontSubsetting(false);
-        $obj_pdf->AddPage();
         $data = array(
             'part' => $this->mod_task->get_district_task_money_list($area),
             'area'=> $area,
@@ -1972,24 +1596,7 @@ class Test_form extends CI_Controller
         $this->load->library('pdf');
         $this->load->model('mod_trial');
         $this->load->model('mod_exam_area');
-        $obj_pdf = new Pdf(PDF_PAGE_ORIENTATION, PDF_UNIT, PDF_PAGE_FORMAT, false, 'UTF-8', false);
-        $obj_pdf->SetCreator(PDF_CREATOR);
-        $title = '管卷人員印領清冊';
-        $date = date('yyyy/m/d');
-        $part = $_GET['part'];
-        $area = $_GET['area'];
-
-        $obj_pdf->SetTitle($title);
-        $obj_pdf->SetHeaderData('', '', $title, '印表日期：'.$date);
-        $obj_pdf->setPrintHeader(false);
-        // $obj_pdf->SetHeaderMargin(PDF_MARGIN_HEADER);
-        $obj_pdf->SetFooterMargin(PDF_MARGIN_FOOTER);
-        $obj_pdf->SetMargins(3, 3);
-        $obj_pdf->SetAutoPageBreak(true, PDF_MARGIN_BOTTOM);
-        $obj_pdf->SetFont('msungstdlight', '', 10);
-
-        $obj_pdf->setFontSubsetting(false);
-        $obj_pdf->AddPage();
+       
         $data = array(
             'part' => $this->mod_trial->get_trial_staff_task_money_list($part),
             'area'=> $area,
@@ -2024,24 +1631,7 @@ class Test_form extends CI_Controller
         $this->load->library('pdf');
         $this->load->model('mod_trial');
         $this->load->model('mod_exam_area');
-        $obj_pdf = new Pdf(PDF_PAGE_ORIENTATION, PDF_UNIT, PDF_PAGE_FORMAT, false, 'UTF-8', false);
-        $obj_pdf->SetCreator(PDF_CREATOR);
-        $title = '巡場人員印領清冊';
-        $date = date('yyyy/m/d');
-        $part = $_GET['part'];
-        $area = $_GET['area'];
-
-        $obj_pdf->SetTitle($title);
-        $obj_pdf->SetHeaderData('', '', $title, '印表日期：'.$date);
-        $obj_pdf->setPrintHeader(false);
-        // $obj_pdf->SetHeaderMargin(PDF_MARGIN_HEADER);
-        $obj_pdf->SetFooterMargin(PDF_MARGIN_FOOTER);
-        $obj_pdf->SetMargins(3, 3);
-        $obj_pdf->SetAutoPageBreak(true, PDF_MARGIN_BOTTOM);
-        $obj_pdf->SetFont('msungstdlight', '', 10);
-
-        $obj_pdf->setFontSubsetting(false);
-        $obj_pdf->AddPage();
+        
         $data = array(
             'part' => $this->mod_trial->get_patrol_staff_task_money_list($part),
             'area'=> $area,
