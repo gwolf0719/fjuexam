@@ -112,6 +112,7 @@ class Test_form extends CI_Controller
             'area' => $area,
             'school' => $this->mod_voice_exam_area->year_school_name($part),
         );
+        
        
        
         if($data['part'] != false){
@@ -176,7 +177,7 @@ class Test_form extends CI_Controller
           if (!is_dir('./html/')) {
               mkdir('./html/');
           } else {
-              $path = 'e_1_3_3.html';
+              $path = 'form_e1_3_3.html';
               $fp = fopen('./html/'.$path,'w');//建檔
               fwrite($fp,$view);
               fclose($fp);//關閉開啟的檔案
@@ -187,9 +188,9 @@ class Test_form extends CI_Controller
           if (!is_dir('./pdf/')) {
               mkdir('./pdf/');
           } else {
-              exec('wkhtmltopdf --lowquality --enable-forms http://uat.fofo.tw/fjuexam/html/e_1_3_3.html  ./pdf/e_1_3_3.pdf');
+              exec('wkhtmltopdf --lowquality --enable-forms http://uat.fofo.tw/fjuexam/html/form_e1_3_3.html  ./pdf/form_e1_3_3.pdf');
           }
-          echo '<script>location.href="http://uat.fofo.tw/fjuexam/pdf/e_1_3_3.pdf"</script>';
+          echo '<script>location.href="http://uat.fofo.tw/fjuexam/pdf/form_e1_3_3.pdf"</script>';
         }
         else{
           return false;
@@ -250,8 +251,11 @@ class Test_form extends CI_Controller
         }
         
         $year = $_SESSION['year'];
-        if ($this->mod_voice_part_addr->chk_once($year)) {
-            $addr_info = $this->mod_voice_part_addr->get_once($year);
+        $ladder = $_SESSION['ladder'];
+
+
+        if ($this->mod_voice_part_addr->chk_once($year,$ladder)) {
+            $addr_info = $this->mod_voice_part_addr->get_once($year,$ladder);
         } else {
             $addr_info = array(
                 'part_addr_1' => '',
@@ -266,11 +270,11 @@ class Test_form extends CI_Controller
             'addr_info' => $addr_info,
         );
         if($data['part'] != false){
-          $view =  $this->load->view('designated/e_1_3_4', $data, true);
+          $view =  $this->load->view('voice/form_e1_3_4', $data, true);
           if (!is_dir('./html/')) {
               mkdir('./html/');
           } else {
-              $path = 'e_1_3_4.html';
+              $path = 'form_e1_3_4.html';
               $fp = fopen('./html/'.$path,'w');//建檔
               fwrite($fp,$view);
               fclose($fp);//關閉開啟的檔案
@@ -281,9 +285,9 @@ class Test_form extends CI_Controller
           if (!is_dir('./pdf/')) {
               mkdir('./pdf/');
           } else {
-              exec('wkhtmltopdf --lowquality --enable-forms http://uat.fofo.tw/fjuexam/html/e_1_3_4.html  ./pdf/e_1_3_4.pdf');
+              exec('wkhtmltopdf --lowquality --enable-forms http://uat.fofo.tw/fjuexam/html/form_e1_3_4.html  ./pdf/form_e1_3_4.pdf');
           }
-          echo '<script>location.href="http://uat.fofo.tw/fjuexam/pdf/e_1_3_4.pdf"</script>';
+          echo '<script>location.href="http://uat.fofo.tw/fjuexam/pdf/form_e1_3_4.pdf"</script>';
         }else{
           return false;
         }

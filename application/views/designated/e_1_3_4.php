@@ -34,7 +34,7 @@
             <td colspan="3" style="font-size:26px;"><?=$_SESSION['year']?>學年度指定科目考試新北一考區</td>
         </tr>
         <tr>
-            <td colspan="3" style="font-size:22px;"><?=$_GET['area']?><?=$school?>試務人員一覽表</td>
+            <td colspan="3" style="font-size:22px;"><?=$_GET['area']?><?=$school['area_name']?>試務人員一覽表</td>
         </tr>
         <tr>
             <td colspan="1" style="font-size:22px;text-align:left"><?=$_GET['area']?>試務辦公室</td>

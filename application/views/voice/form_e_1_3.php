@@ -34,7 +34,7 @@
         </tr>
         <tr>
             <td colspan="3" style="font-size:22px;padding:20px 0px;">分區：<?=$area?></td>
-            <td colspan="3" style="font-size:22px;padding:20px 0px;">考場：<?=$school?></td>
+            <td colspan="3" style="font-size:22px;padding:20px 0px;">考場：<?=$school['area_name']?></td>
             <td colspan="3" style="font-size:22px;padding:20px 0px;">印表日期：<?=(date("Y") - 1911).date("/m/d")?></td>
         </tr>
         <tr>
@@ -57,7 +57,7 @@
             <?=$v['field']?>
         </td>
         <td class="bb" colspan="2">
-            <?=$v['do_date']?><br><?=$v['test_section']?>節
+            <?=$v['do_date']?><br><?=$v['cl;']?>節
         </td>
         <td class="bb">
             <?=$v['supervisor_1']?>
