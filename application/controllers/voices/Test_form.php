@@ -630,6 +630,7 @@ class Test_form extends CI_Controller
         $part = $_GET['part'];
         $area = $_GET['area'];
 
+
         $year = $this->session->userdata('year');
         $ladder = $this->session->userdata('ladder');
 
@@ -645,6 +646,8 @@ class Test_form extends CI_Controller
             'count'=> $this->mod_voice_trial->get_patrol_member_count_1($part),
             'school' => $this->mod_voice_exam_area->year_school_name($part),
         );
+        // print_r($data);
+     
         if ($data['part'] != false) {
             $view = $this->load->view('voice/form_e_2_3_1', $data,true);
             if (!is_dir('./html/')) {
@@ -667,7 +670,7 @@ class Test_form extends CI_Controller
         }
     }
 
-    public function e_2_3_2()
+    public function form_e_2_3_2()
     {
         $this->load->library('pdf');
         $this->load->model('mod_voice_trial');
@@ -692,11 +695,11 @@ class Test_form extends CI_Controller
             'school' => $this->mod_voice_exam_area->year_school_name($part),
         );
         if ($data['part'] != false) {
-            $view = $this->load->view('designated/e_2_3_2', $data,true);
+            $view = $this->load->view('voice/form_e_2_3_2', $data,true);
             if (!is_dir('./html/')) {
                 mkdir('./html/');
             } else {
-                $path = 'e_2_3_2.html';
+                $path = 'form_e_2_3_2.html';
                 $fp = fopen('./html/'.$path,'w');//建檔
                 fwrite($fp,$view);
                 fclose($fp);//關閉開啟的檔案
@@ -705,9 +708,9 @@ class Test_form extends CI_Controller
             if (!is_dir('./pdf/')) {
                 mkdir('./pdf/');
             } else {
-                exec('wkhtmltopdf --lowquality  --enable-forms http://uat.fofo.tw/fjuexam/html/e_2_3_2.html  ./pdf/e_2_3_2.pdf');
+                exec('wkhtmltopdf --lowquality  --enable-forms http://uat.fofo.tw/fjuexam/html/form_e_2_3_2.html  ./pdf/form_e_2_3_2.pdf');
             }
-            echo '<script>location.href="http://uat.fofo.tw/fjuexam/pdf/e_2_3_2.pdf"</script>';
+            echo '<script>location.href="http://uat.fofo.tw/fjuexam/pdf/form_e_2_3_2.pdf"</script>';
         }else{
             return false;
         }

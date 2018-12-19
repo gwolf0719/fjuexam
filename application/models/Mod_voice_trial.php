@@ -440,6 +440,8 @@ class Mod_voice_trial extends CI_Model
     {
         $this->db->select('*');
         $year = $this->session->userdata('year');
+        $ladder = $this->session->userdata('ladder');
+
         $this->db->where('voice_area_main.year', $year);
         if ($part != '') {
             $this->db->where('voice_area_main.part', $part);
@@ -449,6 +451,7 @@ class Mod_voice_trial extends CI_Model
     
 
         $sub = $this->db->get()->result_array();
+        // print_r($sub);
         if(!empty($sub)){
             for ($i=0; $i < count($sub); $i++) {
                     # code...
@@ -457,13 +460,14 @@ class Mod_voice_trial extends CI_Model
                 $voucher = $this->db->where('part', $part)->where('first_start <=', $sub[$i]['field'])->where('first_end >=', $sub[$i]['field'])->get('voice_trial_staff')->result_array();
                 $course = $this->db->where('year', $year)->where('field', $sub[$i]['field'])->get('voice_exam_area')->row_array();
                 $trial = $this->db->get('voice_trial_staff')->result_array();
+          
                 if(!empty($voucher)){
                     for ($v=0; $v < count($voucher); $v++) { 
                         # code...
                         $arr[$voucher[$v]['trial_staff_name']][] = array(
                             'sn'=>$sub[$i]['sn'],
                             'field' => $sub[$i]['field'],
-                            'test_section' => $sub[$i]['test_section'],
+                            'test_section' => $sub[$i]['class'],
                             'part' => $sub[$i]['part'],
                             'supervisor_1'=>$sub[$i]['supervisor_1'],
                             'supervisor_2'=>$sub[$i]['supervisor_2'],
@@ -477,6 +481,7 @@ class Mod_voice_trial extends CI_Model
 
             }
             return $arr;
+            // print_r($arr);
         }else{
             return false;
         }
@@ -487,14 +492,17 @@ class Mod_voice_trial extends CI_Model
     {
         $this->db->select('*');
         if ($part != '') {
-            $this->db->where('voice_trial_assign.part', $part);
+            $this->db->where('voice_area_main.part', $part);
         }
         $this->db->from('voice_area_main');
         $this->db->join('voice_trial_assign', 'voice_area_main.sn = voice_trial_assign.sn');
         
         $year = $this->session->userdata('year');
+        $ladder = $this->session->userdata('ladder');
+
 
         $res = $this->db->get()->result_array();
+        // print_r($res);
 
         if(!empty($res)){
             function odd($var)
@@ -546,7 +554,7 @@ class Mod_voice_trial extends CI_Model
             $arr[] = array(
                 'sn'=>$res[$i]['sn'],
                 'field' => $res[$i]['field'],
-                'test_section' => $res[$i]['test_section'],
+                'test_section' => $res[$i]['class'],
                 'part' => $res[$i]['part'],
                 'supervisor_code'=>$res[$i]['trial_staff_code_1'],
                 'supervisor'=>$res[$i]['supervisor_1'],
@@ -559,7 +567,7 @@ class Mod_voice_trial extends CI_Model
             $arr[] = array(
                 'sn'=>$res[$i]['sn'],
                 'field' => $res[$i]['field'],
-                'test_section' => $res[$i]['test_section'],
+                'test_section' => $res[$i]['class'],
                 'part' => $res[$i]['part'],
                 'supervisor_code'=>$res[$i]['trial_staff_code_2'],
                 'supervisor'=>$res[$i]['supervisor_2'],

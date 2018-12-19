@@ -1723,6 +1723,7 @@ class Designated extends CI_Controller
             'count'=> $this->mod_trial->get_patrol_member_count_1($part),
             'school' => $this->mod_exam_area->year_school_name($part),
         );
+
         if ($data['part'] != false) {
             $view = $this->load->view('designated/e_2_3_1', $data,true);
             if (!is_dir('./html/')) {

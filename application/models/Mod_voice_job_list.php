@@ -457,6 +457,8 @@ class Mod_voice_job_list extends CI_Model
                     $unit = $this->db->where('year', $this->session->userdata('year'))->where('unit', $member[$m]['unit'])->where('member_code',$member[$m]['member_code'])->get('voice_import_member')->row_array();
                     $arr[] = array(
                         'year'=>$this->session->userdata('year'),
+                        'ladder'=>$this->session->userdata('ladder'),
+
                         'member_code'=>$member[$m]['member_code'],
                         'member_name'=>$member[$m]['member_name'],
                         'unit'=>$member[$m]['unit'],
@@ -476,6 +478,7 @@ class Mod_voice_job_list extends CI_Model
                 $unit1 = $this->db->where('year', $this->session->userdata('year'))->where('unit', $member1['unit'])->where('member_code',$member1['member_code'])->get('voice_import_member')->row_array();
                 $arr[] = array(
                     'year'=>$this->session->userdata('year'),
+                    'ladder'=>$this->session->userdata('ladder'),
                     'member_code'=>$member['member_code'],
                     'member_name'=>$member['member_name'],
                     'unit'=>$member['unit'],
@@ -484,6 +487,7 @@ class Mod_voice_job_list extends CI_Model
                 );  
                 $arr[] = array(
                     'year'=>$this->session->userdata('year'),
+                    'ladder'=>$this->session->userdata('ladder'),
                     'member_code'=>$member1['member_code'],
                     'member_name'=>$member1['member_name'],
                     'unit'=>$member1['unit'],
@@ -498,6 +502,7 @@ class Mod_voice_job_list extends CI_Model
                 $unit = $this->db->where('year', $this->session->userdata('year'))->where('unit', $member['unit'])->where('member_code',$member['member_code'])->get('voice_import_member')->row_array();
                 $arr[] = array(
                     'year'=>$this->session->userdata('year'),
+                    'ladder'=>$this->session->userdata('ladder'),
                     'member_code'=>$member['member_code'],
                     'member_name'=>$member['member_name'],
                     'unit'=>$member['unit'],
@@ -512,6 +517,7 @@ class Mod_voice_job_list extends CI_Model
                 $unit = $this->db->where('year', $this->session->userdata('year'))->where('unit', $member['unit'])->where('member_code',$member['member_code'])->get('voice_import_member')->row_array();
                 $arr[] = array(
                     'year'=>$this->session->userdata('year'),
+                    'ladder'=>$this->session->userdata('ladder'),
                     'member_code'=>$member['member_code'],
                     'member_name'=>$member['member_name'],
                     'unit'=>$member['unit'],
