@@ -393,8 +393,22 @@ class Mod_voice_trial extends CI_Model
         if (!empty($sub)) {
             for ($i=0; $i < count($sub); $i++) {
                 # code...
-                $supervisor1 = $this->db->where('member_code', $sub[$i]['supervisor_1_code'])->get('voice_import_member')->row_array();
-                $supervisor2 = $this->db->where('member_code', $sub[$i]['supervisor_2_code'])->get('voice_import_member')->row_array();
+                // 預先宣告要有設定人的才找資料
+                if($sub[$i]['supervisor_1_code'] != ""){
+                    $supervisor1 = $this->db->where('member_code', $sub[$i]['supervisor_1_code'])->get('voice_import_member')->row_array();
+                }else{
+                    $supervisor1['member_unit'] = '';
+                    $supervisor1['member_phone'] = '';
+                }
+                
+                if($sub[$i]['supervisor_2_code'] != ""){
+                    $supervisor2 = $this->db->where('member_code', $sub[$i]['supervisor_2_code'])->get('voice_import_member')->row_array();
+                }else{
+                    $supervisor2['member_unit'] = '';
+                    $supervisor2['member_phone'] = '';
+                }
+                
+                
                 $do_date = explode(",", $sub[$i]['first_member_do_date']);
                 
                 for ($d=0; $d < count($do_date); $d++) {
