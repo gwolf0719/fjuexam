@@ -35,7 +35,7 @@
         </tr>
         <tr>
             <td colspan="3" style="font-size:22px;padding:20px 0px">分區：<?=$area?></td>
-            <td colspan="3" style="font-size:22px;padding:20px 0px"><?=$school?></td>
+            <td colspan="3" style="font-size:22px;padding:20px 0px"><?=$school['area_name']?></td>
             <td colspan="3" style="font-size:22px;padding:20px 0px">簽到日期：<?=$k?></td>
         </tr>
         <tr>
@@ -56,16 +56,16 @@
     <?php foreach ($v as $kc => $vc): ?>
     <tr>
         <td style="border:1px solid #999"><?=$vc['field']?></td>
-        <td style="border:1px solid #999"><?=$vc['supervisor_1']?><br><span style="color:#ff0000"><?=$vc['meal1']?></span></td>
+        <td style="border:1px solid #999"><?=$vc['supervisor_1']?></td>
         <td style="border:1px solid #999"><?=$vc['supervisor_1_unit']?></td>
         <td style="border:1px solid #999" colspan="2"></td>
-        <td style="border:1px solid #999"><?=$vc['supervisor_2']?><br><span style="color:#ff0000"><?=$vc['meal2']?></span></td>
+        <td style="border:1px solid #999"><?=$vc['supervisor_2']?></td>
         <td style="border:1px solid #999"><?=$vc['supervisor_2_unit']?></td>
         <td style="border:1px solid #999" colspan="2"></td>
     </tr>
     <?php endforeach;?>
     <tr>
-        <td colspan="9" style="font-size:16px;text-align:left;">共計：<?=(count($v)*2)?>人、自備:<?=$own?>人、素食：<?=$veg?>人、葷食：<?=$meat?>人</td>
+        <td colspan="9" style="font-size:16px;text-align:left;">共計：<?=(count($v)*2)?>人</td>
     </tr>
 </table>
 <?php endforeach;?>

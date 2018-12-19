@@ -69,7 +69,7 @@
 <div class="row">
 
     <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6 cube text-center">
-        <a href="./designated/e_5_1">
+        <a href="./voice/e/form_e_5_1">
             <img src="assets/images/e_5_1.png" alt="">
         </a>
     </div>
@@ -79,7 +79,7 @@
     </div>
 
     <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6 cube text-center">
-        <a href="./designated/e_5_2">
+        <a href="./voice/e/form_e_5_2">
             <img src="assets/images/e_5_2.png" alt="">
         </a>
     </div>

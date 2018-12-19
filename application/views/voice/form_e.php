@@ -59,7 +59,7 @@
         </a>
     </div>
     <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6 cube text-center">
-        <a href="./designated/e_5">
+        <a href="./voice/e/form_e_5">
             <img src="assets/images/e5.png" alt="">
         </a>
     </div>
@@ -70,12 +70,12 @@
 
     </div>
     <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6 cube text-center">
-        <a href="./designated/e_6">
+        <a href="./voice/e/form_e_6">
             <img src="assets/images/e6.png" alt="">
         </a>
     </div>
     <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6 cube text-center">
-        <a href="./designated/e_3">
+        <a href="./voice/e/form_e_3">
             <img src="assets/images/e3.png" alt="">
         </a>
 
@@ -86,7 +86,7 @@
         <!-- </a> -->
     </div>
     <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6 cube text-center">
-        <a href="./designated/e_4">
+        <a href="./voice/e/form_e_4">
             <img src="assets/images/e4.png" alt="">
         </a>
     </div>

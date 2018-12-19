@@ -163,6 +163,14 @@ public function get_once_day_section($uses_day, $start, $end)
     return $count;
 }
 
+public function get_course($year,$ladder)
+{
+    $this->db->where('year', $year);
+    $this->db->where('ladder',$ladder);
+
+    return $this->db->get('voice_subject')->result_array();
+}
+
 
 
 

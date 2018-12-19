@@ -74,6 +74,8 @@ class Mod_voice_patorl extends CI_Model
     public function get_patrol_for_csv()
     {
         $this->db->where('year', $this->session->userdata('year'));
+        $this->db->where('ladder', $this->session->userdata('ladder'));
+
 
         $res = $this->db->get('patrol_staff')->result_array();
         for ($i=0; $i < count($res); $i++) { 
@@ -138,6 +140,43 @@ class Mod_voice_patorl extends CI_Model
 
         return true;
     }
+
+
+    public function get_trial_staff_for_csv()
+    {
+        $this->db->where('year', $this->session->userdata('year'));
+        $this->db->where('ladder', $this->session->userdata('ladder'));
+
+
+        $res = $this->db->get('voice_trial_staff')->result_array();
+        for ($i=0; $i < count($res); $i++) { 
+            # code...
+            $patrol = $this->db->where('member_code', $res[$i]['trial_staff_code'])->get('voice_import_member')->row_array();
+            switch ($res[$i]['part']) {
+                case '2501':
+                    $part = '第一分區';
+                    break;
+                case '2502':
+                    $part = '第二分區';
+                    break;
+                case '2503':
+                    $part = '第三分區';
+                    break;                    
+            }            
+            $arr[] = array(
+                'year'=>$patrol['year'],
+                'job'=>'分區管卷人員',
+                'area'=>$part,
+                'member_code'=>$res[$i]['allocation_code'],
+                'member_name'=>$patrol['member_name'],
+                'member_unit'=>$patrol['member_unit'],
+                'member_phone'=>$patrol['member_phone'],
+                'member_title'=>$patrol['member_title'],
+                'do_date'=>$res[$i]['do_date']
+            );
+        }
+        return $arr;
+    }    
 }
 
 /* End of file Mod_exam_area.php */

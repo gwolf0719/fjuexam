@@ -673,7 +673,7 @@ class Test_form extends CI_Controller
         }
     }
 
-    public function e_2_2()
+    public function form_e_2_2()
     {
         $this->load->library('pdf');
         $this->load->model('mod_voice_trial');
@@ -701,17 +701,15 @@ class Test_form extends CI_Controller
             'part' => $this->mod_voice_trial->get_date_for_trial_list($part),
             'area' =>$area,
             'school' => $this->mod_voice_exam_area->year_school_name($part),
-            'own' => $this->mod_voice_trial->get_trial_own_meal_count($part),
-            'veg' => $this->mod_voice_trial->get_trial_veg_meal_count($part),
-            'meat' => $this->mod_voice_trial->get_trial_meat_meal_count($part),
         );
+       
 
         if ($data['part'] != false) {
-            $view = $this->load->view('designated/e_2_2', $data,true);
+            $view = $this->load->view('voice/form_e_2_2', $data,true);
             if (!is_dir('./html/')) {
                 mkdir('./html/');
             } else {
-                $path = 'e_2_2.html';
+                $path = 'form_e_2_2.html';
                 $fp = fopen('./html/'.$path,'w');//建檔
                 fwrite($fp,$view);
                 fclose($fp);//關閉開啟的檔案
@@ -720,16 +718,16 @@ class Test_form extends CI_Controller
             if (!is_dir('./pdf/')) {
                 mkdir('./pdf/');
             } else {
-                exec('wkhtmltopdf --lowquality  --enable-forms http://uat.fofo.tw/fjuexam/html/e_2_2.html  ./pdf/e_2_2.pdf');
+                exec('wkhtmltopdf --lowquality  --enable-forms http://uat.fofo.tw/fjuexam/html/form_e_2_2.html  ./pdf/form_e_2_2.pdf');
             }
-            echo '<script>location.href="http://uat.fofo.tw/fjuexam/pdf/e_2_2.pdf"</script>';
+            echo '<script>location.href="http://uat.fofo.tw/fjuexam/pdf/form_e_2_2.pdf"</script>';
         }else{
             return false;
         }
 
     }
 
-    public function e_2_3_1()
+    public function form_e_2_3_1()
     {
         $this->load->library('pdf');
         $this->load->model('mod_voice_trial');
@@ -743,6 +741,7 @@ class Test_form extends CI_Controller
         $part = $_GET['part'];
         $area = $_GET['area'];
 
+
         $obj_pdf->SetTitle($title);
         $obj_pdf->SetHeaderData('', '', $title, '印表日期：'.$date);
         $obj_pdf->setPrintHeader(false);
@@ -752,8 +751,11 @@ class Test_form extends CI_Controller
         $obj_pdf->SetAutoPageBreak(true, PDF_MARGIN_BOTTOM);
         $obj_pdf->SetFont('msungstdlight', 'L', 14);
         $year = $this->session->userdata('year');
+        $ladder = $this->session->userdata('ladder');
 
-        $datetime_info = $this->mod_voice_exam_datetime->get_once($year);
+
+
+        $datetime_info = $this->mod_voice_exam_datetime->get_once($year,$ladder);
 
         $obj_pdf->setFontSubsetting(false);
         $data = array(
@@ -764,11 +766,11 @@ class Test_form extends CI_Controller
             'school' => $this->mod_voice_exam_area->year_school_name($part),
         );
         if ($data['part'] != false) {
-            $view = $this->load->view('designated/e_2_3_1', $data,true);
+            $view = $this->load->view('voice/form_e_2_3_1', $data,true);
             if (!is_dir('./html/')) {
                 mkdir('./html/');
             } else {
-                $path = 'e_2_3_1.html';
+                $path = 'form_e_2_3_1.html';
                 $fp = fopen('./html/'.$path,'w');//建檔
                 fwrite($fp,$view);
                 fclose($fp);//關閉開啟的檔案
@@ -777,9 +779,9 @@ class Test_form extends CI_Controller
             if (!is_dir('./pdf/')) {
                 mkdir('./pdf/');
             } else {
-                exec('wkhtmltopdf --lowquality  --enable-forms http://uat.fofo.tw/fjuexam/html/e_2_3_1.html  ./pdf/e_2_3_1.pdf');
+                exec('wkhtmltopdf --lowquality  --enable-forms http://uat.fofo.tw/fjuexam/html/form_e_2_3_1.html  ./pdf/form_e_2_3_1.pdf');
             }
-            echo '<script>location.href="http://uat.fofo.tw/fjuexam/pdf/e_2_3_1.pdf"</script>';
+            echo '<script>location.href="http://uat.fofo.tw/fjuexam/pdf/form_e_2_3_1.pdf"</script>';
         }else{
             return false;
         }
@@ -898,10 +900,10 @@ class Test_form extends CI_Controller
         }
     }
 
-    public function e_2_4()
+    public function form_e_2_4()
     {
         $this->load->library('pdf');
-        $this->load->model('mod_voice_task');
+        $this->load->model('mod_voice_job_list');
         $obj_pdf = new Pdf(PDF_PAGE_ORIENTATION, PDF_UNIT, PDF_PAGE_FORMAT, false, 'UTF-8', false);
         $obj_pdf->SetCreator(PDF_CREATOR);
         $title = '監試說明會簽到表';
@@ -918,14 +920,14 @@ class Test_form extends CI_Controller
 
         $obj_pdf->setFontSubsetting(false);
         $data = array(
-            'part' => $this->mod_voice_task->get_sign_list(),
+            'part' => $this->mod_voice_job_list->get_sign_list(),
         );
         if ($data['part'] != false) {
-            $view = $this->load->view('designated/e_2_4',$data,true);
+            $view = $this->load->view('voice/form_e_2_4',$data,true);
             if (!is_dir('./html/')) {
                 mkdir('./html/');
             } else {
-                $path = 'e_2_4.html';
+                $path = 'form_e_2_4.html';
                 $fp = fopen('./html/'.$path,'w');//建檔
                 fwrite($fp,$view);
                 fclose($fp);//關閉開啟的檔案
@@ -934,9 +936,9 @@ class Test_form extends CI_Controller
             if (!is_dir('./pdf/')) {
                 mkdir('./pdf/');
             } else {
-                exec('wkhtmltopdf --lowquality  --enable-forms http://uat.fofo.tw/fjuexam/html/e_2_4.html  ./pdf/e_2_4.pdf');
+                exec('wkhtmltopdf --lowquality  --enable-forms http://uat.fofo.tw/fjuexam/html/form_e_2_4.html  ./pdf/form_e_2_4.pdf');
             }
-            echo '<script>location.href="http://uat.fofo.tw/fjuexam/pdf/e_2_4.pdf"</script>';
+            echo '<script>location.href="http://uat.fofo.tw/fjuexam/pdf/form_e_2_4.pdf"</script>';
         }else{
             return false;
         }
@@ -958,10 +960,10 @@ class Test_form extends CI_Controller
         return true;
     }
 
-    public function e_2_5()
+    public function form_e_2_5()
     {
         $this->load->library('pdf');
-        $this->load->model('mod_voice_task');
+        $this->load->model('mod_voice_job_list');
         $this->load->model('mod_voice_exam_area');
 
         $obj_pdf = new Pdf(PDF_PAGE_ORIENTATION, PDF_UNIT, PDF_PAGE_FORMAT, false, 'UTF-8', false);
@@ -980,15 +982,15 @@ class Test_form extends CI_Controller
 
         $obj_pdf->setFontSubsetting(false);
         $data = array(
-            'data' => $this->mod_voice_task->member_map(),
-            'list' => $this->mod_voice_task->get_member_map_list()
+            'data' => $this->mod_voice_job_list->member_map(),
+            'list' => $this->mod_voice_job_list->get_member_map_list()
         );
         if ($data['list'] != false) {
-            $view = $this->load->view('designated/e_2_5',$data,true);
+            $view = $this->load->view('voice/form_e_2_5',$data,true);
             if (!is_dir('./html/')) {
                 mkdir('./html/');
             } else {
-                $path = 'e_2_5.html';
+                $path = 'form_e_2_5.html';
                 $fp = fopen('./html/'.$path,'w');//建檔
                 fwrite($fp,$view);
                 fclose($fp);//關閉開啟的檔案
@@ -997,34 +999,34 @@ class Test_form extends CI_Controller
             if (!is_dir('./pdf/')) {
                 mkdir('./pdf/');
             } else {
-                exec('wkhtmltopdf --lowquality  --enable-forms http://uat.fofo.tw/fjuexam/html/e_2_5.html  ./pdf/e_2_5.pdf');
+                exec('wkhtmltopdf --lowquality  --enable-forms http://uat.fofo.tw/fjuexam/html/form_e_2_5.html  ./pdf/form_e_2_5.pdf');
             }
-            echo '<script>location.href="http://uat.fofo.tw/fjuexam/pdf/e_2_5.pdf"</script>';
+            echo '<script>location.href="http://uat.fofo.tw/fjuexam/pdf/form_e_2_5.pdf"</script>';
         }else{
             return false;
         }
     }
 
 
-    public function e_3()
+    public function form_e_3()
     {
         $this->load->model('mod_voice_exam_datetime');
         $this->mod_user->chk_status();
-        if ($this->mod_voice_exam_datetime->chk_once($_SESSION['year'])) {
-            $datetime_info = $this->mod_voice_exam_datetime->get_once($_SESSION['year']);
+        $year = $this->session->userdata('year');
+        $ladder = $this->session->userdata('ladder');
+
+
+        if ($this->mod_voice_exam_datetime->chk_once($year,$ladder)) {
+            $datetime_info = $this->mod_voice_exam_datetime->get_once($year,$ladder);
         } else {
             $datetime_info = array(
-                'day_1' => '1911' + $this->session->userdata('year').'/07/01',
-                'day_2' => '1911' + $this->session->userdata('year').'/07/02',
-                'day_3' => '1911' + $this->session->userdata('year').'/07/03',
+                'day_1' => '1911' + $this->session->userdata('year').'/10/26',
                 'course_1_start' => '08:40',
                 'course_1_end' => '10:00',
                 'course_2_start' => '10:50',
                 'course_2_end' => '12:00',
                 'course_3_start' => '14:00',
                 'course_3_end' => '15:20',
-                'course_4_start' => '16:01',
-                'course_4_end' => '17:30',
                 'pre_1' => '08:25',
                 'pre_2' => '10:45',
                 'pre_3' => '13:55',
@@ -1033,27 +1035,32 @@ class Test_form extends CI_Controller
         }
         $data = array(
             'title' => '日程表 / 分配表',
-            'path' => 'designated/e_3',
+            'path' => 'voice/form_e_3',
             'path_text' => ' > 製作報表 > 日程表 / 分配表',
             'datetime_info'=> $datetime_info
         );
-        $this->load->view('layout', $data);
+        $this->load->view('voice_layout', $data);
     }
 
-    public function e_3_1()
+    public function form_e_3_1()
     {
         $this->load->library('excel');
-        $this->load->model('mod_exam_datetime');
-        $this->load->model('mod_trial');
+        $this->load->model('mod_voice_exam_datetime');
+        $this->load->model('mod_voice_trial');
 
         $objPHPExcel = new PHPExcel();
         $objPHPExcel->setActiveSheetIndex(0);
         $part = $_GET['part'];
         $area = $_GET['area'];
         $year = $this->session->userdata('year');
-        $datetime_info = $this->mod_exam_datetime->get_once($year);
-        $course = $this->mod_exam_datetime->get_course($year);
-        $res = $this->mod_trial->get_supervisor_list($part);
+        $ladder = $this->session->userdata('ladder');
+
+        $datetime_info = $this->mod_voice_exam_datetime->get_once($year,$ladder);
+        $course = $this->mod_voice_exam_datetime->get_course($year,$ladder);
+        $res = $this->mod_voice_trial->get_supervisor_list($part);
+        print_r($res);
+
+     
         for ($i=0; $i < count($res); $i++) {
             # code...
             switch ($res[$i]['subject_01']) {
@@ -1063,568 +1070,56 @@ class Test_form extends CI_Controller
                 default:
                     $subject_01 =  'V';
             }
-            switch ($res[$i]['subject_02']) {
-                case '0':
-                    $subject_02 =  '';
-                    break;
-                default:
-                    $subject_02 =  'V';
-            }
-            switch ($res[$i]['subject_03']) {
-                case '0':
-                    $subject_03 =  '';
-                    break;
-                default:
-                    $subject_03 =  'V';
-            }
-            switch ($res[$i]['subject_04']) {
-                case '0':
-                    $subject_04 =  '';
-                    break;
-                default:
-                    $subject_04 =  'V';
-            }
-            switch ($res[$i]['subject_05']) {
-                case '0':
-                    $subject_05 =  '';
-                    break;
-                default:
-                    $subject_05 =  'V';
-            }
-            switch ($res[$i]['subject_06']) {
-                case '0':
-                    $subject_06 =  '';
-                    break;
-                default:
-                    $subject_06 =  'V';
-            }
-            switch ($res[$i]['subject_07']) {
-                case '0':
-                    $subject_07 =  '';
-                    break;
-                default:
-                    $subject_07 = 'V';
-            }
-            switch ($res[$i]['subject_08']) {
-                case '0':
-                    $subject_08 = '';
-                    break;
-                default:
-                    $subject_08 = 'V';
-            }
-            switch ($res[$i]['subject_09']) {
-                case '0':
-                    $subject_09 = '';
-                    break;
-                default:
-                    $subject_09 = 'V';
-            }
-            switch ($res[$i]['subject_10']) {
-                case '0':
-                    $subject_10 = '';
-                    break;
-                default:
-                    $subject_10 = 'V';
-            }
+        //     switch ($res[$i]['subject_2']) {
+        //         case '0':
+        //             $subject_02 =  '';
+        //             break;
+        //         default:
+        //             $subject_02 =  'V';
+        //     }
 
-            switch ($course[0]['subject']) {
+            switch ($course[0]['subject_01']) {
                 case 'subject_00':
                     $course1 = '';
                     break;
                 case 'subject_01':
-                    $course1 = '物理';
-                    break;
-                case 'subject_02':
-                    $course1 = '化學';
-                    break;
-                case 'subject_03':
-                    $course1 = '生物';
-                    break;
-                case 'subject_04':
-                    $course1 = '數乙';
-                    break;
-                case 'subject_05':
-                    $course1 = '國文';
-                    break;
-                case 'subject_06':
-                    $course1 = '英文';
-                    break;
-                case 'subject_07':
-                    $course1 = '數甲';
-                    break;
-                case 'subject_08':
-                    $course1 = '歷史';
-                    break;
-                case 'subject_09':
-                    $course1 = '地理';
-                    break;
-                case 'subject_10':
-                    $course1 = '公民與社會';
+                    $course1 = '英聽';
                     break;
             }
 
-           switch ($course[1]['subject']) {
-                case 'subject_00':
-                    $course2 = '';
-                    break;
-                case 'subject_01':
-                    $course2 = '物理';
-                    break;
-                case 'subject_02':
-                    $course2 = '化學';
-                    break;
-                case 'subject_03':
-                    $course2 = '生物';
-                    break;
-                case 'subject_04':
-                    $course2 = '數乙';
-                    break;
-                case 'subject_05':
-                    $course2 = '國文';
-                    break;
-                case 'subject_06':
-                    $course2 = '英文';
-                    break;
-                case 'subject_07':
-                    $course2 = '數甲';
-                    break;
-                case 'subject_08':
-                    $course2 = '歷史';
-                    break;
-                case 'subject_09':
-                    $course2 = '地理';
-                    break;
-                case 'subject_10':
-                    $course2 = '公民與社會';
-                    break;
-            }
-
-           switch ($course[2]['subject']) {
-                case 'subject_00':
-                    $course3 = '';
-                    break;
-                case 'subject_01':
-                    $course3 = '物理';
-                    break;
-                case 'subject_02':
-                    $course3 = '化學';
-                    break;
-                case 'subject_03':
-                    $course3 = '生物';
-                    break;
-                case 'subject_04':
-                    $course3 = '數乙';
-                    break;
-                case 'subject_05':
-                    $course3 = '國文';
-                    break;
-                case 'subject_06':
-                    $course3 = '英文';
-                    break;
-                case 'subject_07':
-                    $course3 = '數甲';
-                    break;
-                case 'subject_08':
-                    $course3 = '歷史';
-                    break;
-                case 'subject_09':
-                    $course3 = '地理';
-                    break;
-                case 'subject_10':
-                    $course3 = '公民與社會';
-                    break;
-            }
-
-            switch ($course[3]['subject']) {
-                case 'subject_00':
-                    $course4 = '';
-                    break;
-                case 'subject_01':
-                    $course4 = '物理';
-                    break;
-                case 'subject_02':
-                    $course4 = '化學';
-                    break;
-                case 'subject_03':
-                    $course4 = '生物';
-                    break;
-                case 'subject_04':
-                    $course4 = '數乙';
-                    break;
-                case 'subject_05':
-                    $course4 = '國文';
-                    break;
-                case 'subject_06':
-                    $course4 = '英文';
-                    break;
-                case 'subject_07':
-                    $course4 = '數甲';
-                    break;
-                case 'subject_08':
-                    $course4 = '歷史';
-                    break;
-                case 'subject_09':
-                    $course4 = '地理';
-                    break;
-                case 'subject_10':
-                    $course4 = '公民與社會';
-                    break;
-            }
-
-           switch ($course[4]['subject']) {
-                case 'subject_00':
-                    $course5 = '';
-                    break;
-                case 'subject_01':
-                    $course5 = '物理';
-                    break;
-                case 'subject_02':
-                    $course5 = '化學';
-                    break;
-                case 'subject_03':
-                    $course5 = '生物';
-                    break;
-                case 'subject_04':
-                    $course5 = '數乙';
-                    break;
-                case 'subject_05':
-                    $course5 = '國文';
-                    break;
-                case 'subject_06':
-                    $course5 = '英文';
-                    break;
-                case 'subject_07':
-                    $course5 = '數甲';
-                    break;
-                case 'subject_08':
-                    $course5 = '歷史';
-                    break;
-                case 'subject_09':
-                    $course5 = '地理';
-                    break;
-                case 'subject_10':
-                    $course5 = '公民與社會';
-                    break;
-            }
-
-           switch ($course[5]['subject']) {
-                case 'subject_00':
-                    $course6 = '';
-                    break;
-                case 'subject_01':
-                    $course6 = '物理';
-                    break;
-                case 'subject_02':
-                    $course6 = '化學';
-                    break;
-                case 'subject_03':
-                    $course6 = '生物';
-                    break;
-                case 'subject_04':
-                    $course6 = '數乙';
-                    break;
-                case 'subject_05':
-                    $course6 = '國文';
-                    break;
-                case 'subject_06':
-                    $course6 = '英文';
-                    break;
-                case 'subject_07':
-                    $course6 = '數甲';
-                    break;
-                case 'subject_08':
-                    $course6 = '歷史';
-                    break;
-                case 'subject_09':
-                    $course6 = '地理';
-                    break;
-                case 'subject_10':
-                    $course6 = '公民與社會';
-                    break;
-            }
-
-           switch ($course[6]['subject']) {
-                case 'subject_00':
-                    $course7 = '';
-                    break;
-                case 'subject_01':
-                    $course7 = '物理';
-                    break;
-                case 'subject_02':
-                    $course7 = '化學';
-                    break;
-                case 'subject_03':
-                    $course7 = '生物';
-                    break;
-                case 'subject_04':
-                    $course7 = '數乙';
-                    break;
-                case 'subject_05':
-                    $course7 = '國文';
-                    break;
-                case 'subject_06':
-                    $course7 = '英文';
-                    break;
-                case 'subject_07':
-                    $course7 = '數甲';
-                    break;
-                case 'subject_08':
-                    $course7 = '歷史';
-                    break;
-                case 'subject_09':
-                    $course7 = '地理';
-                    break;
-                case 'subject_10':
-                    $course7 = '公民與社會';
-                    break;
-            }
-
-           switch ($course[7]['subject']) {
-                case 'subject_00':
-                    $course8 = '';
-                    break;
-                case 'subject_01':
-                    $course8 = '物理';
-                    break;
-                case 'subject_02':
-                    $course8 = '化學';
-                    break;
-                case 'subject_03':
-                    $course8 = '生物';
-                    break;
-                case 'subject_04':
-                    $course8 = '數乙';
-                    break;
-                case 'subject_05':
-                    $course8 = '國文';
-                    break;
-                case 'subject_06':
-                    $course8 = '英文';
-                    break;
-                case 'subject_07':
-                    $course8 = '數甲';
-                    break;
-                case 'subject_08':
-                    $course8 = '歷史';
-                    break;
-                case 'subject_09':
-                    $course8 = '地理';
-                    break;
-                case 'subject_10':
-                    $course8 = '公民與社會';
-                    break;
-            }
-
-           switch ($course[8]['subject']) {
-                case 'subject_00':
-                    $course9 = '';
-                    break;
-                case 'subject_01':
-                    $course9 = '物理';
-                    break;
-                case 'subject_02':
-                    $course9 = '化學';
-                    break;
-                case 'subject_03':
-                    $course9 = '生物';
-                    break;
-                case 'subject_04':
-                    $course9 = '數乙';
-                    break;
-                case 'subject_05':
-                    $course9 = '國文';
-                    break;
-                case 'subject_06':
-                    $course9 = '英文';
-                    break;
-                case 'subject_07':
-                    $course9 = '數甲';
-                    break;
-                case 'subject_08':
-                    $course9 = '歷史';
-                    break;
-                case 'subject_09':
-                    $course9 = '地理';
-                    break;
-                case 'subject_10':
-                    $course9 = '公民與社會';
-                    break;
-            }
-
-           switch ($course[9]['subject']) {
-                case 'subject_00':
-                    $course10 = '';
-                    break;
-                case 'subject_01':
-                    $course10 = '物理';
-                    break;
-                case 'subject_02':
-                    $course10 = '化學';
-                    break;
-                case 'subject_03':
-                    $course10 = '生物';
-                    break;
-                case 'subject_04':
-                    $course10 = '數乙';
-                    break;
-                case 'subject_05':
-                    $course10 = '國文';
-                    break;
-                case 'subject_06':
-                    $course10 = '英文';
-                    break;
-                case 'subject_07':
-                    $course10 = '數甲';
-                    break;
-                case 'subject_08':
-                    $course10 = '歷史';
-                    break;
-                case 'subject_09':
-                    $course10 = '地理';
-                    break;
-                case 'subject_10':
-                    $course10 = '公民與社會';
-                    break;
-            }
-
-           switch ($course[10]['subject']) {
-                case 'subject_00':
-                    $course11 = '';
-                    break;
-                case 'subject_01':
-                    $course11 = '物理';
-                    break;
-                case 'subject_02':
-                    $course11 = '化學';
-                    break;
-                case 'subject_03':
-                    $course11 = '生物';
-                    break;
-                case 'subject_04':
-                    $course11 = '數乙';
-                    break;
-                case 'subject_05':
-                    $course11 = '國文';
-                    break;
-                case 'subject_06':
-                    $course11 = '英文';
-                    break;
-                case 'subject_07':
-                    $course11 = '數甲';
-                    break;
-                case 'subject_08':
-                    $course11 = '歷史';
-                    break;
-                case 'subject_09':
-                    $course11 = '地理';
-                    break;
-                case 'subject_10':
-                    $course11 = '公民與社會';
-                    break;
-            }
-
-            switch ($course[11]['subject']) {
-                case 'subject_00':
-                    $course12 = '';
-                    break;
-                case 'subject_01':
-                    $course12 = '物理';
-                    break;
-                case 'subject_02':
-                    $course12 = '化學';
-                    break;
-                case 'subject_03':
-                    $course12 = '生物';
-                    break;
-                case 'subject_04':
-                    $course12 = '數乙';
-                    break;
-                case 'subject_05':
-                    $course12 = '國文';
-                    break;
-                case 'subject_06':
-                    $course12 = '英文';
-                    break;
-                case 'subject_07':
-                    $course12 = '數甲';
-                    break;
-                case 'subject_08':
-                    $course12 = '歷史';
-                    break;
-                case 'subject_09':
-                    $course12 = '地理';
-                    break;
-                case 'subject_10':
-                    $course12 = '公民與社會';
-                    break;
-            }
-
-
+        //    switch ($course[1]['subject']) {
+        //         case 'subject_00':
+        //             $course2 = '';
+        //             break;
+        //         case 'subject_01':
+        //             $course2 = '';
+        //             break;
+        //         case 'subject_02':
+        //             $course2 = '化學';
+        //             break;
+        //     }
 
             $objPHPExcel->getActiveSheet()->setCellValue('A1', '學年度');
             $objPHPExcel->getActiveSheet()->setCellValue('B1', '考試日期一');
-            $objPHPExcel->getActiveSheet()->setCellValue('C1', '考試日期二');
-            $objPHPExcel->getActiveSheet()->setCellValue('D1', '考試日期三');
             $objPHPExcel->getActiveSheet()->setCellValue('E1', '編號');
             $objPHPExcel->getActiveSheet()->setCellValue('F1', '監試人員姓名');
             $objPHPExcel->getActiveSheet()->setCellValue('G1', '監試分區');
             $objPHPExcel->getActiveSheet()->setCellValue('H1', '監試日期');
             $objPHPExcel->getActiveSheet()->setCellValue('I1', '監試節次');
-            $objPHPExcel->getActiveSheet()->setCellValue('J1', '物理');
-            $objPHPExcel->getActiveSheet()->setCellValue('K1', '化學');
-            $objPHPExcel->getActiveSheet()->setCellValue('L1', '生物');
-            $objPHPExcel->getActiveSheet()->setCellValue('M1', '數學乙');
-            $objPHPExcel->getActiveSheet()->setCellValue('N1', '國文');
             $objPHPExcel->getActiveSheet()->setCellValue('O1', '英文');
-            $objPHPExcel->getActiveSheet()->setCellValue('P1', '數學甲');
-            $objPHPExcel->getActiveSheet()->setCellValue('Q1', '歷史');
-            $objPHPExcel->getActiveSheet()->setCellValue('R1', '地理');
-            $objPHPExcel->getActiveSheet()->setCellValue('S1', '公民與社會');
             $objPHPExcel->getActiveSheet()->setCellValue('T1', '第1科');
-            $objPHPExcel->getActiveSheet()->setCellValue('U1', '第2科');
-            $objPHPExcel->getActiveSheet()->setCellValue('V1', '第3科');
-            $objPHPExcel->getActiveSheet()->setCellValue('W1', '第4科');
-            $objPHPExcel->getActiveSheet()->setCellValue('X1', '第5科');
-            $objPHPExcel->getActiveSheet()->setCellValue('Y1', '第6科');
-            $objPHPExcel->getActiveSheet()->setCellValue('Z1', '第7科');
-            $objPHPExcel->getActiveSheet()->setCellValue('AA1', '第8科');
-            $objPHPExcel->getActiveSheet()->setCellValue('AB1', '第9科');
-            $objPHPExcel->getActiveSheet()->setCellValue('AC1', '第10科');
-            $objPHPExcel->getActiveSheet()->setCellValue('AD1', '第11科');
-            $objPHPExcel->getActiveSheet()->setCellValue('AE1', '第12科');
+            $objPHPExcel->getActiveSheet()->setCellValue('U1', '第1科');
 
 
             $objPHPExcel->getActiveSheet()->setCellValue('A'.(2+$i), $_SESSION['year']);
-            $objPHPExcel->getActiveSheet()->setCellValue('B'.(2+$i), mb_substr($datetime_info['day_1'], 5, 8, 'utf-8'));
-            $objPHPExcel->getActiveSheet()->setCellValue('C'.(2+$i), mb_substr($datetime_info['day_2'], 5, 8, 'utf-8'));
-            $objPHPExcel->getActiveSheet()->setCellValue('D'.(2+$i), mb_substr($datetime_info['day_3'], 5, 8, 'utf-8'));
+            $objPHPExcel->getActiveSheet()->setCellValue('B'.(2+$i), mb_substr($datetime_info['day'], 5, 8, 'utf-8'));
             $objPHPExcel->getActiveSheet()->setCellValue('E'.(2+$i), $res[$i]['supervisor_code']);
             $objPHPExcel->getActiveSheet()->setCellValue('F'.(2+$i), trim($res[$i]['supervisor']));
             $objPHPExcel->getActiveSheet()->setCellValue('G'.(2+$i), $_GET['area']);
             $objPHPExcel->getActiveSheet()->setCellValue('H'.(2+$i), str_replace("、",",",$res[$i]['do_date']));
             $objPHPExcel->getActiveSheet()->setCellValue('I'.(2+$i), $res[$i]['test_section']);
             $objPHPExcel->getActiveSheet()->setCellValue('J'.(2+$i), $subject_01);
-            $objPHPExcel->getActiveSheet()->setCellValue('K'.(2+$i), $subject_02);
-            $objPHPExcel->getActiveSheet()->setCellValue('L'.(2+$i), $subject_03);
-            $objPHPExcel->getActiveSheet()->setCellValue('M'.(2+$i), $subject_04);
-            $objPHPExcel->getActiveSheet()->setCellValue('N'.(2+$i), $subject_05);
-            $objPHPExcel->getActiveSheet()->setCellValue('O'.(2+$i), $subject_06);
-            $objPHPExcel->getActiveSheet()->setCellValue('P'.(2+$i), $subject_07);
-            $objPHPExcel->getActiveSheet()->setCellValue('Q'.(2+$i), $subject_08);
-            $objPHPExcel->getActiveSheet()->setCellValue('R'.(2+$i), $subject_09);
-            $objPHPExcel->getActiveSheet()->setCellValue('S'.(2+$i), $subject_10);
-            $objPHPExcel->getActiveSheet()->setCellValue('T'.(2+$i), $course1);
-            $objPHPExcel->getActiveSheet()->setCellValue('U'.(2+$i), $course2);
-            $objPHPExcel->getActiveSheet()->setCellValue('V'.(2+$i), $course3);
-            $objPHPExcel->getActiveSheet()->setCellValue('W'.(2+$i), $course4);
-            $objPHPExcel->getActiveSheet()->setCellValue('X'.(2+$i), $course5);
-            $objPHPExcel->getActiveSheet()->setCellValue('Y'.(2+$i), $course6);
-            $objPHPExcel->getActiveSheet()->setCellValue('Z'.(2+$i), $course7);
-            $objPHPExcel->getActiveSheet()->setCellValue('AA'.(2+$i), $course8);
-            $objPHPExcel->getActiveSheet()->setCellValue('AB'.(2+$i), $course9);
-            $objPHPExcel->getActiveSheet()->setCellValue('AC'.(2+$i), $course10);
-            $objPHPExcel->getActiveSheet()->setCellValue('AD'.(2+$i), $course11);
-            $objPHPExcel->getActiveSheet()->setCellValue('AE'.(2+$i), $course12);
+            $objPHPExcel->getActiveSheet()->setCellValue('T'.(2+$i), $course    );
         }
 
         $objWriter = PHPExcel_IOFactory::createWriter($objPHPExcel, 'CSV');
@@ -1638,11 +1133,11 @@ class Test_form extends CI_Controller
         $objWriter->save('php://output');
     }
 
-    public function e_3_2_1_1()
+    public function form_e_3_2_1()
     {
         $this->load->library('pdf');
-        $this->load->model('mod_trial');
-        $this->load->model('mod_exam_area');
+        $this->load->model('mod_voice_trial');
+        $this->load->model('mod_voice_exam_area');
         $obj_pdf = new Pdf(PDF_PAGE_ORIENTATION, PDF_UNIT, PDF_PAGE_FORMAT, false, 'UTF-8', false);
         $obj_pdf->SetCreator(PDF_CREATOR);
         $title = '試場工作人員分配表';
@@ -1663,19 +1158,19 @@ class Test_form extends CI_Controller
         $obj_pdf->AddPage();
         $date = $_GET['date'];
         $data = array(
-            'part' => $this->mod_trial->e_3_2_1($part),
+            'part' => $this->mod_voice_trial->e_3_2_1($part),
             'area' => $area,
-            'patrol_count'=> $this->mod_trial->get_patrol_member_count_1($part),
-            'trial_count'=>$this->mod_trial->get_trial_member_count($part),
-            'school' => $this->mod_exam_area->year_school_name($part),
+            'patrol_count'=> $this->mod_voice_trial->get_patrol_member_count_1($part),
+            'trial_count'=>$this->mod_voice_trial->get_trial_member_count($part),
+            'school' => $this->mod_voice_exam_area->year_school_name($part),
             'date' => $date,
         );
         // print_r($data);
-        $view = $this->load->view('designated/e_3_2_1', $data, true);
+        $view = $this->load->view('voice/form_e_3_2_1',$data, true);
         if (!is_dir('./html/')) {
             mkdir('./html/');
         } else {
-            $path = 'e_3_2_1.html';
+            $path = 'form_e_3_2_1.html';
             $fp = fopen('./html/'.$path,'w');//建檔
             fwrite($fp,$view);
             fclose($fp);//關閉開啟的檔案
@@ -1684,9 +1179,9 @@ class Test_form extends CI_Controller
         if (!is_dir('./pdf/')) {
             mkdir('./pdf/');
         } else {
-            exec('wkhtmltopdf --lowquality http://uat.fofo.tw/fjuexam/html/e_3_2_1.html  ./pdf/e_3_2_1.pdf');
+            exec('wkhtmltopdf --lowquality http://uat.fofo.tw/fjuexam/html/form_e_3_2_1.html  ./pdf/form_e_3_2_1.pdf');
         }
-        echo '<script>location.href="http://uat.fofo.tw/fjuexam/pdf/e_3_2_1.pdf"</script>';
+        echo '<script>location.href="http://uat.fofo.tw/fjuexam/pdf/form_e_3_2_1.pdf"</script>';
     }
 
     public function e_3_2_1_2()
@@ -1740,11 +1235,62 @@ class Test_form extends CI_Controller
         echo '<script>location.href="http://uat.fofo.tw/fjuexam/pdf/e_3_2_1.pdf"</script>';
     }
 
-    public function e_3_2_1_3()
+    // public function e_3_2_1_3()
+    // {
+    //     $this->load->library('pdf');
+    //     $this->load->model('mod_trial');
+    //     $this->load->model('mod_exam_area');
+    //     $obj_pdf = new Pdf(PDF_PAGE_ORIENTATION, PDF_UNIT, PDF_PAGE_FORMAT, false, 'UTF-8', false);
+    //     $obj_pdf->SetCreator(PDF_CREATOR);
+    //     $title = '試場工作人員分配表';
+    //     $date = date('yyyy/m/d');
+    //     $part = $_GET['part'];
+    //     $area = $_GET['area'];
+
+    //     $obj_pdf->SetTitle($title);
+    //     $obj_pdf->SetHeaderData('', '', $title, '印表日期：'.$date);
+    //     $obj_pdf->setPrintHeader(false);
+    //     // $obj_pdf->SetHeaderMargin(PDF_MARGIN_HEADER);
+    //     $obj_pdf->SetFooterMargin(PDF_MARGIN_FOOTER);
+    //     $obj_pdf->SetMargins(PDF_MARGIN_LEFT, PDF_MARGIN_RIGHT);
+    //     $obj_pdf->SetAutoPageBreak(true, PDF_MARGIN_BOTTOM);
+    //     $obj_pdf->SetFont('msungstdlight', '', 12);
+
+    //     $obj_pdf->setFontSubsetting(false);
+    //     $obj_pdf->AddPage();
+    //     $date = $_GET['date'];
+    //     $data = array(
+    //         'part' => $this->mod_trial->e_3_2_3($part),
+    //         'area' => $area,
+    //         'patrol_count'=> $this->mod_trial->get_patrol_member_count_3($part),
+    //         'trial_count'=>$this->mod_trial->get_trial_member_count($part),
+    //         'school' => $this->mod_exam_area->year_school_name($part),
+    //         'date' => $date,
+    //     );
+    //     // print_r($data);
+    //     $view = $this->load->view('designated/e_3_2_1', $data, true);
+    //     if (!is_dir('./html/')) {
+    //         mkdir('./html/');
+    //     } else {
+    //         $path = 'e_3_2_1.html';
+    //         $fp = fopen('./html/'.$path,'w');//建檔
+    //         fwrite($fp,$view);
+    //         fclose($fp);//關閉開啟的檔案
+    //     }
+
+    //     if (!is_dir('./pdf/')) {
+    //         mkdir('./pdf/');
+    //     } else {
+    //         exec('wkhtmltopdf --lowquality http://uat.fofo.tw/fjuexam/html/e_3_2_1.html  ./pdf/e_3_2_1.pdf');
+    //     }
+    //     echo '<script>location.href="http://uat.fofo.tw/fjuexam/pdf/e_3_2_1.pdf"</script>';
+    // }
+
+    public function form_e_3_2_2()
     {
         $this->load->library('pdf');
-        $this->load->model('mod_trial');
-        $this->load->model('mod_exam_area');
+        $this->load->model('mod_voice_trial');
+        $this->load->model('mod_voice_exam_area');
         $obj_pdf = new Pdf(PDF_PAGE_ORIENTATION, PDF_UNIT, PDF_PAGE_FORMAT, false, 'UTF-8', false);
         $obj_pdf->SetCreator(PDF_CREATOR);
         $title = '試場工作人員分配表';
@@ -1765,19 +1311,19 @@ class Test_form extends CI_Controller
         $obj_pdf->AddPage();
         $date = $_GET['date'];
         $data = array(
-            'part' => $this->mod_trial->e_3_2_3($part),
+            'part' => $this->mod_voice_trial->e_3_2_1($part),
             'area' => $area,
-            'patrol_count'=> $this->mod_trial->get_patrol_member_count_3($part),
-            'trial_count'=>$this->mod_trial->get_trial_member_count($part),
-            'school' => $this->mod_exam_area->year_school_name($part),
+            'patrol_count'=> $this->mod_voice_trial->get_patrol_member_count_1($part),
+            'trial_count'=>$this->mod_voice_trial->get_trial_member_count($part),
+            'school' => $this->mod_voice_exam_area->year_school_name($part),
             'date' => $date,
         );
         // print_r($data);
-        $view = $this->load->view('designated/e_3_2_1', $data, true);
+        $view =  $this->load->view('voice/form_e_3_2_2', $data, true);
         if (!is_dir('./html/')) {
             mkdir('./html/');
         } else {
-            $path = 'e_3_2_1.html';
+            $path = 'form_e_3_2_2.html';
             $fp = fopen('./html/'.$path,'w');//建檔
             fwrite($fp,$view);
             fclose($fp);//關閉開啟的檔案
@@ -1786,16 +1332,20 @@ class Test_form extends CI_Controller
         if (!is_dir('./pdf/')) {
             mkdir('./pdf/');
         } else {
-            exec('wkhtmltopdf --lowquality http://uat.fofo.tw/fjuexam/html/e_3_2_1.html  ./pdf/e_3_2_1.pdf');
+            exec('wkhtmltopdf --lowquality http://uat.fofo.tw/fjuexam/html/form_e_3_2_2.html  ./pdf/form_e_3_2_2.pdf');
         }
-        echo '<script>location.href="http://uat.fofo.tw/fjuexam/pdf/e_3_2_1.pdf"</script>';
+        echo '<script>location.href="http://uat.fofo.tw/fjuexam/pdf/form_e_3_2_2.pdf"</script>';
     }
 
-    public function e_3_2_2_1()
+  
+
+  
+
+    public function form_e_3_2_3()
     {
         $this->load->library('pdf');
-        $this->load->model('mod_trial');
-        $this->load->model('mod_exam_area');
+        $this->load->model('mod_voice_trial');
+        $this->load->model('mod_voice_exam_area');
         $obj_pdf = new Pdf(PDF_PAGE_ORIENTATION, PDF_UNIT, PDF_PAGE_FORMAT, false, 'UTF-8', false);
         $obj_pdf->SetCreator(PDF_CREATOR);
         $title = '試場工作人員分配表';
@@ -1816,19 +1366,19 @@ class Test_form extends CI_Controller
         $obj_pdf->AddPage();
         $date = $_GET['date'];
         $data = array(
-            'part' => $this->mod_trial->e_3_2_1($part),
+            'part' => $this->mod_voice_trial->e_3_2_1($part),
             'area' => $area,
-            'patrol_count'=> $this->mod_trial->get_patrol_member_count_1($part),
-            'trial_count'=>$this->mod_trial->get_trial_member_count($part),
-            'school' => $this->mod_exam_area->year_school_name($part),
+            'patrol_count'=> $this->mod_voice_trial->get_patrol_member_count_1($part),
+            'trial_count'=>$this->mod_voice_trial->get_trial_member_count($part),
+            'school' => $this->mod_voice_exam_area->year_school_name($part),
             'date' => $date,
         );
         // print_r($data);
-        $view =  $this->load->view('designated/e_3_2_2', $data, true);
+        $view =  $this->load->view('voice/form_e_3_2_3', $data, true);
         if (!is_dir('./html/')) {
             mkdir('./html/');
         } else {
-            $path = 'e_3_2_2.html';
+            $path = 'form_e_3_2_3.html';
             $fp = fopen('./html/'.$path,'w');//建檔
             fwrite($fp,$view);
             fclose($fp);//關閉開啟的檔案
@@ -1837,283 +1387,30 @@ class Test_form extends CI_Controller
         if (!is_dir('./pdf/')) {
             mkdir('./pdf/');
         } else {
-            exec('wkhtmltopdf --lowquality http://uat.fofo.tw/fjuexam/html/e_3_2_2.html  ./pdf/e_3_2_2.pdf');
+            exec('wkhtmltopdf --lowquality http://uat.fofo.tw/fjuexam/html/form_e_3_2_3.html  ./pdf/form_e_3_2_3.pdf');
         }
-        echo '<script>location.href="http://uat.fofo.tw/fjuexam/pdf/e_3_2_2.pdf"</script>';
+        echo '<script>location.href="http://uat.fofo.tw/fjuexam/pdf/form_e_3_2_3.pdf"</script>';
     }
 
-    public function e_3_2_2_2()
-    {
-        $this->load->library('pdf');
-        $this->load->model('mod_trial');
-        $this->load->model('mod_exam_area');
-        $obj_pdf = new Pdf(PDF_PAGE_ORIENTATION, PDF_UNIT, PDF_PAGE_FORMAT, false, 'UTF-8', false);
-        $obj_pdf->SetCreator(PDF_CREATOR);
-        $title = '試場工作人員分配表';
-        $date = date('yyyy/m/d');
-        $part = $_GET['part'];
-        $area = $_GET['area'];
+  
 
-        $obj_pdf->SetTitle($title);
-        $obj_pdf->SetHeaderData('', '', $title, '印表日期：'.$date);
-        $obj_pdf->setPrintHeader(false);
-        // $obj_pdf->SetHeaderMargin(PDF_MARGIN_HEADER);
-        $obj_pdf->SetFooterMargin(PDF_MARGIN_FOOTER);
-        $obj_pdf->SetMargins(PDF_MARGIN_LEFT, PDF_MARGIN_RIGHT);
-        $obj_pdf->SetAutoPageBreak(true, PDF_MARGIN_BOTTOM);
-        $obj_pdf->SetFont('msungstdlight', '', 12);
-
-        $obj_pdf->setFontSubsetting(false);
-        $obj_pdf->AddPage();
-        $date = $_GET['date'];
-        $data = array(
-            'part' => $this->mod_trial->e_3_2_2($part),
-            'area' => $area,
-            'patrol_count'=> $this->mod_trial->get_patrol_member_count_2($part),
-            'trial_count'=>$this->mod_trial->get_trial_member_count($part),
-            'school' => $this->mod_exam_area->year_school_name($part),
-            'date' => $date,
-        );
-        // print_r($data);
-        $view =  $this->load->view('designated/e_3_2_2', $data, true);
-        if (!is_dir('./html/')) {
-            mkdir('./html/');
-        } else {
-            $path = 'e_3_2_2.html';
-            $fp = fopen('./html/'.$path,'w');//建檔
-            fwrite($fp,$view);
-            fclose($fp);//關閉開啟的檔案
-        }
-
-        if (!is_dir('./pdf/')) {
-            mkdir('./pdf/');
-        } else {
-            exec('wkhtmltopdf --lowquality http://uat.fofo.tw/fjuexam/html/e_3_2_2.html  ./pdf/e_3_2_2.pdf');
-        }
-        echo '<script>location.href="http://uat.fofo.tw/fjuexam/pdf/e_3_2_2.pdf"</script>';
-    }
-
-    public function e_3_2_2_3()
-    {
-        $this->load->library('pdf');
-        $this->load->model('mod_trial');
-        $this->load->model('mod_exam_area');
-        $obj_pdf = new Pdf(PDF_PAGE_ORIENTATION, PDF_UNIT, PDF_PAGE_FORMAT, false, 'UTF-8', false);
-        $obj_pdf->SetCreator(PDF_CREATOR);
-        $title = '試場工作人員分配表';
-        $date = date('yyyy/m/d');
-        $part = $_GET['part'];
-        $area = $_GET['area'];
-
-        $obj_pdf->SetTitle($title);
-        $obj_pdf->SetHeaderData('', '', $title, '印表日期：'.$date);
-        $obj_pdf->setPrintHeader(false);
-        // $obj_pdf->SetHeaderMargin(PDF_MARGIN_HEADER);
-        $obj_pdf->SetFooterMargin(PDF_MARGIN_FOOTER);
-        $obj_pdf->SetMargins(PDF_MARGIN_LEFT, PDF_MARGIN_RIGHT);
-        $obj_pdf->SetAutoPageBreak(true, PDF_MARGIN_BOTTOM);
-        $obj_pdf->SetFont('msungstdlight', '', 12);
-
-        $obj_pdf->setFontSubsetting(false);
-        $obj_pdf->AddPage();
-        $date = $_GET['date'];
-        $data = array(
-            'part' => $this->mod_trial->e_3_2_3($part),
-            'area' => $area,
-            'patrol_count'=> $this->mod_trial->get_patrol_member_count_3($part),
-            'trial_count'=>$this->mod_trial->get_trial_member_count($part),
-            'school' => $this->mod_exam_area->year_school_name($part),
-            'date' => $date,
-        );
-        // print_r($data);
-        $view =  $this->load->view('designated/e_3_2_2', $data, true);
-        if (!is_dir('./html/')) {
-            mkdir('./html/');
-        } else {
-            $path = 'e_3_2_2.html';
-            $fp = fopen('./html/'.$path,'w');//建檔
-            fwrite($fp,$view);
-            fclose($fp);//關閉開啟的檔案
-        }
-
-        if (!is_dir('./pdf/')) {
-            mkdir('./pdf/');
-        } else {
-            exec('wkhtmltopdf --lowquality http://uat.fofo.tw/fjuexam/html/e_3_2_2.html  ./pdf/e_3_2_2.pdf');
-        }
-        echo '<script>location.href="http://uat.fofo.tw/fjuexam/pdf/e_3_2_2.pdf"</script>';
-    }
-
-    public function e_3_2_3_1()
-    {
-        $this->load->library('pdf');
-        $this->load->model('mod_trial');
-        $this->load->model('mod_exam_area');
-        $obj_pdf = new Pdf(PDF_PAGE_ORIENTATION, PDF_UNIT, PDF_PAGE_FORMAT, false, 'UTF-8', false);
-        $obj_pdf->SetCreator(PDF_CREATOR);
-        $title = '試場工作人員分配表';
-        $date = date('yyyy/m/d');
-        $part = $_GET['part'];
-        $area = $_GET['area'];
-
-        $obj_pdf->SetTitle($title);
-        $obj_pdf->SetHeaderData('', '', $title, '印表日期：'.$date);
-        $obj_pdf->setPrintHeader(false);
-        // $obj_pdf->SetHeaderMargin(PDF_MARGIN_HEADER);
-        $obj_pdf->SetFooterMargin(PDF_MARGIN_FOOTER);
-        $obj_pdf->SetMargins(PDF_MARGIN_LEFT, PDF_MARGIN_RIGHT);
-        $obj_pdf->SetAutoPageBreak(true, PDF_MARGIN_BOTTOM);
-        $obj_pdf->SetFont('msungstdlight', '', 12);
-
-        $obj_pdf->setFontSubsetting(false);
-        $obj_pdf->AddPage();
-        $date = $_GET['date'];
-        $data = array(
-            'part' => $this->mod_trial->e_3_2_1($part),
-            'area' => $area,
-            'patrol_count'=> $this->mod_trial->get_patrol_member_count_1($part),
-            'trial_count'=>$this->mod_trial->get_trial_member_count($part),
-            'school' => $this->mod_exam_area->year_school_name($part),
-            'date' => $date,
-        );
-        // print_r($data);
-        $view =  $this->load->view('designated/e_3_2_3', $data, true);
-        if (!is_dir('./html/')) {
-            mkdir('./html/');
-        } else {
-            $path = 'e_3_2_3.html';
-            $fp = fopen('./html/'.$path,'w');//建檔
-            fwrite($fp,$view);
-            fclose($fp);//關閉開啟的檔案
-        }
-
-        if (!is_dir('./pdf/')) {
-            mkdir('./pdf/');
-        } else {
-            exec('wkhtmltopdf --lowquality http://uat.fofo.tw/fjuexam/html/e_3_2_3.html  ./pdf/e_3_2_3.pdf');
-        }
-        echo '<script>location.href="http://uat.fofo.tw/fjuexam/pdf/e_3_2_3.pdf"</script>';
-    }
-
-       public function e_3_2_3_2()
-    {
-        $this->load->library('pdf');
-        $this->load->model('mod_trial');
-        $this->load->model('mod_exam_area');
-        $obj_pdf = new Pdf(PDF_PAGE_ORIENTATION, PDF_UNIT, PDF_PAGE_FORMAT, false, 'UTF-8', false);
-        $obj_pdf->SetCreator(PDF_CREATOR);
-        $title = '試場工作人員分配表';
-        $date = date('yyyy/m/d');
-        $part = $_GET['part'];
-        $area = $_GET['area'];
-
-        $obj_pdf->SetTitle($title);
-        $obj_pdf->SetHeaderData('', '', $title, '印表日期：'.$date);
-        $obj_pdf->setPrintHeader(false);
-        // $obj_pdf->SetHeaderMargin(PDF_MARGIN_HEADER);
-        $obj_pdf->SetFooterMargin(PDF_MARGIN_FOOTER);
-        $obj_pdf->SetMargins(PDF_MARGIN_LEFT, PDF_MARGIN_RIGHT);
-        $obj_pdf->SetAutoPageBreak(true, PDF_MARGIN_BOTTOM);
-        $obj_pdf->SetFont('msungstdlight', '', 12);
-
-        $obj_pdf->setFontSubsetting(false);
-        $obj_pdf->AddPage();
-        $date = $_GET['date'];
-        $data = array(
-            'part' => $this->mod_trial->e_3_2_2($part),
-            'area' => $area,
-            'patrol_count'=> $this->mod_trial->get_patrol_member_count_2($part),
-            'trial_count'=>$this->mod_trial->get_trial_member_count($part),
-            'school' => $this->mod_exam_area->year_school_name($part),
-            'date' => $date,
-        );
-        // print_r($data);
-        $view =  $this->load->view('designated/e_3_2_3', $data, true);
-        if (!is_dir('./html/')) {
-            mkdir('./html/');
-        } else {
-            $path = 'e_3_2_3.html';
-            $fp = fopen('./html/'.$path,'w');//建檔
-            fwrite($fp,$view);
-            fclose($fp);//關閉開啟的檔案
-        }
-
-        if (!is_dir('./pdf/')) {
-            mkdir('./pdf/');
-        } else {
-            exec('wkhtmltopdf --lowquality http://uat.fofo.tw/fjuexam/html/e_3_2_3.html  ./pdf/e_3_2_3.pdf');
-        }
-        echo '<script>location.href="http://uat.fofo.tw/fjuexam/pdf/e_3_2_3.pdf"</script>';
-    }
-
-       public function e_3_2_3_3()
-    {
-        $this->load->library('pdf');
-        $this->load->model('mod_trial');
-        $this->load->model('mod_exam_area');
-        $obj_pdf = new Pdf(PDF_PAGE_ORIENTATION, PDF_UNIT, PDF_PAGE_FORMAT, false, 'UTF-8', false);
-        $obj_pdf->SetCreator(PDF_CREATOR);
-        $title = '試場工作人員分配表';
-        $date = date('yyyy/m/d');
-        $part = $_GET['part'];
-        $area = $_GET['area'];
-
-        $obj_pdf->SetTitle($title);
-        $obj_pdf->SetHeaderData('', '', $title, '印表日期：'.$date);
-        $obj_pdf->setPrintHeader(false);
-        // $obj_pdf->SetHeaderMargin(PDF_MARGIN_HEADER);
-        $obj_pdf->SetFooterMargin(PDF_MARGIN_FOOTER);
-        $obj_pdf->SetMargins(PDF_MARGIN_LEFT, PDF_MARGIN_RIGHT);
-        $obj_pdf->SetAutoPageBreak(true, PDF_MARGIN_BOTTOM);
-        $obj_pdf->SetFont('msungstdlight', '', 12);
-
-        $obj_pdf->setFontSubsetting(false);
-        $obj_pdf->AddPage();
-        $date = $_GET['date'];
-        $data = array(
-            'part' => $this->mod_trial->e_3_2_3($part),
-            'area' => $area,
-            'patrol_count'=> $this->mod_trial->get_patrol_member_count_3($part),
-            'trial_count'=>$this->mod_trial->get_trial_member_count($part),
-            'school' => $this->mod_exam_area->year_school_name($part),
-            'date' => $date,
-        );
-        // print_r($data);
-        $view =  $this->load->view('designated/e_3_2_3', $data, true);
-        if (!is_dir('./html/')) {
-            mkdir('./html/');
-        } else {
-            $path = 'e_3_2_3.html';
-            $fp = fopen('./html/'.$path,'w');//建檔
-            fwrite($fp,$view);
-            fclose($fp);//關閉開啟的檔案
-        }
-
-        if (!is_dir('./pdf/')) {
-            mkdir('./pdf/');
-        } else {
-            exec('wkhtmltopdf --lowquality http://uat.fofo.tw/fjuexam/html/e_3_2_3.html  ./pdf/e_3_2_3.pdf');
-        }
-        echo '<script>location.href="http://uat.fofo.tw/fjuexam/pdf/e_3_2_3.pdf"</script>';
-    }
-
-    public function e_4()
+    public function form_e_4()
     {
         $this->mod_user->chk_status();
         $data = array(
             'title' => '監試務工作說明會教務處書函',
-            'path' => 'designated/e_4',
+            'path' => 'voice/form_e_4',
             'path_text' => ' > 製作報表 > 監試務工作說明會教務處書函',
         );
-        $this->load->view('layout', $data);
+        $this->load->view('voice_layout', $data);
     }
 
-    public function e_4_1()
+    public function form_e_4_1()
     {
         $this->mod_user->chk_status();
         $data = array(
             'title' => '監試務工作說明會教務處書函',
-            'path' => 'designated/e_4_1',
+            'path' => 'voice/form_e_4_1',
             'path_text' => ' > 製作報表 > 監試務工作說明會教務處書函',
         );
         $this->load->view('layout', $data);
@@ -2122,12 +1419,11 @@ class Test_form extends CI_Controller
     public function e_4_1_1()
     {
         $this->load->library('excel');
-        $this->load->model('mod_patrol');
-        $this->load->model('mod_trial');
+        $this->load->model('mod_voice_trial');
 
         $objPHPExcel = new PHPExcel();
         $objPHPExcel->setActiveSheetIndex(0);
-        $arr = $this->mod_trial->get_list_for_csv();
+        $arr = $this->mod_voice_trial->get_list_for_csv();
         for ($i=0; $i < count($arr); $i++) {
             # code...
             $objPHPExcel->getActiveSheet()->setCellValue('A1', '學年度');
@@ -2154,12 +1450,11 @@ class Test_form extends CI_Controller
     public function e_4_1_2()
     {
         $this->load->library('excel');
-        $this->load->model('mod_patrol');
-        $this->load->model('mod_task');
+        $this->load->model('mod_voice_job_list');
 
         $objPHPExcel = new PHPExcel();
         $objPHPExcel->setActiveSheetIndex(0);
-        $res = $this->mod_task->get_list_for_csv();
+        $res = $this->mod_voice_job_list->get_list_for_csv();
         for ($i=0; $i < count($res); $i++) {
             # code...
             $objPHPExcel->getActiveSheet()->setCellValue('A1', '學年度');
@@ -2184,11 +1479,11 @@ class Test_form extends CI_Controller
     public function e_4_1_3()
     {
         $this->load->library('excel');
-        $this->load->model('mod_patrol');
+        $this->load->model('mod_voice_patorl');
 
         $objPHPExcel = new PHPExcel();
         $objPHPExcel->setActiveSheetIndex(0);
-        $arr = $this->mod_patrol->get_trial_staff_for_csv();
+        $arr = $this->mod_voice_patorl->get_trial_staff_for_csv();
         for ($i=0; $i < count($arr); $i++) {
             # code...
             $objPHPExcel->getActiveSheet()->setCellValue('A1', '學年度');
@@ -2215,12 +1510,12 @@ class Test_form extends CI_Controller
     public function e_4_1_4()
     {
         $this->load->library('excel');
-        $this->load->model('mod_patrol');
+        $this->load->model('mod_voice_patorl');
         $this->load->model('mod_trial');
 
         $objPHPExcel = new PHPExcel();
         $objPHPExcel->setActiveSheetIndex(0);
-        $arr = $this->mod_patrol->get_patrol_for_csv();
+        $arr = $this->mod_voice_patorl->get_patrol_for_csv();
         for ($i=0; $i < count($arr); $i++) {
             # code...
             $objPHPExcel->getActiveSheet()->setCellValue('A1', '學年度');
@@ -2244,34 +1539,34 @@ class Test_form extends CI_Controller
         $objWriter->save('php://output');
     }
 
-    public function e_5()
+    public function form_e_5()
     {
         $this->mod_user->chk_status();
         $data = array(
             'title' => '識別證 / 標籤',
-            'path' => 'designated/e_5',
+            'path' => 'voice/form_e_5',
             'path_text' => ' > 製作報表 > 識別證 / 標籤',
         );
         $this->load->view('layout', $data);
     }
 
-    public function e_5_1()
+    public function form_e_5_1()
     {
         $this->mod_user->chk_status();
         $data = array(
             'title' => '識別證 / 標籤',
-            'path' => 'designated/e_5_1',
+            'path' => 'voice/form_e_5_1',
             'path_text' => ' > 製作報表 > 識別證 / 標籤',
         );
         $this->load->view('layout', $data);
     }
 
-    public function e_5_2()
+    public function form_e_5_2()
     {
         $this->mod_user->chk_status();
         $data = array(
             'title' => '套印標籤',
-            'path' => 'designated/e_5_2',
+            'path' => 'voice/form_e_5_2',
             'path_text' => ' > 製作報表 > 識別證 / 標籤 > 套印標籤',
         );
         $this->load->view('layout', $data);
@@ -2281,11 +1576,11 @@ class Test_form extends CI_Controller
     {
         $this->load->library('excel');
         $this->load->model('mod_patrol');
-        $this->load->model('mod_trial');
+        $this->load->model('mod_voice_trial');
 
         $objPHPExcel = new PHPExcel();
         $objPHPExcel->setActiveSheetIndex(0);
-        $arr = $this->mod_trial->get_list_for_csv();
+        $arr = $this->mod_voice_trial->get_list_for_csv();
         for ($i=0; $i < count($arr); $i++) {
             # code...
             $objPHPExcel->getActiveSheet()->setCellValue('A1', '分區');
@@ -2315,11 +1610,11 @@ class Test_form extends CI_Controller
     public function e_5_1_2()
     {
         $this->load->library('excel');
-        $this->load->model('mod_task');
+        $this->load->model('mod_voice_job_list');
 
         $objPHPExcel = new PHPExcel();
         $objPHPExcel->setActiveSheetIndex(0);
-        $arr = $this->mod_task->get_list_for_csv();
+        $arr = $this->mod_voice_job_list->get_list_for_csv();
         for ($i=0; $i < count($arr); $i++) {
             # code...
             $objPHPExcel->getActiveSheet()->setCellValue('A1', '分區');
@@ -2349,11 +1644,11 @@ class Test_form extends CI_Controller
     public function e_5_1_3()
     {
         $this->load->library('excel');
-        $this->load->model('mod_patrol');
+        $this->load->model('mod_voice_patorl');
 
         $objPHPExcel = new PHPExcel();
         $objPHPExcel->setActiveSheetIndex(0);
-        $arr = $this->mod_patrol->get_trial_staff_for_csv();
+        $arr = $this->mod_voice_patorl->get_trial_staff_for_csv();
         for ($i=0; $i < count($arr); $i++) {
             # code...
             $objPHPExcel->getActiveSheet()->setCellValue('A1', '分區');
@@ -2383,11 +1678,11 @@ class Test_form extends CI_Controller
     public function e_5_1_4()
     {
         $this->load->library('excel');
-        $this->load->model('mod_patrol');
+        $this->load->model('mod_voice_patorl');
 
         $objPHPExcel = new PHPExcel();
         $objPHPExcel->setActiveSheetIndex(0);
-        $arr = $this->mod_patrol->get_patrol_for_csv();
+        $arr = $this->mod_voice_patorl->get_patrol_for_csv();
         for ($i=0; $i < count($arr); $i++) {
             # code...
             $objPHPExcel->getActiveSheet()->setCellValue('A1', '分區');
@@ -2418,11 +1713,11 @@ class Test_form extends CI_Controller
     {
         $this->load->library('excel');
         $this->load->model('mod_patrol');
-        $this->load->model('mod_trial');
+        $this->load->model('mod_voice_trial');
 
         $objPHPExcel = new PHPExcel();
         $objPHPExcel->setActiveSheetIndex(0);
-        $arr = $this->mod_trial->get_list_for_csv();
+        $arr = $this->mod_voice_trial->get_list_for_csv();
         for ($i=0; $i < count($arr); $i++) {
             # code...
             $objPHPExcel->getActiveSheet()->setCellValue('A1', '單位');
@@ -2447,11 +1742,11 @@ class Test_form extends CI_Controller
     public function e_5_2_2()
     {
         $this->load->library('excel');
-        $this->load->model('mod_task');
+        $this->load->model('mod_voice_job_list');
 
         $objPHPExcel = new PHPExcel();
         $objPHPExcel->setActiveSheetIndex(0);
-        $arr = $this->mod_task->get_district_task_csv();
+        $arr = $this->mod_voice_job_list->get_district_task_csv();
         for ($i=0; $i < count($arr); $i++) {
             # code...
             $objPHPExcel->getActiveSheet()->setCellValue('A1', '單位');
@@ -2477,11 +1772,11 @@ class Test_form extends CI_Controller
     public function e_5_2_3()
     {
         $this->load->library('excel');
-        $this->load->model('mod_patrol');
+        $this->load->model('mod_voice_patorl');
 
         $objPHPExcel = new PHPExcel();
         $objPHPExcel->setActiveSheetIndex(0);
-        $arr = $this->mod_patrol->get_trial_staff_for_csv();
+        $arr = $this->mod_voice_patorl->get_trial_staff_for_csv();
         for ($i=0; $i < count($arr); $i++) {
             # code...
             $objPHPExcel->getActiveSheet()->setCellValue('A1', '單位');
@@ -2506,11 +1801,11 @@ class Test_form extends CI_Controller
     public function e_5_2_4()
     {
         $this->load->library('excel');
-        $this->load->model('mod_patrol');
+        $this->load->model('mod_voice_patorl');
 
         $objPHPExcel = new PHPExcel();
         $objPHPExcel->setActiveSheetIndex(0);
-        $arr = $this->mod_patrol->get_patrol_for_csv();
+        $arr = $this->mod_voice_patorl->get_patrol_for_csv();
         for ($i=0; $i < count($arr); $i++) {
             # code...
             $objPHPExcel->getActiveSheet()->setCellValue('A1', '單位');
@@ -2533,12 +1828,12 @@ class Test_form extends CI_Controller
     }
 
 
-    public function e_6()
+    public function form_e_6()
     {
         $this->mod_user->chk_status();
         $data = array(
             'title' => '印領清冊',
-            'path' => 'designated/e_6',
+            'path' => 'voice/form_e_6',
             'path_text' => ' > 製作報表 > 印領清冊',
         );
         $this->load->view('layout', $data);
