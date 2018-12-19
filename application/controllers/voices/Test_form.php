@@ -293,10 +293,10 @@ class Test_form extends CI_Controller
         }
     }
 
-    public function form_e1_4()
+    public function form_e1_3_5()
     {
         $this->load->library('pdf');
-        $this->load->model('mod_voice_task');
+        $this->load->model('mod_voice_job_list');
         $this->load->model('mod_voice_exam_area');
         $this->load->model("mod_voice_part_addr");
         $part = $_GET['part'];
@@ -309,8 +309,10 @@ class Test_form extends CI_Controller
         }
         
         $year = $_SESSION['year'];
-        if ($this->mod_voice_part_addr->chk_once($year)) {
-            $addr_info = $this->mod_voice_part_addr->get_once($year);
+        $ladder = $_SESSION['ladder'];
+
+        if ($this->mod_voice_part_addr->chk_once($year,$ladder)) {
+            $addr_info = $this->mod_voice_part_addr->get_once($year,$ladder);
         } else {
             $addr_info = array(
                 'part_addr_1' => '',
@@ -319,17 +321,17 @@ class Test_form extends CI_Controller
             );
         }
         $data = array(
-            'part' => $this->mod_voice_task->get_patrol_staff_list_for_pdf($area,$part),
+            'part' => $this->mod_voice_job_list->get_patrol_staff_list_for_pdf($area,$part),
             'area' => $area,
             'school' => $this->mod_voice_exam_area->year_school_name($part),
             'addr_info' => $addr_info,
         );
         if($data['part'] != false){
-            $view =  $this->load->view('designated/e_1_3_5', $data, true);
+            $view =  $this->load->view('voice/form_e1_3_5', $data, true);
             if (!is_dir('./html/')) {
                 mkdir('./html/');
             } else {
-                $path = 'e_1_3_5.html';
+                $path = 'form_e1_3_5.html';
                 $fp = fopen('./html/'.$path,'w');//建檔
                 fwrite($fp,$view);
                 fclose($fp);//關閉開啟的檔案
@@ -340,13 +342,14 @@ class Test_form extends CI_Controller
             if (!is_dir('./pdf/')) {
                 mkdir('./pdf/');
             } else {
-                exec('wkhtmltopdf --lowquality --enable-forms http://uat.fofo.tw/fjuexam/html/e_1_3_5.html  ./pdf/e_1_3_5.pdf');
+                exec('wkhtmltopdf --lowquality --enable-forms http://uat.fofo.tw/fjuexam/html/form_e1_3_5.html  ./pdf/form_e1_3_5.pdf');
             }
-            echo '<script>location.href="http://uat.fofo.tw/fjuexam/pdf/e_1_3_5.pdf"</script>';
+            echo '<script>location.href="http://uat.fofo.tw/fjuexam/pdf/form_e1_3_5.pdf"</script>';
         }else{
           return false;
         }
     }
+    
 
    /********************************************
     * E2

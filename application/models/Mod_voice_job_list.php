@@ -664,6 +664,35 @@ class Mod_voice_job_list extends CI_Model
         }
     }      
 
+    public function get_patrol_staff_list_for_pdf($area = '',$part = ''){
+        //取出巡場人員
+        $this->db->where('year', $this->session->userdata('year'));
+        $this->db->where('ladder', $this->session->userdata('ladder'));
+        
+        if($part != ''){
+            $this->db->where('voice_patrol_staff.part',$part);
+        }
+        $res = $this->db->get('voice_patrol_staff')->result_array();  
+        if (!empty($res)) {
+            for ($i=0; $i < count($res); $i++) {
+                # code...
+                $member = $this->db->where('member_code', $res[$i]['patrol_staff_code'])->get('voice_import_member')->row_array();
+                    $arr[] = array(
+                        'job_code' => $res[$i]['patrol_staff_code'],
+                        'job' => '分區巡場人員',
+                        'job_title' => $member['member_title'],
+                        'name' => $res[$i]['patrol_staff_name'],
+                        'member_unit'=>$member['member_unit'],
+                        'note' => $res[$i]['note'],
+                    );
+            }
+
+            return $arr;
+        }else{
+            return false;
+        }        
+    }    
+
 
 
 
