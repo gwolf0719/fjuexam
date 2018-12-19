@@ -2015,6 +2015,7 @@ class Designated extends CI_Controller
         $datetime_info = $this->mod_exam_datetime->get_once($year);
         $course = $this->mod_exam_datetime->get_course($year);
         $res = $this->mod_trial->get_supervisor_list($part);
+        print_r($course);
         for ($i=0; $i < count($res); $i++) {
             # code...
             switch ($res[$i]['subject_01']) {
@@ -2588,15 +2589,15 @@ class Designated extends CI_Controller
             $objPHPExcel->getActiveSheet()->setCellValue('AE'.(2+$i), $course12);
         }
 
-        $objWriter = PHPExcel_IOFactory::createWriter($objPHPExcel, 'CSV');
+        // $objWriter = PHPExcel_IOFactory::createWriter($objPHPExcel, 'CSV');
 
 
-        header('Content-Type: application/vnd.ms-excel');
-        header('Content-Disposition: attachment;filename="監試人員監考日程表'.'.csv"');
-        header('Cache-Control: max-age=0');
+        // header('Content-Type: application/vnd.ms-excel');
+        // header('Content-Disposition: attachment;filename="監試人員監考日程表'.'.csv"');
+        // header('Cache-Control: max-age=0');
 
 
-        $objWriter->save('php://output');
+        // $objWriter->save('php://output');
     }
 
     public function e_3_2_1_1()

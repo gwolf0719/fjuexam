@@ -886,7 +886,9 @@ class Test_form extends CI_Controller
 
         $datetime_info = $this->mod_voice_exam_datetime->get_once($year,$ladder);
         $course = $this->mod_voice_exam_datetime->get_course($year,$ladder);
+
         $res = $this->mod_voice_trial->get_supervisor_list($part);
+
 
 
      
@@ -899,22 +901,22 @@ class Test_form extends CI_Controller
                 default:
                     $subject_01 =  'V';
             }
-        //     switch ($res[$i]['subject_2']) {
-        //         case '0':
-        //             $subject_02 =  '';
-        //             break;
-        //         default:
-        //             $subject_02 =  'V';
-        //     }
+            // switch ($res[$i]['subject_2']) {
+            //     case '0':
+            //         $subject_02 =  '';
+            //         break;
+            //     default:
+            //         $subject_02 =  'V';
+            // }
 
-            switch ($course[0]['subject_01']) {
-                case 'subject_00':
-                    $course1 = '';
-                    break;
-                case 'subject_01':
-                    $course1 = '英聽';
-                    break;
-            }
+            // switch ($course[0]['subject_1']) {
+            //     case 'subject_0':
+            //         $course1 = '';
+            //         break;
+            //     case 'subject_1':
+            //         $course1 = '英聽';
+            //         break;
+            // }
 
         //    switch ($course[1]['subject']) {
         //         case 'subject_00':
@@ -929,26 +931,30 @@ class Test_form extends CI_Controller
         //     }
 
             $objPHPExcel->getActiveSheet()->setCellValue('A1', '學年度');
-            $objPHPExcel->getActiveSheet()->setCellValue('B1', '考試日期一');
-            $objPHPExcel->getActiveSheet()->setCellValue('E1', '編號');
-            $objPHPExcel->getActiveSheet()->setCellValue('F1', '監試人員姓名');
-            $objPHPExcel->getActiveSheet()->setCellValue('G1', '監試分區');
-            $objPHPExcel->getActiveSheet()->setCellValue('H1', '監試日期');
-            $objPHPExcel->getActiveSheet()->setCellValue('I1', '監試節次');
-            $objPHPExcel->getActiveSheet()->setCellValue('O1', '英文');
-            $objPHPExcel->getActiveSheet()->setCellValue('T1', '第1科');
-            $objPHPExcel->getActiveSheet()->setCellValue('U1', '第1科');
+            $objPHPExcel->getActiveSheet()->setCellValue('B1', '場次');
+            $objPHPExcel->getActiveSheet()->setCellValue('C1', '考試日期一');
+            $objPHPExcel->getActiveSheet()->setCellValue('D1', '編號');
+            $objPHPExcel->getActiveSheet()->setCellValue('E1', '監試人員姓名');
+            $objPHPExcel->getActiveSheet()->setCellValue('F1', '監試分區');
+            $objPHPExcel->getActiveSheet()->setCellValue('G1', '監試日期');
+            $objPHPExcel->getActiveSheet()->setCellValue('H1', '監試節次');
+            $objPHPExcel->getActiveSheet()->setCellValue('I1', '英聽');
+            $objPHPExcel->getActiveSheet()->setCellValue('J1', '第1科');
+            $objPHPExcel->getActiveSheet()->setCellValue('K1', '第1科');
 
 
             $objPHPExcel->getActiveSheet()->setCellValue('A'.(2+$i), $_SESSION['year']);
-            $objPHPExcel->getActiveSheet()->setCellValue('B'.(2+$i), mb_substr($datetime_info['day'], 5, 8, 'utf-8'));
-            $objPHPExcel->getActiveSheet()->setCellValue('E'.(2+$i), $res[$i]['supervisor_code']);
-            $objPHPExcel->getActiveSheet()->setCellValue('F'.(2+$i), trim($res[$i]['supervisor']));
-            $objPHPExcel->getActiveSheet()->setCellValue('G'.(2+$i), $_GET['area']);
-            $objPHPExcel->getActiveSheet()->setCellValue('H'.(2+$i), str_replace("、",",",$res[$i]['do_date']));
-            $objPHPExcel->getActiveSheet()->setCellValue('I'.(2+$i), $res[$i]['test_section']);
-            $objPHPExcel->getActiveSheet()->setCellValue('J'.(2+$i), $subject_01);
-            $objPHPExcel->getActiveSheet()->setCellValue('T'.(2+$i), $course    );
+            $objPHPExcel->getActiveSheet()->setCellValue('B'.(2+$i), $_SESSION['year']);
+            $objPHPExcel->getActiveSheet()->setCellValue('C'.(2+$i), mb_substr($datetime_info['day'], 5, 8, 'utf-8'));
+            $objPHPExcel->getActiveSheet()->setCellValue('D'.(2+$i), $res[$i]['supervisor_code']);
+            $objPHPExcel->getActiveSheet()->setCellValue('E'.(2+$i), trim($res[$i]['supervisor']));
+            $objPHPExcel->getActiveSheet()->setCellValue('F'.(2+$i), $_GET['area']);
+            $objPHPExcel->getActiveSheet()->setCellValue('G'.(2+$i), str_replace("、",",",$res[$i]['do_date']));
+            $objPHPExcel->getActiveSheet()->setCellValue('H'.(2+$i), $res[$i]['test_section']);
+            $objPHPExcel->getActiveSheet()->setCellValue('I'.(2+$i), $subject_01);
+            // $objPHPExcel->getActiveSheet()->setCellValue('J'.(2+$i), $course);
+            // $objPHPExcel->getActiveSheet()->setCellValue('K'.(2+$i), $course);
+
         }
 
         $objWriter = PHPExcel_IOFactory::createWriter($objPHPExcel, 'CSV');
@@ -969,6 +975,9 @@ class Test_form extends CI_Controller
         $this->load->model('mod_voice_exam_area');
         
         $date = $_GET['date'];
+        $part = $_GET['part'];
+        $area = $_GET['area'];
+
         $data = array(
             'part' => $this->mod_voice_trial->e_3_2_1($part),
             'area' => $area,
