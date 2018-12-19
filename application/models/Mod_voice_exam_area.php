@@ -35,7 +35,7 @@ class Mod_voice_exam_area extends CI_Model
  
        
             # code...
-            $number1 += $res[$i]['subject_01'];
+            $number1 += $res[$i]['count_num'];
       
             $arr = array(
                 'number1'=> $number1,

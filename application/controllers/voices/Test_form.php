@@ -349,6 +349,69 @@ class Test_form extends CI_Controller
           return false;
         }
     }
+
+    public function form_e1_4()
+    {
+        $this->load->model('mod_voice_exam_area');
+        $this->load->model('mod_voice_exam_datetime');
+        $title = '缺考人數統計';
+        $year = $this->session->userdata('year');
+        $ladder = $this->session->userdata('ladder');
+
+
+        $date = date('yyyy/m/d');
+        $part = $_GET['part'];
+        $area = $_GET['area'];
+
+        if ($this->mod_voice_exam_datetime->chk_course($year,$ladder)) {
+            $course = $this->mod_voice_exam_datetime->get_course($year,$ladder);
+        } else {
+            $course = array();
+            for ($i = 0; $i <= 12; ++$i) {
+                $course[$i]['subject'] = '';
+            }
+        }
+        if ($this->mod_voice_exam_datetime->chk_once($year,$ladder)) {
+            $datetime_info = $this->mod_voice_exam_datetime->get_once($year,$ladder);
+        } else {
+            $datetime_info = array(
+                'day' => '10月/25日',
+               
+            );
+        }
+
+        $data = array(
+            'list' => $this->mod_voice_exam_area->year_get_list($part),
+            'count' => $this->mod_voice_exam_area->year_get_member_count_list($part),
+            'school' => $this->mod_voice_exam_area->year_school_name($part),
+            'course' => $this->mod_voice_exam_datetime->get_course($year,$ladder),
+            'datetime_info'=>$datetime_info,
+            'area'=>$area
+        );
+        if($data['list'] != false){
+            $view = $this->load->view('voice/form_e1_4',$data,true);
+
+            if (!is_dir('./html/')) {
+                mkdir('./html/');
+            } else {
+                $path = 'form_e1_4.html';
+                $fp = fopen('./html/'.$path,'w');//建檔
+                fwrite($fp,$view);
+                fclose($fp);//關閉開啟的檔案
+                // copy($path, './html/'.$path);
+
+            }
+
+            if (!is_dir('./pdf/')) {
+                mkdir('./pdf/');
+            } else {
+                exec('wkhtmltopdf --lowquality --enable-forms http://uat.fofo.tw/fjuexam/html/form_e1_4.html  ./pdf/form_e1_4.pdf');
+            }
+            echo '<script>location.href="http://uat.fofo.tw/fjuexam/pdf/form_e1_4.pdf"</script>';
+        }else{
+          return false;
+        }
+    }
     
 
    /********************************************

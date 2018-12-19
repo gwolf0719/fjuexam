@@ -171,6 +171,18 @@ public function get_course($year,$ladder)
     return $this->db->get('voice_subject')->result_array();
 }
 
+public function chk_course($year,$ladder)
+{
+    $this->db->where('year', $year);
+    $this->db->where('ladder',$ladder);
+
+    if ($this->db->count_all_results('voice_subject') == 0) {
+        return false;
+    } else {
+        return true;
+    }
+}
+
 
 
 
