@@ -1058,7 +1058,7 @@ class Test_form extends CI_Controller
         $datetime_info = $this->mod_voice_exam_datetime->get_once($year,$ladder);
         $course = $this->mod_voice_exam_datetime->get_course($year,$ladder);
         $res = $this->mod_voice_trial->get_supervisor_list($part);
-        print_r($res);
+
 
      
         for ($i=0; $i < count($res); $i++) {
@@ -1842,7 +1842,7 @@ class Test_form extends CI_Controller
     public function e_6_1()
     {
         $this->load->library('pdf');
-        $this->load->model('mod_trial');
+        $this->load->model('mod_voice_trial');
         $this->load->model('mod_exam_area');
         $obj_pdf = new Pdf(PDF_PAGE_ORIENTATION, PDF_UNIT, PDF_PAGE_FORMAT, false, 'UTF-8', false);
         $obj_pdf->SetCreator(PDF_CREATOR);
@@ -1851,11 +1851,11 @@ class Test_form extends CI_Controller
         $part = $_GET['part'];
         $area = $_GET['area'];
         $data = array(
-            'part' => $this->mod_trial->e_6_1($part),
+            'part' => $this->mod_voice_trial->e_6_1($part),
             'area'=> $area,
             'school' => $this->mod_exam_area->year_school_name($part),
-            'salary'=>$this->mod_trial->get_all_salary_trial_total($part),
-            'count'=>$this->mod_trial->e_6_1_member_count($part)
+            'salary'=>$this->mod_voice_trial->get_all_salary_trial_total($part),
+            'count'=>$this->mod_voice_trial->e_6_1_member_count($part)
         );
         $view = $this->load->view('designated/e_6_1', $data,true);
         if (!is_dir('./html/')) {
