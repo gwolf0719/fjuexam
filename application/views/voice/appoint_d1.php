@@ -351,15 +351,15 @@
                     if (data.sys_code == "200") {
                         location.reload();
                         // console.log(note);
-                        $("tr").each(function(){
-                            if($(this).attr("sn") == $("#sn").val()){
-                                $(this).find("td").eq(7).text(trial_staff_code_1);
-                                $(this).find("td").eq(8).text(supervisor_1)
-                                $(this).find("td").eq(9).text(trial_staff_code_2)
-                                $(this).find("td").eq(10).text(supervisor_2)
-                                $(this).find("td").eq(11).text(note)
-                            }
-                        })
+                        // $("tr").each(function(){
+                        //     if($(this).attr("sn") == $("#sn").val()){
+                        //         $(this).find("td").eq(7).text(trial_staff_code_1);
+                        //         $(this).find("td").eq(8).text(supervisor_1)
+                        //         $(this).find("td").eq(9).text(trial_staff_code_2)
+                        //         $(this).find("td").eq(10).text(supervisor_2)
+                        //         $(this).find("td").eq(11).text(note)
+                        //     }
+                        // })
                     }
                 })
             }
