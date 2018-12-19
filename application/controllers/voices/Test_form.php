@@ -142,37 +142,37 @@ class Test_form extends CI_Controller
      */
     function form_e1_3_2(){
         $this->load->library('pdf');
-        $this->load->model('mod_voice_task');
-        $this->load->model('mod_voice_area');
+        $this->load->model('mod_voice_job_list');
+        $this->load->model('mod_voice_exam_area');
         $this->load->model("mod_voice_part_addr");
         $part = $_GET['part'];
         $area = $_GET['area'];
         if ($_GET['part'] != "2500") {
             $part = $_GET['part'];
-            $school = $this->mod_exam_area->year_school_name($part);
+            $school = $this->mod_voice_exam_area->year_school_name($part);
         } else {
             $school = "";
         }
        
         $year = $this->input->get('year');
         $ladder = $this->input->get('ladder');
-        // if ($this->mod_part_addr->chk_once($year)) {
-        //     $addr_info = $this->mod_part_addr->get_once($year);
-        // } else {
-        //     $addr_info = array(
-        //         'part_addr_1' => '',
-        //         'part_addr_2' => '',
-        //         'part_addr_3' => '',
-        //     );
-        // }
+        if ($this->mod_voice_part_addr->chk_once($year,$ladder)) {
+            $addr_info = $this->mod_voice_part_addr->get_once($year,$ladder);
+        } else {
+            $addr_info = array(
+                'part_addr_1' => '',
+                'part_addr_2' => '',
+                'part_addr_3' => '',
+            );
+        }
         $data = array(
-            'part' => $this->mod_task->get_district_task($area,$part),
+            'part' => $this->mod_voice_job_list->get_district_task($area,$part),
             'area' => $area,
-            'school' => $this->mod_exam_area->year_school_name($part),
+            'school' => $this->mod_voice_exam_area->year_school_name($part),
             'addr_info' => $addr_info,
         );
         if($data['part'] != false){
-          $view =  $this->load->view('voice/form_e_1_3_3', $data, true);
+          $view =  $this->load->view('voice/form_e1_3_3', $data, true);
           if (!is_dir('./html/')) {
               mkdir('./html/');
           } else {
@@ -190,7 +190,8 @@ class Test_form extends CI_Controller
               exec('wkhtmltopdf --lowquality --enable-forms http://uat.fofo.tw/fjuexam/html/e_1_3_3.html  ./pdf/e_1_3_3.pdf');
           }
           echo '<script>location.href="http://uat.fofo.tw/fjuexam/pdf/e_1_3_3.pdf"</script>';
-        }else{
+        }
+        else{
           return false;
         }
     }
@@ -236,7 +237,7 @@ class Test_form extends CI_Controller
     public function form_e1_3_4()
     {
         $this->load->library('pdf');
-        $this->load->model('mod_voice_task');
+        $this->load->model('mod_voice_job_list');
         $this->load->model('mod_voice_exam_area');
         $this->load->model("mod_voice_part_addr");
         $part = $_GET['part'];
@@ -259,7 +260,7 @@ class Test_form extends CI_Controller
             );
         }
         $data = array(
-            'part' => $this->mod_voice_task->get_trial_staff_list_for_pdf($area,$part),
+            'part' => $this->mod_voice_job_list->get_trial_staff_list_for_pdf($area,$part),
             'area' => $area,
             'school' => $this->mod_voice_exam_area->year_school_name($part),
             'addr_info' => $addr_info,
