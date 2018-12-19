@@ -177,8 +177,8 @@ class Test_form extends CI_Controller
     public function form_e_1_3()
     {
         $this->load->library('pdf');
-        $this->load->model('mod_trial');
-        $this->load->model('mod_exam_area');
+        $this->load->model('mod_voice_trial');
+        $this->load->model('mod_voice_exam_area');
 
         $part = $_GET['part'];
         $area = $_GET['area'];
@@ -198,9 +198,9 @@ class Test_form extends CI_Controller
         $obj_pdf->setFontSubsetting(false);
         $obj_pdf->AddPage();
         $data = array(
-            'part' => $this->mod_trial->get_list_for_pdf($part),
+            'part' => $this->mod_voice_trial->get_list_for_pdf($part),
             'area' => $area,
-            'school' => $this->mod_exam_area->year_school_name($part),
+            'school' => $this->mod_voice_exam_area->year_school_name($part),
         );
         if($data['part'] != false){
           $view =  $this->load->view('designated/e_1_3', $data, true);
@@ -228,14 +228,14 @@ class Test_form extends CI_Controller
     public function e_1_3_4()
     {
         $this->load->library('pdf');
-        $this->load->model('mod_task');
-        $this->load->model('mod_exam_area');
-        $this->load->model("mod_part_addr");
+        $this->load->model('mod_voice_task');
+        $this->load->model('mod_voice_exam_area');
+        $this->load->model("mod_voice_part_addr");
         $part = $_GET['part'];
         $area = $_GET['area'];
         if ($_GET['part'] != "2500") {
             $part = $_GET['part'];
-            $school = $this->mod_exam_area->year_school_name($part);
+            $school = $this->mod_voice_exam_area->year_school_name($part);
         } else {
             $school = "";
         }
@@ -255,8 +255,8 @@ class Test_form extends CI_Controller
         $obj_pdf->setFontSubsetting(false);
         $obj_pdf->AddPage();
         $year = $_SESSION['year'];
-        if ($this->mod_part_addr->chk_once($year)) {
-            $addr_info = $this->mod_part_addr->get_once($year);
+        if ($this->mod_voice_part_addr->chk_once($year)) {
+            $addr_info = $this->mod_voice_part_addr->get_once($year);
         } else {
             $addr_info = array(
                 'part_addr_1' => '',
@@ -265,9 +265,9 @@ class Test_form extends CI_Controller
             );
         }
         $data = array(
-            'part' => $this->mod_task->get_trial_staff_list_for_pdf($area,$part),
+            'part' => $this->mod_voice_task->get_trial_staff_list_for_pdf($area,$part),
             'area' => $area,
-            'school' => $this->mod_exam_area->year_school_name($part),
+            'school' => $this->mod_voice_exam_area->year_school_name($part),
             'addr_info' => $addr_info,
         );
         if($data['part'] != false){
@@ -297,14 +297,14 @@ class Test_form extends CI_Controller
     public function e_1_3_5()
     {
         $this->load->library('pdf');
-        $this->load->model('mod_task');
-        $this->load->model('mod_exam_area');
-        $this->load->model("mod_part_addr");
+        $this->load->model('mod_voice_task');
+        $this->load->model('mod_voice_exam_area');
+        $this->load->model("mod_voice_part_addr");
         $part = $_GET['part'];
         $area = $_GET['area'];
         if ($_GET['part'] != "2500") {
             $part = $_GET['part'];
-            $school = $this->mod_exam_area->year_school_name($part);
+            $school = $this->mod_voice_exam_area->year_school_name($part);
         } else {
             $school = "";
         }
@@ -324,8 +324,8 @@ class Test_form extends CI_Controller
         $obj_pdf->setFontSubsetting(false);
         $obj_pdf->AddPage();
         $year = $_SESSION['year'];
-        if ($this->mod_part_addr->chk_once($year)) {
-            $addr_info = $this->mod_part_addr->get_once($year);
+        if ($this->mod_voice_part_addr->chk_once($year)) {
+            $addr_info = $this->mod_voice_part_addr->get_once($year);
         } else {
             $addr_info = array(
                 'part_addr_1' => '',
@@ -334,9 +334,9 @@ class Test_form extends CI_Controller
             );
         }
         $data = array(
-            'part' => $this->mod_task->get_patrol_staff_list_for_pdf($area,$part),
+            'part' => $this->mod_voice_task->get_patrol_staff_list_for_pdf($area,$part),
             'area' => $area,
-            'school' => $this->mod_exam_area->year_school_name($part),
+            'school' => $this->mod_voice_exam_area->year_school_name($part),
             'addr_info' => $addr_info,
         );
         if($data['part'] != false){
@@ -365,8 +365,8 @@ class Test_form extends CI_Controller
 
     public function e_1_4()
     {
-        $this->load->model('mod_exam_area');
-        $this->load->model('mod_exam_datetime');
+        $this->load->model('mod_voice_exam_area');
+        $this->load->model('mod_voice_exam_datetime');
         $title = '缺考人數統計';
         $year = $this->session->userdata('year');
 
@@ -382,8 +382,8 @@ class Test_form extends CI_Controller
                 $course[$i]['subject'] = '';
             }
         }
-        if ($this->mod_exam_datetime->chk_once($year)) {
-            $datetime_info = $this->mod_exam_datetime->get_once($year);
+        if ($this->mod_voice_exam_datetime->chk_once($year)) {
+            $datetime_info = $this->mod_voice_exam_datetime->get_once($year);
         } else {
             $datetime_info = array(
                 'day_1' => '7月/1日',
@@ -393,10 +393,10 @@ class Test_form extends CI_Controller
         }
 
         $data = array(
-            'list' => $this->mod_exam_area->year_get_list($part),
-            'count' => $this->mod_exam_area->year_get_member_count_list($part),
-            'school' => $this->mod_exam_area->year_school_name($part),
-            'course' => $this->mod_exam_datetime->get_course($year),
+            'list' => $this->mod_voice_exam_area->year_get_list($part),
+            'count' => $this->mod_voice_exam_area->year_get_member_count_list($part),
+            'school' => $this->mod_voice_exam_area->year_school_name($part),
+            'course' => $this->mod_voice_exam_datetime->get_course($year),
             'datetime_info'=>$datetime_info,
             'area'=>$area
         );
@@ -425,10 +425,10 @@ class Test_form extends CI_Controller
         }
     }
 
-    public function e_1_5()
+    public function form_e_1_5()
     {
         $this->load->library('pdf');
-        $this->load->model('mod_trial');
+        $this->load->model('mod_voice_trial');
         $obj_pdf = new Pdf(PDF_PAGE_ORIENTATION, PDF_UNIT, PDF_PAGE_FORMAT, false, 'UTF-8', false);
         $obj_pdf->SetCreator(PDF_CREATOR);
         $part = $_GET['part'];
@@ -449,19 +449,19 @@ class Test_form extends CI_Controller
 
         $obj_pdf->AddPage();
         $data = array(
-            'part' => $this->mod_trial->get_dinner_list_for_pdf($part),
+            'part' => $this->mod_voice_trial->get_dinner_list_for_pdf($part),
             'area' => $area,
-            'count'=>$this->mod_trial->e_6_1_member_count($part),
-            'own' => $this->mod_trial->get_trial_own_meal_count($part),
-            'veg' => $this->mod_trial->get_trial_veg_meal_count($part),
-            'meat' => $this->mod_trial->get_trial_meat_meal_count($part),
+            'count'=>$this->mod_voice_trial->e_6_1_member_count($part),
+            'own' => $this->mod_voice_trial->get_trial_own_meal_count($part),
+            'veg' => $this->mod_voice_trial->get_trial_veg_meal_count($part),
+            'meat' => $this->mod_voice_trial->get_trial_meat_meal_count($part),
         );
         if($data['part'] != false){
-          $view =  $this->load->view('designated/e_1_5', $data, true);
+          $view =  $this->load->view('voice/form_e_1_5', $data, true);
           if (!is_dir('./html/')) {
               mkdir('./html/');
           } else {
-              $path = 'e_1_5.html';
+              $path = 'form_e_1_5.html';
               $fp = fopen('./html/'.$path,'w');//建檔
               fwrite($fp,$view);
               fclose($fp);//關閉開啟的檔案
@@ -472,33 +472,33 @@ class Test_form extends CI_Controller
           if (!is_dir('./pdf/')) {
               mkdir('./pdf/');
           } else {
-              exec('wkhtmltopdf --lowquality --enable-forms http://uat.fofo.tw/fjuexam/html/e_1_5.html  ./pdf/e_1_5.pdf');
+              exec('wkhtmltopdf --lowquality --enable-forms http://uat.fofo.tw/fjuexam/html/form_e_1_5.html  ./pdf/form_e_1_5.pdf');
           }
-          echo '<script>location.href="http://uat.fofo.tw/fjuexam/pdf/e_1_5.pdf"</script>';
+          echo '<script>location.href="http://uat.fofo.tw/fjuexam/pdf/form_e_1_5.pdf"</script>';
         }else{
           return false;
         }
     }
 
-    public function e_2()
+    public function form_e_2()
     {
         $this->mod_user->chk_status();
-        $this->load->model('mod_exam_datetime');
-        $datetime_info = $this->mod_exam_datetime->get_once($_SESSION['year']);
+        $this->load->model('mod_voice_exam_datetime');
+        $datetime_info = $this->mod_voice_exam_datetime->get_once($_SESSION['year'],$_SESSION['ladder']);
         $data = array(
             'title' => '簽到表 / 簽收單',
-            'path' => 'designated/e_2',
+            'path' => 'voice/form_e_2',
             'path_text' => ' > 製作報表 > 簽到表 / 簽收單',
             'datetime_info'=>$datetime_info
         );
         $this->load->view('layout', $data);
     }
 
-    public function e_2_1_1()
+    public function form_e_2_1_1()
     {
         $this->load->library('pdf');
-        $this->load->model('mod_task');
-        $this->load->model('mod_exam_area');
+        $this->load->model('mod_voice_job_list');
+        $this->load->model('mod_voice_exam_area');
         $obj_pdf = new Pdf(PDF_PAGE_ORIENTATION, PDF_UNIT, PDF_PAGE_FORMAT, false, 'UTF-8', false);
         $obj_pdf->SetCreator(PDF_CREATOR);
         $title = '試務人員執行任務簽到表';
@@ -506,10 +506,11 @@ class Test_form extends CI_Controller
         $part = $_GET['part'];
         if ($_GET['part'] != "2500") {
             $part = $_GET['part'];
-            $school = $this->mod_exam_area->year_school_name($part);
+            $school = $this->mod_voice_exam_area->year_school_name($part);
         } else {
             $school = "";
         }
+       
         $date = date('yyyy/m/d');
         $obj_pdf->SetTitle($title);
         $obj_pdf->SetHeaderData('', '', $title, '印表日期：'.$date);
@@ -523,19 +524,19 @@ class Test_form extends CI_Controller
         $obj_pdf->setFontSubsetting(false);
 
         $data = array(
-            'part' => $this->mod_task->e_2_1($area,$part),
+            'part' => $this->mod_voice_job_list->e_2_1($area,$part),
             'area' => $area,
             // 'own'=> $this->mod_task->get_task_own_count($area),
             // 'veg'=> $this->mod_task->get_member_veg_count($area),
             // 'meat'=> $this->mod_task->get_member_meat_count($area),
-            'school' => $school,
+            'school' => $school['area_name'],
         );
         if ($data['part'] != false) {
-            $view =  $this->load->view('designated/e_2_1_1', $data, true);
+            $view =  $this->load->view('voice/form_e_2_1_1', $data, true);
             if (!is_dir('./html/')) {
                 mkdir('./html/');
             } else {
-                $path = 'e_2_1_1.html';
+                $path = 'form_e_2_1_1.html';
                 $fp = fopen('./html/'.$path,'w');//建檔
                 fwrite($fp,$view);
                 fclose($fp);//關閉開啟的檔案
@@ -546,20 +547,19 @@ class Test_form extends CI_Controller
             if (!is_dir('./pdf/')) {
                 mkdir('./pdf/');
             } else {
-                exec('wkhtmltopdf --lowquality --enable-forms http://uat.fofo.tw/fjuexam/html/e_2_1_1.html  ./pdf/e_2_1_1.pdf');
+                exec('wkhtmltopdf --lowquality --enable-forms http://uat.fofo.tw/fjuexam/html/form_e_2_1_1.html  ./pdf/form_e_2_1_1.pdf');
             }
-            echo '<script>location.href="http://uat.fofo.tw/fjuexam/pdf/e_2_1_1.pdf"</script>';
+            echo '<script>location.href="http://uat.fofo.tw/fjuexam/pdf/form_e_2_1_1.pdf"</script>';
         }else{
             return false;
         }
     }
 
-    public function e_2_1_2()
+    public function form_e_2_1_2()
     {
         $this->load->library('pdf');
-        $this->load->model('mod_task');
-        $this->load->model('mod_trial');
-        $this->load->model('mod_exam_area');
+        $this->load->model('mod_voice_trial');
+        $this->load->model('mod_voice_exam_area');
         $obj_pdf = new Pdf(PDF_PAGE_ORIENTATION, PDF_UNIT, PDF_PAGE_FORMAT, false, 'UTF-8', false);
         $obj_pdf->SetCreator(PDF_CREATOR);
         $title = '試務人員執行任務簽到表';
@@ -567,7 +567,7 @@ class Test_form extends CI_Controller
         $part = $_GET['part'];
         if ($_GET['part'] != "2500") {
             $part = $_GET['part'];
-            $school = $this->mod_exam_area->year_school_name($part);
+            $school = $this->mod_voice_exam_area->year_school_name($part);
         } else {
             $school = "";
         }
@@ -584,7 +584,7 @@ class Test_form extends CI_Controller
         $obj_pdf->setFontSubsetting(false);
 
         $data = array(
-            'part' => $this->mod_trial->e_2_1_2($part),
+            'part' => $this->mod_voice_trial->e_2_1_2($part),
             'area' => $area,
             // 'own'=> $this->mod_task->get_task_own_count($area),
             // 'veg'=> $this->mod_task->get_member_veg_count($area),
@@ -592,11 +592,11 @@ class Test_form extends CI_Controller
             'school' => $school,
         );
         if ($data['part'] != false) {
-            $view = $this->load->view('designated/e_2_1_2', $data,true);
+            $view = $this->load->view('voice/form_e_2_1_2', $data,true);
             if (!is_dir('./html/')) {
                 mkdir('./html/');
             } else {
-                $path = 'e_2_1_2.html';
+                $path = 'form_e_2_1_2.html';
                 $fp = fopen('./html/'.$path,'w');//建檔
                 fwrite($fp,$view);
                 fclose($fp);//關閉開啟的檔案
@@ -606,20 +606,19 @@ class Test_form extends CI_Controller
             if (!is_dir('./pdf/')) {
                 mkdir('./pdf/');
             } else {
-                exec('wkhtmltopdf --lowquality --enable-forms http://uat.fofo.tw/fjuexam/html/e_2_1_2.html  ./pdf/e_2_1_2.pdf');
+                exec('wkhtmltopdf --lowquality --enable-forms http://uat.fofo.tw/fjuexam/html/form_e_2_1_2.html  ./pdf/form_e_2_1_2.pdf');
             }
-            echo '<script>location.href="http://uat.fofo.tw/fjuexam/pdf/e_2_1_2.pdf"</script>';
+            echo '<script>location.href="http://uat.fofo.tw/fjuexam/pdf/form_e_2_1_2.pdf"</script>';
         }else{
             return false;
         }
     }
 
-    public function e_2_1_3()
+    public function form_e_2_1_3()
     {
         $this->load->library('pdf');
-        $this->load->model('mod_task');
-        $this->load->model('mod_trial');
-        $this->load->model('mod_exam_area');
+        $this->load->model('mod_voice_trial');
+        $this->load->model('mod_voice_exam_area');
         $obj_pdf = new Pdf(PDF_PAGE_ORIENTATION, PDF_UNIT, PDF_PAGE_FORMAT, false, 'UTF-8', false);
         $obj_pdf->SetCreator(PDF_CREATOR);
         $title = '試務人員執行任務簽到表';
@@ -627,7 +626,7 @@ class Test_form extends CI_Controller
         $part = $_GET['part'];
         if ($_GET['part'] != "2500") {
             $part = $_GET['part'];
-            $school = $this->mod_exam_area->year_school_name($part);
+            $school = $this->mod_voice_exam_area->year_school_name($part);
         } else {
             $school = "";
         }
@@ -644,7 +643,7 @@ class Test_form extends CI_Controller
         $obj_pdf->setFontSubsetting(false);
 
         $data = array(
-            'part' => $this->mod_trial->e_2_1_3($part),
+            'part' => $this->mod_voice_trial->e_2_1_3($part),
             'area' => $area,
             // 'own'=> $this->mod_task->get_task_own_count($area),
             // 'veg'=> $this->mod_task->get_member_veg_count($area),
@@ -652,11 +651,11 @@ class Test_form extends CI_Controller
             'school' => $school,
         );
         if ($data['part'] != false) {
-            $view =  $this->load->view('designated/e_2_1_3', $data, true);
+            $view =  $this->load->view('voice/form_e_2_1_3', $data, true);
             if (!is_dir('./html/')) {
                 mkdir('./html/');
             } else {
-                $path = 'e_2_1_3.html';
+                $path = 'form_e_2_1_3.html';
                 $fp = fopen('./html/'.$path,'w');//建檔
                 fwrite($fp,$view);
                 fclose($fp);//關閉開啟的檔案
@@ -666,9 +665,9 @@ class Test_form extends CI_Controller
             if (!is_dir('./pdf/')) {
                 mkdir('./pdf/');
             } else {
-                exec('wkhtmltopdf --lowquality --enable-forms http://uat.fofo.tw/fjuexam/html/e_2_1_3.html  ./pdf/e_2_1_3.pdf');
+                exec('wkhtmltopdf --lowquality --enable-forms http://uat.fofo.tw/fjuexam/html/form_e_2_1_3.html  ./pdf/form_e_2_1_3.pdf');
             }
-            echo '<script>location.href="http://uat.fofo.tw/fjuexam/pdf/e_2_1_3.pdf"</script>';
+            echo '<script>location.href="http://uat.fofo.tw/fjuexam/pdf/form_e_2_1_3.pdf"</script>';
         }else{
             return false;
         }
@@ -677,8 +676,8 @@ class Test_form extends CI_Controller
     public function e_2_2()
     {
         $this->load->library('pdf');
-        $this->load->model('mod_trial');
-        $this->load->model('mod_exam_area');
+        $this->load->model('mod_voice_trial');
+        $this->load->model('mod_voice_exam_area');
         $obj_pdf = new Pdf(PDF_PAGE_ORIENTATION, PDF_UNIT, PDF_PAGE_FORMAT, false, 'UTF-8', false);
         $obj_pdf->SetCreator(PDF_CREATOR);
         $title = '監試人員執行任務簽到表';
@@ -699,12 +698,12 @@ class Test_form extends CI_Controller
 
         $year = $this->session->userdata('year');
         $data = array(
-            'part' => $this->mod_trial->get_date_for_trial_list($part),
+            'part' => $this->mod_voice_trial->get_date_for_trial_list($part),
             'area' =>$area,
-            'school' => $this->mod_exam_area->year_school_name($part),
-            'own' => $this->mod_trial->get_trial_own_meal_count($part),
-            'veg' => $this->mod_trial->get_trial_veg_meal_count($part),
-            'meat' => $this->mod_trial->get_trial_meat_meal_count($part),
+            'school' => $this->mod_voice_exam_area->year_school_name($part),
+            'own' => $this->mod_voice_trial->get_trial_own_meal_count($part),
+            'veg' => $this->mod_voice_trial->get_trial_veg_meal_count($part),
+            'meat' => $this->mod_voice_trial->get_trial_meat_meal_count($part),
         );
 
         if ($data['part'] != false) {
@@ -733,9 +732,9 @@ class Test_form extends CI_Controller
     public function e_2_3_1()
     {
         $this->load->library('pdf');
-        $this->load->model('mod_trial');
-        $this->load->model('mod_exam_area');
-        $this->load->model('mod_exam_datetime');
+        $this->load->model('mod_voice_trial');
+        $this->load->model('mod_voice_exam_area');
+        $this->load->model('mod_voice_exam_datetime');
 
         $obj_pdf = new Pdf(PDF_PAGE_ORIENTATION, PDF_UNIT, PDF_PAGE_FORMAT, false, 'UTF-8', false);
         $obj_pdf->SetCreator(PDF_CREATOR);
@@ -754,15 +753,15 @@ class Test_form extends CI_Controller
         $obj_pdf->SetFont('msungstdlight', 'L', 14);
         $year = $this->session->userdata('year');
 
-        $datetime_info = $this->mod_exam_datetime->get_once($year);
+        $datetime_info = $this->mod_voice_exam_datetime->get_once($year);
 
         $obj_pdf->setFontSubsetting(false);
         $data = array(
-            'part' => $this->mod_trial->get_once_date_of_voucher1($part),
+            'part' => $this->mod_voice_trial->get_once_date_of_voucher1($part),
             'area' => $area,
             'datetime_info' => $datetime_info,
-            'count'=> $this->mod_trial->get_patrol_member_count_1($part),
-            'school' => $this->mod_exam_area->year_school_name($part),
+            'count'=> $this->mod_voice_trial->get_patrol_member_count_1($part),
+            'school' => $this->mod_voice_exam_area->year_school_name($part),
         );
         if ($data['part'] != false) {
             $view = $this->load->view('designated/e_2_3_1', $data,true);
@@ -789,9 +788,9 @@ class Test_form extends CI_Controller
     public function e_2_3_2()
     {
         $this->load->library('pdf');
-        $this->load->model('mod_trial');
-        $this->load->model('mod_exam_area');
-        $this->load->model('mod_exam_datetime');
+        $this->load->model('mod_voice_trial');
+        $this->load->model('mod_voice_exam_area');
+        $this->load->model('mod_voice_exam_datetime');
 
         $obj_pdf = new Pdf(PDF_PAGE_ORIENTATION, PDF_UNIT, PDF_PAGE_FORMAT, false, 'UTF-8', false);
         $obj_pdf->SetCreator(PDF_CREATOR);
@@ -810,15 +809,15 @@ class Test_form extends CI_Controller
         $obj_pdf->SetFont('msungstdlight', 'L', 10);
         $year = $this->session->userdata('year');
 
-        $datetime_info = $this->mod_exam_datetime->get_once($year);
+        $datetime_info = $this->mod_voice_exam_datetime->get_once($year);
 
         $obj_pdf->setFontSubsetting(false);
         $data = array(
-            'part' => $this->mod_trial->get_once_date_of_voucher2($part),
+            'part' => $this->mod_voice_trial->get_once_date_of_voucher2($part),
             'area' => $area,
             'datetime_info' => $datetime_info,
-            'count'=> $this->mod_trial->get_patrol_member_count_2($part),
-            'school' => $this->mod_exam_area->year_school_name($part),
+            'count'=> $this->mod_voice_trial->get_patrol_member_count_2($part),
+            'school' => $this->mod_voice_exam_area->year_school_name($part),
         );
         if ($data['part'] != false) {
             $view = $this->load->view('designated/e_2_3_2', $data,true);
@@ -845,9 +844,9 @@ class Test_form extends CI_Controller
     public function e_2_3_3()
     {
         $this->load->library('pdf');
-        $this->load->model('mod_trial');
-        $this->load->model('mod_exam_area');
-        $this->load->model('mod_exam_datetime');
+        $this->load->model('mod_voice_trial');
+        $this->load->model('mod_voice_exam_area');
+        $this->load->model('mod_voice_exam_datetime');
 
         $obj_pdf = new Pdf(PDF_PAGE_ORIENTATION, PDF_UNIT, PDF_PAGE_FORMAT, false, 'UTF-8', false);
         $obj_pdf->SetCreator(PDF_CREATOR);
@@ -866,16 +865,16 @@ class Test_form extends CI_Controller
         $obj_pdf->SetFont('msungstdlight', 'L', 10);
         $year = $this->session->userdata('year');
 
-        $datetime_info = $this->mod_exam_datetime->get_once($year);
+        $datetime_info = $this->mod_voice_exam_datetime->get_once($year);
 
         $obj_pdf->setFontSubsetting(false);
         $obj_pdf->AddPage();
         $data = array(
-            'part' => $this->mod_trial->get_once_date_of_voucher3($part),
+            'part' => $this->mod_voice_trial->get_once_date_of_voucher3($part),
             'area' => $area,
             'datetime_info' => $datetime_info,
-            'count'=> $this->mod_trial->get_patrol_member_count_3($part),
-            'school' => $this->mod_exam_area->year_school_name($part),
+            'count'=> $this->mod_voice_trial->get_patrol_member_count_3($part),
+            'school' => $this->mod_voice_exam_area->year_school_name($part),
         );
         if ($data['part'] != false) {
             $view = $this->load->view('designated/e_2_3_3', $data,true);
@@ -902,7 +901,7 @@ class Test_form extends CI_Controller
     public function e_2_4()
     {
         $this->load->library('pdf');
-        $this->load->model('mod_task');
+        $this->load->model('mod_voice_task');
         $obj_pdf = new Pdf(PDF_PAGE_ORIENTATION, PDF_UNIT, PDF_PAGE_FORMAT, false, 'UTF-8', false);
         $obj_pdf->SetCreator(PDF_CREATOR);
         $title = '監試說明會簽到表';
@@ -919,7 +918,7 @@ class Test_form extends CI_Controller
 
         $obj_pdf->setFontSubsetting(false);
         $data = array(
-            'part' => $this->mod_task->get_sign_list(),
+            'part' => $this->mod_voice_task->get_sign_list(),
         );
         if ($data['part'] != false) {
             $view = $this->load->view('designated/e_2_4',$data,true);
@@ -962,8 +961,8 @@ class Test_form extends CI_Controller
     public function e_2_5()
     {
         $this->load->library('pdf');
-        $this->load->model('mod_task');
-        $this->load->model('mod_exam_area');
+        $this->load->model('mod_voice_task');
+        $this->load->model('mod_voice_exam_area');
 
         $obj_pdf = new Pdf(PDF_PAGE_ORIENTATION, PDF_UNIT, PDF_PAGE_FORMAT, false, 'UTF-8', false);
         $obj_pdf->SetCreator(PDF_CREATOR);
@@ -981,8 +980,8 @@ class Test_form extends CI_Controller
 
         $obj_pdf->setFontSubsetting(false);
         $data = array(
-            'data' => $this->mod_task->member_map(),
-            'list' => $this->mod_task->get_member_map_list()
+            'data' => $this->mod_voice_task->member_map(),
+            'list' => $this->mod_voice_task->get_member_map_list()
         );
         if ($data['list'] != false) {
             $view = $this->load->view('designated/e_2_5',$data,true);
@@ -1009,10 +1008,10 @@ class Test_form extends CI_Controller
 
     public function e_3()
     {
-        $this->load->model('mod_exam_datetime');
+        $this->load->model('mod_voice_exam_datetime');
         $this->mod_user->chk_status();
-        if ($this->mod_exam_datetime->chk_once($_SESSION['year'])) {
-            $datetime_info = $this->mod_exam_datetime->get_once($_SESSION['year']);
+        if ($this->mod_voice_exam_datetime->chk_once($_SESSION['year'])) {
+            $datetime_info = $this->mod_voice_exam_datetime->get_once($_SESSION['year']);
         } else {
             $datetime_info = array(
                 'day_1' => '1911' + $this->session->userdata('year').'/07/01',

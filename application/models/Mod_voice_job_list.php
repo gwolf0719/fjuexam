@@ -281,6 +281,41 @@ class Mod_voice_job_list extends CI_Model
     }
 
 
+    public function e_2_1($area = '',$part)
+    {
+        $this->db->where('year', $this->session->userdata('year'));
+        if ($area != '') {
+            $this->db->where('test_partition', $area);
+        }
+
+        $this->db->where('job_code !=', "");
+
+        $res = $this->db->get('voice_job_list')->result_array();
+        if (!empty($res)) {
+            for ($i=0; $i < count($res); $i++) {
+                # code...
+                $member = $this->db->where('member_code', $res[$i]['job_code'])->get('voice_import_member')->row_array();
+                // $trial = $this->db->where('part',$part)->where('year',$_SESSION['year'])->get('trial_staff')->row_array();
+                $do_date = explode(",", $res[$i]['do_date']);
+                for ($d=0; $d < count($do_date); $d++) {
+
+                    $arr[$do_date[$d]][] = array(
+                        'job_code' => $res[$i]['job_code'],
+                        'job' => $res[$i]['job'],
+                        'job_title' => $res[$i]['job_title'],
+                        'name' => $res[$i]['name'],
+                        'member_unit'=>$member['member_unit'],
+                        'note' => $res[$i]['note'],
+                    );
+                }
+            }
+
+            return $arr;
+        }else{
+            return false;
+        }
+    }  
+
 
 
 

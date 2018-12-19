@@ -128,16 +128,16 @@
             <div class="modal-body">
                 <div class="row">
                     <div class="col-md-12 col-sm-12 col-xs-12">
-                        <a href="./designated/e_2_1_1?area=考區&part=2500" target="_blank">
+                        <a href="./voice/e/form_e_2_1_1?area=0&part=2500" target="_blank">
                             <div class="btn_part">考區</div>
                         </a>
-                        <a href="./designated/e_2_1_1?area=第一分區&part=2501" target="_blank">
+                        <a href="./voice/e/form_e_2_1_1?area=1&part=2501" target="_blank">
                             <div class="btn_part">第一分區</div>
                         </a>
-                        <a href="./designated/e_2_1_1?area=第二分區&part=2502" target="_blank">
+                        <a href="./voice/e/form_e_2_1_1?area=2&part=2502" target="_blank">
                             <div class="btn_part">第二分區</div>
                         </a>
-                        <a href="./designated/e_2_1_1?area=第三分區&part=2503" target="_blank">
+                        <a href="./voice/e/form_e_2_1_1?area=3&part=2503" target="_blank">
                             <div class="btn_part">第三分區</div>
                         </a>
                     </div>
@@ -160,13 +160,13 @@
             <div class="modal-body">
                 <div class="row">
                     <div class="col-md-12 col-sm-12 col-xs-12">
-                        <a href="./designated/e_2_1_2?area=第一分區&part=2501" target="_blank">
+                        <a href="./voice/e/form_e_2_1_2?area=第一分區&part=2501" target="_blank">
                             <div class="btn_part">第一分區</div>
                         </a>
-                        <a href="./designated/e_2_1_2?area=第二分區&part=2502" target="_blank">
+                        <a href="./voice/e/form_e_2_1_2?area=第二分區&part=2502" target="_blank">
                             <div class="btn_part">第二分區</div>
                         </a>
-                        <a href="./designated/e_2_1_2?area=第三分區&part=2503" target="_blank">
+                        <a href="./voice/e/form_e_2_1_2?area=第三分區&part=2503" target="_blank">
                             <div class="btn_part">第三分區</div>
                         </a>
                     </div>
@@ -189,13 +189,13 @@
             <div class="modal-body">
                 <div class="row">
                     <div class="col-md-12 col-sm-12 col-xs-12">
-                        <a href="./designated/e_2_1_3?area=第一分區&part=2501" target="_blank">
+                        <a href="./voice/e/form_e_2_1_3?area=第一分區&part=2501" target="_blank">
                             <div class="btn_part">第一分區</div>
                         </a>
-                        <a href="./designated/e_2_1_3?area=第二分區&part=2502" target="_blank">
+                        <a href="./voice/e/form_e_2_1_3?area=第二分區&part=2502" target="_blank">
                             <div class="btn_part">第二分區</div>
                         </a>
-                        <a href="./designated/e_2_1_3?area=第三分區&part=2503" target="_blank">
+                        <a href="./voice/e/form_e_2_1_3?area=第三分區&part=2503" target="_blank">
                             <div class="btn_part">第三分區</div>
                         </a>
                     </div>

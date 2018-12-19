@@ -49,7 +49,6 @@
             </td>
             <td>
                 <?=$v['name']; ?>&
-                <?=$v['meal']?>
             </td>
             <td>
                 <?=$v['job_title']; ?>
