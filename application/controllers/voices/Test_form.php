@@ -437,6 +437,9 @@ class Test_form extends CI_Controller
         $this->load->library('pdf');
         $this->load->model('mod_voice_job_list');
         $this->load->model('mod_voice_exam_area');
+        $part = $_GET['part'];
+        $area = $_GET['area'];
+
         
 
         $data = array(
@@ -445,8 +448,10 @@ class Test_form extends CI_Controller
             // 'own'=> $this->mod_task->get_task_own_count($area),
             // 'veg'=> $this->mod_task->get_member_veg_count($area),
             // 'meat'=> $this->mod_task->get_member_meat_count($area),
-            'school' => $school['area_name'],
+            'school' =>$this->mod_voice_exam_area->year_school_name($part),
         );
+
+       
         if ($data['part'] != false) {
             $view =  $this->load->view('voice/form_e_2_1_1', $data, true);
             if (!is_dir('./html/')) {

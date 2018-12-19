@@ -32,11 +32,11 @@
 
 <table class="" id="" style="padding:5px 0px;;text-align:center;">
     <tr>
-        <td style="font-size:26px;lne-height:50px;" colspan="6"><?=$_SESSION['year']?>學年度高中英語能力測驗北一考區試務人員簽到表</td>
+        <td style="font-size:26px;lne-height:50px;" colspan="6"><?=$_SESSION['year']?>學年度高中英語能力測驗<?=$_SESSION['ladder']?>新北一考區試務人員簽到表</td>
     </tr>
     <tr>
         <td colspan="2" style="font-size:22px;text-align:left;padding:20px 0px">分區：<?=$area?></td>
-        <td colspan="2" style="font-size:22px;text-align:center;padding:20px 0px"><?=$school?></td>
+        <td colspan="2" style="font-size:22px;text-align:center;padding:20px 0px"><?=$school['area_name']?></td>
         <td colspan="2" style="font-size:22px;text-align:right;padding:20px 0px">簽到日期：<?=$k?></td>
     </tr>
     <tr>
