@@ -33,7 +33,7 @@ class Mod_voice_exam_area extends CI_Model
         $res = $this->db->get('voice_exam_area')->result_array();
         $number1 = 0;
  
-       
+            for ($i=0; $i < count($res); $i++) { 
             # code...
             $number1 += $res[$i]['count_num'];
       
@@ -41,6 +41,8 @@ class Mod_voice_exam_area extends CI_Model
                 'number1'=> $number1,
                
             );
+
+        }
         
         return $arr;
     }

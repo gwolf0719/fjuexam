@@ -205,6 +205,22 @@ class Test_form extends CI_Controller
 
         $part = $_GET['part'];
         $area = $_GET['area'];
+        switch ($area) {
+            case '0':
+              echo '考區';
+                break;
+            case '1':
+                echo '第一分區';
+                break;
+            case '2':
+                echo '第二分區';
+                # code...
+                break;
+            case '3':
+                echo '第三分區';
+                break;
+         
+        }
         
         $data = array(
             'part' => $this->mod_voice_trial->get_list_for_pdf($part),
