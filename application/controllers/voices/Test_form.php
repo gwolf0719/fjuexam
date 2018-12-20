@@ -1774,14 +1774,14 @@ class Test_form extends CI_Controller
         }
     }
 
-    public function e_7()
+    public function form_e_7()
     {
         $this->load->library('excel');
-        $this->load->model('mod_task');
+        $this->load->model('mod_voice_job_list');
 
         $objPHPExcel = new PHPExcel();
         $objPHPExcel->setActiveSheetIndex(0);
-        $arr = $this->mod_task->get_all_assign_member_list();
+        $arr = $this->mod_voice_job_list->get_all_assign_member_list();
         for ($i=0; $i < count($arr); $i++) {
             # code...
 
@@ -1814,17 +1814,17 @@ class Test_form extends CI_Controller
 
     }
 
-    public function e_7_1()
+    public function form_e_7_1()
     {
         $this->load->library('excel');
-        $this->load->model('mod_trial');
+        $this->load->model('mod_voice_trial');
 
         $objPHPExcel = new PHPExcel();
         $objPHPExcel->setActiveSheetIndex(0);
         $part = $_GET['part'];
         $area = $_GET['area'];
 
-        $arr = $this->mod_trial->get_trial_moneylist_for_csv($part);
+        $arr = $this->mod_voice_trial->get_trial_moneylist_for_csv($part);
         // print_r($arr);
         for ($i=0; $i < count($arr); $i++) {
             # code...
@@ -1833,7 +1833,6 @@ class Test_form extends CI_Controller
 
             $objPHPExcel->getActiveSheet()->setCellValue('A0', '');
             $objPHPExcel->getActiveSheet()->setCellValue('A1', '試場');
-
             $objPHPExcel->getActiveSheet()->setCellValue('B1', '監考費');
             $objPHPExcel->getActiveSheet()->setCellValue('C1', '姓名');
             $objPHPExcel->getActiveSheet()->setCellValue('E1', '應領費用');
@@ -1855,10 +1854,10 @@ class Test_form extends CI_Controller
         $objWriter->save('php://output');
     }
 
-    public function e_7_2()
+    public function form_e_7_2()
     {
         $this->load->library('excel');
-        $this->load->model('mod_trial');
+        $this->load->model('mod_voice_trial');
 
         $objPHPExcel = new PHPExcel();
         $objPHPExcel->setActiveSheetIndex(0);
@@ -1867,7 +1866,7 @@ class Test_form extends CI_Controller
         $obs = $_GET['obs'];
 
 
-        $arr = $this->mod_trial->get_trial_list_of_obs_for_csv($part, $obs);
+        $arr = $this->mod_voice_trial->get_trial_list_of_obs_for_csv($part, $obs);
         for ($i=0; $i < count($arr); $i++) {
             # code...
 
@@ -1893,19 +1892,19 @@ class Test_form extends CI_Controller
         $objWriter->save('php://output');
     }
 
-    public function e_7_3()
+    public function form_e_7_3()
     {
         $this->load->library('excel');
-        $this->load->model('mod_task');
-        $this->load->model('mod_exam_area');
+        $this->load->model('mod_voice_job_list');
+        $this->load->model('mod_voice_exam_area');
 
         $objPHPExcel = new PHPExcel();
         $objPHPExcel->setActiveSheetIndex(0);
         $part = $_GET['part'];
         $area = $_GET['area'];
 
-        $school = $this->mod_exam_area->year_school_name($part);
-        $arr = $this->mod_task->get_district_task_money_list($area);
+        $school = $this->mod_voice_exam_area->year_school_name($part);
+        $arr = $this->mod_voice_job_list->get_district_task_money_list($area);
         for ($i=0; $i < count($arr); $i++) {
             # code...
             $objPHPExcel->getActiveSheet()->setCellValue('A1', '序號');
@@ -1917,7 +1916,7 @@ class Test_form extends CI_Controller
             $objPHPExcel->getActiveSheet()->setCellValue('H1', '應領費用');
             $objPHPExcel->getActiveSheet()->setCellValue('A'.(2+$i), $i+1);
             $objPHPExcel->getActiveSheet()->setCellValue('B'.(2+$i), $area);
-            $objPHPExcel->getActiveSheet()->setCellValue('C'.(2+$i), $school);
+            $objPHPExcel->getActiveSheet()->setCellValue('C'.(2+$i), $school['area_name']);
             $objPHPExcel->getActiveSheet()->setCellValue('D'.(2+$i), $arr[$i]['name']);
             $objPHPExcel->getActiveSheet()->setCellValue('E'.(2+$i), $arr[$i]['job']);
             $objPHPExcel->getActiveSheet()->setCellValue('F'.(2+$i), number_format($arr[$i]['one_day_salary']));
@@ -1937,19 +1936,19 @@ class Test_form extends CI_Controller
         $objWriter->save('php://output');
     }
 
-    public function e_7_4()
+    public function form_e_7_4()
     {
         $this->load->library('excel');
-        $this->load->model('mod_trial');
-        $this->load->model('mod_exam_area');
+        $this->load->model('mod_voice_trial');
+        $this->load->model('mod_voice_exam_area');
 
         $objPHPExcel = new PHPExcel();
         $objPHPExcel->setActiveSheetIndex(0);
         $part = $_GET['part'];
         $area = $_GET['area'];
 
-        $school = $this->mod_exam_area->year_school_name($part);
-        $arr = $this->mod_trial->get_trial_staff_task_money_list($part);
+        $school = $this->mod_voice_exam_area->year_school_name($part);
+        $arr = $this->mod_voice_trial->get_trial_staff_task_money_list($part);
         for ($i=0; $i < count($arr); $i++) {
             # code...
             $objPHPExcel->getActiveSheet()->setCellValue('A1', '序號');
@@ -1961,7 +1960,7 @@ class Test_form extends CI_Controller
             $objPHPExcel->getActiveSheet()->setCellValue('H1', '應領費用');
             $objPHPExcel->getActiveSheet()->setCellValue('A'.(2+$i), $i+1);
             $objPHPExcel->getActiveSheet()->setCellValue('B'.(2+$i), $area);
-            $objPHPExcel->getActiveSheet()->setCellValue('C'.(2+$i), $school);
+            $objPHPExcel->getActiveSheet()->setCellValue('C'.(2+$i), $school['area_name']);
             $objPHPExcel->getActiveSheet()->setCellValue('D'.(2+$i), $arr[$i]['name']);
             $objPHPExcel->getActiveSheet()->setCellValue('E'.(2+$i), $arr[$i]['job']);
             $objPHPExcel->getActiveSheet()->setCellValue('F'.(2+$i), number_format($arr[$i]['salary_total']));
@@ -1981,19 +1980,19 @@ class Test_form extends CI_Controller
         $objWriter->save('php://output');
     }
 
-    public function e_7_5()
+    public function form_e_7_5()
     {
         $this->load->library('excel');
-        $this->load->model('mod_trial');
-        $this->load->model('mod_exam_area');
+        $this->load->model('mod_voice_trial');
+        $this->load->model('mod_voice_exam_area');
 
         $objPHPExcel = new PHPExcel();
         $objPHPExcel->setActiveSheetIndex(0);
         $part = $_GET['part'];
         $area = $_GET['area'];
 
-        $school = $this->mod_exam_area->year_school_name($part);
-        $arr = $this->mod_trial->get_patrol_staff_task_money_list($part);
+        $school = $this->mod_voice_exam_area->year_school_name($part);
+        $arr = $this->mod_voice_trial->get_patrol_staff_task_money_list($part);
         for ($i=0; $i < count($arr); $i++) {
             # code...
             $objPHPExcel->getActiveSheet()->setCellValue('A1', '序號');
@@ -2005,7 +2004,7 @@ class Test_form extends CI_Controller
             $objPHPExcel->getActiveSheet()->setCellValue('H1', '應領費用');
             $objPHPExcel->getActiveSheet()->setCellValue('A'.(2+$i), $i+1);
             $objPHPExcel->getActiveSheet()->setCellValue('B'.(2+$i), $area);
-            $objPHPExcel->getActiveSheet()->setCellValue('C'.(2+$i), $school);
+            $objPHPExcel->getActiveSheet()->setCellValue('C'.(2+$i), $school['area_name']);
             $objPHPExcel->getActiveSheet()->setCellValue('D'.(2+$i), $arr[$i]['name']);
             $objPHPExcel->getActiveSheet()->setCellValue('E'.(2+$i), $arr[$i]['job']);
             $objPHPExcel->getActiveSheet()->setCellValue('F'.(2+$i), number_format($arr[$i]['salary_total']));

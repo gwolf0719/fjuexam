@@ -112,7 +112,7 @@
             <div class="modal-body">
                 <div class="row">
                     <div class="col-md-12 col-sm-12 col-xs-12">
-                        <a href="./designated/e_7">
+                        <a href="./voice/e/form_e_7">
                             <div class="btn_part">請公假名單</div>
                         </a>
                         <div class="btn_part" style="cursor: pointer;" data-toggle="modal" data-target="#e_7_1">印領清冊</div>                
@@ -160,12 +160,12 @@
             <div class="modal-body">
                 <div class="row">
                     <div class="col-md-12 col-sm-12 col-xs-12">
-                        <div class="btn_part btn1" link="./designated/e_7_1?part=2501&area=第一分區" part="2501" area="第一分區">第一分區</div>
-                        <div class="btn_part btn2" link="./designated/e_7_2?part=2501&area=第一分區&obs=29" part="2501" area="第一分區" obs="29">第一分區(身障)</div>
-                        <div class="btn_part btn1" link="./designated/e_7_1?part=2502&area=第二分區" part="2502" area="第二分區">第二分區</div>
-                        <div class="btn_part btn2" link="./designated/e_7_2?part=2502&area=第二分區&obs=29" part="2502" area="第二分區" obs="29">第二分區(身障)</div>    
-                        <div class="btn_part btn1" link="./designated/e_7_1?part=2503&area=第三分區" part="2503" area="第三分區">第三分區</div> 
-                        <div class="btn_part btn2" link="./designated/e_7_2?part=2503&area=第三分區&obs=29" part="2503" area="第三分區" obs="29">第三分區(身障)</div> 
+                        <div class="btn_part btn1" link="./voice/e/form_e_7_1?part=2501&area=第一分區" part="2501" area="第一分區">第一分區</div>
+                        <div class="btn_part btn2" link="./voice/e/form_e_7_2?part=2501&area=第一分區&obs=29" part="2501" area="第一分區" obs="29">第一分區(身障)</div>
+                        <div class="btn_part btn1" link="./voice/e/form_e_7_1?part=2502&area=第二分區" part="2502" area="第二分區">第二分區</div>
+                        <div class="btn_part btn2" link="./voice/e/form_e_7_2?part=2502&area=第二分區&obs=29" part="2502" area="第二分區" obs="29">第二分區(身障)</div>    
+                        <div class="btn_part btn1" link="./voice/e/form_e_7_1?part=2503&area=第三分區" part="2503" area="第三分區">第三分區</div> 
+                        <div class="btn_part btn2" link="./voice/e/form_e_7_2?part=2503&area=第三分區&obs=29" part="2503" area="第三分區" obs="29">第三分區(身障)</div> 
                     </div>
                 </div>
             </div>
@@ -186,10 +186,10 @@
             <div class="modal-body">
                 <div class="row">
                     <div class="col-md-12 col-sm-12 col-xs-12">
-                        <div class="btn_part btn3" link="./designated/e_7_3?part=2501&area=考區" part="2500" area="考區">考區</div>
-                        <div class="btn_part btn3" link="./designated/e_7_3?part=2501&area=第一分區" part="2501" area="第一分區">第一分區</div>
-                        <div class="btn_part btn3" link="./designated/e_7_3?part=2502&area=第二分區" part="2502" area="第二分區">第二分區</div>  
-                        <div class="btn_part btn3" link="./designated/e_7_3?part=2503&area=第三分區" part="2503" area="第三分區">第三分區</div> 
+                        <div class="btn_part btn3" link="./voice/e/form_e_7_3?part=2501&area=考區" part="2500" area="考區">考區</div>
+                        <div class="btn_part btn3" link="./voice/e/form_e_7_3?part=2501&area=第一分區" part="2501" area="第一分區">第一分區</div>
+                        <div class="btn_part btn3" link="./voice/e/form_e_7_3?part=2502&area=第二分區" part="2502" area="第二分區">第二分區</div>  
+                        <div class="btn_part btn3" link="./voice/e/form_e_7_3?part=2503&area=第三分區" part="2503" area="第三分區">第三分區</div> 
                     </div>
                 </div>
             </div>
@@ -210,9 +210,9 @@
             <div class="modal-body">
                 <div class="row">
                     <div class="col-md-12 col-sm-12 col-xs-12">
-                        <div class="btn_part btn4" link="./designated/e_7_4?part=2501&area=第一分區" part="2501" area="第一分區">第一分區</div>
-                        <div class="btn_part btn4" link="./designated/e_7_4?part=2502&area=第二分區" part="2502" area="第二分區">第二分區</div>  
-                        <div class="btn_part btn4" link="./designated/e_7_4?part=2503&area=第三分區" part="2503" area="第三分區">第三分區</div> 
+                        <div class="btn_part btn4" link="./voice/e/form_e_7_4?part=2501&area=第一分區" part="2501" area="第一分區">第一分區</div>
+                        <div class="btn_part btn4" link="./voice/e/form_e_7_4?part=2502&area=第二分區" part="2502" area="第二分區">第二分區</div>  
+                        <div class="btn_part btn4" link="./voice/e/form_e_7_4?part=2503&area=第三分區" part="2503" area="第三分區">第三分區</div> 
                     </div>
                 </div>
             </div>
@@ -233,9 +233,9 @@
             <div class="modal-body">
                 <div class="row">
                     <div class="col-md-12 col-sm-12 col-xs-12">
-                        <div class="btn_part btn5" link="./designated/e_7_5?part=2501&area=第一分區" part="2501" area="第一分區">第一分區</div>
-                        <div class="btn_part btn5" link="./designated/e_7_5?part=2502&area=第二分區" part="2502" area="第二分區">第二分區</div>  
-                        <div class="btn_part btn5" link="./designated/e_7_5?part=2503&area=第三分區" part="2503" area="第三分區">第三分區</div> 
+                        <div class="btn_part btn5" link="./voice/e/form_e_7_5?part=2501&area=第一分區" part="2501" area="第一分區">第一分區</div>
+                        <div class="btn_part btn5" link="./voice/e/form_e_7_5?part=2502&area=第二分區" part="2502" area="第二分區">第二分區</div>  
+                        <div class="btn_part btn5" link="./voice/e/form_e_7_5?part=2503&area=第三分區" part="2503" area="第三分區">第三分區</div> 
                     </div>
                 </div>
             </div>
