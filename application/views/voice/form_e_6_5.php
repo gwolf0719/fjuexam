@@ -36,14 +36,14 @@
 <table class="" id="" style="padding:15px;text-align:center;">
     <thead>
         <tr>
-            <td colspan="10" style="font-size:26px;"><?=$_SESSION['year']?>學年度高中英語能力測驗新北一考區</td>
+            <td colspan="10" style="font-size:26px;"><?=$_SESSION['year']?>學年度英語能力測驗<?=$_SESSION['ladder']?>考試新北一考區</td>
         </tr>
         <tr>
             <td colspan="10" style="font-size:22px;padding:20px 0px">巡場人員印領清冊</td>
         </tr>
         <tr>
             <td colspan="3" style="font-size:22px;text-align:left;padding:20px 0px"> 分區：<?=$area?></td>
-            <td colspan="4" style="font-size:22px;text-align:center;padding:20px 0px">考場：<?=$school?></td>
+            <td colspan="4" style="font-size:22px;text-align:center;padding:20px 0px">考場：<?=$school['area_name']?></td>
             <td colspan="3" style="font-size:22px;text-align:right;padding:20px 0px"> 印表日期：<?=date('Y/m/d')?></td>
         </tr>
         <tr>
@@ -64,7 +64,6 @@
         </td>
         <td class="bb" style="font-size:18px;font-weight:bold;"><?=number_format($v['salary_total'])?>
         </td>
-        <td class="bb" style="font-size:18px;font-weight:bold;"><?=number_format($v['lunch_total'])?></td>
         <td class="bb" style="font-size:18px;font-weight:bold;"><?=number_format($v['total'])?></td>
         <td colspan="2" class="bb"></td>
         <td colspan="2" class="bb"></td>
@@ -78,6 +77,6 @@
                 $count = 0;
             }
         ?>
-        <td colspan="12" style="text-align:left;font-size:18px;font-weight:bold;">共計:<?=$count?>人 實發監考費：<?=number_format($salary)?> + 餐費： <?=number_format($lunch)?> = 總支出費用<?=number_format($salary+$lunch)?></td>
+        <td colspan="12" style="text-align:left;font-size:18px;font-weight:bold;">共計:<?=$count?>人 實發監考費：<?=number_format($salary)?>  = 總支出費用<?=number_format($salary)?></td>
     </tr>
 </table>

@@ -1133,6 +1133,75 @@ class Mod_voice_trial extends CI_Model
         }
     }       
 
+    public function get_patrol_staff_task_money_list($part = '')
+    {
+        $this->db->where('year', $this->session->userdata('year'));
+        if ($part != '') {
+            $this->db->where('part', $part);
+        }
+
+        $res = $this->db->get('voice_patrol_staff')->result_array();
+        // print_r($res);
+        if (!empty($res)) {
+            for ($i=0; $i < count($res); $i++) {
+                $do_date = explode(",", $res[$i]['do_date']);
+                # code...
+                $arr[] = array(
+                    'job'=> '分區巡場人員',
+                    'name'=>$res[$i]['patrol_staff_name'],
+                    'one_day_salary'=>$res[$i]['salary'],
+                    'salary_total'=>$res[$i]['salary_total'],
+                    'total'=>$res[$i]['total'],
+                );
+
+            }
+            
+            return $arr;
+        }else{
+            return false;
+        }
+    }    
+
+     
+    public function get_patrol_staff_salary_total($part = '')
+    {
+        $this->db->where('year', $this->session->userdata('year'));
+        if ($part != '') {
+            $this->db->where('part', $part);
+        }
+
+        $res = $this->db->get('voice_patrol_staff')->result_array();
+        if (!empty($res)) {
+            $salary = 0;
+            for ($i=0; $i < count($res); $i++) {
+                $do_date = explode(",", $res[$i]['do_date']);
+
+                $salary += $res[$i]['salary_total'];
+
+            }
+            
+            return $salary;
+        }else{
+            return false;
+        }
+    }        
+
+    public function get_patrol_staff_task_member_count($part = '')
+    {
+        $this->db->where('year', $this->session->userdata('year'));
+        if ($part != '') {
+            $this->db->where('part', $part);
+        }
+
+        $res = $this->db->get('voice_patrol_staff')->result_array();
+        // print_r($res);
+        if (!empty($res)) {
+            return $res;
+        }else{
+            return false;
+        }
+    }   
+
 
 
 

@@ -171,9 +171,9 @@
             <div class="modal-body">
                 <div class="row">
                     <div class="col-md-12 col-sm-12 col-xs-12">
-                        <div class="btn_part btn5" part="2501" area="第一分區" link="./designated/e_6_5?part=2501&area=第一分區">第一分區</div>
-                        <div class="btn_part btn5" part="2502" area="第二分區" link="./designated/e_6_5?part=2502&area=第二分區">第二分區</div>
-                        <div class="btn_part btn5" part="2503" area="第三分區" link="./designated/e_6_5?part=2503&area=第三分區">第三分區</div>
+                        <div class="btn_part btn5" part="2501" area="第一分區" link="./voice/e/form_e_6_5?part=2501&area=第一分區">第一分區</div>
+                        <div class="btn_part btn5" part="2502" area="第二分區" link="./voice/e/form_e_6_5?part=2502&area=第二分區">第二分區</div>
+                        <div class="btn_part btn5" part="2503" area="第三分區" link="./voice/e/form_e_6_5?part=2503&area=第三分區">第三分區</div>
                     </div>
                 </div>
             </div>
