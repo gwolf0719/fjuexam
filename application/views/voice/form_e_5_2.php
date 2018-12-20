@@ -76,7 +76,7 @@
     </div>
 
     <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6 cube text-center">
-        <a href="assets/zip/試務人員標籤.docx" download>
+        <a href="assets/zip/英聽試務人員標籤.docx" download>
             <img src="assets/images/E5201.png" alt="">
         </a>
     </div>
@@ -86,7 +86,7 @@
     </div>
 
     <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6 cube text-center">
-        <a href="assets/zip/監試人員標籤.docx" download>
+        <a href="assets/zip/英聽監試人員標籤.docx" download>
             <img src="assets/images/E5202.png" alt="">
         </a>
     </div>

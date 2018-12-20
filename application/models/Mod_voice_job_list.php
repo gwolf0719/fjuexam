@@ -702,6 +702,60 @@ class Mod_voice_job_list extends CI_Model
     }    
 
 
+    public function get_district_task_money_list($test_partition = '')
+    {
+        $this->db->where('year', $this->session->userdata('year'));
+        if ($test_partition != '') {
+            $this->db->where('test_partition', $test_partition);
+        }
+
+        $this->db->where('job_code !=', "");
+
+        $res = $this->db->get('voice_job_list')->result_array();
+        if (!empty($res)) {
+            for ($i=0; $i < count($res); $i++) {
+                # code...
+                $do_date = explode(",",$res[$i]['do_date']);
+                $arr[] = array(
+                    'job'=>$res[$i]['job'],
+                    'name'=>$res[$i]['name'],
+                    'one_day_salary'=>$res[$i]['one_day_salary'] * count($do_date),
+                    'salary_total'=>$res[$i]['salary_total'],
+                    'total'=>$res[$i]['total'],
+                );
+
+            }
+            return $arr;
+        }else{
+            return false;
+        }
+    }    
+    
+    
+    public function get_all_salary_trial_total_of_district($test_partition){
+        $this->db->where('year', $this->session->userdata('year'));
+        if ($test_partition != '') {
+            $this->db->where('test_partition', $test_partition);
+        }
+
+        $this->db->where('job_code !=', "");
+
+        $res = $this->db->get('voice_job_list')->result_array();
+
+        if (!empty($res)) {
+            $salary = 0;
+            for ($i=0; $i < count($res); $i++) {
+                # code...
+                $salary += $res[$i]['salary_total'];
+
+            }
+            return $salary;
+        }else{
+            return false;
+        }
+    }
+
+
 
 
 

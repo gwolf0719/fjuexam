@@ -73,7 +73,7 @@
     </div>
 
     <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6 cube text-center">
-        <a href="assets/zip/試務人員識別證.docx" target="_blank" download> 
+        <a href="assets/zip/英聽試務人員識別證.docx" target="_blank" download> 
             <img src="assets/images/E5101.png" alt="">
         </a>              
     </div>
@@ -82,7 +82,7 @@
     </div>    
 
     <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6 cube text-center">
-        <a href="assets/zip/監試人員識別證.docx" target="_blank" download> 
+        <a href="assets/zip/英聽監試人員識別證.docx" target="_blank" download> 
             <img src="assets/images/E5102.png" alt="">
         </a>              
     </div>    

@@ -713,8 +713,8 @@ class Mod_voice_trial extends CI_Model
 
         for ($i=0; $i < count($sub); $i++) {
             # code...
-            $supervisor1 = $this->db->where('member_code', $sub[$i]['supervisor_1_code'])->get('staff_member')->row_array();
-            $supervisor2 = $this->db->where('member_code', $sub[$i]['supervisor_2_code'])->get('staff_member')->row_array();
+            $supervisor1 = $this->db->where('member_code', $sub[$i]['supervisor_1_code'])->get('voice_import_member')->row_array();
+            $supervisor2 = $this->db->where('member_code', $sub[$i]['supervisor_2_code'])->get('voice_import_member')->row_array();
             
 
             // foreach ($res as $k => $v) {
@@ -742,6 +742,396 @@ class Mod_voice_trial extends CI_Model
         // print_r($arr);
         return $arr;
     }
+
+    public function e_6_1($part = '')
+    {
+        $this->db->select('*');
+        if ($part != '') {
+            $this->db->where('voice_area_main.part', $part);
+        }
+        $this->db->not_like('voice_area_main.field', '29','after');
+        $this->db->from('voice_area_main');
+        $this->db->join('voice_trial_assign', 'voice_area_main.sn = voice_trial_assign.sn');
+        $year = $this->session->userdata('year');
+        
+        $res = $this->db->get()->result_array();
+        if(!empty($res)){
+            function even($var)
+            {
+                return($var['year'] == $_SESSION['year']);
+            }
+
+            $sub =  array_filter($res, "even");
+
+            sort($sub);
+
+            // print_r($sub);
+
+            for ($i=0; $i < count($sub); $i++) {
+                # code...
+                $supervisor1 = $this->db->where('member_code', $sub[$i]['supervisor_1_code'])->get('voice_import_member')->row_array();
+                $supervisor2 = $this->db->where('member_code', $sub[$i]['supervisor_2_code'])->get('voice_import_member')->row_array();
+                $patrol = $this->db->where('start <=', $sub[$i]['start'])->where('end >=', $sub[$i]['end'])->get('voice_patrol_staff')->row_array();
+                $course = $this->db->where('year', $year)->where('field', $sub[$i]['field'])->get('voice_exam_area')->row_array();
+                $trial = $this->db->get('voice_trial_staff')->result_array();
+                if($sub[$i]['first_member_section_salary_total'] == ""){
+                    $first_member_section_salary_total = 0;
+                }else{
+                    $first_member_section_salary_total = $sub[$i]['first_member_section_salary_total'];
+                }
+                if($sub[$i]['second_member_section_salary_total'] == ""){
+                    $second_member_section_salary_total = 0;
+                }else{
+                    $second_member_section_salary_total = $sub[$i]['second_member_section_salary_total'];
+                }      
+                $do_date1 = explode(",", $sub[$i]['first_member_do_date']);
+                $do_date2 = explode(",", $sub[$i]['second_member_do_date']);
+                $arr[] = array(
+                    'sn'=>$sub[$i]['sn'],
+                    'field' => $sub[$i]['field'],
+                    'test_section' => $sub[$i]['class'],
+                    'part' => $sub[$i]['part'],
+                    'do_date' => $sub[$i]['first_member_do_date'],
+                    'first_member_salary_section'=> $first_member_section_salary_total,
+                    'first_member_section_salary_total'=>$sub[$i]['first_member_section_salary_total'],
+                    'supervisor_1'=>$sub[$i]['supervisor_1'],
+                    'supervisor_1_unit' => $supervisor1['member_unit'] ,
+                    'supervisor_1_phone' => $supervisor1['member_phone'],
+                    'second_member_salary_section'=> $second_member_section_salary_total,
+                    'second_member_section_salary_total'=>$sub[$i]['second_member_section_salary_total'],
+                    'supervisor_2'=>$sub[$i]['supervisor_2'],
+                    'supervisor_2_unit' => $supervisor2['member_unit'] ,
+                    'supervisor_2_phone' => $supervisor2['member_phone'],
+                );
+            }
+            // print_r($arr);
+            return $arr;
+        }else{
+            return false;
+        }
+    }    
+
+
+    public function get_all_salary_trial_total($part = '')
+    {
+        $this->db->select('*');
+       
+        $this->db->from('voice_area_main');
+        $this->db->join('voice_trial_assign', 'voice_area_main.sn = voice_trial_assign.sn');
+        if ($part != '') {
+            $this->db->where('voice_area_main.part', $part);
+        }
+        $this->db->not_like('voice_area_main.field', '29','after');
+        $this->db->where("voice_area_main.year",$_SESSION['year']);
+
+        $sub = $this->db->get()->result_array();
+        if(!empty($sub)){
+            $salary = 0;
+            for ($i=0; $i < count($sub); $i++) {
+                # code...
+                $supervisor1 = $this->db->where('member_code', $sub[$i]['supervisor_1_code'])->get('voice_import_member')->row_array();
+                $supervisor2 = $this->db->where('member_code', $sub[$i]['supervisor_2_code'])->get('voice_import_member')->row_array();
+                $patrol = $this->db->where('start <=', $sub[$i]['start'])->where('end >=', $sub[$i]['end'])->get('voice_patrol_staff')->row_array();
+                $course = $this->db->where('year', $_SESSION['year'])->where('field', $sub[$i]['field'])->get('voice_exam_area')->row_array();
+                $trial = $this->db->get('voice_trial_staff')->result_array();
+                if($sub[$i]['first_member_salary_section'] == ""){
+                    $first_member_salary_section = 0;
+                }else{
+                    $first_member_salary_section = $sub[$i]['first_member_salary_section'];
+                }
+                if($sub[$i]['second_member_salary_section'] == ""){
+                    $second_member_salary_section = 0;
+                }else{
+                    $second_member_salary_section = $sub[$i]['second_member_salary_section'];
+                }            
+                $do_date1 = explode(",", $sub[$i]['first_member_do_date']);
+                $do_date2 = explode(",", $sub[$i]['second_member_do_date']);
+                $salary += $sub[$i]['first_member_section_salary_total'] + $sub[$i]['second_member_section_salary_total'];
+            }
+            return $salary;
+        }else{
+            return false;
+        }
+    }  
+
+    public function e_6_1_member_count($part = '')
+    {
+        $this->db->select('*');
+        if ($part != '') {
+            $this->db->where('voice_area_main.part', $part);
+        }
+        $this->db->where("voice_area_main.year",$_SESSION['year']);
+
+        $this->db->where("voice_trial_assign.supervisor_1 != ","");
+        $this->db->where("voice_trial_assign.supervisor_2 != ","");        
+        $this->db->not_like('voice_area_main.field', '29','after');
+        $this->db->from('voice_area_main');
+        $this->db->join('voice_trial_assign', 'voice_area_main.sn = voice_trial_assign.sn');
+        $year = $this->session->userdata('year');
+        
+        $sub = $this->db->get()->result_array();
+        if(!empty($sub)){
+
+            // print_r($sub);
+
+            for ($i=0; $i < count($sub); $i++) {
+                # code...
+                $supervisor1 = $this->db->where('member_code', $sub[$i]['supervisor_1_code'])->get('voice_import_member')->row_array();
+                $supervisor2 = $this->db->where('member_code', $sub[$i]['supervisor_2_code'])->get('voice_import_member')->row_array();
+                $patrol = $this->db->where('start <=', $sub[$i]['start'])->where('end >=', $sub[$i]['end'])->get('voice_patrol_staff')->row_array();
+                $course = $this->db->where('year', $year)->where('field', $sub[$i]['field'])->get('voice_exam_area')->row_array();
+                $trial = $this->db->get('voice_trial_staff')->result_array();
+                if($sub[$i]['first_member_salary_section'] == ""){
+                    $first_member_salary_section = 0;
+                }else{
+                    $first_member_salary_section = $sub[$i]['first_member_salary_section'];
+                }
+                if($sub[$i]['second_member_salary_section'] == ""){
+                    $second_member_salary_section = 0;
+                }else{
+                    $second_member_salary_section = $sub[$i]['second_member_salary_section'];
+                }      
+                $do_date1 = explode(",", $sub[$i]['first_member_do_date']);
+                $do_date2 = explode(",", $sub[$i]['second_member_do_date']);
+                $arr[] = array(
+                    'sn'=>$sub[$i]['sn'],
+                    'field' => $sub[$i]['field'],
+                    'test_section' => $sub[$i]['class'],
+                    'part' => $sub[$i]['part'],
+                    'do_date' => $sub[$i]['first_member_do_date'],
+                    'first_member_salary_section'=> $sub[$i]['first_member_section_salary_total'] * count($do_date1),
+                    'first_member_section_lunch_total'=>$sub[$i]['first_member_section_lunch_total']*count($do_date1),
+                    'first_member_section_salary_total'=>$sub[$i]['first_member_section_salary_total']*count($do_date1),
+                    'supervisor_1'=>$sub[$i]['supervisor_1'],
+                    'supervisor_1_unit' => $supervisor1['member_unit'] ,
+                    'supervisor_1_phone' => $supervisor1['member_phone'],
+                    'second_member_salary_section'=> $sub[$i]['second_member_section_salary_total']*count($do_date2),
+                    'second_member_section_salary_total'=>$sub[$i]['second_member_section_salary_total']*count($do_date2),
+                    'supervisor_2'=>$sub[$i]['supervisor_2'],
+                    'supervisor_2_unit' => $supervisor2['member_unit'] ,
+                    'supervisor_2_phone' => $supervisor2['member_phone'],
+                );
+            }
+            // print_r($arr);
+            return $arr;
+        }else{
+            return false;
+        }
+    }   
+
+    public function get_list_for_obs($part = '', $obs)
+    {
+        $this->db->select('*');
+        if ($part != '') {
+            $this->db->where('voice_area_main.part', $part);
+        }
+        $this->db->like('voice_area_main.field', $obs,'after');
+        $this->db->from('voice_area_main');
+        $this->db->join('voice_trial_assign', 'voice_area_main.sn = voice_trial_assign.sn');
+        $year = $this->session->userdata('year');
+
+        $res = $this->db->get()->result_array();
+
+        function even($var)
+        {
+            return($var['year'] == $_SESSION['year']);
+        }
+
+        $sub =  array_filter($res, "even");
+
+        sort($sub);
+         
+        if(!empty($sub)){
+            for ($i=0; $i < count($sub); $i++) {
+                # code...
+                $supervisor1 = $this->db->where('member_code', $sub[$i]['supervisor_1_code'])->get('voice_import_member')->row_array();
+                $supervisor2 = $this->db->where('member_code', $sub[$i]['supervisor_2_code'])->get('voice_import_member')->row_array();
+                $patrol = $this->db->where('start <=', $sub[$i]['start'])->where('end >=', $sub[$i]['end'])->get('voice_patrol_staff')->row_array();
+                $course = $this->db->where('year', $year)->where('field', $sub[$i]['field'])->get('voice_exam_area')->row_array();
+                $trial = $this->db->get('voice_trial_staff')->result_array();
+                if($sub[$i]['first_member_section_salary_total'] == ""){
+                    $first_member_section_salary_total = 0;
+                }else{
+                    $first_member_section_salary_total = $sub[$i]['first_member_section_salary_total'];
+                }
+                if($sub[$i]['second_member_section_salary_total'] == ""){
+                    $second_member_section_salary_total = 0;
+                }else{
+                    $second_member_section_salary_total = $sub[$i]['second_member_section_salary_total'];
+                }               
+                $do_date1 = explode(",", $sub[$i]['first_member_do_date']);
+                $do_date2 = explode(",", $sub[$i]['second_member_do_date']);
+                $arr[] = array(
+                    'sn'=>$sub[$i]['sn'],
+                    'field' => $sub[$i]['field'],
+                    'test_section' => $sub[$i]['test_section'],
+                    'part' => $sub[$i]['part'],
+                    'do_date' => $sub[$i]['first_member_do_date'],
+                    'first_member_salary_section'=> $first_member_section_salary_total,
+                    'first_member_section_salary_total'=>$first_member_section_salary_total,
+                    'first_member_section_total'=>$sub[$i]['first_member_section_total'],
+                    'supervisor_1'=>$sub[$i]['supervisor_1'],
+                    'supervisor_1_unit' => $supervisor1['member_unit'] ,
+                    'supervisor_1_phone' => $supervisor1['member_phone'],
+                    'second_member_salary_section'=> $second_member_section_salary_total,
+                    'second_member_section_salary_total'=>$second_member_section_salary_total,
+                    'second_member_section_total'=>$sub[$i]['second_member_section_total'],
+                    'supervisor_2'=>$sub[$i]['supervisor_2'],
+                    'supervisor_2_unit' => $supervisor2['member_unit'] ,
+                    'supervisor_2_phone' => $supervisor2['member_phone'],
+                    'floor' =>$sub[$i]['floor'],
+                    'number'=>$sub[$i]['number'],
+                    'start'=>$sub[$i]['start'],
+                    'end'=>$sub[$i]['end'],
+                    'patrol'=>$patrol['patrol_staff_name'],
+                    'subject_01'=>$course['subject_01'],
+                );
+            }
+            return $arr;
+        }else{
+            return false;
+        }
+        
+    }
+
+    public function get_all_salary_trial_total_of_obs($part = '',$obs)
+    {
+        $this->db->select('*');
+        $this->db->like('voice_area_main.field', $obs);
+        $this->db->from('voice_area_main');
+        $this->db->join('voice_trial_assign', 'voice_area_main.sn = voice_trial_assign.sn');
+        if ($part != '') {
+            $this->db->where('voice_area_main.part', $part);
+        }
+        $this->db->where("voice_area_main.year",$_SESSION['year']);
+
+        $sub = $this->db->get()->result_array();
+        if(!empty($sub)){
+            $salary = 0;
+            for ($i=0; $i < count($sub); $i++) {
+                # code...
+                $supervisor1 = $this->db->where('member_code', $sub[$i]['supervisor_1_code'])->get('voice_import_member')->row_array();
+                $supervisor2 = $this->db->where('member_code', $sub[$i]['supervisor_2_code'])->get('voice_import_member')->row_array();
+                $patrol = $this->db->where('start <=', $sub[$i]['start'])->where('end >=', $sub[$i]['end'])->get('voice_patrol_staff')->row_array();
+                $course = $this->db->where('year', $_SESSION['year'])->where('field', $sub[$i]['field'])->get('voice_exam_area')->row_array();
+                $trial = $this->db->get('voice_trial_staff')->result_array();
+                if($sub[$i]['first_member_salary_section'] == ""){
+                    $first_member_salary_section = 0;
+                }else{
+                    $first_member_salary_section = $sub[$i]['first_member_salary_section'];
+                }
+                if($sub[$i]['second_member_salary_section'] == ""){
+                    $second_member_salary_section = 0;
+                }else{
+                    $second_member_salary_section = $sub[$i]['second_member_salary_section'];
+                }            
+                $do_date1 = explode(",", $sub[$i]['first_member_do_date']);
+                $do_date2 = explode(",", $sub[$i]['second_member_do_date']);
+                $salary += $sub[$i]['first_member_section_salary_total'] + $sub[$i]['second_member_section_salary_total'];
+            }
+            return $salary;
+        }else{
+            return false;
+        }
+    } 
+    
+    
+    public function get_list_for_obs_member_count($part = '', $obs)
+    {
+        $this->db->select('*');
+        if ($part != '') {
+            $this->db->where('voice_area_main.part', $part);
+        }
+        $this->db->where('voice_area_main.year',$_SESSION['year']);
+        $this->db->where('voice_trial_assign.supervisor_1 !=',"");
+        $this->db->where('voice_trial_assign.supervisor_2 !=',"");
+        $this->db->like('voice_area_main.field', $obs);
+        $this->db->from('voice_area_main');
+        $this->db->join('voice_trial_assign', 'voice_area_main.sn = voice_trial_assign.sn');
+        $year = $this->session->userdata('year');
+
+        $sub = $this->db->get()->result_array();
+        if(!empty($sub)){
+            return $sub;
+        }else{
+            return false;
+        }
+    }    
+
+    public function get_trial_staff_task_money_list($part = '')
+    {
+        $this->db->where('year', $this->session->userdata('year'));
+        if ($part != '') {
+            $this->db->where('part', $part);
+        }
+
+        $res = $this->db->get('voice_trial_staff')->result_array();
+        if (!empty($res)) {
+            for ($i=0; $i < count($res); $i++) {
+                $do_date = explode(",", $res[$i]['do_date']);
+                # code...
+                $arr[] = array(
+                    'job'=> '分區管卷人員',
+                    'name'=>$res[$i]['trial_staff_name'],
+                    'one_day_salary'=>$res[$i]['salary'],
+                    'salary_total'=>$res[$i]['salary_total'],
+                    'total'=>$res[$i]['total'],
+                );
+
+            }
+            
+            return $arr;
+        }else{
+            return false;
+        }
+    }   
+
+
+    public function get_trial_staff_salary_total($part = '')
+    {
+        $this->db->where('year', $this->session->userdata('year'));
+        if ($part != '') {
+            $this->db->where('part', $part);
+        }
+
+        $res = $this->db->get('voice_trial_staff')->result_array();
+        $salary = 0;
+        if (!empty($res)) {
+            for ($i=0; $i < count($res); $i++) {
+                $do_date = explode(",", $res[$i]['do_date']);
+                # code...
+                $arr[] = array(
+                    'job'=> '分區管卷人員',
+                    'name'=>$res[$i]['trial_staff_name'],
+                    'one_day_salary'=>$res[$i]['salary'],
+                    'salary_total'=>$res[$i]['salary_total'],
+                    'total'=>$res[$i]['total'],
+                );
+
+                $salary += $res[$i]['salary_total']; 
+
+            }
+            
+            return $salary;
+        }else{
+            return false;
+        }
+    }     
+    
+    public function get_trial_staff_task_member_count($part = '')
+    {
+        $this->db->where('year', $this->session->userdata('year'));
+        if ($part != '') {
+            $this->db->where('part', $part);
+        }
+
+        $res = $this->db->get('voice_trial_staff')->result_array();
+        if (!empty($res)) {            
+            return $res;
+        }else{
+            return false;
+        }
+    }       
 
 
 

@@ -28,7 +28,7 @@
                 <table style="padding:10px 0px;text-align:center;">
                 <thead>
                     <tr>
-                        <td colspan="5" style="font-size:26px;"><?=$_SESSION['year']?>學年度高中英語能力測驗新北一考區監試說明會簽到表</td>
+                        <td colspan="5" style="font-size:26px;"><?=$_SESSION['year']?>學年度英語能力測驗<?=$_SESSION['ladder']?>考試新北一考區監試說明會簽到表</td>
                     </tr>
                     <tr>
                         <td colspan="5" style="font-size:22px;text-align:left;">單位：<?=$k?></td>

@@ -664,7 +664,7 @@ class Test_form extends CI_Controller
             'count'=> $this->mod_voice_trial->get_patrol_member_count_1($part),
             'school' => $this->mod_voice_exam_area->year_school_name($part),
         );
-        // print_r($data);
+      
      
         if ($data['part'] != false) {
             $view = $this->load->view('voice/form_e_2_3_1', $data,true);
@@ -1583,11 +1583,11 @@ class Test_form extends CI_Controller
         $this->load->view('layout', $data);
     }
 
-    public function e_6_1()
+    public function form_e_6_1()
     {
         $this->load->library('pdf');
         $this->load->model('mod_voice_trial');
-        $this->load->model('mod_exam_area');
+        $this->load->model('mod_voice_exam_area');
         
         $title = '監試人員印領清冊';
         $date = date('yyyy/m/d');
@@ -1596,15 +1596,16 @@ class Test_form extends CI_Controller
         $data = array(
             'part' => $this->mod_voice_trial->e_6_1($part),
             'area'=> $area,
-            'school' => $this->mod_exam_area->year_school_name($part),
+            'school' => $this->mod_voice_exam_area->year_school_name($part),
             'salary'=>$this->mod_voice_trial->get_all_salary_trial_total($part),
             'count'=>$this->mod_voice_trial->e_6_1_member_count($part)
         );
-        $view = $this->load->view('designated/e_6_1', $data,true);
+        
+        $view = $this->load->view('voice/form_e_6_1', $data,true);
         if (!is_dir('./html/')) {
             mkdir('./html/');
         } else {
-            $path = 'e_6_1.html';
+            $path = 'form_e_6_1.html';
             $fp = fopen('./html/'.$path,'w');//建檔
             fwrite($fp,$view);
             fclose($fp);//關閉開啟的檔案
@@ -1613,16 +1614,16 @@ class Test_form extends CI_Controller
         if (!is_dir('./pdf/')) {
             mkdir('./pdf/');
         } else {
-            exec('wkhtmltopdf --lowquality --enable-forms http://uat.fofo.tw/fjuexam/html/e_6_1.html  ./pdf/e_6_1.pdf');
+            exec('wkhtmltopdf --lowquality --enable-forms http://uat.fofo.tw/fjuexam/html/form_e_6_1.html  ./pdf/form_e_6_1.pdf');
         }
-        echo '<script>location.href="http://uat.fofo.tw/fjuexam/pdf/e_6_1.pdf"</script>';
+        echo '<script>location.href="http://uat.fofo.tw/fjuexam/pdf/form_e_6_1.pdf"</script>';
     }
 
-    public function e_6_2()
+    public function form_e_6_2()
     {
         $this->load->library('pdf');
-        $this->load->model('mod_trial');
-        $this->load->model('mod_exam_area');
+        $this->load->model('mod_voice_trial');
+        $this->load->model('mod_voice_exam_area');
         
         $title = '監試人員印領清冊';
         $date = date('yyyy/m/d');
@@ -1630,18 +1631,18 @@ class Test_form extends CI_Controller
         $area = $_GET['area'];
         $obs = $_GET['obs'];
         $data = array(
-            'part' => $this->mod_trial->get_list_for_obs($part, $obs),
+            'part' => $this->mod_voice_trial->get_list_for_obs($part, $obs),
             'area'=> $area,
-            'school' => $this->mod_exam_area->year_school_name($part),
-            'salary'=>$this->mod_trial->get_all_salary_trial_total_of_obs($part,$obs),
-            'count' => $this->mod_trial->get_list_for_obs_member_count($part, $obs),
+            'school' => $this->mod_voice_exam_area->year_school_name($part),
+            'salary'=>$this->mod_voice_trial->get_all_salary_trial_total_of_obs($part,$obs),
+            'count' => $this->mod_voice_trial->get_list_for_obs_member_count($part, $obs),
         );
         if($data['part'] != false){
-            $view =  $this->load->view('designated/e_6_2', $data, true);
+            $view =  $this->load->view('voice/form_e_6_2', $data, true);
             if (!is_dir('./html/')) {
                     mkdir('./html/');
                 } else {
-                    $path = 'e_6_2.html';
+                    $path = 'form_e_6_2.html';
                     $fp = fopen('./html/'.$path,'w');//建檔
                     fwrite($fp,$view);
                     fclose($fp);//關閉開啟的檔案
@@ -1650,37 +1651,37 @@ class Test_form extends CI_Controller
                 if (!is_dir('./pdf/')) {
                     mkdir('./pdf/');
                 } else {
-                    exec('wkhtmltopdf --lowquality --enable-forms http://uat.fofo.tw/fjuexam/html/e_6_2.html  ./pdf/e_6_2.pdf');
+                    exec('wkhtmltopdf --lowquality --enable-forms http://uat.fofo.tw/fjuexam/html/form_e_6_2.html  ./pdf/form_e_6_2.pdf');
             }
-            echo '<script>location.href="http://uat.fofo.tw/fjuexam/pdf/e_6_2.pdf"</script>';
+            echo '<script>location.href="http://uat.fofo.tw/fjuexam/pdf/form_e_6_2.pdf"</script>';
         }else{
           return false;
         }
     }
 
-    public function e_6_3()
+    public function form_e_6_3()
     {
         $this->load->library('pdf');
-        $this->load->model('mod_task');
-        $this->load->model('mod_exam_area');
+        $this->load->model('mod_voice_job_list');
+        $this->load->model('mod_voice_exam_area');
         
         $title = '試務人員印領清冊';
         $date = date('yyyy/m/d');
         $part = $_GET['part'];
-        $area = $_GET['area'];
+        $test_partition = $_GET['test_partition'];
 
         $data = array(
-            'part' => $this->mod_task->get_district_task_money_list($area),
-            'area'=> $area,
-            'school' => $this->mod_exam_area->year_school_name($part),
-            'salary'=>$this->mod_task->get_all_salary_trial_total_of_district($area),
+            'part' => $this->mod_voice_job_list->get_district_task_money_list($test_partition),
+            'test_partition'=> $test_partition,
+            'school' => $this->mod_voice_exam_area->year_school_name($part),
+            'salary'=>$this->mod_voice_job_list->get_all_salary_trial_total_of_district($test_partition),
         );
         if($data['part'] != false){
-            $view =  $this->load->view('designated/e_6_3', $data,true);
+            $view =  $this->load->view('voice/form_e_6_3', $data,true);
             if (!is_dir('./html/')) {
                 mkdir('./html/');
             } else {
-                $path = 'e_6_3.html';
+                $path = 'form_e_6_3.html';
                 $fp = fopen('./html/'.$path,'w');//建檔
                 fwrite($fp,$view);
                 fclose($fp);//關閉開啟的檔案
@@ -1689,33 +1690,37 @@ class Test_form extends CI_Controller
             if (!is_dir('./pdf/')) {
                 mkdir('./pdf/');
             } else {
-                exec('wkhtmltopdf --lowquality --enable-forms http://uat.fofo.tw/fjuexam/html/e_6_3.html  ./pdf/e_6_3.pdf');
+                exec('wkhtmltopdf --lowquality --enable-forms http://uat.fofo.tw/fjuexam/html/form_e_6_3.html  ./pdf/form_e_6_3.pdf');
             }
-            echo '<script>location.href="http://uat.fofo.tw/fjuexam/pdf/e_6_3.pdf"</script>';
+            echo '<script>location.href="http://uat.fofo.tw/fjuexam/pdf/form_e_6_3.pdf"</script>';
         }else{
           return false;
         }
     }
 
-    public function e_6_4()
+    public function form_e_6_4()
     {
         $this->load->library('pdf');
-        $this->load->model('mod_trial');
-        $this->load->model('mod_exam_area');
+        $this->load->model('mod_voice_trial');
+        $this->load->model('mod_voice_exam_area');
        
+        $part = $_GET['part'];
+        $area = $_GET['area'];
+
+
         $data = array(
-            'part' => $this->mod_trial->get_trial_staff_task_money_list($part),
+            'part' => $this->mod_voice_trial->get_trial_staff_task_money_list($part),
             'area'=> $area,
-            'school' => $this->mod_exam_area->year_school_name($part),
-            'salary'=>$this->mod_trial->get_trial_staff_salary_total($part),
-            'count' => $this->mod_trial->get_trial_staff_task_member_count($part),
+            'school' => $this->mod_voice_exam_area->year_school_name($part),
+            'salary'=>$this->mod_voice_trial->get_trial_staff_salary_total($part),
+            'count' => $this->mod_voice_trial->get_trial_staff_task_member_count($part),
         );
         if($data['part'] != false){
-            $view =  $this->load->view('designated/e_6_4', $data, true);
+            $view =  $this->load->view('voice/form_e_6_4', $data, true);
             if (!is_dir('./html/')) {
                 mkdir('./html/');
             } else {
-                $path = 'e_6_4.html';
+                $path = 'form_e_6_4.html';
                 $fp = fopen('./html/'.$path,'w');//建檔
                 fwrite($fp,$view);
                 fclose($fp);//關閉開啟的檔案
@@ -1724,9 +1729,9 @@ class Test_form extends CI_Controller
             if (!is_dir('./pdf/')) {
                 mkdir('./pdf/');
             } else {
-                exec('wkhtmltopdf --lowquality --enable-forms http://uat.fofo.tw/fjuexam/html/e_6_4.html  ./pdf/e_6_4.pdf');
+                exec('wkhtmltopdf --lowquality --enable-forms http://uat.fofo.tw/fjuexam/html/form_e_6_4.html  ./pdf/form_e_6_4.pdf');
             }
-            echo '<script>location.href="http://uat.fofo.tw/fjuexam/pdf/e_6_4.pdf"</script>';
+            echo '<script>location.href="http://uat.fofo.tw/fjuexam/pdf/form_e_6_4.pdf"</script>';
         }else{
           return false;
         }
@@ -1735,15 +1740,15 @@ class Test_form extends CI_Controller
     public function e_6_5()
     {
         $this->load->library('pdf');
-        $this->load->model('mod_trial');
-        $this->load->model('mod_exam_area');
+        $this->load->model('mod_voice_trial');
+        $this->load->model('mod_voice_exam_area');
         
         $data = array(
-            'part' => $this->mod_trial->get_patrol_staff_task_money_list($part),
+            'part' => $this->mod_voice_trial->get_patrol_staff_task_money_list($part),
             'area'=> $area,
-            'school' => $this->mod_exam_area->year_school_name($part),
-            'salary'=>$this->mod_trial->get_patrol_staff_salary_total($part),
-            'count' => $this->mod_trial->get_patrol_staff_task_member_count($part),
+            'school' => $this->mod_voice_exam_area->year_school_name($part),
+            'salary'=>$this->mod_voice_trial->get_patrol_staff_salary_total($part),
+            'count' => $this->mod_voice_trial->get_patrol_staff_task_member_count($part),
         );
         if($data['part'] != false){
             $view =  $this->load->view('designated/e_6_5', $data, true);
