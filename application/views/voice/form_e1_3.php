@@ -33,9 +33,9 @@
             <td colspan="9" style="font-size:26px;"><?=$_SESSION['year']?>學年度英語能力測驗<?=$_SESSION['ladder']?>考試新北一考區監試人員一覽表</td>
         </tr>
         <tr>
-            <td colspan="3" style="font-size:22px;padding:20px 0px;">分區：<?=$area?></td>
-            <td colspan="3" style="font-size:22px;padding:20px 0px;">考場：<?=$school['area_name']?></td>
-            <td colspan="3" style="font-size:22px;padding:20px 0px;">印表日期：<?=(date("Y") - 1911).date("/m/d")?></td>
+            <td colspan="3" style="font-size:20px;padding:20px 0px;">分區：<?=$area?></td>
+            <td colspan="3" style="font-size:20px;padding:20px 0px;">考場：<?=$school['area_name']?></td>
+            <td colspan="3" style="font-size:20px;padding:20px 0px;">印表日期：<?=(date("Y") - 1911).date("/m/d")?></td>
         </tr>
         <tr>
             <td class="bb" rowspan="2">試場</td>

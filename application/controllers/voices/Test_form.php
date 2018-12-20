@@ -107,7 +107,6 @@ class Test_form extends CI_Controller
         
         
         $data = array(
-            
             'part' => $this->mod_voice_trial->get_list_for_pdf($part),
             'area' => $area,
             'school' => $this->mod_voice_exam_area->year_school_name($part),

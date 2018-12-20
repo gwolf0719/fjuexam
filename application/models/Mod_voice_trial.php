@@ -249,8 +249,21 @@ class Mod_voice_trial extends CI_Model
 
             for ($i=0; $i < count($sub); $i++) {
                 # code...
-                $supervisor1 = $this->db->where('member_code', $sub[$i]['supervisor_1_code'])->get('voice_import_member')->row_array();
-                $supervisor2 = $this->db->where('member_code', $sub[$i]['supervisor_2_code'])->get('voice_import_member')->row_array();
+                // 預先宣告要有設定人的才找資料
+                if($sub[$i]['supervisor_1_code'] != ""){
+                    $supervisor1 = $this->db->where('member_code', $sub[$i]['supervisor_1_code'])->get('voice_import_member')->row_array();
+                }else{
+                    $supervisor1['member_unit'] = '';
+                    $supervisor1['member_phone'] = '';
+                }
+                
+                if($sub[$i]['supervisor_2_code'] != ""){
+                    $supervisor2 = $this->db->where('member_code', $sub[$i]['supervisor_2_code'])->get('voice_import_member')->row_array();
+                }else{
+                    $supervisor2['member_unit'] = '';
+                    $supervisor2['member_phone'] = '';
+                }
+                
                 $patrol = $this->db->where('start <=', $sub[$i]['start'])->where('end >=', $sub[$i]['end'])->get('voice_patrol_staff')->row_array();
                 $course = $this->db->where('year', $year)->where('field', $sub[$i]['field'])->get('voice_exam_area')->row_array();
                 $trial = $this->db->get('voice_trial_staff')->result_array();
