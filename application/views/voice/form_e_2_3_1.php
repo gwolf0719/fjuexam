@@ -32,7 +32,7 @@
 <table style="text-align:center;margin:0px auto;">
     <thead>
         <tr>
-            <td colspan="5" style="font-size:26px;text-align:center;"><?=$_SESSION['year']?>學年度英語能力測驗<?=$_SESSION['ladder']?>考試新北一考區</td>
+            <td colspan="5" style="font-size:26px;text-align:center;"><?=$_SESSION['year']?>學年度英語聽力測驗<?=$_SESSION['ladder']?>考試新北一考區</td>
         </tr>
         <tr>
             <td colspan="5" style="font-size:22px;text-align:center;"><?=$_GET['area']?><?=$school['area_name']?>試題本、答案卷卡收發記錄單</td>

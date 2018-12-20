@@ -30,7 +30,7 @@
 <table class="" id="" style="padding:5px 0px;text-align:center;">
     <thead>
         <tr>
-            <td colspan="9" style="font-size:26px;"><?=$_SESSION['year']?>學年度英語能力測驗<?=$_SESSION['ladder']?>考試新北一考區監試人員一覽表</td>
+            <td colspan="9" style="font-size:26px;"><?=$_SESSION['year']?>學年度英語聽力測驗<?=$_SESSION['ladder']?>考試新北一考區監試人員一覽表</td>
         </tr>
         <tr>
             <td colspan="3" style="font-size:20px;padding:20px 0px;">分區：<?=$area?></td>
@@ -56,20 +56,20 @@
         <td class="bb">
             <?=$v['field']?>
         </td>
-        <td class="bb" colspan="2">
+        <td class="bb" colspan="2" nowrap="nowrap">
             <?=$v['do_date']?><br><?=$v['class']?>節
         </td>
         <td class="bb">
             <?=$v['supervisor_1']?>
         </td>
-        <td class="bb" colspan="2">
+        <td class="bb" colspan="2" nowrap="nowrap">
             <?=$v['supervisor_1_unit']?><br>
             <?=$v['supervisor_1_phone']?>
         </td>
         <td class="bb">
             <?=$v['supervisor_2']?>
         </td>
-        <td class="bb" colspan="2">
+        <td class="bb" colspan="2" nowrap="nowrap">
             <?=$v['supervisor_2_unit']?><br>
             <?=$v['supervisor_2_phone']?>
         </td>

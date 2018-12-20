@@ -56,20 +56,20 @@
         <td class="bb">
             <?=$v['field']?>
         </td>
-        <td class="bb" colspan="2">
+        <td class="bb" colspan="2" nowrap="nowrap">
             <?=$v['do_date']?><br><?=$v['cl;']?>節
         </td>
         <td class="bb">
             <?=$v['supervisor_1']?>
         </td>
-        <td class="bb" colspan="2">
+        <td class="bb" colspan="2" nowrap="nowrap">
             <?=$v['supervisor_1_unit']?><br>
             <?=$v['supervisor_1_phone']?>
         </td>
         <td class="bb">
             <?=$v['supervisor_2']?>
         </td>
-        <td class="bb" colspan="2">
+        <td class="bb" colspan="2" nowrap="nowrap">
             <?=$v['supervisor_2_unit']?><br>
             <?=$v['supervisor_2_phone']?>
         </td>

@@ -23,7 +23,7 @@
 <table class="" id="">
     <thead>
         <tr>
-            <td colspan="22" style="font-size:26px;"><?=$_SESSION['year']?>學年度英語能力測驗<?=$_SESSION['ladder']?>考試新北一考區缺考人數統計表</td>
+            <td colspan="22" style="font-size:26px;"><?=$_SESSION['year']?>學年度英語聽力測驗<?=$_SESSION['ladder']?>考試新北一考區缺考人數統計表</td>
         </tr>
         <tr>
             <td colspan="22" style="font-size:22px;"><?=$area?><?=$school['area_name']?></td>
