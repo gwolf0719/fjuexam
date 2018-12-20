@@ -62,13 +62,13 @@
             <?=$v['field']?>
         </td>
         <td class="bb">
-            <?=$v['count_num']?>
+            <?=$v['count_num_1']?>
         </td>
         <td class="bb">
           
         </td>
         <td class="bb">
-            <?=$v['count_num']?>
+            <?=$v['count_num_2']?>
         </td>
         <td class="bb">
           

@@ -370,7 +370,9 @@ class Test_form extends CI_Controller
      */
     public function form_e1_4()
     {
+        $this->load->model('mod_voice_area');
         $this->load->model('mod_voice_exam_area');
+        $this->load->model('mod_voice_trial');
         $this->load->model('mod_voice_exam_datetime');
         $title = '缺考人數統計';
         $year = $this->session->userdata('year');
@@ -392,9 +394,19 @@ class Test_form extends CI_Controller
         
         $datetime_info = $this->mod_voice_exam_datetime->get_once($year,$ladder);
         
+        // 取得所有考場
+        $area_list = $this->mod_voice_trial->get_distinct_voice_area($part);
+        // print_r($area_list);
+        // 取得考場資料
+        foreach($area_list as $k=>$v){
+            // echo '1';
+            $area_list[$k]['count_num_1']= $this->mod_voice_area->get_count_num($v['field'],'上午場');
+            $area_list[$k]['count_num_2']= $this->mod_voice_area->get_count_num($v['field'],'下午場');
+
+        }
 
         $data = array(
-            'list' => $this->mod_voice_exam_area->year_get_list($part),
+            'list' => $area_list,
             'count' => $this->mod_voice_exam_area->year_get_member_count_list($part),
             'school' => $this->mod_voice_exam_area->year_school_name($part),
             'course' => $this->mod_voice_exam_datetime->get_course($year,$ladder),

@@ -26,6 +26,16 @@ class Mod_voice_area extends CI_Model {
 
         return $this->db->get('voice_exam_area')->result_array();
     }
+    // 取得單一考場單一場次的人數
+    function get_count_num($field,$block_name){
+        $this->db->where('year',$this->session->userdata('year'));
+        $this->db->where('ladder',$this->session->userdata('ladder'));
+        $this->db->where('field',$field);
+        $this->db->where('block_name',$block_name);
+        $row = $this->db->get('voice_exam_area')->row_array();
+        // print_r($row);
+        return $row['count_num'];
+    }
 
 
    
