@@ -34,7 +34,11 @@ class Mod_voice_area extends CI_Model {
         $this->db->where('block_name',$block_name);
         $row = $this->db->get('voice_exam_area')->row_array();
         // print_r($row);
-        return $row['count_num'];
+        $count = 0;
+        if( $row['count_num'] != ""){
+            $count =  $row['count_num'];
+        }
+        return $count;
     }
 
 
