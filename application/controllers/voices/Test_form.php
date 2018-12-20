@@ -383,14 +383,14 @@ class Test_form extends CI_Controller
         $part = $_GET['part'];
         $area = $_GET['area'];
 
-        if ($this->mod_voice_exam_datetime->chk_course($year,$ladder)) {
-            $course = $this->mod_voice_exam_datetime->get_course($year,$ladder);
-        } else {
-            $course = array();
-            for ($i = 0; $i <= 12; ++$i) {
-                $course[$i]['subject'] = '';
-            }
-        }
+        // if ($this->mod_voice_exam_datetime->chk_course($year,$ladder)) {
+        //     $course = $this->mod_voice_exam_datetime->get_course($year,$ladder);
+        // } else {
+        //     $course = array();
+        //     for ($i = 0; $i <= 12; ++$i) {
+        //         $course[$i]['subject'] = '';
+        //     }
+        // }
         
         $datetime_info = $this->mod_voice_exam_datetime->get_once($year,$ladder);
         
@@ -409,7 +409,7 @@ class Test_form extends CI_Controller
             'list' => $area_list,
             'count' => $this->mod_voice_exam_area->year_get_member_count_list($part),
             'school' => $this->mod_voice_exam_area->year_school_name($part),
-            'course' => $this->mod_voice_exam_datetime->get_course($year,$ladder),
+            // 'course' => $this->mod_voice_exam_datetime->get_course($year,$ladder),
             'datetime_info'=>$datetime_info,
             'area'=>$area
         );
