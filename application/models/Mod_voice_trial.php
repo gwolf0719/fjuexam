@@ -689,6 +689,60 @@ class Mod_voice_trial extends CI_Model
         }
     }     
 
+    public function get_list_for_csv()
+    {
+        // $this->db->where('year', $_SESSION['year']);
+
+        $this->db->select('*');
+        $this->db->from('voice_area_main');
+        $this->db->join('voice_trial_assign', 'voice_area_main.sn = voice_trial_assign.sn');
+        // $this->db->where('year', $_SESSION['year']);
+
+        $this->db->where('first_member_do_date !=', "");
+
+        $res = $this->db->get()->result_array();
+        
+        function even($var)
+        {
+            return($var['year'] == $_SESSION['year']);
+        }
+
+        $sub =  array_filter($res, "even");
+
+        sort($sub);
+
+        for ($i=0; $i < count($sub); $i++) {
+            # code...
+            $supervisor1 = $this->db->where('member_code', $sub[$i]['supervisor_1_code'])->get('staff_member')->row_array();
+            $supervisor2 = $this->db->where('member_code', $sub[$i]['supervisor_2_code'])->get('staff_member')->row_array();
+            
+
+            // foreach ($res as $k => $v) {
+            # code...
+            $arr[] = array(
+                    'year' => $sub[$i]['year'],
+                    'part_name'=>$sub[$i]['part_name'],
+                    'do_date' => $sub[$i]['first_member_do_date'],
+                    'member_unit' => $supervisor1['member_unit'],
+                    'member_name'=> $supervisor1['member_name'],
+                    'member_code' =>$supervisor1['member_code'],
+                    'trial_staff_code'=>$sub[$i]['trial_staff_code_1'],
+                );
+            $arr[] = array(
+                    'year' => $sub[$i]['year'],
+                    'part_name'=>$sub[$i]['part_name'],
+                    'do_date' => $sub[$i]['second_member_do_date'],
+                    'member_unit' => $supervisor2['member_unit'],
+                    'member_name'=> $supervisor2['member_name'],
+                    'member_code' =>$supervisor2['member_code'],
+                    'trial_staff_code'=>$sub[$i]['trial_staff_code_2'],
+                );                
+            // }
+        }
+        // print_r($arr);
+        return $arr;
+    }
+
 
 
 

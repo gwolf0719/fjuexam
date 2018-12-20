@@ -1142,7 +1142,7 @@ class Test_form extends CI_Controller
         $this->load->view('layout', $data);
     }
 
-    public function e_4_1_1()
+    public function form_e_4_1_1()
     {
         $this->load->library('excel');
         $this->load->model('mod_voice_trial');
@@ -1173,7 +1173,7 @@ class Test_form extends CI_Controller
         $objWriter->save('php://output');
     }
 
-    public function e_4_1_2()
+    public function form_e_4_1_2()
     {
         $this->load->library('excel');
         $this->load->model('mod_voice_job_list');
@@ -1202,7 +1202,7 @@ class Test_form extends CI_Controller
         $objWriter->save('php://output');
     }
 
-    public function e_4_1_3()
+    public function form_e_4_1_3()
     {
         $this->load->library('excel');
         $this->load->model('mod_voice_patorl');
@@ -1233,7 +1233,7 @@ class Test_form extends CI_Controller
         $objWriter->save('php://output');
     }
 
-    public function e_4_1_4()
+    public function form_e_4_1_4()
     {
         $this->load->library('excel');
         $this->load->model('mod_voice_patorl');
