@@ -16,6 +16,7 @@ class Mod_voice_exam_area extends CI_Model
     public function year_get_list($part='')
     {
         $this->db->where('year', $this->session->userdata('year'));
+        $this->db->where('ladder', $this->session->userdata('ladder'));
         if($part != ''){
             $this->db->where('part', $part);
         }
@@ -26,6 +27,7 @@ class Mod_voice_exam_area extends CI_Model
     public function year_get_member_count_list($part='')
     {
         $this->db->where('year', $this->session->userdata('year'));
+        $this->db->where('ladder', $this->session->userdata('ladder'));
         if($part != ''){
             $this->db->where('part', $part);
         }
@@ -50,6 +52,7 @@ class Mod_voice_exam_area extends CI_Model
     public function year_school_name($part='')
     {
         $this->db->where('year', $this->session->userdata('year'));
+        $this->db->where('ladder', $this->session->userdata('ladder'));
         if($part != ''){
             $this->db->where('part', $part);
         }
@@ -62,6 +65,7 @@ class Mod_voice_exam_area extends CI_Model
     public function year_addr_name($part='')
     {
         $this->db->where('year', $this->session->userdata('year'));
+        $this->db->where('ladder', $this->session->userdata('ladder'));
         if($part != ''){
             $this->db->where('part', $part);
         }
@@ -74,6 +78,7 @@ class Mod_voice_exam_area extends CI_Model
     public function get_min_start($part = '')
     {
         $this->db->where('year', $this->session->userdata('year'));
+        $this->db->where('ladder', $this->session->userdata('ladder'));
         if ($part != '') {
             $this->db->where('part', $part);
         }
@@ -85,6 +90,7 @@ class Mod_voice_exam_area extends CI_Model
     public function get_max_end($part = '')
     {
         $this->db->where('year', $this->session->userdata('year'));
+        $this->db->where('ladder', $this->session->userdata('ladder'));
         if ($part != '') {
             $this->db->where('part', $part);
         }
@@ -96,6 +102,7 @@ class Mod_voice_exam_area extends CI_Model
     public function get_max_filed($start, $end)
     {
         $this->db->where('year', $this->session->userdata('year'));
+        $this->db->where('ladder', $this->session->userdata('ladder'));
         $this->db->where('field >=', $start);
         $this->db->where('field <=', $end);
 
