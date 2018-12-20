@@ -640,11 +640,15 @@ class Api extends CI_Controller {
                 $fees_info = $this->mod_voice_test_pay->get_once($this->session->userdata('year'),$this->session->userdata('ladder'));
                 $part_info = $this->mod_voice_part_info->get_once($data['sn']);
                 $do_date = array();
+                if($day != ""){
+                    array_push($do_date,mb_substr($datetime_info['day'], 5, 8, 'utf-8'));
+                }
+                $date = implode(",",$do_date); 
                 $first_member_salary_total = $part_info['class'] * $fees_info['pay_2'];
                 $first_member_total = $first_member_salary_total; 
                 $second_member_salary_total = $part_info['class'] * $fees_info['pay_2'];
-                $second_member_total = $second_member_salary_total ;                          
-                $date = implode(",",$do_date);
+                $second_member_total = $second_member_salary_total ;              
+                
                 $sql_data = array (
                     // 'sn'=>$data['sn'],
                     'part'=>$data['part'],
@@ -667,7 +671,7 @@ class Api extends CI_Controller {
                     'note'=>$data['note'],
                 );
                 $this->mod_voice_trial->update_once($year,$ladder,$field,$part,$sql_data);         
-                $json_arr['sql'] = $this->db->last_query();
+                // $json_arr['sql'] = $this->db->last_query();
                 $json_arr['sys_code'] = '200';
                 $json_arr['sys_msg'] = '資料儲存完成';
             } 
