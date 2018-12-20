@@ -609,6 +609,8 @@ class Test_form extends CI_Controller
             'area' =>$area,
             'school' => $this->mod_voice_exam_area->year_school_name($part),
         );
+
+       
        
 
         if ($data['part'] != false) {
