@@ -365,6 +365,9 @@ class Test_form extends CI_Controller
         }
     }
 
+    /**
+     * 缺考人數統計表
+     */
     public function form_e1_4()
     {
         $this->load->model('mod_voice_exam_area');
@@ -386,14 +389,9 @@ class Test_form extends CI_Controller
                 $course[$i]['subject'] = '';
             }
         }
-        if ($this->mod_voice_exam_datetime->chk_once($year,$ladder)) {
-            $datetime_info = $this->mod_voice_exam_datetime->get_once($year,$ladder);
-        } else {
-            $datetime_info = array(
-                'day' => '10月/25日',
-               
-            );
-        }
+        
+        $datetime_info = $this->mod_voice_exam_datetime->get_once($year,$ladder);
+        
 
         $data = array(
             'list' => $this->mod_voice_exam_area->year_get_list($part),
