@@ -26,6 +26,9 @@
         width:50%;
         float:left;
     }
+    .item{
+        height:80px;
+    }
 </style>
 
 <?php foreach ($part as $k => $v): ?>
@@ -35,7 +38,7 @@
         <td style="font-size:26px;lne-height:50px;" colspan="6"><?=$_SESSION['year']?>學年度英語能力測驗<?=$_SESSION['ladder']?>考試新北一考區試務人員簽到表</td>
     </tr>
     <tr>
-        <td colspan="2" style="font-size:22px;text-align:left;padding:20px 0px">分區：<?=$area?></td>
+        <td colspan="2" style="font-size:22px;text-align:left;padding:20px 0px">分區：<?= $this->config->item('partition')[$area] ?></td>
         <td colspan="2" style="font-size:22px;text-align:center;padding:20px 0px"><?=$school['area_name']?></td>
         <td colspan="2" style="font-size:22px;text-align:right;padding:20px 0px">簽到日期：<?=$k?></td>
     </tr>
@@ -47,12 +50,12 @@
         <td style="border:1px solid #999" width="15%">備註(工作分配)</td>
     </tr>
     <?php foreach ($v as $kc => $vc): ?>
-    <tr>
-        <td style="border:1px solid #999"><?=$vc['job']?></td>
-        <td style="border:1px solid #999"><?=$vc['name']?></td>
-        <td style="border:1px solid #999"><?=$vc['member_unit']?></td>
-        <td style="border:1px solid #999" colspan="2"></td>
-        <td style="border:1px solid #999"><?=$vc['note']?></td>
+    <tr class="item">
+        <td style="border:1px solid #999" nowrap="nowrap"><?=$vc['job']?></td>
+        <td style="border:1px solid #999" nowrap="nowrap"><?=$vc['name']?></td>
+        <td style="border:1px solid #999" nowrap="nowrap"><?=$vc['member_unit']?></td>
+        <td style="border:1px solid #999" nowrap="nowrap" colspan="2"></td>
+        <td style="border:1px solid #999" nowrap="nowrap"><?=$vc['note']?></td>
     </tr>
     <?php endforeach; ?>
     <tr>
