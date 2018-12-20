@@ -223,95 +223,169 @@ class Mod_voice_trial extends CI_Model
         }
     }
 
+    //
+    function get_distinct_voice_area($part){
+        $this->db->where('year',$this->session->userdata('year'));
+        $this->db->where('ladder',$this->session->userdata('ladder'));
+        if ($part != '') {
+            $this->db->where('part', $part);
+        }
+        $this->db->distinct();
+        $this->db->select('field');
+        $area = $this->db->get('voice_area_main')->result_array();
+        // print_r($area['field']);
+        $res = array();
+        foreach($area as $k=>$v){
+            $this->db->where('year',$this->session->userdata('year'));
+            $this->db->where('ladder',$this->session->userdata('ladder'));
+            if ($part != '') {
+                $this->db->where('part', $part);
+            }
+            $this->db->where('field',$v['field']);
+            $class= 0;
+            $block_array=array();
+            $block_name="";
+            foreach($this->db->get('voice_area_main')->result_array() as $k2=>$v2){
+                // echo '1';
+                $class=$class+1;
+                // $last_query = $this->db->last_query();
+                $block_array[] = $v2['block_name'];
+            }
+            // echo $this->db->last_query();
+            $block_name=implode(",",$block_array);
+            $res[$k] = $v;
+            $res[$k]['block_name'] = $block_name;
+            // $res[$k]['last_query'] = $last_query;    
+            $res[$k]['class'] = $class;
+        }
+
+        return $res;
+
+    }
+/**
+     * 監試及試務人員 > 監試人員
+     */
     public function get_list_for_pdf($part = '')
     {
-        $this->db->select('*');
-        if ($part != '') {
-            $this->db->where('voice_area_main.part', $part);
+        $areas =  $this->get_distinct_voice_area($part);
+        $res = array();
+        foreach($areas as $k=>$v){
+            $this->db->where('year',$this->session->userdata('year'));
+            $this->db->where('ladder',$this->session->userdata('ladder'));
+            $this->db->where('field',$v['field']);
+            $res[$k] = $this->db->get('voice_trial_assign')->row_array();
+            $res[$k]['class'] = $v['class'];
+            $res[$k]['block_name'] = $v['block_name'];
+            $res[$k]['do_date'] = $res[$k]['first_member_do_date'];
+             // 預先宣告要有設定人的才找資料
+                if($res[$k]['supervisor_1_code'] != ""){
+                    $supervisor1 = $this->db->where('member_code', $res[$k]['supervisor_1_code'])->get('voice_import_member')->row_array();
+                    $res[$k]['supervisor_1_unit'] = $supervisor1['member_unit'];
+                    $res[$k]['supervisor_1_phone'] =  $supervisor1['member_phone'];
+                }else{
+                    $res[$k]['supervisor_1_unit'] = '';
+                    $res[$k]['supervisor_1_phone'] = '';
+                }
+                
+                if($res[$k]['supervisor_2_code'] != ""){
+                    $supervisor2 = $this->db->where('member_code', $res[$k]['supervisor_2_code'])->get('voice_import_member')->row_array();
+                    // print_r($supervisor2);
+                    $res[$k]['supervisor_2_unit'] = $supervisor2['member_unit'];
+                    $res[$k]['supervisor_2_phone'] = $supervisor2['member_phone'];
+                }else{
+                    $res[$k]['supervisor_2_unit'] = '';
+                    $res[$k]['supervisor_2_phone'] = '';                    
+                }
         }
-        $this->db->from('voice_area_main');
-        $this->db->join('voice_trial_assign', 'voice_area_main.sn = voice_trial_assign.sn');
+        return $res;
+        // print_r($res);
+        // $this->db->select('*');
+        // if ($part != '') {
+        //     $this->db->where('voice_area_main.part', $part);
+        // }
+        // $this->db->from('voice_area_main');
+        // $this->db->join('voice_trial_assign', 'voice_area_main.sn = voice_trial_assign.sn');
         
-        // $this->db->where('first_member_do_date !=', "");
-        $year = $this->session->userdata('year');
+        // // $this->db->where('first_member_do_date !=', "");
+        // $year = $this->session->userdata('year');
 
-        $res = $this->db->get()->result_array();
-        if(!empty($res)){
-            function even($var)
-            {
-                return($var['year'] == $_SESSION['year']);
-            }
+        // $res = $this->db->get()->result_array();
+        // if(!empty($res)){
+        //     function even($var)
+        //     {
+        //         return($var['year'] == $_SESSION['year']);
+        //     }
 
-            $sub =  array_filter($res, "even");
-            // print_r($sub);
-            sort($sub);
+        //     $sub =  array_filter($res, "even");
+        //     // print_r($sub);
+        //     sort($sub);
 
 
-            for ($i=0; $i < count($sub); $i++) {
-                # code...
-                // 預先宣告要有設定人的才找資料
-                if($sub[$i]['supervisor_1_code'] != ""){
-                    $supervisor1 = $this->db->where('member_code', $sub[$i]['supervisor_1_code'])->get('voice_import_member')->row_array();
-                }else{
-                    $supervisor1['member_unit'] = '';
-                    $supervisor1['member_phone'] = '';
-                }
+        //     for ($i=0; $i < count($sub); $i++) {
+        //         # code...
+        //         // 預先宣告要有設定人的才找資料
+        //         if($sub[$i]['supervisor_1_code'] != ""){
+        //             $supervisor1 = $this->db->where('member_code', $sub[$i]['supervisor_1_code'])->get('voice_import_member')->row_array();
+        //         }else{
+        //             $supervisor1['member_unit'] = '';
+        //             $supervisor1['member_phone'] = '';
+        //         }
                 
-                if($sub[$i]['supervisor_2_code'] != ""){
-                    $supervisor2 = $this->db->where('member_code', $sub[$i]['supervisor_2_code'])->get('voice_import_member')->row_array();
-                }else{
-                    $supervisor2['member_unit'] = '';
-                    $supervisor2['member_phone'] = '';
-                }
+        //         if($sub[$i]['supervisor_2_code'] != ""){
+        //             $supervisor2 = $this->db->where('member_code', $sub[$i]['supervisor_2_code'])->get('voice_import_member')->row_array();
+        //         }else{
+        //             $supervisor2['member_unit'] = '';
+        //             $supervisor2['member_phone'] = '';
+        //         }
                 
-                $patrol = $this->db->where('start <=', $sub[$i]['start'])->where('end >=', $sub[$i]['end'])->get('voice_patrol_staff')->row_array();
-                $course = $this->db->where('year', $year)->where('field', $sub[$i]['field'])->get('voice_exam_area')->row_array();
-                $trial = $this->db->get('voice_trial_staff')->result_array();
-                // $trial_staff = $this->db->where('start <=', $sub[$i]['start'])->where('end >=', $sub[$i]['end'])->get('trial_staff')->row_array();
-                // print_r($trial_staff);
+        //         $patrol = $this->db->where('start <=', $sub[$i]['start'])->where('end >=', $sub[$i]['end'])->get('voice_patrol_staff')->row_array();
+        //         $course = $this->db->where('year', $year)->where('field', $sub[$i]['field'])->get('voice_exam_area')->row_array();
+        //         $trial = $this->db->get('voice_trial_staff')->result_array();
+        //         // $trial_staff = $this->db->where('start <=', $sub[$i]['start'])->where('end >=', $sub[$i]['end'])->get('trial_staff')->row_array();
+        //         // print_r($trial_staff);
 
-                if($sub[$i]['first_member_salary_section'] == ""){
-                    $first_member_salary_section = 0;
-                }else{
-                    $first_member_salary_section = $sub[$i]['first_member_salary_section'];
-                }
-                if($sub[$i]['second_member_salary_section'] == ""){
-                    $second_member_salary_section = 0;
-                }else{
-                    $second_member_salary_section = $sub[$i]['second_member_salary_section'];
-                }            
-                $do_date1 = explode(",", $sub[$i]['first_member_do_date']);
-                $do_date2 = explode(",", $sub[$i]['second_member_do_date']);
-                $arr[] = array(
+        //         if($sub[$i]['first_member_salary_section'] == ""){
+        //             $first_member_salary_section = 0;
+        //         }else{
+        //             $first_member_salary_section = $sub[$i]['first_member_salary_section'];
+        //         }
+        //         if($sub[$i]['second_member_salary_section'] == ""){
+        //             $second_member_salary_section = 0;
+        //         }else{
+        //             $second_member_salary_section = $sub[$i]['second_member_salary_section'];
+        //         }            
+        //         $do_date1 = explode(",", $sub[$i]['first_member_do_date']);
+        //         $do_date2 = explode(",", $sub[$i]['second_member_do_date']);
+        //         $arr[] = array(
                    
-                    'sn'=>$sub[$i]['sn'],
-                    'field' => $sub[$i]['field'],
-                    'class' => $sub[$i]['class'],
-                    'part' => $sub[$i]['part'],
-                    'do_date' => $sub[$i]['first_member_do_date'],
-                    'first_member_salary_section'=> $first_member_salary_section,
-                    'first_member_section_salary_total'=>$sub[$i]['first_member_section_salary_total'],
-                    'supervisor_1'=>$sub[$i]['supervisor_1'],
-                    'supervisor_1_unit' => $supervisor1['member_unit'] ,
-                    'supervisor_1_phone' => $supervisor1['member_phone'],
-                    'second_member_salary_section'=>$second_member_salary_section,
-                    'second_member_section_salary_total'=>$sub[$i]['second_member_section_salary_total'],
-                    'supervisor_2'=>$sub[$i]['supervisor_2'],
-                    'supervisor_2_unit' => $supervisor2['member_unit'] ,
-                    'supervisor_2_phone' => $supervisor2['member_phone'],
-                    'floor' =>$sub[$i]['floor'],
-                    'number'=>$sub[$i]['count_num'],
-                    'start'=>$sub[$i]['start'],
-                    'end'=>$sub[$i]['end'],
-                    'allocation_code'=>$patrol['allocation_code'],
-                    'patrol'=>$patrol['patrol_staff_name'],
-                    'subject_01'=>$course['subject_01'],
-                );
-            }
-            return $arr;
-        }else{
-            return false;
-        }
+        //             'sn'=>$sub[$i]['sn'],
+        //             'field' => $sub[$i]['field'],
+        //             'class' => $sub[$i]['class'],
+        //             'part' => $sub[$i]['part'],
+        //             'do_date' => $sub[$i]['first_member_do_date'],
+        //             'first_member_salary_section'=> $first_member_salary_section,
+        //             'first_member_section_salary_total'=>$sub[$i]['first_member_section_salary_total'],
+        //             'supervisor_1'=>$sub[$i]['supervisor_1'],
+        //             'supervisor_1_unit' => $supervisor1['member_unit'] ,
+        //             'supervisor_1_phone' => $supervisor1['member_phone'],
+        //             'second_member_salary_section'=>$second_member_salary_section,
+        //             'second_member_section_salary_total'=>$sub[$i]['second_member_section_salary_total'],
+        //             'supervisor_2'=>$sub[$i]['supervisor_2'],
+        //             'supervisor_2_unit' => $supervisor2['member_unit'] ,
+        //             'supervisor_2_phone' => $supervisor2['member_phone'],
+        //             // 'floor' =>$sub[$i]['floor'],
+        //             // 'number'=>$sub[$i]['count_num'],
+        //             // 'start'=>$sub[$i]['start'],
+        //             // 'end'=>$sub[$i]['end'],
+        //             // 'allocation_code'=>$patrol['allocation_code'],
+        //             // 'patrol'=>$patrol['patrol_staff_name'],
+        //             // 'subject_01'=>$course['subject_01'],
+        //         );
+        //     }
+        //     return $arr;
+        // }else{
+        //     return false;
+        // }
     }
 
     public function e_2_1_2($part='')

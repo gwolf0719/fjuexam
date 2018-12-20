@@ -104,8 +104,8 @@ class Test_form extends CI_Controller
         
         $part = $_GET['part'];
         $area = $_GET['area'];
-        
-        
+
+        // print_r($this->mod_voice_trial->get_list_for_pdf($part));
         $data = array(
             'part' => $this->mod_voice_trial->get_list_for_pdf($part),
             'area' => $area,
@@ -196,60 +196,60 @@ class Test_form extends CI_Controller
         }
     }
 
-    public function form_e1_3_3()
-    {
-        $this->load->library('pdf');
-        $this->load->model('mod_voice_trial');
-        $this->load->model('mod_voice_exam_area');
+    // public function form_e1_3_3()
+    // {
+    //     $this->load->library('pdf');
+    //     $this->load->model('mod_voice_trial');
+    //     $this->load->model('mod_voice_exam_area');
 
-        $part = $_GET['part'];
-        $area = $_GET['area'];
-        switch ($area) {
-            case '0':
-              echo '考區';
-                break;
-            case '1':
-                echo '第一分區';
-                break;
-            case '2':
-                echo '第二分區';
-                # code...
-                break;
-            case '3':
-                echo '第三分區';
-                break;
+    //     $part = $_GET['part'];
+    //     $area = $_GET['area'];
+    //     switch ($area) {
+    //         case '0':
+    //           echo '考區';
+    //             break;
+    //         case '1':
+    //             echo '第一分區';
+    //             break;
+    //         case '2':
+    //             echo '第二分區';
+    //             # code...
+    //             break;
+    //         case '3':
+    //             echo '第三分區';
+    //             break;
          
-        }
+    //     }
         
-        $data = array(
-            'part' => $this->mod_voice_trial->get_list_for_pdf($part),
-            'area' => $area,
-            'school' => $this->mod_voice_exam_area->year_school_name($part),
-        );
-        if($data['part'] != false){
-              $this->load->view('voice/form_e_1_3', $data);
-          $view =  $this->load->view('voice/form_e_1_3', $data, true);
-          if (!is_dir('./html/')) {
-              mkdir('./html/');
-          } else {
-              $path = 'e_1_3.html';
-              $fp = fopen('./html/'.$path,'w');//建檔
-              fwrite($fp,$view);
-              fclose($fp);//關閉開啟的檔案
-              // copy($path, './html/'.$path);
+    //     $data = array(
+    //         'part' => $this->mod_voice_trial->get_list_for_pdf($part),
+    //         'area' => $area,
+    //         'school' => $this->mod_voice_exam_area->year_school_name($part),
+    //     );
+    //     if($data['part'] != false){
+    //           $this->load->view('voice/form_e_1_3', $data);
+    //       $view =  $this->load->view('voice/form_e_1_3', $data, true);
+    //       if (!is_dir('./html/')) {
+    //           mkdir('./html/');
+    //       } else {
+    //           $path = 'e_1_3.html';
+    //           $fp = fopen('./html/'.$path,'w');//建檔
+    //           fwrite($fp,$view);
+    //           fclose($fp);//關閉開啟的檔案
+    //           // copy($path, './html/'.$path);
 
-          }
+    //       }
 
-          if (!is_dir('./pdf/')) {
-              mkdir('./pdf/');
-          } else {
-              exec('wkhtmltopdf --lowquality --enable-forms http://uat.fofo.tw/fjuexam/html/e_1_3.html  ./pdf/e_1_3.pdf');
-          }
-          echo '<script>location.href="http://uat.fofo.tw/fjuexam/pdf/e_1_3.pdf"</script>';
-        }else{
-          return false;
-        }
-    }
+    //       if (!is_dir('./pdf/')) {
+    //           mkdir('./pdf/');
+    //       } else {
+    //           exec('wkhtmltopdf --lowquality --enable-forms http://uat.fofo.tw/fjuexam/html/e_1_3.html  ./pdf/e_1_3.pdf');
+    //       }
+    //       echo '<script>location.href="http://uat.fofo.tw/fjuexam/pdf/e_1_3.pdf"</script>';
+    //     }else{
+    //       return false;
+    //     }
+    // }
     public function form_e1_3_4()
     {
         $this->load->library('pdf');
