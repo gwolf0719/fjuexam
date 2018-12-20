@@ -37,9 +37,9 @@
             <td colspan="3" style="font-size:22px;"><?=$school['area_name']?>試務人員一覽表</td>
         </tr>
         <tr>
-            <td colspan="1"  style="font-size:22px;text-align:left"><?=$_GET['area']?>試務辦公室</td>
+            <td colspan="1"  style="font-size:22px;text-align:left"><?=$this->config->item('partition')[$_GET['area']] ?></td>
             <td colspan="1"  style="font-size:22px;text-align:center"></th>
-            <td colspan="1"  style="font-size:22px;text-align:right"><?=$addr_info['part_addr_1']?></td>
+            <td colspan="1"  style="font-size:22px;text-align:right"></td>
         </tr>
         <tr>
             <td class="bb">職別</td>

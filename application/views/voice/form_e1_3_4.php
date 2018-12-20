@@ -37,9 +37,9 @@
             <td colspan="3" style="font-size:22px;"><?=$_GET['area']?><?=$school['area_name']?>試務人員一覽表</td>
         </tr>
         <tr>
-            <td colspan="1" style="font-size:22px;text-align:left"><?=$_GET['area']?>試務辦公室</td>
+            <td colspan="1" style="font-size:22px;text-align:left"><?=$_GET['area']?></td>
             <td colspan="1" style="font-size:22px;text-align:left"></td>
-            <td colspan="1" style="font-size:22px;text-align:left"><?=$addr_info['part_addr_2']?></td>
+            <td colspan="1" style="font-size:22px;text-align:left"></td>
         </tr>
         <tr>
             <td class="bb">職別</td>
