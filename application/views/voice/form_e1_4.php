@@ -56,7 +56,15 @@
         </tr>
     </thead>
     <tbody>
+    <?php 
+    $count_1 = 0;
+    $count_2 = 0;
+    ?>
     <?php foreach ($list as $k => $v): ?>
+    <?php 
+    $count_1 = $count_1+$v['count_num_1'];
+    $count_2 = $count_2+$v['count_num_2'];
+    ?>
     <tr>
         <td class="bb" colspan="2" style="font-size:16px;">
             <?=$v['field']?>
@@ -79,9 +87,9 @@
     <?php endforeach; ?>
     <tr>
         <td class="bb" colspan="2">共計</td>
-        <td class="bb"><?=$count['number1']?></td>
+        <td class="bb"><?=$count_1?></td>
         <td class="bb"></td>
-        <td class="bb"><?=$count['number1']?></td>
+        <td class="bb"><?=$count_2?></td>
         <td class="bb"></td>
         
      
