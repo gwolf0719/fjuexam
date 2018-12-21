@@ -18,7 +18,7 @@
         page-break-before: always;
         page-break-inside: avoid;
     }
-
+    
     /* table td {
         word-break: break-all;
     }     */
@@ -28,7 +28,8 @@
     }
 </style>
 
-<?php foreach ($part as $k => $v): ?>
+<?php foreach ($part as $key => $value) :?>
+
 <table style="text-align:center;margin:0px auto;">
     <thead>
         <tr>
@@ -38,130 +39,62 @@
             <td colspan="5" style="font-size:22px;text-align:center;"><?=$_GET['area']?><?=$school['area_name']?>試題本、答案卷卡收發記錄單</td>
         </tr>
         <tr>
-            <td colspan="5" style="font-size:22px;text-align:left;font-weight:bold;">管卷人員：<?=$k?></td>
+            <td colspan="5" style="font-size:22px;text-align:left;font-weight:bold;">管卷人員：<?=$value['patrol_staff_name']?></td>
         </tr>
         <tr>
             <td class="bb" colspan="2"><div class="W50">日期</div>  <div class="W50">科目</div></td>
-            <td class="bb" colspan="3"><?=mb_substr($datetime_info['day_1'], 5, 8, 'utf-8'); ?></td>
+            <td class="bb" colspan="3"><?=mb_substr($datetime_info['day'], 5, 8, 'utf-8'); ?></td>
         </tr>
         <tr>
             <td class="bb" style="width: 15%;">試場</td>
             <td class="bb" style="width: 15%;">監試人員</td>
-            <td class="bb">第1節<br>物理</td>
-            <td class="bb">第2節<br>化學</td>
-            <td class="bb">第3節<br>生物</td>
+            <td class="bb">上午場</td>
+            <td class="bb">下午場</td>
         </tr>
     </thead>
-    <?php foreach ($v as $kc => $vc): ?>
-    <tr>
-        <td class="bb" rowspan="2" style="font-size:18px;"><?=$vc['field']?></td>
-        <td class="bb"><?=$vc['supervisor_1']?></td>
-        <td class="bb" style="font-weight:bold;font-size:18px;">
-        <?php
-            switch ($vc['subject_01']) {
-                case '0':
-                    echo 'X';
-                    break;
-                default:
-                    echo '';
+    <?php foreach ($value['trial'] as $kc => $vc): ?>
+        <?php 
+            $block_1 = '';
+            $block_2 = '';
+            $block_names_array = explode(',',$vc['block_name']);
+            if(!in_array('上午場',$block_names_array)){
+                $block_1 = 'x';
+            }
+            if(!in_array('下午場',$block_names_array)){
+                $block_1 = 'x';
             }
         ?>
-        </td>
-        <td class="bb" style="font-weight:bold;font-size:18px;">
-        <?php
-        switch ($vc['subject_02']) {
-                case '0':
-                    echo 'X';
-                    break;
-                default:
-                    echo '';
-            }
-        ?>
-        </td>
-        <td class="bb" style="font-weight:bold;font-size:18px;">
-        <?php
-            switch ($vc['subject_03']) {
-                case '0':
-                    echo 'X';
-                    break;
-                default:
-                    echo '';
-            }
-        ?>
-        </td>
-    </tr>
-    <tr>
-        <td class="bb"><?=$vc['supervisor_2']?></td>
-        <td class="bb" style="font-weight:bold;font-size:18px;">
-        <?php
-            switch ($vc['subject_01']) {
-                case '0':
-                    echo 'X';
-                    break;
-                default:
-                    echo '';
-            }
-        ?>
-        </td>
-        <td class="bb" style="font-weight:bold;font-size:18px;">
-        <?php
-            switch ($vc['subject_02']) {
-                case '0':
-                    echo 'X';
-                    break;
-                default:
-                    echo '';
-            }
-        ?>
-        </td>
-        <td class="bb" style="font-weight:bold;font-size:18px;">
-        <?php
-            switch ($vc['subject_03']) {
-                case '0':
-                    echo 'X';
-                    break;
-                default:
-                    echo '';
-            }
-        ?>
-        </td>
-    </tr>
-    <tr>
-        <td class="bb" colspan="2" style="font-weight:bold;">管卷人員簽收記錄表</td>
-        <td class="bb" style="font-weight:bold;font-size:18px;">
-        <?php
-            switch ($vc['subject_01']) {
-                case '0':
-                    echo 'X';
-                    break;
-                default:
-                    echo '';
-            }
-        ?>
-        </td>
-        <td class="bb" style="font-weight:bold;font-size:18px;">
-        <?php
-            switch ($vc['subject_02']) {
-                case '0':
-                    echo 'X';
-                    break;
-                default:
-                    echo '';
-            }
-        ?>
-        </td>
-        <td class="bb" style="font-weight:bold;font-size:18px;">
-        <?php
-            switch ($vc['subject_03']) {
-                case '0':
-                    echo 'X';
-                    break;
-                default:
-                    echo '';
-            }
-        ?>
-        </td>
-    </tr>
+        <tr>
+            <td class="bb" rowspan="2" style="font-size:18px;"><?=$vc['field']?></td>
+            <td class="bb"><?=$vc['supervisor_1']?></td>
+            <td class="bb" style="font-weight:bold;font-size:18px;">
+                <?=$block_1?>
+            </td>
+            <td class="bb" style="font-weight:bold;font-size:18px;">
+                <?=$block_2?>
+            </td>
+            
+        </tr>
+        <tr>
+            <td class="bb"><?=$vc['supervisor_2']?></td>
+            <td class="bb" style="font-weight:bold;font-size:18px;">
+                <?=$block_1?>
+            </td>
+            <td class="bb" style="font-weight:bold;font-size:18px;">
+                <?=$block_2?>
+            </td>
+            
+        </tr>
+        <tr>
+            <td class="bb" colspan="2" style="font-weight:bold;">管卷人員簽收記錄表</td>
+            <td class="bb" style="font-weight:bold;font-size:18px;">
+                <?=$block_1?>
+            </td>
+            <td class="bb" style="font-weight:bold;font-size:18px;">
+                <?=$block_2?>
+            </td>
+            
+        </tr>
     <?php endforeach;?>
 </table>
-<?php endforeach;?>
+ <?php endforeach;?>

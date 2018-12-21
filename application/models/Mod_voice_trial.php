@@ -392,6 +392,7 @@ class Mod_voice_trial extends CI_Model
     public function e_2_1_2($part='')
     {
         $this->db->where('year', $this->session->userdata('year'));
+        $this->db->where('ladder', $this->session->userdata('ladder'));
         if($part != ''){
             $this->db->where('part', $part);
         }
@@ -528,53 +529,98 @@ class Mod_voice_trial extends CI_Model
 
     public function get_once_date_of_voucher1($part = '')
     {
-        $this->db->select('*');
-        $year = $this->session->userdata('year');
-        $ladder = $this->session->userdata('ladder');
-
-        $this->db->where('voice_area_main.year', $year);
-        if ($part != '') {
-            $this->db->where('voice_area_main.part', $part);
+        // 找到管眷人員
+        $this->db->where('year', $this->session->userdata('year'));
+        $this->db->where('ladder', $this->session->userdata('ladder'));
+        $this->db->where('part',$part);
+        $res = array();
+        foreach($this->db->get('voice_patrol_staff')->result_array() as $k=>$v){
+            $res[$k]= $v;
+            $this->db->where('year', $this->session->userdata('year'));
+            $this->db->where('ladder', $this->session->userdata('ladder'));
+            $this->db->where('field <='.$v['end']);
+            $this->db->where('field >='.$v['start']);
+            $this->db->distinct();
+            $this->db->select('field,supervisor_1,supervisor_1_code,supervisor_2,supervisor_2_code');
+            $trial = array();
+            foreach($this->db->get('voice_trial_assign')->result_array() as $kt=>$vt){
+                $res[$k]['trial'][$kt]= $vt;
+                $this->db->where('year', $this->session->userdata('year'));
+                $this->db->where('ladder', $this->session->userdata('ladder'));
+                $this->db->where('field',$vt['field']);
+                $block_name = '';
+                $b_array = array();
+                foreach($this->db->get('voice_trial_assign')->result_array() as $kb=>$vb){
+                    $b_array[]=$vb['block_name'];
+                }
+                $block_name = implode(',',$b_array);
+                $res[$k]['trial'][$kt]['block_name'] = $block_name;
+            }
         }
-        $this->db->from('voice_area_main');
-        $this->db->join('voice_trial_assign', 'voice_area_main.sn = voice_trial_assign.sn');
+        return $res;
+
+
+        // $areas =  $this->get_distinct_voice_area($part);
+        // $res = array();
+        // foreach($areas as $k=>$v){
+        //     $this->db->where('year',$this->session->userdata('year'));
+        //     $this->db->where('ladder',$this->session->userdata('ladder'));
+        //     $this->db->where('field',$v['field']);
+        //     $res[$k] = $this->db->get('voice_trial_assign')->row_array();
+        //     $res[$k]['field'] = $v['field'];
+        //     $res[$k]['class'] = $v['class'];
+        //     $res[$k]['block_name'] = $v['block_name'];
+        //     $res[$k]['do_date'] = $res[$k]['first_member_do_date'];
+            
+        // }
+        // return $res;
+        // $this->db->select('*');
+        // $year = $this->session->userdata('year');
+        // $ladder = $this->session->userdata('ladder');
+
+        // $this->db->where('voice_area_main.year', $year);
+        // if ($part != '') {
+        //     $this->db->where('voice_area_main.part', $part);
+        // }
+        // $this->db->from('voice_area_main');
+        // $this->db->join('voice_trial_assign', 'voice_area_main.sn = voice_trial_assign.sn');
     
 
-        $sub = $this->db->get()->result_array();
-        // print_r($sub);
-        if(!empty($sub)){
-            for ($i=0; $i < count($sub); $i++) {
-                    # code...
-                $supervisor1 = $this->db->where('member_code', $sub[$i]['supervisor_1_code'])->get('voice_import_member')->row_array();
-                $supervisor2 = $this->db->where('member_code', $sub[$i]['supervisor_2_code'])->get('voice_import_member')->row_array();
-                $voucher = $this->db->where('part', $part)->where('first_start <=', $sub[$i]['field'])->where('first_end >=', $sub[$i]['field'])->get('voice_trial_staff')->result_array();
-                $course = $this->db->where('year', $year)->where('field', $sub[$i]['field'])->get('voice_exam_area')->row_array();
-                $trial = $this->db->get('voice_trial_staff')->result_array();
+        // $sub = $this->db->get()->result_array();
+        // // print_r($sub);
+        // if(!empty($sub)){
+        //     for ($i=0; $i < count($sub); $i++) {
+        //             # code...
+        //         $supervisor1 = $this->db->where('member_code', $sub[$i]['supervisor_1_code'])->get('voice_import_member')->row_array();
+        //         $supervisor2 = $this->db->where('member_code', $sub[$i]['supervisor_2_code'])->get('voice_import_member')->row_array();
+        //         $voucher = $this->db->where('part', $part)->where('first_start <=', $sub[$i]['field'])->where('first_end >=', $sub[$i]['field'])->get('voice_trial_staff')->result_array();
+        //         $course = $this->db->where('year', $year)->where('field', $sub[$i]['field'])->get('voice_exam_area')->row_array();
+        //         $trial = $this->db->get('voice_trial_staff')->result_array();
           
-                if(!empty($voucher)){
-                    for ($v=0; $v < count($voucher); $v++) { 
-                        # code...
-                        $arr[$voucher[$v]['trial_staff_name']][] = array(
-                            'sn'=>$sub[$i]['sn'],
-                            'field' => $sub[$i]['field'],
-                            'test_section' => $sub[$i]['class'],
-                            'part' => $sub[$i]['part'],
-                            'supervisor_1'=>$sub[$i]['supervisor_1'],
-                            'supervisor_2'=>$sub[$i]['supervisor_2'],
-                            'subject_01'=>$course['subject_01'],
+        //         if(!empty($voucher)){
+        //             for ($v=0; $v < count($voucher); $v++) { 
+        //                 # code...
+        //                 $arr[$voucher[$v]['trial_staff_name']][] = array(
+        //                     'sn'=>$sub[$i]['sn'],
+        //                     'field' => $sub[$i]['field'],
+        //                     'test_section' => $sub[$i]['class'],
+        //                     'part' => $sub[$i]['part'],
+        //                     'supervisor_1'=>$sub[$i]['supervisor_1'],
+        //                     'supervisor_2'=>$sub[$i]['supervisor_2'],
+        //                     'subject_01'=>$course['subject_01'],
 
-                        );                
-                    }               
-                }else{
-                    return false;
-                }
+        //                 );                
+        //             }               
+        //         }else{
+        //             return false;
+        //         }
 
-            }
-            return $arr;
-            // print_r($arr);
-        }else{
-            return false;
-        }
+        //     }
+        //     return $arr;
+        //     // print_r($arr);
+        // }else{
+        //     return false;
+        // }
 
     }  
 

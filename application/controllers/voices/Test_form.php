@@ -649,7 +649,9 @@ class Test_form extends CI_Controller
         }
 
     }
-
+    /**
+     * 監試人員執行任務簽到表
+     */
     public function form_e_2_3_1()
     {
         $this->load->library('pdf');
@@ -661,15 +663,11 @@ class Test_form extends CI_Controller
         $date = date('yyyy/m/d');
         $part = $_GET['part'];
         $area = $_GET['area'];
-
-
         $year = $this->session->userdata('year');
         $ladder = $this->session->userdata('ladder');
 
 
-
         $datetime_info = $this->mod_voice_exam_datetime->get_once($year,$ladder);
-
 
         $data = array(
             'part' => $this->mod_voice_trial->get_once_date_of_voucher1($part),
@@ -678,8 +676,8 @@ class Test_form extends CI_Controller
             'count'=> $this->mod_voice_trial->get_patrol_member_count_1($part),
             'school' => $this->mod_voice_exam_area->year_school_name($part),
         );
-      
-     
+        // print_r($data['part']);
+    //  $this->load->view('voice/form_e_2_3_1', $data);
         if ($data['part'] != false) {
             $view = $this->load->view('voice/form_e_2_3_1', $data,true);
             if (!is_dir('./html/')) {
