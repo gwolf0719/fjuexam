@@ -413,10 +413,10 @@
                         <?=$v['patrol_staff_name']; ?>
                     </td>
                     <td class="bt">
-                        <?=$v['first_start']; ?>
+                        <?=$v['start']; ?>
                     </td>
                     <td class="bt">
-                        <?=$v['first_end']; ?>
+                        <?=$v['end']; ?>
                     </td>
                     <td class="bt">
                         <?=$v['first_section']; ?>
@@ -474,10 +474,10 @@
                         <?=$v['patrol_staff_name']; ?>
                     </td>
                     <td class="bt">
-                        <?=$v['first_start']; ?>
+                        <?=$v['start']; ?>
                     </td>
                     <td class="bt">
-                        <?=$v['first_end']; ?>
+                        <?=$v['end']; ?>
                     </td>
                     <td class="bt">
                         <?=$v['second_start']; ?>
@@ -534,10 +534,10 @@
                         <?=$v['patrol_staff_name']; ?>
                     </td>
                     <td class="bt">
-                        <?=$v['first_start']; ?>
+                        <?=$v['start']; ?>
                     </td>
                     <td class="bt">
-                        <?=$v['first_end']; ?>
+                        <?=$v['end']; ?>
                     </td>
                     <td class="bt">
                         <?=$v['first_section']; ?>
