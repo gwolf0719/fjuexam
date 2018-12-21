@@ -786,15 +786,30 @@ class Test_form extends CI_Controller
             return false;
         }
     }
-
+    /**
+     * 監試說明會開會簽到表
+     */
     public function form_e_2_4()
     {
         $this->load->library('pdf');
         $this->load->model('mod_voice_job_list');
         
+        $data_list = array();
+        foreach($this->mod_voice_job_list->get_sign_list() as $k=>$v){
+            $clean_list = array();
+            $member_code= array();
+            foreach($v as $k1=>$v1){
+                if(!in_array($v1['member_code'],$member_code)){
+                    $clean_list[] = $v1;
+                    $member_code[] = $v1['member_code'];
+                }
+            }
+            $data_list[$k]=$clean_list;
+        }
         $data = array(
-            'part' => $this->mod_voice_job_list->get_sign_list(),
+            'part' => $data_list
         );
+        // print_r($data['part']);
 
         if ($data['part'] != false) {
             $view = $this->load->view('voice/form_e_2_4',$data,true);

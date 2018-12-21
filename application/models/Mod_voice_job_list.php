@@ -319,6 +319,7 @@ class Mod_voice_job_list extends CI_Model
     public function get_sign_list($area = '')
     {
         $this->db->where('year', $this->session->userdata('year'));
+        $this->db->where('ladder', $this->session->userdata('ladder'));
         if ($area != '') {
             $this->db->where('area', $area);
         }
