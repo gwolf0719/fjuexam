@@ -522,8 +522,8 @@
             <thead>
                 <tr>
                     <th rowspan="2">序號</th>
-                    <th rowspan="2">管卷人員編號</th>
-                    <th rowspan="2">管卷人員</th>
+                    <th rowspan="2">巡場人員編號</th>
+                    <th rowspan="2">巡場人員</th>
                     <th colspan="3" class="bb">上午場</th>
                     <th colspan="3" class="bb">下午場</th>
                     <th rowspan="2">備註</th>
@@ -550,10 +550,10 @@
                         <?=$v['patrol_staff_name']; ?>
                     </td>
                     <td class="bt">
-                        <?=$v['first_start']; ?>
+                        <?=$v['start']; ?>
                     </td>
                     <td class="bt">
-                        <?=$v['first_end']; ?>
+                        <?=$v['end']; ?>
                     </td>
                     <td class="bt">
                         <?=$v['first_section']; ?>
@@ -583,8 +583,8 @@
             <thead>
                 <tr>
                     <th rowspan="2">序號</th>
-                    <th rowspan="2">管卷人員編號</th>
-                    <th rowspan="2">管卷人員</th>
+                    <th rowspan="2">巡場人員編號</th>
+                    <th rowspan="2">巡場人員</th>
                     <th colspan="3" class="bb">上午場</th>
                     <th colspan="3" class="bb">下午場</th>
                     <th rowspan="2">備註</th>
@@ -611,10 +611,10 @@
                         <?=$v['patrol_staff_name']; ?>
                     </td>
                     <td class="bt">
-                        <?=$v['first_start']; ?>
+                        <?=$v['start']; ?>
                     </td>
                     <td class="bt">
-                        <?=$v['first_end']; ?>
+                        <?=$v['end']; ?>
                     </td>
                     <td class="bt">
                         <?=$v['first_section']; ?>
@@ -644,8 +644,8 @@
             <thead>
                 <tr>
                     <th rowspan="2">序號</th>
-                    <th rowspan="2">管卷人員編號</th>
-                    <th rowspan="2">管卷人員</th>
+                    <th rowspan="2">巡場人員編號</th>
+                    <th rowspan="2">巡場人員</th>
                     <th colspan="3" class="bb">上午場</th>
                     <th colspan="3" class="bb">下午場</th>
                     <th rowspan="2">備註</th>
@@ -672,10 +672,10 @@
                         <?=$v['patrol_staff_name']; ?>
                     </td>
                     <td class="bt">
-                        <?=$v['first_start']; ?>
+                        <?=$v['start']; ?>
                     </td>
                     <td class="bt">
-                        <?=$v['first_end']; ?>
+                        <?=$v['end']; ?>
                     </td>
                     <td class="bt">
                         <?=$v['first_section']; ?>

@@ -678,26 +678,26 @@ class Test_form extends CI_Controller
         );
         // print_r($data['part']);
     //  $this->load->view('voice/form_e_2_3_1', $data);
-        if ($data['part'] != false) {
-            $view = $this->load->view('voice/form_e_2_3_1', $data,true);
-            if (!is_dir('./html/')) {
-                mkdir('./html/');
-            } else {
-                $path = 'form_e_2_3_1.html';
-                $fp = fopen('./html/'.$path,'w');//建檔
-                fwrite($fp,$view);
-                fclose($fp);//關閉開啟的檔案
-            }
+        // if ($data['part'] != false) {
+        //     $view = $this->load->view('voice/form_e_2_3_1', $data,true);
+        //     if (!is_dir('./html/')) {
+        //         mkdir('./html/');
+        //     } else {
+        //         $path = 'form_e_2_3_1.html';
+        //         $fp = fopen('./html/'.$path,'w');//建檔
+        //         fwrite($fp,$view);
+        //         fclose($fp);//關閉開啟的檔案
+        //     }
 
-            if (!is_dir('./pdf/')) {
-                mkdir('./pdf/');
-            } else {
-                exec('wkhtmltopdf --lowquality  --enable-forms http://uat.fofo.tw/fjuexam/html/form_e_2_3_1.html  ./pdf/form_e_2_3_1.pdf');
-            }
-            echo '<script>location.href="http://uat.fofo.tw/fjuexam/pdf/form_e_2_3_1.pdf"</script>';
-        }else{
-            return false;
-        }
+        //     if (!is_dir('./pdf/')) {
+        //         mkdir('./pdf/');
+        //     } else {
+        //         exec('wkhtmltopdf --lowquality  --enable-forms http://uat.fofo.tw/fjuexam/html/form_e_2_3_1.html  ./pdf/form_e_2_3_1.pdf');
+        //     }
+        //     echo '<script>location.href="http://uat.fofo.tw/fjuexam/pdf/form_e_2_3_1.pdf"</script>';
+        // }else{
+        //     return false;
+        // }
     }
 
     public function form_e_2_3_2()
@@ -1249,7 +1249,6 @@ class Test_form extends CI_Controller
         $objPHPExcel->setActiveSheetIndex(0);
         $arr = $this->mod_voice_patorl->get_trial_staff_for_csv();
 
-        print_r($arr);
         for ($i=0; $i < count($arr); $i++) {
             # code...
             $objPHPExcel->getActiveSheet()->setCellValue('A1', '學年度');

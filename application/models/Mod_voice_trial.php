@@ -534,12 +534,12 @@ class Mod_voice_trial extends CI_Model
         $this->db->where('ladder', $this->session->userdata('ladder'));
         $this->db->where('part',$part);
         $res = array();
-        foreach($this->db->get('voice_patrol_staff')->result_array() as $k=>$v){
+        foreach($this->db->get('voice_trial_staff')->result_array() as $k=>$v){
             $res[$k]= $v;
             $this->db->where('year', $this->session->userdata('year'));
             $this->db->where('ladder', $this->session->userdata('ladder'));
-            $this->db->where('field <='.$v['end']);
-            $this->db->where('field >='.$v['start']);
+            $this->db->where('field <='.$v['first_end']);
+            $this->db->where('field >='.$v['first_start']);
             $this->db->distinct();
             $this->db->select('field,supervisor_1,supervisor_1_code,supervisor_2,supervisor_2_code');
             $trial = array();
@@ -557,6 +557,7 @@ class Mod_voice_trial extends CI_Model
                 $res[$k]['trial'][$kt]['block_name'] = $block_name;
             }
         }
+        // print_r($res);
         return $res;
 
 
