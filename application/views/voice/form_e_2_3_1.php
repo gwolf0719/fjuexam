@@ -39,7 +39,7 @@
             <td colspan="5" style="font-size:22px;text-align:center;"><?=$_GET['area']?><?=$school['area_name']?>試題本、答案卷卡收發記錄單</td>
         </tr>
         <tr>
-            <td colspan="5" style="font-size:22px;text-align:left;font-weight:bold;">管卷人員：<?=$value['patrol_staff_name']?></td>
+            <td colspan="5" style="font-size:22px;text-align:left;font-weight:bold;">管卷人員：<?=$value['trial_staff_name']?></td>
         </tr>
         <tr>
             <td class="bb" colspan="2"><div class="W50">日期</div>  <div class="W50">科目</div></td>

@@ -37,7 +37,7 @@ class Test_setting extends CI_Controller {
         $data = array(
             'title' => '考試日期與時間',
             'path' => 'voice/test_day_time',
-            'path_text' => ' > 指考主選單 > 考程設定 > 考試日期與時間',
+            'path_text' => ' > 英聽主選單 > 考程設定 > 考試日期與時間',
             'datetime_info' => $datetime_info,
         );
         $this->load->view('voice_layout', $data);
@@ -66,7 +66,7 @@ class Test_setting extends CI_Controller {
         $data = array(
             'title' => '考試科目',
             'path' => 'voice/test_subjects',
-            'path_text' => ' > 指考主選單 > 考程設定 > 考試科目',
+            'path_text' => ' > 英聽主選單 > 考程設定 > 考試科目',
             'datetime_info' => $datetime_info,
             'data_subject' =>$data_subject,
         );
@@ -90,7 +90,7 @@ class Test_setting extends CI_Controller {
         $data = array(
             'title' => '考科費用',
             'path' => 'voice/test_pay',
-            'path_text' => ' > 指考主選單 > 考程設定 > 考科費用',
+            'path_text' => ' > 英聽主選單 > 考程設定 > 考科費用',
             'data_pay'=>$data_pay,
         );
         $this->load->view('voice_layout',$data);

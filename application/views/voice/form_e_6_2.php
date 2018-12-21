@@ -35,7 +35,7 @@
         </tr>
         <tr>
             <td colspan="4" style="font-size:18px;padding: 20px 0px;"> 分區：<?=$area?>(身障)</td>
-            <td colspan="3" style="font-size:18px;padding: 20px 0px;">考場：<?=$school?></td>
+            <td colspan="3" style="font-size:18px;padding: 20px 0px;">考場：<?=$school['area_name']?></td>
             <td colspan="4" style="font-size:18px;padding: 20px 0px;"> 印表日期：<?=date('Y/m/d')?></td>
         </tr>
         <tr>
@@ -48,11 +48,9 @@
         <tr>
             <td class="bb">監考費</td>
             <td class="bb">姓名</td>
-            <td class="bb">餐費</td>
             <td class="bb" style="width: 8%;">實領費用</td>
             <td class="bb">監考費</td>
             <td class="bb">姓名</td>
-            <td class="bb">餐費</td>
             <td class="bb" style="width: 8%;">實領費用</td>
         </tr>
     </thead>
@@ -67,21 +65,11 @@
         <td class="bb" style="width:8%;"><?=trim($v['supervisor_1'])?>
         </td>
         <td class="bb" style="width:8%;font-size:18px;font-weight:bold;">
-            <?php
-            if ($v['order_meal1'] == "N") {
-                echo 0;
-            } else {
-                echo 0 - number_format(abs($v['first_member_section_lunch_total']));
-            }
-            ?>
+      
         </td>
         <td class="bb" style="width:8%;font-size:18px;font-weight:bold;">
-            <?php
-            if ($v['order_meal1'] == "N") {
-                echo trim(number_format($v['first_member_section_salary_total'] - 0));
-            } else {
-                echo number_format($v['first_member_section_salary_total'] - abs($v['first_member_section_lunch_total']));
-            }
+            <?php 
+                echo number_format($v['first_member_section_salary_total']);
             ?>
         </td>
         <td class="bb" style="padding: 30px 0px;"></td>
@@ -91,21 +79,13 @@
         <td class="bb" style="width:8%;"><?=trim($v['supervisor_2'])?>
         </td>
         <td class="bb" style="width:8%;font-size:18px;font-weight:bold;">
-            <?php
-            if ($v['order_meal2'] == "N") {
-                echo 0;
-            } else {
-                echo 0 - trim(number_format(abs($v['second_member_section_lunch_total'])));
-            }
-            ?>
+        
         </td>
         <td class="bb" style="width:8%;font-size:18px;font-weight:bold;">
             <?php
-            if ($v['order_meal2'] == "N") {
-                echo number_format($v['second_member_section_salary_total'] - 0);
-            } else {
-                echo number_format($v['second_member_section_salary_total'] - abs($v['second_member_section_lunch_total']));
-            }
+         
+                echo number_format($v['second_member_section_salary_total']);
+            
             ?>
         </td>
         <td class="bb" style="padding: 30px 0px;"></td>
@@ -119,6 +99,6 @@
                 $count_member = 0;
             }
         ?>
-        <td colspan="11" style="text-align:left;font-size:18px;font-weight:bold;">共計:<?=$count_member?>人 實發監考費：<?=number_format($salary)?> + 餐費： <?=number_format($lunch)?> = 總支出費用<?=number_format($salary+$lunch)?> </td>
+        <td colspan="11" style="text-align:left;font-size:18px;font-weight:bold;">共計:<?=$count_member?>人 實發監考費：<?=number_format($salary)?>= 總支出費用<?=number_format($salary)?> </td>
     </tr>
 </table>

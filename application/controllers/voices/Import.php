@@ -46,6 +46,7 @@ class Import extends CI_Controller {
         );
         $this->load->view('voice/voice_layout', $data);
     }
+    // a2
 
     public function school_data()
     {
@@ -83,7 +84,7 @@ class Import extends CI_Controller {
             $data = array(
                 'title' => '本校單位資料',
                 'path' => 'voice/school_data',
-                'path_text' => ' > 指考主選單 > 資料匯入作業 > 本校單位資料',
+                'path_text' => ' > 英聽主選單 > 資料匯入作業 > 本校單位資料',
                 'datalist' => $this->mod_school_unit->year_get_list(),
             );
             $this->load->view('voice/voice_layout', $data);
