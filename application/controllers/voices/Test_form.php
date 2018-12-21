@@ -846,6 +846,7 @@ class Test_form extends CI_Controller
             'data' => $this->mod_voice_job_list->member_map(),
             'list' => $this->mod_voice_job_list->get_member_map_list()
         );
+      
         if ($data['list'] != false) {
             $view = $this->load->view('voice/form_e_2_5',$data,true);
             if (!is_dir('./html/')) {
