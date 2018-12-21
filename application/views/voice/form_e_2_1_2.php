@@ -36,8 +36,8 @@
     </tr>
     <tr>
         <td colspan="2" style="font-size:22px;text-align:left;padding:20px 0px">分區：<?=$area?></td>
-        <td colspan="2" style="font-size:22px;text-align:center;padding:20px 0px"><?=$school['area_name']?></td>
-        <td colspan="2" style="font-size:22px;text-align:right;padding:20px 0px">簽到日期：<?=$k?></td>
+        <td colspan="3" style="font-size:22px;text-align:right;padding:20px 0px"><?=$school['area_name']?> <span style="margin-left:80px;">簽到日期：<?=$k?></span></td>
+        <!-- <td colspan="1" style="font-size:22px;text-align:right;padding:20px 0px"></td> -->
     </tr>
     <tr>
         <td style="border:1px solid #999" width="15%">職務</td>
