@@ -27,7 +27,7 @@
         float:left;
     }
 </style>
-<?php foreach ($part as $k => $v): ?>
+
 <table class="" id="" style="padding:5px 0px;;text-align:center;">
     <thead>
         <tr>
@@ -36,7 +36,7 @@
         <tr>
             <td colspan="3" style="font-size:22px;padding:20px 0px">分區：<?=$area?></td>
             <td colspan="3" style="font-size:22px;padding:20px 0px"><?=$school['area_name']?></td>
-            <td colspan="3" style="font-size:22px;padding:20px 0px">簽到日期：<?=$k?></td>
+            <td colspan="3" style="font-size:22px;padding:20px 0px">簽到日期：<?=$datetime_info['day']?></td>
         </tr>
         <tr>
             <td style="border:1px solid #999" rowspan="2" width="10%">試場</td>
@@ -53,19 +53,19 @@
             <td style="border:1px solid #999" width="10%">單位別</td>
         </tr>
     </thead>
-    <?php foreach ($v as $kc => $vc): ?>
+    <?php foreach ($part as $kc => $vc): ?>
     <tr>
-        <td style="border:1px solid #999"><?=$vc['field']?></td>
-        <td style="border:1px solid #999"><?=$vc['supervisor_1']?></td>
-        <td style="border:1px solid #999"><?=$vc['supervisor_1_unit']?></td>
-        <td style="border:1px solid #999" colspan="2"></td>
-        <td style="border:1px solid #999"><?=$vc['supervisor_2']?></td>
-        <td style="border:1px solid #999"><?=$vc['supervisor_2_unit']?></td>
+        <td style="border:1px solid #999" nowrap="nowrap"><?=$vc['field']?></td>
+        <td style="border:1px solid #999" nowrap="nowrap"><?=$vc['supervisor_1']?></td>
+        <td style="border:1px solid #999" nowrap="nowrap"><?=$vc['supervisor_1_unit']?></td>
+        <td style="border:1px solid #999" colspan="2" nowrap="nowrap"></td>
+        <td style="border:1px solid #999" nowrap="nowrap"><?=$vc['supervisor_2']?></td>
+        <td style="border:1px solid #999" nowrap="nowrap"><?=$vc['supervisor_2_unit']?></td>
         <td style="border:1px solid #999" colspan="2"></td>
     </tr>
     <?php endforeach;?>
     <tr>
-        <td colspan="9" style="font-size:16px;text-align:left;">共計：<?=(count($v)*2)?>人</td>
+        <td colspan="9" style="font-size:16px;text-align:left;">共計：<?=(count($vc)*2)?>人</td>
     </tr>
 </table>
-<?php endforeach;?>
+

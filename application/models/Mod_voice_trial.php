@@ -274,6 +274,7 @@ class Mod_voice_trial extends CI_Model
             $this->db->where('ladder',$this->session->userdata('ladder'));
             $this->db->where('field',$v['field']);
             $res[$k] = $this->db->get('voice_trial_assign')->row_array();
+            $res[$k]['field'] = $v['field'];
             $res[$k]['class'] = $v['class'];
             $res[$k]['block_name'] = $v['block_name'];
             $res[$k]['do_date'] = $res[$k]['first_member_do_date'];
@@ -452,6 +453,8 @@ class Mod_voice_trial extends CI_Model
             return false;
         }
     }  
+
+    // 監試人員執行任務簽到表 匯出專用
 
     public function get_date_for_trial_list($part = '')
     {

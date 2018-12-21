@@ -599,29 +599,33 @@ class Test_form extends CI_Controller
         }
     }
 
+    /**
+     * 監試人員執行任務簽到表
+     */
     public function form_e_2_2()
     {
         $this->load->library('pdf');
         $this->load->model('mod_voice_trial');
         $this->load->model('mod_voice_exam_area');
+        $this->load->model('mod_voice_exam_datetime');
         
         $title = '監試人員執行任務簽到表';
         $date = date('yyyy/m/d');
         $part = $_GET['part'];
         $area = $_GET['area'];
 
-        
-
         $year = $this->session->userdata('year');
+        $ladder = $this->session->userdata('ladder');
+        // print_r($this->mod_voice_trial->get_list_for_pdf($part));
         $data = array(
-            'part' => $this->mod_voice_trial->get_date_for_trial_list($part),
+            'part' => $this->mod_voice_trial->get_list_for_pdf($part),
             'area' =>$area,
             'school' => $this->mod_voice_exam_area->year_school_name($part),
+            'datetime_info'=> $this->mod_voice_exam_datetime->get_once($year,$ladder)
         );
-
-       
        
 
+       
         if ($data['part'] != false) {
             $view = $this->load->view('voice/form_e_2_2', $data,true);
             if (!is_dir('./html/')) {
