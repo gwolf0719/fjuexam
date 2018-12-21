@@ -125,6 +125,8 @@
         // 點選列表顯示內容
         $("body").on("click", "tr", function() {
             var sn = $(this).attr("sn");
+            
+            $("#job").val($(this).find('td').eq(2).text().trim());
             $("#job_code").val($(this).attr('job_code'));
             $("#job_title").val($(this).find('td').eq(3).text().trim());
             $("#name").val($(this).find('td').eq(4).text().trim());
