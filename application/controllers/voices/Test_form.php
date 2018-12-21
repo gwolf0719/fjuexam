@@ -473,9 +473,9 @@ class Test_form extends CI_Controller
             // 'own'=> $this->mod_task->get_task_own_count($area),
             // 'veg'=> $this->mod_task->get_member_veg_count($area),
             // 'meat'=> $this->mod_task->get_member_meat_count($area),
-            'school' =>$this->mod_voice_exam_area->year_school_name($part),
+            'school' => $this->mod_voice_exam_area->year_school_name($part),
         );
-
+    
        
         if ($data['part'] != false) {
             $view =  $this->load->view('voice/form_e_2_1_1', $data, true);
@@ -527,6 +527,7 @@ class Test_form extends CI_Controller
             // 'meat'=> $this->mod_task->get_member_meat_count($area),
             'school' => $school,
         );
+        
         if ($data['part'] != false) {
             $view = $this->load->view('voice/form_e_2_1_2', $data,true);
             if (!is_dir('./html/')) {
