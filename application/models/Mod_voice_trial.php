@@ -791,14 +791,16 @@ class Mod_voice_trial extends CI_Model
         $this->db->where('first_member_do_date !=', "");
 
         $res = $this->db->get()->result_array();
+    
         
         function even($var)
         {
             return($var['year'] == $_SESSION['year']);
+            return($var['ladder'] == $_SESSION['ladder']);
+
         }
 
         $sub =  array_filter($res, "even");
-
         sort($sub);
 
         for ($i=0; $i < count($sub); $i++) {

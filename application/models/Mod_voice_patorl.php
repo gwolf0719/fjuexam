@@ -94,6 +94,7 @@ class Mod_voice_patorl extends CI_Model
             }
             $arr[] = array(
                 'year'=>$patrol['year'],
+                'ladder'=>$patrol['ladder'],
                 'job'=>'分區巡場人員',
                 'area'=>$part,
                 'member_code'=>$res[$i]['allocation_code'],
@@ -165,6 +166,7 @@ class Mod_voice_patorl extends CI_Model
             }            
             $arr[] = array(
                 'year'=>$patrol['year'],
+                'ladder'=>$patrol['ladder'],
                 'job'=>'分區管卷人員',
                 'area'=>$part,
                 'member_code'=>$res[$i]['allocation_code'],

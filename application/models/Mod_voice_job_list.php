@@ -564,6 +564,8 @@ class Mod_voice_job_list extends CI_Model
                 $member_unit = $this->db->where('member_code', $res[$i]['job_code'])->get('voice_import_member')->row_array();
                 $arr[] = array(
                         'year'=>$res[$i]['year'],
+                        'ladder'=>$res[$i]['ladder'],
+
                         // 'area' =>$res[$i]['area'],
                         'job_code' => $res[$i]['job_code'],
                         'job' => $res[$i]['job'],

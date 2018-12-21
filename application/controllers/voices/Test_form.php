@@ -1184,15 +1184,19 @@ class Test_form extends CI_Controller
         $objPHPExcel = new PHPExcel();
         $objPHPExcel->setActiveSheetIndex(0);
         $arr = $this->mod_voice_trial->get_list_for_csv();
+
+      
         for ($i=0; $i < count($arr); $i++) {
             # code...
             $objPHPExcel->getActiveSheet()->setCellValue('A1', '學年度');
-            $objPHPExcel->getActiveSheet()->setCellValue('B1', '監試人員');
-            $objPHPExcel->getActiveSheet()->setCellValue('C1', '監試日期');
+            $objPHPExcel->getActiveSheet()->setCellValue('B1', '場次');
+            $objPHPExcel->getActiveSheet()->setCellValue('C1', '監試人員');
+            $objPHPExcel->getActiveSheet()->setCellValue('D1', '監試日期');
 
             $objPHPExcel->getActiveSheet()->setCellValue('A'.(2+$i), $arr[$i]['year']);
-            $objPHPExcel->getActiveSheet()->setCellValue('B'.(2+$i), $arr[$i]['member_name']);
-            $objPHPExcel->getActiveSheet()->setCellValue('C'.(2+$i), $arr[$i]['do_date']);
+            $objPHPExcel->getActiveSheet()->setCellValue('B'.(2+$i), $arr[$i]['ladder']);
+            $objPHPExcel->getActiveSheet()->setCellValue('C'.(2+$i), $arr[$i]['member_name']);
+            $objPHPExcel->getActiveSheet()->setCellValue('D'.(2+$i), $arr[$i]['do_date']);
         }
 
         $objWriter = PHPExcel_IOFactory::createWriter($objPHPExcel, 'CSV');
@@ -1218,11 +1222,13 @@ class Test_form extends CI_Controller
         for ($i=0; $i < count($res); $i++) {
             # code...
             $objPHPExcel->getActiveSheet()->setCellValue('A1', '學年度');
-            $objPHPExcel->getActiveSheet()->setCellValue('B1', '試務人員');
-            $objPHPExcel->getActiveSheet()->setCellValue('C1', '執行日');
+            $objPHPExcel->getActiveSheet()->setCellValue('B1', '場次');
+            $objPHPExcel->getActiveSheet()->setCellValue('C1', '試務人員');
+            $objPHPExcel->getActiveSheet()->setCellValue('D1', '執行日');
             $objPHPExcel->getActiveSheet()->setCellValue('A'.(2+$i), $res[$i]['year']);
-            $objPHPExcel->getActiveSheet()->setCellValue('B'.(2+$i), $res[$i]['name']);
-            $objPHPExcel->getActiveSheet()->setCellValue('C'.(2+$i), $res[$i]['do_date']);
+            $objPHPExcel->getActiveSheet()->setCellValue('B'.(2+$i), $res[$i]['ladder']);
+            $objPHPExcel->getActiveSheet()->setCellValue('C'.(2+$i), $res[$i]['name']);
+            $objPHPExcel->getActiveSheet()->setCellValue('D'.(2+$i), $res[$i]['do_date']);
         }
 
 
@@ -1244,15 +1250,19 @@ class Test_form extends CI_Controller
         $objPHPExcel = new PHPExcel();
         $objPHPExcel->setActiveSheetIndex(0);
         $arr = $this->mod_voice_patorl->get_trial_staff_for_csv();
+
+        print_r($arr);
         for ($i=0; $i < count($arr); $i++) {
             # code...
             $objPHPExcel->getActiveSheet()->setCellValue('A1', '學年度');
-            $objPHPExcel->getActiveSheet()->setCellValue('B1', '試務人員');
-            $objPHPExcel->getActiveSheet()->setCellValue('C1', '監試日期');
+            $objPHPExcel->getActiveSheet()->setCellValue('B1', '場次');
+            $objPHPExcel->getActiveSheet()->setCellValue('C1', '試務人員');
+            $objPHPExcel->getActiveSheet()->setCellValue('D1', '監試日期');
 
             $objPHPExcel->getActiveSheet()->setCellValue('A'.(2+$i), $arr[$i]['year']);
-            $objPHPExcel->getActiveSheet()->setCellValue('B'.(2+$i), $arr[$i]['member_name']);
-            $objPHPExcel->getActiveSheet()->setCellValue('C'.(2+$i), $arr[$i]['do_date']);
+            $objPHPExcel->getActiveSheet()->setCellValue('B'.(2+$i), $arr[$i]['ladder']);
+            $objPHPExcel->getActiveSheet()->setCellValue('C'.(2+$i), $arr[$i]['member_name']);
+            $objPHPExcel->getActiveSheet()->setCellValue('D'.(2+$i), $arr[$i]['do_date']);
         }
 
         $objWriter = PHPExcel_IOFactory::createWriter($objPHPExcel, 'CSV');
@@ -1276,15 +1286,18 @@ class Test_form extends CI_Controller
         $objPHPExcel = new PHPExcel();
         $objPHPExcel->setActiveSheetIndex(0);
         $arr = $this->mod_voice_patorl->get_patrol_for_csv();
+
         for ($i=0; $i < count($arr); $i++) {
             # code...
             $objPHPExcel->getActiveSheet()->setCellValue('A1', '學年度');
-            $objPHPExcel->getActiveSheet()->setCellValue('B1', '試務人員');
-            $objPHPExcel->getActiveSheet()->setCellValue('C1', '監試日期');
+            $objPHPExcel->getActiveSheet()->setCellValue('B1', '場次');
+            $objPHPExcel->getActiveSheet()->setCellValue('C1', '試務人員');
+            $objPHPExcel->getActiveSheet()->setCellValue('D1', '監試日期');
 
             $objPHPExcel->getActiveSheet()->setCellValue('A'.(2+$i), $arr[$i]['year']);
-            $objPHPExcel->getActiveSheet()->setCellValue('B'.(2+$i), $arr[$i]['member_name']);
-            $objPHPExcel->getActiveSheet()->setCellValue('C'.(2+$i), $arr[$i]['do_date']);
+            $objPHPExcel->getActiveSheet()->setCellValue('B'.(2+$i), $arr[$i]['ladder']);
+            $objPHPExcel->getActiveSheet()->setCellValue('C'.(2+$i), $arr[$i]['member_name']);
+            $objPHPExcel->getActiveSheet()->setCellValue('D'.(2+$i), $arr[$i]['do_date']);
         }
 
         $objWriter = PHPExcel_IOFactory::createWriter($objPHPExcel, 'CSV');
