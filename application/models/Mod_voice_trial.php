@@ -440,7 +440,7 @@ class Mod_voice_trial extends CI_Model
 
                     $arr[$do_date[$d]][] = array(
                         'job_code' => $res[$i]['patrol_staff_code'],
-                        'job' => '管卷人員',
+                        'job' => '巡場人員',
                         // 'job_title' => $res[$i]['job_title'],
                         'name' => $res[$i]['patrol_staff_name'],
                         'member_unit'=>$member['member_unit'],
