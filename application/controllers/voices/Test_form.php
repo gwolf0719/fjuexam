@@ -794,6 +794,7 @@ class Test_form extends CI_Controller
         $this->load->library('pdf');
         $this->load->model('mod_voice_job_list');
         
+        // 過濾重複資料
         $data_list = array();
         foreach($this->mod_voice_job_list->get_sign_list() as $k=>$v){
             $clean_list = array();
@@ -806,10 +807,13 @@ class Test_form extends CI_Controller
             }
             $data_list[$k]=$clean_list;
         }
+
+
+
         $data = array(
             'part' => $data_list
         );
-        // print_r($data['part']);
+        
 
         if ($data['part'] != false) {
             $view = $this->load->view('voice/form_e_2_4',$data,true);
@@ -849,16 +853,31 @@ class Test_form extends CI_Controller
         return true;
     }
 
+    /**
+     * 開會通知單簽收報表
+     */
     public function form_e_2_5()
     {
         $this->load->library('pdf');
         $this->load->model('mod_voice_job_list');
         $this->load->model('mod_voice_exam_area');
-
         
+        $data_list = array();
+        foreach($this->mod_voice_job_list->get_member_map_list() as $k=>$v){
+            $clean_list = array();
+            $member_code= array();
+            foreach($v as $k1=>$v1){
+                if(!in_array($v1['member_code'],$member_code)){
+                    $clean_list[] = $v1;
+                    $member_code[] = $v1['member_code'];
+                }
+            }
+            $data_list[$k]=$clean_list;
+        }
+        // print_r($data_list);
         $data = array(
             'data' => $this->mod_voice_job_list->member_map(),
-            'list' => $this->mod_voice_job_list->get_member_map_list()
+            'list' => $data_list,
         );
       
         if ($data['list'] != false) {
