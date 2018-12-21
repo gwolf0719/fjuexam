@@ -535,38 +535,33 @@ class Mod_voice_trial extends CI_Model
         $this->db->where('part',$part);
         $res = array();
         foreach($this->db->get('voice_trial_staff')->result_array() as $k=>$v){
-            $res[$k]= $v;
-            $this->db->where('year', $this->session->userdata('year'));
-            $this->db->where('ladder', $this->session->userdata('ladder'));
-            if($v['first_end'] != "") {
-               $first_end =$this->db->where('field <='.$v['first_end']);
-            }else{
-                $v['first_end'] = '';
-            }
-            if($v['first_start'] != ""){
-                $first_start = $this->db->where('field >='.$v['first_start']);
-            }else{
-                $v['first_start'] = "";
-            }
-            
-            // $this->db->where('field <='.$v['first_end']);
-            // $this->db->where('field >='.$v['first_start']);
-            $this->db->distinct();
-            $this->db->select('field,supervisor_1,supervisor_1_code,supervisor_2,supervisor_2_code');
-            $trial = array();
-            foreach($this->db->get('voice_trial_assign')->result_array() as $kt=>$vt){
-                $res[$k]['trial'][$kt]= $vt;
+            if($v['first_end'] != ""){
+                $res[$k]= $v;
                 $this->db->where('year', $this->session->userdata('year'));
                 $this->db->where('ladder', $this->session->userdata('ladder'));
-                $this->db->where('field',$vt['field']);
-                $block_name = '';
-                $b_array = array();
-                foreach($this->db->get('voice_trial_assign')->result_array() as $kb=>$vb){
-                    $b_array[]=$vb['block_name'];
+            
+                
+                $this->db->where('field <='.$v['first_end']);
+                $this->db->where('field >='.$v['first_start']);
+                $this->db->distinct();
+                $this->db->select('field,supervisor_1,supervisor_1_code,supervisor_2,supervisor_2_code');
+                $trial = array();
+                foreach($this->db->get('voice_trial_assign')->result_array() as $kt=>$vt){
+                    $res[$k]['trial'][$kt]= $vt;
+                    $this->db->where('year', $this->session->userdata('year'));
+                    $this->db->where('ladder', $this->session->userdata('ladder'));
+                    
+                    $this->db->where('field',$vt['field']);
+                    $block_name = '';
+                    $b_array = array();
+                    foreach($this->db->get('voice_trial_assign')->result_array() as $kb=>$vb){
+                        $b_array[]=$vb['block_name'];
+                    }
+                    $block_name = implode(',',$b_array);
+                    $res[$k]['trial'][$kt]['block_name'] = $block_name;
                 }
-                $block_name = implode(',',$b_array);
-                $res[$k]['trial'][$kt]['block_name'] = $block_name;
             }
+            
         }
         return $res;
 

@@ -66,7 +66,7 @@
         ?>
         <tr>
             <td class="bb" rowspan="2" style="font-size:18px;"><?=$vc['field']?></td>
-            <td class="bb"><?=$vc['supervisor_1']?></td>
+            <td class="bb" style="height:50px;"><?=$vc['supervisor_1']?></td>
             <td class="bb" style="font-weight:bold;font-size:18px;">
                 <?=$block_1?>
             </td>
@@ -76,7 +76,7 @@
             
         </tr>
         <tr>
-            <td class="bb"><?=$vc['supervisor_2']?></td>
+            <td class="bb" style="height:50px;"><?=$vc['supervisor_2']?></td>
             <td class="bb" style="font-weight:bold;font-size:18px;">
                 <?=$block_1?>
             </td>
@@ -86,7 +86,7 @@
             
         </tr>
         <tr>
-            <td class="bb" colspan="2" style="font-weight:bold;">管卷人員簽收記錄表</td>
+            <td class="bb" colspan="2" style="font-weight:bold;height:50px;">管卷人員簽收記錄表</td>
             <td class="bb" style="font-weight:bold;font-size:18px;">
                 <?=$block_1?>
             </td>

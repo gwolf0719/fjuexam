@@ -676,28 +676,28 @@ class Test_form extends CI_Controller
             'count'=> $this->mod_voice_trial->get_patrol_member_count_1($part),
             'school' => $this->mod_voice_exam_area->year_school_name($part),
         );
-        print_r($data['part']);
+        // print_r($data['part']);
 
-            // if ($data['part'] != false) {
-            //     $view = $this->load->view('voice/form_e_2_3_1', $data,true);
-            //     if (!is_dir('./html/')) {
-            //         mkdir('./html/');
-            //     } else {
-            //         $path = 'form_e_2_3_1.html';
-            //         $fp = fopen('./html/'.$path,'w');//建檔
-            //         fwrite($fp,$view);
-            //         fclose($fp);//關閉開啟的檔案
-            //     }
+            if ($data['part'] != false) {
+                $view = $this->load->view('voice/form_e_2_3_1', $data,true);
+                if (!is_dir('./html/')) {
+                    mkdir('./html/');
+                } else {
+                    $path = 'form_e_2_3_1.html';
+                    $fp = fopen('./html/'.$path,'w');//建檔
+                    fwrite($fp,$view);
+                    fclose($fp);//關閉開啟的檔案
+                }
 
-            //     if (!is_dir('./pdf/')) {
-            //         mkdir('./pdf/');
-            //     } else {
-            //         exec('wkhtmltopdf --lowquality  --enable-forms http://uat.fofo.tw/fjuexam/html/form_e_2_3_1.html  ./pdf/form_e_2_3_1.pdf');
-            //     }
-            //     echo '<script>location.href="http://uat.fofo.tw/fjuexam/pdf/form_e_2_3_1.pdf"</script>';
-            // }else{
-            //     return false;
-            // }
+                if (!is_dir('./pdf/')) {
+                    mkdir('./pdf/');
+                } else {
+                    exec('wkhtmltopdf --lowquality  --enable-forms http://uat.fofo.tw/fjuexam/html/form_e_2_3_1.html  ./pdf/form_e_2_3_1.pdf');
+                }
+                echo '<script>location.href="http://uat.fofo.tw/fjuexam/pdf/form_e_2_3_1.pdf"</script>';
+            }else{
+                return false;
+            }
     }
 
     public function form_e_2_3_2()
