@@ -847,6 +847,7 @@ class Mod_voice_trial extends CI_Model
         }
 
         $sub =  array_filter($res, "even");
+        // print_r($sub);
         sort($sub);
 
         for ($i=0; $i < count($sub); $i++) {
@@ -859,7 +860,8 @@ class Mod_voice_trial extends CI_Model
             # code...
             $arr[] = array(
                     'year' => $sub[$i]['year'],
-                    'part_name'=>$sub[$i]['part_name'],
+                    'ladder' => $sub[$i]['ladder'],                    
+                    'area_name'=>$sub[$i]['area_name'],
                     'do_date' => $sub[$i]['first_member_do_date'],
                     'member_unit' => $supervisor1['member_unit'],
                     'member_name'=> $supervisor1['member_name'],
@@ -868,7 +870,8 @@ class Mod_voice_trial extends CI_Model
                 );
             $arr[] = array(
                     'year' => $sub[$i]['year'],
-                    'part_name'=>$sub[$i]['part_name'],
+                    'ladder' => $sub[$i]['ladder'],
+                    'area_name'=>$sub[$i]['area_name'],
                     'do_date' => $sub[$i]['second_member_do_date'],
                     'member_unit' => $supervisor2['member_unit'],
                     'member_name'=> $supervisor2['member_name'],
