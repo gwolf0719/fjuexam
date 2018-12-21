@@ -910,24 +910,8 @@ class Test_form extends CI_Controller
         $year = $this->session->userdata('year');
         $ladder = $this->session->userdata('ladder');
 
-
-        if ($this->mod_voice_exam_datetime->chk_once($year,$ladder)) {
-            $datetime_info = $this->mod_voice_exam_datetime->get_once($year,$ladder);
-        } else {
-            $datetime_info = array(
-                'day_1' => '1911' + $this->session->userdata('year').'/10/26',
-                'course_1_start' => '08:40',
-                'course_1_end' => '10:00',
-                'course_2_start' => '10:50',
-                'course_2_end' => '12:00',
-                'course_3_start' => '14:00',
-                'course_3_end' => '15:20',
-                'pre_1' => '08:25',
-                'pre_2' => '10:45',
-                'pre_3' => '13:55',
-                'pre_4' => '16:05',
-            );
-        }
+        $datetime_info = $this->mod_voice_exam_datetime->get_once($year,$ladder);
+        
         $data = array(
             'title' => '日程表 / 分配表',
             'path' => 'voice/form_e_3',
@@ -937,102 +921,105 @@ class Test_form extends CI_Controller
         $this->load->view('voice_layout', $data);
     }
 
-    public function form_e_3_1()
-    {
-        $this->load->library('excel');
-        $this->load->model('mod_voice_exam_datetime');
-        $this->load->model('mod_voice_trial');
+    /**
+     * 取消  監試人員考科日程表
+     */
+    // public function form_e_3_1()
+    // {
+    //     $this->load->library('excel');
+    //     $this->load->model('mod_voice_exam_datetime');
+    //     $this->load->model('mod_voice_trial');
 
-        $objPHPExcel = new PHPExcel();
-        $objPHPExcel->setActiveSheetIndex(0);
-        $part = $_GET['part'];
-        $area = $_GET['area'];
-        $year = $this->session->userdata('year');
-        $ladder = $this->session->userdata('ladder');
+    //     $objPHPExcel = new PHPExcel();
+    //     $objPHPExcel->setActiveSheetIndex(0);
+    //     $part = $_GET['part'];
+    //     $area = $_GET['area'];
+    //     $year = $this->session->userdata('year');
+    //     $ladder = $this->session->userdata('ladder');
 
-        $datetime_info = $this->mod_voice_exam_datetime->get_once($year,$ladder);
-        $course = $this->mod_voice_exam_datetime->get_course($year,$ladder);
+    //     $datetime_info = $this->mod_voice_exam_datetime->get_once($year,$ladder);
+    //     $course = $this->mod_voice_exam_datetime->get_course($year,$ladder);
 
-        $res = $this->mod_voice_trial->get_supervisor_list($part);
+    //     $res = $this->mod_voice_trial->get_supervisor_list($part);
 
 
 
      
-        for ($i=0; $i < count($res); $i++) {
-            # code...
-            switch ($res[$i]['subject_01']) {
-                case '0':
-                    $subject_01 =  '';
-                    break;
-                default:
-                    $subject_01 =  'V';
-            }
-            // switch ($res[$i]['subject_2']) {
-            //     case '0':
-            //         $subject_02 =  '';
-            //         break;
-            //     default:
-            //         $subject_02 =  'V';
-            // }
+    //     for ($i=0; $i < count($res); $i++) {
+    //         # code...
+    //         switch ($res[$i]['subject_01']) {
+    //             case '0':
+    //                 $subject_01 =  '';
+    //                 break;
+    //             default:
+    //                 $subject_01 =  'V';
+    //         }
+    //         // switch ($res[$i]['subject_2']) {
+    //         //     case '0':
+    //         //         $subject_02 =  '';
+    //         //         break;
+    //         //     default:
+    //         //         $subject_02 =  'V';
+    //         // }
 
-            // switch ($course[0]['subject_1']) {
-            //     case 'subject_0':
-            //         $course1 = '';
-            //         break;
-            //     case 'subject_1':
-            //         $course1 = '英聽';
-            //         break;
-            // }
+    //         // switch ($course[0]['subject_1']) {
+    //         //     case 'subject_0':
+    //         //         $course1 = '';
+    //         //         break;
+    //         //     case 'subject_1':
+    //         //         $course1 = '英聽';
+    //         //         break;
+    //         // }
 
-        //    switch ($course[1]['subject']) {
-        //         case 'subject_00':
-        //             $course2 = '';
-        //             break;
-        //         case 'subject_01':
-        //             $course2 = '';
-        //             break;
-        //         case 'subject_02':
-        //             $course2 = '化學';
-        //             break;
-        //     }
+    //     //    switch ($course[1]['subject']) {
+    //     //         case 'subject_00':
+    //     //             $course2 = '';
+    //     //             break;
+    //     //         case 'subject_01':
+    //     //             $course2 = '';
+    //     //             break;
+    //     //         case 'subject_02':
+    //     //             $course2 = '化學';
+    //     //             break;
+    //     //     }
 
-            $objPHPExcel->getActiveSheet()->setCellValue('A1', '學年度');
-            $objPHPExcel->getActiveSheet()->setCellValue('B1', '場次');
-            $objPHPExcel->getActiveSheet()->setCellValue('C1', '考試日期一');
-            $objPHPExcel->getActiveSheet()->setCellValue('D1', '編號');
-            $objPHPExcel->getActiveSheet()->setCellValue('E1', '監試人員姓名');
-            $objPHPExcel->getActiveSheet()->setCellValue('F1', '監試分區');
-            $objPHPExcel->getActiveSheet()->setCellValue('G1', '監試日期');
-            $objPHPExcel->getActiveSheet()->setCellValue('H1', '監試節次');
-            $objPHPExcel->getActiveSheet()->setCellValue('I1', '英聽');
-            $objPHPExcel->getActiveSheet()->setCellValue('J1', '第1科');
-            $objPHPExcel->getActiveSheet()->setCellValue('K1', '第1科');
-
-
-            $objPHPExcel->getActiveSheet()->setCellValue('A'.(2+$i), $_SESSION['year']);
-            $objPHPExcel->getActiveSheet()->setCellValue('B'.(2+$i), $_SESSION['year']);
-            $objPHPExcel->getActiveSheet()->setCellValue('C'.(2+$i), mb_substr($datetime_info['day'], 5, 8, 'utf-8'));
-            $objPHPExcel->getActiveSheet()->setCellValue('D'.(2+$i), $res[$i]['supervisor_code']);
-            $objPHPExcel->getActiveSheet()->setCellValue('E'.(2+$i), trim($res[$i]['supervisor']));
-            $objPHPExcel->getActiveSheet()->setCellValue('F'.(2+$i), $_GET['area']);
-            $objPHPExcel->getActiveSheet()->setCellValue('G'.(2+$i), str_replace("、",",",$res[$i]['do_date']));
-            $objPHPExcel->getActiveSheet()->setCellValue('H'.(2+$i), $res[$i]['test_section']);
-            $objPHPExcel->getActiveSheet()->setCellValue('I'.(2+$i), $subject_01);
-            // $objPHPExcel->getActiveSheet()->setCellValue('J'.(2+$i), $course);
-            // $objPHPExcel->getActiveSheet()->setCellValue('K'.(2+$i), $course);
-
-        }
-
-        $objWriter = PHPExcel_IOFactory::createWriter($objPHPExcel, 'CSV');
+    //         $objPHPExcel->getActiveSheet()->setCellValue('A1', '學年度');
+    //         $objPHPExcel->getActiveSheet()->setCellValue('B1', '場次');
+    //         $objPHPExcel->getActiveSheet()->setCellValue('C1', '考試日期一');
+    //         $objPHPExcel->getActiveSheet()->setCellValue('D1', '編號');
+    //         $objPHPExcel->getActiveSheet()->setCellValue('E1', '監試人員姓名');
+    //         $objPHPExcel->getActiveSheet()->setCellValue('F1', '監試分區');
+    //         $objPHPExcel->getActiveSheet()->setCellValue('G1', '監試日期');
+    //         $objPHPExcel->getActiveSheet()->setCellValue('H1', '監試節次');
+    //         $objPHPExcel->getActiveSheet()->setCellValue('I1', '英聽');
+    //         $objPHPExcel->getActiveSheet()->setCellValue('J1', '第1科');
+    //         $objPHPExcel->getActiveSheet()->setCellValue('K1', '第1科');
 
 
-        header('Content-Type: application/vnd.ms-excel');
-        header('Content-Disposition: attachment;filename="監試人員監考日程表'.'.csv"');
-        header('Cache-Control: max-age=0');
+    //         $objPHPExcel->getActiveSheet()->setCellValue('A'.(2+$i), $_SESSION['year']);
+    //         $objPHPExcel->getActiveSheet()->setCellValue('B'.(2+$i), $_SESSION['year']);
+    //         $objPHPExcel->getActiveSheet()->setCellValue('C'.(2+$i), mb_substr($datetime_info['day'], 5, 8, 'utf-8'));
+    //         $objPHPExcel->getActiveSheet()->setCellValue('D'.(2+$i), $res[$i]['supervisor_code']);
+    //         $objPHPExcel->getActiveSheet()->setCellValue('E'.(2+$i), trim($res[$i]['supervisor']));
+    //         $objPHPExcel->getActiveSheet()->setCellValue('F'.(2+$i), $_GET['area']);
+    //         $objPHPExcel->getActiveSheet()->setCellValue('G'.(2+$i), str_replace("、",",",$res[$i]['do_date']));
+    //         $objPHPExcel->getActiveSheet()->setCellValue('H'.(2+$i), $res[$i]['test_section']);
+    //         $objPHPExcel->getActiveSheet()->setCellValue('I'.(2+$i), $subject_01);
+    //         // $objPHPExcel->getActiveSheet()->setCellValue('J'.(2+$i), $course);
+    //         // $objPHPExcel->getActiveSheet()->setCellValue('K'.(2+$i), $course);
+
+    //     }
+
+    //     $objWriter = PHPExcel_IOFactory::createWriter($objPHPExcel, 'CSV');
 
 
-        $objWriter->save('php://output');
-    }
+    //     header('Content-Type: application/vnd.ms-excel');
+    //     header('Content-Disposition: attachment;filename="監試人員監考日程表'.'.csv"');
+    //     header('Cache-Control: max-age=0');
+
+
+    //     $objWriter->save('php://output');
+    // }
 
     public function form_e_3_2_1()
     {

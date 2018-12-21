@@ -53,17 +53,23 @@
 </div>
 <div class="row">
     <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6 cube text-center">
-        <img src="assets/images/e_3_1.png" alt="" style="cursor: pointer;" data-toggle="modal" data-target="#e_3_1">
+        <img src="assets/images/e_3_1.png" alt="" style="cursor: pointer;-webkit-filter:grayscale(1);">
     </div>
 
     <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6 cube text-center">
-        <a href="assets/zip/監試人員考科目日程表.docx" download>
-            <img src="assets/images/E301.png" alt="">
-        </a>
+        <!-- <a href="assets/zip/監試人員考科目日程表.docx" download> -->
+            <!-- <img src="assets/images/E301.png" alt=""> -->
+        <!-- </a> -->
     </div>
 
     <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6 cube text-center">
         <img src="assets/images/e_3_2.png" alt="" style="cursor: pointer;" data-toggle="modal" data-target="#e_3_2">
+    </div>
+
+    <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6 cube text-center"></div>
+
+    <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6 cube text-center">
+        <img src="assets_voice/images/e_3_3.png" alt="" style="cursor: pointer;" data-toggle="modal" data-target="#e_3_3">
     </div>
 
     <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6 cube text-center"></div>
