@@ -44,10 +44,10 @@
     </thead>
     <?php foreach ($v as $kc => $vc): ?>
     <tr>
-        <td style="border: 1px solid #999999;"><?=($kc+1)?></td>
-        <td style="border: 1px solid #999999;"><?=$vc['job']?></td>
-        <td style="border: 1px solid #999999;"><?=$vc['member_name']?></td>
-        <td style="border: 1px solid #999999;"><?=$vc['member_unit']?></td>
+        <td style="border: 1px solid #999999;" nowrap="nowrap"><?=($kc+1)?></td>
+        <td style="border: 1px solid #999999;" nowrap="nowrap"><?=$vc['job']?></td>
+        <td style="border: 1px solid #999999;" nowrap="nowrap"><?=$vc['member_name']?></td>
+        <td style="border: 1px solid #999999;" nowrap="nowrap"><?=$vc['member_unit']?></td>
         <td style="border: 1px solid #999999;"></td>
         <td style="border: 1px solid #999999;"></td>
     </tr>
