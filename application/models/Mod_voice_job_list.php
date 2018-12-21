@@ -345,7 +345,7 @@ class Mod_voice_job_list extends CI_Model
 
         $this->db->where('year', $this->session->userdata('year'));
 
-        $patrol = $this->db->get('patrol_staff')->result_array();        
+        $patrol = $this->db->get('voice_patrol_staff')->result_array();        
 
         if (!empty($res)) {
             for ($i=0; $i < count($res); $i++) {

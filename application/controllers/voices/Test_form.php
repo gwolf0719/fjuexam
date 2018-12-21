@@ -797,6 +797,7 @@ class Test_form extends CI_Controller
         $data = array(
             'part' => $this->mod_voice_job_list->get_sign_list(),
         );
+
         if ($data['part'] != false) {
             $view = $this->load->view('voice/form_e_2_4',$data,true);
             if (!is_dir('./html/')) {
