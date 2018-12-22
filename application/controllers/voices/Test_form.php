@@ -1307,7 +1307,7 @@ class Test_form extends CI_Controller
             # code...
             $objPHPExcel->getActiveSheet()->setCellValue('A1', '學年度');
             $objPHPExcel->getActiveSheet()->setCellValue('B1', '場次');
-            $objPHPExcel->getActiveSheet()->setCellValue('C1', '試務人員');
+            $objPHPExcel->getActiveSheet()->setCellValue('C1', '管卷人員');
             $objPHPExcel->getActiveSheet()->setCellValue('D1', '監試日期');
 
             $objPHPExcel->getActiveSheet()->setCellValue('A'.(2+$i), $arr[$i]['year']);
@@ -1342,7 +1342,7 @@ class Test_form extends CI_Controller
             # code...
             $objPHPExcel->getActiveSheet()->setCellValue('A1', '學年度');
             $objPHPExcel->getActiveSheet()->setCellValue('B1', '場次');
-            $objPHPExcel->getActiveSheet()->setCellValue('C1', '試務人員');
+            $objPHPExcel->getActiveSheet()->setCellValue('C1', '巡場人員');
             $objPHPExcel->getActiveSheet()->setCellValue('D1', '監試日期');
 
             $objPHPExcel->getActiveSheet()->setCellValue('A'.(2+$i), $arr[$i]['year']);
