@@ -988,7 +988,6 @@ class Mod_voice_trial extends CI_Model
                     'part' => $sub[$i]['part'],
                     'do_date' => $sub[$i]['first_member_do_date'],
                     'first_member_salary_section'=> $sub[$i]['first_member_section_salary_total'] * count($do_date1),
-                    'first_member_section_lunch_total'=>$sub[$i]['first_member_section_lunch_total']*count($do_date1),
                     'first_member_section_salary_total'=>$sub[$i]['first_member_section_salary_total']*count($do_date1),
                     'supervisor_1'=>$sub[$i]['supervisor_1'],
                     'supervisor_1_unit' => $supervisor1['member_unit'] ,

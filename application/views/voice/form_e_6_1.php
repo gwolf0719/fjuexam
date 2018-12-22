@@ -44,7 +44,7 @@
         </tr>
         <tr>
             <td colspan="4" style="font-size:22px;padding: 20px 0px;"> 分區：<?=$area?></td>
-            <td colspan="4" style="font-size:22px;padding: 20px 0px;">考場：<?=$school?></td>
+            <td colspan="4" style="font-size:22px;padding: 20px 0px;">考場：<?=$school['area_name']?></td>
             <td colspan="4" style="font-size:22px;padding: 20px 0px;"> 印表日期：<?=date('Y/m/d')?></td>
         </tr>
         <tr>
