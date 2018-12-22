@@ -1058,106 +1058,140 @@ class Test_form extends CI_Controller
         echo '<script>location.href="http://uat.fofo.tw/fjuexam/pdf/form_e_3_2_1.pdf"</script>';
     }
 
-    public function e_3_2_1_2()
-    {
-        $this->load->library('pdf');
-        $this->load->model('mod_trial');
-        $this->load->model('mod_exam_area');
+    // public function e_3_2_1_2()
+    // {
+    //     $this->load->library('pdf');
+    //     $this->load->model('mod_trial');
+    //     $this->load->model('mod_exam_area');
         
-        $date = $_GET['date'];
-        $data = array(
-            'part' => $this->mod_trial->e_3_2_2($part),
-            'area' => $area,
-            'patrol_count'=> $this->mod_trial->get_patrol_member_count_2($part),
-            'trial_count'=>$this->mod_trial->get_trial_member_count($part),
-            'school' => $this->mod_exam_area->year_school_name($part),
-            'date' => $date,
-        );
-        // print_r($data);
-        $view = $this->load->view('designated/e_3_2_1', $data, true);
-        if (!is_dir('./html/')) {
-            mkdir('./html/');
-        } else {
-            $path = 'e_3_2_1.html';
-            $fp = fopen('./html/'.$path,'w');//建檔
-            fwrite($fp,$view);
-            fclose($fp);//關閉開啟的檔案
-        }
+    //     $date = $_GET['date'];
+    //     $data = array(
+    //         'part' => $this->mod_trial->e_3_2_2($part),
+    //         'area' => $area,
+    //         'patrol_count'=> $this->mod_trial->get_patrol_member_count_2($part),
+    //         'trial_count'=>$this->mod_trial->get_trial_member_count($part),
+    //         'school' => $this->mod_exam_area->year_school_name($part),
+    //         'date' => $date,
+    //     );
+    //     // print_r($data);
+    //     $view = $this->load->view('designated/e_3_2_1', $data, true);
+    //     if (!is_dir('./html/')) {
+    //         mkdir('./html/');
+    //     } else {
+    //         $path = 'e_3_2_1.html';
+    //         $fp = fopen('./html/'.$path,'w');//建檔
+    //         fwrite($fp,$view);
+    //         fclose($fp);//關閉開啟的檔案
+    //     }
 
-        if (!is_dir('./pdf/')) {
-            mkdir('./pdf/');
-        } else {
-            exec('wkhtmltopdf --lowquality http://uat.fofo.tw/fjuexam/html/e_3_2_1.html  ./pdf/e_3_2_1.pdf');
-        }
-        echo '<script>location.href="http://uat.fofo.tw/fjuexam/pdf/e_3_2_1.pdf"</script>';
-    }
+    //     if (!is_dir('./pdf/')) {
+    //         mkdir('./pdf/');
+    //     } else {
+    //         exec('wkhtmltopdf --lowquality http://uat.fofo.tw/fjuexam/html/e_3_2_1.html  ./pdf/e_3_2_1.pdf');
+    //     }
+    //     echo '<script>location.href="http://uat.fofo.tw/fjuexam/pdf/e_3_2_1.pdf"</script>';
+    // }
 
 
-    public function form_e_3_2_2()
-    {
-        $this->load->library('pdf');
-        $this->load->model('mod_voice_trial');
-        $this->load->model('mod_voice_exam_area');
-        $obj_pdf = new Pdf(PDF_PAGE_ORIENTATION, PDF_UNIT, PDF_PAGE_FORMAT, false, 'UTF-8', false);
-        $obj_pdf->SetCreator(PDF_CREATOR);
-        $title = '試場工作人員分配表';
-        $date = date('yyyy/m/d');
-        $part = $_GET['part'];
-        $area = $_GET['area'];
+    // public function form_e_3_2_2()
+    // {
+    //     $this->load->library('pdf');
+    //     $this->load->model('mod_voice_trial');
+    //     $this->load->model('mod_voice_exam_area');
+    //     $obj_pdf = new Pdf(PDF_PAGE_ORIENTATION, PDF_UNIT, PDF_PAGE_FORMAT, false, 'UTF-8', false);
+    //     $obj_pdf->SetCreator(PDF_CREATOR);
+    //     $title = '試場工作人員分配表';
+    //     $date = date('yyyy/m/d');
+    //     $part = $_GET['part'];
+    //     $area = $_GET['area'];
 
-        $date = $_GET['date'];
-        $data = array(
-            'part' => $this->mod_voice_trial->e_3_2_1($part),
-            'area' => $area,
-            'patrol_count'=> $this->mod_voice_trial->get_patrol_member_count_1($part),
-            'trial_count'=>$this->mod_voice_trial->get_trial_member_count($part),
-            'school' => $this->mod_voice_exam_area->year_school_name($part),
-            'date' => $date,
-        );
-        // print_r($data);
-        $view =  $this->load->view('voice/form_e_3_2_2', $data, true);
-        if (!is_dir('./html/')) {
-            mkdir('./html/');
-        } else {
-            $path = 'form_e_3_2_2.html';
-            $fp = fopen('./html/'.$path,'w');//建檔
-            fwrite($fp,$view);
-            fclose($fp);//關閉開啟的檔案
-        }
+    //     $date = $_GET['date'];
+    //     $data = array(
+    //         'part' => $this->mod_voice_trial->e_3_2_1($part),
+    //         'area' => $area,
+    //         'patrol_count'=> $this->mod_voice_trial->get_patrol_member_count_1($part),
+    //         'trial_count'=>$this->mod_voice_trial->get_trial_member_count($part),
+    //         'school' => $this->mod_voice_exam_area->year_school_name($part),
+    //         'date' => $date,
+    //     );
+    //     // print_r($data);
+    //     $view =  $this->load->view('voice/form_e_3_2_2', $data, true);
+    //     if (!is_dir('./html/')) {
+    //         mkdir('./html/');
+    //     } else {
+    //         $path = 'form_e_3_2_2.html';
+    //         $fp = fopen('./html/'.$path,'w');//建檔
+    //         fwrite($fp,$view);
+    //         fclose($fp);//關閉開啟的檔案
+    //     }
 
-        if (!is_dir('./pdf/')) {
-            mkdir('./pdf/');
-        } else {
-            exec('wkhtmltopdf --lowquality http://uat.fofo.tw/fjuexam/html/form_e_3_2_2.html  ./pdf/form_e_3_2_2.pdf');
-        }
-        echo '<script>location.href="http://uat.fofo.tw/fjuexam/pdf/form_e_3_2_2.pdf"</script>';
-    }
+    //     if (!is_dir('./pdf/')) {
+    //         mkdir('./pdf/');
+    //     } else {
+    //         exec('wkhtmltopdf --lowquality http://uat.fofo.tw/fjuexam/html/form_e_3_2_2.html  ./pdf/form_e_3_2_2.pdf');
+    //     }
+    //     echo '<script>location.href="http://uat.fofo.tw/fjuexam/pdf/form_e_3_2_2.pdf"</script>';
+    // }
 
   
 
   
 
-    public function form_e_3_2_3()
+    // public function form_e_3_2_3()
+    // {
+    //     $this->load->library('pdf');
+    //     $this->load->model('mod_voice_trial');
+    //     $this->load->model('mod_voice_exam_area');
+        
+    //     $date = $_GET['date'];
+    //     $data = array(
+    //         'part' => $this->mod_voice_trial->e_3_2_1($part),
+    //         'area' => $area,
+    //         'patrol_count'=> $this->mod_voice_trial->get_patrol_member_count_1($part),
+    //         'trial_count'=>$this->mod_voice_trial->get_trial_member_count($part),
+    //         'school' => $this->mod_voice_exam_area->year_school_name($part),
+    //         'date' => $date,
+    //     );
+    //     // print_r($data);
+    //     $view =  $this->load->view('voice/form_e_3_2_3', $data, true);
+    //     if (!is_dir('./html/')) {
+    //         mkdir('./html/');
+    //     } else {
+    //         $path = 'form_e_3_2_3.html';
+    //         $fp = fopen('./html/'.$path,'w');//建檔
+    //         fwrite($fp,$view);
+    //         fclose($fp);//關閉開啟的檔案
+    //     }
+
+    //     if (!is_dir('./pdf/')) {
+    //         mkdir('./pdf/');
+    //     } else {
+    //         exec('wkhtmltopdf --lowquality http://uat.fofo.tw/fjuexam/html/form_e_3_2_3.html  ./pdf/form_e_3_2_3.pdf');
+    //     }
+    //     echo '<script>location.href="http://uat.fofo.tw/fjuexam/pdf/form_e_3_2_3.pdf"</script>';
+    // }
+
+    
+    // 各考區試場及個考生座位分配表
+    public function form_e_3_3()
     {
         $this->load->library('pdf');
         $this->load->model('mod_voice_trial');
         $this->load->model('mod_voice_exam_area');
+        $this->load->model('mod_voice_area');
+        $block_name = $this->input->get('block_name');
+        $data_list = $this->mod_voice_area->total_list_by_part_name($block_name);
         
-        $date = $_GET['date'];
         $data = array(
-            'part' => $this->mod_voice_trial->e_3_2_1($part),
-            'area' => $area,
-            'patrol_count'=> $this->mod_voice_trial->get_patrol_member_count_1($part),
-            'trial_count'=>$this->mod_voice_trial->get_trial_member_count($part),
-            'school' => $this->mod_voice_exam_area->year_school_name($part),
-            'date' => $date,
+            'data_list'=>$data_list,
+
         );
-        // print_r($data);
-        $view =  $this->load->view('voice/form_e_3_2_3', $data, true);
+       
+        $view = $this->load->view('voice/form_e_3_3',$data,true);
         if (!is_dir('./html/')) {
             mkdir('./html/');
         } else {
-            $path = 'form_e_3_2_3.html';
+            $path = 'form_e_3_3.html';
             $fp = fopen('./html/'.$path,'w');//建檔
             fwrite($fp,$view);
             fclose($fp);//關閉開啟的檔案
@@ -1166,11 +1200,10 @@ class Test_form extends CI_Controller
         if (!is_dir('./pdf/')) {
             mkdir('./pdf/');
         } else {
-            exec('wkhtmltopdf --lowquality http://uat.fofo.tw/fjuexam/html/form_e_3_2_3.html  ./pdf/form_e_3_2_3.pdf');
+            exec('wkhtmltopdf --lowquality http://uat.fofo.tw/fjuexam/html/form_e_3_3.html  ./pdf/form_e_3_3.pdf');
         }
-        echo '<script>location.href="http://uat.fofo.tw/fjuexam/pdf/form_e_3_2_3.pdf"</script>';
+        echo '<script>location.href="http://uat.fofo.tw/fjuexam/pdf/form_e_3_3.pdf"</script>';
     }
-
   
 
     public function form_e_4()

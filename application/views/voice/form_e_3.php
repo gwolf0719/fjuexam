@@ -69,12 +69,35 @@
     <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6 cube text-center"></div>
 
     <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6 cube text-center">
-        <img src="assets_voice/images/e_3_3.png" alt="" style="cursor: pointer;" data-toggle="modal" data-target="#e_3_3">
+        <img src="assets_voice/images/e_3_3.png" alt="" style="cursor: pointer;" data-toggle="modal" data-target="#e_3_3"></a>
     </div>
 
     <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6 cube text-center"></div>
 
 </div>
+<!-- Modal start-->
+<div class="modal fade" id="e_3_3" tabindex="-1" role="dialog" aria-labelledby="e_3_3" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header" style="border-bottom: none;">
+                <h5 class="modal-title" id="exampleModalLabel" style="">選擇分區</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-md-12 col-sm-12 col-xs-12">
+                        <div class="btn_part btn2" link="./voice/e/form_e_3_3?block_name=上午場" part="2501" area="第一分區">上午場</div>
+                        <div class="btn_part btn2" link="./voice/e/form_e_3_3?block_name=下午場" part="2502" area="第二分區">下午場</div>
+                        <!-- <div class="btn_part btn2" link="./voice/e/form_e_3_1?part=2502&area=第三分區" part="2503" area="第三分區">第三分區</div> -->
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Modal end-->
 <!-- Modal start-->
 <div class="modal fade" id="e_3_1" tabindex="-1" role="dialog" aria-labelledby="e_3_1" aria-hidden="true">
     <div class="modal-dialog" role="document">
