@@ -577,27 +577,29 @@ class Test_form extends CI_Controller
             // 'meat'=> $this->mod_task->get_member_meat_count($area),
             'school' => $school,
         );
-        if ($data['part'] != false) {
-            $view =  $this->load->view('voice/form_e_2_1_3', $data, true);
-            if (!is_dir('./html/')) {
-                mkdir('./html/');
-            } else {
-                $path = 'form_e_2_1_3.html';
-                $fp = fopen('./html/'.$path,'w');//建檔
-                fwrite($fp,$view);
-                fclose($fp);//關閉開啟的檔案
-                // copy($path, './html/'.$path);
+            $view =  $this->load->view('voice/form_e_2_1_3', $data);
 
-            }
-            if (!is_dir('./pdf/')) {
-                mkdir('./pdf/');
-            } else {
-                exec('wkhtmltopdf --lowquality --enable-forms http://uat.fofo.tw/fjuexam/html/form_e_2_1_3.html  ./pdf/form_e_2_1_3.pdf');
-            }
-            echo '<script>location.href="http://uat.fofo.tw/fjuexam/pdf/form_e_2_1_3.pdf"</script>';
-        }else{
-            return false;
-        }
+        // if ($data['part'] != false) {
+        //     $view =  $this->load->view('voice/form_e_2_1_3', $data, true);
+        //     if (!is_dir('./html/')) {
+        //         mkdir('./html/');
+        //     } else {
+        //         $path = 'form_e_2_1_3.html';
+        //         $fp = fopen('./html/'.$path,'w');//建檔
+        //         fwrite($fp,$view);
+        //         fclose($fp);//關閉開啟的檔案
+        //         // copy($path, './html/'.$path);
+
+        //     }
+        //     if (!is_dir('./pdf/')) {
+        //         mkdir('./pdf/');
+        //     } else {
+        //         exec('wkhtmltopdf --lowquality --enable-forms http://uat.fofo.tw/fjuexam/html/form_e_2_1_3.html  ./pdf/form_e_2_1_3.pdf');
+        //     }
+        //     echo '<script>location.href="http://uat.fofo.tw/fjuexam/pdf/form_e_2_1_3.pdf"</script>';
+        // }else{
+        //     return false;
+        // }
     }
 
     /**
