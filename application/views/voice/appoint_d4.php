@@ -123,6 +123,9 @@
 
 <script>
     function init(){
+        
+        $(".chbox").prop('checked',false);
+        $("input[name=day]").prop('checked',true);
         $(".chbox").attr('disabled',true);
         $("#trial_staff_code_1").val("");
         $("#trial_staff_code_2").val("");
@@ -670,11 +673,11 @@
                         </div>
                         <div class="form-group">
                         <label for="floor" class="">場次</label>
-                            <input type="checkbox" class="chbox block" id='morning'  value="上午場" name="day" >
+                            <input type="checkbox" class="chbox block" id='morning'  value="上午場" >
                             <span class="chbox"  >
                                  上午場
                             </span>
-                            <input type="checkbox" class="chbox block" id='aftermorning'  value="下午場" name="day"  >
+                            <input type="checkbox" class="chbox block" id='aftermorning'  value="下午場"  >
                             <span class="chbox"  >
                                  下午場
                             </span>
@@ -752,11 +755,11 @@
                         </div>
                         <div class="form-group">
                         <label for="floor" class="">場次</label>
-                        <input type="checkbox" class="chbox block" id='morning'  value="上午場" name="day" >
+                        <input type="checkbox" class="chbox block" id='morning'  value="上午場" >
                             <span class="chbox"  >
                                  上午場
                             </span>
-                            <input type="checkbox" class="chbox block" id='aftermorning'  value="下午場" name="day"  >
+                            <input type="checkbox" class="chbox block" id='aftermorning'  value="下午場">
                             <span class="chbox"  >
                                  下午場
                             </span>
