@@ -58,10 +58,10 @@
             $block_2 = '';
             $block_names_array = explode(',',$vc['block_name']);
             if(!in_array('上午場',$block_names_array)){
-                $block_1 = 'x';
+                $block_1 = 'X';
             }
             if(!in_array('下午場',$block_names_array)){
-                $block_1 = 'x';
+                $block_1 = 'X';
             }
         ?>
         <tr>
