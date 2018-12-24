@@ -837,16 +837,22 @@ class Mod_voice_trial extends CI_Model
         if ($part != '') {
             $this->db->where('voice_area_main.part', $part);
         }
+     
         $this->db->not_like('voice_area_main.field', '29','after');
         $this->db->from('voice_area_main');
         $this->db->join('voice_trial_assign', 'voice_area_main.sn = voice_trial_assign.sn');
         $year = $this->session->userdata('year');
+        $ladder = $this->session->userdata('ladder');
+    
+
         
         $res = $this->db->get()->result_array();
         if(!empty($res)){
             function even($var)
             {
                 return($var['year'] == $_SESSION['year']);
+                return($var['ladder'] == $_SESSION['ladder']);
+
             }
 
             $sub =  array_filter($res, "even");
@@ -1307,12 +1313,15 @@ class Mod_voice_trial extends CI_Model
         
         // $this->db->where('first_member_do_date !=', "");
         $year = $this->session->userdata('year');
+        $ladder = $this->session->userdata('ladder');
 
         $res = $this->db->get()->result_array();
         if(!empty($res)){
             function even($var)
             {
                 return($var['year'] == $_SESSION['year']);
+                return($var['ladder'] == $_SESSION['ladder']);
+
             }
 
             $sub =  array_filter($res, "even");
