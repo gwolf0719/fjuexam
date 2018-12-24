@@ -52,8 +52,8 @@
         <tr>
             <td class="bb">姓名</td>
             <td colspan="2"class="bb">職務</td>
-            <td class="bb">工作費</td>
-            <td class="bb">實領費用</td>
+            
+            <td colspan="2" class="bb">應領費用</td>
             <td colspan="2" class="bb">簽名或蓋章</td>
             <td colspan="2"  class="bb">備註</th>
         </tr>
@@ -64,9 +64,9 @@
         </td>
         <td colspan="2" class="bb"><?=$v['job']?>
         </td>
-        <td class="bb" style="font-size:18px;font-weight:bold;"><?=number_format($v['one_day_salary'])?>
-        </td>
-        <td class="bb" style="font-size:18px;font-weight:bold;"><?=number_format($v['total'])?></td>
+        <!-- <td class="bb" style="font-size:18px;font-weight:bold;"><?=number_format($v['one_day_salary'])?>
+        </td> -->
+        <td colspan="2" class="bb" style="font-size:18px;font-weight:bold;"><?=number_format($v['total'])?></td>
         <td colspan="2" class="bb"></td>
         <td colspan="2" class="bb"></td>
     </tr>
