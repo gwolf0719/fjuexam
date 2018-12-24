@@ -1939,7 +1939,7 @@ class Test_form extends CI_Controller
         foreach($this->mod_voice_trial->get_trial_moneylist_for_csv($part) as $k=>$v){
             $count = 0;
             $key = array_search($v['field'],$fields);
-            if($key == false){
+            if($key === false){
                 $fields[] = $v['field'];
                 $arr[$i] = $v;
                 $i ++ ;
