@@ -1235,9 +1235,20 @@ class Test_form extends CI_Controller
 
         $objPHPExcel = new PHPExcel();
         $objPHPExcel->setActiveSheetIndex(0);
-        $arr = $this->mod_voice_trial->get_list_for_csv();
+        // $arr = $this->mod_voice_trial->get_list_for_csv();
+        // print_r($arr);
+        $member_codes = array();
 
-      
+        $i = 0;
+        $arr = array();
+        foreach($this->mod_voice_trial->get_list_for_csv() as $k=>$v){
+            
+            if(!in_array($v['member_code'],$member_codes)){
+                $member_codes[] = $v['member_code'];
+                $arr[] = $v;
+            }
+        }
+        // print_r($arr);
         for ($i=0; $i < count($arr); $i++) {
             # code...
             $objPHPExcel->getActiveSheet()->setCellValue('A1', '學年度');
@@ -1270,7 +1281,19 @@ class Test_form extends CI_Controller
 
         $objPHPExcel = new PHPExcel();
         $objPHPExcel->setActiveSheetIndex(0);
-        $res = $this->mod_voice_job_list->get_list_for_csv();
+        
+        $i = 0;
+        $res = array();
+        $member_codes = array();
+        foreach( $this->mod_voice_job_list->get_list_for_csv() as $k=>$v){
+            // print_r($v);
+            if(!in_array($v['member_code'],$member_codes)){
+                $member_codes[] = $v['member_code'];
+                $res[] = $v;
+            }
+        }
+
+
         for ($i=0; $i < count($res); $i++) {
             # code...
             $objPHPExcel->getActiveSheet()->setCellValue('A1', '學年度');
