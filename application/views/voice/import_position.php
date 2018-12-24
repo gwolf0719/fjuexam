@@ -44,6 +44,9 @@ img{
     font-size: 25px;
     margin: 0px 10%;
 }
+.text_center{
+    line-height:50px;
+}
 </style>
 <script>
     $(function(){
@@ -123,11 +126,11 @@ $(function(){
 
 <div class="row" style="position: relative;top: 20px;left: 10px;">
     <div style="width:95%;margin:0 auto">
-        <div class="tab active tab_text" area="0">ALL</div>
-        <div class="tab tab_text" area="1">考區</div>
-        <div class="tab tab_text" area="2">第一分區</div>
-        <div class="tab tab_text" area="3">第二分區</div>
-        <div class="tab tab_text" area="4">第三分區</div>
+        <div class="tab active tab_text text_center" area="0">ALL</div>
+        <div class="tab tab_text text_center" area="1">考區</div>
+        <div class="tab tab_text text_center" area="2">第一分區</div>
+        <div class="tab tab_text text_center" area="3">第二分區</div>
+        <div class="tab tab_text text_center" area="4">第三分區</div>
     </div>
 </div>
 <div class="row cube" id="b0" >
