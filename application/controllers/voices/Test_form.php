@@ -1742,30 +1742,31 @@ class Test_form extends CI_Controller
             'salary'=>$this->mod_voice_trial->get_all_salary_trial_total_of_obs($part,$obs),
             'count' => $this->mod_voice_trial->get_list_for_obs_member_count($part, $obs),
         );
-        
-        print_r($obs);
-            // $view =  $this->load->view('voice/form_e_6_2', $data);
 
-        // if($data['part'] != false){
-        //     $view =  $this->load->view('voice/form_e_6_2', $data, true);
-        //     if (!is_dir('./html/')) {
-        //             mkdir('./html/');
-        //         } else {
-        //             $path = 'form_e_6_2.html';
-        //             $fp = fopen('./html/'.$path,'w');//建檔
-        //             fwrite($fp,$view);
-        //             fclose($fp);//關閉開啟的檔案
-        //         }
+   
+            $view =  $this->load->view('voice/form_e_6_2', $data);
 
-        //         if (!is_dir('./pdf/')) {
-        //             mkdir('./pdf/');
-        //         } else {
-        //             exec('wkhtmltopdf --lowquality --enable-forms http://uat.fofo.tw/fjuexam/html/form_e_6_2.html  ./pdf/form_e_6_2.pdf');
-        //     }
-        //     echo '<script>location.href="http://uat.fofo.tw/fjuexam/pdf/form_e_6_2.pdf"</script>';
-        // }else{
-        //   return false;
-        // }
+
+        if($data['part'] != false){
+            $view =  $this->load->view('voice/form_e_6_2', $data, true);
+            if (!is_dir('./html/')) {
+                    mkdir('./html/');
+                } else {
+                    $path = 'form_e_6_2.html';
+                    $fp = fopen('./html/'.$path,'w');//建檔
+                    fwrite($fp,$view);
+                    fclose($fp);//關閉開啟的檔案
+                }
+
+                if (!is_dir('./pdf/')) {
+                    mkdir('./pdf/');
+                } else {
+                    exec('wkhtmltopdf --lowquality --enable-forms http://uat.fofo.tw/fjuexam/html/form_e_6_2.html  ./pdf/form_e_6_2.pdf');
+            }
+            echo '<script>location.href="http://uat.fofo.tw/fjuexam/pdf/form_e_6_2.pdf"</script>';
+        }else{
+          return false;
+        }
     }
 
     public function form_e_6_3()

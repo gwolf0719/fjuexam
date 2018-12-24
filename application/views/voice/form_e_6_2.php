@@ -26,6 +26,7 @@
 </style>
 
 <table class="" id="" style="text-align:center;">
+
     <thead>
         <tr>
             <td colspan="11" style="font-size:26px;"><?=$_SESSION['year']?>學年度英語聽力測驗<?=$_SESSION['ladder']?>考試新北一考區</td>
