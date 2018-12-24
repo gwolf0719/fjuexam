@@ -123,6 +123,9 @@
 
 <script>
     function init(){
+        
+        $(".chbox").prop('checked',false);
+        $("input[name=day]").prop('checked',true);
         $(".chbox").attr('disabled',true);
         $("#trial_staff_code_1").val("");
         $("#trial_staff_code_2").val("");
@@ -445,8 +448,8 @@
                     <th>序號</th>
                     <th>試場</th>
                     <th>場次</th>
-                    <th>考生應試號起</th>
-                    <th>考生應試號迄</th>
+                    <!-- <th>考生應試號起</th> -->
+                    <!-- <th>考生應試號迄</th> -->
                     <th>應試人數</th>
                     <th>樓層別</th>
                     <th>監試人員一編號</th>
@@ -466,12 +469,12 @@
                         <?=$v['field']; ?>
                     </td>
                     <td><?=$v['block_name']; ?></td>
-                    <td>
+                    <!-- <td>
                         <?=$v['start']; ?>
                     </td>
                     <td>
                         <?=$v['end']; ?>
-                    </td>
+                    </td> -->
                     <td>
                         <?=$v['count_num']; ?>
                     </td>
@@ -508,8 +511,8 @@
                     <th>序號</th>
                     <th>試場</th>
                     <th>場次</th>
-                    <th>考生應試號起</th>
-                    <th>考生應試號迄</th>
+                    <!-- <th>考生應試號起</th>
+                    <th>考生應試號迄</th> -->
                     <th>應試人數</th>
                     <th>樓層別</th>
                     <th>監試人員一編號</th>
@@ -529,12 +532,12 @@
                         <?=$v['field']; ?>
                     </td>
                     <td><?=$v['block_name']; ?></td>
-                    <td>
+                    <!-- <td>
                         <?=$v['start']; ?>
                     </td>
                     <td>
                         <?=$v['end']; ?>
-                    </td>
+                    </td> -->
                     <td>
                         <?=$v['count_num']; ?>
                     </td>
@@ -571,8 +574,8 @@
                     <th>序號</th>
                     <th>試場</th>
                     <th>場次</th>
-                    <th>考生應試號起</th>
-                    <th>考生應試號迄</th>
+                    <!-- <th>考生應試號起</th>
+                    <th>考生應試號迄</th> -->
                     <th>應試人數</th>
                     <th>樓層別</th>
                     <th>監試人員一編號</th>
@@ -592,12 +595,12 @@
                         <?=$v['field']; ?>
                     </td>
                     <td><?=$v['block_name']; ?></td>
-                    <td>
+                    <!-- <td>
                         <?=$v['start']; ?>
                     </td>
                     <td>
                         <?=$v['end']; ?>
-                    </td>
+                    </td> -->
                     <td>
                         <?=$v['count_num']; ?>
                     </td>
@@ -670,11 +673,11 @@
                         </div>
                         <div class="form-group">
                         <label for="floor" class="">場次</label>
-                            <input type="checkbox" class="chbox block" id='morning'  value="上午場" name="day" >
+                            <input type="checkbox" class="chbox block" id='morning'  value="上午場" >
                             <span class="chbox"  >
                                  上午場
                             </span>
-                            <input type="checkbox" class="chbox block" id='aftermorning'  value="下午場" name="day"  >
+                            <input type="checkbox" class="chbox block" id='aftermorning'  value="下午場"  >
                             <span class="chbox"  >
                                  下午場
                             </span>
@@ -752,11 +755,11 @@
                         </div>
                         <div class="form-group">
                         <label for="floor" class="">場次</label>
-                        <input type="checkbox" class="chbox block" id='morning'  value="上午場" name="day" >
+                        <input type="checkbox" class="chbox block" id='morning'  value="上午場" >
                             <span class="chbox"  >
                                  上午場
                             </span>
-                            <input type="checkbox" class="chbox block" id='aftermorning'  value="下午場" name="day"  >
+                            <input type="checkbox" class="chbox block" id='aftermorning'  value="下午場">
                             <span class="chbox"  >
                                  下午場
                             </span>

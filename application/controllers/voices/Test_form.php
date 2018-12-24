@@ -1907,7 +1907,24 @@ class Test_form extends CI_Controller
         $part = $_GET['part'];
         $area = $_GET['area'];
 
-        $arr = $this->mod_voice_trial->get_trial_moneylist_for_csv($part);
+        
+
+        $arr = array();
+        $fields = array();
+        $i = 0;
+        foreach($this->mod_voice_trial->get_trial_moneylist_for_csv($part) as $k=>$v){
+            $count = 0;
+            $key = array_search($v['field'],$fields);
+            if($key == false){
+                $fields[] = $v['field'];
+                $arr[$i] = $v;
+                $i ++ ;
+            }else{
+                $arr[$key]['salary_section'] = $v['salary_section']+$arr[$key]['salary_section'];
+                $arr[$key]['section_salary_total'] = $v['salary_section']+$arr[$key]['section_salary_total'];
+            }
+            
+        }
         // print_r($arr);
         for ($i=0; $i < count($arr); $i++) {
             # code...

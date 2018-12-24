@@ -45,7 +45,7 @@
             <td colspan="10" style="font-size:22px;padding: 20px 0px;">試務人員印領清冊</td>
         </tr>
         <tr>
-            <td colspan="3" style="font-size:22px;text-align:left;padding:20px 0px"> 分區：<?=$test_partition?></td>
+            <td colspan="3" style="font-size:22px;text-align:left;padding:20px 0px"> 分區：<?=$this->config->item('partition')[$test_partition]?></td>
             <td colspan="4" style="font-size:22px;text-align:center;padding:20px 0px">考場：<?=$school['area_name']?></td>
             <td colspan="3" style="font-size:22px;text-align:right;padding:20px 0px"> 印表日期：<?=date('Y/m/d')?></td>
         </tr>
