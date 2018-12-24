@@ -96,7 +96,6 @@ $(function(){
         // 點擊到的追加active以及打開相對應table
         $this.addClass("active");
         var area = $this.attr("area");
-        console.log("#b"+area);
         $("#b"+area).show()
     })
 })

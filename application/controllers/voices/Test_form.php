@@ -1680,23 +1680,25 @@ class Test_form extends CI_Controller
             'salary'=>$this->mod_voice_trial->get_all_salary_trial_total($part),
             'count'=>$this->mod_voice_trial->e_6_1_member_count($part)
         );
-        
-        $view = $this->load->view('voice/form_e_6_1', $data,true);
-        if (!is_dir('./html/')) {
-            mkdir('./html/');
-        } else {
-            $path = 'form_e_6_1.html';
-            $fp = fopen('./html/'.$path,'w');//建檔
-            fwrite($fp,$view);
-            fclose($fp);//關閉開啟的檔案
-        }
 
-        if (!is_dir('./pdf/')) {
-            mkdir('./pdf/');
-        } else {
-            exec('wkhtmltopdf --lowquality --enable-forms http://uat.fofo.tw/fjuexam/html/form_e_6_1.html  ./pdf/form_e_6_1.pdf');
-        }
-        echo '<script>location.href="http://uat.fofo.tw/fjuexam/pdf/form_e_6_1.pdf"</script>';
+        $view = $this->load->view('voice/form_e_6_1', $data);
+        
+        // $view = $this->load->view('voice/form_e_6_1', $data,true);
+        // if (!is_dir('./html/')) {
+        //     mkdir('./html/');
+        // } else {
+        //     $path = 'form_e_6_1.html';
+        //     $fp = fopen('./html/'.$path,'w');//建檔
+        //     fwrite($fp,$view);
+        //     fclose($fp);//關閉開啟的檔案
+        // }
+
+        // if (!is_dir('./pdf/')) {
+        //     mkdir('./pdf/');
+        // } else {
+        //     exec('wkhtmltopdf --lowquality --enable-forms http://uat.fofo.tw/fjuexam/html/form_e_6_1.html  ./pdf/form_e_6_1.pdf');
+        // }
+        // echo '<script>location.href="http://uat.fofo.tw/fjuexam/pdf/form_e_6_1.pdf"</script>';
     }
 
     public function form_e_6_2()
@@ -1717,7 +1719,8 @@ class Test_form extends CI_Controller
             'salary'=>$this->mod_voice_trial->get_all_salary_trial_total_of_obs($part,$obs),
             'count' => $this->mod_voice_trial->get_list_for_obs_member_count($part, $obs),
         );
-        // print_r($data);
+        
+        print_r($obs);
             // $view =  $this->load->view('voice/form_e_6_2', $data);
 
         // if($data['part'] != false){
@@ -1907,24 +1910,7 @@ class Test_form extends CI_Controller
         $part = $_GET['part'];
         $area = $_GET['area'];
 
-        
-
-        $arr = array();
-        $fields = array();
-        $i = 0;
-        foreach($this->mod_voice_trial->get_trial_moneylist_for_csv($part) as $k=>$v){
-            $count = 0;
-            $key = array_search($v['field'],$fields);
-            if($key == false){
-                $fields[] = $v['field'];
-                $arr[$i] = $v;
-                $i ++ ;
-            }else{
-                $arr[$key]['salary_section'] = $v['salary_section']+$arr[$key]['salary_section'];
-                $arr[$key]['section_salary_total'] = $v['salary_section']+$arr[$key]['section_salary_total'];
-            }
-            
-        }
+        $arr = $this->mod_voice_trial->get_trial_moneylist_for_csv($part);
         // print_r($arr);
         for ($i=0; $i < count($arr); $i++) {
             # code...

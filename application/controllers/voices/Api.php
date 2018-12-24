@@ -1310,6 +1310,28 @@ class Api extends CI_Controller {
 
     }
 
+    public function chk_part_list_of_obs()
+    {
+        $this->load->model('mod_voice_trial');
+        $getpost = array('part','area','obs');
+        $requred = array('part','area','obs');
+        $data = $this->getpost->getpost_array($getpost, $requred);
+        if ($data == false) {
+            $json_arr['sys_code'] = '000';
+            $json_arr['sys_msg'] = '資料不足';
+            $json_arr['requred'] = $this->getpost->report_requred($requred);
+        } else {
+            if ($this->mod_voice_trial->chk_part_list_of_obs($data['part'], $data['area'], $data['obs']) == true) {
+                $json_arr['sys_code'] = '200';
+                $json_arr['sys_msg'] = '匯出完成';
+            } else {
+                $json_arr['sys_code'] = '404';
+                $json_arr['sys_msg'] = '查無此資料，請重新輸入';
+            }
+        }
+        echo json_encode($json_arr);
+    }
+
 
 }
 
