@@ -62,7 +62,7 @@
     <?php foreach($v['field'] as $k2=>$v2):?>
     <tr>
         <td class="bb"><?=$v2['field']?></td>
-        <td class="bb" colspan='2'><?=$v2['start']?> - <?=$v2['end']?></td>
+        <td class="bb" colspan='2'><?=$v2['start']?>  <b style="font-size:28px;"> ~ </b> <?=$v2['end']?></td>
         <td class="bb"><?=$v2['count_num']?></td>
         <td class="bb" colspan='3'><?=$v2['floor']?></td>
     </tr>
