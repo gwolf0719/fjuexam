@@ -26,6 +26,10 @@
         width:50%;
         float:left;
     }
+    .row div{
+        float:left;
+
+    }
 </style>
 
 <?php foreach ($part as $k => $v): ?>
@@ -35,9 +39,14 @@
         <td style="font-size:26px;lne-height:50px;" colspan="6"><?=$_SESSION['year']?>學年度英語聽力測驗<?=$_SESSION['ladder']?>考試新北一考區試務人員簽到表</td>
     </tr>
     <tr>
-        <td colspan="1" style="font-size:20px;text-align:left;padding:20px 0px">分區：<?=$area?></td>
-        <td colspan="2" style="font-size:20px;text-align:right;padding:20px 0px"><?=$school['area_name']?></td>
-        <td colspan="2" style="font-size:20px;text-align:right;padding:20px 0px">簽到日期：<?=$k?></td>
+        <td colspan="5" class="row">
+            <div class="col-xs-4" style="width:33%;text-align:left;">分區：<?=$area?></div>
+            <div class="col-xs-4" style="width:33%;text-align:center;"><?=$school['area_name']?></div>
+            <div class="col-xs-4" style="width:34%;text-align:right;">簽到日期：<?=$k?></div>
+        </td>
+        <!-- <td colspan="1" style="font-size:20px;text-align:left;padding:20px 0px"></td>
+        <td colspan="2" style="font-size:20px;text-align:right;padding:20px 0px"></td>
+        <td colspan="2" style="font-size:20px;text-align:right;padding:20px 0px"></td> -->
     </tr>
     <tr>
         <td style="border:1px solid #999" width="15%">職務</td>
