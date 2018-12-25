@@ -939,7 +939,7 @@ class Api extends CI_Controller {
             $this->load->model('mod_voice_exam_datetime');
             $this->load->model('Mod_voice_test_pay');
             $this->load->model('mod_voice_staff');
-            $getpost = array('part', 'allocation_code', 'patrol_staff_code', 'patrol_staff_name',  'first_start', 'first_end', 'first_section', 'second_start', 'second_end', 'second_section', 'note');
+            $getpost = array('part', 'allocation_code', 'patrol_staff_code', 'patrol_staff_name',  'start', 'end', 'first_section', 'second_start', 'second_end', 'second_section', 'note');
             $requred = array('part', 'allocation_code', 'patrol_staff_code', 'patrol_staff_name');
             $data = $this->getpost->getpost_array($getpost, $requred);
             if ($data == false) {
@@ -963,8 +963,8 @@ class Api extends CI_Controller {
                     'allocation_code'=>$data['allocation_code'],
                     'patrol_staff_code'=>trim($data['patrol_staff_code']),
                     'patrol_staff_name'=>trim($data['patrol_staff_name']),
-                    'first_start'=>$data['first_start'],
-                    'first_end'=>$data['first_end'],
+                    'start'=>$data['start'],
+                    'end'=>$data['end'],
                     'first_section'=>$data['first_section'],
                     'second_start'=>$data['second_start'],
                     'second_end'=>$data['second_end'],
