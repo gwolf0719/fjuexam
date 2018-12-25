@@ -302,6 +302,7 @@
                 },
                 dataType: "json"
             }).done(function(data) {
+                console.log(data);
                 // var first_section = $('#first_section').val();
                 // var second_section = $('#second_section').val();
                 $("#sn").val(sn);
@@ -309,8 +310,8 @@
                 $("#allocation_code").val(data.info.allocation_code);
                 $("#patrol_staff_code").val(data.info.patrol_staff_code);
                 $("#patrol_staff_name").val(data.info.patrol_staff_name);
-                $("#first_start").val(data.info.first_start);
-                $("#first_end").val(data.info.first_end);
+                $("#first_start").val(data.info.start);
+                $("#first_end").val(data.info.end);
                 $("#first_section").val(data.info.first_section);
                 $("#second_start").val(data.info.second_start);
                 $("#second_end").val(data.info.second_end);
@@ -357,8 +358,8 @@
                         "allocation_code": allocation_code,
                         "patrol_staff_code": patrol_staff_code,
                         "patrol_staff_name": patrol_staff_name,
-                        "first_start": first_start,
-                        "first_end": first_end,
+                        "start": first_start,
+                        "end": first_end,
                         "first_section": first_section,
                         "second_start": second_start,
                         "second_end": second_end,

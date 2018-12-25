@@ -885,7 +885,7 @@ class Api extends CI_Controller {
                 $json_arr['sys_msg'] = '資料不足';
                 $json_arr['requred'] = $this->getpost->report_requred($requred);
             } else {
-                $json_arr['info'] = $this->mod_voice_patrol->get_once($data['sn']);
+                $json_arr['info'] = $this->mod_voice_patrol->get_once($data['sn']); 
                 $json_arr['sys_code'] = '200';
                 $json_arr['sys_msg'] = '資料處理完成';
             }
@@ -896,7 +896,7 @@ class Api extends CI_Controller {
         {
             $this->load->model('mod_voice_patrol');
             $this->load->model('mod_voice_test_pay');
-            $getpost = array('sn', 'part', 'allocation_code', 'patrol_staff_code', 'patrol_staff_name', 'first_start', 'first_end', 'first_section', 'second_start', 'second_end', 'second_section','note');
+            $getpost = array('sn', 'part', 'allocation_code', 'patrol_staff_code', 'patrol_staff_name', 'start', 'end', 'first_section', 'second_start', 'second_end', 'second_section','note');
             $requred = array('sn', 'part', 'allocation_code', 'patrol_staff_name');
             $data = $this->getpost->getpost_array($getpost, $requred);
             if ($data == false) {
