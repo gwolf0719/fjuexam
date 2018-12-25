@@ -53,7 +53,20 @@
             <td class="bb">姓名</td>
         </tr>
     </thead>
+    <?php
+        $member_count = 0;
+        $money_count = 0;
+    ?>
     <?php foreach ($part as $k => $v): ?>
+        <?php 
+        if($v['supervisor_1'] != ""){
+            $member_count = $member_count+1;
+        }
+        if($v['supervisor_2'] != ""){
+            $member_count = $member_count+1;
+        }
+        $money_count = $money_count+$v['first_member_salary_section']+$v['second_member_salary_section']
+        ?>
     <tr>
         <td class="bb"  style="width:8%;font-size:18px;font-weight:bold;">
             <?=trim($v['field'])?>
@@ -75,13 +88,7 @@
     </tr>
     <?php endforeach; ?>
     <tr>
-        <?php
-            if(!empty($count)){
-                $count_member = (count($count)*2);
-            }else{
-                $count_member = 0;
-            }
-        ?>
-        <td colspan="11" style="text-align:left;font-size:18px;font-weight:bold;">共計:<?=$count_member?>人 實發監考費：<?=number_format($salary)?>= 總支出費用<?=number_format($salary)?> </td>
+        
+         <td colspan="11" style="text-align:left;font-size:18px;font-weight:bold">共計:<?=$member_count?>人 實發監考費：<?=number_format($money_count)?> = 總支出費用<?=number_format($money_count)?> </td>
     </tr>
 </table>

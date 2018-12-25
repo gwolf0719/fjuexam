@@ -867,7 +867,7 @@ class Mod_voice_trial extends CI_Model
             $this->db->where('voice_area_main.part', $part);
         }
      
-        $this->db->not_like('voice_area_main.field', '29','after');
+        $this->db->not_like('voice_area_main.field', '9','after');
         $this->db->from('voice_area_main');
         $this->db->join('voice_trial_assign', 'voice_area_main.sn = voice_trial_assign.sn');
         $year = $this->session->userdata('year');
@@ -987,7 +987,7 @@ class Mod_voice_trial extends CI_Model
 
         $this->db->where("voice_trial_assign.supervisor_1 != ","");
         $this->db->where("voice_trial_assign.supervisor_2 != ","");        
-        $this->db->not_like('voice_area_main.field', '29','after');
+        $this->db->not_like('voice_area_main.field', '9','after');
         $this->db->from('voice_area_main');
         $this->db->join('voice_trial_assign', 'voice_area_main.sn = voice_trial_assign.sn');
         $year = $this->session->userdata('year');
