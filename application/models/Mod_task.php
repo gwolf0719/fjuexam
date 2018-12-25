@@ -754,7 +754,7 @@ class Mod_task extends CI_Model
         $res = $this->db->get('district_task')->result_array();
         if (!empty($res)) {
             for ($i=0; $i < count($res); $i++) {
-                # code...
+        
                 $member_unit = $this->db->where('member_code', $res[$i]['job_code'])->get('staff_member')->row_array();
                 $arr[] = array(
                         'year'=>$res[$i]['year'],

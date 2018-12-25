@@ -3563,7 +3563,6 @@ class Designated extends CI_Controller
             'lunch'=>$this->mod_trial->get_all_trial_lunch_total_of_obs($part,$obs),
             'count' => $this->mod_trial->get_list_for_obs_member_count($part, $obs),
         );
-            // $view =  $this->load->view('designated/e_6_2', $data);
 
         if($data['part'] != false){
             $view =  $this->load->view('designated/e_6_2', $data, true);
