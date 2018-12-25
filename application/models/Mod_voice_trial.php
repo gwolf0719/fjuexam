@@ -1332,11 +1332,16 @@ class Mod_voice_trial extends CI_Model
     }   
 
 
-    public function get_trial_moneylist_for_csv($part = '')
+    public function get_trial_moneylist_for_csv($part = '',$obs='')
     {
         $this->db->select('*');
         if ($part != '') {
             $this->db->where('voice_area_main.part', $part);
+        }
+        if($obs != ''){
+            $this->db->like('voice_area_main.field', $obs,'after');
+        }else{
+            $this->db->not_like('voice_area_main.field', '9','after');
         }
         $this->db->from('voice_area_main');
         $this->db->join('voice_trial_assign', 'voice_area_main.sn = voice_trial_assign.sn');
@@ -1387,6 +1392,7 @@ class Mod_voice_trial extends CI_Model
                     'salary_section'=> $first_member_salary_section,
                     'section_salary_total'=>$sub[$i]['first_member_section_total'],
                     'supervisor'=>$sub[$i]['supervisor_1'],
+                    'supervisor_code'=>$sub[$i]['supervisor_1_code'],
                 );
                 $arr[] = array(
                     'sn'=>$sub[$i]['sn'],
@@ -1397,6 +1403,7 @@ class Mod_voice_trial extends CI_Model
                     'salary_section'=>$second_member_salary_section,
                     'section_salary_total'=>$sub[$i]['second_member_section_total'],
                     'supervisor'=>$sub[$i]['supervisor_2'],
+                    'supervisor_code'=>$sub[$i]['supervisor_2_code'],
                 ); 
             }
             return $arr;

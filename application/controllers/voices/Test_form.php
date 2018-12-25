@@ -2004,36 +2004,36 @@ class Test_form extends CI_Controller
         $part = $_GET['part'];
         $area = $_GET['area'];
         $arr = array();
-        $fields = array();
+        $supervisor_codes = array();
         $i = 0;
-        foreach($this->mod_voice_trial->get_trial_moneylist_for_csv($part) as $k=>$v){
+        foreach($this->mod_voice_trial->get_trial_moneylist_for_csv($part,'') as $k=>$v){
             if($v['salary_section'] != 0){ //有費用的才列出來
-                $key = array_search($v['field'],$fields);
+                $key = array_search($v['supervisor_code'],$supervisor_codes);
                 if($key === false){ //如果不曾出現過
-                    $fields[] = $v['field'];
+                    $supervisor_codes[] = $v['supervisor_code'];
                     $arr[$i] = $v;
                     $i ++ ;
                 }else{
-                    $arr[$key]['salary_section'] = $v['salary_section']+$arr[$key]['salary_section'];
                     $arr[$key]['section_salary_total'] = $v['salary_section']+$arr[$key]['section_salary_total'];
                 }
             }
             
             
         }
+        // $arr = $this->mod_voice_trial->get_trial_moneylist_for_csv($part);
         // print_r($arr);
         for ($i=0; $i < count($arr); $i++) {
             # code...
 
-            $objPHPExcel->getActiveSheet()->setCellValue('A0', '');
+            // $objPHPExcel->getActiveSheet()->setCellValue('A0', '');
             $objPHPExcel->getActiveSheet()->setCellValue('A1', '試場');
             $objPHPExcel->getActiveSheet()->setCellValue('B1', '監考費');
             $objPHPExcel->getActiveSheet()->setCellValue('C1', '姓名');
-            $objPHPExcel->getActiveSheet()->setCellValue('E1', '應領費用');
+            $objPHPExcel->getActiveSheet()->setCellValue('D1', '應領費用');
             $objPHPExcel->getActiveSheet()->setCellValue('A'.(2+$i), $arr[$i]['field']);
-            $objPHPExcel->getActiveSheet()->setCellValue('B'.(2+$i), number_format($arr[$i]['salary_section']));
+            $objPHPExcel->getActiveSheet()->setCellValue('B'.(2+$i), $arr[$i]['section_salary_total']);
             $objPHPExcel->getActiveSheet()->setCellValue('C'.(2+$i), $arr[$i]['supervisor']);
-            $objPHPExcel->getActiveSheet()->setCellValue('E'.(2+$i), $arr[$i]['section_salary_total']);
+            $objPHPExcel->getActiveSheet()->setCellValue('D'.(2+$i), $arr[$i]['section_salary_total']);
         }
 
         $objWriter = PHPExcel_IOFactory::createWriter($objPHPExcel, 'CSV');
@@ -2059,40 +2059,34 @@ class Test_form extends CI_Controller
         $area = $_GET['area'];
         $obs = $_GET['obs'];
         
-        $dataarray = $this->mod_voice_trial->get_trial_list_of_obs_for_csv($part, $obs);
-        $i = 0;
-        $fields = array();
+        $dataarray = $this->mod_voice_trial->get_trial_moneylist_for_csv($part, $obs);
         $arr = array();
+        $supervisor_codes = array();
+        $i = 0;
         foreach($dataarray as $k=>$v){
-
-            $key = array_search($v['field'],$fields);
-            if($key === false){
-                $fields[] = $v['field'];
-                $arr[$i] = $v;
-                $i ++ ;
-            }else{
-                $arr[$key]['first_salary_section'] = $v['first_salary_section']+$arr[$key]['first_salary_section'];
-                $arr[$key]['second_salary_section'] = $v['second_salary_section']+$arr[$key]['second_salary_section'];
-              
-
+            if($v['salary_section'] != 0){ //有費用的才列出來
+                $key = array_search($v['supervisor_code'],$supervisor_codes);
+                if($key === false){ //如果不曾出現過
+                    $supervisor_codes[] = $v['supervisor_code'];
+                    $arr[$i] = $v;
+                    $i ++ ;
+                }else{
+                    $arr[$key]['section_salary_total'] = $v['salary_section']+$arr[$key]['section_salary_total'];
+                }
             }
             
         }
 
         for ($i=0; $i < count($arr); $i++) {
             # code...
-
             $objPHPExcel->getActiveSheet()->setCellValue('A1', '試場');
-            $objPHPExcel->getActiveSheet()->setCellValue('B1', '姓名');
-            $objPHPExcel->getActiveSheet()->setCellValue('C1', '監考費');
-            $objPHPExcel->getActiveSheet()->setCellValue('D1', '姓名');
-            $objPHPExcel->getActiveSheet()->setCellValue('E1', '監考費');
-
+            $objPHPExcel->getActiveSheet()->setCellValue('B1', '監考費');
+            $objPHPExcel->getActiveSheet()->setCellValue('C1', '姓名');
+            $objPHPExcel->getActiveSheet()->setCellValue('D1', '應領費用');
             $objPHPExcel->getActiveSheet()->setCellValue('A'.(2+$i), $arr[$i]['field']);
-            $objPHPExcel->getActiveSheet()->setCellValue('B'.(2+$i), $arr[$i]['supervisor_1']);
-            $objPHPExcel->getActiveSheet()->setCellValue('C'.(2+$i), number_format($arr[$i]['first_salary_section']));
-            $objPHPExcel->getActiveSheet()->setCellValue('D'.(2+$i), $arr[$i]['supervisor_2']);
-            $objPHPExcel->getActiveSheet()->setCellValue('E'.(2+$i), number_format($arr[$i]['second_salary_section']));
+            $objPHPExcel->getActiveSheet()->setCellValue('B'.(2+$i), $arr[$i]['section_salary_total']);
+            $objPHPExcel->getActiveSheet()->setCellValue('C'.(2+$i), $arr[$i]['supervisor']);
+            $objPHPExcel->getActiveSheet()->setCellValue('D'.(2+$i), $arr[$i]['section_salary_total']);
         }
 
         $objWriter = PHPExcel_IOFactory::createWriter($objPHPExcel, 'CSV');
