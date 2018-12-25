@@ -47,51 +47,53 @@
         </tr>
         <tr>
             <td class="bb" style="width: 15%;">試場</td>
-            <td class="bb" style="width: 15%;">監試人員</td>
+            <td class="bb" style="width: 15%;">監試人員</td> 
             <td class="bb">上午場</td>
             <td class="bb">下午場</td>
         </tr>
     </thead>
     <?php foreach ($value['trial'] as $kc => $vc): ?>
-        <?php 
-            $block_1 = '';
-            $block_2 = '';
-            $block_names_array = explode(',',$vc['block_name']);
-            if(!in_array('上午場',$block_names_array)){
-                $block_1 = 'X';
-            }
-            if(!in_array('下午場',$block_names_array)){
-                $block_1 = 'X';
-            }
-        ?>
+        
         <tr>
             <td class="bb" rowspan="2" style="font-size:18px;"><?=$vc['field']?></td>
             <td class="bb" style="height:50px;"><?=$vc['supervisor_1']?></td>
             <td class="bb" style="font-weight:bold;font-size:18px;">
-                <?=$block_1?>
+                <?php if(!isset($vc['block_1'])){
+                    echo "X";
+                }?>
             </td>
             <td class="bb" style="font-weight:bold;font-size:18px;">
-                <?=$block_2?>
+                <?php if(!isset($vc['block_2'])){
+                    echo "X";
+                }?>
             </td>
             
         </tr>
         <tr>
             <td class="bb" style="height:50px;"><?=$vc['supervisor_2']?></td>
             <td class="bb" style="font-weight:bold;font-size:18px;">
-                <?=$block_1?>
+                <?php if(!isset($vc['block_1'])){
+                    echo "X";
+                }?>
             </td>
             <td class="bb" style="font-weight:bold;font-size:18px;">
-                <?=$block_2?>
+                <?php if(!isset($vc['block_2'])){
+                    echo "X";
+                }?>
             </td>
             
         </tr>
         <tr>
             <td class="bb" colspan="2" style="font-weight:bold;height:50px;">管卷人員簽收記錄表</td>
             <td class="bb" style="font-weight:bold;font-size:18px;">
-                <?=$block_1?>
+                <?php if(!isset($vc['block_1'])){
+                    echo "X";
+                }?>
             </td>
             <td class="bb" style="font-weight:bold;font-size:18px;">
-                <?=$block_2?>
+                <?php if(!isset($vc['block_2'])){
+                    echo "X";
+                }?>
             </td>
             
         </tr>

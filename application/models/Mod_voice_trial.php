@@ -527,46 +527,77 @@ class Mod_voice_trial extends CI_Model
         }
     }
 
+    
+    function get_trial_assign_range($start,$end,$block){
+        $this->db->where('year',$this->session->userdata('year'));
+        $this->db->where('ladder',$this->session->userdata('ladder'));
+        $this->db->where('block_name',$block);
+        $this->db->where('field <='.$end);
+        $this->db->where('field >='.$start);
+        return $this->db->get('voice_trial_assign')->result_array();
+    }
     public function get_once_date_of_voucher1($part = '')
     {
-        // 找到管眷人員
+        // 找到管卷人員陣列
         $this->db->where('year', $this->session->userdata('year'));
         $this->db->where('ladder', $this->session->userdata('ladder'));
         $this->db->where('part',$part);
-        $res = array();
-        foreach($this->db->get('voice_trial_staff')->result_array() as $k=>$v){
-            if($v['first_end'] != ""){
-                $res[$k]= $v;
-                $this->db->where('year', $this->session->userdata('year'));
-                $this->db->where('ladder', $this->session->userdata('ladder'));
-            
+        $staff_arr = $this->db->get('voice_trial_staff')->result_array();
+        // 加入上午場和下午場的考場們
+        $rooms = array();
+        foreach($staff_arr as $k=>$v){
+            $rooms[$k]=array(
+                'trial_staff_name'=>$v['trial_staff_name'],
+                'trial_staff_code'=>$v['trial_staff_code'],
+            );
+            $fields = array();
+            // 上午場
+            if($v['first_start'] != ""){
+                $assign = $this->get_trial_assign_range($v['first_start'],$v['first_end'],"上午場");
+                foreach($assign as $k2=>$v2){
+                    $fields[$v2['field']][] = array(
+                        'field'=>$v2['field'],
+                        'block_1'=>true,
+                        'supervisor_1'=>$v2['supervisor_1'],
+                        'supervisor_2'=>$v2['supervisor_2'],
+                    );
+                }
                 
-                $this->db->where('field <='.$v['first_end']);
-                $this->db->where('field >='.$v['first_start']);
-                $this->db->distinct();
-                $this->db->select('field,supervisor_1,supervisor_1_code,supervisor_2,supervisor_2_code');
-                $trial = array();
-                foreach($this->db->get('voice_trial_assign')->result_array() as $kt=>$vt){
-                    $res[$k]['trial'][$kt]= $vt;
-                    $this->db->where('year', $this->session->userdata('year'));
-                    $this->db->where('ladder', $this->session->userdata('ladder'));
-                    
-                    $this->db->where('field',$vt['field']);
-                    $block_name = '';
-                    $b_array = array();
-                    foreach($this->db->get('voice_trial_assign')->result_array() as $kb=>$vb){
-                        $b_array[]=$vb['block_name'];
-                    }
-                    $block_name = implode(',',$b_array);
-                    $res[$k]['trial'][$kt]['block_name'] = $block_name;
+            }
+            // 下午場
+            if($v['second_end'] != ""){
+                $assign = $this->get_trial_assign_range($v['second_start'],$v['second_end'],"下午場");
+                foreach($assign as $k2=>$v2){
+                    $fields[$v2['field']][] = array(
+                        'field'=>$v2['field'],
+                        'block_2'=>true,
+                        'supervisor_1'=>$v2['supervisor_1'],
+                        'supervisor_2'=>$v2['supervisor_2'],
+                    );
                 }
             }
-            
+
+            foreach($fields as $kf=>$vf){
+                
+                foreach($vf as $kf2=>$vf2){
+                    // print_r($vf2);
+                    if(isset($vf2['block_1'])){
+                        $rooms[$k]['trial'][$vf2['field']]['block_1'] = true;
+                    }
+                    if(isset($vf2['block_2'])){
+                        $rooms[$k]['trial'][$vf2['field']]['block_2'] = true;
+                    }
+                    $rooms[$k]['trial'][$vf2['field']]['supervisor_1'] = $vf2['supervisor_1'];
+                    $rooms[$k]['trial'][$vf2['field']]['supervisor_2'] = $vf2['supervisor_2'];
+                    $rooms[$k]['trial'][$vf2['field']]['field'] = $vf2['field'];
+                }
+                
+            }
         }
-        return $res;
+        // print_r($rooms);
+        return $rooms;
 
 
-      
 
     }  
 
