@@ -13,7 +13,7 @@
 <?php foreach ($part as $k => $v): ?>
 <table style="padding:10px 0px;text-align:center;">
         <tr>
-            <td colspan="10" style="font-size:18px"><?=$_SESSION['year']?>學年度指定科目考試新北一考區</td>
+            <td colspan="10" style="font-size:18px"><?=$_SESSION['year']?>學年度學科能力測驗新北一考區</td>
         </tr>
         <tr>
             <td colspan="10" style="font-size:14px">監試人員監考科目日程對照表</td>
