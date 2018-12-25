@@ -46,7 +46,7 @@
         <div class="input-group-prepend">
             <span class="input-group-text" id="inputGroup-sizing-default">學年度</span>
         </div>
-        <input type="text" class="form-control" aria-label="Default" aria-describedby="inputGroup-sizing-default" value="<?=$this->session->userdata('year'); ?>"
+        <input type="text" class="form-control" aria-label="Default" aria-describedby="inputGroup-sizing-default"  value="<?=$this->session->userdata('year'); ?>"
             readonly>
             <input type="text" class="form-control"  value="<?=$this->session->userdata('ladder'); ?>" style="width:100px;" readonly>
 
@@ -187,11 +187,17 @@ $(function(){
         var part = $(this).attr("part");
         var area = $(this).attr("area");
         var link = $(this).attr("link");
+        var year = '<?=$this->session->userdata('year');?>';
+        var ladder = '<?=$this->session->userdata('ladder');?>';
+
+      
         $.ajax({
-            url: 'api/chk_part_list',
+            url: './voices/api/chk_part_list',
             data: {
                 part: part,
                 area: area,
+                year:year,
+                ladder:ladder,
             },
             dataType: "json"
         }).done(function(data) {
@@ -201,15 +207,20 @@ $(function(){
             }
         })        
     })
+
     $("body").on("click",".btn2",function(){
         var part = $(this).attr("part");
         var area = $(this).attr("area");
         var obs = $(this).attr("obs")
         var link = $(this).attr("link");
+        var year = '<?=$this->session->userdata('year');?>';
+        var ladder = '<?=$this->session->userdata('ladder');?>';
         // location.href = link;  
         $.ajax({
-            url: 'voices/api/chk_part_list_of_obs',
+            url: './voices/api/chk_part_list_of_obs',
             data: {
+                year:year,
+                ladder:ladder,
                 part: part,
                 area: area,
                 obs:obs
@@ -218,7 +229,7 @@ $(function(){
         }).done(function(data) {
             alert(data.sys_msg);
             if (data.sys_code == "200") {
-                location.href = link;  
+                location.href = link;
             }
         })        
     })    
@@ -227,7 +238,7 @@ $(function(){
         var area = $(this).attr("area");
         var link = $(this).attr("link");
         $.ajax({
-            url: 'api/chk_task_list',
+            url: './voices/api/chk_task_list',
             data: {
                 area: area,
             },
@@ -244,7 +255,7 @@ $(function(){
         var part = $(this).attr("part");
         var link = $(this).attr("link");
         $.ajax({
-            url: 'api/chk_trial_staff_task_list',
+            url: './voices/api/chk_trial_staff_task_list',
             data: {
                 part: part,
             },
@@ -261,7 +272,7 @@ $(function(){
         var part = $(this).attr("part");
         var link = $(this).attr("link");
         $.ajax({
-            url: 'api/chk_patrol_staff_task_list',
+            url: './voices/api/chk_patrol_staff_task_list',
             data: {
                 part: part,
             },

@@ -1758,8 +1758,29 @@ class Test_form extends CI_Controller
         $part = $_GET['part'];
         $area = $_GET['area'];
         $obs = $_GET['obs'];
+        $dataarray = $this->mod_voice_trial->get_list_for_obs($part, $obs);
+        $i = 0;
+        $fields = array();
+        $arr = array();
+        // print_r($dataarray);
+        foreach($dataarray as $k=>$v){
+           
+            $key = array_search($v['field'],$fields);
+            if($key === false){
+                $fields[] = $v['field'];
+                $arr[$i] = $v;
+                $i ++ ;
+            }else{
+                $arr[$key]['first_member_salary_section'] = $v['first_member_salary_section']+$arr[$key]['first_member_salary_section'];
+                $arr[$key]['second_member_salary_section'] = $v['second_member_salary_section']+$arr[$key]['second_member_salary_section'];
+                $arr[$key]['first_member_section_salary_total'] = $v['first_member_section_salary_total']+$arr[$key]['first_member_section_salary_total'];
+                $arr[$key]['second_member_section_salary_total'] = $v['second_member_section_salary_total']+$arr[$key]['second_member_section_salary_total'];
+
+            }
+            
+        }
         $data = array(
-            'part' => $this->mod_voice_trial->get_list_for_obs($part, $obs),
+            'part' => $arr,
             'area'=> $area,
             'school' => $this->mod_voice_exam_area->year_school_name($part),
             'salary'=>$this->mod_voice_trial->get_all_salary_trial_total_of_obs($part,$obs),
@@ -1767,7 +1788,7 @@ class Test_form extends CI_Controller
         );
 
    
-            $view =  $this->load->view('voice/form_e_6_2', $data);
+            // $view =  $this->load->view('voice/form_e_6_2', $data);
 
 
         if($data['part'] != false){

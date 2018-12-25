@@ -759,6 +759,22 @@ class Mod_voice_job_list extends CI_Model
         }
     }
 
+    public function chk_task_list($area = '')
+    {
+        $this->db->where('year', $this->session->userdata('year'));
+        $this->db->where('ladder',$this->session->userdata('ladder'));
+        if ($area != '') {
+            $this->db->where('area', $area);
+        }
+
+        $res = $this->db->get('voice_job_list')->result_array();
+        if (!empty($res)) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
 
 
 

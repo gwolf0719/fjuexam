@@ -1191,7 +1191,7 @@ class Api extends CI_Controller {
             else {
                 $json_arr['sys_code'] = '404';
                 $json_arr['sys_msg'] = '查無此資料，請確認是否有資料';
-                echo $json_arr['sql'] = $this->db->last_query();
+                // echo $json_arr['sql'] = $this->db->last_query();
             }
         }
         
@@ -1313,17 +1313,18 @@ class Api extends CI_Controller {
     public function chk_part_list_of_obs()
     {
         $this->load->model('mod_voice_trial');
-        $getpost = array('part','area','obs');
-        $requred = array('part','area','obs');
+        $getpost = array('part','area','obs','year','ladder');
+        $requred = array('part','area','obs','year','ladder');
         $data = $this->getpost->getpost_array($getpost, $requred);
         if ($data == false) {
             $json_arr['sys_code'] = '000';
             $json_arr['sys_msg'] = '資料不足';
             $json_arr['requred'] = $this->getpost->report_requred($requred);
         } else {
-            if ($this->mod_voice_trial->chk_part_list_of_obs($data['part'], $data['area'], $data['obs']) == true) {
+            if ($this->mod_voice_trial->chk_part_list_of_obs($data['part'], $data['area'], $data['obs'],$data['year'],$data['ladder']) === true) {
                 $json_arr['sys_code'] = '200';
                 $json_arr['sys_msg'] = '匯出完成';
+            
             } else {
                 $json_arr['sys_code'] = '404';
                 $json_arr['sys_msg'] = '查無此資料，請重新輸入';
@@ -1331,6 +1332,73 @@ class Api extends CI_Controller {
         }
         echo json_encode($json_arr);
     }
+
+
+    public function chk_task_list()
+    {
+        $this->load->model('mod_voice_job_list');
+        $getpost = array('area');
+        $requred = array('area');
+        $data = $this->getpost->getpost_array($getpost, $requred);
+        if ($data == false) {
+            $json_arr['sys_code'] = '000';
+            $json_arr['sys_msg'] = '資料不足';
+            $json_arr['requred'] = $this->getpost->report_requred($requred);
+        } else {
+            if ($this->mod_voice_job_list->chk_task_list($data['area']) == true) {
+                $json_arr['sys_code'] = '200';
+                $json_arr['sys_msg'] = '匯出完成';
+            } else {
+                $json_arr['sys_code'] = '404';
+                $json_arr['sys_msg'] = '查無此資料，請確認是否有資料';
+            }
+        }
+        echo json_encode($json_arr);
+    }   
+    
+    public function chk_trial_staff_task_list()
+    {
+        $this->load->model('mod_voice_trial');
+        $getpost = array('part');
+        $requred = array('part');
+        $data = $this->getpost->getpost_array($getpost, $requred);
+        if ($data == false) {
+            $json_arr['sys_code'] = '000';
+            $json_arr['sys_msg'] = '資料不足';
+            $json_arr['requred'] = $this->getpost->report_requred($requred);
+        } else {
+            if ($this->mod_voice_trial->chk_trial_staff_task_list($data['part']) == true) {
+                $json_arr['sys_code'] = '200';
+                $json_arr['sys_msg'] = '匯出完成';
+            } else {
+                $json_arr['sys_code'] = '404';
+                $json_arr['sys_msg'] = '查無此資料，請確認是否有資料';
+            }
+        }
+        echo json_encode($json_arr);
+    }  
+
+    public function chk_patrol_staff_task_list()
+    {
+        $this->load->model('mod_voice_trial');
+        $getpost = array('part');
+        $requred = array('part');
+        $data = $this->getpost->getpost_array($getpost, $requred);
+        if ($data == false) {
+            $json_arr['sys_code'] = '000';
+            $json_arr['sys_msg'] = '資料不足';
+            $json_arr['requred'] = $this->getpost->report_requred($requred);
+        } else {
+            if ($this->mod_voice_trial->chk_patrol_staff_task_list($data['part']) == true) {
+                $json_arr['sys_code'] = '200';
+                $json_arr['sys_msg'] = '匯出完成';
+            } else {
+                $json_arr['sys_code'] = '404';
+                $json_arr['sys_msg'] = '查無此資料，請確認是否有資料';
+            }
+        }
+        echo json_encode($json_arr);
+    } 
 
 
 }

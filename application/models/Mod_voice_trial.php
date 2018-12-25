@@ -209,6 +209,8 @@ class Mod_voice_trial extends CI_Model
         function even($var)
         {
             return($var['year'] == $_SESSION['year']);
+            return($var['ladder'] == $_SESSION['ladder']);
+
         }
 
         $sub =  array_filter($res, "even");
@@ -1376,13 +1378,15 @@ class Mod_voice_trial extends CI_Model
         }
     }    
 
-    public function chk_part_list_of_obs($part, $area, $obs)
+    public function chk_part_list_of_obs($part, $area, $obs,$year,$ladder)
     {
         $this->db->select('*');
         if ($part != '') {
             $this->db->where('voice_area_main.part', $part);
+            $this->db->where('voice_area_main.year',$year);
+            $this->db->where('voice_area_main.ladder',$ladder);
         }
-        $this->db->like('voice_area_main.field', $obs);
+        $this->db->like('voice_area_main.field', $obs,'after');
 
         $this->db->from('voice_area_main');
         $this->db->join('voice_trial_assign', 'voice_area_main.sn = voice_trial_assign.sn');
@@ -1411,6 +1415,40 @@ class Mod_voice_trial extends CI_Model
             return false;
         }
     }
+
+    public function chk_trial_staff_task_list($part = '')
+    {
+        $this->db->where('year', $this->session->userdata('year'));
+        $this->db->where('ladder', $this->session->userdata('ladder'));
+        
+        if ($part != '') {
+            $this->db->where('part', $part);
+        }
+
+        $res = $this->db->get('voice_trial_staff')->result_array();
+        if (!empty($res)) {
+            return true;
+        } else {
+            return false;
+        }
+    }  
+
+
+    public function chk_patrol_staff_task_list($part = '')
+    {
+        $this->db->where('year', $this->session->userdata('year'));
+        $this->db->where('ladder', $this->session->userdata('ladder'));
+        if ($part != '') {
+            $this->db->where('part', $part);
+        }
+
+        $res = $this->db->get('voice_patrol_staff')->result_array();
+        if (!empty($res)) {
+            return true;
+        } else {
+            return false;
+        }
+    }  
 
 
 
