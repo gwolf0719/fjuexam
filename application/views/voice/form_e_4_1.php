@@ -72,7 +72,7 @@
     </div>
 
     <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6 cube text-center">
-        <a href="assets/zip/英聽工作說明會開會通知單稿-試務人員.doc" download>
+        <a href="assets/zip/第1次英聽工作說明會開會通知單稿-試務人員.doc" download>
             <img src="assets_voice/images/E401.png" alt="">
         </a>
     </div>
@@ -81,7 +81,7 @@
     <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6 cube text-center"></div> 
 
     <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6 cube text-center">
-        <a href="assets/zip/英聽工作說明會開會通知單稿-監試人員.doc" download>
+        <a href="assets/zip/第2次英聽工作說明會開會通知單稿-試務人員.doc" download>
             <img src="assets_voice/images/E403.png" alt="">
         </a>
     </div>
@@ -90,7 +90,7 @@
     <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6 cube text-center"></div> 
 
     <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6 cube text-center">
-        <a href="assets/zip/英聽工作說明會開會通知單稿-監試人員.doc" download>
+        <a href="assets/zip/第1次英聽工作說明會開會通知單稿-監試人員.doc" download>
             <img src="assets_voice/images/E402.png" alt="">
         </a>
     </div>
@@ -100,7 +100,7 @@
     <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6 cube text-center"></div> 
 
     <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6 cube text-center">
-        <a href="assets/zip/英聽工作說明會開會通知單稿-監試人員.doc" download>
+        <a href="assets/zip/第2次英聽工作說明會開會通知單稿-監試人員.doc" download>
             <img src="assets_voice/images/E404.png" alt="">
         </a>
     </div>

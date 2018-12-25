@@ -1968,6 +1968,8 @@ class Test_form extends CI_Controller
 
     }
 
+
+    // 監試人員印領清冊
     public function form_e_7_1()
     {
         $this->load->library('excel');
@@ -1983,23 +1985,23 @@ class Test_form extends CI_Controller
         $fields = array();
         $i = 0;
         foreach($this->mod_voice_trial->get_trial_moneylist_for_csv($part) as $k=>$v){
-            $count = 0;
-            $key = array_search($v['field'],$fields);
-            if($key === false){
-                $fields[] = $v['field'];
-                $arr[$i] = $v;
-                $i ++ ;
-            }else{
-                $arr[$key]['salary_section'] = $v['salary_section']+$arr[$key]['salary_section'];
-                $arr[$key]['section_salary_total'] = $v['salary_section']+$arr[$key]['section_salary_total'];
+            if($v['salary_section'] != 0){ //有費用的才列出來
+                $key = array_search($v['field'],$fields);
+                if($key === false){ //如果不曾出現過
+                    $fields[] = $v['field'];
+                    $arr[$i] = $v;
+                    $i ++ ;
+                }else{
+                    $arr[$key]['salary_section'] = $v['salary_section']+$arr[$key]['salary_section'];
+                    $arr[$key]['section_salary_total'] = $v['salary_section']+$arr[$key]['section_salary_total'];
+                }
             }
+            
             
         }
         // print_r($arr);
         for ($i=0; $i < count($arr); $i++) {
             # code...
-
-
 
             $objPHPExcel->getActiveSheet()->setCellValue('A0', '');
             $objPHPExcel->getActiveSheet()->setCellValue('A1', '試場');
