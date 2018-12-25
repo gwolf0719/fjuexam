@@ -28,7 +28,7 @@
 <table class="" id="" style="text-align:center;">
     <thead>
         <tr>
-            <td colspan="11" style="font-size:26px;"><?=$_SESSION['year']?>學年度指定科目考試新北一考區</td>
+            <td colspan="11" style="font-size:26px;"><?=$_SESSION['year']?>學年度學科能力測驗新北一考區</td>
         </tr>
         <tr>
             <td colspan="11" style="font-size:22px;">身障生試場監試人員印領清冊</td>

@@ -31,7 +31,7 @@
 <table class="" id="" style="padding:4px;text-align:center;">
     <thead>
         <tr>
-            <td colspan="3" style="font-size:26px;"><?=$_SESSION['year']?>學年度指定科目考試新北一考區</td>
+            <td colspan="3" style="font-size:26px;"><?=$_SESSION['year']?>學年度學科能力測驗新北一考區</td>
         </tr>
         <tr>
             <td colspan="3" style="font-size:22px;"><?=$_GET['area']?><?=$school?>試務人員一覽表</td>
