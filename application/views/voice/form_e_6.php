@@ -124,10 +124,10 @@
             <div class="modal-body">
                 <div class="row">
                     <div class="col-md-12 col-sm-12 col-xs-12">
-                        <div class="btn_part btn3" part="2500" area="考區" link="./voice/e/form_e_6_3?part=2501&test_partition=0">考區</div>
-                        <div class="btn_part btn3" part="2501" area="第一分區" link="./voice/e/form_e_6_3?part=2501&test_partition=1">第一分區</div>
-                        <div class="btn_part btn3" part="2502" area="第二分區" link="./voice/e/form_e_6_3?part=2502&test_partition=2">第二分區</div>
-                        <div class="btn_part btn3" part="2503" area="第三分區" link="./voice/e/form_e_6_3?part=2503&test_partition=3">第三分區</div>
+                        <div class="btn_part btn3" part="2500" area="0" link="./voice/e/form_e_6_3?part=2501&test_partition=0">考區</div>
+                        <div class="btn_part btn3" part="2501" area="1" link="./voice/e/form_e_6_3?part=2501&test_partition=1">第一分區</div>
+                        <div class="btn_part btn3" part="2502" area="2" link="./voice/e/form_e_6_3?part=2502&test_partition=2">第二分區</div>
+                        <div class="btn_part btn3" part="2503" area="3" link="./voice/e/form_e_6_3?part=2503&test_partition=3">第三分區</div>
                     </div>
                 </div>
             </div>
