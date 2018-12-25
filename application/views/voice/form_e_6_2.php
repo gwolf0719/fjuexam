@@ -35,18 +35,18 @@
             <td colspan="7" style="font-size:22px;">身障生試場監試人員印領清冊</td>
         </tr>
         <tr>
-            <td colspan="2" style="font-size:18px;padding: 20px 0px;"> 分區：<?=$area?>(身障)</td>
+            <td colspan="3" style="font-size:18px;padding: 20px 0px; text-align:left;">分區：<?=$area?>(身障)</td>
             <td colspan="3" style="font-size:18px;padding: 20px 0px;">考場：<?=$school['area_name']?></td>
-            <td colspan="2" style="font-size:18px;padding: 20px 0px;"> 印表日期：<?=date('Y/m/d')?></td>
+            <td colspan="1" style="font-size:18px;padding: 20px 0px; text-align:right;"> 印表日期：<?=date('Y/m/d')?></td>
         </tr>
         <tr>
-            <td rowspan="2" class="bb" style="width:5%">試場</td>
-            <td  nowrap="nowrap" colspan="1" class="bb">監試人員(1)</td>
+            <td rowspan="2" class="bb" style="">試場</td>
+            <td  nowrap="nowrap" class="bb">監試人員(1)</td>
             <td rowspan="2" class="bb">監考費</td>
-            <td rowspan="2" class="bb" style="width:145">簽名或蓋章</td>
-            <td  nowrap="nowrap" colspan="1" class="bb">監試人員(2)</td>
+            <td rowspan="2" class="bb" style="width:20%;">簽名或蓋章</td>
+            <td nowrap="nowrap"  class="bb">監試人員(2)</td>
             <td rowspan="2" class="bb">監考費</td>
-            <td rowspan="2" class="bb" style="width:145">簽名或蓋章</td>
+            <td rowspan="2" class="bb" style="width:20%;">簽名或蓋章</td>
         </tr>
         <tr>
             <td class="bb">姓名</td>
