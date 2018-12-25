@@ -204,8 +204,6 @@ class Mod_voice_trial extends CI_Model
         // $year = $this->session->userdata('year');
 
         $res = $this->db->get()->result_array();
-
-
         function even($var)
         {
             return($var['year'] == $_SESSION['year']);
@@ -796,7 +794,6 @@ class Mod_voice_trial extends CI_Model
         }
 
         $sub =  array_filter($res, "even");
-        // print_r($sub);
         sort($sub);
 
         for ($i=0; $i < count($sub); $i++) {
@@ -811,7 +808,6 @@ class Mod_voice_trial extends CI_Model
                     'year' => $sub[$i]['year'],
                     'ladder' => $sub[$i]['ladder'],                    
                     'area_name'=>$sub[$i]['area_name'],
-                    'do_date' => $sub[$i]['first_member_do_date'],
                     'member_unit' => $supervisor1['member_unit'],
                     'member_name'=> $supervisor1['member_name'],
                     'member_code' =>$supervisor1['member_code'],

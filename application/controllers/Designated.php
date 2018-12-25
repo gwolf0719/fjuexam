@@ -3563,28 +3563,28 @@ class Designated extends CI_Controller
             'lunch'=>$this->mod_trial->get_all_trial_lunch_total_of_obs($part,$obs),
             'count' => $this->mod_trial->get_list_for_obs_member_count($part, $obs),
         );
-            $view =  $this->load->view('designated/e_6_2', $data);
+            // $view =  $this->load->view('designated/e_6_2', $data);
 
-        // if($data['part'] != false){
-        //     $view =  $this->load->view('designated/e_6_2', $data, true);
-        //     if (!is_dir('./html/')) {
-        //             mkdir('./html/');
-        //         } else {
-        //             $path = 'e_6_2.html';
-        //             $fp = fopen('./html/'.$path,'w');//建檔
-        //             fwrite($fp,$view);
-        //             fclose($fp);//關閉開啟的檔案
-        //         }
+        if($data['part'] != false){
+            $view =  $this->load->view('designated/e_6_2', $data, true);
+            if (!is_dir('./html/')) {
+                    mkdir('./html/');
+                } else {
+                    $path = 'e_6_2.html';
+                    $fp = fopen('./html/'.$path,'w');//建檔
+                    fwrite($fp,$view);
+                    fclose($fp);//關閉開啟的檔案
+                }
 
-        //         if (!is_dir('./pdf/')) {
-        //             mkdir('./pdf/');
-        //         } else {
-        //             exec('wkhtmltopdf --lowquality --enable-forms http://uat.fofo.tw/fjuexam/html/e_6_2.html  ./pdf/e_6_2.pdf');
-        //     }
-        //     echo '<script>location.href="http://uat.fofo.tw/fjuexam/pdf/e_6_2.pdf"</script>';
-        // }else{
-        //   return false;
-        // }
+                if (!is_dir('./pdf/')) {
+                    mkdir('./pdf/');
+                } else {
+                    exec('wkhtmltopdf --lowquality --enable-forms http://uat.fofo.tw/fjuexam/html/e_6_2.html  ./pdf/e_6_2.pdf');
+            }
+            echo '<script>location.href="http://uat.fofo.tw/fjuexam/pdf/e_6_2.pdf"</script>';
+        }else{
+          return false;
+        }
     }
 
     public function e_6_3()

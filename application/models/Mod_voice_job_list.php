@@ -566,8 +566,7 @@ class Mod_voice_job_list extends CI_Model
                 $arr[] = array(
                         'year'=>$res[$i]['year'],
                         'ladder'=>$res[$i]['ladder'],
-
-                        // 'area' =>$res[$i]['area'],
+                        'area' =>$res[$i]['test_partition'],
                         'job_code' => $res[$i]['job_code'],
                         'job' => $res[$i]['job'],
                         'job_title' => $res[$i]['job_title'],

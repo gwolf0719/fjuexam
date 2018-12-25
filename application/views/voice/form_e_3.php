@@ -212,11 +212,15 @@ $(function(){
         var part = $(this).attr("part");
         var area = $(this).attr("area");
         var link = $(this).attr("link");
+        var year = '<?=$this->session->userdata('year');?>';
+        var ladder = '<?=$this->session->userdata('ladder');?>';
         $.ajax({
-            url: 'api/chk_part_list',
+            url: './voices/api/chk_part_list',
             data: {
                 part: part,
                 area: area,
+                year:year,
+                ladder:ladder,
             },
             dataType: "json"
         }).done(function(data) {

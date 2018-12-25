@@ -1187,6 +1187,7 @@ class Api extends CI_Controller {
             if ($this->mod_voice_trial->chk_part_list($data['part'], $data['area'],$data['year'],$data['ladder']) == true) {
                 $json_arr['sys_code'] = '200';
                 $json_arr['sys_msg'] = '匯出完成';
+               
             } 
             else {
                 $json_arr['sys_code'] = '404';
