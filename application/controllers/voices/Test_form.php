@@ -2048,7 +2048,7 @@ class Test_form extends CI_Controller
                 $i ++ ;
             }else{
                 $arr[$key]['first_salary_section'] = $v['first_salary_section']+$arr[$key]['first_salary_section'];
-       
+                $arr[$key]['second_salary_section'] = $v['second_salary_section']+$arr[$key]['second_salary_section'];
               
 
             }
