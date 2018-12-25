@@ -1958,7 +1958,7 @@ class Test_form extends CI_Controller
 
 
         header("content-type:application/csv;charset=UTF-8");
-        header('Content-Disposition: attachment;filename="檔案匯出'.'.csv"');
+        header('Content-Disposition: attachment;filename="請公假名單檔案匯出'.'.csv"');
         header('Cache-Control: max-age=0');
         header("Expires:0");
 
@@ -1979,8 +1979,6 @@ class Test_form extends CI_Controller
         $objPHPExcel->setActiveSheetIndex(0);
         $part = $_GET['part'];
         $area = $_GET['area'];
-
-              
         $arr = array();
         $fields = array();
         $i = 0;
@@ -2036,20 +2034,41 @@ class Test_form extends CI_Controller
         $part = $_GET['part'];
         $area = $_GET['area'];
         $obs = $_GET['obs'];
+        
+        $dataarray = $this->mod_voice_trial->get_trial_list_of_obs_for_csv($part, $obs);
+        $i = 0;
+        $fields = array();
+        $arr = array();
+        foreach($dataarray as $k=>$v){
 
+            $key = array_search($v['field'],$fields);
+            if($key === false){
+                $fields[] = $v['field'];
+                $arr[$i] = $v;
+                $i ++ ;
+            }else{
+                $arr[$key]['first_salary_section'] = $v['first_salary_section']+$arr[$key]['first_salary_section'];
+       
+              
 
-        $arr = $this->mod_voice_trial->get_trial_list_of_obs_for_csv($part, $obs);
+            }
+            
+        }
+
         for ($i=0; $i < count($arr); $i++) {
             # code...
 
             $objPHPExcel->getActiveSheet()->setCellValue('A1', '試場');
-            $objPHPExcel->getActiveSheet()->setCellValue('B1', '監考費');
-            $objPHPExcel->getActiveSheet()->setCellValue('C1', '姓名');
-            $objPHPExcel->getActiveSheet()->setCellValue('E1', '應領費用');
+            $objPHPExcel->getActiveSheet()->setCellValue('B1', '姓名');
+            $objPHPExcel->getActiveSheet()->setCellValue('C1', '監考費');
+            $objPHPExcel->getActiveSheet()->setCellValue('D1', '姓名');
+            $objPHPExcel->getActiveSheet()->setCellValue('E1', '監考費');
+
             $objPHPExcel->getActiveSheet()->setCellValue('A'.(2+$i), $arr[$i]['field']);
-            $objPHPExcel->getActiveSheet()->setCellValue('B'.(2+$i), number_format($arr[$i]['salary_section']));
-            $objPHPExcel->getActiveSheet()->setCellValue('C'.(2+$i), $arr[$i]['supervisor']);
-            $objPHPExcel->getActiveSheet()->setCellValue('E'.(2+$i), $arr[$i]['section_salary_total']);
+            $objPHPExcel->getActiveSheet()->setCellValue('B'.(2+$i), $arr[$i]['supervisor_1']);
+            $objPHPExcel->getActiveSheet()->setCellValue('C'.(2+$i), number_format($arr[$i]['first_salary_section']));
+            $objPHPExcel->getActiveSheet()->setCellValue('D'.(2+$i), $arr[$i]['supervisor_2']);
+            $objPHPExcel->getActiveSheet()->setCellValue('E'.(2+$i), number_format($arr[$i]['second_salary_section']));
         }
 
         $objWriter = PHPExcel_IOFactory::createWriter($objPHPExcel, 'CSV');

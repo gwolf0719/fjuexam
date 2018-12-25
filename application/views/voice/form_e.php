@@ -161,11 +161,11 @@
                 <div class="row">
                     <div class="col-md-12 col-sm-12 col-xs-12">
                         <div class="btn_part btn1" link="./voice/e/form_e_7_1?part=2501&area=第一分區" part="2501" area="第一分區">第一分區</div>
-                        <div class="btn_part btn2" link="./voice/e/form_e_7_2?part=2501&area=第一分區&obs=29" part="2501" area="第一分區" obs="29">第一分區(身障)</div>
+                        <div class="btn_part btn2" link="./voice/e/form_e_7_2?part=2501&area=第一分區&obs=90" part="2501" area="第一分區" obs="90">第一分區(身障)</div>
                         <div class="btn_part btn1" link="./voice/e/form_e_7_1?part=2502&area=第二分區" part="2502" area="第二分區">第二分區</div>
-                        <div class="btn_part btn2" link="./voice/e/form_e_7_2?part=2502&area=第二分區&obs=29" part="2502" area="第二分區" obs="29">第二分區(身障)</div>    
+                        <div class="btn_part btn2" link="./voice/e/form_e_7_2?part=2502&area=第二分區&obs=90" part="2502" area="第二分區" obs="90">第二分區(身障)</div>    
                         <div class="btn_part btn1" link="./voice/e/form_e_7_1?part=2503&area=第三分區" part="2503" area="第三分區">第三分區</div> 
-                        <div class="btn_part btn2" link="./voice/e/form_e_7_2?part=2503&area=第三分區&obs=29" part="2503" area="第三分區" obs="29">第三分區(身障)</div> 
+                        <div class="btn_part btn2" link="./voice/e/form_e_7_2?part=2503&area=第三分區&obs=90" part="2503" area="第三分區" obs="90">第三分區(身障)</div> 
                     </div>
                 </div>
             </div>
@@ -249,11 +249,15 @@ $(function(){
         var part = $(this).attr("part");
         var area = $(this).attr("area");
         var link = $(this).attr("link");
+        var year = '<?=$this->session->userdata('year');?>';
+        var ladder = '<?=$this->session->userdata('ladder');?>';
         $.ajax({
-            url: 'api/chk_part_list',
+            url: './voice/api/chk_part_list',
             data: {
                 part: part,
                 area: area,
+                year:year,
+                ladder:ladder,
             },
             dataType: "json"
         }).done(function(data) {
@@ -269,9 +273,14 @@ $(function(){
         var area = $(this).attr("area");
         var obs = $(this).attr("obs")
         var link = $(this).attr("link");
+        var year = '<?=$this->session->userdata('year');?>';
+        var ladder = '<?=$this->session->userdata('ladder');?>';
+        // location.href = link;  
         $.ajax({
-            url: 'api/chk_part_list_of_obs',
+            url: './voices/api/chk_part_list_of_obs',
             data: {
+                year:year,
+                ladder:ladder,
                 part: part,
                 area: area,
                 obs:obs
@@ -280,7 +289,7 @@ $(function(){
         }).done(function(data) {
             alert(data.sys_msg);
             if (data.sys_code == "200") {
-                location.href = link;  
+                location.href = link;
             }
         })        
     })    
@@ -289,7 +298,7 @@ $("body").on("click",".btn3",function(){
         var area = $(this).attr("area");
         var link = $(this).attr("link");
         $.ajax({
-            url: 'api/chk_task_list',
+            url: './voices/api/chk_task_list',
             data: {
                 area: area,
             },
@@ -306,7 +315,7 @@ $("body").on("click",".btn3",function(){
         var part = $(this).attr("part");
         var link = $(this).attr("link");
         $.ajax({
-            url: 'api/chk_trial_staff_task_list',
+            url: './voices/api/chk_trial_staff_task_list',
             data: {
                 part: part,
             },
@@ -323,7 +332,7 @@ $("body").on("click",".btn3",function(){
         var part = $(this).attr("part");
         var link = $(this).attr("link");
         $.ajax({
-            url: 'api/chk_patrol_staff_task_list',
+            url: './voices/api/chk_patrol_staff_task_list',
             data: {
                 part: part,
             },
