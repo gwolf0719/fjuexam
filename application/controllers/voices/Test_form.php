@@ -527,6 +527,7 @@ class Test_form extends CI_Controller
             // 'meat'=> $this->mod_task->get_member_meat_count($area),
             'school' => $school,
         );
+        // print_r($data['part']);
         
         if ($data['part'] != false) {
             $view = $this->load->view('voice/form_e_2_1_2', $data,true);
@@ -1736,7 +1737,6 @@ class Test_form extends CI_Controller
                 $arr[$key]['second_member_salary_section'] = $v['second_member_salary_section']+$arr[$key]['second_member_salary_section'];
                 $arr[$key]['first_member_section_salary_total'] = $v['first_member_section_salary_total']+$arr[$key]['first_member_section_salary_total'];
                 $arr[$key]['second_member_section_salary_total'] = $v['second_member_section_salary_total']+$arr[$key]['second_member_section_salary_total'];
-
             }
             
         }

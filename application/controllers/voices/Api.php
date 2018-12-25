@@ -471,11 +471,12 @@ class Api extends CI_Controller {
         $this->load->model('mod_voice_job_list');
         $this->load->model('mod_voice_trial');
         $getpost = array('sn', 'job_code', 'job_title', 'name', 'phone',  'note', 'day_count', 'one_day_salary', 'salary_total', 'total', 'do_date');
-        $requred = array('sn',  'job_code', 'job_title', 'name', 'phone',  'day_count', 'one_day_salary', 'salary_total', 'total', 'do_date');
+        $requred = array('sn',  'job_code', 'job_title', 'name', 'phone',  'day_count', 'one_day_salary', 'salary_total', 'total');
         $data = $this->getpost->getpost_array($getpost, $requred);
         if ($data == false) {
             $json_arr['sys_code'] = '000';
             $json_arr['sys_msg'] = '資料不足';
+            // print_r($json_arr);
             $json_arr['requred'] = $this->getpost->report_requred($requred);
         } else {
             // 確認有沒有換人

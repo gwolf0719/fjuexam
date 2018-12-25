@@ -223,8 +223,8 @@
             }).done(function(data) {
                 console.log(data.info);
                 $("#sn").val(sn);
-                $("#first_start").val(data.info.first_start);
-                $("#first_end").val(data.info.first_end);
+                $("#first_start").val(data.info.start);
+                $("#first_end").val(data.info.end);
                 $("#first_section").val(data.info.first_section);
                 $("#second_start").val(data.info.second_start);
                 $("#second_end").val(data.info.second_end);

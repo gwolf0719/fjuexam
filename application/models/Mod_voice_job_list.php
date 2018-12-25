@@ -299,7 +299,7 @@ class Mod_voice_job_list extends CI_Model
                 $do_date = explode(",", $res[$i]['do_date']);
                 for ($d=0; $d < count($do_date); $d++) {
 
-                    $arr[$do_date[$d]][] = array(
+                    $arr[] = array(
                         'job_code' => $res[$i]['job_code'],
                         'job' => $res[$i]['job'],
                         'job_title' => $res[$i]['job_title'],

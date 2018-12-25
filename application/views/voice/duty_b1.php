@@ -130,7 +130,7 @@
             $("#job_code").val($(this).attr('job_code'));
             $("#job_title").val($(this).find('td').eq(3).text().trim());
             $("#name").val($(this).find('td').eq(4).text().trim());
-            $("#phone").val($(this).find('td').eq(6).text().trim());
+            $("#phone").val($(this).find('td').eq(5).text().trim());
             $("#assign").show();
             $("#sn").val(sn);
             $("html, body").animate({
@@ -334,7 +334,7 @@
                     <th>職務</th>
                     <th>職稱</th>
                     <th>姓名</th>
-                    <th>執行日</th>
+                    <!--<th>執行日</th>-->
                     <th>聯絡電話</th>
                     <th>備註</th>
                 </tr>
@@ -357,9 +357,9 @@
                     <td>
                         <?=$v['name']; ?>
                     </td>
-                    <td>
+                    <!--<td>
                         <?=$v['do_date']; ?>
-                    </td>
+                    </td>-->
                     <td>
                         <?=$v['phone']; ?>
                     </td>

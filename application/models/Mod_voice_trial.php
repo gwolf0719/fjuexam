@@ -406,7 +406,7 @@ class Mod_voice_trial extends CI_Model
                 $do_date = explode(",", $res[$i]['do_date']);
                 for ($d=0; $d < count($do_date); $d++) {
 
-                    $arr[$do_date[$d]][] = array(
+                    $arr[] = array(
                         'job_code' => $res[$i]['trial_staff_code'],
                         'job' => '管卷人員',
                         // 'job_title' => $res[$i]['job_title'],
@@ -439,7 +439,7 @@ class Mod_voice_trial extends CI_Model
                 $do_date = explode(",", $res[$i]['do_date']);
                 for ($d=0; $d < count($do_date); $d++) {
 
-                    $arr[$do_date[$d]][] = array(
+                    $arr[] = array(
                         'job_code' => $res[$i]['patrol_staff_code'],
                         'job' => '巡場人員',
                         // 'job_title' => $res[$i]['job_title'],

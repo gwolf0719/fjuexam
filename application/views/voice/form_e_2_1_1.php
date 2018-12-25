@@ -31,7 +31,7 @@
     }
 </style>
 
-<?php foreach ($part as $k => $v): ?>
+
 
 <table class="" id="" style="padding:5px 0px;;text-align:center;">
     <tr>
@@ -40,7 +40,7 @@
     <tr>
         <td colspan="2" style="font-size:20px;text-align:left;padding:20px 0px">分區：<?= $this->config->item('partition')[$area] ?></td>
         <td colspan="2" style="font-size:20px;text-align:center;padding:20px 0px"><?=$school['area_name']?></td>
-        <td colspan="2" style="font-size:20px;text-align:right;padding:20px 0px">簽到日期：<?=$k?></td>
+        <td colspan="2" style="font-size:20px;text-align:right;padding:20px 0px"></td>
     </tr>
     <tr>
         <td style="border:1px solid #999" width="15%">職務</td>
@@ -49,7 +49,7 @@
         <td style="border:1px solid #999" colspan="2" width="30%">簽名</td>
         <td style="border:1px solid #999" width="15%">備註(工作分配)</td>
     </tr>
-    <?php foreach ($v as $kc => $vc): ?>
+    <?php foreach ($part as $kc => $vc): ?>
     <tr class="item">
         <td style="border:1px solid #999" nowrap="nowrap"><?=$vc['job']?></td>
         <td style="border:1px solid #999" nowrap="nowrap"><?=$vc['name']?></td>
@@ -59,7 +59,7 @@
     </tr>
     <?php endforeach; ?>
     <tr>
-        <td colspan="7" style="font-size:16px;text-align:left;">共計：<?=count($v)?>人</td>
+        <td colspan="7" style="font-size:16px;text-align:left;">共計：<?=count($part)?>人</td>
     </tr>
 </table>
-<?php endforeach; ?>
+
