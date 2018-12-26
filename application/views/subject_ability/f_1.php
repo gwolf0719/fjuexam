@@ -19,28 +19,30 @@
             $.ajax({
                 url: './subject_ability/api/add_act',
                 data:{
-                    "year":$("#year").val(),
+                    "year":'<?=$this->session->userdata("year")?>',
                     "day_1":$("#day_1").val(),
                     "day_2":$("#day_2").val(),
                     "day_3":$("#day_3").val(),
-                    "pre_1":$("#pre_1").val(),
-                    "pre_2":$("#pre_2").val(),
-                    "pre_3":$("#pre_3").val(),
-                    "pre_4":$("#pre_4").val(),
-                    "course_1_start":$("#course_1_start").val(),
-                    "course_1_end":$("#course_1_end").val(),
-                    "course_2_start":$("#course_2_start").val(),
-                    "course_2_end":$("#course_2_end").val(),
-                    "course_3_start":$("#course_3_start").val(),
-                    "course_3_end":$("#course_3_end").val(),
-                    "course_4_start":$("#course_4_start").val(),
-                    "course_4_end":$("#course_4_end").val()
+                    <?php for($i=1;$i<=3;$i++):?>
+                        "pre_1_<?=$i?>":$("#pre_1_<?=$i?>").val(),
+                        "pre_2_<?=$i?>":$("#pre_2_<?=$i?>").val(),
+                        "pre_3_<?=$i?>":$("#pre_3_<?=$i?>").val(),
+                        "pre_4_<?=$i?>":$("#pre_4_<?=$i?>").val(),
+                        "course_1_start_<?=$i?>":$("#course_1_start_<?=$i?>").val(),
+                        "course_1_end_<?=$i?>":$("#course_1_end_<?=$i?>").val(),
+                        "course_2_start_<?=$i?>":$("#course_2_start_<?=$i?>").val(),
+                        "course_2_end_<?=$i?>":$("#course_2_end_<?=$i?>").val(),
+                        "course_3_start_<?=$i?>":$("#course_3_start_<?=$i?>").val(),
+                        "course_3_end_<?=$i?>":$("#course_3_end_<?=$i?>").val(),
+                        "course_4_start_<?=$i?>":$("#course_4_start_<?=$i?>").val(),
+                        "course_4_end_<?=$i?>":$("#course_4_end_<?=$i?>").val(),
+                    <?php endfor;?>
                 },
                 dataType:"json"
             }).done(function(data){
                     alert(data.sys_msg);
                 if(data.sys_code == "200"){
-                    location.reload();
+                    // location.reload();
                 }      
             })
         })
@@ -75,23 +77,23 @@
             </div>
             <div class="row table-form" class="">
                 <div class="col-4 text-right">上午預備鈴1</div>
-                <input type="text" class="col-7" id="pre_1" name="pre_1" value="<?=$datetime_info['pre_1']; ?>">
+                <input type="text" class="col-7" id="pre_1_<?=$i?>" name="pre_1" value="<?=$datetime_info['pre_1_'.$i]; ?>">
                 
             </div>
             <div class="row table-form" class="">
                 <div class="col-4 text-right">上午預備鈴2</div>
-                <input type="text" class="col-7" id="pre_2" name="pre_2" value="<?=$datetime_info['pre_2']; ?>">
+                <input type="text" class="col-7" id="pre_2_<?=$i?>" name="pre_2" value="<?=$datetime_info['pre_2_'.$i]; ?>">
                 
             </div>
             <hr>
             <div class="row table-form" class="">
                 <div class="col-4 text-right">下午預備鈴1</div>
-                <input type="text" class="col-7" id="pre_3" name="pre_3" value="<?=$datetime_info['pre_3']; ?>">
+                <input type="text" class="col-7" id="pre_3_<?=$i?>" name="pre_3" value="<?=$datetime_info['pre_3_'.$i]; ?>">
                 
             </div>
             <div class="row table-form" class="">
                 <div class="col-4 text-right">下午預備鈴2</div>
-                <input type="text" class="col-7" id="pre_4" name="pre_4" value="<?=$datetime_info['pre_4']; ?>">
+                <input type="text" class="col-7" id="pre_4_<?=$i?>" name="pre_4" value="<?=$datetime_info['pre_4_'.$i]; ?>">
             </div>
 
             <hr>
@@ -100,8 +102,8 @@
 
                 <div class="col-8">
                     <div class="row form-inline">
-                        <input type="text" class="form-control col-6" id="course_1_start" name="course_1_start" value="<?=$datetime_info['course_1_start']; ?>">
-                        <input type="text" class="form-control col-6" id="course_1_end" name="course_1_end" value="<?=$datetime_info['course_1_end']; ?>">
+                        <input type="text" class="form-control col-6" id="course_1_start_<?=$i?>" name="course_1_start" value="<?=$datetime_info['course_1_start_'.$i]; ?>">
+                        <input type="text" class="form-control col-6" id="course_1_end_<?=$i?>" name="course_1_end" value="<?=$datetime_info['course_1_end_'.$i]; ?>">
                     </div>
                 </div>
             </div>
@@ -111,8 +113,8 @@
 
                 <div class="col-8">
                     <div class="row form-inline">
-                        <input type="text" class="form-control col-6" id="course_2_start" name="course_2_start" value="<?=$datetime_info['course_2_start']; ?>">
-                        <input type="text" class="form-control col-6" id="course_2_end" name="course_2_end" value="<?=$datetime_info['course_2_end']; ?>">
+                        <input type="text" class="form-control col-6" id="course_2_start_<?=$i?>" name="course_2_start" value="<?=$datetime_info['course_2_start_'.$i]; ?>">
+                        <input type="text" class="form-control col-6" id="course_2_end_<?=$i?>" name="course_2_end" value="<?=$datetime_info['course_2_end_'.$i]; ?>">
                     </div>
                 </div>
             </div>
@@ -121,8 +123,8 @@
                 <div class="col-4 text-right">下午第一節</div>
                 <div class="col-8">
                     <div class="row form-inline">
-                        <input type="text" class="form-control col-6" id="course_3_start" name="course_3_start" value="<?=$datetime_info['course_3_start']; ?>">
-                        <input type="text" class="form-control col-6" id="course_3_end" name="course_3_end" value="<?=$datetime_info['course_3_end']; ?>">
+                        <input type="text" class="form-control col-6" id="course_3_start_<?=$i?>" name="course_3_start" value="<?=$datetime_info['course_3_start_'.$i]; ?>">
+                        <input type="text" class="form-control col-6" id="course_3_end_<?=$i?>" name="course_3_end" value="<?=$datetime_info['course_3_end_'.$i]; ?>">
                     </div>
                 </div>
             </div>
@@ -130,8 +132,8 @@
                 <div class="col-4 text-right">下午第二節</div>
                 <div class="col-8">
                     <div class="row form-inline">
-                        <input type="text" class="form-control col-6" id="course_4_start" name="course_4_start" value="<?=$datetime_info['course_4_start']; ?>">
-                        <input type="text" class="form-control col-6" id="course_4_end" name="course_4_end" value="<?=$datetime_info['course_4_end']; ?>">
+                        <input type="text" class="form-control col-6" id="course_4_start_<?=$i?>" name="course_4_start" value="<?=$datetime_info['course_4_start_'.$i]; ?>">
+                        <input type="text" class="form-control col-6" id="course_4_end_<?=$i?>" name="course_4_end" value="<?=$datetime_info['course_4_end_'.$i]; ?>">
                     </div>
                 </div>
             </div>

@@ -349,14 +349,18 @@ class Api extends CI_Controller {
      public function add_act()
      {
          $this->load->model('subject_ability/mod_exam_datetime',"mod_exam_datetime");
-         $getpost = array('year', 'day_1', 'day_2', 'day_3', 'pre_1', 'pre_2', 'pre_3', 'pre_4', 'course_1_start', 'course_1_end', 'course_2_start', 'course_2_end', 'course_3_start', 'course_3_end', 'course_4_start', 'course_4_end');
-         $requred = array('year', 'day_1', 'day_2', 'day_3', 'pre_1', 'pre_2', 'pre_3', 'pre_4', 'course_1_start', 'course_1_end', 'course_2_start', 'course_2_end', 'course_3_start', 'course_3_end', 'course_4_start', 'course_4_end');
-         $data = $this->getpost->getpost_array($getpost, $requred);
+         $getpost = array('year', 'day_1', 'day_2', 'day_3', 
+                            'pre_1_1', 'pre_2_1', 'pre_3_1', 'pre_4_1', 'course_1_start_1', 'course_1_end_1', 'course_2_start_1', 'course_2_end_1', 'course_3_start_1', 'course_3_end_1', 'course_4_start_1', 'course_4_end_1',
+                            'pre_1_2', 'pre_2_2', 'pre_3_2', 'pre_4_2', 'course_1_start_2', 'course_1_end_2', 'course_2_start_2', 'course_2_end_2', 'course_3_start_2', 'course_3_end_2', 'course_4_start_2', 'course_4_end_2',
+                            'pre_1_3', 'pre_2_3', 'pre_3_3', 'pre_4_3', 'course_1_start_3', 'course_1_end_3', 'course_2_start_3', 'course_2_end_3', 'course_3_start_3', 'course_3_end_3', 'course_4_start_3', 'course_4_end_3',
+                        );
+         
+         $data = $this->getpost->getpost_array($getpost, $getpost);
          $year = $this->session->userdata('year');
          if ($data == false) {
              $json_arr['sys_code'] = '000';
              $json_arr['sys_msg'] = '資料不足';
-             $json_arr['requred'] = $this->getpost->report_requred($requred);
+             $json_arr['requred'] = $this->getpost->report_requred($getpost);
          } else {
              if ($this->mod_exam_datetime->chk_once($year)) {
                  $this->mod_exam_datetime->update_once($year, $data);
