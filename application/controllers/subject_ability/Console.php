@@ -4135,45 +4135,53 @@ class Console extends CI_Controller {
     public function f_3()
     {
         $this->mod_user->chk_status();
+        $this->load->model('subject_ability/mod_exam_datetime',"mod_exam_datetime");
         $this->load->model('mod_exam_datetime');
         $year = $this->session->userdata('year');
 
-        if ($this->mod_exam_datetime->chk_once($year)) {
-            $datetime_info = $this->mod_exam_datetime->get_once($year);
-        } else {
-            $datetime_info = array(
-                'day_1' => date('Y').'年7月1日',
-                'day_2' => date('Y').'年7月2日',
-                'day_3' => date('Y').'年7月3日',
-                'course_1_start' => '08:40',
-                'course_1_end' => '10:00',
-                'course_2_start' => '10:50',
-                'course_2_end' => '12:00',
-                'course_3_start' => '14:00',
-                'course_3_end' => '15:20',
-                'course_4_start' => '16:01',
-                'course_4_end' => '17:30',
-                'pre_1' => '08:25',
-                'pre_2' => '10:45',
-                'pre_3' => '13:55',
-                'pre_4' => '16:05',
+        
+        $datetime_info = $this->mod_exam_datetime->get_once($year);
+        $data_list_4_day = array();
+        for($i=1;$i<=3;$i++){
+            $data_list_4_day[] = array(
+                'day'=>$i,
+                'do_date'=>$datetime_info["day_$i"],
+                'course_1_start'=>$datetime_info["course_1_start_$i"],
+                'course_2_start'=>$datetime_info["course_2_start_$i"],
+                'course_3_start'=>$datetime_info["course_3_start_$i"],
+                'course_4_start'=>$datetime_info["course_4_start_$i"],
+                'course_1_end'=>$datetime_info["course_1_end_$i"],
+                'course_2_end'=>$datetime_info["course_2_end_$i"],
+                'course_3_end'=>$datetime_info["course_3_end_$i"],
+                'course_4_end'=>$datetime_info["course_4_end_$i"],
+                'pre_1'=>$datetime_info["pre_1_$i"],
+                'pre_2'=>$datetime_info["pre_2_$i"],
+                'pre_3'=>$datetime_info["pre_3_$i"],
+                'pre_4'=>$datetime_info["pre_4_$i"],
             );
         }
+        // print_r($data_list_4_day);
+        
 
-        if ($this->mod_exam_datetime->chk_course($year)) {
-            $course = $this->mod_exam_datetime->get_course($year);
-        } else {
-            $course = array();
-            for ($i = 0; $i <= 12; ++$i) {
-                $course[$i]['subject'] = '';
+        // if ($this->mod_exam_datetime->chk_course($year)) {
+            $course_4_day = array();
+            foreach($this->mod_exam_datetime->get_course($year) as $k=>$v){
+                $course_4_day[$v['day']][$v['course']] = $v;
+                $course_4_day[$v['day']][$v['course']]['subject'] = $this->config->item('subject_ability_course')[$v['subject']];
             }
-        }
+            
+        // } else {
+        //     $course = array();
+        //     for ($i = 0; $i <= 12; ++$i) {
+        //         $course[$i]['subject'] = '';
+        //     }
+        // }
         $data = array(
             'title' => '預覽考程表',
             'path' => 'subject_ability/f_3',
             'path_text' => ' > 指考主選單 > 預覽考程表',
-            'course' => $course,
-            'datetime_info' => $datetime_info,
+            'course' => $course_4_day,
+            'data_list_4_day' => $data_list_4_day,
         );
         $this->load->view('subject_ability_layout', $data);
     }
