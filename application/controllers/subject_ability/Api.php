@@ -365,15 +365,14 @@ class Api extends CI_Controller {
              }
              $json_arr['sys_code'] = '200';
              $json_arr['sys_msg'] = '儲存成功';
-             $json_arrp['sql'] = $this->db->last_query();
          }
-         print_r($json_arr);
+         
          echo json_encode($json_arr);
      }
  
      public function add_course()
      {
-         $this->load->model('mod_ability_exam_datetime');
+         $this->load->model('mod_exam_datetime');
          // echo json_encode($_POST);
          $getpost = array('data');
          $requred = array('data');
@@ -385,8 +384,8 @@ class Api extends CI_Controller {
              $json_arr['requred'] = $this->getpost->report_requred($requred);
          } else {
              $year = $this->session->userdata('year');
-             $this->mod_ability_exam_datetime->clean_course($year);
-             $this->mod_ability_exam_datetime->setting_course($year, $data['data']);
+             $this->mod_exam_datetime->clean_course($year);
+             $this->mod_exam_datetime->setting_course($year, $data['data']);
              $json_arr['sys_code'] = '200';
              $json_arr['sys_msg'] = '修改成功';
          }
@@ -547,7 +546,7 @@ class Api extends CI_Controller {
      {
          $this->load->model('mod_ability_trial');
          $this->load->model('mod_ability_staff');
-         $this->load->model('mod_ability_exam_datetime');
+         $this->load->model('mod_exam_datetime');
          $this->load->model('mod_ability_exam_fees');
          $this->load->model('mod_ability_part_info');
          $getpost = array('sn', 'part','supervisor_1', 'supervisor_1_code', 'supervisor_2', 'supervisor_2_code', 'trial_staff_code_1', 'trial_staff_code_2', 'note','field');
@@ -562,8 +561,8 @@ class Api extends CI_Controller {
              if ($this->mod_trial->chk_once($data['sn'])) {
                  $member1 = $this->mod_ability_staff->get_staff_member(trim($data['supervisor_1_code']));
                  $member2 = $this->mod_ability_staff->get_staff_member(trim($data['supervisor_2_code']));
-                 $day = $this->mod_ability_exam_datetime->room_use_day($data['field'], $data['field'],$data['part']);
-                 $datetime_info = $this->mod_ability_exam_datetime->get_once($_SESSION['year']);
+                 $day = $this->mod_exam_datetime->room_use_day($data['field'], $data['field'],$data['part']);
+                 $datetime_info = $this->mod_exam_datetime->get_once($_SESSION['year']);
                  $fees_info = $this->mod_ability_exam_fees->get_once($_SESSION['year']);
                  $part_info = $this->mod_ability_part_info->get_once($data['sn']);
                  $do_date = array();
@@ -716,7 +715,7 @@ class Api extends CI_Controller {
              $json_arr['sys_msg'] = '資料不足';
              $json_arr['requred'] = $this->getpost->report_requred($requred);
          } else {
-             $json_arr['section'] = $this->mod_ability_exam_datetime->get_day_section($data['start'], $data['end']);
+             $json_arr['section'] = $this->mod_exam_datetime->get_day_section($data['start'], $data['end']);
              $json_arr['sys_code'] = '200';
              $json_arr['sys_msg'] = '資料處理完成';
          }
@@ -726,7 +725,7 @@ class Api extends CI_Controller {
      //取得當天節數
      public function get_once_day_section()
      {
-         $this->load->model('mod_ability_exam_datetime');
+         $this->load->model('mod_exam_datetime');
          $getpost = array('day', 'start', 'end');
          $requred = array('day', 'start', 'end');
          $data = $this->getpost->getpost_array($getpost, $requred);
@@ -735,7 +734,7 @@ class Api extends CI_Controller {
              $json_arr['sys_msg'] = '資料不足';
              $json_arr['requred'] = $this->getpost->report_requred($requred);
          } else {
-             $json_arr['section'] = $this->mod_ability_exam_datetime->get_once_day_section($data['day'], $data['start'], $data['end']);
+             $json_arr['section'] = $this->mod_exam_datetime->get_once_day_section($data['day'], $data['start'], $data['end']);
              $json_arr['sys_code'] = '200';
              $json_arr['sys_msg'] = '資料處理完成';
          }
@@ -916,7 +915,7 @@ class Api extends CI_Controller {
      {
          $this->load->model('mod_ability_patrol');
          $this->load->model('mod_ability_trial');
-         $this->load->model('mod_ability_exam_datetime');
+         $this->load->model('mod_exam_datetime');
          $this->load->model('mod_ability_exam_fees');
          $this->load->model('mod_ability_part_info');
          $this->load->model('mod_ability_staff');
@@ -929,8 +928,8 @@ class Api extends CI_Controller {
              $json_arr['requred'] = $this->getpost->report_requred($requred);
          } else {
              $data['year'] = $this->session->userdata('year');
-             $day = $this->mod_ability_exam_datetime->room_use_day($data['start'], $data['end'],$data['part']);
-             $datetime_info = $this->mod_ability_exam_datetime->get_once($_SESSION['year']);
+             $day = $this->mod_exam_datetime->room_use_day($data['start'], $data['end'],$data['part']);
+             $datetime_info = $this->mod_exam_datetime->get_once($_SESSION['year']);
              $fees_info = $this->mod_eability_xam_fees->get_once($_SESSION['year']);
              $member = $this->mod_ability_staff->get_staff_member(trim($data['patrol_staff_code']));
              $do_date = array();
@@ -1122,7 +1121,7 @@ class Api extends CI_Controller {
  
      public function room_use_day()
      {
-         $this->load->model('mod_ability_exam_datetime');
+         $this->load->model('mod_exam_datetime');
          $getpost = array('start', 'end','part');
          $requred = array('start', 'end','part');
          $data = $this->getpost->getpost_array($getpost, $requred);
@@ -1132,7 +1131,7 @@ class Api extends CI_Controller {
              $json_arr['requred'] = $this->getpost->report_requred($requred);
          } else {
              $data['year'] = $this->session->userdata('year');
-             $json_arr['day'] = $res = $this->mod_ability_exam_datetime->room_use_day($data['start'], $data['end'],$data['part']);
+             $json_arr['day'] = $res = $this->mod_exam_datetime->room_use_day($data['start'], $data['end'],$data['part']);
              $json_arr['sys_code'] = '200';
              $json_arr['sys_msg'] = '日期取得完成';
          }

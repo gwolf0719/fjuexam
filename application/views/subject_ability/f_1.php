@@ -17,7 +17,7 @@
     $(function(){
         $("body").on("click","#save",function(){
             $.ajax({
-                url: './subject_ability/./subject_ability/api/add_act',
+                url: './subject_ability/api/add_act',
                 data:{
                     "year":$("#year").val(),
                     "day_1":$("#day_1").val(),
@@ -40,7 +40,7 @@
             }).done(function(data){
                     alert(data.sys_msg);
                 if(data.sys_code == "200"){
-                    // location.reload();
+                    location.reload();
                 }      
             })
         })

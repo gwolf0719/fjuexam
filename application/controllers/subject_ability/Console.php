@@ -441,7 +441,7 @@ class Console extends CI_Controller {
         $this->load->model('mod_ability_exam_area');
         $this->load->model('mod_ability_task');
         $this->load->model('mod_ability_exam_fees');
-        $this->load->model('mod_ability_exam_datetime');
+        $this->load->model('mod_exam_datetime');
         $this->mod_user->chk_status();
         $year = $this->session->userdata('year');
         $jobs = $this->mod_ability_task->get_job_list($year, '考區');
@@ -454,8 +454,8 @@ class Console extends CI_Controller {
                 'lunch_fee' => '0',
             );
         }
-        if ($this->mod_ability_exam_datetime->chk_once($year)) {
-            $datetime_info = $this->mod_ability_exam_datetime->get_once($year);
+        if ($this->mod_exam_datetime->chk_once($year)) {
+            $datetime_info = $this->mod_exam_datetime->get_once($year);
         } else {
             $datetime_info = array(
                 'day_1' => '07/01',
@@ -482,7 +482,7 @@ class Console extends CI_Controller {
         $this->load->model('mod_ability_exam_area');
         $this->load->model('mod_ability_task');
         $this->load->model('mod_ability_exam_fees');
-        $this->load->model('mod_ability_exam_datetime');
+        $this->load->model('mod_exam_datetime');
         $this->load->model('mod_ability_part');
         $this->mod_user->chk_status();
         $year = $this->session->userdata('year');
@@ -497,8 +497,8 @@ class Console extends CI_Controller {
             );
         }
 
-        if ($this->mod_ability_exam_datetime->chk_once($year)) {
-            $datetime_info = $this->mod_ability_exam_datetime->get_once($year);
+        if ($this->mod_exam_datetime->chk_once($year)) {
+            $datetime_info = $this->mod_exam_datetime->get_once($year);
         } else {
             $datetime_info = array(
                 'day_1' => '07/01',
@@ -524,7 +524,7 @@ class Console extends CI_Controller {
         $this->load->model('mod_ability_task');
         $this->load->model('mod_ability_exam_fees');
         $this->load->model('mod_ability_part');
-        $this->load->model('mod_ability_exam_datetime');
+        $this->load->model('mod_exam_datetime');
         $this->mod_user->chk_status();
         $year = $this->session->userdata('year');
         $jobs = $this->mod_ability_task->get_job_list($year, '第二分區');
@@ -537,8 +537,8 @@ class Console extends CI_Controller {
                 'lunch_fee' => '0',
             );
         }
-        if ($this->mod_ability_exam_datetime->chk_once($year)) {
-            $datetime_info = $this->mod_ability_exam_datetime->get_once($year);
+        if ($this->mod_exam_datetime->chk_once($year)) {
+            $datetime_info = $this->mod_exam_datetime->get_once($year);
         } else {
             $datetime_info = array(
                 'day_1' => '07/01',
@@ -563,7 +563,7 @@ class Console extends CI_Controller {
         $this->load->model('mod_ability_exam_area');
         $this->load->model('mod_ability_task');
         $this->load->model('mod_ability_part');
-        $this->load->model('mod_ability_exam_datetime');
+        $this->load->model('mod_exam_datetime');
         $this->load->model('mod_ability_exam_fees');
         $this->mod_user->chk_status();
         $year = $this->session->userdata('year');
@@ -577,8 +577,8 @@ class Console extends CI_Controller {
                 'lunch_fee' => '0',
             );
         }
-        if ($this->mod_ability_exam_datetime->chk_once($year)) {
-            $datetime_info = $this->mod_ability_exam_datetime->get_once($year);
+        if ($this->mod_exam_datetime->chk_once($year)) {
+            $datetime_info = $this->mod_exam_datetime->get_once($year);
         } else {
             $datetime_info = array(
                 'day_1' => '07/01',
@@ -779,15 +779,15 @@ class Console extends CI_Controller {
          $this->load->model('mod_ability_part_info');
          $this->load->model('mod_ability_trial');
          $this->load->model('mod_ability_exam_area');
-         $this->load->model('mod_ability_exam_datetime');
+         $this->load->model('mod_exam_datetime');
          $this->mod_user->chk_status();
          $year = $this->session->userdata('year');
          $part = $this->mod_ability_exam_area->get_part('2501');
          $part1 = $this->mod_ability_trial->get_trial_list('2501');
          $part2 = $this->mod_ability_trial->get_trial_list('2502');
          $part3 = $this->mod_ability_trial->get_trial_list('2503');
-         if ($this->mod_ability_exam_datetime->chk_once($year)) {
-             $datetime_info = $this->mod_ability_exam_datetime->get_once($year);
+         if ($this->mod_exam_datetime->chk_once($year)) {
+             $datetime_info = $this->mod_exam_datetime->get_once($year);
          } else {
              $datetime_info = array(
                  'day_1' => '07/01',
@@ -834,7 +834,7 @@ class Console extends CI_Controller {
      {
          $this->load->model('mod_ability_part_info');
          $this->load->model('mod_ability_trial');
-         $this->load->model('mod_ability_exam_datetime');
+         $this->load->model('mod_exam_datetime');
          $this->load->model('mod_ability_exam_fees');
          $this->mod_user->chk_status();
          $year = $this->session->userdata('year');
@@ -850,8 +850,8 @@ class Console extends CI_Controller {
                  'lunch_fee' => '0',
              );
          }
-         if ($this->mod_ability_exam_datetime->chk_once($year)) {
-             $datetime_info = $this->mod_ability_exam_datetime->get_once($year);
+         if ($this->mod_exam_datetime->chk_once($year)) {
+             $datetime_info = $this->mod_exam_datetime->get_once($year);
          } else {
              $datetime_info = array(
                  'day_1' => '07/01',
@@ -875,7 +875,7 @@ class Console extends CI_Controller {
      public function d_5()
      {
          $this->load->model('mod_ability_trial');
-         $this->load->model('mod_ability_exam_datetime');
+         $this->load->model('mod_exam_datetime');
          $this->load->model('mod_ability_exam_fees');
          $this->mod_user->chk_status();
          $year = $this->session->userdata('year');
@@ -891,8 +891,8 @@ class Console extends CI_Controller {
                  'lunch_fee' => '0',
              );
          }
-         if ($this->mod_ability_exam_datetime->chk_once($year)) {
-             $datetime_info = $this->mod_ability_exam_datetime->get_once($year);
+         if ($this->mod_exam_datetime->chk_once($year)) {
+             $datetime_info = $this->mod_exam_datetime->get_once($year);
          } else {
              $datetime_info = array(
                  'day_1' => '07/01',
@@ -916,7 +916,7 @@ class Console extends CI_Controller {
      public function d_6()
      {
          $this->load->model('mod_ability_patrol');
-         $this->load->model('mod_ability_exam_datetime');
+         $this->load->model('mod_exam_datetime');
          $this->load->model('mod_ability_exam_fees');
          $this->mod_user->chk_status();
          $year = $this->session->userdata('year');
@@ -932,8 +932,8 @@ class Console extends CI_Controller {
                  'lunch_fee' => '0',
              );
          }
-         if ($this->mod_ability_exam_datetime->chk_once($year)) {
-             $datetime_info = $this->mod_ability_exam_datetime->get_once($year);
+         if ($this->mod_exam_datetime->chk_once($year)) {
+             $datetime_info = $this->mod_exam_datetime->get_once($year);
          } else {
              $datetime_info = array(
                  'day_1' => '07/01',
@@ -1329,7 +1329,7 @@ class Console extends CI_Controller {
     public function e_1_4()
     {
         $this->load->model('mod_ability_exam_area');
-        $this->load->model('mod_ability_exam_datetime');
+        $this->load->model('mod_exam_datetime');
         $title = '缺考人數統計';
         $year = $this->session->userdata('year');
 
@@ -1337,16 +1337,16 @@ class Console extends CI_Controller {
         $part = $_GET['part'];
         $area = $_GET['area'];
 
-        if ($this->mod_ability_exam_datetime->chk_course($year)) {
-            $course = $this->mod_ability_exam_datetime->get_course($year);
+        if ($this->mod_exam_datetime->chk_course($year)) {
+            $course = $this->mod_exam_datetime->get_course($year);
         } else {
             $course = array();
             for ($i = 0; $i <= 12; ++$i) {
                 $course[$i]['subject'] = '';
             }
         }
-        if ($this->mod_ability_exam_datetime->chk_once($year)) {
-            $datetime_info = $this->mod_ability_exam_datetime->get_once($year);
+        if ($this->mod_exam_datetime->chk_once($year)) {
+            $datetime_info = $this->mod_exam_datetime->get_once($year);
         } else {
             $datetime_info = array(
                 'day_1' => '7月/1日',
@@ -1359,7 +1359,7 @@ class Console extends CI_Controller {
             'list' => $this->mod_ability_exam_area->year_get_list($part),
             'count' => $this->mod_ability_exam_area->year_get_member_count_list($part),
             'school' => $this->mod_ability_exam_area->year_school_name($part),
-            'course' => $this->mod_ability_exam_datetime->get_course($year),
+            'course' => $this->mod_exam_datetime->get_course($year),
             'datetime_info'=>$datetime_info,
             'area'=>$area
         );
@@ -1447,7 +1447,7 @@ class Console extends CI_Controller {
     {
         $this->mod_user->chk_status();
         $this->load->model('mod_exam_datetime');
-        $datetime_info = $this->mod_ability_exam_datetime->get_once($_SESSION['year']);
+        $datetime_info = $this->mod_exam_datetime->get_once($_SESSION['year']);
         $data = array(
             'title' => '簽到表 / 簽收單',
             'path' => 'subject_ability/e_2',
@@ -1698,7 +1698,7 @@ class Console extends CI_Controller {
         $this->load->library('pdf');
         $this->load->model('mod_ability_trial');
         $this->load->model('mod_ability_exam_area');
-        $this->load->model('mod_ability_exam_datetime');
+        $this->load->model('mod_exam_datetime');
 
         $obj_pdf = new Pdf(PDF_PAGE_ORIENTATION, PDF_UNIT, PDF_PAGE_FORMAT, false, 'UTF-8', false);
         $obj_pdf->SetCreator(PDF_CREATOR);
@@ -1717,7 +1717,7 @@ class Console extends CI_Controller {
         $obj_pdf->SetFont('msungstdlight', 'L', 14);
         $year = $this->session->userdata('year');
 
-        $datetime_info = $this->mod_ability_exam_datetime->get_once($year);
+        $datetime_info = $this->mod_exam_datetime->get_once($year);
 
         $obj_pdf->setFontSubsetting(false);
         $data = array(
@@ -1754,7 +1754,7 @@ class Console extends CI_Controller {
         $this->load->library('pdf');
         $this->load->model('mod_ability_trial');
         $this->load->model('mod_ability_exam_area');
-        $this->load->model('mod_ability_exam_datetime');
+        $this->load->model('mod_exam_datetime');
 
         $obj_pdf = new Pdf(PDF_PAGE_ORIENTATION, PDF_UNIT, PDF_PAGE_FORMAT, false, 'UTF-8', false);
         $obj_pdf->SetCreator(PDF_CREATOR);
@@ -1773,7 +1773,7 @@ class Console extends CI_Controller {
         $obj_pdf->SetFont('msungstdlight', 'L', 10);
         $year = $this->session->userdata('year');
 
-        $datetime_info = $this->mod_ability_exam_datetime->get_once($year);
+        $datetime_info = $this->mod_exam_datetime->get_once($year);
 
         $obj_pdf->setFontSubsetting(false);
         $data = array(
@@ -1810,7 +1810,7 @@ class Console extends CI_Controller {
         $this->load->library('pdf');
         $this->load->model('mod_ability_trial');
         $this->load->model('mod_ability_exam_area');
-        $this->load->model('mod_ability_exam_datetime');
+        $this->load->model('mod_exam_datetime');
 
         $obj_pdf = new Pdf(PDF_PAGE_ORIENTATION, PDF_UNIT, PDF_PAGE_FORMAT, false, 'UTF-8', false);
         $obj_pdf->SetCreator(PDF_CREATOR);
@@ -1829,7 +1829,7 @@ class Console extends CI_Controller {
         $obj_pdf->SetFont('msungstdlight', 'L', 10);
         $year = $this->session->userdata('year');
 
-        $datetime_info = $this->mod_ability_exam_datetime->get_once($year);
+        $datetime_info = $this->mod_exam_datetime->get_once($year);
 
         $obj_pdf->setFontSubsetting(false);
         $obj_pdf->AddPage();
@@ -1972,10 +1972,10 @@ class Console extends CI_Controller {
 
     public function e_3()
     {
-        $this->load->model('mod_ability_exam_datetime');
+        $this->load->model('mod_exam_datetime');
         $this->mod_user->chk_status();
-        if ($this->mod_ability_exam_datetime->chk_once($_SESSION['year'])) {
-            $datetime_info = $this->mod_ability_exam_datetime->get_once($_SESSION['year']);
+        if ($this->mod_exam_datetime->chk_once($_SESSION['year'])) {
+            $datetime_info = $this->mod_exam_datetime->get_once($_SESSION['year']);
         } else {
             $datetime_info = array(
                 'day_1' => '1911' + $this->session->userdata('year').'/07/01',
@@ -2007,7 +2007,7 @@ class Console extends CI_Controller {
     public function e_3_1()
     {
         $this->load->library('excel');
-        $this->load->model('mod_ability_exam_datetime');
+        $this->load->model('mod_exam_datetime');
         $this->load->model('mod_ability_trial');
 
         $objPHPExcel = new PHPExcel();
@@ -2015,8 +2015,8 @@ class Console extends CI_Controller {
         $part = $_GET['part'];
         $area = $_GET['area'];
         $year = $this->session->userdata('year');
-        $datetime_info = $this->mod_ability_exam_datetime->get_once($year);
-        $course = $this->mod_ability_exam_datetime->get_course($year);
+        $datetime_info = $this->mod_exam_datetime->get_once($year);
+        $course = $this->mod_exam_datetime->get_course($year);
         $res = $this->mod_ability_trial->get_supervisor_list($part);
         for ($i=0; $i < count($res); $i++) {
             # code...
@@ -4058,30 +4058,30 @@ class Console extends CI_Controller {
         $this->load->view('layout', $data);
     }
 
-    public function f_1_act()
-    {
-        $this->load->model('subject_ability/mod_exam_datetime',"mod_exam_datetime");
-        $year = $this->session->userdata('year');
-        $data = $_POST;
-        $data['year'] = $year;
+    // public function f_1_act()
+    // {
+    //     $this->load->model('subject_ability/mod_exam_datetime',"mod_exam_datetime");
+    //     $year = $this->session->userdata('year');
+    //     $data = $_POST;
+    //     $data['year'] = $year;
 
-        if ($this->mod_exam_datetime->chk_once($year)) {
-            $this->mod_exam_datetime->update_once($year, $data);
-        } else {
-            $this->mod_exam_datetime->add_once($data);
-        }
-        echo $this->db->last_query();
-        // redirect('./subject_ability/f_1');
-    }
+    //     if ($this->mod_exam_datetime->chk_once($year)) {
+    //         $this->mod_exam_datetime->update_once($year, $data);
+    //     } else {
+    //         $this->mod_exam_datetime->add_once($data);
+    //     }
+    //     echo $this->db->last_query();
+    //     // redirect('./subject_ability/f_1');
+    // }
 
     public function f_2()
     {
         $this->mod_user->chk_status();
-        $this->load->model('mod_ability_exam_datetime');
+        $this->load->model('mod_exam_datetime');
         $year = $this->session->userdata('year');
-        $datetime_info = $this->mod_ability_exam_datetime->get_once($year);
+        $datetime_info = $this->mod_exam_datetime->get_once($year);
 
-        $course = $this->mod_ability_exam_datetime->get_course($year);
+        $course = $this->mod_exam_datetime->get_course($year);
 
         $data = array(
             'title' => '考試科目',
@@ -4108,11 +4108,11 @@ class Console extends CI_Controller {
     public function f_3()
     {
         $this->mod_user->chk_status();
-        $this->load->model('mod_ability_exam_datetime');
+        $this->load->model('mod_exam_datetime');
         $year = $this->session->userdata('year');
 
-        if ($this->mod_ability_exam_datetime->chk_once($year)) {
-            $datetime_info = $this->mod_ability_exam_datetime->get_once($year);
+        if ($this->mod_exam_datetime->chk_once($year)) {
+            $datetime_info = $this->mod_exam_datetime->get_once($year);
         } else {
             $datetime_info = array(
                 'day_1' => date('Y').'年7月1日',
@@ -4133,8 +4133,8 @@ class Console extends CI_Controller {
             );
         }
 
-        if ($this->mod_ability_exam_datetime->chk_course($year)) {
-            $course = $this->mod_ability_exam_datetime->get_course($year);
+        if ($this->mod_exam_datetime->chk_course($year)) {
+            $course = $this->mod_exam_datetime->get_course($year);
         } else {
             $course = array();
             for ($i = 0; $i <= 12; ++$i) {
