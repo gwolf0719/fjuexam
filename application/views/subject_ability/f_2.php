@@ -64,6 +64,7 @@
                 },function(data){
                     console.log(data);
                     alert(data.sys_msg);
+                    
                 },"json")
                 
             }

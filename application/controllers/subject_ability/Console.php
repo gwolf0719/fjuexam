@@ -19,7 +19,7 @@ class Console extends CI_Controller {
             'path' => 'subject_ability/index',
             'path_text' => ' > 學測主選單',
         );
-        $this->load->view('layout', $data);
+        $this->load->view('subject_ability_layout', $data);
     }
 
 
@@ -34,7 +34,7 @@ class Console extends CI_Controller {
             'path' => 'subject_ability/a',
             'path_text' => ' > 學測主選單 > 資料匯入作業',
         );
-        $this->load->view('layout', $data);
+        $this->load->view('subject_ability_layout', $data);
     }
 
     
@@ -142,7 +142,7 @@ class Console extends CI_Controller {
                  'datalist' => $this->mod_ability_exam_area->year_get_list(),
                  
              );
-             $this->load->view('layout', $data);
+             $this->load->view('subject_ability_layout', $data);
          }
      }
 
@@ -185,7 +185,7 @@ class Console extends CI_Controller {
                  'path_text' => ' > 學測主選單 > 資料匯入作業 > 本校單位資料',
                  'datalist' => $this->mod_ability_school_unit->year_get_list(),
              );
-             $this->load->view('layout', $data);
+             $this->load->view('subject_ability_layout', $data);
          }
      }
 
@@ -233,7 +233,7 @@ class Console extends CI_Controller {
                  'path_text' => ' > 學測主選單 > 資料匯入作業 > 工作人員資料',
                  'datalist' => $this->mod_ability_staff->year_get_list(),
              );
-             $this->load->view('layout', $data);
+             $this->load->view('subject_ability_layout', $data);
          }
      }
 
@@ -419,7 +419,7 @@ class Console extends CI_Controller {
                      'b3' => $this->mod_ability_task->get_list('第二分區'),
                      'b4' => $this->mod_ability_task->get_list('第三分區'),
                  );
-             $this->load->view('layout', $data);
+             $this->load->view('subject_ability_layout', $data);
          }
      }
        /**
@@ -433,7 +433,7 @@ class Console extends CI_Controller {
             'path' => 'subject_ability/b',
             'path_text' => ' > 學測主選單 > 考區任務編組',
         );
-        $this->load->view('layout', $data);
+        $this->load->view('subject_ability_layout', $data);
     }
 
     public function b_1()
@@ -474,7 +474,7 @@ class Console extends CI_Controller {
             'datetime_info' => $datetime_info,
         );
 
-        $this->load->view('layout', $data);
+        $this->load->view('subject_ability_layout', $data);
     }
 
     public function b_2()
@@ -515,7 +515,7 @@ class Console extends CI_Controller {
             'fees_info' => $fees_info,
             'datetime_info' => $datetime_info,
         );
-        $this->load->view('layout', $data);
+        $this->load->view('subject_ability_layout', $data);
     }
 
     public function b_3()
@@ -555,7 +555,7 @@ class Console extends CI_Controller {
             'fees_info' => $fees_info,
             'datetime_info' => $datetime_info,
         );
-        $this->load->view('layout', $data);
+        $this->load->view('subject_ability_layout', $data);
     }
 
     public function b_4()
@@ -595,7 +595,7 @@ class Console extends CI_Controller {
             'fees_info' => $fees_info,
             'datetime_info' => $datetime_info,
         );
-        $this->load->view('layout', $data);
+        $this->load->view('subject_ability_layout', $data);
     }
 
     public function b_5()
@@ -613,7 +613,7 @@ class Console extends CI_Controller {
             'b3' => $this->mod_ability_task->get_list('第二分區'),
             'b4' => $this->mod_ability_task->get_list('第三分區'),
         );
-        $this->load->view('layout', $data);
+        $this->load->view('subject_ability_layout', $data);
     }
 
      /**
@@ -629,7 +629,7 @@ class Console extends CI_Controller {
              'path_text' => ' > 英聽主選單 > 試場分配',
              'datalist' => $this->mod_ability_part_info->get_list(),
          );
-         $this->load->view('layout', $data);
+         $this->load->view('subject_ability_layout', $data);
      }
 
      public function c_1()
@@ -656,7 +656,7 @@ class Console extends CI_Controller {
              'datalist' => $this->mod_ability_part_info->get_list('2501'),
              'addr_info' => $addr_info,
          );
-         $this->load->view('layout', $data);
+         $this->load->view('subject_ability_layout', $data);
      }
 
      public function c_2()
@@ -683,7 +683,7 @@ class Console extends CI_Controller {
             'datalist' => $this->mod_ability_part_info->get_list('2502'),
             'addr_info' => $addr_info,
         );
-        $this->load->view('layout', $data);
+        $this->load->view('subject_ability_layout', $data);
     }
 
     public function c_3()
@@ -710,7 +710,7 @@ class Console extends CI_Controller {
             'datalist' => $this->mod_ability_part_info->get_list('2503'),
             'addr_info' => $addr_info,
         );
-        $this->load->view('layout', $data);
+        $this->load->view('subject_ability_layout', $data);
     }
 
     public function c_4()
@@ -735,7 +735,7 @@ class Console extends CI_Controller {
             'path_text' => ' > 英聽主選單 > 分區地址',
             'addr_info' => $addr_info,
         );
-        $this->load->view('layout', $data);
+        $this->load->view('subject_ability_layout', $data);
     }
 
     /**
@@ -751,7 +751,7 @@ class Console extends CI_Controller {
              'path_text' => ' > 英聽主選單 > 試場人員指派',
              'datalist' => $this->mod_ability_part_info->get_list(),
          );
-         $this->load->view('layout', $data);
+         $this->load->view('subject_ability_layout', $data);
      }
 
      public function d_1()
@@ -772,7 +772,7 @@ class Console extends CI_Controller {
              'part3' => $part3,
          );
  
-         $this->load->view('layout', $data);
+         $this->load->view('subject_ability_layout', $data);
      }
      public function d_2()
      {
@@ -805,7 +805,7 @@ class Console extends CI_Controller {
              'part3' => $part3,
              'datetime_info' => $datetime_info,
          );
-         $this->load->view('layout', $data);
+         $this->load->view('subject_ability_layout', $data);
      }
      public function d_3()
      {
@@ -827,7 +827,7 @@ class Console extends CI_Controller {
              'part2' => $part2,
              'part3' => $part3,
          );
-         $this->load->view('layout', $data);
+         $this->load->view('subject_ability_layout', $data);
      }
 
      public function d_4()
@@ -869,7 +869,7 @@ class Console extends CI_Controller {
              'fees_info' => $fees_info,
              'datetime_info' => $datetime_info,
          );
-         $this->load->view('layout', $data);
+         $this->load->view('subject_ability_layout', $data);
      }
 
      public function d_5()
@@ -910,7 +910,7 @@ class Console extends CI_Controller {
              'fees_info' => $fees_info,
              'datetime_info' => $datetime_info,
          );
-         $this->load->view('layout', $data);
+         $this->load->view('subject_ability_layout', $data);
      }
 
      public function d_6()
@@ -951,7 +951,7 @@ class Console extends CI_Controller {
              'fees_info' => $fees_info,
              'datetime_info' => $datetime_info,
          );
-         $this->load->view('layout', $data);
+         $this->load->view('subject_ability_layout', $data);
      }
 
       /**
@@ -965,7 +965,7 @@ class Console extends CI_Controller {
             'path' => 'subject_ability/e',
             'path_text' => ' > 製作報表',
         );
-        $this->load->view('layout', $data);
+        $this->load->view('subject_ability_layout', $data);
     }
     
     public function e_1()
@@ -976,7 +976,7 @@ class Console extends CI_Controller {
             'path' => 'subject_ability/e_1',
             'path_text' => ' > 製作報表 > 名單 / 資料 / 統計表',
         );
-        $this->load->view('layout', $data);
+        $this->load->view('subject_ability_layout', $data);
     }
     public function e_1_1()
     {
@@ -1454,7 +1454,7 @@ class Console extends CI_Controller {
             'path_text' => ' > 製作報表 > 簽到表 / 簽收單',
             'datetime_info'=>$datetime_info
         );
-        $this->load->view('layout', $data);
+        $this->load->view('subject_ability_layout', $data);
     }
 
     public function e_2_1_1()
@@ -2001,7 +2001,7 @@ class Console extends CI_Controller {
             'path_text' => ' > 製作報表 > 日程表 / 分配表',
             'datetime_info'=> $datetime_info
         );
-        $this->load->view('layout', $data);
+        $this->load->view('subject_ability_layout', $data);
     }
 
     public function e_3_1()
@@ -3069,7 +3069,7 @@ class Console extends CI_Controller {
             'path' => 'subject_ability/e_4',
             'path_text' => ' > 製作報表 > 監試務工作說明會教務處書函',
         );
-        $this->load->view('layout', $data);
+        $this->load->view('subject_ability_layout', $data);
     }
 
     public function e_4_1()
@@ -3080,7 +3080,7 @@ class Console extends CI_Controller {
             'path' => 'subject_ability/e_4_1',
             'path_text' => ' > 製作報表 > 監試務工作說明會教務處書函',
         );
-        $this->load->view('layout', $data);
+        $this->load->view('subject_ability_layout', $data);
     }
 
     public function e_4_1_1()
@@ -3216,7 +3216,7 @@ class Console extends CI_Controller {
             'path' => 'subject_ability/e_5',
             'path_text' => ' > 製作報表 > 識別證 / 標籤',
         );
-        $this->load->view('layout', $data);
+        $this->load->view('subject_ability_layout', $data);
     }
 
     public function e_5_1()
@@ -3227,7 +3227,7 @@ class Console extends CI_Controller {
             'path' => 'subject_ability/e_5_1',
             'path_text' => ' > 製作報表 > 識別證 / 標籤',
         );
-        $this->load->view('layout', $data);
+        $this->load->view('subject_ability_layout', $data);
     }
 
     public function e_5_2()
@@ -3238,7 +3238,7 @@ class Console extends CI_Controller {
             'path' => 'subject_ability/e_5_2',
             'path_text' => ' > 製作報表 > 識別證 / 標籤 > 套印標籤',
         );
-        $this->load->view('layout', $data);
+        $this->load->view('subject_ability_layout', $data);
     }
 
     public function e_5_1_1()
@@ -3505,7 +3505,7 @@ class Console extends CI_Controller {
             'path' => 'subject_ability/e_6',
             'path_text' => ' > 製作報表 > 印領清冊',
         );
-        $this->load->view('layout', $data);
+        $this->load->view('subject_ability_layout', $data);
     }
 
     public function e_6_1()
@@ -4019,7 +4019,7 @@ class Console extends CI_Controller {
             'path' => 'subject_ability/f',
             'path_text' => ' > 指考主選單 > 考程設定',
         );
-        $this->load->view('layout', $data);
+        $this->load->view('subject_ability_layout', $data);
     }
 
     public function f_1()
@@ -4081,7 +4081,7 @@ class Console extends CI_Controller {
             'path_text' => ' > 指考主選單 > 考程設定 > 考試日期與時間',
             'datetime_info' => $datetime_info,
         );
-        $this->load->view('layout', $data);
+        $this->load->view('subject_ability_layout', $data);
     }
 
     // public function f_1_act()
@@ -4103,6 +4103,7 @@ class Console extends CI_Controller {
     public function f_2()
     {
         $this->mod_user->chk_status();
+        $this->load->model('subject_ability/mod_exam_datetime',"mod_exam_datetime");
         $this->load->model('mod_exam_datetime');
         $year = $this->session->userdata('year');
         $datetime_info = $this->mod_exam_datetime->get_once($year);
@@ -4116,7 +4117,7 @@ class Console extends CI_Controller {
             'datetime_info' => $datetime_info,
             'course' => json_encode($course),
         );
-        $this->load->view('layout', $data);
+        $this->load->view('subject_ability_layout', $data);
     }
 
     // public function f_2_act()
@@ -4174,7 +4175,7 @@ class Console extends CI_Controller {
             'course' => $course,
             'datetime_info' => $datetime_info,
         );
-        $this->load->view('layout', $data);
+        $this->load->view('subject_ability_layout', $data);
     }
 
     public function f_4()
@@ -4199,7 +4200,7 @@ class Console extends CI_Controller {
             'path_text' => ' > 指考主選單 > 考科費用',
             'fees_info' => $fees_info,
         );
-        $this->load->view('layout', $data);
+        $this->load->view('subject_ability_layout', $data);
     }
 
 

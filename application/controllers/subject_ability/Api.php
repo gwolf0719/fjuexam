@@ -376,7 +376,7 @@ class Api extends CI_Controller {
  
      public function add_course()
      {
-         $this->load->model('mod_exam_datetime');
+         $this->load->model('subject_ability/mod_exam_datetime',"mod_exam_datetime");
          // echo json_encode($_POST);
          $getpost = array('data');
          $requred = array('data');
