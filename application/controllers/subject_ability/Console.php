@@ -214,7 +214,7 @@ class Console extends CI_Controller {
                          'member_title' => $data[4],
                          'member_phone' => $data[5],
                          'order_meal' => $data[6],
-                        //  'meal' => $data[7],
+                         'meal' => $data[7],
                      );
                  }
                  // print_r($datas);
