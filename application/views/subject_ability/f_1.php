@@ -65,28 +65,14 @@
 </div>
 <form action="./subject_ability/f_1_act" method="POST">
     <div class="row">
-    
-        <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6" style="padding:20px;">
+        <?php for($i=1;$i<=3;$i++):?>
+        <!-- 第一天開始 -->
+        <div class="col-xs-4" style="padding:20px;"> 
             <div class="row table-form" class="">
-                <div class="col-3 text-right">第一天</div>
-                <input type="hidden" class="col-6" id="year" name="year" value="<?=$_SESSION['year']; ?>">
-                <input type="text" class="col-6" id="day_1" name="day_1" value="<?=$datetime_info['day_1']; ?>">
-                <div class="col-3 "></div>
+                <div class="col-4 text-right">第 <?=$i?> 天</div>
+                <input type="text" class="col-7" id="day_<?=$i?>" name="day_<?=$i?>" value="<?=$datetime_info['day_'.$i]; ?>">
+                
             </div>
-            <div class="row table-form" class="">
-                <div class="col-3 text-right">第二天</div>
-                <input type="text" class="col-6" id="day_2" name="day_2" value="<?=$datetime_info['day_2']; ?>">
-                <div class="col-3 "></div>
-            </div>
-            <div class="row table-form" class="">
-                <div class="col-3 text-right">第三天</div>
-                <input type="text" class="col-6" id="day_3" name="day_3" value="<?=$datetime_info['day_3']; ?>">
-                <div class="col-3 "></div>
-            </div>
-            
-
-        </div>
-        <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6" style="padding:20px;"> 
             <div class="row table-form" class="">
                 <div class="col-4 text-right">上午預備鈴1</div>
                 <input type="text" class="col-7" id="pre_1" name="pre_1" value="<?=$datetime_info['pre_1']; ?>">
@@ -110,9 +96,9 @@
 
             <hr>
             <div class="row table-form" class="">
-                <div class="col-3 text-right">上午第一節</div>
+                <div class="col-4 text-right">上午第一節</div>
 
-                <div class="col-9">
+                <div class="col-8">
                     <div class="row form-inline">
                         <input type="text" class="form-control col-6" id="course_1_start" name="course_1_start" value="<?=$datetime_info['course_1_start']; ?>">
                         <input type="text" class="form-control col-6" id="course_1_end" name="course_1_end" value="<?=$datetime_info['course_1_end']; ?>">
@@ -121,9 +107,9 @@
             </div>
 
             <div class="row table-form" class="">
-                <div class="col-3 text-right">上午第二節</div>
+                <div class="col-4 text-right">上午第二節</div>
 
-                <div class="col-9">
+                <div class="col-8">
                     <div class="row form-inline">
                         <input type="text" class="form-control col-6" id="course_2_start" name="course_2_start" value="<?=$datetime_info['course_2_start']; ?>">
                         <input type="text" class="form-control col-6" id="course_2_end" name="course_2_end" value="<?=$datetime_info['course_2_end']; ?>">
@@ -132,8 +118,8 @@
             </div>
 
             <div class="row table-form" class="">
-                <div class="col-3 text-right">下午第一節</div>
-                <div class="col-9">
+                <div class="col-4 text-right">下午第一節</div>
+                <div class="col-8">
                     <div class="row form-inline">
                         <input type="text" class="form-control col-6" id="course_3_start" name="course_3_start" value="<?=$datetime_info['course_3_start']; ?>">
                         <input type="text" class="form-control col-6" id="course_3_end" name="course_3_end" value="<?=$datetime_info['course_3_end']; ?>">
@@ -141,8 +127,8 @@
                 </div>
             </div>
             <div class="row table-form" class="">
-                <div class="col-3 text-right">下午第二節</div>
-                <div class="col-9">
+                <div class="col-4 text-right">下午第二節</div>
+                <div class="col-8">
                     <div class="row form-inline">
                         <input type="text" class="form-control col-6" id="course_4_start" name="course_4_start" value="<?=$datetime_info['course_4_start']; ?>">
                         <input type="text" class="form-control col-6" id="course_4_end" name="course_4_end" value="<?=$datetime_info['course_4_end']; ?>">
@@ -150,6 +136,12 @@
                 </div>
             </div>
         </div>
+        <!-- 第一天結束 -->
+        <?php endfor;?>
+
+        
+
+        
     
         
 
