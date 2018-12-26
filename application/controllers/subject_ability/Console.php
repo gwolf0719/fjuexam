@@ -7,7 +7,7 @@ class Console extends CI_Controller {
     public function __construct()
     {
         parent::__construct();
-        $this->load->model('subject_ability/mod_area');
+        $this->load->model('subject_ability/mod_area',"mod_area");
     }
     
 
@@ -4025,14 +4025,15 @@ class Console extends CI_Controller {
     public function f_1()
     {
         $this->mod_user->chk_status();
-        $this->load->model('mod_ability_exam_datetime');
+        // $this->load->model('mod_ability_exam_datetime');
+        $this->load->model('subject_ability/mod_ability_exam_datetime',"mod_ability_exam_datetime");
         $year = $this->session->userdata('year');
 
         if ($this->mod_ability_exam_datetime->chk_once($year)) {
             $datetime_info = $this->mod_ability_exam_datetime->get_once($year);
         } else {
             $datetime_info = array(
-                'day_1' => '1911' + $this->session->userdata('year').'年7月1日',
+                'day_1' => '1911' + $this->session->userdata('year').'年7月2日',
                 'day_2' => '1911' + $this->session->userdata('year').'年7月2日',
                 'day_3' => '1911' + $this->session->userdata('year').'年7月3日',
                 'course_1_start' => '08:40',

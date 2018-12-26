@@ -100,16 +100,16 @@
             <div class="modal-body">
                 <div class="row">
                     <div class="col-md-12 col-sm-12 col-xs-12">
-                        <a href="./designated/e_5_1_1" target="_blank">
+                        <a href="./subject_ability/e_5_1_1" target="_blank">
                             <div class="btn_part">監試人員</div>
                         </a>
-                        <a href="./designated/e_5_1_2" target="_blank">
+                        <a href="./subject_ability/e_5_1_2" target="_blank">
                             <div class="btn_part">試務人員</div>
                         </a>
-                        <a href="./designated/e_5_1_3" target="_blank">
+                        <a href="./subject_ability/e_5_1_3" target="_blank">
                             <div class="btn_part">管卷人員</div>
                         </a>        
-                        <a href="./designated/e_5_1_4" target="_blank">
+                        <a href="./subject_ability/e_5_1_4" target="_blank">
                             <div class="btn_part">巡場人員</div>
                         </a>                                                
                     </div>

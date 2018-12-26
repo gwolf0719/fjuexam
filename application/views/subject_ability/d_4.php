@@ -226,7 +226,7 @@
                 location.hash = '#' + newHash;
             } else {
                 //如果本頁不是f_2_2則為一般超連結
-                location.href = './designated/d_4' + newHash;
+                location.href = './subject_ability/d_4' + newHash;
                 $('#part' + newHash).show();
             }
         })                   
@@ -236,7 +236,7 @@
             // console.log(arr);
             if (addr == "") {
                 alert("目前 C1 考試地址尚未填寫資料，請先填寫資料再進行操作");
-                location.href = "./designated/c_4";
+                location.href = "./subject_ability/c_4";
             }
         })
 

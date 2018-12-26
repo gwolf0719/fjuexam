@@ -67,7 +67,7 @@
 
 <div class="row">
     <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6 cube text-center">
-        <!-- <a href="./designated/e_3_1" target="_blank"> -->
+        <!-- <a href="./subject_ability/e_3_1" target="_blank"> -->
         <img src="assets/images/download.png" alt="" style="cursor: pointer;" data-toggle="modal" data-target="#download">
         <!-- </a> -->
     </div>
@@ -103,16 +103,16 @@
             <div class="modal-body">
                 <div class="row">
                     <div class="col-md-12 col-sm-12 col-xs-12">
-                        <a href="./designated/e_5_2_1" target="_blank">
+                        <a href="./subject_ability/e_5_2_1" target="_blank">
                             <div class="btn_part">監試人員</div>
                         </a>
-                        <a href="./designated/e_5_2_2" target="_blank">
+                        <a href="./subject_ability/e_5_2_2" target="_blank">
                             <div class="btn_part">試務人員</div>
                         </a>
-                        <a href="./designated/e_5_2_3" target="_blank">
+                        <a href="./subject_ability/e_5_2_3" target="_blank">
                             <div class="btn_part">管卷人員</div>
                         </a>                                                
-                        <a href="./designated/e_5_2_4" target="_blank">
+                        <a href="./subject_ability/e_5_2_4" target="_blank">
                             <div class="btn_part">巡場人員</div>
                         </a>
                     </div>

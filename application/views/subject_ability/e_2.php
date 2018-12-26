@@ -56,7 +56,7 @@
     </div>
 
     <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6 cube text-center">
-        <a href="./designated/e_2_5" target="_blank">
+        <a href="./subject_ability/e_2_5" target="_blank">
             <img src="assets/images/e_2_5.png" alt="">
         </a>
     </div>
@@ -69,7 +69,7 @@
     </div>
 
     <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6 cube text-center">
-        <!-- <a href="./designated/e_2_3" target="_blank"> -->
+        <!-- <a href="./subject_ability/e_2_3" target="_blank"> -->
         <img src="assets/images/e_2_3.png" alt="" style="cursor: pointer;" data-toggle="modal" data-target="#e_2_3">
         <!-- </a> -->
     </div>
@@ -78,7 +78,7 @@
     </div>
 
     <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6 cube text-center">
-        <a href="./designated/e_2_4" target="_blank">
+        <a href="./subject_ability/e_2_4" target="_blank">
             <img src="assets/images/e_2_4.png" alt="">
         </a>
     </div>
@@ -127,16 +127,16 @@
             <div class="modal-body">
                 <div class="row">
                     <div class="col-md-12 col-sm-12 col-xs-12">
-                        <a href="./designated/e_2_1_1?area=考區&part=2500" target="_blank">
+                        <a href="./subject_ability/e_2_1_1?area=考區&part=2500" target="_blank">
                             <div class="btn_part">考區</div>
                         </a>
-                        <a href="./designated/e_2_1_1?area=第一分區&part=2501" target="_blank">
+                        <a href="./subject_ability/e_2_1_1?area=第一分區&part=2501" target="_blank">
                             <div class="btn_part">第一分區</div>
                         </a>
-                        <a href="./designated/e_2_1_1?area=第二分區&part=2502" target="_blank">
+                        <a href="./subject_ability/e_2_1_1?area=第二分區&part=2502" target="_blank">
                             <div class="btn_part">第二分區</div>
                         </a>
-                        <a href="./designated/e_2_1_1?area=第三分區&part=2503" target="_blank">
+                        <a href="./subject_ability/e_2_1_1?area=第三分區&part=2503" target="_blank">
                             <div class="btn_part">第三分區</div>
                         </a>
                     </div>
@@ -159,13 +159,13 @@
             <div class="modal-body">
                 <div class="row">
                     <div class="col-md-12 col-sm-12 col-xs-12">
-                        <a href="./designated/e_2_1_2?area=第一分區&part=2501" target="_blank">
+                        <a href="./subject_ability/e_2_1_2?area=第一分區&part=2501" target="_blank">
                             <div class="btn_part">第一分區</div>
                         </a>
-                        <a href="./designated/e_2_1_2?area=第二分區&part=2502" target="_blank">
+                        <a href="./subject_ability/e_2_1_2?area=第二分區&part=2502" target="_blank">
                             <div class="btn_part">第二分區</div>
                         </a>
-                        <a href="./designated/e_2_1_2?area=第三分區&part=2503" target="_blank">
+                        <a href="./subject_ability/e_2_1_2?area=第三分區&part=2503" target="_blank">
                             <div class="btn_part">第三分區</div>
                         </a>
                     </div>
@@ -188,13 +188,13 @@
             <div class="modal-body">
                 <div class="row">
                     <div class="col-md-12 col-sm-12 col-xs-12">
-                        <a href="./designated/e_2_1_3?area=第一分區&part=2501" target="_blank">
+                        <a href="./subject_ability/e_2_1_3?area=第一分區&part=2501" target="_blank">
                             <div class="btn_part">第一分區</div>
                         </a>
-                        <a href="./designated/e_2_1_3?area=第二分區&part=2502" target="_blank">
+                        <a href="./subject_ability/e_2_1_3?area=第二分區&part=2502" target="_blank">
                             <div class="btn_part">第二分區</div>
                         </a>
-                        <a href="./designated/e_2_1_3?area=第三分區&part=2503" target="_blank">
+                        <a href="./subject_ability/e_2_1_3?area=第三分區&part=2503" target="_blank">
                             <div class="btn_part">第三分區</div>
                         </a>
                     </div>
@@ -220,10 +220,10 @@
                         <a href="./designated/e_2_2?part=2501&area=第一分區" target="_blank">
                             <div class="btn_part">第一分區</div>
                         </a>
-                        <a href="./designated/e_2_2?part=2502&area=第二分區" target="_blank">
+                        <a href="./subject_ability/e_2_2?part=2502&area=第二分區" target="_blank">
                             <div class="btn_part">第二分區</div>
                         </a>
-                        <a href="./designated/e_2_2?part=2503&area=第三分區" target="_blank">
+                        <a href="./subject_ability/e_2_2?part=2503&area=第三分區" target="_blank">
                             <div class="btn_part">第三分區</div>
                         </a>
                     </div>
@@ -267,9 +267,9 @@
             <div class="modal-body">
                 <div class="row">
                     <div class="col-md-12 col-sm-12 col-xs-12">
-                        <div class="btn_part btn1" link="./designated/e_2_3_1?part=2501&area=第一分區" part="2501" area="第一分區"><?=mb_substr($datetime_info['day_1'], 5, 8, 'utf-8'); ?></div>
-                        <div class="btn_part btn1" link="./designated/e_2_3_2?part=2501&area=第一分區" part="2501" area="第一分區"><?=mb_substr($datetime_info['day_2'], 5, 8, 'utf-8'); ?></div>
-                        <div class="btn_part btn1" link="./designated/e_2_3_3?part=2501&area=第一分區" part="2501" area="第一分區"><?=mb_substr($datetime_info['day_3'], 5, 8, 'utf-8'); ?></div>
+                        <div class="btn_part btn1" link="./subject_ability/e_2_3_1?part=2501&area=第一分區" part="2501" area="第一分區"><?=mb_substr($datetime_info['day_1'], 5, 8, 'utf-8'); ?></div>
+                        <div class="btn_part btn1" link="./subject_ability/e_2_3_2?part=2501&area=第一分區" part="2501" area="第一分區"><?=mb_substr($datetime_info['day_2'], 5, 8, 'utf-8'); ?></div>
+                        <div class="btn_part btn1" link="./subject_ability/e_2_3_3?part=2501&area=第一分區" part="2501" area="第一分區"><?=mb_substr($datetime_info['day_3'], 5, 8, 'utf-8'); ?></div>
                     </div>
                 </div>
             </div>
@@ -289,9 +289,9 @@
             <div class="modal-body">
                 <div class="row">
                     <div class="col-md-12 col-sm-12 col-xs-12">
-                        <div class="btn_part btn1" link="./designated/e_2_3_1?part=2502&area=第二分區" part="2502" area="第二分區"><?=mb_substr($datetime_info['day_1'], 5, 8, 'utf-8'); ?></div>
-                        <div class="btn_part btn1" link="./designated/e_2_3_2?part=2502&area=第二分區" part="2502" area="第二分區"><?=mb_substr($datetime_info['day_2'], 5, 8, 'utf-8'); ?></div>
-                        <div class="btn_part btn1" link="./designated/e_2_3_3?part=2502&area=第二分區" part="2502" area="第二分區"><?=mb_substr($datetime_info['day_3'], 5, 8, 'utf-8'); ?></div>
+                        <div class="btn_part btn1" link="./subject_ability/e_2_3_1?part=2502&area=第二分區" part="2502" area="第二分區"><?=mb_substr($datetime_info['day_1'], 5, 8, 'utf-8'); ?></div>
+                        <div class="btn_part btn1" link="./subject_ability/e_2_3_2?part=2502&area=第二分區" part="2502" area="第二分區"><?=mb_substr($datetime_info['day_2'], 5, 8, 'utf-8'); ?></div>
+                        <div class="btn_part btn1" link="./subject_ability/e_2_3_3?part=2502&area=第二分區" part="2502" area="第二分區"><?=mb_substr($datetime_info['day_3'], 5, 8, 'utf-8'); ?></div>
                     </div>
                 </div>
             </div>
@@ -311,9 +311,9 @@
             <div class="modal-body">
                 <div class="row">
                     <div class="col-md-12 col-sm-12 col-xs-12">
-                        <div class="btn_part btn1" link="./designated/e_2_3_1?part=2503&area=第三分區" part="2503" area="第三分區"><?=mb_substr($datetime_info['day_1'], 5, 8, 'utf-8'); ?></div>
-                        <div class="btn_part btn1" link="./designated/e_2_3_2?part=2503&area=第三分區" part="2503" area="第三分區"><?=mb_substr($datetime_info['day_2'], 5, 8, 'utf-8'); ?></div>
-                        <div class="btn_part btn1" link="./designated/e_2_3_3?part=2503&area=第三分區" part="2503" area="第三分區"><?=mb_substr($datetime_info['day_3'], 5, 8, 'utf-8'); ?></div>
+                        <div class="btn_part btn1" link="./subject_ability/e_2_3_1?part=2503&area=第三分區" part="2503" area="第三分區"><?=mb_substr($datetime_info['day_1'], 5, 8, 'utf-8'); ?></div>
+                        <div class="btn_part btn1" link="./subject_ability/e_2_3_2?part=2503&area=第三分區" part="2503" area="第三分區"><?=mb_substr($datetime_info['day_2'], 5, 8, 'utf-8'); ?></div>
+                        <div class="btn_part btn1" link="./subject_ability/e_2_3_3?part=2503&area=第三分區" part="2503" area="第三分區"><?=mb_substr($datetime_info['day_3'], 5, 8, 'utf-8'); ?></div>
                     </div>
                 </div>
             </div>

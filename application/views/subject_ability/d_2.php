@@ -141,7 +141,7 @@
             // console.log(arr);
             if (addr == "") {
                 alert("目前 C1 考試地址尚未填寫資料，請先填寫資料再進行操作");
-                location.href = "./designated/c_4";
+                location.href = "./subject_ability/c_4";
             }
         })
 
@@ -248,7 +248,7 @@
                 $(this).addClass('active');
                 location.hash = '#' + newHash;
             } else {
-                location.href = './designated/d_2' + newHash;
+                location.href = './subject_ability/d_2' + newHash;
                 $('#part' + newHash).show();
             }
         })                 

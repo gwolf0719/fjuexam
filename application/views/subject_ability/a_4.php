@@ -57,7 +57,7 @@ $(function(){
         }else{
             if(confirm("注意！舊資料會全部刪除，新資料將匯入")){
                 $("#form").submit();
-                // location.href="./designated/b_5";
+                // location.href="./subject_ability/b_5";
             }
         }        
     })
@@ -72,7 +72,7 @@ $(function(){
         }else{
             if(confirm("注意！舊資料會全部刪除，新資料將匯入")){
                 $("#form1").submit();
-                // location.href="./designated/b_5";
+                // location.href="./subject_ability/b_5";
             }
         }        
     })    
@@ -87,7 +87,7 @@ $(function(){
         }else{
             if(confirm("注意！舊資料會全部刪除，新資料將匯入")){
                 $("#form2").submit();
-                // location.href="./designated/b_5";
+                // location.href="./subject_ability/b_5";
             }
         }        
     })  
@@ -102,7 +102,7 @@ $(function(){
         }else{
             if(confirm("注意！舊資料會全部刪除，新資料將匯入")){
                 $("#form3").submit();
-                // location.href="./designated/b_5";
+                // location.href="./subject_ability/b_5";
             }
         }        
     })        

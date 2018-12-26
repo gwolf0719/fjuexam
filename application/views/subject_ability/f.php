@@ -22,25 +22,25 @@
 <div class="row">
     
     <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3 cube">
-        <a href="./designated/f_1">
+        <a href="./subject_ability/f_1">
             <img src="assets/images/f1.png" alt="">
         </a>    
     </div>
 
     <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3 cube">
-        <a href="./designated/f_2">
+        <a href="./subject_ability/f_2">
             <img src="assets/images/f2.png" alt="">
         </a>    
     </div>
 
     <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3 cube">
-        <a href="./designated/f_3">
+        <a href="./subject_ability/f_3">
             <img src="assets/images/f3.png" alt="">
         </a>    
     </div>
 
     <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3 cube">
-        <a href="./designated/f_4">
+        <a href="./subject_ability/f_4">
             <img src="assets/images/f4.png" alt="">
         </a>    
     </div>    

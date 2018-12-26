@@ -54,7 +54,7 @@
     </div>
     
 </div>
-<form action="./designated/f_1_act" method="POST">
+<form action="./subject_ability/f_1_act" method="POST">
     <div class="row">
     
         <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6" style="padding:20px;">

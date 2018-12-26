@@ -21,7 +21,7 @@ $(function(){
         var arr = <?php print_r($datalist); ?>;
         if(arr == ""){
             alert("目前 A1 考區試場資料尚未匯入資料，請先匯入資料再進行操作");
-            location.href="./designated/a_1";
+            location.href="./subject_ability/a_1";
         }
     })
 })

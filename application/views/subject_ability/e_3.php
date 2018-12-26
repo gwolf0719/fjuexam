@@ -81,9 +81,9 @@
             <div class="modal-body">
                 <div class="row">
                     <div class="col-md-12 col-sm-12 col-xs-12">
-                        <div class="btn_part btn2" link="./designated/e_3_1?part=2501&area=第一分區" part="2501" area="第一分區">第一分區</div>
-                        <div class="btn_part btn2" link="./designated/e_3_1?part=2502&area=第二分區" part="2502" area="第二分區">第二分區</div>
-                        <div class="btn_part btn2" link="./designated/e_3_1?part=2502&area=第三分區" part="2503" area="第三分區">第三分區</div>
+                        <div class="btn_part btn2" link="./subject_ability/e_3_1?part=2501&area=第一分區" part="2501" area="第一分區">第一分區</div>
+                        <div class="btn_part btn2" link="./subject_ability/e_3_1?part=2502&area=第二分區" part="2502" area="第二分區">第二分區</div>
+                        <div class="btn_part btn2" link="./subject_ability/e_3_1?part=2502&area=第三分區" part="2503" area="第三分區">第三分區</div>
                     </div>
                 </div>
             </div>
@@ -126,9 +126,9 @@
             <div class="modal-body">
                 <div class="row">
                     <div class="col-md-12 col-sm-12 col-xs-12">
-                        <div class="btn_part btn1" link="./designated/e_3_2_1_1?part=2501&area=第一分區&date=<?=mb_substr($datetime_info['day_1'], 5, 8, 'utf-8'); ?>" part="2501" area="第一分區"><?=mb_substr($datetime_info['day_1'], 5, 8, 'utf-8'); ?></div>
-                        <div class="btn_part btn1" link="./designated/e_3_2_1_2?part=2501&area=第一分區&date=<?=mb_substr($datetime_info['day_2'], 5, 8, 'utf-8'); ?>" part="2501" area="第一分區"><?=mb_substr($datetime_info['day_2'], 5, 8, 'utf-8'); ?></div>
-                        <div class="btn_part btn1" link="./designated/e_3_2_1_3?part=2501&area=第一分區&date=<?=mb_substr($datetime_info['day_3'], 5, 8, 'utf-8'); ?>" part="2501" area="第一分區"><?=mb_substr($datetime_info['day_3'], 5, 8, 'utf-8'); ?></div>
+                        <div class="btn_part btn1" link="./subject_ability/e_3_2_1_1?part=2501&area=第一分區&date=<?=mb_substr($datetime_info['day_1'], 5, 8, 'utf-8'); ?>" part="2501" area="第一分區"><?=mb_substr($datetime_info['day_1'], 5, 8, 'utf-8'); ?></div>
+                        <div class="btn_part btn1" link="./subject_ability/e_3_2_1_2?part=2501&area=第一分區&date=<?=mb_substr($datetime_info['day_2'], 5, 8, 'utf-8'); ?>" part="2501" area="第一分區"><?=mb_substr($datetime_info['day_2'], 5, 8, 'utf-8'); ?></div>
+                        <div class="btn_part btn1" link="./subject_ability/e_3_2_1_3?part=2501&area=第一分區&date=<?=mb_substr($datetime_info['day_3'], 5, 8, 'utf-8'); ?>" part="2501" area="第一分區"><?=mb_substr($datetime_info['day_3'], 5, 8, 'utf-8'); ?></div>
                     </div>
                 </div>
             </div>
@@ -148,9 +148,9 @@
             <div class="modal-body">
                 <div class="row">
                     <div class="col-md-12 col-sm-12 col-xs-12">
-                        <div class="btn_part btn1" link="./designated/e_3_2_2_1?part=2502&area=第二分區&date=<?=mb_substr($datetime_info['day_1'], 5, 8, 'utf-8'); ?>" part="2502" area="第二分區"><?=mb_substr($datetime_info['day_1'], 5, 8, 'utf-8'); ?></div>
-                        <div class="btn_part btn1" link="./designated/e_3_2_2_2?part=2502&area=第二分區&date=<?=mb_substr($datetime_info['day_2'], 5, 8, 'utf-8'); ?>" part="2502" area="第二分區"><?=mb_substr($datetime_info['day_2'], 5, 8, 'utf-8'); ?></div>
-                        <div class="btn_part btn1" link="./designated/e_3_2_2_3?part=2502&area=第二分區&date=<?=mb_substr($datetime_info['day_3'], 5, 8, 'utf-8'); ?>" part="2502" area="第二分區"><?=mb_substr($datetime_info['day_3'], 5, 8, 'utf-8'); ?></div>
+                        <div class="btn_part btn1" link="./subject_ability/e_3_2_2_1?part=2502&area=第二分區&date=<?=mb_substr($datetime_info['day_1'], 5, 8, 'utf-8'); ?>" part="2502" area="第二分區"><?=mb_substr($datetime_info['day_1'], 5, 8, 'utf-8'); ?></div>
+                        <div class="btn_part btn1" link="./subject_ability/e_3_2_2_2?part=2502&area=第二分區&date=<?=mb_substr($datetime_info['day_2'], 5, 8, 'utf-8'); ?>" part="2502" area="第二分區"><?=mb_substr($datetime_info['day_2'], 5, 8, 'utf-8'); ?></div>
+                        <div class="btn_part btn1" link="./subject_ability/e_3_2_2_3?part=2502&area=第二分區&date=<?=mb_substr($datetime_info['day_3'], 5, 8, 'utf-8'); ?>" part="2502" area="第二分區"><?=mb_substr($datetime_info['day_3'], 5, 8, 'utf-8'); ?></div>
                     </div>
                 </div>
             </div>
@@ -170,9 +170,9 @@
             <div class="modal-body">
                 <div class="row">
                     <div class="col-md-12 col-sm-12 col-xs-12">
-                        <div class="btn_part btn1" link="./designated/e_3_2_3_1?part=2503&area=第三分區&date=<?=mb_substr($datetime_info['day_1'], 5, 8, 'utf-8'); ?>" part="2503" area="第三分區"><?=mb_substr($datetime_info['day_1'], 5, 8, 'utf-8'); ?></div>
-                        <div class="btn_part btn1" link="./designated/e_3_2_3_2?part=2503&area=第三分區&date=<?=mb_substr($datetime_info['day_2'], 5, 8, 'utf-8'); ?>" part="2503" area="第三分區"><?=mb_substr($datetime_info['day_2'], 5, 8, 'utf-8'); ?></div>
-                        <div class="btn_part btn1" link="./designated/e_3_2_3_3?part=2503&area=第三分區&date=<?=mb_substr($datetime_info['day_3'], 5, 8, 'utf-8'); ?>" part="2503" area="第三分區"><?=mb_substr($datetime_info['day_3'], 5, 8, 'utf-8'); ?></div>
+                        <div class="btn_part btn1" link="./subject_ability/e_3_2_3_1?part=2503&area=第三分區&date=<?=mb_substr($datetime_info['day_1'], 5, 8, 'utf-8'); ?>" part="2503" area="第三分區"><?=mb_substr($datetime_info['day_1'], 5, 8, 'utf-8'); ?></div>
+                        <div class="btn_part btn1" link="./subject_ability/e_3_2_3_2?part=2503&area=第三分區&date=<?=mb_substr($datetime_info['day_2'], 5, 8, 'utf-8'); ?>" part="2503" area="第三分區"><?=mb_substr($datetime_info['day_2'], 5, 8, 'utf-8'); ?></div>
+                        <div class="btn_part btn1" link="./subject_ability/e_3_2_3_3?part=2503&area=第三分區&date=<?=mb_substr($datetime_info['day_3'], 5, 8, 'utf-8'); ?>" part="2503" area="第三分區"><?=mb_substr($datetime_info['day_3'], 5, 8, 'utf-8'); ?></div>
                     </div>
                 </div>
             </div>

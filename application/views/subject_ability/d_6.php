@@ -197,7 +197,7 @@
                 location.hash = '#' + newHash;
             } else {
                 //如果本頁不是f_2_2則為一般超連結
-                location.href = './designated/d_6' + newHash;
+                location.href = './subject_ability/d_6' + newHash;
                 $('#part' + newHash).show();
             }
         })               
