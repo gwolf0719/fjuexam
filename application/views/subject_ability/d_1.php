@@ -199,7 +199,7 @@
 
         /**自動完成 */
         var data;
-        $.getJSON("./api/get_member_info", function(data) {
+        $.getJSON("./subject_ability/api/get_member_info", function(data) {
             data = data.info;
             // console.log(data);
             var $input = $(".typeahead");
@@ -248,7 +248,7 @@
         * 檢查監試人員是否指派過
         */
         function chk_code_use(code,callback){
-            $.getJSON("./api/chk_trial_assigned",{
+            $.getJSON("./subject_ability/api/chk_trial_assigned",{
                 code:code
                 },
                 function (data) {
@@ -271,7 +271,7 @@
                 scrollTop: $("body").height()
             }, 1000);
             $.ajax({
-                url: 'api/get_once_part',
+                url: './subject_ability/api/get_once_part',
                 data: {
                     "sn": sn,
                 },
@@ -306,7 +306,7 @@
 
                 //取得監試人員資料
                 $.ajax({
-                    url: 'api/get_once_assign',
+                    url: './subject_ability/api/get_once_assign',
                     data: {
                         "sn": sn,
                     },
@@ -336,7 +336,7 @@
                 var note = $("textarea[name='note']").val();
                 console.log(field);
                 $.ajax({
-                    url: 'api/save_trial',
+                    url: './subject_ability/api/save_trial',
                     data: {
                         "sn": sn,
                         "part": part,
@@ -374,7 +374,7 @@
                 var sn = $("#sn").val();
                 console.log(sn);
                 $.ajax({
-                    url: 'api/remove_trial',
+                    url: './subject_ability/api/remove_trial',
                     data: {
                         "sn": sn,
                         "supervisor_1": " ",

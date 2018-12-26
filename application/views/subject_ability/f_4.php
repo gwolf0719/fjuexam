@@ -18,7 +18,7 @@
         $("body").on("click","#save",function(){
             if(confirm("是否儲存?")){
                 $.ajax({
-                    url: 'api/add_fee',
+                    url: './subject_ability/api/add_fee',
                     data:{
                         "year":$("#year").val(),
                         "one_day_salary":$("#one_day_salary").val(),

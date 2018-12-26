@@ -87,7 +87,7 @@
     $(function() {
         /**自動完成 */
         var data;
-        $.getJSON("./api/get_member_info", function(data) {
+        $.getJSON("./subject_ability/api/get_member_info", function(data) {
             data = data.info;
             // console.log(data);
             var $input = $(".typeahead");
@@ -115,7 +115,7 @@
             }, 1000);
 
             $.ajax({
-                url: 'api/get_once_task',
+                url: './subject_ability/api/get_once_task',
                 data: {
                     "sn": sn,
                 },
@@ -284,7 +284,7 @@
                     meal = "自備";
                 }
                 $.ajax({
-                    url: 'api/edit_task',
+                    url: './subject_ability/api/edit_task',
                     data: {
                         "sn": sn,
                         "area": area,
@@ -321,7 +321,7 @@
             if (confirm("是否確定要刪除？")) {
                 var sn = $("#sn").val();
                 $.ajax({
-                    url: 'api/remove_once_task',
+                    url: './subject_ability/api/remove_once_task',
                     data: {
                         "sn": sn,
                     },
@@ -349,7 +349,7 @@
                 if (job == "") {
                     alert("需要輸入內容");
                 } else {
-                    $.getJSON("./api/job_add", {
+                    $.getJSON("./subject_ability/api/job_add", {
                         job: job,
                         area: "考區"
                     }, function(data) {
@@ -367,7 +367,7 @@
             if (confirm("是否要取消職務？")) {
                 var sn = $("#sn").val();
                 $.ajax({
-                    url: 'api/cancel_job',
+                    url: './subject_ability/api/cancel_job',
                     data: {
                         "sn": sn,
                     },
@@ -389,7 +389,7 @@
 
         $("body").on("click", "#sure", function() {
             var code = $(".typeahead").val().split("-");
-            $.post("./api/assignment", {
+            $.post("./subject_ability/api/assignment", {
                 job_code: code[0],
                 job: $("#search_job").text(),
                 area: "考區",

@@ -17,7 +17,7 @@
 <script>
     $(function() {
         $("body").on("click", "#set_year", function() {
-            $.getJSON("./api/ch_year", {
+            $.getJSON("./subject_ability/api/ch_year", {
                 year: $("#year").val()
             }, function(data) {
                 alert(data.sys_msg);

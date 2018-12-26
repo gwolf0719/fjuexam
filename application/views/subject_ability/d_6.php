@@ -104,7 +104,7 @@
     $(function() {
         /**自動完成 */
         var data;
-        $.getJSON("./api/get_member_info", function(data) {
+        $.getJSON("./subject_ability/api/get_member_info", function(data) {
             data = data.info;
             // console.log(data);
             var $input = $(".typeahead");
@@ -213,7 +213,7 @@
                 scrollTop: $("body").height()
             }, 1000);
             $.ajax({
-                url: 'api/get_once_patrol',
+                url: './subject_ability/api/get_once_patrol',
                 data: {
                     "sn": sn,
                 },
@@ -245,7 +245,7 @@
                 }
                 //取得節數
                 $.ajax({
-                    url: 'api/get_day_section',
+                    url: './subject_ability/api/get_day_section',
                     data: {
                         "start": data.info.start,
                         "end": data.info.end,
@@ -310,7 +310,7 @@
                 }
                 //開始讀取天數
                 $.ajax({
-                    url: 'api/room_use_day',
+                    url: './subject_ability/api/room_use_day',
                     data: {
                         "part": part,
                         "start": $("#trial_start").val(),
@@ -344,7 +344,7 @@
             })
             //取得職員資料     
             $.ajax({
-                url: 'api/get_staff_member',
+                url: './subject_ability/api/get_staff_member',
                 data: {
                     "code": code,
                 },
@@ -424,7 +424,7 @@
                     order_meal = 'Y';
                 }                
                 $.ajax({
-                    url: 'api/save_patrol_staff_for_list',
+                    url: './subject_ability/api/save_patrol_staff_for_list',
                     data: {
                         "sn": sn,
                         "meal":meal,

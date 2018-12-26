@@ -242,7 +242,7 @@
 
         /**自動完成 */
         var data;
-        $.getJSON("./api/get_member_info", function(data) {
+        $.getJSON("./subject_ability/api/get_member_info", function(data) {
             data = data.info;
             // console.log(data);
             var $input = $(".typeahead");
@@ -277,7 +277,7 @@
                 scrollTop: $("body").height()
             }, 1000);
             $.ajax({
-                url: 'api/get_once_assign',
+                url: './subject_ability/api/get_once_assign',
                 data: {
                     "sn": sn,
                 },
@@ -330,7 +330,7 @@
                 
                 // 取得職員一資料
                 $.ajax({
-                    url: 'api/get_staff_member',
+                    url: './subject_ability/api/get_staff_member',
                     data: {
                         "code": data.info.supervisor_1_code,
                     },
@@ -342,7 +342,7 @@
                 })
                 // // 取得職員二資料
                 $.ajax({
-                    url: 'api/get_staff_member',
+                    url: './subject_ability/api/get_staff_member',
                     data: {
                         "code": data.info.supervisor_2_code,
                     },
@@ -353,7 +353,7 @@
                 })
                 // 取得試場 start & end get_field_start_end
                     $.ajax({
-                        url: 'api/room_use_day',
+                        url: './subject_ability/api/room_use_day',
                         data: {
                             "part": part,
                             "start": field,
@@ -409,7 +409,7 @@
                     second_member_order_meal = "Y"
                 }
                 $.ajax({
-                    url: 'api/save_trial_for_price',
+                    url: './subject_ability/api/save_trial_for_price',
                     data: {
                         "sn": sn,
                         "first_member_do_date": first_member_do_date,

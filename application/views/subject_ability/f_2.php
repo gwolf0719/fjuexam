@@ -59,7 +59,7 @@
                         "day":$(this).attr("id").split("_")[0],
                     })
                 })
-                $.post('api/add_course',{
+                $.post('./subject_ability/api/add_course',{
                     "data":data
                 },function(data){
                     console.log(data);

@@ -163,7 +163,7 @@
                 break;                
         }
         $.ajax({
-            url: 'api/get_part',
+            url: './subject_ability/api/get_part',
             data: {
                 "part": part,
             },
@@ -226,7 +226,7 @@
             $("#third_section").val("0");
             $("textarea[name='note']").val("");
             $.ajax({
-                url: 'api/get_part',
+                url: './subject_ability/api/get_part',
                 data: {
                     "part": part,
                 },
@@ -255,7 +255,7 @@
 
         /**自動完成 */
         var data;
-        $.getJSON("./api/get_member_info", function(data) {
+        $.getJSON("./subject_ability/api/get_member_info", function(data) {
             data = data.info;
             // console.log(data);
             var $input = $(".typeahead");
@@ -287,7 +287,7 @@
                 scrollTop: $("body").height()
             }, 1000);
             $.ajax({
-                url: 'api/get_once_trial',
+                url: './subject_ability/api/get_once_trial',
                 data: {
                     "sn": sn,
                 },
@@ -312,7 +312,7 @@
             })
             var part = $(this).attr("part");
             $.ajax({
-                url: 'api/get_patrol_list',
+                url: './subject_ability/api/get_patrol_list',
                 data: {
                     "part": part,
                 },
@@ -333,7 +333,7 @@
             var day = $("#day1").val();
             console.log(day);
             $.ajax({
-                url: 'api/get_once_day_section',
+                url: './subject_ability/api/get_once_day_section',
                 data: {
                     "day": day,
                     "start": start,
@@ -352,7 +352,7 @@
             var day = $("#day2").val();
             console.log(day);
             $.ajax({
-                url: 'api/get_once_day_section',
+                url: './subject_ability/api/get_once_day_section',
                 data: {
                     "day": day,
                     "start": start,
@@ -371,7 +371,7 @@
             var day = $("#day3").val();
             console.log(day);
             $.ajax({
-                url: 'api/get_once_day_section',
+                url: './subject_ability/api/get_once_day_section',
                 data: {
                     "day": day,
                     "start": start,
@@ -414,7 +414,7 @@
                 var note = $("textarea[name='note']").val();
                 console.log(sn);
                 $.ajax({
-                    url: 'api/save_trial_staff',
+                    url: './subject_ability/api/save_trial_staff',
                     data: {
                         "sn": sn,
                         "part": part,
@@ -462,7 +462,7 @@
             if (confirm("是否要取消指派?")) {
                 var sn = $("#sn").val();
                 $.ajax({
-                    url: 'api/remove_trial_staff',
+                    url: './subject_ability/api/remove_trial_staff',
                     data: {
                         "sn": sn,
                     },
@@ -512,7 +512,7 @@
                 var do_date = arr.join(",");       
                 console.log(do_date);         
                 $.ajax({
-                    url: 'api/add_trial_staff',
+                    url: './subject_ability/api/add_trial_staff',
                     data: {
                         "part": part,
                         "allocation_code": allocation_code,

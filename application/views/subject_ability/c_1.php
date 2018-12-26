@@ -81,7 +81,7 @@ $(function(){
         scrollTop: $("body").height()
         }, 1000);         
         $.ajax({
-            url: 'api/get_once_part',
+            url: './subject_ability/api/get_once_part',
             data:{
                 "sn":sn,
             },
@@ -109,7 +109,7 @@ $(function(){
             var end = $("#end").val();
             var note = $("textarea[name='note']").val();
             $.ajax({
-                url: 'api/save_floor',
+                url: './subject_ability/api/save_floor',
                 data:{
                     "part":part,
                     "floor":floor,

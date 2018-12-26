@@ -15,7 +15,7 @@ class Mod_exam_datetime extends CI_Model
         // 取得每日考科
         $day = array();
         for($i=1;$i<=3;$i++){
-            foreach ($this->db->select('subject')->where('year',$year)->where('day',$i)->get('exam_course')->result_array() as $key => $value) {
+            foreach ($this->db->select('subject')->where('year',$year)->where('day',$i)->get('ability_exam_course')->result_array() as $key => $value) {
                 # code...
                 if($value['subject'] != "subject_00"){
                     $day[$i][] = $value['subject'];
@@ -57,7 +57,7 @@ class Mod_exam_datetime extends CI_Model
         $year = $this->session->userdata('year');
         //先取得當天考試科目
         $day = array();
-        foreach ($this->db->select('subject')->where('year', $year)->where('day', $uses_day)->get('exam_course')->result_array() as $key => $value) {
+        foreach ($this->db->select('subject')->where('year', $year)->where('day', $uses_day)->get('ability_exam_course')->result_array() as $key => $value) {
             // code...
             // if ($value['subject'] != 'subject_00') {
             $day[$uses_day][] = $value['subject'];
@@ -107,7 +107,7 @@ class Mod_exam_datetime extends CI_Model
         // 取得每日考科
         $day = array();
         for ($i = 1; $i <= 3; ++$i) {
-            foreach ($this->db->select('subject')->where('year', $year)->where('day', $i)->get('exam_course')->result_array() as $key => $value) {
+            foreach ($this->db->select('subject')->where('year', $year)->where('day', $i)->get('ability_exam_course')->result_array() as $key => $value) {
                 // code...
                 // if ($value['subject'] != 'subject_00') {
                 $day[$i][] = $value['subject'];
@@ -150,7 +150,7 @@ class Mod_exam_datetime extends CI_Model
     public function chk_once($year)
     {
         $this->db->where('year', $year);
-        if ($this->db->count_all_results('exam_datetime') == 0) {
+        if ($this->db->count_all_results('ability_exam_datetime') == 0) {
             return false;
         } else {
             return true;
@@ -161,18 +161,18 @@ class Mod_exam_datetime extends CI_Model
     {
         $this->db->where('year', $year);
 
-        return $this->db->get('exam_datetime')->row_array();
+        return $this->db->get('ability_exam_datetime')->row_array();
     }
 
     public function update_once($year, $data)
     {
         $this->db->where('year', $year);
-        $this->db->update('exam_datetime', $data);
+        $this->db->update('ability_exam_datetime', $data);
     }
 
     public function add_once($data)
     {
-        $this->db->insert('exam_datetime', $data);
+        $this->db->insert('ability_exam_datetime', $data);
     }
 
     /**
@@ -181,7 +181,7 @@ class Mod_exam_datetime extends CI_Model
     public function clean_course($year)
     {
         $this->db->where('year', $year);
-        $this->db->delete('exam_course');
+        $this->db->delete('ability_exam_course');
     }
 
     public function setting_course($year, $data)
@@ -192,13 +192,13 @@ class Mod_exam_datetime extends CI_Model
             $new_data[$k]['year'] = $year;
         }
 
-        $this->db->insert_batch('exam_course', $new_data);
+        $this->db->insert_batch('ability_exam_course', $new_data);
     }
 
     public function chk_course($year)
     {
         $this->db->where('year', $year);
-        if ($this->db->count_all_results('exam_course') == 0) {
+        if ($this->db->count_all_results('ability_exam_course') == 0) {
             return false;
         } else {
             return true;
@@ -209,7 +209,7 @@ class Mod_exam_datetime extends CI_Model
     {
         $this->db->where('year', $year);
 
-        return $this->db->get('exam_course')->result_array();
+        return $this->db->get('ability_exam_course')->result_array();
     }
 }
 /* End of file Mod_exam_datetime.php */

@@ -20,7 +20,7 @@
         $("body").on("click","#save",function(){
             if(confirm("是否儲存?")){
                 $.ajax({
-                    url: 'api/save_addr',
+                    url: './subject_ability/api/save_addr',
                     data:{
                         "year":$("#year").val(),
                         "part_addr_1":$("#part_addr_1").val(),

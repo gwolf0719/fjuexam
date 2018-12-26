@@ -143,7 +143,7 @@
                 break;                
         }
         $.ajax({
-            url: 'api/get_part',
+            url: './subject_ability/api/get_part',
             data: {
                 "part": part,
             },
@@ -222,7 +222,7 @@
             var part = $(this).attr("part");
             $("#part").val(part);
             $.ajax({
-                url: 'api/get_part',
+                url: './subject_ability/api/get_part',
                 data: {
                     "part": part,
                 },
@@ -240,7 +240,7 @@
 
         /**自動完成 */
         var data;
-        $.getJSON("./api/get_member_info", function(data) {
+        $.getJSON("./subject_ability/api/get_member_info", function(data) {
             data = data.info;
             // console.log(data);
             var $input = $(".typeahead");
@@ -280,7 +280,7 @@
         //     var part = $(this).attr("part");
         //     $("#part").val(part);
         //     $.ajax({
-        //         url: 'api/get_part',
+        //         url: './subject_ability/api/get_part',
         //         data: {
         //             "part": part,
         //         },
@@ -304,7 +304,7 @@
                 scrollTop: $("body").height()
             }, 1000);
             $.ajax({
-                url: 'api/get_once_patrol',
+                url: './subject_ability/api/get_once_patrol',
                 data: {
                     "sn": sn,
                 },
@@ -331,7 +331,7 @@
             console.log(end);
 
             $.ajax({
-                url: 'api/get_day_section',
+                url: './subject_ability/api/get_day_section',
                 data: {
                     "start": start,
                     "end": end,
@@ -356,7 +356,7 @@
                 var note = $("textarea[name='note']").val();
                 console.log(sn);
                 $.ajax({
-                    url: 'api/save_patrol_staff',
+                    url: './subject_ability/api/save_patrol_staff',
                     data: {
                         "sn": sn,
                         "part": part,
@@ -393,7 +393,7 @@
                 var sn = $("#sn").val();
                 console.log(sn);
                 $.ajax({
-                    url: 'api/remove_patrol_staff',
+                    url: './subject_ability/api/remove_patrol_staff',
                     data: {
                         "sn": sn,
                     },
@@ -431,7 +431,7 @@
                 var section = $("#section").val();
                 var note = $("textarea[name='note']").val();
                 $.ajax({
-                    url: 'api/add_patrol_staff',
+                    url: './subject_ability/api/add_patrol_staff',
                     data: {
                         "part": part,
                         "allocation_code": allocation_code,

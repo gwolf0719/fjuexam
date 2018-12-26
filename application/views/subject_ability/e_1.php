@@ -282,7 +282,7 @@
             var area = $(this).attr("area");
             var link = $(this).attr("link");
             $.ajax({
-                url: 'api/chk_part_list',
+                url: './subject_ability/api/chk_part_list',
                 data: {
                     part: part,
                     area: area,

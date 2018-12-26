@@ -186,7 +186,7 @@ $(function(){
         var area = $(this).attr("area");
         var link = $(this).attr("link");
         $.ajax({
-            url: 'api/chk_part_list',
+            url: './subject_ability/api/chk_part_list',
             data: {
                 part: part,
                 area: area,
@@ -206,7 +206,7 @@ $(function(){
         var link = $(this).attr("link");
         // location.href = link;  
         $.ajax({
-            url: 'api/chk_part_list_of_obs',
+            url: './subject_ability/api/chk_part_list_of_obs',
             data: {
                 part: part,
                 area: area,
@@ -225,7 +225,7 @@ $(function(){
         var area = $(this).attr("area");
         var link = $(this).attr("link");
         $.ajax({
-            url: 'api/chk_task_list',
+            url: './subject_ability/api/chk_task_list',
             data: {
                 area: area,
             },
@@ -242,7 +242,7 @@ $(function(){
         var part = $(this).attr("part");
         var link = $(this).attr("link");
         $.ajax({
-            url: 'api/chk_trial_staff_task_list',
+            url: './subject_ability/api/chk_trial_staff_task_list',
             data: {
                 part: part,
             },
@@ -259,7 +259,7 @@ $(function(){
         var part = $(this).attr("part");
         var link = $(this).attr("link");
         $.ajax({
-            url: 'api/chk_patrol_staff_task_list',
+            url: './subject_ability/api/chk_patrol_staff_task_list',
             data: {
                 part: part,
             },

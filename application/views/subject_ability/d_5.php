@@ -139,7 +139,7 @@
     $(function() {
         /**自動完成 */
         var data;
-        $.getJSON("./api/get_member_info", function(data) {
+        $.getJSON("./subject_ability/api/get_member_info", function(data) {
             data = data.info;
             // console.log(data);
             var $input = $(".typeahead");
@@ -248,7 +248,7 @@
                 scrollTop: $("body").height()
             }, 1000);
             $.ajax({
-                url: 'api/get_once_trial',
+                url: './subject_ability/api/get_once_trial',
                 data: {
                     "sn": sn,
                 },
@@ -390,7 +390,7 @@
             //取得職員資料
             var code = $(this).attr("code");
             $.ajax({
-                url: 'api/get_staff_member',
+                url: './subject_ability/api/get_staff_member',
                 data: {
                     "code": code,
                 },
@@ -473,7 +473,7 @@
                     order_meal = "Y";
                 }                
                 $.ajax({
-                    url: 'api/save_trial_staff_for_list',
+                    url: './subject_ability/api/save_trial_staff_for_list',
                     data: {
                         "sn": sn,
                         "do_date": do_date,

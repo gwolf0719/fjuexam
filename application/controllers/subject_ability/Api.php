@@ -348,7 +348,7 @@ class Api extends CI_Controller {
      //儲存課程
      public function add_act()
      {
-         $this->load->model('mod_ability_exam_datetime');
+         $this->load->model('subject_ability/mod_exam_datetime',"mod_exam_datetime");
          $getpost = array('year', 'day_1', 'day_2', 'day_3', 'pre_1', 'pre_2', 'pre_3', 'pre_4', 'course_1_start', 'course_1_end', 'course_2_start', 'course_2_end', 'course_3_start', 'course_3_end', 'course_4_start', 'course_4_end');
          $requred = array('year', 'day_1', 'day_2', 'day_3', 'pre_1', 'pre_2', 'pre_3', 'pre_4', 'course_1_start', 'course_1_end', 'course_2_start', 'course_2_end', 'course_3_start', 'course_3_end', 'course_4_start', 'course_4_end');
          $data = $this->getpost->getpost_array($getpost, $requred);
@@ -358,14 +358,16 @@ class Api extends CI_Controller {
              $json_arr['sys_msg'] = '資料不足';
              $json_arr['requred'] = $this->getpost->report_requred($requred);
          } else {
-             if ($this->mod_ability_exam_datetime->chk_once($year)) {
-                 $this->mod_ability_exam_datetime->update_once($year, $data);
+             if ($this->mod_exam_datetime->chk_once($year)) {
+                 $this->mod_exam_datetime->update_once($year, $data);
              } else {
-                 $this->mod_ability_exam_datetime->add_once($data);
+                 $this->mod_exam_datetime->add_once($data);
              }
              $json_arr['sys_code'] = '200';
              $json_arr['sys_msg'] = '儲存成功';
+             $json_arrp['sql'] = $this->db->last_query();
          }
+         print_r($json_arr);
          echo json_encode($json_arr);
      }
  

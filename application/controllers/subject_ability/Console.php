@@ -4025,12 +4025,11 @@ class Console extends CI_Controller {
     public function f_1()
     {
         $this->mod_user->chk_status();
-        // $this->load->model('mod_ability_exam_datetime');
-        $this->load->model('subject_ability/mod_ability_exam_datetime',"mod_ability_exam_datetime");
+        $this->load->model('subject_ability/mod_exam_datetime',"mod_exam_datetime");
         $year = $this->session->userdata('year');
 
-        if ($this->mod_ability_exam_datetime->chk_once($year)) {
-            $datetime_info = $this->mod_ability_exam_datetime->get_once($year);
+        if ($this->mod_exam_datetime->chk_once($year)) {
+            $datetime_info = $this->mod_exam_datetime->get_once($year);
         } else {
             $datetime_info = array(
                 'day_1' => '1911' + $this->session->userdata('year').'年7月2日',
@@ -4061,17 +4060,18 @@ class Console extends CI_Controller {
 
     public function f_1_act()
     {
-        $this->load->model('mod_ability_exam_datetime');
+        $this->load->model('subject_ability/mod_exam_datetime',"mod_exam_datetime");
         $year = $this->session->userdata('year');
         $data = $_POST;
         $data['year'] = $year;
 
-        if ($this->mod_ability_exam_datetime->chk_once($year)) {
-            $this->mod_ability_exam_datetime->update_once($year, $data);
+        if ($this->mod_exam_datetime->chk_once($year)) {
+            $this->mod_exam_datetime->update_once($year, $data);
         } else {
-            $this->mod_ability_exam_datetime->add_once($data);
+            $this->mod_exam_datetime->add_once($data);
         }
-        redirect('./subject_ability/f_1');
+        echo $this->db->last_query();
+        // redirect('./subject_ability/f_1');
     }
 
     public function f_2()
