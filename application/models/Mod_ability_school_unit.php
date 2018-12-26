@@ -28,7 +28,6 @@ class Mod_ability_school_unit extends CI_Model
                     'company_name_02'=>$res[$i]['company_name_02'],
                     'department'=>$res[$i]['department'],
                     'code'=>$res[$i]['code'],
-                    
                 );
             }
             return $arr;
