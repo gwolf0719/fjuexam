@@ -39,6 +39,22 @@ class Mod_ability_task extends CI_Model
         $this->db->delete('ability_district_task');
         $this->db->insert_batch('ability_district_task', $area_3);
     }
+    public function import_4($area_4)
+    {
+        // 先清除當年資料
+        $this->db->where('year', $this->session->userdata('year'));
+        $this->db->where('area', '第四分區');
+        $this->db->delete('ability_district_task');
+        $this->db->insert_batch('ability_district_task', $area_4);
+    }
+    public function import_5($area_5)
+    {
+        // 先清除當年資料
+        $this->db->where('year', $this->session->userdata('year'));
+        $this->db->where('area', '第五分區');
+        $this->db->delete('ability_district_task');
+        $this->db->insert_batch('ability_district_task', $area_5);
+    }
 
     /**
      * 取得職務列表.

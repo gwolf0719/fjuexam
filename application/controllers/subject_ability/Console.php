@@ -408,6 +408,89 @@ class Console extends CI_Controller {
              unlink($file_name);
              print_r(fgetcsv($file));
              redirect('subject_ability/a_4');
+        } elseif (isset($_FILES['inputGroupFile04'])) {
+            $file = $_FILES['inputGroupFile04']['tmp_name'];
+            $file_name = './tmp/'.time().'.csv';
+            copy($file, $file_name);
+            $file = fopen($file_name, 'r');
+            $datas = array();
+            fgetcsv($file);
+            $start_4 = $this->mod_ability_exam_area->get_min_start('2504');
+            $end_4 = $this->mod_ability_exam_area->get_max_end('2504');
+            while (!feof($file)) {
+                $data = fgetcsv($file);
+                $area_4[] = array(
+                    'year' => $this->session->userdata('year'),
+                    'area' => '第四分區',
+                    'job' => $data[0],
+                    'job_code' => '',
+                    'job_title' => '',
+                    'name' => '',
+                    'trial_start' => $start_4['field'],
+                    'trial_end' => $end_4['field'],
+                    'number' => '',
+                    'phone' => '',
+                    'note' => '',
+                    'do_date' => '',
+                    'day_count' => '',
+                    'one_day_salary' => '',
+                    'salary_total' => '',
+                    'lunch_price' => '',
+                    'lunch_total' => '',
+                    'total' => '',
+                    'status' => '1',
+                 );
+            }
+            // echo json_encode($datas);
+
+            $this->mod_ability_task->import_4($area_4);
+            fclose($file);
+            unlink($file_name);
+            print_r(fgetcsv($file));
+            redirect('subject_ability/a_4');
+
+
+        } elseif (isset($_FILES['inputGroupFile05'])) {
+            $file = $_FILES['inputGroupFile05']['tmp_name'];
+            $file_name = './tmp/'.time().'.csv';
+            copy($file, $file_name);
+            $file = fopen($file_name, 'r');
+            $datas = array();
+            fgetcsv($file);
+            $start_5 = $this->mod_ability_exam_area->get_min_start('2505');
+            $end_5 = $this->mod_ability_exam_area->get_max_end('2505');
+            while (!feof($file)) {
+                $data = fgetcsv($file);
+                $area_5[] = array(
+                    'year' => $this->session->userdata('year'),
+                    'area' => '第四分區',
+                    'job' => $data[0],
+                    'job_code' => '',
+                    'job_title' => '',
+                    'name' => '',
+                    'trial_start' => $start_5['field'],
+                    'trial_end' => $end_5['field'],
+                    'number' => '',
+                    'phone' => '',
+                    'note' => '',
+                    'do_date' => '',
+                    'day_count' => '',
+                    'one_day_salary' => '',
+                    'salary_total' => '',
+                    'lunch_price' => '',
+                    'lunch_total' => '',
+                    'total' => '',
+                    'status' => '1',
+                 );
+            }
+            // echo json_encode($datas);
+
+            $this->mod_ability_task->import_5($area_5);
+            fclose($file);
+            unlink($file_name);
+            print_r(fgetcsv($file));
+            redirect('subject_ability/a_4');
+
          } else {
              $data = array(
                      'title' => '職務資料',
@@ -418,6 +501,8 @@ class Console extends CI_Controller {
                      'b2' => $this->mod_ability_task->get_list('第一分區'),
                      'b3' => $this->mod_ability_task->get_list('第二分區'),
                      'b4' => $this->mod_ability_task->get_list('第三分區'),
+                     'b5' => $this->mod_ability_task->get_list('第四分區'),
+                     'b6' => $this->mod_ability_task->get_list('第五分區'),
                  );
              $this->load->view('subject_ability_layout', $data);
          }
