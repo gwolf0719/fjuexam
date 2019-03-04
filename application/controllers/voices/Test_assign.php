@@ -61,7 +61,7 @@ class Test_assign extends CI_Controller {
             'title'=> $test_partition,
             'path'=> 'voice/assign_c1',
             'path_text'=> '> 英聽主選單 > 試場分配 >'.$test_partition,
-            'datalist'=> $this->mod_voice_part_info->get_list($part,'上午場'),
+            'datalist'=> $this->mod_voice_part_info->get_list($part),
             'addr_info'=> $addr_info,
             'test_partition'=>$test_partition,
             'title_img'=>$title_img

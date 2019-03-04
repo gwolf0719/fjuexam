@@ -20,7 +20,7 @@ class Mod_voice_part_info extends CI_Model
         return $this->db->get('voice_area_main')->result_array();
     }
 
-    public function get_list($part = '',$block_name = '')
+    public function get_list($part = '')
     {
         
         $this->db->where('year', $this->session->userdata('year'));
@@ -28,9 +28,9 @@ class Mod_voice_part_info extends CI_Model
         if ($part != '') {
             $this->db->where('part', $part);
         }
-        if ($block_name != '') {
-            $this->db->where('block_name', $block_name);
-        }
+        // if ($block_name != '') {
+        //     $this->db->where('block_name', $block_name);
+        // }
 
         return $this->db->get('voice_area_main')->result_array();
     }
