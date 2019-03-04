@@ -503,7 +503,7 @@
     </div>
 
     <div class="col-sm-8" style="text-align: center;">
-        <img src="assets/images/b5_title.jpg" alt="" style="width: 15%;">
+        <img src="assets/images/b6_title.jpg" alt="" style="width: 15%;">
     </div>
 
 </div>

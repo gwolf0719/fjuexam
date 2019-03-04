@@ -682,21 +682,101 @@ class Console extends CI_Controller {
         );
         $this->load->view('subject_ability_layout', $data);
     }
-
     public function b_5()
+    {
+        $this->load->model('mod_ability_exam_area');
+        $this->load->model('mod_ability_task');
+        $this->load->model('mod_ability_part');
+        $this->load->model('mod_exam_datetime');
+        $this->load->model('mod_ability_exam_fees');
+        $this->mod_user->chk_status();
+        $year = $this->session->userdata('year');
+        $jobs = $this->mod_ability_task->get_job_list($year, '第四分區');
+        if ($this->mod_ability_exam_fees->chk_once($year)) {
+            $fees_info = $this->mod_ability_exam_fees->get_once($year);
+        } else {
+            $fees_info = array(
+                'one_day_salary' => '0',
+                'salary_section' => '0',
+                'lunch_fee' => '0',
+            );
+        }
+        if ($this->mod_exam_datetime->chk_once($year)) {
+            $datetime_info = $this->mod_exam_datetime->get_once($year);
+        } else {
+            $datetime_info = array(
+                'day_1' => '07/01',
+                'day_2' => '07/02',
+                'day_3' => '07/03',
+            );
+        }
+        $data = array(
+            'title' => '考區任務編組',
+            'path' => 'subject_ability/b_5',
+            'path_text' => ' > 英聽主選單 > 考區任務編組 > 第四分區',
+            'datalist' => $this->mod_ability_task->get_list('第四分區'),
+            'jobs' => $jobs,
+            'fees_info' => $fees_info,
+            'datetime_info' => $datetime_info,
+        );
+        $this->load->view('subject_ability_layout', $data);
+    }
+    public function b_6()
+    {
+        $this->load->model('mod_ability_exam_area');
+        $this->load->model('mod_ability_task');
+        $this->load->model('mod_ability_part');
+        $this->load->model('mod_exam_datetime');
+        $this->load->model('mod_ability_exam_fees');
+        $this->mod_user->chk_status();
+        $year = $this->session->userdata('year');
+        $jobs = $this->mod_ability_task->get_job_list($year, '第五分區');
+        if ($this->mod_ability_exam_fees->chk_once($year)) {
+            $fees_info = $this->mod_ability_exam_fees->get_once($year);
+        } else {
+            $fees_info = array(
+                'one_day_salary' => '0',
+                'salary_section' => '0',
+                'lunch_fee' => '0',
+            );
+        }
+        if ($this->mod_exam_datetime->chk_once($year)) {
+            $datetime_info = $this->mod_exam_datetime->get_once($year);
+        } else {
+            $datetime_info = array(
+                'day_1' => '07/01',
+                'day_2' => '07/02',
+                'day_3' => '07/03',
+            );
+        }
+        $data = array(
+            'title' => '考區任務編組',
+            'path' => 'subject_ability/b_6',
+            'path_text' => ' > 英聽主選單 > 考區任務編組 > 第五分區',
+            'datalist' => $this->mod_ability_task->get_list('第五分區'),
+            'jobs' => $jobs,
+            'fees_info' => $fees_info,
+            'datetime_info' => $datetime_info,
+        );
+        $this->load->view('subject_ability_layout', $data);
+    }
+
+    public function b_7()
     {
         $this->load->model('mod_ability_exam_area');
         $this->load->model('mod_ability_task');
         $this->mod_user->chk_status();
         $data = array(
             'title' => '預覽任務編組表',
-            'path' => 'subject_ability/b_5',
+            'path' => 'subject_ability/b_7',
             'path_text' => ' > 英聽主選單 > 考區任務編組 > 預覽任務編組表',
             'all' => $this->mod_ability_task->get_list(),
             'b1' => $this->mod_ability_task->get_list('考區'),
             'b2' => $this->mod_ability_task->get_list('第一分區'),
             'b3' => $this->mod_ability_task->get_list('第二分區'),
             'b4' => $this->mod_ability_task->get_list('第三分區'),
+            'b5' => $this->mod_ability_task->get_list('第四分區'),
+            'b6' => $this->mod_ability_task->get_list('第五分區'),
         );
         $this->load->view('subject_ability_layout', $data);
     }
