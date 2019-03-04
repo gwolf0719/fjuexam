@@ -568,6 +568,12 @@
         <div class="tab tab3" area="3" part="2503" eng="third">
             <div class="tab_text">第三分區</div>
         </div>
+        <div class="tab tab4" area="4" part="2504" eng="fourth">
+            <div class="tab_text">第四分區</div>
+        </div>
+        <div class="tab tab5" area="5" part="2505" eng="fifth">
+            <div class="tab_text">第五分區</div>
+        </div>
     </div>
 </div>
 <div class="row part" id="part1" style="height:700px;overflow: auto;">
@@ -723,6 +729,137 @@
             <tbody>
                 <?php foreach ($part3 as $k => $v): ?>
                 <tr sn="<?=$v['sn']; ?>" part="2503" field="<?=$v['field']; ?>" section="<?=$v['test_section']; ?>">
+                    <td>
+                        <?=$k + 1; ?>
+                    </td>
+                    <td>
+                        <?=$v['field']; ?>
+                    </td>
+                    <td>
+                        <?=$v['test_section']; ?>
+                    </td>
+                    <td>
+                        <?=$v['start']; ?>
+                    </td>
+                    <td>
+                        <?=$v['end']; ?>
+                    </td>
+                    <td>
+                        <?=$v['number']; ?>
+                    </td>
+                    <td>
+                        <?=$v['floor']; ?>
+                    </td>
+                    <td>
+                        <?=$v['trial_staff_code_1']; ?>
+                    </td>
+                    <td>
+                        <?=$v['supervisor_1']; ?>
+                    </td>
+                    <td>
+                        <?=$v['trial_staff_code_2']; ?>
+                    </td>
+                    <td>
+                        <?=$v['supervisor_2']; ?>
+                    </td>
+                    <td>
+                        <?=$v['note']; ?>
+                    </td>
+                </tr>
+                <?php endforeach; ?>
+            </tbody>
+        </table>
+    </div>
+</div>
+
+
+<div class="row part" id="part4" style="height:700px;overflow: auto;">
+    <div class="col-12" style="margin-top: 10px;">
+        <table class="table table-hover" id="">
+            <thead>
+                <tr>
+                    <th>序號</th>
+                    <th>試場</th>
+                    <th>考試節數</th>
+                    <th>考生應試號起</th>
+                    <th>考生應試號迄</th>
+                    <th>應試人數</th>
+                    <th>樓層別</th>
+                    <th>監試人員一編號</th>
+                    <th>監試人員一</th>
+                    <th>監試人員二編號</th>
+                    <th>監試人員二</th>
+                    <th>備註</th>
+                </tr>
+            </thead>
+            <tbody>
+                <?php foreach ($part4 as $k => $v): ?>
+                <tr sn="<?=$v['sn']; ?>" part="2504" field="<?=$v['field']; ?>" section="<?=$v['test_section']; ?>">
+                    <td>
+                        <?=$k + 1; ?>
+                    </td>
+                    <td>
+                        <?=$v['field']; ?>
+                    </td>
+                    <td>
+                        <?=$v['test_section']; ?>
+                    </td>
+                    <td>
+                        <?=$v['start']; ?>
+                    </td>
+                    <td>
+                        <?=$v['end']; ?>
+                    </td>
+                    <td>
+                        <?=$v['number']; ?>
+                    </td>
+                    <td>
+                        <?=$v['floor']; ?>
+                    </td>
+                    <td>
+                        <?=$v['trial_staff_code_1']; ?>
+                    </td>
+                    <td>
+                        <?=$v['supervisor_1']; ?>
+                    </td>
+                    <td>
+                        <?=$v['trial_staff_code_2']; ?>
+                    </td>
+                    <td>
+                        <?=$v['supervisor_2']; ?>
+                    </td>
+                    <td>
+                        <?=$v['note']; ?>
+                    </td>
+                </tr>
+                <?php endforeach; ?>
+            </tbody>
+        </table>
+    </div>
+</div>
+
+<div class="row part" id="part5" style="height:700px;overflow: auto;">
+    <div class="col-12" style="margin-top: 10px;">
+        <table class="table table-hover" id="">
+            <thead>
+                <tr>
+                    <th>序號</th>
+                    <th>試場</th>
+                    <th>考試節數</th>
+                    <th>考生應試號起</th>
+                    <th>考生應試號迄</th>
+                    <th>應試人數</th>
+                    <th>樓層別</th>
+                    <th>監試人員一編號</th>
+                    <th>監試人員一</th>
+                    <th>監試人員二編號</th>
+                    <th>監試人員二</th>
+                    <th>備註</th>
+                </tr>
+            </thead>
+            <tbody>
+                <?php foreach ($part5 as $k => $v): ?>
+                <tr sn="<?=$v['sn']; ?>" part="2505" field="<?=$v['field']; ?>" section="<?=$v['test_section']; ?>">
                     <td>
                         <?=$k + 1; ?>
                     </td>
