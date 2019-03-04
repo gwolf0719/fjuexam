@@ -4182,7 +4182,7 @@ class Console extends CI_Controller {
         $data = array(
             'title' => '考程設定',
             'path' => 'subject_ability/f',
-            'path_text' => ' > 指考主選單 > 考程設定',
+            'path_text' => ' > 學測主選單 > 考程設定',
         );
         $this->load->view('subject_ability_layout', $data);
     }
@@ -4243,7 +4243,7 @@ class Console extends CI_Controller {
         $data = array(
             'title' => '考試日期與時間',
             'path' => 'subject_ability/f_1',
-            'path_text' => ' > 指考主選單 > 考程設定 > 考試日期與時間',
+            'path_text' => ' > 學測主選單 > 考程設定 > 考試日期與時間',
             'datetime_info' => $datetime_info,
         );
         $this->load->view('subject_ability_layout', $data);
@@ -4278,7 +4278,7 @@ class Console extends CI_Controller {
         $data = array(
             'title' => '考試科目',
             'path' => 'subject_ability/f_2',
-            'path_text' => ' > 指考主選單 > 考程設定 > 考試科目',
+            'path_text' => ' > 學測主選單 > 考程設定 > 考試科目',
             'datetime_info' => $datetime_info,
             'course' => json_encode($course),
         );
@@ -4344,7 +4344,7 @@ class Console extends CI_Controller {
         $data = array(
             'title' => '預覽考程表',
             'path' => 'subject_ability/f_3',
-            'path_text' => ' > 指考主選單 > 預覽考程表',
+            'path_text' => ' > 學測主選單 > 預覽考程表',
             'course' => $course_4_day,
             'data_list_4_day' => $data_list_4_day,
         );
@@ -4370,7 +4370,7 @@ class Console extends CI_Controller {
         $data = array(
             'title' => '考科費用',
             'path' => 'subject_ability/f_4',
-            'path_text' => ' > 指考主選單 > 考科費用',
+            'path_text' => ' > 學測主選單 > 考科費用',
             'fees_info' => $fees_info,
         );
         $this->load->view('subject_ability_layout', $data);
