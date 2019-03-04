@@ -989,8 +989,8 @@ class Console extends CI_Controller {
              'part1' => $part1,
              'part2' => $part2,
              'part3' => $part3,
-             'part3' => $part4,
-             'part3' => $part5,
+             'part4' => $part4,
+             'part5' => $part5,
          );
  
          $this->load->view('subject_ability_layout', $data);
@@ -1007,6 +1007,8 @@ class Console extends CI_Controller {
          $part1 = $this->mod_ability_trial->get_trial_list('2501');
          $part2 = $this->mod_ability_trial->get_trial_list('2502');
          $part3 = $this->mod_ability_trial->get_trial_list('2503');
+         $part4 = $this->mod_ability_trial->get_trial_list('2504');
+         $part5 = $this->mod_ability_trial->get_trial_list('2505');
          if ($this->mod_exam_datetime->chk_once($year)) {
              $datetime_info = $this->mod_exam_datetime->get_once($year);
          } else {
@@ -1024,6 +1026,8 @@ class Console extends CI_Controller {
              'part1' => $part1,
              'part2' => $part2,
              'part3' => $part3,
+             'part4' => $part4,
+             'part5' => $part5,
              'datetime_info' => $datetime_info,
          );
          $this->load->view('subject_ability_layout', $data);

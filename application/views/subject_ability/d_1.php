@@ -653,6 +653,8 @@
             </tbody>
         </table>
     </div>
+</div>
+
 <div class="row part" id="part4" style="height:700px;overflow: auto;">
     <div class="col-12" style="margin-top: 10px;">
         <table class="table table-hover" id="">
@@ -674,7 +676,7 @@
             </thead>
             <tbody>
                 <?php foreach ($part4 as $k => $v): ?>
-                <tr sn="<?=$v['sn']; ?>" part="2504" field="<?=$v['field']?>">
+                <tr sn="<?=$v['sn']; ?>" part="2503" field="<?=$v['field']?>">
                     <td>
                         <?=$k + 1; ?>
                     </td>
@@ -717,6 +719,7 @@
         </table>
     </div>
 </div>
+
 <div class="row part" id="part5" style="height:700px;overflow: auto;">
     <div class="col-12" style="margin-top: 10px;">
         <table class="table table-hover" id="">
@@ -738,7 +741,7 @@
             </thead>
             <tbody>
                 <?php foreach ($part5 as $k => $v): ?>
-                <tr sn="<?=$v['sn']; ?>" part="2505" field="<?=$v['field']?>">
+                <tr sn="<?=$v['sn']; ?>" part="2503" field="<?=$v['field']?>">
                     <td>
                         <?=$k + 1; ?>
                     </td>
@@ -781,6 +784,7 @@
         </table>
     </div>
 </div>
+
 
 <div class="bottom">
     <div class="row boxs">
