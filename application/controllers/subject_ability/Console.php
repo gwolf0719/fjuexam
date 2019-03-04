@@ -1043,6 +1043,8 @@ class Console extends CI_Controller {
          $part1 = $this->mod_ability_patrol->get_patrol_list('2501');
          $part2 = $this->mod_ability_patrol->get_patrol_list('2502');
          $part3 = $this->mod_ability_patrol->get_patrol_list('2503');
+         $part4 = $this->mod_ability_patrol->get_patrol_list('2504');
+         $part5 = $this->mod_ability_patrol->get_patrol_list('2505');
          $data = array(
              'title' => '巡場人員指派',
              'path' => 'subject_ability/d_3',
@@ -1051,6 +1053,8 @@ class Console extends CI_Controller {
              'part1' => $part1,
              'part2' => $part2,
              'part3' => $part3,
+             'part4' => $part4,
+             'part5' => $part5,
          );
          $this->load->view('subject_ability_layout', $data);
      }
