@@ -246,13 +246,16 @@
             // $("#do_date,#morning,#aftermorning").attr("checked",true);
             // $("#do_date").val()
 
-            var block_names = $(this).attr('block_name').split(',');
+            var block_names = $(this).attr('block_name');
+            console.log(block_names);
             $('.block').prop("checked",false);
-                if(block_names.indexOf('上午場') >= 0){
+                if(block_names= 1){
                     $('.block').eq(0).prop("checked",true);
+                    $('.block').eq(1).prop("checked",false);
                 }
-                if(block_names.indexOf('下午場') >= 0){
+                if(block_names= 2){
                     $('.block').eq(1).prop("checked",true);
+                    $('.block').eq(0).prop("checked",false);
                 }
 
             $("#supervisor_1_code").val($(this).attr('supervisor_1_code'));

@@ -63,6 +63,7 @@ class Appoint extends CI_Controller {
         $part = $this->mod_voice_exam_area->get_part_block('2501','上午場');
         $part_aftermoon = $this->mod_voice_exam_area->get_part_block('2501','下午場');
         $part1 = $this->mod_voice_trial->get_trial_list('2501');
+        print_r($part1);
         $part2 = $this->mod_voice_trial->get_trial_list('2502');
         $part3 = $this->mod_voice_trial->get_trial_list('2503');
         if ($this->mod_voice_exam_datetime->chk_once($year,$ladder)) {
