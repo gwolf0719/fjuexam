@@ -965,7 +965,7 @@ class Console extends CI_Controller {
          $data = array(
              'title' => '試場人員指派',
              'path' => 'subject_ability/d',
-             'path_text' => ' > 英聽主選單 > 試場人員指派',
+             'path_text' => ' > 學測主選單 > 試場人員指派',
              'datalist' => $this->mod_ability_part_info->get_list(),
          );
          $this->load->view('subject_ability_layout', $data);
@@ -980,13 +980,17 @@ class Console extends CI_Controller {
          $part1 = $this->mod_ability_trial->get_list('2501');
          $part2 = $this->mod_ability_trial->get_list('2502');
          $part3 = $this->mod_ability_trial->get_list('2503');
+         $part4 = $this->mod_ability_trial->get_list('2504');
+         $part5 = $this->mod_ability_trial->get_list('2505');
          $data = array(
              'title' => '監試人員指派',
              'path' => 'subject_ability/d_1',
-             'path_text' => ' > 英聽主選單 > 試場人員指派 > 監試人員指派',
+             'path_text' => ' > 學測主選單 > 試場人員指派 > 監試人員指派',
              'part1' => $part1,
              'part2' => $part2,
              'part3' => $part3,
+             'part3' => $part4,
+             'part3' => $part5,
          );
  
          $this->load->view('subject_ability_layout', $data);
@@ -1015,7 +1019,7 @@ class Console extends CI_Controller {
          $data = array(
              'title' => '管卷人員指派',
              'path' => 'subject_ability/d_2',
-             'path_text' => ' > 英聽主選單 > 試場人員指派 > 管卷人員指派',
+             'path_text' => ' > 學測主選單 > 試場人員指派 > 管卷人員指派',
              'part' => $part,
              'part1' => $part1,
              'part2' => $part2,
@@ -1038,7 +1042,7 @@ class Console extends CI_Controller {
          $data = array(
              'title' => '巡場人員指派',
              'path' => 'subject_ability/d_3',
-             'path_text' => ' > 英聽主選單 > 試場人員指派 > 巡場人員指派',
+             'path_text' => ' > 學測主選單 > 試場人員指派 > 巡場人員指派',
              'part' => $part,
              'part1' => $part1,
              'part2' => $part2,
@@ -1079,7 +1083,7 @@ class Console extends CI_Controller {
          $data = array(
              'title' => '監試人員列表',
              'path' => 'subject_ability/d_4',
-             'path_text' => ' > 英聽主選單 > 試場人員指派 > 監試人員列表',
+             'path_text' => ' > 學測主選單 > 試場人員指派 > 監試人員列表',
              'part1' => $part1,
              'part2' => $part2,
              'part3' => $part3,
@@ -1120,7 +1124,7 @@ class Console extends CI_Controller {
          $data = array(
              'title' => '管卷人員列表',
              'path' => 'subject_ability/d_5',
-             'path_text' => ' > 英聽主選單 > 試場人員指派 > 管卷人員列表',
+             'path_text' => ' > 學測主選單 > 試場人員指派 > 管卷人員列表',
              'part1' => $part1,
              'part2' => $part2,
              'part3' => $part3,
@@ -1161,7 +1165,7 @@ class Console extends CI_Controller {
          $data = array(
              'title' => '巡場人員列表',
              'path' => 'subject_ability/d_6',
-             'path_text' => ' > 英聽主選單 > 試場人員指派 > 巡場人員列表',
+             'path_text' => ' > 學測主選單 > 試場人員指派 > 巡場人員列表',
              'part1' => $part1,
              'part2' => $part2,
              'part3' => $part3,
