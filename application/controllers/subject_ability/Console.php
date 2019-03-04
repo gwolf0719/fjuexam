@@ -877,8 +877,60 @@ class Console extends CI_Controller {
         );
         $this->load->view('subject_ability_layout', $data);
     }
-
     public function c_4()
+    {
+        $this->load->model('mod_ability_part_info');
+        $this->load->model('mod_ability_part_addr');
+        $this->mod_user->chk_status();
+        $year = $this->session->userdata('year');
+
+        if ($this->mod_ability_part_addr->chk_once($year)) {
+            $addr_info = $this->mod_ability_part_addr->get_once($year);
+        } else {
+            $addr_info = array(
+                'part_addr_1' => '',
+                'part_addr_2' => '',
+                'part_addr_3' => '',
+            );
+        }
+
+        $data = array(
+            'title' => '第三分區',
+            'path' => 'subject_ability/c_4',
+            'path_text' => ' > 英聽主選單 > 試場分配 > 第三分區',
+            'datalist' => $this->mod_ability_part_info->get_list('2504'),
+            'addr_info' => $addr_info,
+        );
+        $this->load->view('subject_ability_layout', $data);
+    }
+    public function c_5()
+    {
+        $this->load->model('mod_ability_part_info');
+        $this->load->model('mod_ability_part_addr');
+        $this->mod_user->chk_status();
+        $year = $this->session->userdata('year');
+
+        if ($this->mod_ability_part_addr->chk_once($year)) {
+            $addr_info = $this->mod_ability_part_addr->get_once($year);
+        } else {
+            $addr_info = array(
+                'part_addr_1' => '',
+                'part_addr_2' => '',
+                'part_addr_3' => '',
+            );
+        }
+
+        $data = array(
+            'title' => '第三分區',
+            'path' => 'subject_ability/c_5',
+            'path_text' => ' > 英聽主選單 > 試場分配 > 第三分區',
+            'datalist' => $this->mod_ability_part_info->get_list('2505'),
+            'addr_info' => $addr_info,
+        );
+        $this->load->view('subject_ability_layout', $data);
+    }
+
+    public function c_6()
     {
         $this->mod_user->chk_status();
         $this->load->model('mod_ability_part_addr');
@@ -896,7 +948,7 @@ class Console extends CI_Controller {
 
         $data = array(
             'title' => '分區地址',
-            'path' => 'subject_ability/c_4',
+            'path' => 'subject_ability/c_6',
             'path_text' => ' > 英聽主選單 > 分區地址',
             'addr_info' => $addr_info,
         );
