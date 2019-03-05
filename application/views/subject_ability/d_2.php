@@ -267,7 +267,8 @@
 
         $("body").on("click", "#sure3", function() {
             var code = $(".typeahead").val().split("-");
-            $("#trial_staff_code").val(code[0]);
+            console.log(code);
+            $("#allocation_code").val(code[0]);
             $("#trial_staff_name").val(code[1]);
             $('#exampleModal').modal('hide');
         })
@@ -491,7 +492,7 @@
             } else {
                 var part = $("#part").val();
                 var allocation_code = $("#allocation_code").val();
-                var trial_staff_code = $("#trial_staff_code").val();
+                var trial_staff_code = $("#allocation_code").val();
                 var trial_staff_name = $("#trial_staff_name").val();
                 var first_start = $("#first_start").val();
                 var first_end = $("#first_end").val();
