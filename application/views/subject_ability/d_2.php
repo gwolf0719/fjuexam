@@ -506,9 +506,9 @@
                 var note = $("textarea[name='note']").val();
                 var arr  = [];
                 $(".day").each(function(){
-                    if($(this).val() != 0){
+                    // if($(this).val() != 0){
                         arr.push($(this).attr("day"));
-                    }
+                    // }
                 })
                 var do_date = arr.join(",");       
                 console.log(do_date);         

@@ -253,7 +253,7 @@
 
         $("body").on("click", "#sure3", function() {
             var code = $(".typeahead").val().split("-");
-            $("#patrol_staff_code").val(code[0]);
+            $("#allocation_code").val(code[0]);
             $("#patrol_staff_name").val(code[1]);
             $('#exampleModal').modal('hide');
         })
@@ -424,7 +424,7 @@
             } else {
                 var part = $("#part").val();
                 var allocation_code = $("#allocation_code").val();
-                var patrol_staff_code = $("#patrol_staff_code").val();
+                var patrol_staff_code = $("#allocation_code").val();
                 var patrol_staff_name = $("#patrol_staff_name").val();
                 var start = $("#start").val();
                 var end = $("#end").val();
