@@ -540,7 +540,7 @@ class Api extends CI_Controller {
                  $json_arr['sys_msg'] = '該人員已經被指派過，請選擇其他人員';
              }else{
                  $json_arr['sys_code'] = '200';
-                 $json_arr['sys_msg'] = 'success';
+                 $json_arr['sys_msg'] = '該人員可以指派';
              }
              $json_arr['sql'] = $this->db->last_query();
          }
@@ -554,6 +554,7 @@ class Api extends CI_Controller {
          $this->load->model('mod_exam_datetime');
          $this->load->model('mod_ability_exam_fees');
          $this->load->model('mod_ability_part_info');
+         $this->load->model('mod_trial');
          $getpost = array('sn', 'part','supervisor_1', 'supervisor_1_code', 'supervisor_2', 'supervisor_2_code', 'trial_staff_code_1', 'trial_staff_code_2', 'note','field');
          $requred = array('sn', 'part','supervisor_1', 'supervisor_1_code', 'supervisor_2', 'supervisor_2_code', 'trial_staff_code_1', 'trial_staff_code_2','field');
          $data = $this->getpost->getpost_array($getpost, $requred);
@@ -676,12 +677,13 @@ class Api extends CI_Controller {
          $getpost = array('sn','first_member_do_date','second_member_do_date','first_member_day_count', 'first_member_salary_section', 'first_member_section_salary_total', 'first_member_lunch_price', 'first_member_section_lunch_total', 'first_member_section_total', 'second_member_day_count', 'second_member_salary_section', 'second_member_section_salary_total', 'second_member_lunch_price', 'second_member_section_lunch_total', 'second_member_section_total','first_member_order_meal','second_member_order_meal','first_member_meal','second_member_meal');
          $requred = array('sn','first_member_do_date','second_member_do_date','first_member_day_count', 'first_member_salary_section', 'first_member_section_salary_total', 'first_member_lunch_price', 'first_member_section_lunch_total', 'first_member_section_total', 'second_member_day_count', 'second_member_salary_section', 'second_member_section_salary_total', 'second_member_lunch_price', 'second_member_section_lunch_total', 'second_member_section_total','first_member_order_meal','second_member_order_meal','first_member_meal','second_member_meal');
          $data = $this->getpost->getpost_array($getpost, $requred);
+        //  print_r($data);
          if ($data == false) {
              $json_arr['sys_code'] = '000';
              $json_arr['sys_msg'] = '資料不足';
              $json_arr['requred'] = $this->getpost->report_requred($requred);
          } else {
-             print_r($data);
+            //  print_r($data);
              $data['year'] = $this->session->userdata('year');
              $this->mod_ability_trial->update_once($data['sn'], $data);
              $json_arr['sys_code'] = '200';

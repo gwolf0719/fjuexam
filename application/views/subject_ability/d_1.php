@@ -225,9 +225,11 @@
         // 監試人員一指派動作 
         $("body").on("click", "#sure1", function() {
             var arr = $("#number_1").val().split(" - ");
+            console.log(arr);
             chk_code_use(arr[0],function(params) {
                 if(params){
-                    $("#supervisor_1").val(arr[1]);
+                    // alert(arr);
+                    $("#supervisor_1").val(arr);
                     $("#supervisor_1_code").val(arr[0]);
                     $('#exampleModal1').modal('hide');
                 }
@@ -238,7 +240,7 @@
             var arr = $("#number_2").val().split(" - ");
             chk_code_use(arr[0],function(params) {
                 if(params){
-                    $("#supervisor_2").val(arr[1]);
+                    $("#supervisor_2").val(arr);
                     $("#supervisor_2_code").val(arr[0]);
                     $('#exampleModal2').modal('hide');
                 }
@@ -256,6 +258,7 @@
                         alert(data.sys_msg);
                         return callback(false);
                     }else{
+                        alert(data.sys_msg);
                         return callback(true);
                     }
                 }
