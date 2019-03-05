@@ -464,7 +464,7 @@ class Api extends CI_Controller {
      {
          $this->load->model('mod_ability_part_info');
          $getpost = array('part','start', 'end','floor', 'note');
-         $requred = array('part','start', 'end','floor');
+         $requred = array('part','start', 'end','floor', 'note');
          $data = $this->getpost->getpost_array($getpost, $requred);
          if ($data == false) {
              $json_arr['sys_code'] = '000';
