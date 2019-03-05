@@ -463,7 +463,7 @@ class Console extends CI_Controller {
                 $data = fgetcsv($file);
                 $area_5[] = array(
                     'year' => $this->session->userdata('year'),
-                    'area' => '第四分區',
+                    'area' => '第五分區',
                     'job' => $data[0],
                     'job_code' => '',
                     'job_title' => '',
@@ -551,7 +551,7 @@ class Console extends CI_Controller {
         $data = array(
             'title' => '考區任務編組',
             'path' => 'designated/b_1',
-            'path_text' => ' > 英聽主選單 > 考區任務編組 > 考區',
+            'path_text' => ' > 學測主選單 > 考區任務編組 > 考區',
             'field' => $this->mod_ability_task->get_field(),
             'datalist' => $this->mod_ability_task->get_list('考區'),
             'jobs' => $jobs,
@@ -594,7 +594,7 @@ class Console extends CI_Controller {
         $data = array(
             'title' => '考區任務編組',
             'path' => 'subject_ability/b_2',
-            'path_text' => ' > 英聽主選單 > 考區任務編組 > 第一分區',
+            'path_text' => ' > 學測主選單 > 考區任務編組 > 第一分區',
             'datalist' => $this->mod_ability_task->get_list('第一分區'),
             'jobs' => $jobs,
             'fees_info' => $fees_info,
@@ -634,7 +634,7 @@ class Console extends CI_Controller {
         $data = array(
             'title' => '考區任務編組',
             'path' => 'subject_ability/b_3',
-            'path_text' => ' > 英聽主選單 > 考區任務編組 > 第二分區',
+            'path_text' => ' > 學測主選單 > 考區任務編組 > 第二分區',
             'datalist' => $this->mod_ability_task->get_list('第二分區'),
             'jobs' => $jobs,
             'fees_info' => $fees_info,
@@ -674,7 +674,7 @@ class Console extends CI_Controller {
         $data = array(
             'title' => '考區任務編組',
             'path' => 'subject_ability/b_4',
-            'path_text' => ' > 英聽主選單 > 考區任務編組 > 第三分區',
+            'path_text' => ' > 學測主選單 > 考區任務編組 > 第三分區',
             'datalist' => $this->mod_ability_task->get_list('第三分區'),
             'jobs' => $jobs,
             'fees_info' => $fees_info,
@@ -713,7 +713,7 @@ class Console extends CI_Controller {
         $data = array(
             'title' => '考區任務編組',
             'path' => 'subject_ability/b_5',
-            'path_text' => ' > 英聽主選單 > 考區任務編組 > 第四分區',
+            'path_text' => ' > 學測主選單 > 考區任務編組 > 第四分區',
             'datalist' => $this->mod_ability_task->get_list('第四分區'),
             'jobs' => $jobs,
             'fees_info' => $fees_info,
@@ -752,7 +752,7 @@ class Console extends CI_Controller {
         $data = array(
             'title' => '考區任務編組',
             'path' => 'subject_ability/b_6',
-            'path_text' => ' > 英聽主選單 > 考區任務編組 > 第五分區',
+            'path_text' => ' > 學測主選單 > 考區任務編組 > 第五分區',
             'datalist' => $this->mod_ability_task->get_list('第五分區'),
             'jobs' => $jobs,
             'fees_info' => $fees_info,
@@ -769,7 +769,7 @@ class Console extends CI_Controller {
         $data = array(
             'title' => '預覽任務編組表',
             'path' => 'subject_ability/b_7',
-            'path_text' => ' > 英聽主選單 > 考區任務編組 > 預覽任務編組表',
+            'path_text' => ' > 學測主選單 > 考區任務編組 > 預覽任務編組表',
             'all' => $this->mod_ability_task->get_list(),
             'b1' => $this->mod_ability_task->get_list('考區'),
             'b2' => $this->mod_ability_task->get_list('第一分區'),

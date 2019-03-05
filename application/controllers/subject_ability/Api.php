@@ -303,8 +303,9 @@ class Api extends CI_Controller {
       * 新增職務 ＠James.
       */
      public function job_add()
-     {
+     {  
          $this->load->model('mod_ability_task');
+         $this->load->model('mod_task');
          $getpost = array('job', 'area');
          $requred = array('job', 'area');
          $data = $this->getpost->getpost_array($getpost, $requred);
