@@ -943,6 +943,8 @@ class Console extends CI_Controller {
                 'part_addr_1' => '',
                 'part_addr_2' => '',
                 'part_addr_3' => '',
+                'part_addr_4' => '',
+                'part_addr_5' => '',
             );
         }
 

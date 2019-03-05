@@ -25,7 +25,9 @@
                         "year":$("#year").val(),
                         "part_addr_1":$("#part_addr_1").val(),
                         "part_addr_2":$("#part_addr_2").val(),
-                        "part_addr_3":$("#part_addr_3").val()
+                        "part_addr_3":$("#part_addr_3").val(),
+                        "part_addr_4":$("#part_addr_4").val(),
+                        "part_addr_5":$("#part_addr_5").val(),
                     },
                     dataType:"json"
                 }).done(function(data){
@@ -72,6 +74,16 @@
             <div class="row table-form" class="">
                 <div class="col-3 text-right">第三分區地址</div>
                 <input type="text" class="col-6" id="part_addr_3" name="part_addr_3" value="<?=$addr_info['part_addr_3'];?>">
+                <div class="col-3 "></div>
+            </div>
+            <div class="row table-form" class="">
+                <div class="col-3 text-right">第四分區地址</div>
+                <input type="text" class="col-6" id="part_addr_4" name="part_addr_4" value="<?=$addr_info['part_addr_4'];?>">
+                <div class="col-3 "></div>
+            </div>
+            <div class="row table-form" class="">
+                <div class="col-3 text-right">第五分區地址</div>
+                <input type="text" class="col-6" id="part_addr_5" name="part_addr_5" value="<?=$addr_info['part_addr_5'];?>">
                 <div class="col-3 "></div>
             </div>
         </div>

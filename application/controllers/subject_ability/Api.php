@@ -481,8 +481,8 @@ class Api extends CI_Controller {
      public function save_addr()
      {
          $this->load->model('mod_ability_part_addr');
-         $getpost = array('year', 'part_addr_1', 'part_addr_2', 'part_addr_3');
-         $requred = array('year', 'part_addr_1', 'part_addr_2', 'part_addr_3');
+         $getpost = array('year', 'part_addr_1', 'part_addr_2', 'part_addr_3', 'part_addr_4', 'part_addr_5');
+         $requred = array('year', 'part_addr_1', 'part_addr_2', 'part_addr_3', 'part_addr_4', 'part_addr_5');
          $data = $this->getpost->getpost_array($getpost, $requred);
          $year = $this->session->userdata('year');
          if ($data == false) {
