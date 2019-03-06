@@ -316,7 +316,7 @@ class Api extends CI_Controller {
          } else {
              $year = $this->session->userdata('year');
              $part = $this->mod_ability_task->get_part_for_once($data['area']);
- 
+            //  print_r($part);
              $this->mod_ability_task->add_job($year, $data['job'], $data['area'], $part['trial_start'], $part['trial_end']);
              $json_arr['sys_code'] = '200';
              $json_arr['sys_msg'] = '新增完成';

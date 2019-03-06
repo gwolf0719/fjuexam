@@ -550,7 +550,7 @@ class Console extends CI_Controller {
         }
         $data = array(
             'title' => '考區任務編組',
-            'path' => 'designated/b_1',
+            'path' => 'subject_ability/b_1',
             'path_text' => ' > 學測主選單 > 考區任務編組 > 考區',
             'field' => $this->mod_ability_task->get_field(),
             'datalist' => $this->mod_ability_task->get_list('考區'),
