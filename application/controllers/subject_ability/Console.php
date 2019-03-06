@@ -567,7 +567,7 @@ class Console extends CI_Controller {
         $this->load->model('mod_ability_exam_area');
         $this->load->model('mod_ability_task');
         $this->load->model('mod_ability_exam_fees');
-        $this->load->model('mod_exam_datetime');
+        $this->load->model('subject_ability/mod_exam_datetime',"mod_exam_datetime");
         $this->load->model('mod_ability_part');
         $this->mod_user->chk_status();
         $year = $this->session->userdata('year');
