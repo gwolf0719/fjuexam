@@ -22,7 +22,7 @@ class Mod_exam_datetime extends CI_Model
                 }
             }
         }
-        // 確認每一天
+        // // 確認每一天
         $res = array();
          for($i=1;$i<=3;$i++){
             $where = array(

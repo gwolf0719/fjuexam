@@ -922,7 +922,8 @@ class Api extends CI_Controller {
      {
          $this->load->model('mod_ability_patrol');
          $this->load->model('mod_ability_trial');
-         $this->load->model('mod_exam_datetime');
+        //  $this->load->model('mod_exam_datetime');
+         $this->load->model('subject_ability/mod_exam_datetime',"mod_exam_datetime");
          $this->load->model('mod_ability_exam_fees');
          $this->load->model('mod_ability_part_info');
          $this->load->model('mod_ability_staff');
@@ -937,7 +938,7 @@ class Api extends CI_Controller {
              $data['year'] = $this->session->userdata('year');
              $day = $this->mod_exam_datetime->room_use_day($data['start'], $data['end'],$data['part']);
              $datetime_info = $this->mod_exam_datetime->get_once($_SESSION['year']);
-             $fees_info = $this->mod_eability_xam_fees->get_once($_SESSION['year']);
+             $fees_info = $this->mod_ability_exam_fees->get_once($_SESSION['year']);
              $member = $this->mod_ability_staff->get_staff_member(trim($data['patrol_staff_code']));
              $do_date = array();
              if($day[0] != ""){

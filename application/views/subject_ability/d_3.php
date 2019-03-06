@@ -423,6 +423,7 @@
                 }
             } else {
                 var part = $("#part").val();
+                console.log(part);
                 var allocation_code = $("#allocation_code").val();
                 var patrol_staff_code = $("#allocation_code").val();
                 var patrol_staff_name = $("#patrol_staff_name").val();
