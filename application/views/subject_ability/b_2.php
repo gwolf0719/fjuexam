@@ -622,7 +622,7 @@
                 </div>
                 <div class="col-md-3 col-sm-3 col-xs-3 cube">
                     <div class="form-group">
-                        <label for="start_date" class="" style="float:left;">執行日</label>
+                        <label for="start_date" class="" style="float:left;">執<?php print_r($datetime_info)?>行日</label>
                         <input type="checkbox" class="chbox" id="" name="day" value="<?=mb_substr($datetime_info['day_1'], 5, 8, 'utf-8'); ?>">
                         <span class="chbox">
                             <?=mb_substr($datetime_info['day_1'], 5, 8, 'utf-8'); ?>
