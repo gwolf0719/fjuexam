@@ -57,7 +57,7 @@ class Mod_trial extends CI_Model
     public function chk_once($sn)
     {
         $this->db->where('sn', $sn);
-        if ($this->db->count_all_results('trial_assign') == 0) {
+        if ($this->db->count_all_results('ability_trial_assign') == 0) {
             return false;
         } else {
             return true;
@@ -2250,9 +2250,11 @@ class Mod_trial extends CI_Model
     }    
 
     public function update_once($sn, $data)
-    {
+    {   
+        // print_r($sn);
+        // print_r($data);
         $this->db->where('sn', $sn);
-        $this->db->update('trial_assign', $data);
+        $this->db->update('ability_trial_assign', $data);
         return true;
     }
 

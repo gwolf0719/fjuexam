@@ -551,12 +551,14 @@ class Api extends CI_Controller {
      {
          $this->load->model('mod_ability_trial');
          $this->load->model('mod_ability_staff');
-         $this->load->model('mod_exam_datetime');
+        //  $this->load->model('mod_exam_datetime');
+         $this->load->model('subject_ability/mod_exam_datetime',"mod_exam_datetime");
          $this->load->model('mod_ability_exam_fees');
          $this->load->model('mod_ability_part_info');
-         $this->load->model('mod_trial');
+        //  $this->load->model('mod_trial');
+         $this->load->model('subject_ability/mod_trial',"mod_trial");
          $getpost = array('sn', 'part','supervisor_1', 'supervisor_1_code', 'supervisor_2', 'supervisor_2_code', 'trial_staff_code_1', 'trial_staff_code_2', 'note','field');
-         $requred = array('sn', 'part','supervisor_1', 'supervisor_1_code', 'supervisor_2', 'supervisor_2_code', 'trial_staff_code_1', 'trial_staff_code_2','field');
+         $requred = array('sn', 'part','field');
          $data = $this->getpost->getpost_array($getpost, $requred);
          if ($data == false) {
              $json_arr['sys_code'] = '000';
@@ -633,12 +635,13 @@ class Api extends CI_Controller {
                      'note'=>$data['note'],
                  );
                  $this->mod_trial->update_once($data['sn'], $sql_data);
+
+                 $json_arr['sys_code'] = '200';
+                 $json_arr['sys_msg'] = '資料儲存完成';
              } else {
                  $json_arr['sys_code'] = '404';
                  $json_arr['sys_msg'] = '查無此資料';
              }
-             $json_arr['sys_code'] = '200';
-             $json_arr['sys_msg'] = '資料儲存完成';
          }
          echo json_encode($json_arr);
      }
