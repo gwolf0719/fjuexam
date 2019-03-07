@@ -1142,7 +1142,7 @@ class Console extends CI_Controller {
          $data = array(
              'title' => '管卷人員列表',
              'path' => 'subject_ability/d_5',
-             'path_text' => ' > 學測主選單 > 試場人員指派 > 管卷人員列表',
+             'path_text' => ' > 學測主選單 > 試場人員指派 > 試務人員列表',
              'part1' => $part1,
              'part2' => $part2,
              'part3' => $part3,
