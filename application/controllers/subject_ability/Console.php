@@ -1691,7 +1691,8 @@ class Console extends CI_Controller {
     public function e_2()
     {
         $this->mod_user->chk_status();
-        $this->load->model('mod_exam_datetime');
+        // $this->load->model('mod_exam_datetime');
+        $this->load->model('subject_ability/mod_exam_datetime',"mod_exam_datetime");
         $datetime_info = $this->mod_exam_datetime->get_once($_SESSION['year']);
         $data = array(
             'title' => '簽到表 / 簽收單',
@@ -1943,7 +1944,9 @@ class Console extends CI_Controller {
         $this->load->library('pdf');
         $this->load->model('mod_ability_trial');
         $this->load->model('mod_ability_exam_area');
-        $this->load->model('mod_exam_datetime');
+        // $this->load->model('mod_exam_datetime');
+        $this->load->model('subject_ability/mod_exam_datetime',"mod_exam_datetime");
+        
 
         $obj_pdf = new Pdf(PDF_PAGE_ORIENTATION, PDF_UNIT, PDF_PAGE_FORMAT, false, 'UTF-8', false);
         $obj_pdf->SetCreator(PDF_CREATOR);
@@ -2217,7 +2220,8 @@ class Console extends CI_Controller {
 
     public function e_3()
     {
-        $this->load->model('mod_exam_datetime');
+        // $this->load->model('mod_exam_datetime');
+        $this->load->model('subject_ability/mod_exam_datetime',"mod_exam_datetime");
         $this->mod_user->chk_status();
         if ($this->mod_exam_datetime->chk_once($_SESSION['year'])) {
             $datetime_info = $this->mod_exam_datetime->get_once($_SESSION['year']);
@@ -2252,7 +2256,8 @@ class Console extends CI_Controller {
     public function e_3_1()
     {
         $this->load->library('excel');
-        $this->load->model('mod_exam_datetime');
+        // $this->load->model('mod_exam_datetime');
+        $this->load->model('subject_ability/mod_exam_datetime',"mod_exam_datetime");
         $this->load->model('mod_ability_trial');
 
         $objPHPExcel = new PHPExcel();
