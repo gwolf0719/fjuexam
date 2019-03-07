@@ -3844,6 +3844,7 @@ class Console extends CI_Controller {
     {
         $this->load->library('pdf');
         $this->load->model('mod_ability_task');
+        $this->load->model('subject_ability/mod_task',"mod_task");
         $this->load->model('mod_ability_exam_area');
         $obj_pdf = new Pdf(PDF_PAGE_ORIENTATION, PDF_UNIT, PDF_PAGE_FORMAT, false, 'UTF-8', false);
         $obj_pdf->SetCreator(PDF_CREATOR);
@@ -3864,7 +3865,7 @@ class Console extends CI_Controller {
         $obj_pdf->setFontSubsetting(false);
         $obj_pdf->AddPage();
         $data = array(
-            'part' => $this->mod_ability_task->get_district_task_money_list($area),
+            'part' => $this->mod_task->get_district_task_money_list($area),
             'area'=> $area,
             'school' => $this->mod_ability_exam_area->year_school_name($part),
             'salary'=>$this->mod_ability_task->get_all_salary_trial_total_of_district($area),
