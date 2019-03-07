@@ -367,6 +367,9 @@
                                 $(this).find("td").eq(11).text(note)
                             }
                         })
+                        
+                        $("#number_1").val("");
+                        $("#number_2").val("");
                     }
                 })
             }

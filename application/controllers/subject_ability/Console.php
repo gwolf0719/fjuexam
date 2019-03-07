@@ -2858,8 +2858,10 @@ class Console extends CI_Controller {
     public function e_3_2_1_1()
     {
         $this->load->library('pdf');
-        $this->load->model('mod_ability_trial');
-        $this->load->model('mod_ability_exam_area');
+        // $this->load->model('mod_ability_trial');
+        $this->load->model('subject_ability/mod_trial',"mod_trial");
+        $this->load->model('subject_ability/mod_exam_area',"mod_exam_area");
+        // $this->load->model('mod_ability_exam_area');
         $obj_pdf = new Pdf(PDF_PAGE_ORIENTATION, PDF_UNIT, PDF_PAGE_FORMAT, false, 'UTF-8', false);
         $obj_pdf->SetCreator(PDF_CREATOR);
         $title = '試場工作人員分配表';
@@ -2880,11 +2882,11 @@ class Console extends CI_Controller {
         $obj_pdf->AddPage();
         $date = $_GET['date'];
         $data = array(
-            'part' => $this->mod_ability_trial->e_3_2_1($part),
+            'part' => $this->mod_trial->e_3_2_1($part),
             'area' => $area,
-            'patrol_count'=> $this->mod_ability_trial->get_patrol_member_count_1($part),
-            'trial_count'=>$this->mod_ability_trial->get_trial_member_count($part),
-            'school' => $this->mod_ability_exam_area->year_school_name($part),
+            'patrol_count'=> $this->mod_trial->get_patrol_member_count_1($part),
+            'trial_count'=>$this->mod_trial->get_trial_member_count($part),
+            'school' => $this->mod_exam_area->year_school_name($part),
             'date' => $date,
         );
         // print_r($data);
