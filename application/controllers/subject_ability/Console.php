@@ -1572,7 +1572,9 @@ class Console extends CI_Controller {
     public function e_1_4()
     {
         $this->load->model('mod_ability_exam_area');
-        $this->load->model('mod_exam_datetime');
+        // $this->load->model('mod_exam_datetime');
+        $this->load->model('subject_ability/mod_exam_datetime',"mod_exam_datetime");
+
         $title = '缺考人數統計';
         $year = $this->session->userdata('year');
 
