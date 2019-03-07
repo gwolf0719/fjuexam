@@ -1065,7 +1065,8 @@ class Console extends CI_Controller {
      {
          $this->load->model('mod_ability_part_info');
          $this->load->model('mod_ability_trial');
-         $this->load->model('mod_exam_datetime');
+        //  $this->load->model('mod_exam_datetime');
+         $this->load->model('subject_ability/mod_exam_datetime',"mod_exam_datetime");
          $this->load->model('mod_ability_exam_fees');
          $this->mod_user->chk_status();
          $year = $this->session->userdata('year');
@@ -1110,7 +1111,8 @@ class Console extends CI_Controller {
      public function d_5()
      {
          $this->load->model('mod_ability_trial');
-         $this->load->model('mod_exam_datetime');
+        //  $this->load->model('mod_exam_datetime');
+         $this->load->model('subject_ability/mod_exam_datetime',"mod_exam_datetime");
          $this->load->model('mod_ability_exam_fees');
          $this->mod_user->chk_status();
          $year = $this->session->userdata('year');
@@ -1155,7 +1157,8 @@ class Console extends CI_Controller {
      public function d_6()
      {
          $this->load->model('mod_ability_patrol');
-         $this->load->model('mod_exam_datetime');
+        //  $this->load->model('mod_exam_datetime');
+         $this->load->model('subject_ability/mod_exam_datetime',"mod_exam_datetime");
          $this->load->model('mod_ability_exam_fees');
          $this->mod_user->chk_status();
          $year = $this->session->userdata('year');
