@@ -86,7 +86,9 @@ class Mod_ability_trial extends CI_Model
     }
 
     public function chk_part_list($part, $area)
-    {
+    {   
+        // print_r($part);
+        // print_r($area);
         $this->db->select('*');
         if ($part != '') {
             $this->db->where('part', $part);
