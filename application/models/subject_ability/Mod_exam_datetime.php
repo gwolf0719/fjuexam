@@ -78,7 +78,7 @@ class Mod_exam_datetime extends CI_Model
             );
             
 
-                if ($this->db->where($where)->count_all_results('exam_area') != 0) {
+                if ($this->db->where($where)->count_all_results('ability_exam_area') != 0) {
                     $count = $count + 1;
                 }
             }
