@@ -265,6 +265,18 @@
         // })
 
         $("body").on("click", "tr", function() {
+
+            $('input[name="first_member_day"]').each(function() {
+                for (let index = 0; index < 3; index++) {
+                    $(this).prop("checked", false);
+                }
+            })              
+            $('input[name="second_member_day"]').each(function() {
+                for (let index = 0; index < 3; index++) {
+                    $(this).prop("checked", false);
+                }
+            })  
+
             var section = $(this).attr("section");
             $("#first_member_section_count").val(section);
             $("#second_member_section_count").val(section);
@@ -272,7 +284,7 @@
             $("#sn").val(sn);
             var part = $(this).attr("part");
             var field = $(this).attr("field");
-            console.log(field);
+            // console.log(field);
             $("html, body").animate({
                 scrollTop: $("body").height()
             }, 1000);
@@ -284,6 +296,46 @@
                 dataType: "json"
             }).done(function(data) {
                 console.log(data.info);
+                // console.log(data.info.first_member_do_date);
+                
+                var date=data.info.first_member_do_date;
+                var date2=data.info.second_member_do_date;
+                var date=date.split(",");
+                var date2=date2.split(",");
+
+                $('input[name="first_member_day"]').each(function() {
+                    for (let index = 0; index < 1; index++) {
+                        var a=$(this).val();
+                        var ans=jQuery.inArray( a, date );
+
+                        if(ans>=0){
+                            console.log(ans);
+                            $(this).prop("checked",true);
+                        }else if(and==-1){
+                            $(this).prop("checked", false);
+                        }
+                    }
+                })  
+
+                $('input[name="second_member_day"]').each(function() {
+                    for (let index = 0; index < 1; index++) {
+                        var a=$(this).val();
+                        var ans=jQuery.inArray( a, date2 );
+
+                        if(ans>=0){
+                            console.log(ans);
+                            $(this).prop("checked",true);
+                        }else if(and==-1){
+                            $(this).prop("checked", false);
+                        }
+                    }
+                })
+
+
+
+
+
+
                 $(".field").val(field);
                 $("#sn").val(data.info.sn);
                 //職員一
@@ -1041,15 +1093,15 @@
                         </div>
                         <div class="form-group">
                             <label for="start_date" class="" style="float:left;">執行日</label>
-                            <input disabled type="checkbox" class="chbox" id="" name="second_member_day" value="<?=mb_substr($datetime_info['day_1'], 5, 8, 'utf-8'); ?>">
+                            <input type="checkbox" class="chbox" id="" name="second_member_day" value="<?=mb_substr($datetime_info['day_1'], 5, 8, 'utf-8'); ?>">
                             <span class="chbox">
                                 <?=mb_substr($datetime_info['day_1'], 5, 8, 'utf-8'); ?>
                             </span>
-                            <input disabled type="checkbox" class="chbox" id="" name="second_member_day" value="<?=mb_substr($datetime_info['day_2'], 5, 8, 'utf-8'); ?>">
+                            <input type="checkbox" class="chbox" id="" name="second_member_day" value="<?=mb_substr($datetime_info['day_2'], 5, 8, 'utf-8'); ?>">
                             <span class="chbox">
                                 <?=mb_substr($datetime_info['day_2'], 5, 8, 'utf-8'); ?>
                             </span>
-                            <input disabled type="checkbox" class="chbox" id="" name="second_member_day" value="<?=mb_substr($datetime_info['day_3'], 5, 8, 'utf-8'); ?>">
+                            <input type="checkbox" class="chbox" id="" name="second_member_day" value="<?=mb_substr($datetime_info['day_3'], 5, 8, 'utf-8'); ?>">
                             <span class="chbox">
                                 <?=mb_substr($datetime_info['day_3'], 5, 8, 'utf-8'); ?>
                             </span>
