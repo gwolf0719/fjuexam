@@ -208,6 +208,12 @@
             var code = $(this).attr("code");
             var part = $(this).attr("part");
 
+            $('input[name="day"]').each(function() {
+                for (let index = 0; index < 3; index++) {
+                    $(this).prop("checked", false);
+                }
+            })         
+
 
             $("html, body").animate({
                 scrollTop: $("body").height()
@@ -220,6 +226,30 @@
                 dataType: "json"
             }).done(function(data) {
                 console.log(data);
+
+
+                var date=data.info.do_date;
+                var date=date.split(",");
+
+                $('input[name="day"]').each(function() {
+                    for (let index = 0; index < 1; index++) {
+                        var a=$(this).val();
+                        var ans=jQuery.inArray( a, date );
+
+                        if(ans>=0){
+                            console.log(ans);
+                            $(this).prop("checked",true);
+                        }else if(ans==-1){
+                            $(this).prop("checked", false);
+                        }
+                    }
+                })  
+
+
+
+
+
+
                 $("#sn").val(sn);
                 $("#trial_start").val(data.info.start);
                 $("#trial_end").val(data.info.end);
@@ -911,17 +941,17 @@
                     <div class="form-group">
                         <label for="start_date" class="" style="float:left;">執行日</label>
                         <input type="checkbox" class="chbox" id="" name="day" value="<?=mb_substr($datetime_info['day_1'], 5, 8, 'utf-8'); ?>"
-                            disabled>
+                            >
                         <span class="chbox">
                             <?=mb_substr($datetime_info['day_1'], 5, 8, 'utf-8'); ?>
                         </span>
                         <input type="checkbox" class="chbox" id="" name="day" value="<?=mb_substr($datetime_info['day_2'], 5, 8, 'utf-8'); ?>"
-                            disabled>
+                            >
                         <span class="chbox">
                             <?=mb_substr($datetime_info['day_2'], 5, 8, 'utf-8'); ?>
                         </span>
                         <input type="checkbox" class="chbox" id="" name="day" value="<?=mb_substr($datetime_info['day_3'], 5, 8, 'utf-8'); ?>"
-                            disabled>
+                            >
                         <span class="chbox">
                             <?=mb_substr($datetime_info['day_3'], 5, 8, 'utf-8'); ?>
                         </span>

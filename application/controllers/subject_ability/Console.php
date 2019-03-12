@@ -2869,6 +2869,7 @@ class Console extends CI_Controller {
         $date = date('yyyy/m/d');
         $part = $_GET['part'];
         $area = $_GET['area'];
+        $datee = $_GET['date'];
 
         $obj_pdf->SetTitle($title);
         $obj_pdf->SetHeaderData('', '', $title, '印表日期：'.$date);
@@ -2883,7 +2884,7 @@ class Console extends CI_Controller {
         $obj_pdf->AddPage();
         $date = $_GET['date'];
         $data = array(
-            'part' => $this->mod_ability_trial->e_3_2_1($part),
+            'part' => $this->mod_ability_trial->e_3_2_1($part,$datee),
             'area' => $area,
             'patrol_count'=> $this->mod_trial->get_patrol_member_count_1($part),
             'trial_count'=>$this->mod_trial->get_trial_member_count($part),
@@ -2891,22 +2892,22 @@ class Console extends CI_Controller {
             'date' => $date,
         );
         // print_r($data);
-        $view = $this->load->view('subject_ability/e_3_2_1', $data, true);
-        if (!is_dir('./html/')) {
-            mkdir('./html/');
-        } else {
-            $path = 'e_3_2_1.html';
-            $fp = fopen('./html/'.$path,'w');//建檔
-            fwrite($fp,$view);
-            fclose($fp);//關閉開啟的檔案
-        }
+        echo $view = $this->load->view('subject_ability/e_3_2_1', $data, true);
+        // if (!is_dir('./html/')) {
+        //     mkdir('./html/');
+        // } else {
+        //     $path = 'e_3_2_1.html';
+        //     $fp = fopen('./html/'.$path,'w');//建檔
+        //     fwrite($fp,$view);
+        //     fclose($fp);//關閉開啟的檔案
+        // }
 
-        if (!is_dir('./pdf/')) {
-            mkdir('./pdf/');
-        } else {
-            exec('wkhtmltopdf --lowquality http://uat.fofo.tw/fjuexam/html/e_3_2_1.html  ./pdf/e_3_2_1.pdf');
-        }
-        echo '<script>location.href="http://uat.fofo.tw/fjuexam/pdf/e_3_2_1.pdf"</script>';
+        // if (!is_dir('./pdf/')) {
+        //     mkdir('./pdf/');
+        // } else {
+        //     exec('wkhtmltopdf --lowquality http://uat.fofo.tw/fjuexam/html/e_3_2_1.html  ./pdf/e_3_2_1.pdf');
+        // }
+        // echo '<script>location.href="http://uat.fofo.tw/fjuexam/pdf/e_3_2_1.pdf"</script>';
     }
 
     public function e_3_2_1_2()
@@ -3371,7 +3372,7 @@ class Console extends CI_Controller {
             'date' => $date,
         );
         // print_r($data);
-        $view =  $this->load->view('subject_ability/e_3_2_3', $data, true);
+        $view =  $this->load->view('subject_ability/e_3_2_4', $data, true);
         if (!is_dir('./html/')) {
             mkdir('./html/');
         } else {
@@ -3443,6 +3444,173 @@ class Console extends CI_Controller {
     }
 
        public function e_3_2_4_3()
+    {
+        $this->load->library('pdf');
+        $this->load->model('mod_ability_trial');
+        $this->load->model('subject_ability/mod_trial',"mod_trial");
+        $this->load->model('subject_ability/mod_exam_area',"mod_exam_area");
+        // $this->load->model('mod_ability_exam_area');
+        $obj_pdf = new Pdf(PDF_PAGE_ORIENTATION, PDF_UNIT, PDF_PAGE_FORMAT, false, 'UTF-8', false);
+        $obj_pdf->SetCreator(PDF_CREATOR);
+        $title = '試場工作人員分配表';
+        $date = date('yyyy/m/d');
+        $part = $_GET['part'];
+        $area = $_GET['area'];
+
+        $obj_pdf->SetTitle($title);
+        $obj_pdf->SetHeaderData('', '', $title, '印表日期：'.$date);
+        $obj_pdf->setPrintHeader(false);
+        // $obj_pdf->SetHeaderMargin(PDF_MARGIN_HEADER);
+        $obj_pdf->SetFooterMargin(PDF_MARGIN_FOOTER);
+        $obj_pdf->SetMargins(PDF_MARGIN_LEFT, PDF_MARGIN_RIGHT);
+        $obj_pdf->SetAutoPageBreak(true, PDF_MARGIN_BOTTOM);
+        $obj_pdf->SetFont('msungstdlight', '', 12);
+
+        $obj_pdf->setFontSubsetting(false);
+        $obj_pdf->AddPage();
+        $date = $_GET['date'];
+        $data = array(
+            'part' => $this->mod_ability_trial->e_3_2_3($part),
+            'area' => $area,
+            'patrol_count'=> $this->mod_ability_trial->get_patrol_member_count_3($part),
+            'trial_count'=>$this->mod_trial->get_trial_member_count($part),
+            'school' => $this->mod_exam_area->year_school_name($part),
+            'date' => $date,
+        );
+        // print_r($data);
+        $view =  $this->load->view('subject_ability/e_3_2_3', $data, true);
+        if (!is_dir('./html/')) {
+            mkdir('./html/');
+        } else {
+            $path = 'e_3_2_3.html';
+            $fp = fopen('./html/'.$path,'w');//建檔
+            fwrite($fp,$view);
+            fclose($fp);//關閉開啟的檔案
+        }
+
+        if (!is_dir('./pdf/')) {
+            mkdir('./pdf/');
+        } else {
+            exec('wkhtmltopdf --lowquality http://uat.fofo.tw/fjuexam/html/e_3_2_3.html  ./pdf/e_3_2_3.pdf');
+        }
+        echo '<script>location.href="http://uat.fofo.tw/fjuexam/pdf/e_3_2_3.pdf"</script>';
+    }
+
+
+
+     /**
+      * 
+      */
+          /**
+     * 
+     */
+    public function e_3_2_5_1()
+    {
+        $this->load->library('pdf');
+        $this->load->model('mod_ability_trial');
+        $this->load->model('subject_ability/mod_trial',"mod_trial");
+        $this->load->model('subject_ability/mod_exam_area',"mod_exam_area");
+        // $this->load->model('mod_ability_exam_area');
+        $obj_pdf = new Pdf(PDF_PAGE_ORIENTATION, PDF_UNIT, PDF_PAGE_FORMAT, false, 'UTF-8', false);
+        $obj_pdf->SetCreator(PDF_CREATOR);
+        $title = '試場工作人員分配表';
+        $date = date('yyyy/m/d');
+        $part = $_GET['part'];
+        $area = $_GET['area'];
+
+        $obj_pdf->SetTitle($title);
+        $obj_pdf->SetHeaderData('', '', $title, '印表日期：'.$date);
+        $obj_pdf->setPrintHeader(false);
+        // $obj_pdf->SetHeaderMargin(PDF_MARGIN_HEADER);
+        $obj_pdf->SetFooterMargin(PDF_MARGIN_FOOTER);
+        $obj_pdf->SetMargins(PDF_MARGIN_LEFT, PDF_MARGIN_RIGHT);
+        $obj_pdf->SetAutoPageBreak(true, PDF_MARGIN_BOTTOM);
+        $obj_pdf->SetFont('msungstdlight', '', 12);
+
+        $obj_pdf->setFontSubsetting(false);
+        $obj_pdf->AddPage();
+        $date = $_GET['date'];
+        $data = array(
+            'part' => $this->mod_ability_trial->e_3_2_1($part),
+            'area' => $area,
+            'patrol_count'=> $this->mod_ability_trial->get_patrol_member_count_1($part),
+            'trial_count'=>$this->mod_trial->get_trial_member_count($part),
+            'school' => $this->mod_exam_area->year_school_name($part),
+            'date' => $date,
+        );
+        // print_r($data);
+        $view =  $this->load->view('subject_ability/e_3_2_4', $data, true);
+        if (!is_dir('./html/')) {
+            mkdir('./html/');
+        } else {
+            $path = 'e_3_2_3.html';
+            $fp = fopen('./html/'.$path,'w');//建檔
+            fwrite($fp,$view);
+            fclose($fp);//關閉開啟的檔案
+        }
+
+        if (!is_dir('./pdf/')) {
+            mkdir('./pdf/');
+        } else {
+            exec('wkhtmltopdf --lowquality http://uat.fofo.tw/fjuexam/html/e_3_2_3.html  ./pdf/e_3_2_3.pdf');
+        }
+        echo '<script>location.href="http://uat.fofo.tw/fjuexam/pdf/e_3_2_3.pdf"</script>';
+    }
+
+       public function e_3_2_5_2()
+    {
+        $this->load->library('pdf');
+        $this->load->model('mod_ability_trial');
+        $this->load->model('subject_ability/mod_trial',"mod_trial");
+        $this->load->model('subject_ability/mod_exam_area',"mod_exam_area");
+        // $this->load->model('mod_ability_exam_area');
+        $obj_pdf = new Pdf(PDF_PAGE_ORIENTATION, PDF_UNIT, PDF_PAGE_FORMAT, false, 'UTF-8', false);
+        $obj_pdf->SetCreator(PDF_CREATOR);
+        $title = '試場工作人員分配表';
+        $date = date('yyyy/m/d');
+        $part = $_GET['part'];
+        $area = $_GET['area'];
+
+        $obj_pdf->SetTitle($title);
+        $obj_pdf->SetHeaderData('', '', $title, '印表日期：'.$date);
+        $obj_pdf->setPrintHeader(false);
+        // $obj_pdf->SetHeaderMargin(PDF_MARGIN_HEADER);
+        $obj_pdf->SetFooterMargin(PDF_MARGIN_FOOTER);
+        $obj_pdf->SetMargins(PDF_MARGIN_LEFT, PDF_MARGIN_RIGHT);
+        $obj_pdf->SetAutoPageBreak(true, PDF_MARGIN_BOTTOM);
+        $obj_pdf->SetFont('msungstdlight', '', 12);
+
+        $obj_pdf->setFontSubsetting(false);
+        $obj_pdf->AddPage();
+        $date = $_GET['date'];
+        $data = array(
+            'part' => $this->mod_ability_trial->e_3_2_2($part),
+            'area' => $area,
+            'patrol_count'=> $this->mod_ability_trial->get_patrol_member_count_2($part),
+            'trial_count'=>$this->mod_trial->get_trial_member_count($part),
+            'school' => $this->mod_exam_area->year_school_name($part),
+            'date' => $date,
+        );
+        // print_r($data);
+        $view =  $this->load->view('subject_ability/e_3_2_3', $data, true);
+        if (!is_dir('./html/')) {
+            mkdir('./html/');
+        } else {
+            $path = 'e_3_2_3.html';
+            $fp = fopen('./html/'.$path,'w');//建檔
+            fwrite($fp,$view);
+            fclose($fp);//關閉開啟的檔案
+        }
+
+        if (!is_dir('./pdf/')) {
+            mkdir('./pdf/');
+        } else {
+            exec('wkhtmltopdf --lowquality http://uat.fofo.tw/fjuexam/html/e_3_2_3.html  ./pdf/e_3_2_3.pdf');
+        }
+        echo '<script>location.href="http://uat.fofo.tw/fjuexam/pdf/e_3_2_3.pdf"</script>';
+    }
+
+       public function e_3_2_5_3()
     {
         $this->load->library('pdf');
         $this->load->model('mod_ability_trial');

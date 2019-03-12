@@ -1019,15 +1019,83 @@ class Mod_ability_trial extends CI_Model
     
 
         $sub = $this->db->get()->result_array();
+        for ($i=0; $i <count($sub); $i++) {
+
+            $date = $_GET['date'];
+            $dates=$sub[$i]['first_member_do_date'];
+            $long=strlen($sub[$i]['first_member_do_date']);
+            if($dates==""&&$dates==" "&&$long<1){
+                unset($sub[$i]['supervisor_1']);
+            }else{
+                $dates = explode(",",$dates);
+                if(in_array($date,$dates)){
+                    //有找到執行區
+
+                } else{
+                    //沒找到執行區
+                    unset($sub[$i]['supervisor_1']);
+                }
+
+            }
+        }
+
+        for ($i=0; $i <count($sub); $i++) {
+
+            $date = $_GET['date'];
+            $dates=$sub[$i]['second_member_do_date'];
+            $long=strlen($sub[$i]['first_member_do_date']);
+            if($dates==""&&$dates==" "&&$long<1){
+                unset($sub[$i]['supervisor_2']);
+            }else{
+                $dates = explode(",",$dates);
+                if(in_array($date,$dates)){
+                    //有找到執行區
+
+                } else{
+                    //沒找到執行區
+                    unset($sub[$i]['supervisor_2']);
+                }
+
+            }
+        }
+        // print_r($sub);
         if(!empty($sub)){
             for ($i=0; $i < count($sub); $i++) {
-                # code...
+                    # code...
                 $supervisor1 = $this->db->where('member_code', $sub[$i]['supervisor_1_code'])->get('ability_staff_member')->row_array();
                 $supervisor2 = $this->db->where('member_code', $sub[$i]['supervisor_2_code'])->get('ability_staff_member')->row_array();
-                $voucher = $this->db->where('part', $part)->where('first_start <=', $sub[$i]['field'])->where('first_end >=', $sub[$i]['field'])->get('ability_trial_staff')->row_array();
-                $course = $this->db->where('year', $year)->where('field', $sub[$i]['field'])->get('exam_area')->row_array();
-                $trial = $this->db->get('ability_trial_staff')->result_array();
-                # code...
+                $voucher = $this->db->where('part', $part)->where('start <=', $sub[$i]['field'])->where('end >=', $sub[$i]['field'])->get('ability_patrol_staff')->row_array();
+                $course = $this->db->where('year', $year)->where('field', $sub[$i]['field'])->get('ability_exam_area')->row_array();
+                $trial = $this->db->get('trial_staff')->result_array();
+                if(!isset($sub[$i]['supervisor_1'])){
+                    $sub[$i]['supervisor_1']="";
+                };
+                if(!isset($sub[$i]['supervisor_2'])){
+                    $sub[$i]['supervisor_2']="";
+                };
+
+                
+
+                $dates=$voucher['do_date'];
+                // print_r($dates);
+                $dates = explode(",",$dates);
+                if(in_array($date,$dates)){
+                    //有找到執行區
+                } else {
+                    //沒找到執行區
+                    unset($voucher['patrol_staff_name']);
+                    unset($voucher['allocation_code']);
+                }
+
+              
+                if(!isset($voucher['patrol_staff_name'])){
+                    $voucher['patrol_staff_name']="";
+                };
+                if(!isset($voucher['allocation_code'])){
+                    $voucher['allocation_code']="";
+                };
+
+
                 $arr[] = array(
                     'sn'=>$sub[$i]['sn'],
                     'field' => $sub[$i]['field'],
@@ -1039,7 +1107,7 @@ class Mod_ability_trial extends CI_Model
                     'supervisor_1'=>$sub[$i]['supervisor_1'],
                     'supervisor_2'=>$sub[$i]['supervisor_2'],
                     'allocation_code'=>$voucher['allocation_code'],
-                    'voucher'=>$voucher['trial_staff_name']
+                    'voucher'=>$voucher['patrol_staff_name']
                 );        
             }
             return $arr;
@@ -1061,14 +1129,83 @@ class Mod_ability_trial extends CI_Model
     
 
         $sub = $this->db->get()->result_array();
+        for ($i=0; $i <count($sub); $i++) {
+
+            $date = $_GET['date'];
+            $dates=$sub[$i]['first_member_do_date'];
+            $long=strlen($sub[$i]['first_member_do_date']);
+            if($dates==""&&$dates==" "&&$long<1){
+                unset($sub[$i]['supervisor_1']);
+            }else{
+                $dates = explode(",",$dates);
+                if(in_array($date,$dates)){
+                    //有找到執行區
+
+                } else{
+                    //沒找到執行區
+                    unset($sub[$i]['supervisor_1']);
+                }
+
+            }
+        }
+
+        for ($i=0; $i <count($sub); $i++) {
+
+            $date = $_GET['date'];
+            $dates=$sub[$i]['second_member_do_date'];
+            $long=strlen($sub[$i]['first_member_do_date']);
+            if($dates==""&&$dates==" "&&$long<1){
+                unset($sub[$i]['supervisor_2']);
+            }else{
+                $dates = explode(",",$dates);
+                if(in_array($date,$dates)){
+                    //有找到執行區
+
+                } else{
+                    //沒找到執行區
+                    unset($sub[$i]['supervisor_2']);
+                }
+
+            }
+        }
+        // print_r($sub);
         if(!empty($sub)){
             for ($i=0; $i < count($sub); $i++) {
-                # code...
+                    # code...
                 $supervisor1 = $this->db->where('member_code', $sub[$i]['supervisor_1_code'])->get('ability_staff_member')->row_array();
                 $supervisor2 = $this->db->where('member_code', $sub[$i]['supervisor_2_code'])->get('ability_staff_member')->row_array();
-                $voucher = $this->db->where('part', $part)->where('second_start <=', $sub[$i]['field'])->where('second_end >=', $sub[$i]['field'])->get('ability_trial_staff')->row_array();
+                $voucher = $this->db->where('part', $part)->where('start <=', $sub[$i]['field'])->where('end >=', $sub[$i]['field'])->get('ability_patrol_staff')->row_array();
                 $course = $this->db->where('year', $year)->where('field', $sub[$i]['field'])->get('ability_exam_area')->row_array();
                 $trial = $this->db->get('trial_staff')->result_array();
+                if(!isset($sub[$i]['supervisor_1'])){
+                    $sub[$i]['supervisor_1']="";
+                };
+                if(!isset($sub[$i]['supervisor_2'])){
+                    $sub[$i]['supervisor_2']="";
+                };
+
+                
+
+                $dates=$voucher['do_date'];
+                print_r($dates);
+                $dates = explode(",",$dates);
+                if(in_array($date,$dates)){
+                    //有找到執行區
+                } else {
+                    //沒找到執行區
+                    unset($voucher['patrol_staff_name']);
+                    unset($voucher['allocation_code']);
+                }
+
+              
+                if(!isset($voucher['patrol_staff_name'])){
+                    $voucher['patrol_staff_name']="";
+                };
+                if(!isset($voucher['allocation_code'])){
+                    $voucher['allocation_code']="";
+                };
+
+
                 $arr[] = array(
                     'sn'=>$sub[$i]['sn'],
                     'field' => $sub[$i]['field'],
@@ -1080,7 +1217,7 @@ class Mod_ability_trial extends CI_Model
                     'supervisor_1'=>$sub[$i]['supervisor_1'],
                     'supervisor_2'=>$sub[$i]['supervisor_2'],
                     'allocation_code'=>$voucher['allocation_code'],
-                    'voucher'=>$voucher['trial_staff_name']
+                    'voucher'=>$voucher['patrol_staff_name']
                 );        
             }
             return $arr;
@@ -1102,14 +1239,84 @@ class Mod_ability_trial extends CI_Model
     
 
         $sub = $this->db->get()->result_array();
+
+        for ($i=0; $i <count($sub); $i++) {
+
+            $date = $_GET['date'];
+            $dates=$sub[$i]['first_member_do_date'];
+            $long=strlen($sub[$i]['first_member_do_date']);
+            if($dates==""&&$dates==" "&&$long<1){
+                unset($sub[$i]['supervisor_1']);
+            }else{
+                $dates = explode(",",$dates);
+                if(in_array($date,$dates)){
+                    //有找到執行區
+
+                } else{
+                    //沒找到執行區
+                    unset($sub[$i]['supervisor_1']);
+                }
+
+            }
+        }
+
+        for ($i=0; $i <count($sub); $i++) {
+
+            $date = $_GET['date'];
+            $dates=$sub[$i]['second_member_do_date'];
+            $long=strlen($sub[$i]['first_member_do_date']);
+            if($dates==""&&$dates==" "&&$long<1){
+                unset($sub[$i]['supervisor_2']);
+            }else{
+                $dates = explode(",",$dates);
+                if(in_array($date,$dates)){
+                    //有找到執行區
+
+                } else{
+                    //沒找到執行區
+                    unset($sub[$i]['supervisor_2']);
+                }
+
+            }
+        }
+        // print_r($sub);
         if(!empty($sub)){
             for ($i=0; $i < count($sub); $i++) {
                     # code...
                 $supervisor1 = $this->db->where('member_code', $sub[$i]['supervisor_1_code'])->get('ability_staff_member')->row_array();
                 $supervisor2 = $this->db->where('member_code', $sub[$i]['supervisor_2_code'])->get('ability_staff_member')->row_array();
-                $voucher = $this->db->where('part', $part)->where('third_start <=', $sub[$i]['field'])->where('third_end >=', $sub[$i]['field'])->get('ability_trial_staff')->row_array();
+                $voucher = $this->db->where('part', $part)->where('start <=', $sub[$i]['field'])->where('end >=', $sub[$i]['field'])->get('ability_patrol_staff')->row_array();
                 $course = $this->db->where('year', $year)->where('field', $sub[$i]['field'])->get('ability_exam_area')->row_array();
                 $trial = $this->db->get('trial_staff')->result_array();
+                if(!isset($sub[$i]['supervisor_1'])){
+                    $sub[$i]['supervisor_1']="";
+                };
+                if(!isset($sub[$i]['supervisor_2'])){
+                    $sub[$i]['supervisor_2']="";
+                };
+
+                
+
+                $dates=$voucher['do_date'];
+                // print_r($dates);
+                $dates = explode(",",$dates);
+                if(in_array($date,$dates)){
+                    //有找到執行區
+                } else {
+                    //沒找到執行區
+                    unset($voucher['patrol_staff_name']);
+                    unset($voucher['allocation_code']);
+                }
+
+              
+                if(!isset($voucher['patrol_staff_name'])){
+                    $voucher['patrol_staff_name']="";
+                };
+                if(!isset($voucher['allocation_code'])){
+                    $voucher['allocation_code']="";
+                };
+
+
                 $arr[] = array(
                     'sn'=>$sub[$i]['sn'],
                     'field' => $sub[$i]['field'],
@@ -1121,7 +1328,7 @@ class Mod_ability_trial extends CI_Model
                     'supervisor_1'=>$sub[$i]['supervisor_1'],
                     'supervisor_2'=>$sub[$i]['supervisor_2'],
                     'allocation_code'=>$voucher['allocation_code'],
-                    'voucher'=>$voucher['trial_staff_name']
+                    'voucher'=>$voucher['patrol_staff_name']
                 );        
             }
             return $arr;
@@ -1273,7 +1480,7 @@ class Mod_ability_trial extends CI_Model
                     );
                 }
             }
-            print_r($arr);
+            // print_r($arr);
             return $arr;
         } else {
             return false;
