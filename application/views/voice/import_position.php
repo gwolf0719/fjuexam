@@ -54,31 +54,33 @@ img{
         $("body").on("click","#Upload",function() {
         var formData = new FormData($('#form')[0]); 
         var files = $('input[name="file"]').prop('files');
-        if(files.length == 0){
-            alert('請先選擇文件');
-            return;
-        }else{
-
-            if(confirm("注意！舊資料會全部刪除，新資料將匯入")){
-                $.ajax({
-                    type:"post",
-                    dataType: 'json',
-                    url: "./voice/api/import_position", 
-                    data: formData,
-                    cache: false, 
-                    processData: false, 
-                    contentType: false, 
-                }).done(function(data){
-                    console.log(data);
-                    alert(data.sys_msg);
-                    location.reload(); 
-                        
-                });
+            if(files.length == 0){
+                alert('請先選擇文件');
+                return;
             }else{
-                alert("上傳失敗");
-            }
-            
-            
+                if($("#select_area").val() == ''){
+                    alert('請先選擇分區');
+                    return;
+                }else{
+                    if(confirm("注意！舊資料會全部刪除，新資料將匯入")){
+                        $.ajax({
+                            type:"post",
+                            dataType: 'json',
+                            url: "./voice/api/import_position", 
+                            data: formData,
+                            cache: false, 
+                            processData: false, 
+                            contentType: false, 
+                        }).done(function(data){
+                            console.log(data);
+                            alert(data.sys_msg);
+                            location.reload(); 
+                        });
+                    }else{
+                        alert("上傳失敗");
+                    }
+                }
+                
             }        
         })
     })

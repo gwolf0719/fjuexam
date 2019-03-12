@@ -268,41 +268,47 @@ class Api extends CI_Controller {
     public function import_position(){
 
         $this->load->model('mod_voice_job_list');
-        
-      if (isset($_FILES['file'])) { 
-            $file = $_FILES['file']['tmp_name'];
-            $file_name = './tmp/'.time().'.csv';
-            copy($file, $file_name);
-            $file = fopen($file_name, 'r');
-            $row = 0;
-            $i = 0;
-            $datas = array();
-            while (!feof($file)) {
-                $data = fgetcsv($file);
-                if($row > 0 && $data != false){
-                    $datas[$i]['year'] = $this->session->userdata('year');
-                    $datas[$i]['ladder'] = $this->session->userdata('ladder');
-                    $datas[$i]['job'] = $data[0];
-                    $datas[$i]['test_partition'] = $this->input->post('test_partition');
-                    $i = $i + 1;
-                }
-                $row = $row+1;
-            }
-            
-            $this->mod_voice_job_list->insert_member($datas);
-    
-            fclose($file);
-            unlink($file_name);
-            $json_arr['sys_code'] = '200';
-            $json_arr['sys_msg'] = '資料上傳完成';
-            $json_arr['datas'] = $datas;
-            echo json_encode($json_arr);
-        }else{
+        if($this->input->get_post('test_partition') == ''){
             $json_arr['sys_code'] = '000';
-            $json_arr['sys_msg'] = '資料上傳錯誤';
+            $json_arr['sys_msg'] = '資料上傳完成';
+        }else{
+            if (isset($_FILES['file'])) { 
+                $file = $_FILES['file']['tmp_name'];
+                $file_name = './tmp/'.time().'.csv';
+                copy($file, $file_name);
+                $file = fopen($file_name, 'r');
+                $row = 0;
+                $i = 0;
+                $datas = array();
+                while (!feof($file)) {
+                    $data = fgetcsv($file);
+                    if($row > 0 && $data != false){
+                        $datas[$i]['year'] = $this->session->userdata('year');
+                        $datas[$i]['ladder'] = $this->session->userdata('ladder');
+                        $datas[$i]['job'] = $data[0];
+                        $datas[$i]['test_partition'] = $this->input->post('test_partition');
+                        $i = $i + 1;
+                    }
+                    $row = $row+1;
+                }
+                
+                $this->mod_voice_job_list->insert_member($datas);
+        
+                fclose($file);
+                unlink($file_name);
+                $json_arr['sys_code'] = '200';
+                $json_arr['sys_msg'] = '資料上傳完成';
+                $json_arr['datas'] = $datas;
+            }else{
+                $json_arr['sys_code'] = '000';
+                $json_arr['sys_msg'] = '資料上傳錯誤';
+            }
+        
         }
-       
+
+        echo json_encode($json_arr);
     }
+      
     
     /**
      * 取消職務.

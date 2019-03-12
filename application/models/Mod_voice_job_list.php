@@ -23,6 +23,7 @@ class Mod_voice_job_list extends CI_Model
     {
         $this->db->where('year',$this->session->userdata('year'));
         $this->db->where('ladder',$this->session->userdata('ladder'));
+        $this->db->order_by('test_partition','asc');
         return $this->db->get('voice_job_list')->result_array();
     }
     public function get_job_list($year, $test_partition)
