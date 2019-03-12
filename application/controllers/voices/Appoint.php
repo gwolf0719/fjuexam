@@ -29,9 +29,11 @@ class Appoint extends CI_Controller {
         $ladder = $this->session->userdata('ladder');
         // $block_name = $this-
         $part1 = $this->mod_voice_trial->get_list('2501');
+        // echo $this->db->last_query();
+        // print_r($part1);
         $part2 = $this->mod_voice_trial->get_list('2502');
         $part3 = $this->mod_voice_trial->get_list('2503');
-
+        
         // echo json_encode($part1);
         // return false;
 
@@ -63,15 +65,16 @@ class Appoint extends CI_Controller {
         $part = $this->mod_voice_exam_area->get_part_block('2501','上午場');
         $part_aftermoon = $this->mod_voice_exam_area->get_part_block('2501','下午場');
         $part1 = $this->mod_voice_trial->get_trial_list('2501');
+        print_r($part1);
         $part2 = $this->mod_voice_trial->get_trial_list('2502');
         $part3 = $this->mod_voice_trial->get_trial_list('2503');
-        if ($this->mod_voice_exam_datetime->chk_once($year,$ladder)) {
+        // if ($this->mod_voice_exam_datetime->chk_once($year,$ladder)) {
             $datetime_info = $this->mod_voice_exam_datetime->get_once($year,$ladder);
-        } else {
-            $datetime_info = array(
-                'day' => '10/25',
-            );
-        }
+        // } else {
+        //     $datetime_info = array(
+        //         'day' => '10/25',
+        //     );
+        // }
         $data = array(
             'title' => '管卷人員指派',
             'path' => 'voice/appoint_d2',

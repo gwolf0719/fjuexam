@@ -35,9 +35,6 @@ class Import extends CI_Controller {
         
         $datalist = array();
 
-  
-       
-
         $data = array(
             'title' => '考區試場資料',
             'path' => 'voice/import_test_area',
