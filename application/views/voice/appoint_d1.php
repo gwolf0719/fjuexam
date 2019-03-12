@@ -114,6 +114,13 @@
 
 <script>
     $(function() {
+        // 檢查考試時間設定
+        if($("#do_date").text() == ''){
+            alert('請先設定考試日期時間');
+            location.href="./voice/f";
+        }
+
+
 
         // 預設全部不能點
         // $("#do_date,#morning,#aftermorning,#supervisor_2,#supervisor_1,#note,button").attr('disabled',true);
@@ -554,10 +561,8 @@
                     <div class="col-md-3 col-sm-3 col-xs-3 cube">
                         <div class="form-group">
                             <label for="start_date" class=""  value="<?=$datatime_info['day'];?>">執行日</label>
-                            <input type="checkbox" class="chbox" id="do_date" name="day" checked disabled>
-                            <span class="chbox"  >
-                                <?=$datatime_info['day']; ?>
-                            </span>
+                            <input type="checkbox" class="chbox"  name="day" checked disabled>
+                            <span class="chbox" id="do_date" ><?=$datatime_info['day']; ?></span>
                         </div>
                         <div class="form-group">
                             <label for="floor" class="" style="float:left;">場次</label>
