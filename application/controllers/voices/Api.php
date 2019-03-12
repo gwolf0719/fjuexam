@@ -802,8 +802,8 @@ class Api extends CI_Controller {
     public function get_once_assign()
     {
         $this->load->model('mod_voice_trial');
-        $getpost = array('sn');
-        $requred = array('sn');
+        $getpost = array('field');
+        $requred = array('field');
         $data = $this->getpost->getpost_array($getpost, $requred);
         if ($data == false) {
             $json_arr['sys_code'] = '000';
@@ -811,7 +811,7 @@ class Api extends CI_Controller {
             $json_arr['requred'] = $this->getpost->report_requred($requred);
         } else {
 
-            $json_arr['info'] = $this->mod_voice_trial->get_once_assign($data['sn']);
+            $json_arr['info'] = $this->mod_voice_trial->get_once_assign($data['field']);
             $json_arr['sys_code'] = '200';
             $json_arr['sys_msg'] = '資料處理完成';
         }

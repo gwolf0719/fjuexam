@@ -119,9 +119,9 @@ class Mod_voice_trial extends CI_Model
     }
 
     
-    public function get_once_assign($sn)
+    public function get_once_assign($field)
     {
-        return $this->db->where('sn', $sn)->get('voice_trial_assign')->row_array();
+        return $this->db->where('field', $field)->get('voice_trial_assign')->row_array();
     }
 
     public function chk_once($year,$ladder,$field,$part)

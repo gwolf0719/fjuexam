@@ -260,7 +260,7 @@
             $.ajax({
                 url: './voice/api/get_once_assign',
                 data: {
-                    "sn": sn,
+                    "field": field,
                 },
                 dataType: "json"
             }).done(function(data) {
