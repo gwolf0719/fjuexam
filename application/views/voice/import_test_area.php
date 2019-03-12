@@ -73,8 +73,8 @@ tr{
                 <tr>
                     <th>序號</th>
                     <th>年度</th>
-                    <th>第幾次</th>
-                    <th>分區</th>
+                    <!-- <th>第幾次</th>
+                    <th>分區</th> -->
                     <th>分區名稱</th>
                     <th>場次</th>
                     <th>試場</th>
@@ -89,8 +89,8 @@ tr{
                 <tr>
                     <td><?=$k + 1; ?></td>
                     <td><?=$v['year']; ?></td>
-                    <td><?=$v['ladder']; ?></td>
-                    <td><?=$v['part']; ?></td>
+                    <!-- <td><?=$v['ladder']; ?></td>
+                    <td><?=$v['part']; ?></td> -->
                     <td><?=$v['area_name']; ?></td>
                     <td><?=$v['block_name']; ?></td>
                     <td><?=$v['field']; ?></td>
