@@ -115,24 +115,26 @@ class Mod_exam_datetime extends CI_Model
                 // }
             }
         }
+        // print_r($day);
         $count = 0;
         $where = array();
         for ($i = 1; $i <= 3; ++$i) {
             foreach ($day[$i] as $k => $v) {
                 if ($v != "subject_00") {
+                    // print_r($v);
                     $where = array(
                         'year' => $year,
                         'field <=' => $end,
                         'field >=' => $start,
                         $v.'!=' => 0,
                     );
-                    if ($this->db->where($where)->count_all_results('exam_area') != 0) {
+                    if ($this->db->where($where)->count_all_results('ability_exam_area') != 0) {
                         $count = $count + 1;
                     }
                 }
             }
         }
-
+        // print_r($count);
         return $count;
     }
 

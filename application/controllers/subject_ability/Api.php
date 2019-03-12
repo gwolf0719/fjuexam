@@ -716,7 +716,8 @@ class Api extends CI_Controller {
      //取得每天節數總和
      public function get_day_section()
      {
-         $this->load->model('mod_exam_datetime');
+        //  $this->load->model('mod_exam_datetime');
+         $this->load->model('subject_ability/mod_exam_datetime',"mod_exam_datetime");
          $getpost = array('start', 'end');
          $requred = array('start', 'end');
          $data = $this->getpost->getpost_array($getpost, $requred);
