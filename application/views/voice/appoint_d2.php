@@ -423,7 +423,7 @@
             } else {
                 var part = $("#part").val();
                 var allocation_code = $("#allocation_code").val();
-                var trial_staff_code = $("#trial_staff_code").val();
+                var trial_staff_code = $("#allocation_code").val();
                 var trial_staff_name = $("#trial_staff_name").val();
                 var first_start = $("#first_start").val();
                 var first_end = $("#first_end").val();

@@ -173,6 +173,7 @@ class Appoint extends CI_Controller {
         $year = $this->session->userdata('year');
         $ladder = $this->session->userdata('ladder');
         $part1 = $this->mod_voice_trial->get_trial_list('2501');
+        // print_r($part1);
         $part2 = $this->mod_voice_trial->get_trial_list('2502');
         $part3 = $this->mod_voice_trial->get_trial_list('2503');
         $part = $this->mod_voice_exam_area->get_part_block('2501','上午場');

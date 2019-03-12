@@ -274,8 +274,8 @@
                 },
                 dataType: "json"
             }).done(function(data) {
-                console.log(data.info);
-                $("#job_code").val(data.info.member_code);
+                // console.log(data.info);
+                $("#job_code").val(code);
                 $("#job_title").val(data.info.member_title);
                 $("#name").val(data.info.member_name);
                 $("#phone").val(data.info.member_phone);
