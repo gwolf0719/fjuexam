@@ -30,35 +30,47 @@
 </div>
 <div class="row" >
     
-    <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4 cube text-center">
+    <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3 cube text-center">
         <a href="./subject_ability/b_1">
             <img src="assets/images/b1.png" alt="">
         </a>    
     </div>
-    <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4 cube text-center">
+    <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3 cube text-center">
         <a href="./subject_ability/b_2">
             <img src="assets/images/b2.png" alt="">
         </a>    
     
     </div>
-    <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4 cube text-center">
+    <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3 cube text-center">
         <a href="./subject_ability/b_3">
             <img src="assets/images/b3.png" alt="">
         </a>    
     
     </div>
-    <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4 cube text-center">
+    <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3 cube text-center">
         <a href="./subject_ability/b_4">
             <img src="assets/images/b4.png" alt="">
         </a>    
     </div>
-    <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4 cube text-center">
+    <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3 cube text-center">
         <a href="./subject_ability/b_5">
-            <img src="assets/images/b5.png" alt="">
+            <img src="assets/images/b5n.png" alt="">
         </a>    
     </div> 
-    <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4 cube text-center">
-        
+    <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3 cube text-center">
+        <a href="./subject_ability/b_6">
+            <img src="assets/images/b6.png" alt="">
+        </a>    
     </div> 
+    <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3 cube text-center">
+        <a href="./subject_ability/b_7">
+            <img src="assets/images/b7.png" alt="">
+        </a>    
+    </div> 
+
+    <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3 cube text-center">
+
+    </div> 
+
     
 </div>

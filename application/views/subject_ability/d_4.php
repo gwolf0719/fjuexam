@@ -265,6 +265,18 @@
         // })
 
         $("body").on("click", "tr", function() {
+
+            $('input[name="first_member_day"]').each(function() {
+                for (let index = 0; index < 3; index++) {
+                    $(this).prop("checked", false);
+                }
+            })              
+            $('input[name="second_member_day"]').each(function() {
+                for (let index = 0; index < 3; index++) {
+                    $(this).prop("checked", false);
+                }
+            })  
+
             var section = $(this).attr("section");
             $("#first_member_section_count").val(section);
             $("#second_member_section_count").val(section);
@@ -272,7 +284,7 @@
             $("#sn").val(sn);
             var part = $(this).attr("part");
             var field = $(this).attr("field");
-            console.log(field);
+            // console.log(field);
             $("html, body").animate({
                 scrollTop: $("body").height()
             }, 1000);
@@ -284,6 +296,46 @@
                 dataType: "json"
             }).done(function(data) {
                 console.log(data.info);
+                // console.log(data.info.first_member_do_date);
+                
+                var date=data.info.first_member_do_date;
+                var date2=data.info.second_member_do_date;
+                var date=date.split(",");
+                var date2=date2.split(",");
+
+                $('input[name="first_member_day"]').each(function() {
+                    for (let index = 0; index < 1; index++) {
+                        var a=$(this).val();
+                        var ans=jQuery.inArray( a, date );
+
+                        if(ans>=0){
+                            console.log(ans);
+                            $(this).prop("checked",true);
+                        }else if(and==-1){
+                            $(this).prop("checked", false);
+                        }
+                    }
+                })  
+
+                $('input[name="second_member_day"]').each(function() {
+                    for (let index = 0; index < 1; index++) {
+                        var a=$(this).val();
+                        var ans=jQuery.inArray( a, date2 );
+
+                        if(ans>=0){
+                            console.log(ans);
+                            $(this).prop("checked",true);
+                        }else if(and==-1){
+                            $(this).prop("checked", false);
+                        }
+                    }
+                })
+
+
+
+
+
+
                 $(".field").val(field);
                 $("#sn").val(data.info.sn);
                 //職員一
@@ -568,6 +620,12 @@
         <div class="tab tab3" area="3" part="2503" eng="third">
             <div class="tab_text">第三分區</div>
         </div>
+        <div class="tab tab4" area="4" part="2504" eng="fourth">
+            <div class="tab_text">第四分區</div>
+        </div>
+        <div class="tab tab5" area="5" part="2505" eng="fifth">
+            <div class="tab_text">第五分區</div>
+        </div>
     </div>
 </div>
 <div class="row part" id="part1" style="height:700px;overflow: auto;">
@@ -766,6 +824,137 @@
     </div>
 </div>
 
+
+<div class="row part" id="part4" style="height:700px;overflow: auto;">
+    <div class="col-12" style="margin-top: 10px;">
+        <table class="table table-hover" id="">
+            <thead>
+                <tr>
+                    <th>序號</th>
+                    <th>試場</th>
+                    <th>考試節數</th>
+                    <th>考生應試號起</th>
+                    <th>考生應試號迄</th>
+                    <th>應試人數</th>
+                    <th>樓層別</th>
+                    <th>監試人員一編號</th>
+                    <th>監試人員一</th>
+                    <th>監試人員二編號</th>
+                    <th>監試人員二</th>
+                    <th>備註</th>
+                </tr>
+            </thead>
+            <tbody>
+                <?php foreach ($part4 as $k => $v): ?>
+                <tr sn="<?=$v['sn']; ?>" part="2504" field="<?=$v['field']; ?>" section="<?=$v['test_section']; ?>">
+                    <td>
+                        <?=$k + 1; ?>
+                    </td>
+                    <td>
+                        <?=$v['field']; ?>
+                    </td>
+                    <td>
+                        <?=$v['test_section']; ?>
+                    </td>
+                    <td>
+                        <?=$v['start']; ?>
+                    </td>
+                    <td>
+                        <?=$v['end']; ?>
+                    </td>
+                    <td>
+                        <?=$v['number']; ?>
+                    </td>
+                    <td>
+                        <?=$v['floor']; ?>
+                    </td>
+                    <td>
+                        <?=$v['trial_staff_code_1']; ?>
+                    </td>
+                    <td>
+                        <?=$v['supervisor_1']; ?>
+                    </td>
+                    <td>
+                        <?=$v['trial_staff_code_2']; ?>
+                    </td>
+                    <td>
+                        <?=$v['supervisor_2']; ?>
+                    </td>
+                    <td>
+                        <?=$v['note']; ?>
+                    </td>
+                </tr>
+                <?php endforeach; ?>
+            </tbody>
+        </table>
+    </div>
+</div>
+
+<div class="row part" id="part5" style="height:700px;overflow: auto;">
+    <div class="col-12" style="margin-top: 10px;">
+        <table class="table table-hover" id="">
+            <thead>
+                <tr>
+                    <th>序號</th>
+                    <th>試場</th>
+                    <th>考試節數</th>
+                    <th>考生應試號起</th>
+                    <th>考生應試號迄</th>
+                    <th>應試人數</th>
+                    <th>樓層別</th>
+                    <th>監試人員一編號</th>
+                    <th>監試人員一</th>
+                    <th>監試人員二編號</th>
+                    <th>監試人員二</th>
+                    <th>備註</th>
+                </tr>
+            </thead>
+            <tbody>
+                <?php foreach ($part5 as $k => $v): ?>
+                <tr sn="<?=$v['sn']; ?>" part="2505" field="<?=$v['field']; ?>" section="<?=$v['test_section']; ?>">
+                    <td>
+                        <?=$k + 1; ?>
+                    </td>
+                    <td>
+                        <?=$v['field']; ?>
+                    </td>
+                    <td>
+                        <?=$v['test_section']; ?>
+                    </td>
+                    <td>
+                        <?=$v['start']; ?>
+                    </td>
+                    <td>
+                        <?=$v['end']; ?>
+                    </td>
+                    <td>
+                        <?=$v['number']; ?>
+                    </td>
+                    <td>
+                        <?=$v['floor']; ?>
+                    </td>
+                    <td>
+                        <?=$v['trial_staff_code_1']; ?>
+                    </td>
+                    <td>
+                        <?=$v['supervisor_1']; ?>
+                    </td>
+                    <td>
+                        <?=$v['trial_staff_code_2']; ?>
+                    </td>
+                    <td>
+                        <?=$v['supervisor_2']; ?>
+                    </td>
+                    <td>
+                        <?=$v['note']; ?>
+                    </td>
+                </tr>
+                <?php endforeach; ?>
+            </tbody>
+        </table>
+    </div>
+</div>
+
 <div class="bottom">
     <div class="row boxs">
         <div class="col-md-12 col-sm-12 col-xs-12 ">
@@ -802,15 +991,15 @@
                         </div>
                         <div class="form-group">
                             <label for="start_date" class="" style="float:left;">執行日</label>
-                            <input disabled type="checkbox" class="chbox" id="" name="first_member_day" value="<?=mb_substr($datetime_info['day_1'], 5, 8, 'utf-8'); ?>">
+                            <input  type="checkbox" class="chbox" id="" name="first_member_day" value="<?=mb_substr($datetime_info['day_1'], 5, 8, 'utf-8'); ?>">
                             <span class="chbox">
                                 <?=mb_substr($datetime_info['day_1'], 5, 8, 'utf-8'); ?>
                             </span>
-                            <input disabled type="checkbox" class="chbox" id="" name="first_member_day" value="<?=mb_substr($datetime_info['day_2'], 5, 8, 'utf-8'); ?>">
+                            <input  type="checkbox" class="chbox" id="" name="first_member_day" value="<?=mb_substr($datetime_info['day_2'], 5, 8, 'utf-8'); ?>">
                             <span class="chbox">
                                 <?=mb_substr($datetime_info['day_2'], 5, 8, 'utf-8'); ?>
                             </span>
-                            <input disabled type="checkbox" class="chbox" id="" name="first_member_day" value="<?=mb_substr($datetime_info['day_3'], 5, 8, 'utf-8'); ?>">
+                            <input  type="checkbox" class="chbox" id="" name="first_member_day" value="<?=mb_substr($datetime_info['day_3'], 5, 8, 'utf-8'); ?>">
                             <span class="chbox">
                                 <?=mb_substr($datetime_info['day_3'], 5, 8, 'utf-8'); ?>
                             </span>
@@ -904,15 +1093,15 @@
                         </div>
                         <div class="form-group">
                             <label for="start_date" class="" style="float:left;">執行日</label>
-                            <input disabled type="checkbox" class="chbox" id="" name="second_member_day" value="<?=mb_substr($datetime_info['day_1'], 5, 8, 'utf-8'); ?>">
+                            <input type="checkbox" class="chbox" id="" name="second_member_day" value="<?=mb_substr($datetime_info['day_1'], 5, 8, 'utf-8'); ?>">
                             <span class="chbox">
                                 <?=mb_substr($datetime_info['day_1'], 5, 8, 'utf-8'); ?>
                             </span>
-                            <input disabled type="checkbox" class="chbox" id="" name="second_member_day" value="<?=mb_substr($datetime_info['day_2'], 5, 8, 'utf-8'); ?>">
+                            <input type="checkbox" class="chbox" id="" name="second_member_day" value="<?=mb_substr($datetime_info['day_2'], 5, 8, 'utf-8'); ?>">
                             <span class="chbox">
                                 <?=mb_substr($datetime_info['day_2'], 5, 8, 'utf-8'); ?>
                             </span>
-                            <input disabled type="checkbox" class="chbox" id="" name="second_member_day" value="<?=mb_substr($datetime_info['day_3'], 5, 8, 'utf-8'); ?>">
+                            <input type="checkbox" class="chbox" id="" name="second_member_day" value="<?=mb_substr($datetime_info['day_3'], 5, 8, 'utf-8'); ?>">
                             <span class="chbox">
                                 <?=mb_substr($datetime_info['day_3'], 5, 8, 'utf-8'); ?>
                             </span>

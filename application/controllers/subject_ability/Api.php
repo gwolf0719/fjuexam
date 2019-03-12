@@ -303,8 +303,9 @@ class Api extends CI_Controller {
       * 新增職務 ＠James.
       */
      public function job_add()
-     {
+     {  
          $this->load->model('mod_ability_task');
+         $this->load->model('mod_task');
          $getpost = array('job', 'area');
          $requred = array('job', 'area');
          $data = $this->getpost->getpost_array($getpost, $requred);
@@ -315,8 +316,8 @@ class Api extends CI_Controller {
          } else {
              $year = $this->session->userdata('year');
              $part = $this->mod_ability_task->get_part_for_once($data['area']);
- 
-             $this->mod_task->add_job($year, $data['job'], $data['area'], $part['trial_start'], $part['trial_end']);
+            //  print_r($part);
+             $this->mod_ability_task->add_job($year, $data['job'], $data['area'], $part['trial_start'], $part['trial_end']);
              $json_arr['sys_code'] = '200';
              $json_arr['sys_msg'] = '新增完成';
          }
@@ -463,7 +464,7 @@ class Api extends CI_Controller {
      {
          $this->load->model('mod_ability_part_info');
          $getpost = array('part','start', 'end','floor', 'note');
-         $requred = array('part','start', 'end','floor');
+         $requred = array('part','start', 'end','floor', 'note');
          $data = $this->getpost->getpost_array($getpost, $requred);
          if ($data == false) {
              $json_arr['sys_code'] = '000';
@@ -480,8 +481,8 @@ class Api extends CI_Controller {
      public function save_addr()
      {
          $this->load->model('mod_ability_part_addr');
-         $getpost = array('year', 'part_addr_1', 'part_addr_2', 'part_addr_3');
-         $requred = array('year', 'part_addr_1', 'part_addr_2', 'part_addr_3');
+         $getpost = array('year', 'part_addr_1', 'part_addr_2', 'part_addr_3', 'part_addr_4', 'part_addr_5');
+         $requred = array('year', 'part_addr_1', 'part_addr_2', 'part_addr_3', 'part_addr_4', 'part_addr_5');
          $data = $this->getpost->getpost_array($getpost, $requred);
          $year = $this->session->userdata('year');
          if ($data == false) {
@@ -539,7 +540,7 @@ class Api extends CI_Controller {
                  $json_arr['sys_msg'] = '該人員已經被指派過，請選擇其他人員';
              }else{
                  $json_arr['sys_code'] = '200';
-                 $json_arr['sys_msg'] = 'success';
+                 $json_arr['sys_msg'] = '該人員可以指派';
              }
              $json_arr['sql'] = $this->db->last_query();
          }
@@ -550,11 +551,14 @@ class Api extends CI_Controller {
      {
          $this->load->model('mod_ability_trial');
          $this->load->model('mod_ability_staff');
-         $this->load->model('mod_exam_datetime');
+        //  $this->load->model('mod_exam_datetime');
+         $this->load->model('subject_ability/mod_exam_datetime',"mod_exam_datetime");
          $this->load->model('mod_ability_exam_fees');
          $this->load->model('mod_ability_part_info');
+        //  $this->load->model('mod_trial');
+         $this->load->model('subject_ability/mod_trial',"mod_trial");
          $getpost = array('sn', 'part','supervisor_1', 'supervisor_1_code', 'supervisor_2', 'supervisor_2_code', 'trial_staff_code_1', 'trial_staff_code_2', 'note','field');
-         $requred = array('sn', 'part','supervisor_1', 'supervisor_1_code', 'supervisor_2', 'supervisor_2_code', 'trial_staff_code_1', 'trial_staff_code_2','field');
+         $requred = array('sn', 'part','field');
          $data = $this->getpost->getpost_array($getpost, $requred);
          if ($data == false) {
              $json_arr['sys_code'] = '000';
@@ -631,12 +635,13 @@ class Api extends CI_Controller {
                      'note'=>$data['note'],
                  );
                  $this->mod_trial->update_once($data['sn'], $sql_data);
+
+                 $json_arr['sys_code'] = '200';
+                 $json_arr['sys_msg'] = '資料儲存完成';
              } else {
                  $json_arr['sys_code'] = '404';
                  $json_arr['sys_msg'] = '查無此資料';
              }
-             $json_arr['sys_code'] = '200';
-             $json_arr['sys_msg'] = '資料儲存完成';
          }
          echo json_encode($json_arr);
      }
@@ -672,15 +677,16 @@ class Api extends CI_Controller {
      public function save_trial_for_price()
      {
          $this->load->model('mod_ability_trial');
-         $getpost = array('sn','first_member_do_date','second_member_do_date','first_member_day_count', 'first_member_salary_section', 'first_member_section_salary_total', 'first_member_lunch_price', 'first_member_section_lunch_total', 'first_member_section_total', 'second_member_day_count', 'second_member_salary_section', 'second_member_section_salary_total', 'second_member_lunch_price', 'second_member_section_lunch_total', 'second_member_section_total','first_member_order_meal','second_member_order_meal','first_member_meal','second_member_meal');
-         $requred = array('sn','first_member_do_date','second_member_do_date','first_member_day_count', 'first_member_salary_section', 'first_member_section_salary_total', 'first_member_lunch_price', 'first_member_section_lunch_total', 'first_member_section_total', 'second_member_day_count', 'second_member_salary_section', 'second_member_section_salary_total', 'second_member_lunch_price', 'second_member_section_lunch_total', 'second_member_section_total','first_member_order_meal','second_member_order_meal','first_member_meal','second_member_meal');
+         $getpost = array('sn','first_member_do_date','first_member_day_count', 'first_member_salary_section', 'first_member_section_salary_total', 'first_member_lunch_price', 'first_member_section_lunch_total', 'first_member_section_total', 'second_member_day_count', 'second_member_salary_section', 'second_member_section_salary_total', 'second_member_lunch_price', 'second_member_section_lunch_total', 'second_member_section_total','first_member_order_meal','second_member_order_meal','first_member_meal','second_member_meal');
+         $requred = array('sn','first_member_do_date','first_member_day_count', 'first_member_salary_section', 'first_member_section_salary_total', 'first_member_lunch_price', 'first_member_section_lunch_total', 'first_member_section_total', 'second_member_day_count', 'second_member_salary_section', 'second_member_section_salary_total', 'second_member_lunch_price', 'second_member_section_lunch_total', 'second_member_section_total','first_member_order_meal','second_member_order_meal','first_member_meal','second_member_meal');
          $data = $this->getpost->getpost_array($getpost, $requred);
+        //  print_r($data);
          if ($data == false) {
              $json_arr['sys_code'] = '000';
              $json_arr['sys_msg'] = '資料不足';
              $json_arr['requred'] = $this->getpost->report_requred($requred);
          } else {
-             print_r($data);
+            //  print_r($data);
              $data['year'] = $this->session->userdata('year');
              $this->mod_ability_trial->update_once($data['sn'], $data);
              $json_arr['sys_code'] = '200';
@@ -710,7 +716,8 @@ class Api extends CI_Controller {
      //取得每天節數總和
      public function get_day_section()
      {
-         $this->load->model('mod_eability_xam_datetime');
+        //  $this->load->model('mod_exam_datetime');
+         $this->load->model('subject_ability/mod_exam_datetime',"mod_exam_datetime");
          $getpost = array('start', 'end');
          $requred = array('start', 'end');
          $data = $this->getpost->getpost_array($getpost, $requred);
@@ -729,7 +736,8 @@ class Api extends CI_Controller {
      //取得當天節數
      public function get_once_day_section()
      {
-         $this->load->model('mod_exam_datetime');
+        //  $this->load->model('mod_exam_datetime');
+         $this->load->model('subject_ability/mod_exam_datetime',"mod_exam_datetime");
          $getpost = array('day', 'start', 'end');
          $requred = array('day', 'start', 'end');
          $data = $this->getpost->getpost_array($getpost, $requred);
@@ -919,7 +927,8 @@ class Api extends CI_Controller {
      {
          $this->load->model('mod_ability_patrol');
          $this->load->model('mod_ability_trial');
-         $this->load->model('mod_exam_datetime');
+        //  $this->load->model('mod_exam_datetime');
+         $this->load->model('subject_ability/mod_exam_datetime',"mod_exam_datetime");
          $this->load->model('mod_ability_exam_fees');
          $this->load->model('mod_ability_part_info');
          $this->load->model('mod_ability_staff');
@@ -934,7 +943,7 @@ class Api extends CI_Controller {
              $data['year'] = $this->session->userdata('year');
              $day = $this->mod_exam_datetime->room_use_day($data['start'], $data['end'],$data['part']);
              $datetime_info = $this->mod_exam_datetime->get_once($_SESSION['year']);
-             $fees_info = $this->mod_eability_xam_fees->get_once($_SESSION['year']);
+             $fees_info = $this->mod_ability_exam_fees->get_once($_SESSION['year']);
              $member = $this->mod_ability_staff->get_staff_member(trim($data['patrol_staff_code']));
              $do_date = array();
              if($day[0] != ""){
@@ -1108,7 +1117,7 @@ class Api extends CI_Controller {
          $this->load->model('mod_ability_staff');
          $this->load->model('mod_ability_task');
          $getpost = array('sn', 'calculation', 'do_date', 'count', 'salary', 'salary_total', 'lunch_price', 'lunch_total', 'total', 'order_meal','meal');
-         $requred = array('sn', 'calculation', 'do_date', 'count', 'salary', 'salary_total', 'lunch_price', 'lunch_total', 'total', 'order_meal','meal');
+         $requred = array('sn', 'calculation', 'count', 'salary', 'salary_total', 'lunch_price', 'lunch_total', 'total', 'order_meal','meal');
          $data = $this->getpost->getpost_array($getpost, $requred);
          if ($data == false) {
              $json_arr['sys_code'] = '000';

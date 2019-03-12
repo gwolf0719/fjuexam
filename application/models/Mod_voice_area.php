@@ -43,7 +43,10 @@ class Mod_voice_area extends CI_Model {
 
     // 多筆輸入
     function insert_batch($datas){
-        $this->db->where('year', $this->session->userdata('year'))->truncate('voice_area_main');
+
+
+        $this->db->delete('voice_area_main', array('year' => $this->session->userdata('year'))); 
+        $this->db->where('year', $this->session->userdata('year'));
         $this->db->insert_batch('voice_area_main', $datas);
     }
   

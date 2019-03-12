@@ -208,6 +208,12 @@
             var code = $(this).attr("code");
             var part = $(this).attr("part");
 
+            $('input[name="day"]').each(function() {
+                for (let index = 0; index < 3; index++) {
+                    $(this).prop("checked", false);
+                }
+            })         
+
 
             $("html, body").animate({
                 scrollTop: $("body").height()
@@ -220,6 +226,30 @@
                 dataType: "json"
             }).done(function(data) {
                 console.log(data);
+
+
+                var date=data.info.do_date;
+                var date=date.split(",");
+
+                $('input[name="day"]').each(function() {
+                    for (let index = 0; index < 1; index++) {
+                        var a=$(this).val();
+                        var ans=jQuery.inArray( a, date );
+
+                        if(ans>=0){
+                            console.log(ans);
+                            $(this).prop("checked",true);
+                        }else if(ans==-1){
+                            $(this).prop("checked", false);
+                        }
+                    }
+                })  
+
+
+
+
+
+
                 $("#sn").val(sn);
                 $("#trial_start").val(data.info.start);
                 $("#trial_end").val(data.info.end);
@@ -652,6 +682,12 @@
         <div class="tab tab3" area="3" part="2503">
             <div class="tab_text">第三分區</div>
         </div>
+        <div class="tab tab4" area="4" part="2504">
+            <div class="tab_text">第四分區</div>
+        </div>
+        <div class="tab tab5" area="5" part="2505">
+            <div class="tab_text">第五分區</div>
+        </div>
     </div>
 </div>
 <div class="row part" id="part1" style="height:700px;overflow: auto;">
@@ -787,6 +823,96 @@
     </div>
 </div>
 
+<div class="row part" id="part4" style="height:700px;overflow: auto;">
+    <div class="col-12" style="margin-top: 10px;">
+        <table class="table table-hover" id="">
+            <thead>
+                <tr>
+                    <th>序號</th>
+                    <th>巡場人員編號</th>
+                    <th>巡場人員</th>
+                    <th>試場號起</th>
+                    <th>試場號迄</th>
+                    <th>最大試節數</th>
+                    <th>備註</th>
+                </tr>
+            </thead>
+            <tbody>
+                <?php foreach ($part4 as $k => $v): ?>
+                <tr sn="<?=$v['sn']; ?>" code="<?=$v['patrol_staff_code']; ?>" part="2504">
+                    <td>
+                        <?=$k + 1; ?>
+                    </td>
+                    <td>
+                        <?=$v['allocation_code']; ?>
+                    </td>
+                    <td>
+                        <?=$v['patrol_staff_name']; ?>
+                    </td>
+                    <td>
+                        <?=$v['start']; ?>
+                    </td>
+                    <td>
+                        <?=$v['end']; ?>
+                    </td>
+                    <td>
+                        <?=$v['section']; ?>
+                    </td>
+                    <td>
+                        <?=$v['note']; ?>
+                    </td>
+                </tr>
+                <?php endforeach; ?>
+            </tbody>
+        </table>
+    </div>
+</div>
+
+<div class="row part" id="part5" style="height:700px;overflow: auto;">
+    <div class="col-12" style="margin-top: 10px;">
+        <table class="table table-hover" id="">
+            <thead>
+                <tr>
+                    <th>序號</th>
+                    <th>巡場人員編號</th>
+                    <th>巡場人員</th>
+                    <th>試場號起</th>
+                    <th>試場號迄</th>
+                    <th>最大試節數</th>
+                    <th>備註</th>
+                </tr>
+            </thead>
+            <tbody>
+                <?php foreach ($part5 as $k => $v): ?>
+                <tr sn="<?=$v['sn']; ?>" code="<?=$v['patrol_staff_code']; ?>" part="2505">
+                    <td>
+                        <?=$k + 1; ?>
+                    </td>
+                    <td>
+                        <?=$v['allocation_code']; ?>
+                    </td>
+                    <td>
+                        <?=$v['patrol_staff_name']; ?>
+                    </td>
+                    <td>
+                        <?=$v['start']; ?>
+                    </td>
+                    <td>
+                        <?=$v['end']; ?>
+                    </td>
+                    <td>
+                        <?=$v['section']; ?>
+                    </td>
+                    <td>
+                        <?=$v['note']; ?>
+                    </td>
+                </tr>
+                <?php endforeach; ?>
+            </tbody>
+        </table>
+    </div>
+</div>
+
 <div class="bottom">
     <div class="row boxs">
         <div class="col-md-12 col-sm-12 col-xs-12" style="margin: 50px auto 0px;">
@@ -815,17 +941,17 @@
                     <div class="form-group">
                         <label for="start_date" class="" style="float:left;">執行日</label>
                         <input type="checkbox" class="chbox" id="" name="day" value="<?=mb_substr($datetime_info['day_1'], 5, 8, 'utf-8'); ?>"
-                            disabled>
+                            >
                         <span class="chbox">
                             <?=mb_substr($datetime_info['day_1'], 5, 8, 'utf-8'); ?>
                         </span>
                         <input type="checkbox" class="chbox" id="" name="day" value="<?=mb_substr($datetime_info['day_2'], 5, 8, 'utf-8'); ?>"
-                            disabled>
+                            >
                         <span class="chbox">
                             <?=mb_substr($datetime_info['day_2'], 5, 8, 'utf-8'); ?>
                         </span>
                         <input type="checkbox" class="chbox" id="" name="day" value="<?=mb_substr($datetime_info['day_3'], 5, 8, 'utf-8'); ?>"
-                            disabled>
+                            >
                         <span class="chbox">
                             <?=mb_substr($datetime_info['day_3'], 5, 8, 'utf-8'); ?>
                         </span>

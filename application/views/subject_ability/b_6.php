@@ -251,7 +251,7 @@
         $("body").on("click", "#send", function() {
             if (confirm("確定儲存修改資料？")) {
                 var sn = $("#sn").val();
-                var area = "考區";
+                var area = "第五分區";
                 var job = $("#member_job_title").val();
                 var job_code = $("#job_code").val();
                 var job_title = $("#job_title").val();
@@ -260,7 +260,7 @@
                 var trial_end = $("#trial_end").val();
                 var phone = $("#phone").val();
                 var note = $("textarea[name='note']").val();
-                var cla = "考區";
+                var cla = "第五分區";
                 var arr = $('input:checkbox:checked[name="day"]').map(function() {
                     return $(this).val();
                 }).get();
@@ -351,10 +351,10 @@
                 } else {
                     $.getJSON("./subject_ability/api/job_add", {
                         job: job,
-                        area: "考區"
+                        area: "第五分區"
                     }, function(data) {
                         alert(data.sys_msg);
-                        // location.reload();
+                        location.reload();
                     })
                 }
             }
@@ -392,10 +392,9 @@
             $.post("./subject_ability/api/assignment", {
                 job_code: code[0],
                 job: $("#search_job").text(),
-                area: "考區",
+                area: "第三分區",
             }, function(data) {
                 alert(data.sys_msg);
-                console.log(data.info);
                 if (data.sys_code == "200") {
                     $('#exampleModal').modal('hide');
                     $("#member_job_title").val($("#search_job").text());
@@ -403,7 +402,7 @@
                     $("#job_title").val(data.info.member_title);
                     $("#name").val(data.info.member_name);
                     $("#phone").val(data.info.member_phone);
-                     if (data.info.order_meal == "Y") {
+                    if (data.info.order_meal == "Y") {
                         $("#order_meal").prop("checked", true);
                         $(".meal").show();
                         $("#meal").val(data.info.meal);
@@ -470,6 +469,25 @@
             $("#total").val(total)
         })
 
+        $("body").on("change", ".section_count", function() {
+            if ($("#calculation").val() == "by_section") {
+                //以節計算
+                var price = $("#section").val() * $("#salary_section").val();
+                $("#price").val(price);
+                var lunch_price = $("#lunch_count").val() * $("#lunch_fee").val();
+                $("#lunch_price").val(lunch_price);
+                var total = price + lunch_price;
+                $("#total").val(total);
+            } else {
+                //以天計算
+                var price = $("#day_count").val() * $("#one_day_salary").val();
+                $("#price").val(price);
+                var lunch_price = $("#lunch_count").val() * $("#lunch_fee").val();
+                $("#lunch_price").val(lunch_price);
+                var total = price + lunch_price;
+                $("#total").val(total);
+            }
+        })
     });
 </script>
 
@@ -485,7 +503,7 @@
     </div>
 
     <div class="col-sm-8" style="text-align: center;">
-        <img src="assets/images/b1_title.png" alt="" style="width: 15%;">
+        <img src="assets/images/b6_title.jpg" alt="" style="width: 15%;">
     </div>
 
 </div>
@@ -496,21 +514,16 @@
             <thead>
                 <tr>
                     <th>序號</th>
-                    <!-- <th>年度</th> -->
                     <th>考區</th>
                     <th>職務</th>
-                    <!-- <th>職員代碼</th> -->
                     <th>職稱</th>
                     <th>姓名</th>
                     <th>執行日</th>
-                    <!-- <th>試場起號</th>
-                    <th>試場迄號</th> -->
                     <th>聯絡電話</th>
                     <th>備註</th>
                 </tr>
             </thead>
             <tbody>
-            
                 <?php foreach ($datalist as $k => $v): ?>
                 <tr sn="<?=$v['sn']; ?>">
                     <td>
@@ -567,7 +580,6 @@
             <div class="row">
                 <div for="" class="col-2" style="display: inline-block;line-height:40px;text-align:right;">職務</div>
                 <select class="form-control col-4" id="job" disabled>
-                
                     <?php foreach ($jobs as $k => $v): ?>
                     <option value="<?=$v['job']; ?>">
                         <?=$v['job']; ?>

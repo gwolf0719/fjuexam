@@ -408,6 +408,89 @@ class Console extends CI_Controller {
              unlink($file_name);
              print_r(fgetcsv($file));
              redirect('subject_ability/a_4');
+        } elseif (isset($_FILES['inputGroupFile04'])) {
+            $file = $_FILES['inputGroupFile04']['tmp_name'];
+            $file_name = './tmp/'.time().'.csv';
+            copy($file, $file_name);
+            $file = fopen($file_name, 'r');
+            $datas = array();
+            fgetcsv($file);
+            $start_4 = $this->mod_ability_exam_area->get_min_start('2504');
+            $end_4 = $this->mod_ability_exam_area->get_max_end('2504');
+            while (!feof($file)) {
+                $data = fgetcsv($file);
+                $area_4[] = array(
+                    'year' => $this->session->userdata('year'),
+                    'area' => '第四分區',
+                    'job' => $data[0],
+                    'job_code' => '',
+                    'job_title' => '',
+                    'name' => '',
+                    'trial_start' => $start_4['field'],
+                    'trial_end' => $end_4['field'],
+                    'number' => '',
+                    'phone' => '',
+                    'note' => '',
+                    'do_date' => '',
+                    'day_count' => '',
+                    'one_day_salary' => '',
+                    'salary_total' => '',
+                    'lunch_price' => '',
+                    'lunch_total' => '',
+                    'total' => '',
+                    'status' => '1',
+                 );
+            }
+            // echo json_encode($datas);
+
+            $this->mod_ability_task->import_4($area_4);
+            fclose($file);
+            unlink($file_name);
+            print_r(fgetcsv($file));
+            redirect('subject_ability/a_4');
+
+
+        } elseif (isset($_FILES['inputGroupFile05'])) {
+            $file = $_FILES['inputGroupFile05']['tmp_name'];
+            $file_name = './tmp/'.time().'.csv';
+            copy($file, $file_name);
+            $file = fopen($file_name, 'r');
+            $datas = array();
+            fgetcsv($file);
+            $start_5 = $this->mod_ability_exam_area->get_min_start('2505');
+            $end_5 = $this->mod_ability_exam_area->get_max_end('2505');
+            while (!feof($file)) {
+                $data = fgetcsv($file);
+                $area_5[] = array(
+                    'year' => $this->session->userdata('year'),
+                    'area' => '第五分區',
+                    'job' => $data[0],
+                    'job_code' => '',
+                    'job_title' => '',
+                    'name' => '',
+                    'trial_start' => $start_5['field'],
+                    'trial_end' => $end_5['field'],
+                    'number' => '',
+                    'phone' => '',
+                    'note' => '',
+                    'do_date' => '',
+                    'day_count' => '',
+                    'one_day_salary' => '',
+                    'salary_total' => '',
+                    'lunch_price' => '',
+                    'lunch_total' => '',
+                    'total' => '',
+                    'status' => '1',
+                 );
+            }
+            // echo json_encode($datas);
+
+            $this->mod_ability_task->import_5($area_5);
+            fclose($file);
+            unlink($file_name);
+            print_r(fgetcsv($file));
+            redirect('subject_ability/a_4');
+
          } else {
              $data = array(
                      'title' => '職務資料',
@@ -418,6 +501,8 @@ class Console extends CI_Controller {
                      'b2' => $this->mod_ability_task->get_list('第一分區'),
                      'b3' => $this->mod_ability_task->get_list('第二分區'),
                      'b4' => $this->mod_ability_task->get_list('第三分區'),
+                     'b5' => $this->mod_ability_task->get_list('第四分區'),
+                     'b6' => $this->mod_ability_task->get_list('第五分區'),
                  );
              $this->load->view('subject_ability_layout', $data);
          }
@@ -441,7 +526,7 @@ class Console extends CI_Controller {
         $this->load->model('mod_ability_exam_area');
         $this->load->model('mod_ability_task');
         $this->load->model('mod_ability_exam_fees');
-        $this->load->model('mod_exam_datetime');
+        $this->load->model('subject_ability/mod_exam_datetime',"mod_exam_datetime");
         $this->mod_user->chk_status();
         $year = $this->session->userdata('year');
         $jobs = $this->mod_ability_task->get_job_list($year, '考區');
@@ -465,8 +550,8 @@ class Console extends CI_Controller {
         }
         $data = array(
             'title' => '考區任務編組',
-            'path' => 'designated/b_1',
-            'path_text' => ' > 英聽主選單 > 考區任務編組 > 考區',
+            'path' => 'subject_ability/b_1',
+            'path_text' => ' > 學測主選單 > 考區任務編組 > 考區',
             'field' => $this->mod_ability_task->get_field(),
             'datalist' => $this->mod_ability_task->get_list('考區'),
             'jobs' => $jobs,
@@ -482,7 +567,7 @@ class Console extends CI_Controller {
         $this->load->model('mod_ability_exam_area');
         $this->load->model('mod_ability_task');
         $this->load->model('mod_ability_exam_fees');
-        $this->load->model('mod_exam_datetime');
+        $this->load->model('subject_ability/mod_exam_datetime',"mod_exam_datetime");
         $this->load->model('mod_ability_part');
         $this->mod_user->chk_status();
         $year = $this->session->userdata('year');
@@ -509,7 +594,7 @@ class Console extends CI_Controller {
         $data = array(
             'title' => '考區任務編組',
             'path' => 'subject_ability/b_2',
-            'path_text' => ' > 英聽主選單 > 考區任務編組 > 第一分區',
+            'path_text' => ' > 學測主選單 > 考區任務編組 > 第一分區',
             'datalist' => $this->mod_ability_task->get_list('第一分區'),
             'jobs' => $jobs,
             'fees_info' => $fees_info,
@@ -524,7 +609,7 @@ class Console extends CI_Controller {
         $this->load->model('mod_ability_task');
         $this->load->model('mod_ability_exam_fees');
         $this->load->model('mod_ability_part');
-        $this->load->model('mod_exam_datetime');
+        $this->load->model('subject_ability/mod_exam_datetime',"mod_exam_datetime");
         $this->mod_user->chk_status();
         $year = $this->session->userdata('year');
         $jobs = $this->mod_ability_task->get_job_list($year, '第二分區');
@@ -549,7 +634,7 @@ class Console extends CI_Controller {
         $data = array(
             'title' => '考區任務編組',
             'path' => 'subject_ability/b_3',
-            'path_text' => ' > 英聽主選單 > 考區任務編組 > 第二分區',
+            'path_text' => ' > 學測主選單 > 考區任務編組 > 第二分區',
             'datalist' => $this->mod_ability_task->get_list('第二分區'),
             'jobs' => $jobs,
             'fees_info' => $fees_info,
@@ -563,8 +648,8 @@ class Console extends CI_Controller {
         $this->load->model('mod_ability_exam_area');
         $this->load->model('mod_ability_task');
         $this->load->model('mod_ability_part');
-        $this->load->model('mod_exam_datetime');
         $this->load->model('mod_ability_exam_fees');
+        $this->load->model('subject_ability/mod_exam_datetime',"mod_exam_datetime");
         $this->mod_user->chk_status();
         $year = $this->session->userdata('year');
         $jobs = $this->mod_ability_task->get_job_list($year, '第三分區');
@@ -589,7 +674,7 @@ class Console extends CI_Controller {
         $data = array(
             'title' => '考區任務編組',
             'path' => 'subject_ability/b_4',
-            'path_text' => ' > 英聽主選單 > 考區任務編組 > 第三分區',
+            'path_text' => ' > 學測主選單 > 考區任務編組 > 第三分區',
             'datalist' => $this->mod_ability_task->get_list('第三分區'),
             'jobs' => $jobs,
             'fees_info' => $fees_info,
@@ -597,21 +682,101 @@ class Console extends CI_Controller {
         );
         $this->load->view('subject_ability_layout', $data);
     }
-
     public function b_5()
+    {
+        $this->load->model('mod_ability_exam_area');
+        $this->load->model('mod_ability_task');
+        $this->load->model('mod_ability_part');
+        $this->load->model('mod_ability_exam_fees');
+        $this->load->model('subject_ability/mod_exam_datetime',"mod_exam_datetime");
+        $this->mod_user->chk_status();
+        $year = $this->session->userdata('year');
+        $jobs = $this->mod_ability_task->get_job_list($year, '第四分區');
+        if ($this->mod_ability_exam_fees->chk_once($year)) {
+            $fees_info = $this->mod_ability_exam_fees->get_once($year);
+        } else {
+            $fees_info = array(
+                'one_day_salary' => '0',
+                'salary_section' => '0',
+                'lunch_fee' => '0',
+            );
+        }
+        if ($this->mod_exam_datetime->chk_once($year)) {
+            $datetime_info = $this->mod_exam_datetime->get_once($year);
+        } else {
+            $datetime_info = array(
+                'day_1' => '07/01',
+                'day_2' => '07/02',
+                'day_3' => '07/03',
+            );
+        }
+        $data = array(
+            'title' => '考區任務編組',
+            'path' => 'subject_ability/b_5',
+            'path_text' => ' > 學測主選單 > 考區任務編組 > 第四分區',
+            'datalist' => $this->mod_ability_task->get_list('第四分區'),
+            'jobs' => $jobs,
+            'fees_info' => $fees_info,
+            'datetime_info' => $datetime_info,
+        );
+        $this->load->view('subject_ability_layout', $data);
+    }
+    public function b_6()
+    {
+        $this->load->model('mod_ability_exam_area');
+        $this->load->model('mod_ability_task');
+        $this->load->model('mod_ability_part');
+        $this->load->model('mod_ability_exam_fees');
+        $this->load->model('subject_ability/mod_exam_datetime',"mod_exam_datetime");
+        $this->mod_user->chk_status();
+        $year = $this->session->userdata('year');
+        $jobs = $this->mod_ability_task->get_job_list($year, '第五分區');
+        if ($this->mod_ability_exam_fees->chk_once($year)) {
+            $fees_info = $this->mod_ability_exam_fees->get_once($year);
+        } else {
+            $fees_info = array(
+                'one_day_salary' => '0',
+                'salary_section' => '0',
+                'lunch_fee' => '0',
+            );
+        }
+        if ($this->mod_exam_datetime->chk_once($year)) {
+            $datetime_info = $this->mod_exam_datetime->get_once($year);
+        } else {
+            $datetime_info = array(
+                'day_1' => '07/01',
+                'day_2' => '07/02',
+                'day_3' => '07/03',
+            );
+        }
+        $data = array(
+            'title' => '考區任務編組',
+            'path' => 'subject_ability/b_6',
+            'path_text' => ' > 學測主選單 > 考區任務編組 > 第五分區',
+            'datalist' => $this->mod_ability_task->get_list('第五分區'),
+            'jobs' => $jobs,
+            'fees_info' => $fees_info,
+            'datetime_info' => $datetime_info,
+        );
+        $this->load->view('subject_ability_layout', $data);
+    }
+
+    public function b_7()
     {
         $this->load->model('mod_ability_exam_area');
         $this->load->model('mod_ability_task');
         $this->mod_user->chk_status();
         $data = array(
             'title' => '預覽任務編組表',
-            'path' => 'subject_ability/b_5',
-            'path_text' => ' > 英聽主選單 > 考區任務編組 > 預覽任務編組表',
+            'path' => 'subject_ability/b_7',
+            'path_text' => ' > 學測主選單 > 考區任務編組 > 預覽任務編組表',
             'all' => $this->mod_ability_task->get_list(),
             'b1' => $this->mod_ability_task->get_list('考區'),
             'b2' => $this->mod_ability_task->get_list('第一分區'),
             'b3' => $this->mod_ability_task->get_list('第二分區'),
             'b4' => $this->mod_ability_task->get_list('第三分區'),
+            'b5' => $this->mod_ability_task->get_list('第四分區'),
+            'b6' => $this->mod_ability_task->get_list('第五分區'),
         );
         $this->load->view('subject_ability_layout', $data);
     }
@@ -712,11 +877,11 @@ class Console extends CI_Controller {
         );
         $this->load->view('subject_ability_layout', $data);
     }
-
     public function c_4()
     {
-        $this->mod_user->chk_status();
+        $this->load->model('mod_ability_part_info');
         $this->load->model('mod_ability_part_addr');
+        $this->mod_user->chk_status();
         $year = $this->session->userdata('year');
 
         if ($this->mod_ability_part_addr->chk_once($year)) {
@@ -730,8 +895,62 @@ class Console extends CI_Controller {
         }
 
         $data = array(
-            'title' => '分區地址',
+            'title' => '第三分區',
             'path' => 'subject_ability/c_4',
+            'path_text' => ' > 英聽主選單 > 試場分配 > 第三分區',
+            'datalist' => $this->mod_ability_part_info->get_list('2504'),
+            'addr_info' => $addr_info,
+        );
+        $this->load->view('subject_ability_layout', $data);
+    }
+    public function c_5()
+    {
+        $this->load->model('mod_ability_part_info');
+        $this->load->model('mod_ability_part_addr');
+        $this->mod_user->chk_status();
+        $year = $this->session->userdata('year');
+
+        if ($this->mod_ability_part_addr->chk_once($year)) {
+            $addr_info = $this->mod_ability_part_addr->get_once($year);
+        } else {
+            $addr_info = array(
+                'part_addr_1' => '',
+                'part_addr_2' => '',
+                'part_addr_3' => '',
+            );
+        }
+
+        $data = array(
+            'title' => '第三分區',
+            'path' => 'subject_ability/c_5',
+            'path_text' => ' > 英聽主選單 > 試場分配 > 第三分區',
+            'datalist' => $this->mod_ability_part_info->get_list('2505'),
+            'addr_info' => $addr_info,
+        );
+        $this->load->view('subject_ability_layout', $data);
+    }
+
+    public function c_6()
+    {
+        $this->mod_user->chk_status();
+        $this->load->model('mod_ability_part_addr');
+        $year = $this->session->userdata('year');
+
+        if ($this->mod_ability_part_addr->chk_once($year)) {
+            $addr_info = $this->mod_ability_part_addr->get_once($year);
+        } else {
+            $addr_info = array(
+                'part_addr_1' => '',
+                'part_addr_2' => '',
+                'part_addr_3' => '',
+                'part_addr_4' => '',
+                'part_addr_5' => '',
+            );
+        }
+
+        $data = array(
+            'title' => '分區地址',
+            'path' => 'subject_ability/c_6',
             'path_text' => ' > 英聽主選單 > 分區地址',
             'addr_info' => $addr_info,
         );
@@ -748,7 +967,7 @@ class Console extends CI_Controller {
          $data = array(
              'title' => '試場人員指派',
              'path' => 'subject_ability/d',
-             'path_text' => ' > 英聽主選單 > 試場人員指派',
+             'path_text' => ' > 學測主選單 > 試場人員指派',
              'datalist' => $this->mod_ability_part_info->get_list(),
          );
          $this->load->view('subject_ability_layout', $data);
@@ -763,13 +982,17 @@ class Console extends CI_Controller {
          $part1 = $this->mod_ability_trial->get_list('2501');
          $part2 = $this->mod_ability_trial->get_list('2502');
          $part3 = $this->mod_ability_trial->get_list('2503');
+         $part4 = $this->mod_ability_trial->get_list('2504');
+         $part5 = $this->mod_ability_trial->get_list('2505');
          $data = array(
              'title' => '監試人員指派',
              'path' => 'subject_ability/d_1',
-             'path_text' => ' > 英聽主選單 > 試場人員指派 > 監試人員指派',
+             'path_text' => ' > 學測主選單 > 試場人員指派 > 監試人員指派',
              'part1' => $part1,
              'part2' => $part2,
              'part3' => $part3,
+             'part4' => $part4,
+             'part5' => $part5,
          );
  
          $this->load->view('subject_ability_layout', $data);
@@ -779,13 +1002,16 @@ class Console extends CI_Controller {
          $this->load->model('mod_ability_part_info');
          $this->load->model('mod_ability_trial');
          $this->load->model('mod_ability_exam_area');
-         $this->load->model('mod_exam_datetime');
+         $this->load->model('subject_ability/mod_exam_datetime',"mod_exam_datetime");
+        //  $this->load->model('mod_exam_datetime');
          $this->mod_user->chk_status();
          $year = $this->session->userdata('year');
          $part = $this->mod_ability_exam_area->get_part('2501');
          $part1 = $this->mod_ability_trial->get_trial_list('2501');
          $part2 = $this->mod_ability_trial->get_trial_list('2502');
          $part3 = $this->mod_ability_trial->get_trial_list('2503');
+         $part4 = $this->mod_ability_trial->get_trial_list('2504');
+         $part5 = $this->mod_ability_trial->get_trial_list('2505');
          if ($this->mod_exam_datetime->chk_once($year)) {
              $datetime_info = $this->mod_exam_datetime->get_once($year);
          } else {
@@ -798,11 +1024,13 @@ class Console extends CI_Controller {
          $data = array(
              'title' => '管卷人員指派',
              'path' => 'subject_ability/d_2',
-             'path_text' => ' > 英聽主選單 > 試場人員指派 > 管卷人員指派',
+             'path_text' => ' > 學測主選單 > 試場人員指派 > 管卷人員指派',
              'part' => $part,
              'part1' => $part1,
              'part2' => $part2,
              'part3' => $part3,
+             'part4' => $part4,
+             'part5' => $part5,
              'datetime_info' => $datetime_info,
          );
          $this->load->view('subject_ability_layout', $data);
@@ -818,14 +1046,18 @@ class Console extends CI_Controller {
          $part1 = $this->mod_ability_patrol->get_patrol_list('2501');
          $part2 = $this->mod_ability_patrol->get_patrol_list('2502');
          $part3 = $this->mod_ability_patrol->get_patrol_list('2503');
+         $part4 = $this->mod_ability_patrol->get_patrol_list('2504');
+         $part5 = $this->mod_ability_patrol->get_patrol_list('2505');
          $data = array(
              'title' => '巡場人員指派',
              'path' => 'subject_ability/d_3',
-             'path_text' => ' > 英聽主選單 > 試場人員指派 > 巡場人員指派',
+             'path_text' => ' > 學測主選單 > 試場人員指派 > 巡場人員指派',
              'part' => $part,
              'part1' => $part1,
              'part2' => $part2,
              'part3' => $part3,
+             'part4' => $part4,
+             'part5' => $part5,
          );
          $this->load->view('subject_ability_layout', $data);
      }
@@ -834,13 +1066,16 @@ class Console extends CI_Controller {
      {
          $this->load->model('mod_ability_part_info');
          $this->load->model('mod_ability_trial');
-         $this->load->model('mod_exam_datetime');
+        //  $this->load->model('mod_exam_datetime');
+         $this->load->model('subject_ability/mod_exam_datetime',"mod_exam_datetime");
          $this->load->model('mod_ability_exam_fees');
          $this->mod_user->chk_status();
          $year = $this->session->userdata('year');
          $part1 = $this->mod_ability_trial->get_list('2501');
          $part2 = $this->mod_ability_trial->get_list('2502');
          $part3 = $this->mod_ability_trial->get_list('2503');
+         $part4 = $this->mod_ability_trial->get_list('2504');
+         $part5 = $this->mod_ability_trial->get_list('2505');
          if ($this->mod_ability_exam_fees->chk_once($year)) {
              $fees_info = $this->mod_ability_exam_fees->get_once($year);
          } else {
@@ -862,10 +1097,12 @@ class Console extends CI_Controller {
          $data = array(
              'title' => '監試人員列表',
              'path' => 'subject_ability/d_4',
-             'path_text' => ' > 英聽主選單 > 試場人員指派 > 監試人員列表',
+             'path_text' => ' > 學測主選單 > 試場人員指派 > 監試人員列表',
              'part1' => $part1,
              'part2' => $part2,
              'part3' => $part3,
+             'part4' => $part4,
+             'part5' => $part5,
              'fees_info' => $fees_info,
              'datetime_info' => $datetime_info,
          );
@@ -875,13 +1112,16 @@ class Console extends CI_Controller {
      public function d_5()
      {
          $this->load->model('mod_ability_trial');
-         $this->load->model('mod_exam_datetime');
+        //  $this->load->model('mod_exam_datetime');
+         $this->load->model('subject_ability/mod_exam_datetime',"mod_exam_datetime");
          $this->load->model('mod_ability_exam_fees');
          $this->mod_user->chk_status();
          $year = $this->session->userdata('year');
          $part1 = $this->mod_ability_trial->get_trial_list('2501');
          $part2 = $this->mod_ability_trial->get_trial_list('2502');
          $part3 = $this->mod_ability_trial->get_trial_list('2503');
+         $part4 = $this->mod_ability_trial->get_trial_list('2504');
+         $part5 = $this->mod_ability_trial->get_trial_list('2505');
          if ($this->mod_ability_exam_fees->chk_once($year)) {
              $fees_info = $this->mod_ability_exam_fees->get_once($year);
          } else {
@@ -903,10 +1143,12 @@ class Console extends CI_Controller {
          $data = array(
              'title' => '管卷人員列表',
              'path' => 'subject_ability/d_5',
-             'path_text' => ' > 英聽主選單 > 試場人員指派 > 管卷人員列表',
+             'path_text' => ' > 學測主選單 > 試場人員指派 > 管卷人員列表',
              'part1' => $part1,
              'part2' => $part2,
              'part3' => $part3,
+             'part4' => $part4,
+             'part5' => $part5,
              'fees_info' => $fees_info,
              'datetime_info' => $datetime_info,
          );
@@ -916,13 +1158,16 @@ class Console extends CI_Controller {
      public function d_6()
      {
          $this->load->model('mod_ability_patrol');
-         $this->load->model('mod_exam_datetime');
+        //  $this->load->model('mod_exam_datetime');
+         $this->load->model('subject_ability/mod_exam_datetime',"mod_exam_datetime");
          $this->load->model('mod_ability_exam_fees');
          $this->mod_user->chk_status();
          $year = $this->session->userdata('year');
          $part1 = $this->mod_ability_patrol->get_patrol_list('2501');
          $part2 = $this->mod_ability_patrol->get_patrol_list('2502');
          $part3 = $this->mod_ability_patrol->get_patrol_list('2503');
+         $part4 = $this->mod_ability_patrol->get_patrol_list('2504');
+         $part5 = $this->mod_ability_patrol->get_patrol_list('2505');
          if ($this->mod_ability_exam_fees->chk_once($year)) {
              $fees_info = $this->mod_ability_exam_fees->get_once($year);
          } else {
@@ -944,10 +1189,12 @@ class Console extends CI_Controller {
          $data = array(
              'title' => '巡場人員列表',
              'path' => 'subject_ability/d_6',
-             'path_text' => ' > 英聽主選單 > 試場人員指派 > 巡場人員列表',
+             'path_text' => ' > 學測主選單 > 試場人員指派 > 巡場人員列表',
              'part1' => $part1,
              'part2' => $part2,
              'part3' => $part3,
+             'part4' => $part4,
+             'part5' => $part5,
              'fees_info' => $fees_info,
              'datetime_info' => $datetime_info,
          );
@@ -1329,7 +1576,9 @@ class Console extends CI_Controller {
     public function e_1_4()
     {
         $this->load->model('mod_ability_exam_area');
-        $this->load->model('mod_exam_datetime');
+        // $this->load->model('mod_exam_datetime');
+        $this->load->model('subject_ability/mod_exam_datetime',"mod_exam_datetime");
+
         $title = '缺考人數統計';
         $year = $this->session->userdata('year');
 
@@ -1446,7 +1695,8 @@ class Console extends CI_Controller {
     public function e_2()
     {
         $this->mod_user->chk_status();
-        $this->load->model('mod_exam_datetime');
+        // $this->load->model('mod_exam_datetime');
+        $this->load->model('subject_ability/mod_exam_datetime',"mod_exam_datetime");
         $datetime_info = $this->mod_exam_datetime->get_once($_SESSION['year']);
         $data = array(
             'title' => '簽到表 / 簽收單',
@@ -1698,7 +1948,9 @@ class Console extends CI_Controller {
         $this->load->library('pdf');
         $this->load->model('mod_ability_trial');
         $this->load->model('mod_ability_exam_area');
-        $this->load->model('mod_exam_datetime');
+        // $this->load->model('mod_exam_datetime');
+        $this->load->model('subject_ability/mod_exam_datetime',"mod_exam_datetime");
+        
 
         $obj_pdf = new Pdf(PDF_PAGE_ORIENTATION, PDF_UNIT, PDF_PAGE_FORMAT, false, 'UTF-8', false);
         $obj_pdf->SetCreator(PDF_CREATOR);
@@ -1972,7 +2224,8 @@ class Console extends CI_Controller {
 
     public function e_3()
     {
-        $this->load->model('mod_exam_datetime');
+        // $this->load->model('mod_exam_datetime');
+        $this->load->model('subject_ability/mod_exam_datetime',"mod_exam_datetime");
         $this->mod_user->chk_status();
         if ($this->mod_exam_datetime->chk_once($_SESSION['year'])) {
             $datetime_info = $this->mod_exam_datetime->get_once($_SESSION['year']);
@@ -2007,7 +2260,8 @@ class Console extends CI_Controller {
     public function e_3_1()
     {
         $this->load->library('excel');
-        $this->load->model('mod_exam_datetime');
+        // $this->load->model('mod_exam_datetime');
+        $this->load->model('subject_ability/mod_exam_datetime',"mod_exam_datetime");
         $this->load->model('mod_ability_trial');
 
         $objPHPExcel = new PHPExcel();
@@ -2606,13 +2860,16 @@ class Console extends CI_Controller {
     {
         $this->load->library('pdf');
         $this->load->model('mod_ability_trial');
-        $this->load->model('mod_ability_exam_area');
+        $this->load->model('subject_ability/mod_trial',"mod_trial");
+        $this->load->model('subject_ability/mod_exam_area',"mod_exam_area");
+        // $this->load->model('mod_ability_exam_area');
         $obj_pdf = new Pdf(PDF_PAGE_ORIENTATION, PDF_UNIT, PDF_PAGE_FORMAT, false, 'UTF-8', false);
         $obj_pdf->SetCreator(PDF_CREATOR);
         $title = '試場工作人員分配表';
         $date = date('yyyy/m/d');
         $part = $_GET['part'];
         $area = $_GET['area'];
+        $datee = $_GET['date'];
 
         $obj_pdf->SetTitle($title);
         $obj_pdf->SetHeaderData('', '', $title, '印表日期：'.$date);
@@ -2627,37 +2884,40 @@ class Console extends CI_Controller {
         $obj_pdf->AddPage();
         $date = $_GET['date'];
         $data = array(
-            'part' => $this->mod_ability_trial->e_3_2_1($part),
+            'part' => $this->mod_ability_trial->e_3_2_1($part,$datee),
             'area' => $area,
-            'patrol_count'=> $this->mod_ability_trial->get_patrol_member_count_1($part),
-            'trial_count'=>$this->mod_ability_trial->get_trial_member_count($part),
-            'school' => $this->mod_ability_exam_area->year_school_name($part),
+            'patrol_count'=> $this->mod_trial->get_patrol_member_count_1($part),
+            'trial_count'=>$this->mod_trial->get_trial_member_count($part),
+            'school' => $this->mod_exam_area->year_school_name($part),
             'date' => $date,
         );
         // print_r($data);
-        $view = $this->load->view('subject_ability/e_3_2_1', $data, true);
-        if (!is_dir('./html/')) {
-            mkdir('./html/');
-        } else {
-            $path = 'e_3_2_1.html';
-            $fp = fopen('./html/'.$path,'w');//建檔
-            fwrite($fp,$view);
-            fclose($fp);//關閉開啟的檔案
-        }
+        echo $view = $this->load->view('subject_ability/e_3_2_1', $data, true);
+        // if (!is_dir('./html/')) {
+        //     mkdir('./html/');
+        // } else {
+        //     $path = 'e_3_2_1.html';
+        //     $fp = fopen('./html/'.$path,'w');//建檔
+        //     fwrite($fp,$view);
+        //     fclose($fp);//關閉開啟的檔案
+        // }
 
-        if (!is_dir('./pdf/')) {
-            mkdir('./pdf/');
-        } else {
-            exec('wkhtmltopdf --lowquality http://uat.fofo.tw/fjuexam/html/e_3_2_1.html  ./pdf/e_3_2_1.pdf');
-        }
-        echo '<script>location.href="http://uat.fofo.tw/fjuexam/pdf/e_3_2_1.pdf"</script>';
+        // if (!is_dir('./pdf/')) {
+        //     mkdir('./pdf/');
+        // } else {
+        //     exec('wkhtmltopdf --lowquality http://uat.fofo.tw/fjuexam/html/e_3_2_1.html  ./pdf/e_3_2_1.pdf');
+        // }
+        // echo '<script>location.href="http://uat.fofo.tw/fjuexam/pdf/e_3_2_1.pdf"</script>';
     }
 
     public function e_3_2_1_2()
     {
         $this->load->library('pdf');
         $this->load->model('mod_ability_trial');
-        $this->load->model('mod_ability_exam_area');
+        $this->load->model('subject_ability/mod_trial',"mod_trial");
+        $this->load->model('subject_ability/mod_exam_area',"mod_exam_area");
+        // $this->load->model('mod_ability_exam_area');
+
         $obj_pdf = new Pdf(PDF_PAGE_ORIENTATION, PDF_UNIT, PDF_PAGE_FORMAT, false, 'UTF-8', false);
         $obj_pdf->SetCreator(PDF_CREATOR);
         $title = '試場工作人員分配表';
@@ -2681,8 +2941,8 @@ class Console extends CI_Controller {
             'part' => $this->mod_ability_trial->e_3_2_2($part),
             'area' => $area,
             'patrol_count'=> $this->mod_ability_trial->get_patrol_member_count_2($part),
-            'trial_count'=>$this->mod_ability_trial->get_trial_member_count($part),
-            'school' => $this->mod_ability_exam_area->year_school_name($part),
+            'trial_count'=>$this->mod_trial->get_trial_member_count($part),
+            'school' => $this->mod_exam_area->year_school_name($part),
             'date' => $date,
         );
         // print_r($data);
@@ -2708,7 +2968,9 @@ class Console extends CI_Controller {
     {
         $this->load->library('pdf');
         $this->load->model('mod_ability_trial');
-        $this->load->model('mod_ability_exam_area');
+        $this->load->model('subject_ability/mod_trial',"mod_trial");
+        $this->load->model('subject_ability/mod_exam_area',"mod_exam_area");
+        // $this->load->model('mod_ability_exam_area');
         $obj_pdf = new Pdf(PDF_PAGE_ORIENTATION, PDF_UNIT, PDF_PAGE_FORMAT, false, 'UTF-8', false);
         $obj_pdf->SetCreator(PDF_CREATOR);
         $title = '試場工作人員分配表';
@@ -2732,8 +2994,8 @@ class Console extends CI_Controller {
             'part' => $this->mod_ability_trial->e_3_2_3($part),
             'area' => $area,
             'patrol_count'=> $this->mod_ability_trial->get_patrol_member_count_3($part),
-            'trial_count'=>$this->mod_ability_trial->get_trial_member_count($part),
-            'school' => $this->mod_ability_exam_area->year_school_name($part),
+            'trial_count'=>$this->mod_trial->get_trial_member_count($part),
+            'school' => $this->mod_exam_area->year_school_name($part),
             'date' => $date,
         );
         // print_r($data);
@@ -2759,7 +3021,9 @@ class Console extends CI_Controller {
     {
         $this->load->library('pdf');
         $this->load->model('mod_ability_trial');
-        $this->load->model('mod_ability_exam_area');
+        $this->load->model('subject_ability/mod_trial',"mod_trial");
+        $this->load->model('subject_ability/mod_exam_area',"mod_exam_area");
+        // $this->load->model('mod_ability_exam_area');
         $obj_pdf = new Pdf(PDF_PAGE_ORIENTATION, PDF_UNIT, PDF_PAGE_FORMAT, false, 'UTF-8', false);
         $obj_pdf->SetCreator(PDF_CREATOR);
         $title = '試場工作人員分配表';
@@ -2783,8 +3047,8 @@ class Console extends CI_Controller {
             'part' => $this->mod_ability_trial->e_3_2_1($part),
             'area' => $area,
             'patrol_count'=> $this->mod_ability_trial->get_patrol_member_count_1($part),
-            'trial_count'=>$this->mod_ability_trial->get_trial_member_count($part),
-            'school' => $this->mod_ability_exam_area->year_school_name($part),
+            'trial_count'=>$this->mod_trial->get_trial_member_count($part),
+            'school' => $this->mod_exam_area->year_school_name($part),
             'date' => $date,
         );
         // print_r($data);
@@ -2810,7 +3074,9 @@ class Console extends CI_Controller {
     {
         $this->load->library('pdf');
         $this->load->model('mod_ability_trial');
-        $this->load->model('mod_ability_exam_area');
+        $this->load->model('subject_ability/mod_trial',"mod_trial");
+        $this->load->model('subject_ability/mod_exam_area',"mod_exam_area");
+        // $this->load->model('mod_ability_exam_area');
         $obj_pdf = new Pdf(PDF_PAGE_ORIENTATION, PDF_UNIT, PDF_PAGE_FORMAT, false, 'UTF-8', false);
         $obj_pdf->SetCreator(PDF_CREATOR);
         $title = '試場工作人員分配表';
@@ -2834,8 +3100,8 @@ class Console extends CI_Controller {
             'part' => $this->mod_ability_trial->e_3_2_2($part),
             'area' => $area,
             'patrol_count'=> $this->mod_ability_trial->get_patrol_member_count_2($part),
-            'trial_count'=>$this->mod_ability_trial->get_trial_member_count($part),
-            'school' => $this->mod_ability_exam_area->year_school_name($part),
+            'trial_count'=>$this->mod_trial->get_trial_member_count($part),
+            'school' => $this->mod_exam_area->year_school_name($part),
             'date' => $date,
         );
         // print_r($data);
@@ -2861,7 +3127,9 @@ class Console extends CI_Controller {
     {
         $this->load->library('pdf');
         $this->load->model('mod_ability_trial');
-        $this->load->model('mod_ability_exam_area');
+        $this->load->model('subject_ability/mod_trial',"mod_trial");
+        $this->load->model('subject_ability/mod_exam_area',"mod_exam_area");
+        // $this->load->model('mod_ability_exam_area');
         $obj_pdf = new Pdf(PDF_PAGE_ORIENTATION, PDF_UNIT, PDF_PAGE_FORMAT, false, 'UTF-8', false);
         $obj_pdf->SetCreator(PDF_CREATOR);
         $title = '試場工作人員分配表';
@@ -2885,8 +3153,8 @@ class Console extends CI_Controller {
             'part' => $this->mod_ability_trial->e_3_2_3($part),
             'area' => $area,
             'patrol_count'=> $this->mod_ability_trial->get_patrol_member_count_3($part),
-            'trial_count'=>$this->mod_ability_trial->get_trial_member_count($part),
-            'school' => $this->mod_ability_exam_area->year_school_name($part),
+            'trial_count'=>$this->mod_trial->get_trial_member_count($part),
+            'school' => $this->mod_exam_area->year_school_name($part),
             'date' => $date,
         );
         // print_r($data);
@@ -2912,7 +3180,9 @@ class Console extends CI_Controller {
     {
         $this->load->library('pdf');
         $this->load->model('mod_ability_trial');
-        $this->load->model('mod_ability_exam_area');
+        $this->load->model('subject_ability/mod_trial',"mod_trial");
+        $this->load->model('subject_ability/mod_exam_area',"mod_exam_area");
+        // $this->load->model('mod_ability_exam_area');
         $obj_pdf = new Pdf(PDF_PAGE_ORIENTATION, PDF_UNIT, PDF_PAGE_FORMAT, false, 'UTF-8', false);
         $obj_pdf->SetCreator(PDF_CREATOR);
         $title = '試場工作人員分配表';
@@ -2936,8 +3206,8 @@ class Console extends CI_Controller {
             'part' => $this->mod_ability_trial->e_3_2_1($part),
             'area' => $area,
             'patrol_count'=> $this->mod_ability_trial->get_patrol_member_count_1($part),
-            'trial_count'=>$this->mod_ability_trial->get_trial_member_count($part),
-            'school' => $this->mod_ability_exam_area->year_school_name($part),
+            'trial_count'=>$this->mod_trial->get_trial_member_count($part),
+            'school' => $this->mod_exam_area->year_school_name($part),
             'date' => $date,
         );
         // print_r($data);
@@ -2963,7 +3233,9 @@ class Console extends CI_Controller {
     {
         $this->load->library('pdf');
         $this->load->model('mod_ability_trial');
-        $this->load->model('mod_ability_exam_area');
+        $this->load->model('subject_ability/mod_trial',"mod_trial");
+        $this->load->model('subject_ability/mod_exam_area',"mod_exam_area");
+        // $this->load->model('mod_ability_exam_area');
         $obj_pdf = new Pdf(PDF_PAGE_ORIENTATION, PDF_UNIT, PDF_PAGE_FORMAT, false, 'UTF-8', false);
         $obj_pdf->SetCreator(PDF_CREATOR);
         $title = '試場工作人員分配表';
@@ -2987,8 +3259,8 @@ class Console extends CI_Controller {
             'part' => $this->mod_ability_trial->e_3_2_2($part),
             'area' => $area,
             'patrol_count'=> $this->mod_ability_trial->get_patrol_member_count_2($part),
-            'trial_count'=>$this->mod_ability_trial->get_trial_member_count($part),
-            'school' => $this->mod_ability_exam_area->year_school_name($part),
+            'trial_count'=>$this->mod_trial->get_trial_member_count($part),
+            'school' => $this->mod_exam_area->year_school_name($part),
             'date' => $date,
         );
         // print_r($data);
@@ -3014,7 +3286,9 @@ class Console extends CI_Controller {
     {
         $this->load->library('pdf');
         $this->load->model('mod_ability_trial');
-        $this->load->model('mod_ability_exam_area');
+        $this->load->model('subject_ability/mod_trial',"mod_trial");
+        $this->load->model('subject_ability/mod_exam_area',"mod_exam_area");
+        // $this->load->model('mod_ability_exam_area');
         $obj_pdf = new Pdf(PDF_PAGE_ORIENTATION, PDF_UNIT, PDF_PAGE_FORMAT, false, 'UTF-8', false);
         $obj_pdf->SetCreator(PDF_CREATOR);
         $title = '試場工作人員分配表';
@@ -3038,8 +3312,116 @@ class Console extends CI_Controller {
             'part' => $this->mod_ability_trial->e_3_2_3($part),
             'area' => $area,
             'patrol_count'=> $this->mod_ability_trial->get_patrol_member_count_3($part),
-            'trial_count'=>$this->mod_ability_trial->get_trial_member_count($part),
-            'school' => $this->mod_ability_exam_area->year_school_name($part),
+            'trial_count'=>$this->mod_trial->get_trial_member_count($part),
+            'school' => $this->mod_exam_area->year_school_name($part),
+            'date' => $date,
+        );
+        // print_r($data);
+        $view =  $this->load->view('subject_ability/e_3_2_3', $data, true);
+        if (!is_dir('./html/')) {
+            mkdir('./html/');
+        } else {
+            $path = 'e_3_2_3.html';
+            $fp = fopen('./html/'.$path,'w');//建檔
+            fwrite($fp,$view);
+            fclose($fp);//關閉開啟的檔案
+        }
+
+        if (!is_dir('./pdf/')) {
+            mkdir('./pdf/');
+        } else {
+            exec('wkhtmltopdf --lowquality http://uat.fofo.tw/fjuexam/html/e_3_2_3.html  ./pdf/e_3_2_3.pdf');
+        }
+        echo '<script>location.href="http://uat.fofo.tw/fjuexam/pdf/e_3_2_3.pdf"</script>';
+    }
+    /**
+     * 
+     */
+    public function e_3_2_4_1()
+    {
+        $this->load->library('pdf');
+        $this->load->model('mod_ability_trial');
+        $this->load->model('subject_ability/mod_trial',"mod_trial");
+        $this->load->model('subject_ability/mod_exam_area',"mod_exam_area");
+        // $this->load->model('mod_ability_exam_area');
+        $obj_pdf = new Pdf(PDF_PAGE_ORIENTATION, PDF_UNIT, PDF_PAGE_FORMAT, false, 'UTF-8', false);
+        $obj_pdf->SetCreator(PDF_CREATOR);
+        $title = '試場工作人員分配表';
+        $date = date('yyyy/m/d');
+        $part = $_GET['part'];
+        $area = $_GET['area'];
+
+        $obj_pdf->SetTitle($title);
+        $obj_pdf->SetHeaderData('', '', $title, '印表日期：'.$date);
+        $obj_pdf->setPrintHeader(false);
+        // $obj_pdf->SetHeaderMargin(PDF_MARGIN_HEADER);
+        $obj_pdf->SetFooterMargin(PDF_MARGIN_FOOTER);
+        $obj_pdf->SetMargins(PDF_MARGIN_LEFT, PDF_MARGIN_RIGHT);
+        $obj_pdf->SetAutoPageBreak(true, PDF_MARGIN_BOTTOM);
+        $obj_pdf->SetFont('msungstdlight', '', 12);
+
+        $obj_pdf->setFontSubsetting(false);
+        $obj_pdf->AddPage();
+        $date = $_GET['date'];
+        $data = array(
+            'part' => $this->mod_ability_trial->e_3_2_1($part),
+            'area' => $area,
+            'patrol_count'=> $this->mod_ability_trial->get_patrol_member_count_1($part),
+            'trial_count'=>$this->mod_trial->get_trial_member_count($part),
+            'school' => $this->mod_exam_area->year_school_name($part),
+            'date' => $date,
+        );
+        // print_r($data);
+        $view =  $this->load->view('subject_ability/e_3_2_4', $data, true);
+        if (!is_dir('./html/')) {
+            mkdir('./html/');
+        } else {
+            $path = 'e_3_2_3.html';
+            $fp = fopen('./html/'.$path,'w');//建檔
+            fwrite($fp,$view);
+            fclose($fp);//關閉開啟的檔案
+        }
+
+        if (!is_dir('./pdf/')) {
+            mkdir('./pdf/');
+        } else {
+            exec('wkhtmltopdf --lowquality http://uat.fofo.tw/fjuexam/html/e_3_2_3.html  ./pdf/e_3_2_3.pdf');
+        }
+        echo '<script>location.href="http://uat.fofo.tw/fjuexam/pdf/e_3_2_3.pdf"</script>';
+    }
+
+       public function e_3_2_4_2()
+    {
+        $this->load->library('pdf');
+        $this->load->model('mod_ability_trial');
+        $this->load->model('subject_ability/mod_trial',"mod_trial");
+        $this->load->model('subject_ability/mod_exam_area',"mod_exam_area");
+        // $this->load->model('mod_ability_exam_area');
+        $obj_pdf = new Pdf(PDF_PAGE_ORIENTATION, PDF_UNIT, PDF_PAGE_FORMAT, false, 'UTF-8', false);
+        $obj_pdf->SetCreator(PDF_CREATOR);
+        $title = '試場工作人員分配表';
+        $date = date('yyyy/m/d');
+        $part = $_GET['part'];
+        $area = $_GET['area'];
+
+        $obj_pdf->SetTitle($title);
+        $obj_pdf->SetHeaderData('', '', $title, '印表日期：'.$date);
+        $obj_pdf->setPrintHeader(false);
+        // $obj_pdf->SetHeaderMargin(PDF_MARGIN_HEADER);
+        $obj_pdf->SetFooterMargin(PDF_MARGIN_FOOTER);
+        $obj_pdf->SetMargins(PDF_MARGIN_LEFT, PDF_MARGIN_RIGHT);
+        $obj_pdf->SetAutoPageBreak(true, PDF_MARGIN_BOTTOM);
+        $obj_pdf->SetFont('msungstdlight', '', 12);
+
+        $obj_pdf->setFontSubsetting(false);
+        $obj_pdf->AddPage();
+        $date = $_GET['date'];
+        $data = array(
+            'part' => $this->mod_ability_trial->e_3_2_2($part),
+            'area' => $area,
+            'patrol_count'=> $this->mod_ability_trial->get_patrol_member_count_2($part),
+            'trial_count'=>$this->mod_trial->get_trial_member_count($part),
+            'school' => $this->mod_exam_area->year_school_name($part),
             'date' => $date,
         );
         // print_r($data);
@@ -3061,6 +3443,231 @@ class Console extends CI_Controller {
         echo '<script>location.href="http://uat.fofo.tw/fjuexam/pdf/e_3_2_3.pdf"</script>';
     }
 
+       public function e_3_2_4_3()
+    {
+        $this->load->library('pdf');
+        $this->load->model('mod_ability_trial');
+        $this->load->model('subject_ability/mod_trial',"mod_trial");
+        $this->load->model('subject_ability/mod_exam_area',"mod_exam_area");
+        // $this->load->model('mod_ability_exam_area');
+        $obj_pdf = new Pdf(PDF_PAGE_ORIENTATION, PDF_UNIT, PDF_PAGE_FORMAT, false, 'UTF-8', false);
+        $obj_pdf->SetCreator(PDF_CREATOR);
+        $title = '試場工作人員分配表';
+        $date = date('yyyy/m/d');
+        $part = $_GET['part'];
+        $area = $_GET['area'];
+
+        $obj_pdf->SetTitle($title);
+        $obj_pdf->SetHeaderData('', '', $title, '印表日期：'.$date);
+        $obj_pdf->setPrintHeader(false);
+        // $obj_pdf->SetHeaderMargin(PDF_MARGIN_HEADER);
+        $obj_pdf->SetFooterMargin(PDF_MARGIN_FOOTER);
+        $obj_pdf->SetMargins(PDF_MARGIN_LEFT, PDF_MARGIN_RIGHT);
+        $obj_pdf->SetAutoPageBreak(true, PDF_MARGIN_BOTTOM);
+        $obj_pdf->SetFont('msungstdlight', '', 12);
+
+        $obj_pdf->setFontSubsetting(false);
+        $obj_pdf->AddPage();
+        $date = $_GET['date'];
+        $data = array(
+            'part' => $this->mod_ability_trial->e_3_2_3($part),
+            'area' => $area,
+            'patrol_count'=> $this->mod_ability_trial->get_patrol_member_count_3($part),
+            'trial_count'=>$this->mod_trial->get_trial_member_count($part),
+            'school' => $this->mod_exam_area->year_school_name($part),
+            'date' => $date,
+        );
+        // print_r($data);
+        $view =  $this->load->view('subject_ability/e_3_2_3', $data, true);
+        if (!is_dir('./html/')) {
+            mkdir('./html/');
+        } else {
+            $path = 'e_3_2_3.html';
+            $fp = fopen('./html/'.$path,'w');//建檔
+            fwrite($fp,$view);
+            fclose($fp);//關閉開啟的檔案
+        }
+
+        if (!is_dir('./pdf/')) {
+            mkdir('./pdf/');
+        } else {
+            exec('wkhtmltopdf --lowquality http://uat.fofo.tw/fjuexam/html/e_3_2_3.html  ./pdf/e_3_2_3.pdf');
+        }
+        echo '<script>location.href="http://uat.fofo.tw/fjuexam/pdf/e_3_2_3.pdf"</script>';
+    }
+
+
+
+     /**
+      * 
+      */
+          /**
+     * 
+     */
+    public function e_3_2_5_1()
+    {
+        $this->load->library('pdf');
+        $this->load->model('mod_ability_trial');
+        $this->load->model('subject_ability/mod_trial',"mod_trial");
+        $this->load->model('subject_ability/mod_exam_area',"mod_exam_area");
+        // $this->load->model('mod_ability_exam_area');
+        $obj_pdf = new Pdf(PDF_PAGE_ORIENTATION, PDF_UNIT, PDF_PAGE_FORMAT, false, 'UTF-8', false);
+        $obj_pdf->SetCreator(PDF_CREATOR);
+        $title = '試場工作人員分配表';
+        $date = date('yyyy/m/d');
+        $part = $_GET['part'];
+        $area = $_GET['area'];
+
+        $obj_pdf->SetTitle($title);
+        $obj_pdf->SetHeaderData('', '', $title, '印表日期：'.$date);
+        $obj_pdf->setPrintHeader(false);
+        // $obj_pdf->SetHeaderMargin(PDF_MARGIN_HEADER);
+        $obj_pdf->SetFooterMargin(PDF_MARGIN_FOOTER);
+        $obj_pdf->SetMargins(PDF_MARGIN_LEFT, PDF_MARGIN_RIGHT);
+        $obj_pdf->SetAutoPageBreak(true, PDF_MARGIN_BOTTOM);
+        $obj_pdf->SetFont('msungstdlight', '', 12);
+
+        $obj_pdf->setFontSubsetting(false);
+        $obj_pdf->AddPage();
+        $date = $_GET['date'];
+        $data = array(
+            'part' => $this->mod_ability_trial->e_3_2_1($part),
+            'area' => $area,
+            'patrol_count'=> $this->mod_ability_trial->get_patrol_member_count_1($part),
+            'trial_count'=>$this->mod_trial->get_trial_member_count($part),
+            'school' => $this->mod_exam_area->year_school_name($part),
+            'date' => $date,
+        );
+        // print_r($data);
+        $view =  $this->load->view('subject_ability/e_3_2_4', $data, true);
+        if (!is_dir('./html/')) {
+            mkdir('./html/');
+        } else {
+            $path = 'e_3_2_3.html';
+            $fp = fopen('./html/'.$path,'w');//建檔
+            fwrite($fp,$view);
+            fclose($fp);//關閉開啟的檔案
+        }
+
+        if (!is_dir('./pdf/')) {
+            mkdir('./pdf/');
+        } else {
+            exec('wkhtmltopdf --lowquality http://uat.fofo.tw/fjuexam/html/e_3_2_3.html  ./pdf/e_3_2_3.pdf');
+        }
+        echo '<script>location.href="http://uat.fofo.tw/fjuexam/pdf/e_3_2_3.pdf"</script>';
+    }
+
+       public function e_3_2_5_2()
+    {
+        $this->load->library('pdf');
+        $this->load->model('mod_ability_trial');
+        $this->load->model('subject_ability/mod_trial',"mod_trial");
+        $this->load->model('subject_ability/mod_exam_area',"mod_exam_area");
+        // $this->load->model('mod_ability_exam_area');
+        $obj_pdf = new Pdf(PDF_PAGE_ORIENTATION, PDF_UNIT, PDF_PAGE_FORMAT, false, 'UTF-8', false);
+        $obj_pdf->SetCreator(PDF_CREATOR);
+        $title = '試場工作人員分配表';
+        $date = date('yyyy/m/d');
+        $part = $_GET['part'];
+        $area = $_GET['area'];
+
+        $obj_pdf->SetTitle($title);
+        $obj_pdf->SetHeaderData('', '', $title, '印表日期：'.$date);
+        $obj_pdf->setPrintHeader(false);
+        // $obj_pdf->SetHeaderMargin(PDF_MARGIN_HEADER);
+        $obj_pdf->SetFooterMargin(PDF_MARGIN_FOOTER);
+        $obj_pdf->SetMargins(PDF_MARGIN_LEFT, PDF_MARGIN_RIGHT);
+        $obj_pdf->SetAutoPageBreak(true, PDF_MARGIN_BOTTOM);
+        $obj_pdf->SetFont('msungstdlight', '', 12);
+
+        $obj_pdf->setFontSubsetting(false);
+        $obj_pdf->AddPage();
+        $date = $_GET['date'];
+        $data = array(
+            'part' => $this->mod_ability_trial->e_3_2_2($part),
+            'area' => $area,
+            'patrol_count'=> $this->mod_ability_trial->get_patrol_member_count_2($part),
+            'trial_count'=>$this->mod_trial->get_trial_member_count($part),
+            'school' => $this->mod_exam_area->year_school_name($part),
+            'date' => $date,
+        );
+        // print_r($data);
+        $view =  $this->load->view('subject_ability/e_3_2_3', $data, true);
+        if (!is_dir('./html/')) {
+            mkdir('./html/');
+        } else {
+            $path = 'e_3_2_3.html';
+            $fp = fopen('./html/'.$path,'w');//建檔
+            fwrite($fp,$view);
+            fclose($fp);//關閉開啟的檔案
+        }
+
+        if (!is_dir('./pdf/')) {
+            mkdir('./pdf/');
+        } else {
+            exec('wkhtmltopdf --lowquality http://uat.fofo.tw/fjuexam/html/e_3_2_3.html  ./pdf/e_3_2_3.pdf');
+        }
+        echo '<script>location.href="http://uat.fofo.tw/fjuexam/pdf/e_3_2_3.pdf"</script>';
+    }
+
+       public function e_3_2_5_3()
+    {
+        $this->load->library('pdf');
+        $this->load->model('mod_ability_trial');
+        $this->load->model('subject_ability/mod_trial',"mod_trial");
+        $this->load->model('subject_ability/mod_exam_area',"mod_exam_area");
+        // $this->load->model('mod_ability_exam_area');
+        $obj_pdf = new Pdf(PDF_PAGE_ORIENTATION, PDF_UNIT, PDF_PAGE_FORMAT, false, 'UTF-8', false);
+        $obj_pdf->SetCreator(PDF_CREATOR);
+        $title = '試場工作人員分配表';
+        $date = date('yyyy/m/d');
+        $part = $_GET['part'];
+        $area = $_GET['area'];
+
+        $obj_pdf->SetTitle($title);
+        $obj_pdf->SetHeaderData('', '', $title, '印表日期：'.$date);
+        $obj_pdf->setPrintHeader(false);
+        // $obj_pdf->SetHeaderMargin(PDF_MARGIN_HEADER);
+        $obj_pdf->SetFooterMargin(PDF_MARGIN_FOOTER);
+        $obj_pdf->SetMargins(PDF_MARGIN_LEFT, PDF_MARGIN_RIGHT);
+        $obj_pdf->SetAutoPageBreak(true, PDF_MARGIN_BOTTOM);
+        $obj_pdf->SetFont('msungstdlight', '', 12);
+
+        $obj_pdf->setFontSubsetting(false);
+        $obj_pdf->AddPage();
+        $date = $_GET['date'];
+        $data = array(
+            'part' => $this->mod_ability_trial->e_3_2_3($part),
+            'area' => $area,
+            'patrol_count'=> $this->mod_ability_trial->get_patrol_member_count_3($part),
+            'trial_count'=>$this->mod_trial->get_trial_member_count($part),
+            'school' => $this->mod_exam_area->year_school_name($part),
+            'date' => $date,
+        );
+        // print_r($data);
+        $view =  $this->load->view('subject_ability/e_3_2_3', $data, true);
+        if (!is_dir('./html/')) {
+            mkdir('./html/');
+        } else {
+            $path = 'e_3_2_3.html';
+            $fp = fopen('./html/'.$path,'w');//建檔
+            fwrite($fp,$view);
+            fclose($fp);//關閉開啟的檔案
+        }
+
+        if (!is_dir('./pdf/')) {
+            mkdir('./pdf/');
+        } else {
+            exec('wkhtmltopdf --lowquality http://uat.fofo.tw/fjuexam/html/e_3_2_3.html  ./pdf/e_3_2_3.pdf');
+        }
+        echo '<script>location.href="http://uat.fofo.tw/fjuexam/pdf/e_3_2_3.pdf"</script>';
+    }
+
+
+
+     /**
+      * 
+      */
     public function e_4()
     {
         $this->mod_user->chk_status();
@@ -3591,6 +4198,7 @@ class Console extends CI_Controller {
     {
         $this->load->library('pdf');
         $this->load->model('mod_ability_task');
+        $this->load->model('subject_ability/mod_task',"mod_task");
         $this->load->model('mod_ability_exam_area');
         $obj_pdf = new Pdf(PDF_PAGE_ORIENTATION, PDF_UNIT, PDF_PAGE_FORMAT, false, 'UTF-8', false);
         $obj_pdf->SetCreator(PDF_CREATOR);
@@ -3611,7 +4219,7 @@ class Console extends CI_Controller {
         $obj_pdf->setFontSubsetting(false);
         $obj_pdf->AddPage();
         $data = array(
-            'part' => $this->mod_ability_task->get_district_task_money_list($area),
+            'part' => $this->mod_task->get_district_task_money_list($area),
             'area'=> $area,
             'school' => $this->mod_ability_exam_area->year_school_name($part),
             'salary'=>$this->mod_ability_task->get_all_salary_trial_total_of_district($area),
@@ -4017,7 +4625,7 @@ class Console extends CI_Controller {
         $data = array(
             'title' => '考程設定',
             'path' => 'subject_ability/f',
-            'path_text' => ' > 指考主選單 > 考程設定',
+            'path_text' => ' > 學測主選單 > 考程設定',
         );
         $this->load->view('subject_ability_layout', $data);
     }
@@ -4078,7 +4686,7 @@ class Console extends CI_Controller {
         $data = array(
             'title' => '考試日期與時間',
             'path' => 'subject_ability/f_1',
-            'path_text' => ' > 指考主選單 > 考程設定 > 考試日期與時間',
+            'path_text' => ' > 學測主選單 > 考程設定 > 考試日期與時間',
             'datetime_info' => $datetime_info,
         );
         $this->load->view('subject_ability_layout', $data);
@@ -4113,7 +4721,7 @@ class Console extends CI_Controller {
         $data = array(
             'title' => '考試科目',
             'path' => 'subject_ability/f_2',
-            'path_text' => ' > 指考主選單 > 考程設定 > 考試科目',
+            'path_text' => ' > 學測主選單 > 考程設定 > 考試科目',
             'datetime_info' => $datetime_info,
             'course' => json_encode($course),
         );
@@ -4179,7 +4787,7 @@ class Console extends CI_Controller {
         $data = array(
             'title' => '預覽考程表',
             'path' => 'subject_ability/f_3',
-            'path_text' => ' > 指考主選單 > 預覽考程表',
+            'path_text' => ' > 學測主選單 > 預覽考程表',
             'course' => $course_4_day,
             'data_list_4_day' => $data_list_4_day,
         );
@@ -4205,7 +4813,7 @@ class Console extends CI_Controller {
         $data = array(
             'title' => '考科費用',
             'path' => 'subject_ability/f_4',
-            'path_text' => ' > 指考主選單 > 考科費用',
+            'path_text' => ' > 學測主選單 > 考科費用',
             'fees_info' => $fees_info,
         );
         $this->load->view('subject_ability_layout', $data);

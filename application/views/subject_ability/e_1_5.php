@@ -31,7 +31,7 @@
 <table class="" id="" style="padding:4px 0px;text-align:center;">
     <thead>
         <tr>
-            <td colspan="7" style="font-size:26px;"><?=$_SESSION['year']?>學年度指定科目考試新北一考區<?=$area?>監試人員午餐一覽表</td>
+            <td colspan="7" style="font-size:26px;"><?=$_SESSION['year']?>學年度大學學科能力測驗新北一考區<?=$area?>監試人員午餐一覽表</td>
         </tr>
         <tr>
             <th class="bb" rowspan="2">試場</th>

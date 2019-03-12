@@ -16,7 +16,7 @@ class Mod_voice_trial extends CI_Model
     {
         $this->db->where('year',$this->session->userdata('year'));
         $this->db->where('ladder',$this->session->userdata('ladder'));
-        $this->db->where('block_name','上午場');
+        // $this->db->where('block_name','上午場');
         if($part!=""){
             $this->db->where('part',$part);
         }
@@ -37,10 +37,14 @@ class Mod_voice_trial extends CI_Model
             $this->db->where('ladder',$this->session->userdata('ladder'));
             if($part!=""){
                 $this->db->where('part',$part);
-                $this->db->where('field',$value['field']);
+                // $this->db->where('field',$value['field']);
             }
             $this->db->select('sn,field,trial_staff_code_1,supervisor_1,supervisor_1_code,trial_staff_code_2,supervisor_2,supervisor_2_code,note,block_name');
             $assign = $this->db->get('voice_trial_assign')->result_array();
+            // print_r($assign);
+            if(empty($assign)){
+                return 'empty';
+            }
             // 整合 block_name
             $block_name = array();
             $assign_sn = array();

@@ -45,8 +45,7 @@
         <th class="bb">監試人員</th>
         <th class="bb">試務人員</th>
     </tr>
-<?php if($part!=""){?>
-    <?php foreach ($part as $k => $v){?>
+    <?php foreach ($part as $k => $v): ?>
     <tr>
         <td class="bb"><?=trim($v['field'])?></td>
         <td class="bb"><?=$v['test_section']?></td>
@@ -56,8 +55,7 @@
         <td class="bb"><?=trim($v['supervisor_2'])?></td>
         <td class="bb"><?=trim($v['allocation_code'])?>&emsp;<?=trim($v['voucher'])?></td>
     </tr>
-
-<?php }} ?>
+    <?php endforeach; ?>
     <tr>
         <td style="text-align:left;font-size:16px;">共計：<?=count($trial_count)*2+$patrol_count?>人</td>
     </tr>

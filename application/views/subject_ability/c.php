@@ -58,14 +58,20 @@ $(function(){
         </a>    
     
     </div>
+
     <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4 cube text-center">
         <a href="./subject_ability/c_4">
-            <img src="assets/images/c4.png" alt="">
+            <img src="assets/images/c4n.png" alt="">
         </a>    
     </div>
     <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4 cube text-center">
         <a href="./subject_ability/c_5">
-            <img src="assets/images/c5.png" alt="">
+            <img src="assets/images/c5n.png" alt="">
+        </a>    
+    </div>
+    <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4 cube text-center">
+        <a href="./subject_ability/c_6">
+            <img src="assets/images/c6.png" alt="">
         </a>    
     </div> 
     <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4 cube text-center">

@@ -267,7 +267,8 @@
 
         $("body").on("click", "#sure3", function() {
             var code = $(".typeahead").val().split("-");
-            $("#trial_staff_code").val(code[0]);
+            console.log(code);
+            $("#allocation_code").val(code[0]);
             $("#trial_staff_name").val(code[1]);
             $('#exampleModal').modal('hide');
         })
@@ -491,7 +492,7 @@
             } else {
                 var part = $("#part").val();
                 var allocation_code = $("#allocation_code").val();
-                var trial_staff_code = $("#trial_staff_code").val();
+                var trial_staff_code = $("#allocation_code").val();
                 var trial_staff_name = $("#trial_staff_name").val();
                 var first_start = $("#first_start").val();
                 var first_end = $("#first_end").val();
@@ -505,9 +506,9 @@
                 var note = $("textarea[name='note']").val();
                 var arr  = [];
                 $(".day").each(function(){
-                    if($(this).val() != 0){
+                    // if($(this).val() != 0){
                         arr.push($(this).attr("day"));
-                    }
+                    // }
                 })
                 var do_date = arr.join(",");       
                 console.log(do_date);         
@@ -568,6 +569,12 @@
         </div>
         <div class="tab tab3" area="3" part="2503" eng="third">
             <div class="tab_text">第三分區</div>
+        </div>
+        <div class="tab tab3" area="4" part="2504" eng="fourth">
+            <div class="tab_text">第四分區</div>
+        </div>
+        <div class="tab tab3" area="5" part="2505" eng="fifth">
+            <div class="tab_text">第五分區</div>
         </div>
     </div>
 </div>
@@ -744,6 +751,152 @@
             </thead>
             <tbody>
                 <?php foreach ($part3 as $k => $v): ?>
+                <tr sn="<?=$v['sn']; ?>" part="<?=$v['part']; ?>">
+                    <td class="bt">
+                        <?=$k + 1; ?>
+                    </td>
+                    <td class="bt">
+                        <?=$v['allocation_code']; ?>
+                    </td>
+                    <td class="bt">
+                        <?=$v['trial_staff_name']; ?>
+                    </td>
+                    <td class="bt">
+                        <?=$v['first_start']; ?>
+                    </td>
+                    <td class="bt">
+                        <?=$v['first_end']; ?>
+                    </td>
+                    <td class="bt">
+                        <?=$v['first_section']; ?>
+                    </td>
+                    <td class="bt">
+                        <?=$v['second_start']; ?>
+                    </td>
+                    <td class="bt">
+                        <?=$v['second_end']; ?>
+                    </td>
+                    <td class="bt">
+                        <?=$v['second_section']; ?>
+                    </td>
+                    <td class="bt">
+                        <?=$v['third_start']; ?>
+                    </td>
+                    <td class="bt">
+                        <?=$v['third_end']; ?>
+                    </td>
+                    <td class="bt">
+                        <?=$v['third_section']; ?>
+                    </td>
+                    <td class="bt">
+                        <?=$v['note']; ?>
+                    </td>
+                </tr>
+                <?php endforeach; ?>
+            </tbody>
+        </table>
+    </div>
+</div>
+<div class="row part" id="part4" style="height:700px;overflow: auto;">
+    <div class="col-12" style="margin-top: 10px;">
+        <table class="table table-hover" id="" style="text-align:center">
+            <thead>
+                <tr>
+                    <th rowspan="2">序號</th>
+                    <th rowspan="2">管卷人員編號</th>
+                    <th rowspan="2">管卷人員</th>
+                    <th colspan="3" class="bb">第一天</th>
+                    <th colspan="3" class="bb">第二天</th>
+                    <th colspan="3" class="bb">第三天</th>
+                    <th rowspan="2">備註</th>
+                </tr>
+                <tr>
+                    <td>試場號起</td>
+                    <td>試場號迄</td>
+                    <td>最大試節數</td>
+                    <td>試場號起</td>
+                    <td>試場號迄</td>
+                    <td>最大試節數</td>
+                    <td>試場號起</td>
+                    <td>試場號迄</td>
+                    <td>最大試節數</td>
+                </tr>
+            </thead>
+            <tbody>
+                <?php foreach ($part4 as $k => $v): ?>
+                <tr sn="<?=$v['sn']; ?>" part="<?=$v['part']; ?>">
+                    <td class="bt">
+                        <?=$k + 1; ?>
+                    </td>
+                    <td class="bt">
+                        <?=$v['allocation_code']; ?>
+                    </td>
+                    <td class="bt">
+                        <?=$v['trial_staff_name']; ?>
+                    </td>
+                    <td class="bt">
+                        <?=$v['first_start']; ?>
+                    </td>
+                    <td class="bt">
+                        <?=$v['first_end']; ?>
+                    </td>
+                    <td class="bt">
+                        <?=$v['first_section']; ?>
+                    </td>
+                    <td class="bt">
+                        <?=$v['second_start']; ?>
+                    </td>
+                    <td class="bt">
+                        <?=$v['second_end']; ?>
+                    </td>
+                    <td class="bt">
+                        <?=$v['second_section']; ?>
+                    </td>
+                    <td class="bt">
+                        <?=$v['third_start']; ?>
+                    </td>
+                    <td class="bt">
+                        <?=$v['third_end']; ?>
+                    </td>
+                    <td class="bt">
+                        <?=$v['third_section']; ?>
+                    </td>
+                    <td class="bt">
+                        <?=$v['note']; ?>
+                    </td>
+                </tr>
+                <?php endforeach; ?>
+            </tbody>
+        </table>
+    </div>
+</div>
+<div class="row part" id="part5" style="height:700px;overflow: auto;">
+    <div class="col-12" style="margin-top: 10px;">
+        <table class="table table-hover" id="" style="text-align:center">
+            <thead>
+                <tr>
+                    <th rowspan="2">序號</th>
+                    <th rowspan="2">管卷人員編號</th>
+                    <th rowspan="2">管卷人員</th>
+                    <th colspan="3" class="bb">第一天</th>
+                    <th colspan="3" class="bb">第二天</th>
+                    <th colspan="3" class="bb">第三天</th>
+                    <th rowspan="2">備註</th>
+                </tr>
+                <tr>
+                    <td>試場號起</td>
+                    <td>試場號迄</td>
+                    <td>最大試節數</td>
+                    <td>試場號起</td>
+                    <td>試場號迄</td>
+                    <td>最大試節數</td>
+                    <td>試場號起</td>
+                    <td>試場號迄</td>
+                    <td>最大試節數</td>
+                </tr>
+            </thead>
+            <tbody>
+                <?php foreach ($part5 as $k => $v): ?>
                 <tr sn="<?=$v['sn']; ?>" part="<?=$v['part']; ?>">
                     <td class="bt">
                         <?=$k + 1; ?>

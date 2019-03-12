@@ -450,7 +450,7 @@ class Mod_task extends CI_Model
 
         $this->db->where('job_code !=', "");
 
-        $res = $this->db->get('district_task')->result_array();
+        $res = $this->db->get('ability_district_task')->result_array();
         if (!empty($res)) {
             for ($i=0; $i < count($res); $i++) {
                 # code...

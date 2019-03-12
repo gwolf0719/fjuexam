@@ -52,6 +52,7 @@ class Mod_ability_part_info extends CI_Model
             $arr[] = array(
                 'sn'=>$res[$i]['sn'],
                 'floor'=>$data['floor'],
+                'note'=>$data['note'],
             );
         }
         $this->db->update_batch('ability_part_info', $arr, 'sn');

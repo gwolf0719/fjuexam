@@ -127,6 +127,8 @@
                         <div class="btn_part btn1" part="2501" area="第一分區" link="./subject_ability/e_1_3?part=2501&area=第一分區">第一分區</div>
                         <div class="btn_part btn1" part="2502" area="第二分區" link="./subject_ability/e_1_3?part=2502&area=第二分區">第二分區</div>
                         <div class="btn_part btn1" part="2503" area="第三分區" link="./subject_ability/e_1_3?part=2503&area=第三分區">第三分區</div>
+                        <div class="btn_part btn1" part="2504" area="第四分區" link="./subject_ability/e_1_3?part=2504&area=第四分區">第四分區</div>
+                        <div class="btn_part btn1" part="2505" area="第五分區" link="./subject_ability/e_1_3?part=2505&area=第五分區">第五分區</div>
                     </div>
                 </div>
             </div>
@@ -151,6 +153,8 @@
                         <div class="btn_part btn2" part="2501" area="第一分區" link="./subject_ability/e_1_3_3?part=2501&area=第一分區">第一分區</div>
                         <div class="btn_part btn2" part="2502" area="第二分區" link="./subject_ability/e_1_3_3?part=2502&area=第二分區">第二分區</div>
                         <div class="btn_part btn2" part="2503" area="第三分區" link="./subject_ability/e_1_3_3?part=2503&area=第三分區">第三分區</div>
+                        <div class="btn_part btn2" part="2504" area="第四分區" link="./subject_ability/e_1_3_3?part=2504&area=第四分區">第四分區</div>
+                        <div class="btn_part btn2" part="2505" area="第五分區" link="./subject_ability/e_1_3_3?part=2505&area=第五分區">第五分區</div>
                     </div>
                 </div>
             </div>
@@ -179,6 +183,12 @@
                         </a>
                         <a href="./subject_ability/e_1_5?part=2503&area=第三分區" target="_blank">
                             <div class="btn_part">第三分區</div>
+                        </a>
+                        <a href="./subject_ability/e_1_5?part=2504&area=第四分區" target="_blank">
+                            <div class="btn_part">第四分區</div>
+                        </a>
+                        <a href="./subject_ability/e_1_5?part=2505&area=第五分區" target="_blank">
+                            <div class="btn_part">第五分區</div>
                         </a>
                     </div>
                 </div>
@@ -210,6 +220,12 @@
                         <a href="./subject_ability/e_1_4?part=2503&area=第三分區" target="_blank">
                             <div class="btn_part">第三分區</div>
                         </a>
+                        <a href="./subject_ability/e_1_4?part=2504&area=第四分區" target="_blank">
+                            <div class="btn_part">第四分區</div>
+                        </a>
+                        <a href="./subject_ability/e_1_4?part=2505&area=第五分區" target="_blank">
+                            <div class="btn_part">第五分區</div>
+                        </a>
                     </div>
                 </div>
             </div>
@@ -239,6 +255,12 @@
                         <a href="./subject_ability/e_1_3_4?part=2503&area=第三分區" target="_blank">
                             <div class="btn_part">第三分區</div>
                         </a>
+                        <a href="./subject_ability/e_1_3_4?part=2504&area=第四分區" target="_blank">
+                            <div class="btn_part">第四分區</div>
+                        </a>
+                        <a href="./subject_ability/e_1_3_4?part=2505&area=第五分區" target="_blank">
+                            <div class="btn_part">第五分區</div>
+                        </a>
                     </div>
                 </div>
             </div>
@@ -267,6 +289,12 @@
                         </a>
                         <a href="./subject_ability/e_1_3_5?part=2503&area=第三分區" target="_blank">
                             <div class="btn_part">第三分區</div>
+                        </a>
+                        <a href="./subject_ability/e_1_3_5?part=2504&area=第四分區" target="_blank">
+                            <div class="btn_part">第四分區</div>
+                        </a>
+                        <a href="./subject_ability/e_1_3_5?part=2505&area=第五分區" target="_blank">
+                            <div class="btn_part">第五分區</div>
                         </a>
                     </div>
                 </div>

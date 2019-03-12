@@ -630,7 +630,7 @@
                         <input type="checkbox" class="chbox" id="" name="day" value="<?=mb_substr($datetime_info['day_2'], 5, 8, 'utf-8'); ?>">
                         <span class="chbox">
                             <?=mb_substr($datetime_info['day_2'], 5, 8, 'utf-8'); ?>
-                        </span>
+                        </span><br>
                         <input type="checkbox" class="chbox" id="" name="day" value="<?=mb_substr($datetime_info['day_3'], 5, 8, 'utf-8'); ?>">
                         <span class="chbox">
                             <?=mb_substr($datetime_info['day_3'], 5, 8, 'utf-8'); ?>

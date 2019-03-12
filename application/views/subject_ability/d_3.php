@@ -253,7 +253,7 @@
 
         $("body").on("click", "#sure3", function() {
             var code = $(".typeahead").val().split("-");
-            $("#patrol_staff_code").val(code[0]);
+            $("#allocation_code").val(code[0]);
             $("#patrol_staff_name").val(code[1]);
             $('#exampleModal').modal('hide');
         })
@@ -423,8 +423,9 @@
                 }
             } else {
                 var part = $("#part").val();
+                console.log(part);
                 var allocation_code = $("#allocation_code").val();
-                var patrol_staff_code = $("#patrol_staff_code").val();
+                var patrol_staff_code = $("#allocation_code").val();
                 var patrol_staff_name = $("#patrol_staff_name").val();
                 var start = $("#start").val();
                 var end = $("#end").val();
@@ -480,6 +481,12 @@
         </div>
         <div class="tab tab3" area="3" part="2503">
             <div class="tab_text">第三分區</div>
+        </div>
+        <div class="tab tab4" area="4" part="2504">
+            <div class="tab_text">第四分區</div>
+        </div>
+        <div class="tab tab5" area="5" part="2505">
+            <div class="tab_text">第五分區</div>
         </div>
     </div>
 </div>
@@ -615,6 +622,97 @@
         </table>
     </div>
 </div>
+
+<div class="row part" id="part4" style="height:700px;overflow: auto;">
+    <div class="col-12" style="margin-top: 10px;">
+        <table class="table table-hover" id="">
+            <thead>
+                <tr>
+                    <th>序號</th>
+                    <th>巡場人員編號</th>
+                    <th>巡場人員</th>
+                    <th>試場號起</th>
+                    <th>試場號迄</th>
+                    <th>最大試節數</th>
+                    <th>備註</th>
+                </tr>
+            </thead>
+            <tbody>
+                <?php foreach ($part4 as $k => $v): ?>
+                <tr sn="<?=$v['sn']; ?>" part="<?=$v['part']; ?>">
+                    <td>
+                        <?=$k + 1; ?>
+                    </td>
+                    <td>
+                        <?=$v['allocation_code']; ?>
+                    </td>
+                    <td>
+                        <?=$v['patrol_staff_name']; ?>
+                    </td>
+                    <td>
+                        <?=$v['start']; ?>
+                    </td>
+                    <td>
+                        <?=$v['end']; ?>
+                    </td>
+                    <td>
+                        <?=$v['section']; ?>
+                    </td>
+                    <td>
+                        <?=$v['note']; ?>
+                    </td>
+                </tr>
+                <?php endforeach; ?>
+            </tbody>
+        </table>
+    </div>
+</div>
+
+<div class="row part" id="part5" style="height:700px;overflow: auto;">
+    <div class="col-12" style="margin-top: 10px;">
+        <table class="table table-hover" id="">
+            <thead>
+                <tr>
+                    <th>序號</th>
+                    <th>巡場人員編號</th>
+                    <th>巡場人員</th>
+                    <th>試場號起</th>
+                    <th>試場號迄</th>
+                    <th>最大試節數</th>
+                    <th>備註</th>
+                </tr>
+            </thead>
+            <tbody>
+                <?php foreach ($part5 as $k => $v): ?>
+                <tr sn="<?=$v['sn']; ?>" part="<?=$v['part']; ?>">
+                    <td>
+                        <?=$k + 1; ?>
+                    </td>
+                    <td>
+                        <?=$v['allocation_code']; ?>
+                    </td>
+                    <td>
+                        <?=$v['patrol_staff_name']; ?>
+                    </td>
+                    <td>
+                        <?=$v['start']; ?>
+                    </td>
+                    <td>
+                        <?=$v['end']; ?>
+                    </td>
+                    <td>
+                        <?=$v['section']; ?>
+                    </td>
+                    <td>
+                        <?=$v['note']; ?>
+                    </td>
+                </tr>
+                <?php endforeach; ?>
+            </tbody>
+        </table>
+    </div>
+</div>
+
 <div class="bottom">
     <div class="row boxs">
         <div class="col-md-12 col-sm-12 col-xs-12 ">

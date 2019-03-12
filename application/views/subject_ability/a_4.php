@@ -9,7 +9,7 @@ img{
     max-width:100%;
 }
 .tab{
-    width: 18%;
+    width: 12%;
     float: left;
     text-align: center;
     background: #e2e2e2;
@@ -105,7 +105,37 @@ $(function(){
                 // location.href="./subject_ability/b_5";
             }
         }        
-    })        
+    })    
+    // 第四分區匯入
+    $("body").on("click","#Upload4",function(){
+        var files = $("input[name='inputGroupFile04']").prop('files');
+        console.log(files);
+        if(files.length == 0){
+            alert('請先選擇文件');
+            return;
+        }else{
+            if(confirm("注意！舊資料會全部刪除，新資料將匯入")){
+                $("#form4").submit();
+                // location.href="./subject_ability/b_5";
+            }
+        }        
+    })    
+    // 第五分區匯入
+    $("body").on("click","#Upload5",function(){
+        var files = $("input[name='inputGroupFile05']").prop('files');
+        console.log(files);
+        if(files.length == 0){
+            alert('請先選擇文件');
+            return;
+        }else{
+            if(confirm("注意！舊資料會全部刪除，新資料將匯入")){
+                $("#form5").submit();
+                // location.href="./subject_ability/b_5";
+            }
+        }        
+    })    
+
+
     $(".cube").eq(0).show();
     $("body").on("click",".tab",function(){
         var $this = $(this);
@@ -147,6 +177,8 @@ $(function(){
         <button type="button" class="btn btn-primary "  data-toggle="modal" data-target="#part1" style="margin: 0px 3px;"  >第一分區職務匯入</button>
         <button type="button" class="btn btn-primary "  data-toggle="modal" data-target="#part2" style="margin: 0px 3px;"  >第二分區職務匯入</button>
         <button type="button" class="btn btn-primary "  data-toggle="modal" data-target="#part3" style="margin: 0px 3px;"  >第三分區職務匯入</button>
+        <button type="button" class="btn btn-primary "  data-toggle="modal" data-target="#part4" style="margin: 0px 3px;"  >第四分區職務匯入</button>
+        <button type="button" class="btn btn-primary "  data-toggle="modal" data-target="#part5" style="margin: 0px 3px;"  >第五分區職務匯入</button>
     </div>
 </div>
 <div class="row" style="position: relative;top: 20px;left: 10px;">
@@ -156,6 +188,8 @@ $(function(){
         <div class="tab" area="2"><div class="tab_text">第一分區</div></div>
         <div class="tab" area="3"><div class="tab_text">第二分區</div></div>
         <div class="tab" area="4"><div class="tab_text">第三分區</div></div>
+        <div class="tab" area="5"><div class="tab_text">第四分區</div></div>
+        <div class="tab" area="6"><div class="tab_text">第五分區</div></div>
     </div>
 </div>
 <div class="row cube" id="b0">
@@ -278,6 +312,54 @@ $(function(){
         </table>
      </div>
 </div>
+<div class="row cube" id="b5">
+   <div class="col-12" style="margin-top: 10px;">
+        <table class="table table-hover" id="" style="text-align:center;">
+            <thead>
+                <tr>
+                    <th>序號</th>
+                    <th>年度</th>
+                    <th>考區</th>
+                    <th>職務</th>
+                </tr>
+            </thead>
+            <tbody>
+            <?php foreach ($b5 as $k => $v): ?>
+                <tr sn="<?=$v['sn']; ?>">
+                    <td><?=$k + 1; ?></td>
+                    <td><?=$v['year']; ?></td>
+                    <td><?=$v['area']; ?></td>
+                    <td><?=$v['job']; ?></td>
+                </tr>
+            <?php endforeach; ?>
+            </tbody>
+        </table>
+     </div>
+</div>
+<div class="row cube" id="b6">
+   <div class="col-12" style="margin-top: 10px;">
+        <table class="table table-hover" id="" style="text-align:center;">
+            <thead>
+                <tr>
+                    <th>序號</th>
+                    <th>年度</th>
+                    <th>考區</th>
+                    <th>職務</th>
+                </tr>
+            </thead>
+            <tbody>
+            <?php foreach ($b6 as $k => $v): ?>
+                <tr sn="<?=$v['sn']; ?>">
+                    <td><?=$k + 1; ?></td>
+                    <td><?=$v['year']; ?></td>
+                    <td><?=$v['area']; ?></td>
+                    <td><?=$v['job']; ?></td>
+                </tr>
+            <?php endforeach; ?>
+            </tbody>
+        </table>
+     </div>
+</div>
 <!-- Modal start-->
 <div class="modal fade" id="area" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
   <div class="modal-dialog" role="document">
@@ -388,6 +470,66 @@ $(function(){
             </div>
             <div class="input-group-append">
                 <span class="input-group-text" id="Upload3">Upload</span>
+            </div>
+            </div>
+            
+
+        </form>
+      </div>
+      
+    </div>
+  </div>
+</div>
+<!-- Modal end-->
+<!-- Modal start-->
+<div class="modal fade" id="part4" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="">第四分區職務匯入</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <form method="POST" enctype="multipart/form-data" action="" id="form4" class="page_form">
+                  
+            <div class="input-group mb-3">
+            <div class="custom-file">
+                <input type="file" class="" id="inputGroupFile04" name="inputGroupFile04">
+            </div>
+            <div class="input-group-append">
+                <span class="input-group-text" id="Upload4">Upload</span>
+            </div>
+            </div>
+            
+
+        </form>
+      </div>
+      
+    </div>
+  </div>
+</div>
+<!-- Modal end-->
+<!-- Modal start-->
+<div class="modal fade" id="part5" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="">第五分區職務匯入</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <form method="POST" enctype="multipart/form-data" action="" id="form5" class="page_form">
+                  
+            <div class="input-group mb-3">
+            <div class="custom-file">
+                <input type="file" class="" id="inputGroupFile05" name="inputGroupFile05">
+            </div>
+            <div class="input-group-append">
+                <span class="input-group-text" id="Upload5">Upload</span>
             </div>
             </div>
             

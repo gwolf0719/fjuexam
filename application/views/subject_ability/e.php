@@ -165,6 +165,10 @@
                         <div class="btn_part btn2" link="./subject_ability/e_7_2?part=2502&area=第二分區&obs=29" part="2502" area="第二分區" obs="29">第二分區(身障)</div>    
                         <div class="btn_part btn1" link="./subject_ability/e_7_1?part=2503&area=第三分區" part="2503" area="第三分區">第三分區</div> 
                         <div class="btn_part btn2" link="./subject_ability/e_7_2?part=2503&area=第三分區&obs=29" part="2503" area="第三分區" obs="29">第三分區(身障)</div> 
+                        <div class="btn_part btn1" link="./subject_ability/e_7_1?part=2504&area=第四分區" part="2504" area="第四分區">第四分區</div> 
+                        <div class="btn_part btn2" link="./subject_ability/e_7_2?part=2504&area=第四分區&obs=29" part="2504" area="第四分區" obs="29">第四分區(身障)</div> 
+                        <div class="btn_part btn1" link="./subject_ability/e_7_1?part=2505&area=第五分區" part="2505" area="第五分區">第五分區</div> 
+                        <div class="btn_part btn2" link="./subject_ability/e_7_2?part=2505&area=第五分區&obs=29" part="2505" area="第五分區" obs="29">第五分區(身障)</div> 
                     </div>
                 </div>
             </div>
@@ -189,6 +193,8 @@
                         <div class="btn_part btn3" link="./subject_ability/e_7_3?part=2501&area=第一分區" part="2501" area="第一分區">第一分區</div>
                         <div class="btn_part btn3" link="./subject_ability/e_7_3?part=2502&area=第二分區" part="2502" area="第二分區">第二分區</div>  
                         <div class="btn_part btn3" link="./subject_ability/e_7_3?part=2503&area=第三分區" part="2503" area="第三分區">第三分區</div> 
+                        <div class="btn_part btn3" link="./subject_ability/e_7_3?part=2504&area=第四分區" part="2504" area="第四分區">第四分區</div> 
+                        <div class="btn_part btn3" link="./subject_ability/e_7_3?part=2505&area=第五分區" part="2505" area="第五分區">第五分區</div> 
                     </div>
                 </div>
             </div>
@@ -212,6 +218,8 @@
                         <div class="btn_part btn4" link="./subject_ability/e_7_4?part=2501&area=第一分區" part="2501" area="第一分區">第一分區</div>
                         <div class="btn_part btn4" link="./subject_ability/e_7_4?part=2502&area=第二分區" part="2502" area="第二分區">第二分區</div>  
                         <div class="btn_part btn4" link="./subject_ability/e_7_4?part=2503&area=第三分區" part="2503" area="第三分區">第三分區</div> 
+                        <div class="btn_part btn4" link="./subject_ability/e_7_4?part=2504&area=第四分區" part="2504" area="第四分區">第四分區</div> 
+                        <div class="btn_part btn4" link="./subject_ability/e_7_4?part=2505&area=第五分區" part="2505" area="第五分區">第五分區</div> 
                     </div>
                 </div>
             </div>
@@ -235,6 +243,8 @@
                         <div class="btn_part btn5" link="./subject_ability/e_7_5?part=2501&area=第一分區" part="2501" area="第一分區">第一分區</div>
                         <div class="btn_part btn5" link="./subject_ability/e_7_5?part=2502&area=第二分區" part="2502" area="第二分區">第二分區</div>  
                         <div class="btn_part btn5" link="./subject_ability/e_7_5?part=2503&area=第三分區" part="2503" area="第三分區">第三分區</div> 
+                        <div class="btn_part btn5" link="./subject_ability/e_7_5?part=2504&area=第四分區" part="2504" area="第四分區">第四分區</div> 
+                        <div class="btn_part btn5" link="./subject_ability/e_7_5?part=2505&area=第五分區" part="2505" area="第五分區">第五分區</div> 
                     </div>
                 </div>
             </div>
