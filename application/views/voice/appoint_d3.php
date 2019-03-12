@@ -161,10 +161,10 @@
 
             $.each(data.part, function(k, v) {
                 switch (v.block_name) {
-                    case '上午場':
+                    case '1':
                         f_html += '<option value="' + v.field + '">' + v.field + '</option>';        
                         break;
-                    case '下午場':
+                    case '2':
                         s_html += '<option value="' + v.field + '">' + v.field + '</option>';        
                     default:
                         break;
@@ -268,7 +268,7 @@
                 job_code:code[0]
             },function(jsonData){
                 if(jsonData.sys_code == '200'){
-                    $("#patrol_staff_code").val(code[0]);
+                    $("#allocation_code").val(code[0]);
                     $("#patrol_staff_name").val(code[1]);
                     $('#exampleModal').modal('hide');
                 }else{
@@ -423,7 +423,7 @@
             } else {
                 var part = $("#part").val();
                 var allocation_code = $("#allocation_code").val();
-                var patrol_staff_code = $("#patrol_staff_code").val();
+                var patrol_staff_code = $("#allocation_code").val();
                 var patrol_staff_name = $("#patrol_staff_name").val();
                 var first_start = $("#first_start").val();
                 var first_end = $("#first_end").val();
