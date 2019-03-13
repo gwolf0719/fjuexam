@@ -441,7 +441,7 @@
                 </tr>
             </thead>
             <tbody>
-                <?php if($part1!='empty'):?>
+                
                 <?php foreach ($part1 as $k => $v): ?>
                 
                 <tr sn="<?=$v['sn']; ?>" part="2501" field="<?=$v['field']?>" block_name='<?=$v['block_name']?>' supervisor_1_code="<?=$v['supervisor_1_code']?>" supervisor_2_code="<?=$v['supervisor_2_code']?>">
@@ -455,7 +455,7 @@
                     <td><?=$v['note']; ?></td>
                 </tr>
                 <?php endforeach; ?>
-                <?php endif;?>
+               
             </tbody>
         </table>
     </div>
@@ -477,6 +477,7 @@
                 </tr>
             </thead>
             <tbody>
+            
                 <?php foreach ($part2 as $k => $v): ?>
                 <tr sn="<?=$v['sn']; ?>" part="2502" field="<?=$v['field']?>" block_name='<?=$v['block_name']?>' supervisor_1_code="<?=$v['supervisor_1_code']?>" supervisor_2_code="<?=$v['supervisor_2_code']?>">
                     <td>

@@ -525,9 +525,17 @@
             <tbody>
                 <?php foreach ($part2 as $k => $v): ?>
                 <tr sn="<?=$v['sn']; ?>" part="2502" field="<?=$v['field']; ?>" section="<?=$v['class']; ?>">
-                    <td><?=$k + 1; ?></td>
+                <td><?=$k + 1; ?></td>
                     <td><?=$v['field']; ?></td>
-                    <td><?=$v['block_name']; ?></td>
+                    <td>
+                        <?php 
+                            $exp_block_name = explode(',',$v['block_name']);
+                            $new_block = array();
+                            if(in_array('1',$exp_block_name)){$new_block[] = '上午場';}
+                            if(in_array('2',$exp_block_name)){$new_block[] = '下午場';}
+                            echo implode(',',$new_block);
+                        ?>
+                   </td>
                     <td><?=$v['count_num']; ?></td>
                     <td><?=$v['floor']; ?></td>
                     <td><?=$v['trial_staff_code_1']; ?></td>
@@ -564,40 +572,24 @@
             <tbody>
                 <?php foreach ($part3 as $k => $v): ?>
                 <tr sn="<?=$v['sn']; ?>" part="2503" field="<?=$v['field']; ?>" section="<?=$v['class']; ?>">
+                <td><?=$k + 1; ?></td>
+                    <td><?=$v['field']; ?></td>
                     <td>
-                        <?=$k + 1; ?>
-                    </td>
-                    <td>
-                        <?=$v['field']; ?>
-                    </td>
-                    <td><?=$v['block_name']; ?></td>
-                    <!-- <td>
-                        <?=$v['start']; ?>
-                    </td>
-                    <td>
-                        <?=$v['end']; ?>
-                    </td> -->
-                    <td>
-                        <?=$v['count_num']; ?>
-                    </td>
-                    <td>
-                        <?=$v['floor']; ?>
-                    </td>
-                    <td>
-                        <?=$v['trial_staff_code_1']; ?>
-                    </td>
-                    <td>
-                        <?=$v['supervisor_1']; ?>
-                    </td>
-                    <td>
-                        <?=$v['trial_staff_code_2']; ?>
-                    </td>
-                    <td>
-                        <?=$v['supervisor_2']; ?>
-                    </td>
-                    <td>
-                        <?=$v['note']; ?>
-                    </td>
+                        <?php 
+                            $exp_block_name = explode(',',$v['block_name']);
+                            $new_block = array();
+                            if(in_array('1',$exp_block_name)){$new_block[] = '上午場';}
+                            if(in_array('2',$exp_block_name)){$new_block[] = '下午場';}
+                            echo implode(',',$new_block);
+                        ?>
+                   </td>
+                    <td><?=$v['count_num']; ?></td>
+                    <td><?=$v['floor']; ?></td>
+                    <td><?=$v['trial_staff_code_1']; ?></td>
+                    <td><?=$v['supervisor_1']; ?></td>
+                    <td><?=$v['trial_staff_code_2']; ?></td>
+                    <td><?=$v['supervisor_2']; ?></td>
+                    <td><?=$v['note']; ?></td>
                 </tr>
                 <?php endforeach; ?>
             </tbody>

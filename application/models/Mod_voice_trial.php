@@ -47,30 +47,31 @@ class Mod_voice_trial extends CI_Model
             $assign = $this->db->get('voice_trial_assign')->result_array();
             // print_r($assign);
             if(empty($assign)){
-                return false;
+                unset($res[$key]);
+            }else{
+
+                // 整合 block_name
+                $block_name = array();
+                $assign_sn = array();
+                foreach($assign as $kb=>$kv){
+                    // 考區
+                    $block_name[] = $kv['block_name'] ;
+                    $assign_sn[] = $kv['sn'] ;
+                }
+                
+                $res[$key]['assign_sn'] = implode(",",$assign_sn);
+                $res[$key]['block_name'] = implode(",",$block_name);        
+                $res[$key]['field'] = $value['field'];            
+                $res[$key]['trial_staff_code_1'] = $assign[0]['trial_staff_code_1'];
+                $res[$key]['supervisor_1'] = $assign[0]['supervisor_1'];
+                $res[$key]['supervisor_1_code'] = $assign[0]['supervisor_1_code'];
+                $res[$key]['trial_staff_code_2'] = $assign[0]['trial_staff_code_2'];
+                $res[$key]['supervisor_2'] = $assign[0]['supervisor_2'];
+                $res[$key]['supervisor_2_code'] = $assign[0]['supervisor_2_code'];
+                $res[$key]['note'] = $assign[0]['note'];
             }
-            // 整合 block_name
-            $block_name = array();
-            $assign_sn = array();
-            foreach($assign as $kb=>$kv){
-                // 考區
-                $block_name[] = $kv['block_name'] ;
-                $assign_sn[] = $kv['sn'] ;
-            }
-            
-            $res[$key]['assign_sn'] = implode(",",$assign_sn);
-            $res[$key]['block_name'] = implode(",",$block_name);        
-            $res[$key]['field'] = $value['field'];            
-            $res[$key]['trial_staff_code_1'] = $assign[0]['trial_staff_code_1'];
-            $res[$key]['supervisor_1'] = $assign[0]['supervisor_1'];
-            $res[$key]['supervisor_1_code'] = $assign[0]['supervisor_1_code'];
-            $res[$key]['trial_staff_code_2'] = $assign[0]['trial_staff_code_2'];
-            $res[$key]['supervisor_2'] = $assign[0]['supervisor_2'];
-            $res[$key]['supervisor_2_code'] = $assign[0]['supervisor_2_code'];
-            $res[$key]['note'] = $assign[0]['note'];
         }
-        
-        // print_r($res);
+        $res = array_values($res);
         return $res;
 
     }
