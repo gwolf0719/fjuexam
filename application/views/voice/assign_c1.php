@@ -166,7 +166,22 @@ $(function(){
                     <td><?=$v['part']; ?></td>
                     <td><?=$v['area_name']; ?></td>
                     <td><?=$v['field']; ?></td>
-                    <td><?=$v['class']; ?></td>
+                    <td>
+                        <?php 
+                        switch ($v['block_name']) {
+                            case 1:
+                                echo '上午場';
+                                break;
+                            case 2:
+                                echo '下午場';
+                                break;
+                            default:
+                                echo '上午場,下午場';
+                                break;
+                        }
+                        ?>
+                    
+                    </td>
                     <td><?=$v['start']; ?></td>
                     <td><?=$v['end']; ?></td>
                     <td><?=$v['count_num']; ?></td>
