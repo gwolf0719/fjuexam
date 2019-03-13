@@ -33,6 +33,7 @@ class Mod_voice_trial extends CI_Model
             $res[$key]['note'] = '';
             $res[$key]['assign_sn'] = '';
 
+            
 
 
             $assign = array();
@@ -57,10 +58,12 @@ class Mod_voice_trial extends CI_Model
                     // 考區
                     $block_name[] = $kv['block_name'] ;
                     $assign_sn[] = $kv['sn'] ;
+
+                    // print_r($kv['block_name']);
                 }
                 
                 $res[$key]['assign_sn'] = implode(",",$assign_sn);
-                $res[$key]['block_name'] = implode(",",$block_name);        
+                $res[$key]['block_name'] = $value['block_name'];;        
                 $res[$key]['field'] = $value['field'];            
                 $res[$key]['trial_staff_code_1'] = $assign[0]['trial_staff_code_1'];
                 $res[$key]['supervisor_1'] = $assign[0]['supervisor_1'];

@@ -256,16 +256,17 @@
             var block_names = $(this).attr('block_name');
             // console.log(block_names);
             var a=block_names.split(",");
-            // console.log(a);
+            console.log(a);
 
 
             $('#morning').prop("checked",false);
             $('#aftermorning').prop("checked",false);
             for (var i=0; i<2; i++) {
                 if(a[i]==1){
-                    // console.log(a[i]);
+                    console.log(a[i]);
                     $('#morning').prop("checked",true);
-                }else{
+                }
+                if(a[i]==2){
                     $('#aftermorning').prop("checked",true);
                 }
             }
@@ -443,7 +444,6 @@
             <tbody>
                 
                 <?php foreach ($part1 as $k => $v): ?>
-                
                 <tr sn="<?=$v['sn']; ?>" part="2501" field="<?=$v['field']?>" block_name='<?=$v['block_name']?>' supervisor_1_code="<?=$v['supervisor_1_code']?>" supervisor_2_code="<?=$v['supervisor_2_code']?>">
                     <td><?=$k + 1; ?></td>
                     <td><?=$v['field']; ?></td>
