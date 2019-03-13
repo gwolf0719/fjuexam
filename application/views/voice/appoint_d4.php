@@ -164,7 +164,7 @@
         var nowHash = location.hash; //取得loading進來後目前#
         var nowTabNum = nowHash.slice(-1);
         var nowHtml = location.pathname.split("/").pop();
-        console.log(nowTabNum);
+        // console.log(nowTabNum);
         if (nowHash != "") {
             $(".part").hide();
             $('#part' + nowTabNum).show();
@@ -212,7 +212,7 @@
                 }
             })            
             init();
-            console.log(newHash);
+            // console.log(newHash);
             if (nowHtml == "appoint_d4") {
                 //開闔div
                 $(".part").hide();
@@ -264,7 +264,7 @@
                 },
                 dataType: "json"
             }).done(function(data) {
-                console.log(data);
+                // console.log(data);
                 $(".field").val(field);
                 $("#sn").val(data.info.sn);
                 //職員一
@@ -275,16 +275,32 @@
                 $("#first_member_job_code").val(data.info.supervisor_1_code);
                 $("#trial_staff_code_1").val(data.info.trial_staff_code_1);
                 // console.log(tr.find('td').eq(2).text());
-                var block_names_1 = tr.find('td').eq(2).text().split(',');
-                console.log(block_names_1);
-                if(block_names_1.indexOf('上午場') >= 0){
-                    $('.block').eq(0).prop("checked",true);
+                var block_names= tr.find('td').eq(2).text();
+                block_names=block_names.trim(block_names);
+
+                var block_names=block_names.split(",");
+                // console.log(block_names);
+
+                $('#morning').prop("checked",false);
+                $('#aftermorning').prop("checked",false);
+                for (var i=0; i<2; i++) {
+                    if(block_names[i]=="上午場"){
+                        $('#morning').prop("checked",true);
+                    }
+                    if(block_names[i]=="下午場"){
+                        $('#aftermorning').prop("checked",true);
+                    }
                 }
-                if(block_names_1.indexOf('下午場') >= 0){
-                    $('.block').eq(1).prop("checked",true);
-                }
-                $("#first_member_section_count").val(block_names_1.length);
-                $("#first_member_section_total").val(block_names_1.length*data.info.first_member_section_total);
+                
+
+                // if(block_names_1.indexOf('上午場') >= 0){
+                //     $('.block').eq(0).prop("checked",true);
+                // }
+                // if(block_names_1.indexOf('下午場') >= 0){
+                //     $('.block').eq(1).prop("checked",true);
+                // }
+                // $("#first_member_section_count").val(block_names_1.length);
+                // $("#first_member_section_total").val(block_names_1.length*data.info.first_member_section_total);
                 
                 //職員二
                 $("#second_member_day_count").val(data.info.second_member_day_count);
@@ -313,7 +329,7 @@
                         },
                         dataType: "json"
                     }).done(function(member) {
-                        console.log(member);
+                        // console.log(member);
                         $("#first_member_job_title").val(member.info.member_title);
                         $("#first_member_phone").val(member.info.member_phone);
                     })
@@ -328,7 +344,7 @@
                         },
                         dataType: "json"
                     }).done(function(data) {
-                        console.log(data);
+                        // console.log(data);
                         $("#second_member_job_title").val(data.info.member_title);
                         $("#second_member_phone").val(data.info.member_phone);
                     })
@@ -349,9 +365,9 @@
             var first_member_do_date = day_count1.join(",");
             var day_count2 = $('input:checkbox:checked[name="second_member_day"]').map(function() {return $(this).val();}).get()
             var second_member_do_date = day_count2.join(",");
-            console.log(block_name);
-            console.log(part);
-            console.log(field);
+            // console.log(block_name);
+            // console.log(part);
+            // console.log(field);
 
             if (confirm("是否要儲存?")) {
                 var sn = $("#sn").val();
@@ -462,40 +478,24 @@
             <tbody>
                 <?php foreach ($part1 as $k => $v): ?>
                 <tr sn="<?=$v['sn']; ?>" part="2501" field="<?=$v['field']; ?>" section="<?=$v['class']; ?>" assign_sn="<?=$v['assign_sn']?>">
+                    <td><?=$k + 1; ?></td>
+                    <td><?=$v['field']; ?></td>
                     <td>
-                        <?=$k + 1; ?>
-                    </td>
-                    <td>
-                        <?=$v['field']; ?>
-                    </td>
-                    <td><?=$v['block_name']; ?></td>
-                    <!-- <td>
-                        <?=$v['start']; ?>
-                    </td>
-                    <td>
-                        <?=$v['end']; ?>
-                    </td> -->
-                    <td>
-                        <?=$v['count_num']; ?>
-                    </td>
-                    <td>
-                        <?=$v['floor']; ?>
-                    </td>
-                    <td>
-                        <?=$v['trial_staff_code_1']; ?>
-                    </td>
-                    <td>
-                        <?=$v['supervisor_1']; ?>
-                    </td>
-                    <td>
-                        <?=$v['trial_staff_code_2']; ?>
-                    </td>
-                    <td>
-                        <?=$v['supervisor_2']; ?>
-                    </td>
-                    <td>
-                        <?=$v['note']; ?>
-                    </td>
+                        <?php 
+                            $exp_block_name = explode(',',$v['block_name']);
+                            $new_block = array();
+                            if(in_array('1',$exp_block_name)){$new_block[] = '上午場';}
+                            if(in_array('2',$exp_block_name)){$new_block[] = '下午場';}
+                            echo implode(',',$new_block);
+                        ?>
+                   </td>
+                    <td><?=$v['count_num']; ?></td>
+                    <td><?=$v['floor']; ?></td>
+                    <td><?=$v['trial_staff_code_1']; ?></td>
+                    <td><?=$v['supervisor_1']; ?></td>
+                    <td><?=$v['trial_staff_code_2']; ?></td>
+                    <td><?=$v['supervisor_2']; ?></td>
+                    <td><?=$v['note']; ?></td>
                 </tr>
                 <?php endforeach; ?>
             </tbody>
@@ -525,40 +525,16 @@
             <tbody>
                 <?php foreach ($part2 as $k => $v): ?>
                 <tr sn="<?=$v['sn']; ?>" part="2502" field="<?=$v['field']; ?>" section="<?=$v['class']; ?>">
-                    <td>
-                        <?=$k + 1; ?>
-                    </td>
-                    <td>
-                        <?=$v['field']; ?>
-                    </td>
+                    <td><?=$k + 1; ?></td>
+                    <td><?=$v['field']; ?></td>
                     <td><?=$v['block_name']; ?></td>
-                    <!-- <td>
-                        <?=$v['start']; ?>
-                    </td>
-                    <td>
-                        <?=$v['end']; ?>
-                    </td> -->
-                    <td>
-                        <?=$v['count_num']; ?>
-                    </td>
-                    <td>
-                        <?=$v['floor']; ?>
-                    </td>
-                    <td>
-                        <?=$v['trial_staff_code_1']; ?>
-                    </td>
-                    <td>
-                        <?=$v['supervisor_1']; ?>
-                    </td>
-                    <td>
-                        <?=$v['trial_staff_code_2']; ?>
-                    </td>
-                    <td>
-                        <?=$v['supervisor_2']; ?>
-                    </td>
-                    <td>
-                        <?=$v['note']; ?>
-                    </td>
+                    <td><?=$v['count_num']; ?></td>
+                    <td><?=$v['floor']; ?></td>
+                    <td><?=$v['trial_staff_code_1']; ?></td>
+                    <td><?=$v['supervisor_1']; ?></td>
+                    <td><?=$v['trial_staff_code_2']; ?></td>
+                    <td><?=$v['supervisor_2']; ?></td>
+                    <td><?=$v['note']; ?></td>
                 </tr>
                 <?php endforeach; ?>
             </tbody>

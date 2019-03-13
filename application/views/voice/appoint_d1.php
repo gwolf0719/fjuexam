@@ -254,16 +254,32 @@
             // $("#do_date").val()
 
             var block_names = $(this).attr('block_name');
-            console.log(block_names);
-            $('.block').prop("checked",false);
-                if(block_names= 1){
-                    $('.block').eq(0).prop("checked",true);
-                    $('.block').eq(1).prop("checked",false);
+            // console.log(block_names);
+            var a=block_names.split(",");
+            // console.log(a);
+
+
+            $('#morning').prop("checked",false);
+            $('#aftermorning').prop("checked",false);
+            for (var i=0; i<2; i++) {
+                if(a[i]==1){
+                    // console.log(a[i]);
+                    $('#morning').prop("checked",true);
+                }else{
+                    $('#aftermorning').prop("checked",true);
                 }
-                if(block_names= 2){
-                    $('.block').eq(1).prop("checked",true);
-                    $('.block').eq(0).prop("checked",false);
-                }
+            }
+
+
+            // $('.block').prop("checked",false);
+            //     if(block_names= 1){
+            //         $('.block').eq(0).prop("checked",true);
+            //         $('.block').eq(1).prop("checked",false);
+            //     }
+            //     if(block_names= 2){
+            //         $('.block').eq(1).prop("checked",true);
+            //         $('.block').eq(0).prop("checked",false);
+            //     }
 
             $("#supervisor_1_code").val($(this).attr('supervisor_1_code'));
             $("#supervisor_2_code").val($(this).attr('supervisor_2_code'));
