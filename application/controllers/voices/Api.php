@@ -110,7 +110,7 @@ class Api extends CI_Controller {
             $this->mod_voice_exam_area->import($datas);
             $this->mod_voice_trial->import($datas_trial);
             $this->mod_voice_trial->remove_voice_trial_staff();
-            $this->mod_voice_trial->voice_patrol_staff();
+            $this->mod_voice_trial->remove_voice_patrol_staff();
 
             
             fclose($file);
