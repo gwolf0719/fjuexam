@@ -74,7 +74,7 @@ img{
                         }).done(function(data){
                             console.log(data);
                             alert(data.sys_msg);
-                            location.reload(); 
+                            // location.reload(); 
                         });
                     }else{
                         alert("上傳失敗");

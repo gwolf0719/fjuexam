@@ -270,6 +270,7 @@ class Api extends CI_Controller {
     public function import_position(){
 
         $this->load->model('mod_voice_job_list');
+        // print_r($this->input->get_post('test_partition'));
         if($this->input->get_post('test_partition') == ''){
             $json_arr['sys_code'] = '000';
             $json_arr['sys_msg'] = '資料上傳完成';
@@ -284,7 +285,8 @@ class Api extends CI_Controller {
                 $datas = array();
                 while (!feof($file)) {
                     $data = fgetcsv($file);
-                    if($row > 0 && $data != false){
+                    // print_r($data);
+                    if($row >= 0 && $data != false){
                         $datas[$i]['year'] = $this->session->userdata('year');
                         $datas[$i]['ladder'] = $this->session->userdata('ladder');
                         $datas[$i]['job'] = $data[0];
@@ -294,6 +296,7 @@ class Api extends CI_Controller {
                     $row = $row+1;
                 }
                 
+                // print_r($datas);
                 $this->mod_voice_job_list->insert_member($datas);
         
                 fclose($file);

@@ -15,6 +15,7 @@ class Mod_voice_job_list extends CI_Model
         );
         $this->db->where($where);
         $this->db->delete('voice_job_list');
+        
         $this->db->insert_batch('voice_job_list', $data);
     }
 
