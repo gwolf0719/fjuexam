@@ -249,10 +249,36 @@
             var sn = $(this).attr("sn");
             var part = $(this).attr("part");
             var field = $(this).attr("field");
+            var block_names = $(this).attr("block_name");
             var tr = $(this);
             $("#sn").val(sn);
             // $("#first_member_section_count").val(section);
             // $("#second_member_section_count").val(section);
+
+            $('#morning').prop("checked",false);
+            $('#aftermorning').prop("checked",false);
+                    
+            $('#morning2').prop("checked",false);
+            $('#aftermorning2').prop("checked",falsed);
+
+            if(block_names==1){
+                    $('#morning').prop("checked",true);
+                    $('#morning2').prop("checked",true);
+                }
+                if(block_names==2){
+                    $('#aftermorning').prop("checked",true);
+                    $('#aftermorning2').prop("checked",true);
+                }
+                if(block_names==3){
+                    $('#morning').prop("checked",true);
+                    $('#aftermorning').prop("checked",true);
+                    
+                    $('#morning2').prop("checked",true);
+                    $('#aftermorning2').prop("checked",true);
+
+
+                }
+
             
             $("html, body").animate({
                 scrollTop: $("body").height()
@@ -276,32 +302,9 @@
                 $("#trial_staff_code_1").val(data.info.trial_staff_code_1);
                 // console.log(tr.find('td').eq(2).text());
                 var block_names= tr.find('td').eq(2).text();
-                block_names=block_names.trim(block_names);
 
-                var block_names=block_names.split(",");
-                // console.log(block_names);
-
-                $('#morning').prop("checked",false);
-                $('#aftermorning').prop("checked",false);
-                for (var i=0; i<2; i++) {
-                    if(block_names[i]=="上午場"){
-                        $('#morning').prop("checked",true);
-                    }
-                    if(block_names[i]=="下午場"){
-                        $('#aftermorning').prop("checked",true);
-                    }
-                }
                 
 
-                // if(block_names_1.indexOf('上午場') >= 0){
-                //     $('.block').eq(0).prop("checked",true);
-                // }
-                // if(block_names_1.indexOf('下午場') >= 0){
-                //     $('.block').eq(1).prop("checked",true);
-                // }
-                // $("#first_member_section_count").val(block_names_1.length);
-                // $("#first_member_section_total").val(block_names_1.length*data.info.first_member_section_total);
-                
                 //職員二
                 $("#second_member_day_count").val(data.info.second_member_day_count);
                 $("#second_member_salary_section").val(data.info.second_member_salary_section);
@@ -477,16 +480,22 @@
             </thead>
             <tbody>
                 <?php foreach ($part1 as $k => $v): ?>
-                <tr sn="<?=$v['sn']; ?>" part="2501" field="<?=$v['field']; ?>" section="<?=$v['class']; ?>" assign_sn="<?=$v['assign_sn']?>">
+                <tr sn="<?=$v['sn']; ?>" part="2501" field="<?=$v['field']; ?>"  block_name='<?=$v['block_name']?>' section="<?=$v['class']; ?>" assign_sn="<?=$v['assign_sn']?>">
                     <td><?=$k + 1; ?></td>
                     <td><?=$v['field']; ?></td>
                     <td>
-                        <?php 
-                            $exp_block_name = explode(',',$v['block_name']);
-                            $new_block = array();
-                            if(in_array('1',$exp_block_name)){$new_block[] = '上午場';}
-                            if(in_array('2',$exp_block_name)){$new_block[] = '下午場';}
-                            echo implode(',',$new_block);
+                    <?php 
+                            switch ($v['block_name']) {
+                                case 1:
+                                   echo '上午場';
+                                    break;
+                                case 2:
+                                    echo '上午場';
+                                    break;
+                                default:
+                                    echo '上午場,下午場';
+                                    break;
+                            }
                         ?>
                    </td>
                     <td><?=$v['count_num']; ?></td>
@@ -524,16 +533,22 @@
             </thead>
             <tbody>
                 <?php foreach ($part2 as $k => $v): ?>
-                <tr sn="<?=$v['sn']; ?>" part="2502" field="<?=$v['field']; ?>" section="<?=$v['class']; ?>">
+                <tr sn="<?=$v['sn']; ?>" part="2502" field="<?=$v['field']; ?>"  block_name='<?=$v['block_name']?>' section="<?=$v['class']; ?>">
                 <td><?=$k + 1; ?></td>
                     <td><?=$v['field']; ?></td>
                     <td>
                         <?php 
-                            $exp_block_name = explode(',',$v['block_name']);
-                            $new_block = array();
-                            if(in_array('1',$exp_block_name)){$new_block[] = '上午場';}
-                            if(in_array('2',$exp_block_name)){$new_block[] = '下午場';}
-                            echo implode(',',$new_block);
+                            switch ($v['block_name']) {
+                                case 1:
+                                   echo '上午場';
+                                    break;
+                                case 2:
+                                    echo '上午場';
+                                    break;
+                                default:
+                                    echo '上午場,下午場';
+                                    break;
+                            }
                         ?>
                    </td>
                     <td><?=$v['count_num']; ?></td>
@@ -571,16 +586,22 @@
             </thead>
             <tbody>
                 <?php foreach ($part3 as $k => $v): ?>
-                <tr sn="<?=$v['sn']; ?>" part="2503" field="<?=$v['field']; ?>" section="<?=$v['class']; ?>">
+                <tr sn="<?=$v['sn']; ?>" part="2503" field="<?=$v['field']; ?>"  block_name='<?=$v['block_name']?>' section="<?=$v['class']; ?>">
                 <td><?=$k + 1; ?></td>
                     <td><?=$v['field']; ?></td>
                     <td>
-                        <?php 
-                            $exp_block_name = explode(',',$v['block_name']);
-                            $new_block = array();
-                            if(in_array('1',$exp_block_name)){$new_block[] = '上午場';}
-                            if(in_array('2',$exp_block_name)){$new_block[] = '下午場';}
-                            echo implode(',',$new_block);
+                    <?php 
+                            switch ($v['block_name']) {
+                                case 1:
+                                   echo '上午場';
+                                    break;
+                                case 2:
+                                    echo '上午場';
+                                    break;
+                                default:
+                                    echo '上午場,下午場';
+                                    break;
+                            }
                         ?>
                    </td>
                     <td><?=$v['count_num']; ?></td>
@@ -723,11 +744,11 @@
                         </div>
                         <div class="form-group">
                         <label for="floor" class="">場次</label>
-                        <input type="checkbox" class="chbox block" id='morning'  value="上午場" >
+                        <input type="checkbox" class="chbox block" id='morning2'  value="上午場" >
                             <span class="chbox"  >
                                  上午場
                             </span>
-                            <input type="checkbox" class="chbox block" id='aftermorning'  value="下午場">
+                            <input type="checkbox" class="chbox block" id='aftermorning2'  value="下午場">
                             <span class="chbox"  >
                                  下午場
                             </span>
