@@ -4777,7 +4777,7 @@ class Console extends CI_Controller {
                 $course_4_day[$v['day']][$v['course']] = $v;
                 $course_4_day[$v['day']][$v['course']]['subject'] = $this->config->item('subject_ability_course')[$v['subject']];
             }
-            
+            print_r($course_4_day);
         // } else {
         //     $course = array();
         //     for ($i = 0; $i <= 12; ++$i) {

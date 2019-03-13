@@ -29,7 +29,7 @@
 </div>
 
 <div class="row">
-    
+<?=print_r($course)?>
     <?php foreach($data_list_4_day as $key=>$datetime_info):?>
     <?php $i = $key+1;?>
     <div class="col-12">
@@ -79,19 +79,19 @@
                 </td>
                 <td >預備鈴</td>
                 <td>
-                    <?=$course[$i][$i.'_1']['subject']?>
+                    <?=$course['subject']?>
                 </td>
                 <td >預備鈴</td>
                 <td>
-                    <?=$course[$i][$i.'_2']['subject']?>
+                    <?=$course['subject']?>
                 </td>
                 <td >預備鈴</td>
                 <td>
-                    <?=$course[$i][$i.'_3']['subject']?>
+                    <?=$course['subject']?>
                 </td>
                 <td >預備鈴</td>
                 <td>
-                    <?=$course[$i][$i.'_4']['subject']?>
+                    <?=$course['subject']?>
                 </td>
             </tr>
             

@@ -294,6 +294,7 @@
             var field = $(this).find('td').eq(1).text().trim();
             $("#field").val(field);
             $("#floor").val( $(this).find('td').eq(2).text().trim());
+            $("#block_name").val($(this).attr('block_name'));
 
             // 產生監試人員
             //監試人員編號第一碼產生
@@ -336,6 +337,7 @@
                 var supervisor_2_code = $("#trial_staff_code_2").val();
                 var trial_staff_code_1 = $("#trial_staff_code_1").val();
                 var trial_staff_code_2 = $("#trial_staff_code_2").val();
+                var block_name = $("#block_name").val();
                 var note = $("textarea[name='note']").val();
                 console.log(field);
                 console.log(part);
@@ -344,7 +346,7 @@
                     data: {
                         "sn": sn,
                         "part": part,
-                        // 'block_name':block_name,
+                        'block_name':block_name,
                         "field":field,
                         "supervisor_1": supervisor_1,
                         "supervisor_1_code": supervisor_1_code,
@@ -358,7 +360,7 @@
                 }).done(function(data) {
                     alert(data.sys_msg);
                     if (data.sys_code == "200") {
-                        location.reload();
+                        // location.reload();
                         // console.log(note);
                         $("tr").each(function(){
                             if($(this).attr("sn") == $("#sn").val()){
@@ -573,6 +575,9 @@
                         <div class="form-group">
                             <label for="floor" class="" style="float:left;">樓層別</label>
                             <input type="text" class="form-control" id="floor" readonly>
+                        </div>
+                        <div class="form-group">
+                            <input type="text" class="form-control" id="block_name" readonly hidden>
                         </div>
                     </div>
                     <div class="col-md-3 col-sm-3 col-xs-3 cube">

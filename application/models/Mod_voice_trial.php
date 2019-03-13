@@ -22,6 +22,7 @@ class Mod_voice_trial extends CI_Model
         }
         $res = array();
         foreach ($this->db->get('voice_area_main')->result_array() as $key => $value) {
+          
             # code...
             $res[$key]=$value;
             $res[$key]['trial_staff_code_1'] = '';
@@ -39,13 +40,15 @@ class Mod_voice_trial extends CI_Model
             $assign = array();
             $this->db->where('year',$this->session->userdata('year'));
             $this->db->where('ladder',$this->session->userdata('ladder'));
-
+            $this->db->where('block_name',$value['block_name']);
+            // print_r($part);
             if($part!=""){
                 $this->db->where('part',$part);
                 $this->db->where('field',$value['field']);
             }
             $this->db->select('sn,field,trial_staff_code_1,supervisor_1,supervisor_1_code,trial_staff_code_2,supervisor_2,supervisor_2_code,note,block_name');
             $assign = $this->db->get('voice_trial_assign')->result_array();
+            // print_r($assign);
             // print_r($assign);
             if(empty($assign)){
                 unset($res[$key]);
@@ -101,13 +104,18 @@ class Mod_voice_trial extends CI_Model
     {   
         $this->db->where('year', $this->session->userdata('year'))->where('ladder', $this->session->userdata('ladder'))->truncate('voice_patrol_staff');
     }
+    public function remove_voice_job_list()
+    {   
+        $this->db->where('year', $this->session->userdata('year'))->where('ladder', $this->session->userdata('ladder'))->truncate('voice_job_list');
+    }
 
-    public function update_once($year,$ladder,$field,$part,$data)
+    public function update_once($year,$ladder,$field,$part,$block_name,$data)
     {
         $this->db->where('year', $year);
         $this->db->where('ladder', $ladder);
         $this->db->where('field', $field);
         $this->db->where('part', $part);
+        $this->db->where('block_name', $block_name);
         
     
         $this->db->update('voice_trial_assign',$data);

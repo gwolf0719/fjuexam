@@ -111,6 +111,7 @@ class Api extends CI_Controller {
             $this->mod_voice_trial->import($datas_trial);
             $this->mod_voice_trial->remove_voice_trial_staff();
             $this->mod_voice_trial->remove_voice_patrol_staff();
+            $this->mod_voice_trial->remove_voice_job_list();
 
             
             fclose($file);
@@ -630,8 +631,8 @@ class Api extends CI_Controller {
         $this->load->model('mod_voice_exam_datetime');
         $this->load->model('mod_voice_test_pay');
         $this->load->model('mod_voice_part_info');
-        $getpost = array('sn','part','supervisor_1', 'supervisor_1_code', 'supervisor_2', 'supervisor_2_code', 'trial_staff_code_1', 'trial_staff_code_2', 'note','field');
-        $requred = array('sn','part','supervisor_1', 'supervisor_1_code', 'supervisor_2', 'supervisor_2_code', 'trial_staff_code_1', 'trial_staff_code_2','field');
+        $getpost = array('sn','part','block_name','supervisor_1', 'supervisor_1_code', 'supervisor_2', 'supervisor_2_code', 'trial_staff_code_1', 'trial_staff_code_2', 'note','field');
+        $requred = array('sn','part','block_name','supervisor_1', 'supervisor_1_code', 'supervisor_2', 'supervisor_2_code', 'trial_staff_code_1', 'trial_staff_code_2','field');
         $data = $this->getpost->getpost_array($getpost, $requred);
         $year = $this->session->userdata('year');
         $ladder = $this->session->userdata('ladder');
@@ -682,7 +683,8 @@ class Api extends CI_Controller {
                     'second_member_section_total'=> $second_member_total,
                     'note'=>$data['note'],
                 );
-                $this->mod_voice_trial->update_once($year,$ladder,$field,$part,$sql_data);         
+                
+                $this->mod_voice_trial->update_once($year,$ladder,$field,$part,$data['block_name'],$sql_data);         
                 // $json_arr['sql'] = $this->db->last_query();
                 $json_arr['sys_code'] = '200';
                 $json_arr['sys_msg'] = '資料儲存完成';
