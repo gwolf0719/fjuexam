@@ -46,7 +46,7 @@ class Api extends CI_Controller {
         $this->load->model('mod_voice_area');
         $this->load->model('mod_voice_exam_area');
        
-        if (isset($_FILES['file'])) { 
+        if (isset($_FILES['file'])) {
             
             $file = $_FILES['file']['tmp_name'];
             $file_name = './tmp/'.time().'.csv';
@@ -109,6 +109,8 @@ class Api extends CI_Controller {
             $this->mod_voice_area->insert_batch($datas);
             $this->mod_voice_exam_area->import($datas);
             $this->mod_voice_trial->import($datas_trial);
+            $this->mod_voice_trial->remove_voice_trial_staff();
+            $this->mod_voice_trial->voice_patrol_staff();
 
             
             fclose($file);
@@ -805,13 +807,14 @@ class Api extends CI_Controller {
         $getpost = array('field');
         $requred = array('field');
         $data = $this->getpost->getpost_array($getpost, $requred);
+        $year=$this->session->userdata('year');
         if ($data == false) {
             $json_arr['sys_code'] = '000';
             $json_arr['sys_msg'] = '資料不足';
             $json_arr['requred'] = $this->getpost->report_requred($requred);
         } else {
 
-            $json_arr['info'] = $this->mod_voice_trial->get_once_assign($data['field']);
+            $json_arr['info'] = $this->mod_voice_trial->get_once_assign($data['field'],$year);
             $json_arr['sys_code'] = '200';
             $json_arr['sys_msg'] = '資料處理完成';
         }
@@ -966,6 +969,7 @@ class Api extends CI_Controller {
                 
                 $data = array(
                     'part'=>$data['part'],
+                    'ladder'=>$data['ladder'],
                     'year'=>$data['year'],
                     'allocation_code'=>$data['allocation_code'],
                     'patrol_staff_code'=>trim($data['patrol_staff_code']),

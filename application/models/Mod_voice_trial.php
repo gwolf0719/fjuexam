@@ -86,14 +86,16 @@ class Mod_voice_trial extends CI_Model
 
     public function import($datas)
     {   
-                // 先清除當年資料
-                $this->db->where('year', $this->session->userdata('year'));
-                $this->db->where('ladder', $this->session->userdata('ladder'));
-                $this->db->truncate('voice_trial_assign');
-        
         $this->db->where('year', $this->session->userdata('year'))->truncate('voice_trial_assign');
         $this->db->insert_batch('voice_trial_assign',$datas);
-
+    }
+    public function remove_voice_trial_staff()
+    {   
+        $this->db->where('year', $this->session->userdata('year'))->where('ladder', $this->session->userdata('ladder'))->truncate('voice_trial_staff');
+    }
+    public function remove_voice_patrol_staff()
+    {   
+        $this->db->where('year', $this->session->userdata('year'))->where('ladder', $this->session->userdata('ladder'))->truncate('voice_patrol_staff');
     }
 
     public function update_once($year,$ladder,$field,$part,$data)
@@ -119,9 +121,9 @@ class Mod_voice_trial extends CI_Model
     }
 
     
-    public function get_once_assign($field)
+    public function get_once_assign($field,$year)
     {
-        return $this->db->where('field', $field)->get('voice_trial_assign')->row_array();
+        return $this->db->where('field', $field)->where('year', $year)->get('voice_trial_assign')->row_array();
     }
 
     public function chk_once($year,$ladder,$field,$part)
