@@ -254,22 +254,23 @@
             // $("#do_date").val()
 
             var block_names = $(this).attr('block_name');
-            // console.log(block_names);
-            var a=block_names.split(",");
-            console.log(a);
+            
 
 
             $('#morning').prop("checked",false);
             $('#aftermorning').prop("checked",false);
-            for (var i=0; i<2; i++) {
-                if(a[i]==1){
-                    console.log(a[i]);
+
+                if(block_names==1){
                     $('#morning').prop("checked",true);
                 }
-                if(a[i]==2){
+                if(block_names==2){
                     $('#aftermorning').prop("checked",true);
                 }
-            }
+                if(block_names==3){
+                    $('#morning').prop("checked",true);
+                    $('#aftermorning').prop("checked",true);
+                }
+            
 
 
             // $('.block').prop("checked",false);

@@ -14,12 +14,19 @@ class Mod_voice_trial extends CI_Model
     
     public function get_list($part = '')
     {
-        $this->db->where('year',$this->session->userdata('year'));
-        $this->db->where('ladder',$this->session->userdata('ladder'));
-        // $this->db->where('block_name','上午場');
-        if($part!=""){
-            $this->db->where('part',$part);
+        // 1=上午場 2=下午場 3=上午場下午場
+        $this->db->group_by('field');
+        $this->db->select('*');
+        $this->db->select_sum('block_name');
+        $this->db->where('year', $this->session->userdata('year'));
+        $this->db->where('ladder', $this->session->userdata('ladder'));
+        if ($part != '') {
+            $this->db->where('part', $part);
         }
+        // if ($block_name != '') {
+        //     $this->db->where('block_name', $block_name);
+        $this->db->distinct('field');
+
         $res = array();
         foreach ($this->db->get('voice_area_main')->result_array() as $key => $value) {
           
@@ -40,7 +47,7 @@ class Mod_voice_trial extends CI_Model
             $assign = array();
             $this->db->where('year',$this->session->userdata('year'));
             $this->db->where('ladder',$this->session->userdata('ladder'));
-            $this->db->where('block_name',$value['block_name']);
+    
             // print_r($part);
             if($part!=""){
                 $this->db->where('part',$part);
@@ -51,7 +58,7 @@ class Mod_voice_trial extends CI_Model
             // print_r($assign);
             // print_r($assign);
             if(empty($assign)){
-                unset($res[$key]);
+                // unset($res[$key]);
             }else{
 
                 // 整合 block_name
@@ -66,7 +73,7 @@ class Mod_voice_trial extends CI_Model
                 }
                 
                 $res[$key]['assign_sn'] = implode(",",$assign_sn);
-                $res[$key]['block_name'] = $value['block_name'];;        
+                $res[$key]['block_name'] = $value['block_name'];        
                 $res[$key]['field'] = $value['field'];            
                 $res[$key]['trial_staff_code_1'] = $assign[0]['trial_staff_code_1'];
                 $res[$key]['supervisor_1'] = $assign[0]['supervisor_1'];
@@ -115,7 +122,17 @@ class Mod_voice_trial extends CI_Model
         $this->db->where('ladder', $ladder);
         $this->db->where('field', $field);
         $this->db->where('part', $part);
-        $this->db->where('block_name', $block_name);
+        switch ($block_name) {
+            case 1:
+            $this->db->where('block_name', 1);
+                break;
+            case 2:
+            $this->db->where('block_name', 2);
+                break;
+            default:
+                break;
+        }
+
         
     
         $this->db->update('voice_trial_assign',$data);
