@@ -4772,12 +4772,18 @@ class Console extends CI_Controller {
         
 
         // if ($this->mod_exam_datetime->chk_course($year)) {
+            /**
+             * 
+             * 如果沒有設定考試日期&時間
+             *及 考試科目 會導致錯誤
+             */
             $course_4_day = array();
             foreach($this->mod_exam_datetime->get_course($year) as $k=>$v){
                 $course_4_day[$v['day']][$v['course']] = $v;
                 $course_4_day[$v['day']][$v['course']]['subject'] = $this->config->item('subject_ability_course')[$v['subject']];
             }
             print_r($course_4_day);
+           
         // } else {
         //     $course = array();
         //     for ($i = 0; $i <= 12; ++$i) {
