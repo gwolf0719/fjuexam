@@ -4769,7 +4769,7 @@ class Console extends CI_Controller {
             );
             $doday=$datetime_info["day_$i"];
         }
-        print_r($doday);
+        // print_r($doday);
         
 
         // if ($this->mod_exam_datetime->chk_course($year)) {
