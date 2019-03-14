@@ -135,19 +135,7 @@ class Mod_voice_trial extends CI_Model
         $this->db->where('ladder', $ladder);
         $this->db->where('field', $field);
         $this->db->where('part', $part);
-        // switch ($block_name) {
-        //     case 1:
-        //     $this->db->where('block_name', 1);
-        //         break;
-        //     case 2:
-        //     $this->db->where('block_name', 2);
-        //         break;
-        //     default:
-        //         break;
-        // }
 
-        
-    
         $this->db->update('voice_trial_assign',$data);
 
         return true;

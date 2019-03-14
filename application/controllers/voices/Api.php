@@ -698,7 +698,7 @@ class Api extends CI_Controller {
                     'note'=>$data['note'],
                 );
                 
-                $this->mod_voice_trial->update_once($year,$ladder,$field,$part,$data['block_name'],$sql_data);         
+                $this->mod_voice_trial->update_once($year,$ladder,$field,$part,$sql_data);         
                 // $json_arr['sql'] = $this->db->last_query();
                 $json_arr['sys_code'] = '200';
                 $json_arr['sys_msg'] = '資料儲存完成';

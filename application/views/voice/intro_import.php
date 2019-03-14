@@ -50,9 +50,9 @@
         </a>    
     </div>
     <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4 cube text-center">
-        <!-- <a href="./voice/a/school_data">  -->
+        <a href="./voice/a/school_data"> 
             <img src="assets_voice/images/a2.png" alt="" style="-webkit-filter:grayscale(1);">
-        <!-- </a>     -->
+        </a>    
     
     </div>
     <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4 cube text-center">
