@@ -18,6 +18,7 @@ class Mod_voice_trial extends CI_Model
         $this->db->group_by('field');
         $this->db->select('*');
         $this->db->select_sum('block_name');
+        $this->db->select_sum('class');
         $this->db->where('year', $this->session->userdata('year'));
         $this->db->where('ladder', $this->session->userdata('ladder'));
         if ($part != '') {
