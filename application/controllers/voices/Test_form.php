@@ -2240,31 +2240,34 @@ class Test_form extends CI_Controller
 
         $objPHPExcel = new PHPExcel();
         $objPHPExcel->setActiveSheetIndex(0);
-        $arr = $this->mod_voice_trial->get_all();
-        for ($i=0; $i < count($arr); $i++) {
+        $proctor = $this->mod_voice_trial->get_all();
+        // print_r($proctor);
+        $persons_data=[];
+        for ($i=0; $i <count($proctor); $i++) { 
+            $persons_data[$i]= $this->mod_voice_trial->get_person_data($proctor[$i]['supervisor_1']);
+        }
+
+        for ($i=0; $i < count($persons_data); $i++) {
             # code...
 
             $objPHPExcel->getActiveSheet()->getStyle()->getNumberFormat()->setFormatCode();
-            $objPHPExcel->getActiveSheet()->setCellValue('A1', '年度');
-            $objPHPExcel->getActiveSheet()->setCellValue('B1', '梯次');
-            $objPHPExcel->getActiveSheet()->setCellValue('C1', '分區');
-            $objPHPExcel->getActiveSheet()->setCellValue('D1', '試場');
-            $objPHPExcel->getActiveSheet()->setCellValue('E1', '場次');
-            $objPHPExcel->getActiveSheet()->setCellValue('F1', '監試人員一編號');
-            $objPHPExcel->getActiveSheet()->setCellValue('G1', '監試人員一');
-            $objPHPExcel->getActiveSheet()->setCellValue('H1', '監試人員二編號');
-            $objPHPExcel->getActiveSheet()->setCellValue('I1', '監試人員二');
+            $objPHPExcel->getActiveSheet()->setCellValue('A1', '序號');
+            $objPHPExcel->getActiveSheet()->setCellValue('B1', '人員代碼');
+            $objPHPExcel->getActiveSheet()->setCellValue('C1', '姓名');
+            $objPHPExcel->getActiveSheet()->setCellValue('D1', '單位一');
+            $objPHPExcel->getActiveSheet()->setCellValue('E1', '單位二');
+            $objPHPExcel->getActiveSheet()->setCellValue('F1', '職稱');
+            $objPHPExcel->getActiveSheet()->setCellValue('G1', '連絡電話');
 
 
-            $objPHPExcel->getActiveSheet()->setCellValue('A'.(2+$i), $arr[$i]['year']);
-            $objPHPExcel->getActiveSheet()->setCellValue('B'.(2+$i), $arr[$i]['ladder']);
-            $objPHPExcel->getActiveSheet()->setCellValue('C'.(2+$i), $arr[$i]['part']);
-            $objPHPExcel->getActiveSheet()->setCellValue('D'.(2+$i), $arr[$i]['field']);
-            $objPHPExcel->getActiveSheet()->setCellValue('E'.(2+$i), $arr[$i]['block_name']);
-            $objPHPExcel->getActiveSheet()->setCellValue('F'.(2+$i), $arr[$i]['supervisor_1_code']);
-            $objPHPExcel->getActiveSheet()->setCellValue('G'.(2+$i), $arr[$i]['supervisor_1']);
-            $objPHPExcel->getActiveSheet()->setCellValue('H'.(2+$i), $arr[$i]['supervisor_2_code']);
-            $objPHPExcel->getActiveSheet()->setCellValue('I'.(2+$i), $arr[$i]['supervisor_2']);
+
+            $objPHPExcel->getActiveSheet()->setCellValue('A'.(2+$i), ($i+1));
+            $objPHPExcel->getActiveSheet()->setCellValue('B'.(2+$i), $persons_data[$i]['member_code']);
+            $objPHPExcel->getActiveSheet()->setCellValue('C'.(2+$i), $persons_data[$i]['member_name']);
+            $objPHPExcel->getActiveSheet()->setCellValue('D'.(2+$i), $persons_data[$i]['unit']);
+            $objPHPExcel->getActiveSheet()->setCellValue('E'.(2+$i), $persons_data[$i]['member_unit']);
+            $objPHPExcel->getActiveSheet()->setCellValue('F'.(2+$i), $persons_data[$i]['member_title']);
+            $objPHPExcel->getActiveSheet()->setCellValue('G'.(2+$i), $persons_data[$i]['member_phone']);
         }
 
         $objWriter = PHPExcel_IOFactory::createWriter($objPHPExcel, 'CSV');

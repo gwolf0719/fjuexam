@@ -1586,6 +1586,32 @@ class Mod_voice_trial extends CI_Model
             return false;
         }
     }  
+    public function get_all()
+    {   
+
+        $this->db->select('field,supervisor_1,supervisor_2');
+        $this->db->where('year', $this->session->userdata('year'));
+        $this->db->where('ladder', $this->session->userdata('ladder'));
+        $this->db->distinct('field');
+        $res=$this->db->get('voice_trial_assign')->result_array();
+        $count=count($res);
+        for ($i=0; $i <$count; $i++) { 
+            
+            $supervisor_1=strlen($res[$i]['supervisor_1']);
+            $supervisor_2=strlen($res[$i]['supervisor_2']);
+            if($supervisor_1==0||$supervisor_2==0){
+                unset($res[$i]);
+            }
+        }       
+
+        $res = array_values($res);
+        return $res;
+    }
+    public function get_person_data($name)
+    {   
+        $this->db->where('member_name',$name);
+        return $this->db->get('voice_import_member')->row_array();
+    }
 
 
 
