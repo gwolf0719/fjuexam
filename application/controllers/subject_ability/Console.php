@@ -4767,8 +4767,9 @@ class Console extends CI_Controller {
                 'pre_3'=>$datetime_info["pre_3_$i"],
                 'pre_4'=>$datetime_info["pre_4_$i"],
             );
+            $doday=$datetime_info["day_$i"];
         }
-        // print_r($data_list_4_day);
+        print_r($doday);
         
 
         // if ($this->mod_exam_datetime->chk_course($year)) {
@@ -4782,14 +4783,19 @@ class Console extends CI_Controller {
                 $course_4_day[$v['day']][$v['course']] = $v;
                 $course_4_day[$v['day']][$v['course']]['subject'] = $this->config->item('subject_ability_course')[$v['subject']];
             }
-            // print_r($course_4_day);
+        /**
+         * FIXME:
+         * HACK:
+         * HIDDEN ISSUE & COULD BE BETTER
+         */
+        if(empty($doday)){
+            echo "<script>alert('考試日期與時間 尚未設定!'); location.href = './f_1';</script>";
+        }
+        if(empty($course_4_day)){
+            echo "<script>alert('科目 尚未設定!'); location.href = './f_2';</script>";
+        }
            
-        // } else {
-        //     $course = array();
-        //     for ($i = 0; $i <= 12; ++$i) {
-        //         $course[$i]['subject'] = '';
-        //     }
-        // }
+    
         $data = array(
             'title' => '預覽考程表',
             'path' => 'subject_ability/f_3',

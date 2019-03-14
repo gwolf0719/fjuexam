@@ -1,4 +1,4 @@
-</script>
+
 <style>
     table {
         border: 1px solid #ccc;
@@ -11,6 +11,21 @@
         text-align: center;
     }
 </style>
+<script>
+// window.onload=init();
+
+//    function init(){
+//     // alert('asdfgh');
+
+//         var a=$(".lname").val();
+//         console.log(a);
+        
+    
+//     }
+
+</script>
+
+
 <div class="row">
     <div class="input-group col-sm-2">
 
@@ -73,7 +88,7 @@
                 <tr>
                 <td style="text-align:center">日期</td>
                 </tr>
-                    <?php if(isset($course)){?>
+                    <!-- <?php if(isset($course[$i])){?> -->
                 <tr>
                     <td>
                         <?=$datetime_info['do_date']; ?>
@@ -95,7 +110,7 @@
                         <?=$course[$i][$i.'_4']['subject']?>
                     </td>
                 </tr>
-                    <?php }?>
+                    <!-- <?php }?> -->
                 
             </table>
 
