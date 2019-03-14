@@ -65,7 +65,7 @@
     
     </div>
     <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4 cube text-center">
-        <a href="./voice/c/assign_cs">
+        <a href="./voice/c/assign_c4">
             <img src="assets/images/c4a.png" alt="">
         </a>    
     </div>
