@@ -81,39 +81,46 @@ $(function(){
     })
     // 送出
     $("body").on("click","#send",function(){
-        if(confirm("是否要儲存?")){
-            var sn = $("#sn").val();
-            var part = $("#part").val();            
-            var floor = $("#floor").val();
-            var start = $("#start").val();
-            var end = $("#end").val();
-            var note = $("textarea[name='note']").val();
-            $("tr").each(function(k,v){
-                var _this = $(this);
-                var _field = $(this).attr('field');
-                // 篩選需要修改的區間範圍
-                if(_field >= start && _field<=end ){
-                    $.ajax({
-                        url: './voice/api/save_part',
-                        data:{
-                            "field":_field,
-                            "floor":floor,
-                            "note":note
-                        },
-                        dataType:"json"
-                    }).done(function(data){
-                        if(data.sys_code == "200"){
-                            _this.find('td').eq(-2).text(floor);
-                            _this.find('td').eq(-1).text(note);
-                            if(_this.attr('field') == end){
-                                alert('資料更新完成');
+
+        var start = $("#start").val();
+        var end = $("#end").val();
+        if(start > end){
+            alert("試場起號不能大於試場迄號，請確認後重新送出");
+        }else{
+            if(confirm("是否要儲存?")){
+                var sn = $("#sn").val();
+                var part = $("#part").val();            
+                var floor = $("#floor").val();
+                var note = $("textarea[name='note']").val();
+                $("tr").each(function(k,v){
+                    var _this = $(this);
+                    var _field = $(this).attr('field');
+                    // 篩選需要修改的區間範圍
+                    if(_field >= start && _field<=end ){
+                        $.ajax({
+                            url: './voice/api/save_part',
+                            data:{
+                                "field":_field,
+                                "floor":floor,
+                                "note":note
+                            },
+                            dataType:"json"
+                        }).done(function(data){
+                            if(data.sys_code == "200"){
+                                _this.find('td').eq(-2).text(floor);
+                                _this.find('td').eq(-1).text(note);
+                                if(_this.attr('field') == end){
+                                    alert('資料更新完成');
+                                }
                             }
-                        }
-                    })
-                }
-            })
-            
+                        })
+                    }
+                })
+                
+            }
         }
+
+        
     })
     // 送出結尾
 
