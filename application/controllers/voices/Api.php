@@ -795,6 +795,10 @@ class Api extends CI_Controller {
         $getpost = array('sn','part','field','block_name','first_member_salary_section', 'first_member_section_salary_total','first_member_section_total', 'second_member_day_count', 'second_member_salary_section', 'second_member_section_salary_total','second_member_section_total');
         $requred = array('sn', 'first_member_salary_section', 'first_member_section_salary_total','first_member_section_total', 'second_member_day_count', 'second_member_salary_section', 'second_member_section_salary_total','second_member_section_total');
         $data = $this->getpost->getpost_array($getpost, $requred);
+
+        $first_member_day_count=$this->input->get_post('first_member_day_count');
+        $second_member_day_count=$this->input->get_post('second_member_day_count');
+
         $year = $this->session->userdata('year');
         $ladder = $this->session->userdata('ladder');
         $field = $data['field'];
@@ -807,11 +811,14 @@ class Api extends CI_Controller {
         } else {
             $update_data = array(
                 "first_member_salary_section"=>$data['first_member_salary_section'],
-                "first_member_section_salary_total"=>$data['first_member_salary_section'],
-                "first_member_section_total"=>$data['first_member_salary_section'],
+                "first_member_section_salary_total"=>$data['first_member_section_salary_total'],
+                "first_member_section_total"=>$data['first_member_section_salary_total'],
                 "second_member_salary_section"=>$data['second_member_salary_section'],
-                "second_member_section_salary_total"=>$data['second_member_salary_section'],
-                "second_member_section_total"=>$data['second_member_salary_section'],
+                "second_member_section_salary_total"=>$data['second_member_section_salary_total'],
+                "second_member_section_total"=>$data['second_member_section_salary_total'],
+
+                "first_member_day_count"=>$first_member_day_count,
+                "second_member_day_count"=>$second_member_day_count,
             );
             $this->mod_voice_trial->update_once($year,$ladder,$field,$part,$update_data);
             $json_arr['sys_code'] = '200';
@@ -1430,6 +1437,32 @@ class Api extends CI_Controller {
             }
         }
         echo json_encode($json_arr);
+    } 
+
+
+    public function get_new_fee()
+    {
+        // $this->load->model('mod_voice_trial');
+
+        // $part=$this->input->get_post('part');
+        // $field=$this->input->get_post('field');
+        // // $data = $this->getpost->getpost_array($getpost, $requred);
+        // $res=$this->mod_voice_trial->get_person_fee($field,$part);
+        
+        // return $res;
+
+
+        $this->load->model('mod_voice_trial');
+        $getpost = array('field','part');
+        $requred = array('field','part');
+        $data = $this->getpost->getpost_array($getpost, $requred);
+
+
+        $json_arr['data'] = $this->mod_voice_trial->get_person_fee($data['field'],$data['part']);
+        
+        echo json_encode($json_arr);
+
+
     } 
 
 

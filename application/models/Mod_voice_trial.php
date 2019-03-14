@@ -1616,6 +1616,18 @@ class Mod_voice_trial extends CI_Model
     }
 
 
+    public function get_person_fee($field,$part)
+    {   
+        $this->db->select('first_member_salary_section,second_member_salary_section');
+        $this->db->where('year', $this->session->userdata('year'));
+        $this->db->where('ladder', $this->session->userdata('ladder'));
+        $this->db->where('field',$field);
+        $this->db->where('part',$part);
+        return $this->db->get('voice_trial_assign')->row_array();
+     
+    }
+
+
 
 
 }

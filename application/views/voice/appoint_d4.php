@@ -366,6 +366,53 @@
             $("#first_member_section_salary_total").val(fee*section);
             $("#second_member_section_salary_total").val(fee*section);
 
+
+            // $.post('./voice/api/get_new_fee', { 
+            //     field: field, 
+            //     part: part 
+            //     },
+            // function(data){
+            //     alert("Data Loaded: " + data);
+            // });
+
+            $.ajax({
+                url: './voice/api/get_new_fee',
+                data: {
+                    "field": field,
+                    "part": part,
+                },
+                dataType: "json"
+            }).done(function(data) {
+
+                // console.log(data.data.first_member_salary_section);
+                // console.log(data.data.second_member_salary_section);
+                var first_fee=data.data.first_member_salary_section;
+                var second_fee=data.data.second_member_salary_section;
+                    $("#first_member_salary_section").val(fee);
+                    $("#second_member_salary_section").val(fee);
+                
+                if(first_fee==""){
+                    $("#first_member_salary_section").val(fee);
+                }else{
+                    $("#first_member_salary_section").val(first_fee);
+                    $("#first_member_section_salary_total").val(first_fee*section);
+                    $("#first_member_section_total").val(first_fee*section);
+                }
+                if(second_fee==""){
+                    $("#second_member_salary_section").val(fee);
+                }else{
+                    $("#second_member_salary_section").val(first_fee);
+                    $("#second_member_section_salary_total").val(first_fee*section);
+                    $("#second_member_section_total").val(first_fee*section);
+                }
+
+            });
+
+
+
+
+
+
         })
 
        
@@ -397,12 +444,12 @@
                         'block_name':block_name,
                         "field":field,
                         "first_member_do_date": first_member_do_date,
-                        "first_member_day_count":1,
+                        "first_member_day_count":$("#first_member_section_count").val(),
                         "first_member_salary_section": $("#first_member_salary_section").val(),
                         "first_member_section_salary_total": $("#first_member_section_salary_total").val(),
                         "first_member_section_total": $("#first_member_section_total").val(),
                         "second_member_do_date": second_member_do_date,
-                        "second_member_day_count": $("#second_member_day_count").val(),
+                        "second_member_day_count": $("#first_member_section_count").val(),
                         "second_member_salary_section": $("#second_member_salary_section").val(),
                         "second_member_section_salary_total": $("#second_member_section_salary_total").val(),
                         "second_member_section_total": $("#second_member_section_total").val(),
