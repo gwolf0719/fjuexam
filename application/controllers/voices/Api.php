@@ -105,14 +105,24 @@ class Api extends CI_Controller {
                
                 
             }
-           
+
+            /**
+             * 移除
+             */
+             // D監試
+            $this->mod_voice_trial->remove_voice_trial_assign();
+
             $this->mod_voice_area->insert_batch($datas);
             $this->mod_voice_exam_area->import($datas);
             $this->mod_voice_trial->import($datas_trial);
+            
+            // D管卷
             $this->mod_voice_trial->remove_voice_trial_staff();
+            // D巡場
             $this->mod_voice_trial->remove_voice_patrol_staff();
+           
+            // B
             $this->mod_voice_trial->remove_voice_job_list();
-
             
             fclose($file);
             unlink($file_name);
@@ -158,6 +168,10 @@ class Api extends CI_Controller {
                 $row = $row+1;
             }
             
+            $this->mod_voice_staff->remove_voice_job_list();
+            $this->mod_voice_staff->remove_voice_trial_assign();
+            $this->mod_voice_staff->remove_voice_trial_staff();
+            $this->mod_voice_staff->remove_voice_patrol_staff();
             $this->mod_voice_staff->insert_job($datas);
             
             fclose($file);
@@ -499,17 +513,17 @@ class Api extends CI_Controller {
                 $json_arr['sys_msg'] = '資料編輯完成';
             }else{
                 // 確認重複
-                if($this->mod_voice_trial->chk_trial_assigned($data['job_code'])){
-                    $json_arr['sys_code'] = '500';
-                    $json_arr['sys_msg'] = '該人員已經被指派過，請選擇其他人員';
-                }else if($this->mod_voice_job_list->chk_job_code($data['job_code'])){
-                    $json_arr['sys_code'] = '500';
-                    $json_arr['sys_msg'] = '該人員已經被指派過，請選擇其他人員';
-                }else{
+                // if($this->mod_voice_trial->chk_trial_assigned($data['job_code'])){
+                //     $json_arr['sys_code'] = '500';
+                //     $json_arr['sys_msg'] = '該人員已經被指派過，請選擇其他人員';
+                // }else if($this->mod_voice_job_list->chk_job_code($data['job_code'])){
+                //     $json_arr['sys_code'] = '500';
+                //     $json_arr['sys_msg'] = '該人員已經被指派過，請選擇其他人員';
+                // }else{
                     $this->mod_voice_job_list->update_once($data['sn'], $data);
                     $json_arr['sys_code'] = '200';
                     $json_arr['sys_msg'] = '資料編輯完成';
-                }
+                // }
                 
             }
             

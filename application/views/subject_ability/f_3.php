@@ -73,11 +73,11 @@
                 <tr>
                 <td style="text-align:center">日期</td>
                 </tr>
+                    <?php if(isset($course)){?>
                 <tr>
                     <td>
                         <?=$datetime_info['do_date']; ?>
                     </td>
-                    <?php if(isset($course)){?>
                     <td >預備鈴</td>
                     <td>
                         <?=$course[$i][$i.'_1']['subject']?>
@@ -94,8 +94,8 @@
                     <td>
                         <?=$course[$i][$i.'_4']['subject']?>
                     </td>
-                    <?php }?>
                 </tr>
+                    <?php }?>
                 
             </table>
 

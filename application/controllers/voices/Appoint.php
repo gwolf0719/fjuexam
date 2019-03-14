@@ -135,6 +135,8 @@ class Appoint extends CI_Controller {
         $part1 = $this->mod_voice_trial->get_list('2501');
         $part2 = $this->mod_voice_trial->get_list('2502');
         $part3 = $this->mod_voice_trial->get_list('2503');
+        $fee=$this->mod_voice_trial->get_fee();
+        // print_r($fee);
         if ($this->mod_voice_test_pay->chk_once($year,$ladder)) {
             $fees_info = $this->mod_voice_test_pay->get_once($year,$ladder);
         } else {
@@ -159,6 +161,7 @@ class Appoint extends CI_Controller {
             'part3' => $part3,
             'fees_info' => $fees_info,
             'datetime_info' => $datetime_info,
+            'fee' => $fee,
         );
         $this->load->view('voice_layout', $data);
     }

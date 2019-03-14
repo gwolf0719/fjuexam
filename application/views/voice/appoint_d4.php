@@ -246,20 +246,25 @@
         $("body").on("click", "tr", function() {
             init();
             var section = $(this).attr("section");
+            var fee = $(this).attr("fee");
             var sn = $(this).attr("sn");
             var part = $(this).attr("part");
             var field = $(this).attr("field");
             var block_names = $(this).attr("block_name");
             var tr = $(this);
+            console.log(fee);
             $("#sn").val(sn);
-            // $("#first_member_section_count").val(section);
-            // $("#second_member_section_count").val(section);
+            $("#first_member_section_count").val(section);
+            $("#second_member_section_count").val(section);
+
+            $("#first_member_salary_section").val(fee);
+            $("#second_member_salary_section").val(fee);
 
             $('#morning').prop("checked",false);
             $('#aftermorning').prop("checked",false);
                     
             $('#morning2').prop("checked",false);
-            $('#aftermorning2').prop("checked",falsed);
+            $('#aftermorning2').prop("checked",false);
 
             if(block_names==1){
                     $('#morning').prop("checked",true);
@@ -279,7 +284,7 @@
 
                 }
 
-            
+            $('#do_date').prop("checked",true);
             $("html, body").animate({
                 scrollTop: $("body").height()
             }, 1000);
@@ -294,8 +299,8 @@
                 $(".field").val(field);
                 $("#sn").val(data.info.sn);
                 //職員一
-                $("#first_member_salary_section").val(data.info.first_member_salary_section);
-                $("#first_member_section_salary_total").val(data.info.first_member_section_salary_total);
+                // $("#first_member_salary_section").val(data.info.first_member_salary_section);
+                // $("#first_member_section_salary_total").val(data.info.first_member_section_salary_total);
                 
                 $("#first_member_name").val(data.info.supervisor_1);
                 $("#first_member_job_code").val(data.info.supervisor_1_code);
@@ -307,8 +312,8 @@
 
                 //職員二
                 $("#second_member_day_count").val(data.info.second_member_day_count);
-                $("#second_member_salary_section").val(data.info.second_member_salary_section);
-                $("#second_member_section_salary_total").val(data.info.second_member_section_salary_total);
+                // $("#second_member_salary_section").val(data.info.second_member_salary_section);
+                // $("#second_member_section_salary_total").val(data.info.second_member_section_salary_total);
                 
                 $("#second_member_name").val(data.info.supervisor_2);
                 $("#second_member_job_code").val(data.info.supervisor_2_code);
@@ -320,8 +325,8 @@
                 if(block_names_2.indexOf('下午場') >= 0){
                     $('.block').eq(3).prop("checked",true);
                 }
-                $("#second_member_section_count").val(block_names_2.length);
-                $("#second_member_section_total").val(block_names_2.length*data.info.second_member_section_total);
+                // $("#second_member_section_count").val(block_names_2.length);
+                // $("#second_member_section_total").val(block_names_2.length*data.info.second_member_section_total);
                 
                 // 取得職員一資料
                 if(data.info.supervisor_1_code != ""){
@@ -354,6 +359,13 @@
                 }
                 
             })
+
+            $("#first_member_section_total").val(fee*section);
+            $("#second_member_section_total").val(fee*section);
+
+            $("#first_member_section_salary_total").val(fee*section);
+            $("#second_member_section_salary_total").val(fee*section);
+
         })
 
        
@@ -361,17 +373,20 @@
 
 
         $("body").on("click", ".send", function() {
+            
+
             var part =$('.tab.active').attr('part');
             var field = $("#field").val();
             var block_name = $('.block').val();
-            var day_count1 = $('input:checkbox:checked[name="first_member_day"]').map(function() {return $(this).val();}).get()
-            var first_member_do_date = day_count1.join(",");
-            var day_count2 = $('input:checkbox:checked[name="second_member_day"]').map(function() {return $(this).val();}).get()
-            var second_member_do_date = day_count2.join(",");
+            var day_count1 = $('input:checkbox:checked[name="day1"]').map(function() {return $(this).val();}).get()
+            var first_member_do_date = $('#theday').attr('day');
+            var second_member_do_date = $('#theday').attr('day');
+            var day_count2 = $('input:checkbox:checked[name="day2"]').map(function() {return $(this).val();}).get()
+            // var second_member_do_date = day_count2.join(",");
             // console.log(block_name);
-            // console.log(part);
+            console.log(first_member_do_date);
             // console.log(field);
-
+            
             if (confirm("是否要儲存?")) {
                 var sn = $("#sn").val();
                 $.ajax({
@@ -382,7 +397,7 @@
                         'block_name':block_name,
                         "field":field,
                         "first_member_do_date": first_member_do_date,
-                        "first_member_day_count": $("#first_member_day_count").val(),
+                        "first_member_day_count":1,
                         "first_member_salary_section": $("#first_member_salary_section").val(),
                         "first_member_section_salary_total": $("#first_member_section_salary_total").val(),
                         "first_member_section_total": $("#first_member_section_total").val(),
@@ -480,7 +495,7 @@
             </thead>
             <tbody>
                 <?php foreach ($part1 as $k => $v): ?>
-                <tr sn="<?=$v['sn']; ?>" part="2501" field="<?=$v['field']; ?>"  block_name='<?=$v['block_name']?>' section="<?=$v['class']; ?>" assign_sn="<?=$v['assign_sn']?>">
+                <tr sn="<?=$v['sn']; ?>" part="2501" field="<?=$v['field']; ?>"  block_name='<?=$v['block_name']?>' section="<?=$v['class']; ?>" assign_sn="<?=$v['assign_sn']?>" fee='<?=$fee['pay_2']?>' >
                     <td><?=$k + 1; ?></td>
                     <td><?=$v['field']; ?></td>
                     <td>
@@ -532,8 +547,9 @@
                 </tr>
             </thead>
             <tbody>
+           
                 <?php foreach ($part2 as $k => $v): ?>
-                <tr sn="<?=$v['sn']; ?>" part="2502" field="<?=$v['field']; ?>"  block_name='<?=$v['block_name']?>' section="<?=$v['class']; ?>">
+                <tr sn="<?=$v['sn']; ?>" part="2502" field="<?=$v['field']; ?>"  block_name='<?=$v['block_name']?>' section="<?=$v['class']; ?>"assign_sn="<?=$v['assign_sn']?>" fee='<?=$fee['pay_2']?>' >
                 <td><?=$k + 1; ?></td>
                     <td><?=$v['field']; ?></td>
                     <td>
@@ -586,7 +602,7 @@
             </thead>
             <tbody>
                 <?php foreach ($part3 as $k => $v): ?>
-                <tr sn="<?=$v['sn']; ?>" part="2503" field="<?=$v['field']; ?>"  block_name='<?=$v['block_name']?>' section="<?=$v['class']; ?>">
+                <tr sn="<?=$v['sn']; ?>" part="2503" field="<?=$v['field']; ?>"  block_name='<?=$v['block_name']?>' section="<?=$v['class']; ?>"assign_sn="<?=$v['assign_sn']?>" fee='<?=$fee['pay_2']?>' >
                 <td><?=$k + 1; ?></td>
                     <td><?=$v['field']; ?></td>
                     <td>
@@ -655,8 +671,8 @@
                         <div class="form-group">
                         
                             <label for="start_date" class="" style="float:left;">執行日</label>
-                            <input type="checkbox" class="chbox" id="do_date" name="day" checked>
-                            <span class="chbox"  >
+                            <input type="checkbox" class="chbox" id="do_date" name="day day1" checked>
+                            <span class="chbox" id='theday'day='<?=$datetime_info['day']; ?>'>
                                 <?=$datetime_info['day']; ?>
                             </span>
                         </div>
@@ -682,7 +698,7 @@
                             <div class="W50">
                                 <label for="trial_start" class="" style="float:left;width: 50%;">薪資單價</label>
                                 <input type="hidden" class="form-control" id="first_member_one_day_salary" value="">
-                                <input type="text" class="form-control" id="first_member_salary_section" value="">
+                                <input type="text" class="form-control" id="first_member_salary_section" value="" >
                             </div>
                             <div class="W50">
                                 <label for="trial_start" class="" style="float:left;width: 50%;">薪資總計</label>
@@ -737,7 +753,7 @@
                         <div class="form-group">
                         
                             <label for="start_date" class="" style="float:left;">執行日</label>
-                            <input type="checkbox" class="chbox" id="do_date" name="day" checked>
+                            <input type="checkbox" class="chbox" id="do_date" name="day day2" checked>
                             <span class="chbox"  >
                                 <?=$datetime_info['day']; ?>
                             </span>
@@ -764,7 +780,7 @@
                             <div class="W50">
                                 <label for="trial_start" class="" style="float:left;width: 50%;">薪資單價</label>
                                 <input type="hidden" class="form-control" id="second_member_one_day_salary" value="">
-                                <input type="text" class="form-control" id="second_member_salary_section" value="">
+                                <input type="text" class="form-control" id="second_member_salary_section" value="" >
                             </div>
                             <div class="W50">
                                 <label for="trial_start" class="" style="float:left;width: 50%;">薪資總計</label>
