@@ -2233,7 +2233,53 @@ class Test_form extends CI_Controller
         $objWriter->save('php://output');
     }
 
+    public function form_e_7_6()
+    {
+        $this->load->library('excel');
+        $this->load->model('mod_voice_trial');
 
+        $objPHPExcel = new PHPExcel();
+        $objPHPExcel->setActiveSheetIndex(0);
+        $arr = $this->mod_voice_trial->get_all();
+        for ($i=0; $i < count($arr); $i++) {
+            # code...
+
+            $objPHPExcel->getActiveSheet()->getStyle()->getNumberFormat()->setFormatCode();
+            $objPHPExcel->getActiveSheet()->setCellValue('A1', '年度');
+            $objPHPExcel->getActiveSheet()->setCellValue('B1', '梯次');
+            $objPHPExcel->getActiveSheet()->setCellValue('C1', '分區');
+            $objPHPExcel->getActiveSheet()->setCellValue('D1', '試場');
+            $objPHPExcel->getActiveSheet()->setCellValue('E1', '場次');
+            $objPHPExcel->getActiveSheet()->setCellValue('F1', '監試人員一編號');
+            $objPHPExcel->getActiveSheet()->setCellValue('G1', '監試人員一');
+            $objPHPExcel->getActiveSheet()->setCellValue('H1', '監試人員二編號');
+            $objPHPExcel->getActiveSheet()->setCellValue('I1', '監試人員二');
+
+
+            $objPHPExcel->getActiveSheet()->setCellValue('A'.(2+$i), $arr[$i]['year']);
+            $objPHPExcel->getActiveSheet()->setCellValue('B'.(2+$i), $arr[$i]['ladder']);
+            $objPHPExcel->getActiveSheet()->setCellValue('C'.(2+$i), $arr[$i]['part']);
+            $objPHPExcel->getActiveSheet()->setCellValue('D'.(2+$i), $arr[$i]['field']);
+            $objPHPExcel->getActiveSheet()->setCellValue('E'.(2+$i), $arr[$i]['block_name']);
+            $objPHPExcel->getActiveSheet()->setCellValue('F'.(2+$i), $arr[$i]['supervisor_1_code']);
+            $objPHPExcel->getActiveSheet()->setCellValue('G'.(2+$i), $arr[$i]['supervisor_1']);
+            $objPHPExcel->getActiveSheet()->setCellValue('H'.(2+$i), $arr[$i]['supervisor_2_code']);
+            $objPHPExcel->getActiveSheet()->setCellValue('I'.(2+$i), $arr[$i]['supervisor_2']);
+        }
+
+        $objWriter = PHPExcel_IOFactory::createWriter($objPHPExcel, 'CSV');
+
+
+        header("content-type:application/csv;charset=UTF-8");
+        header('Content-Disposition: attachment;filename="監試人員名單'.'.csv"');
+        header('Cache-Control: max-age=0');
+        header("Expires:0");
+
+
+
+        $objWriter->save('php://output');
+
+    }
 
 
 
