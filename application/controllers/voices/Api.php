@@ -887,6 +887,7 @@ class Api extends CI_Controller {
      */
      public function get_part()
      {
+
          $this->load->model('mod_voice_exam_area');
          $getpost = array('part');
          $requred = array('part');

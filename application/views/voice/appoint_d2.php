@@ -145,6 +145,7 @@
         $("#remove").attr('disabled',true);
         $("#add").attr('disabled',false);
         create_field_select();
+        
     }
     function get_part(){
         var nowHash = location.hash; //取得loading進來後目前#
@@ -162,18 +163,23 @@
                 part = '2503'
                 break;                
         }
+        // alert(part);
         return part;
     }
 
     // 選擇試場選單
     function create_field_select(){
+        var a=get_part();
+        console.log('AAAAAAAAAAAA');
+        console.log(a);
         $.ajax({
             url: './voice/api/get_part',
             data: {
-                "part": get_part()
+                "part": a
             },
             dataType: "json"
         }).done(function(data) {
+            // console.log(data);
             var f_html = "<option value=''>請選擇</option>";
             var s_html = "<option value=''>請選擇</option>";
             console.log(data);
@@ -206,9 +212,9 @@
         var nowHash = location.hash; //取得loading進來後目前#
         var nowTabNum = nowHash.slice(-1);
         var nowHtml = location.pathname.split("/").pop();
-        console.log(nowHash);
+        // console.log(nowHash);
         var part = get_part();
-        console.log("part="+part);
+        // console.log("part="+part);
         
                   
         if (nowHash != "") {
@@ -241,7 +247,7 @@
                     $('#part' + nowTabNum).show();                             
                     break;
             }
-            console.log(part);
+            // console.log(part);
 
         }    
 
@@ -262,7 +268,7 @@
                 $('#part' + newHash).show();
             }
             var part = get_part();
-            console.log(part);
+            // console.log(part);
             $("#part").val(part);
             //點擊先做還原動作
             init();
