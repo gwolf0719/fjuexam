@@ -1065,6 +1065,7 @@ class Api extends CI_Controller {
                     'salary'=>$fees_info['pay_2'],
                     'salary_total'=> $salary_total,
                     'total'=> $total,
+                    'note'=> $data['note'],
                 );
                 
                 // if($this->mod_voice_trial->chk_trial_staff_field($data) == true){
