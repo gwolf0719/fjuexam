@@ -305,6 +305,10 @@
             })
             
         })
+        // 點選確定指派
+        $("body").on("click", "#fresh", function() {
+            location.reload();
+        })
 
 
         // 點選列表顯示內容
@@ -798,6 +802,7 @@
                 <div class="col-md-6 col-sm-6 col-xs-6" style="float:left;margin: 20px auto;">
                     <div class="form-group" style="text-align:right">
                         <div class="">
+                            <button type="button" class="btn btn-warning" id="fresh">刷新</button>
                             <button type="button" class="btn btn-primary" id="add">新增</button>
                             <button type="button" class="btn btn-danger" id="remove">取消指派</button>
                             <button type="button" class="btn btn-primary" id="send" style="background:#346a90">修改</button>
