@@ -69,26 +69,27 @@ class Mod_voice_staff extends CI_Model
         // 'first_member_salary_section','first_member_section_salary_total','first_member_section_total','second_member_do_date','second_member_day_count',
         // 'second_member_salary_section','second_member_section_salary_total','second_member_section_total','note');
 
-        $datas = array(
-            'allocation_code' =>'', 
-            'trial_staff_code' =>'', 
-            'trial_staff_name' =>'', 
-            'first_start' =>'', 
-            'first_end' =>'', 
-            'first_section' =>'', 
-            'second_start' =>'', 
-            'second_end' =>'', 
-            'second_section' =>'', 
-            'do_date' =>'', 
-            'calculation' =>'', 
-            'count' =>'', 
-            'salary' =>'', 
-            'salary_total' =>'', 
-            'total' =>'', 
-            'note' =>'', 
+        // $datas = array(
+        //     'allocation_code' =>'', 
+        //     'trial_staff_code' =>'', 
+        //     'trial_staff_name' =>'', 
+        //     'first_start' =>'', 
+        //     'first_end' =>'', 
+        //     'first_section' =>'', 
+        //     'second_start' =>'', 
+        //     'second_end' =>'', 
+        //     'second_section' =>'', 
+        //     'do_date' =>'', 
+        //     'calculation' =>'', 
+        //     'count' =>'', 
+        //     'salary' =>'', 
+        //     'salary_total' =>'', 
+        //     'total' =>'', 
+        //     'note' =>'', 
         
-        );
-        $this->db->where('year', $this->session->userdata('year'))->where('ladder', $this->session->userdata('ladder'))->update('voice_trial_staff',$datas);
+        // );
+        $this->db->where('year', $this->session->userdata('year'))->where('ladder', $this->session->userdata('ladder'))->truncate('voice_trial_staff');
+        // $this->db->where('year', $this->session->userdata('year'))->where('ladder', $this->session->userdata('ladder'))->update('voice_trial_staff',$datas);
     }
     public function remove_voice_patrol_staff()
     {   
@@ -96,26 +97,28 @@ class Mod_voice_staff extends CI_Model
         // 'first_member_salary_section','first_member_section_salary_total','first_member_section_total','second_member_do_date','second_member_day_count',
         // 'second_member_salary_section','second_member_section_salary_total','second_member_section_total','note');
 
-        $datas = array(
-            'allocation_code' =>'', 
-            'patrol_staff_code' =>'', 
-            'patrol_staff_name' =>'', 
-            'start' =>'', 
-            'end' =>'', 
-            'first_section' =>'', 
-            'second_start' =>'', 
-            'second_end' =>'', 
-            'second_section' =>'', 
-            'do_date' =>'', 
-            'calculation' =>'', 
-            'count' =>'', 
-            'salary' =>'', 
-            'salary_total' =>'', 
-            'total' =>'', 
-            'note' =>'', 
+        // $datas = array(
+        //     'allocation_code' =>'', 
+        //     'patrol_staff_code' =>'', 
+        //     'patrol_staff_name' =>'', 
+        //     'start' =>'', 
+        //     'end' =>'', 
+        //     'first_section' =>'', 
+        //     'second_start' =>'', 
+        //     'second_end' =>'', 
+        //     'second_section' =>'', 
+        //     'do_date' =>'', 
+        //     'calculation' =>'', 
+        //     'count' =>'', 
+        //     'salary' =>'', 
+        //     'salary_total' =>'', 
+        //     'total' =>'', 
+        //     'note' =>'', 
         
-        );
-        $this->db->where('year', $this->session->userdata('year'))->where('ladder', $this->session->userdata('ladder'))->update('voice_patrol_staff',$datas);
+        // );
+        $this->db->where('year', $this->session->userdata('year'))->where('ladder', $this->session->userdata('ladder'))->truncate('voice_patrol_staff');
+
+        // $this->db->where('year', $this->session->userdata('year'))->where('ladder', $this->session->userdata('ladder'))->update('voice_patrol_staff',$datas);
     }
 
     function voice_where_voice_import_staff_member()
