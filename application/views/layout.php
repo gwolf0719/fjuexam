@@ -39,7 +39,7 @@
             location.href="./";
         })        
         $("body").on("click","#logout",function(){
-            location.href="./logout";
+            location.href="/fjuexam/login";
         })
       })
     </script>

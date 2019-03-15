@@ -23,19 +23,32 @@
                 ladder: $("#ladder").val()
             }, function(data) {
                 alert(data.sys_msg);
+                location.reload();
             })
         })
+
+        /**FIXME:HACK@@!
+         */
         $("body").on("click", ".stop", function() {
 
-         <?php if ($a1_check=='no') {  ?>
-            alert("資料尚未匯入！");
-         <?php }else{?>
 
-            <?php if ($f_check=='no') {  ?>
-            alert("未設定考試相關資訊！");
+            <?php if(!isset($_SESSION['year'])||!isset($_SESSION['ladder'])){?>
+                alert("學年度及場次尚未設定！");
+            <?php }else{?>
+                <?php if ($a1_check=='no') {  ?>
+                    alert("資料尚未匯入！");
+                <?php }else{?>
+
+                    <?php if ($f_check=='no') {  ?>
+                    alert("未設定考試相關資訊！");
+                    <?php }?>
+
+                <?php }?>
             <?php }?>
 
-         <?php }?>
+
+
+
         })
 
 
@@ -44,6 +57,7 @@
 
     })
 </script>
+
 <div class="row">
     <div class="input-group col-sm-3">
 
@@ -69,14 +83,28 @@
 </div>
 <div class="row" style="">
 
-    <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4 cube text-center">
+
+    <?php if(!isset($_SESSION['year'])||!isset($_SESSION['ladder'])){?>
+        <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4 cube text-center">
+            <img src="./assets_voice/images/a.png" alt="" class='stop' style="-webkit-filter:grayscale(1);">
+        </div>
+    <?php }else{?>
+        <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4 cube text-center">
+            <a href="./voice/a">
+                <img src="./assets_voice/images/a.png" alt="">
+            </a>
+        </div>
+    <?php }?>
+
+
+    <!-- <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4 cube text-center">
         <a href="./voice/a">
             <img src="./assets_voice/images/a.png" alt="">
         </a>
-    </div>
+    </div> -->
 
     <!-- b -->
-    <?php if($a1_check=='no'||$f_check=='no'){?>
+    <?php if($a1_check=='no'||$f_check=='no'||!isset($_SESSION['year'])||!isset($_SESSION['ladder'])){?>
         <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4 cube  text-center">
                 <img src="./assets_voice/images/b.png" class='stop' alt="" style="-webkit-filter:grayscale(1);">
         </div>
@@ -90,7 +118,7 @@
     <!-- b end -->
 
     <!-- c -->
-    <?php if($a1_check=='no'||$f_check=='no'){?>
+    <?php if($a1_check=='no'||$f_check=='no'||!isset($_SESSION['year'])||!isset($_SESSION['ladder'])){?>
         <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4 cube text-center">
                 <img src="./assets_voice/images/c.png" class='stop' alt=""style="-webkit-filter:grayscale(1);">
         </div>
@@ -104,7 +132,7 @@
     <!-- c end -->
 
     <!-- d -->
-    <?php if($a1_check=='no'||$f_check=='no'){?>
+    <?php if($a1_check=='no'||$f_check=='no'||!isset($_SESSION['year'])||!isset($_SESSION['ladder'])){?>
         <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4 cube text-center">
             <img src="./assets_voice/images/d.png" class='stop' alt="" style="-webkit-filter:grayscale(1);">
     </div>
@@ -118,7 +146,7 @@
     <!-- d end -->
 
     <!-- e -->
-    <?php if($a1_check=='no'||$f_check=='no'){?>
+    <?php if($a1_check=='no'||$f_check=='no'||!isset($_SESSION['year'])||!isset($_SESSION['ladder'])){?>
         <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4 cube text-center" style="filter: grayscale(100%);">
                 <img src="./assets_voice/images/e.png" class='stop' alt="">
         </div>
@@ -131,12 +159,20 @@
     <?php }?>
     <!-- e end -->
 
-    <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4 cube text-center">
-    
-        <a href="./voice/f">
-            <img src="./assets_voice/images/f.png" alt="">
-        </a>
-    </div>
+
+
+    <?php if(!isset($_SESSION['year'])||!isset($_SESSION['ladder'])){?>
+        <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4 cube text-center">
+                <img src="./assets_voice/images/f.png" class='stop' alt=""style="filter: grayscale(100%);">
+        </div>
+    <?php }else{?>
+        <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4 cube text-center">
+            <a href="./voice/f">
+                <img src="./assets_voice/images/f.png" alt="">
+            </a>
+        </div>
+    <?php }?>
+
 
 </div>
 <!-- Latest compiled and minified CSS -->
