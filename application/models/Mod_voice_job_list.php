@@ -133,6 +133,8 @@ class Mod_voice_job_list extends CI_Model
     {
         $this->db->distinct();
         $this->db->select('member_code,member_name');
+        $this->db->where('year',$this->session->userdata('year'));
+        $this->db->where('ladder',$this->session->userdata('ladder'));
 
         $data = $this->db->get('voice_import_member')->result_array();
         // echo $this->db->last_query();

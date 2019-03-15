@@ -120,9 +120,7 @@ class Api extends CI_Controller {
             $this->mod_voice_trial->remove_voice_trial_staff();
             // D巡場
             $this->mod_voice_trial->remove_voice_patrol_staff();
-           
-            // B
-            $this->mod_voice_trial->remove_voice_job_list();
+
             
             fclose($file);
             unlink($file_name);
