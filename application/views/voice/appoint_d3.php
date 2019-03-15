@@ -125,6 +125,7 @@
         $("#send").attr('disabled',true);
         $("#remove").attr('disabled',true);
         $("#add").attr('disabled',false);
+        $("#fresh").attr('disabled',false);
         create_field_select();
 
         // 點選確定指派
@@ -294,6 +295,7 @@
             $("#note").val('');
             $("#send").attr('disabled',false);
             $("#remove").attr('disabled',false);
+            $("#fresh").attr('disabled',false);
             $("#add").attr('disabled',true);
 
 
@@ -778,15 +780,15 @@
                     <div class="">
                         <div class="">
                             <label for="note" class="" style="float:left;text-align:left;width: 15%;text-align:center;">備註</label>
-                            <textarea name="note" id="note" class="" style="width:500px"></textarea>
+                            <textarea name="note" id="note" class="" style="width:420px"></textarea>
                         </div>
                     </div>
                 </div>
                 <div class="col-md-6 col-sm-6 col-xs-6" style="float:left;margin: 20px auto;">
                     <div class="form-group" style="text-align:right">
                         <div class="">
-                            <button type="button" class="btn btn-warning" id="fresh">刷新</button>
-                            <button type="button" class="btn btn-primary" id="add">新增</button>
+                        <button type="button" class="btn btn-primary" id="add" style="position: relative;right: 5%">新增</button>
+                            <button type="button" class="btn btn-warning" id="fresh" style="color: white;">取消修改</button>
                             <button type="button" class="btn btn-danger" id="remove">取消指派</button>
                             <button type="button" class="btn btn-primary" id="send" style="background:#346a90">修改</button>
                         </div>
