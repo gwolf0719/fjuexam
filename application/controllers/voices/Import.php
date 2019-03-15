@@ -76,7 +76,7 @@ class Import extends CI_Controller {
             fclose($file);
             unlink($file_name);
             //  print_r(fgetcsv($file));
-            redirect('voice/school_data');
+            redirect('voice/a/school_data');
         } else {
             $data = array(
                 'title' => '本校單位資料',
