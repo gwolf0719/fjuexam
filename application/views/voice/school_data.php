@@ -166,8 +166,8 @@ tr{
         }
     })    
 </script>
-<div class="row">
-    <div class="input-group col-sm-2">
+<!-- <div class="row">
+    <div class="input-group col-sm-3">
 
         <div class="input-group-prepend">
             <span class="input-group-text" id="inputGroup-sizing-default">學年度</span>
@@ -177,7 +177,7 @@ tr{
         
     </div>
 
-    <div class="col-sm-8" style="text-align: center;">
+    <div class="col-sm-7" style="text-align: center;">
         <img src="assets/images/a2_title.png" alt="" style="width: 15%;">
     </div>
 
@@ -188,7 +188,34 @@ tr{
         
     </div>
     
+</div> -->
+
+<!-- 標題選單列開始 -->
+<div class="d-flex justify-content-between">
+    <div class="p-2 "  style="width:300px;">
+        <div class="input-group">
+
+            <div class="input-group-prepend">
+                <span class="input-group-text" id="inputGroup-sizing-default">學年度</span>
+            </div>
+            <input type="text" class="form-control"  value="<?=$this->session->userdata('year'); ?>" style="width:60px;" readonly>
+            <input type="text" class="form-control"  value="<?=$this->session->userdata('ladder'); ?>" style="width:100px;" readonly>
+            
+        </div>
+    </div>
+    <div class="p-2 ">
+        <img src="assets/images/a2_title.png" alt="" style="height:50px;">
+    </div>
+    <div class="p-2 " style="width:300px;text-align:right;">
+        <button type="button" class="btn btn-primary "  data-toggle="modal" data-target="#exampleModal"  >匯入資料</button>
+    </div>
 </div>
+<!-- 標題選單列結束 -->
+
+
+
+
+
 <div class="row" style="height: 50vh;overflow: auto;">
    <div class="col-12" style="margin-top: 10px;">
         <table class="table table-hover" id="">

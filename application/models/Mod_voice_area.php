@@ -84,6 +84,75 @@ class Mod_voice_area extends CI_Model {
     }
 
 
+
+
+
+    /**
+     * TODO:檢查A是否匯入完整
+     */
+    function check_a1(){
+        
+        $this->db->where('year',$this->session->userdata('year'));
+        $this->db->where('ladder',$this->session->userdata('ladder'));
+        $count1 = $this->db->count_all_results('voice_area_main');
+        // print_r($count1);
+        if($count1>0){$count1=1;}
+
+        $this->db->where('year',$this->session->userdata('year'));
+        $this->db->where('ladder',$this->session->userdata('ladder'));
+        $count2 = $this->db->count_all_results('voice_import_member');
+        if($count2>0){$count2=1;}
+        
+        $this->db->where('year',$this->session->userdata('year'));
+        $this->db->where('ladder',$this->session->userdata('ladder'));
+        $count3 = $this->db->count_all_results('voice_job_list');
+        if($count3>0){$count3=1;}
+
+        $this->db->where('year',$this->session->userdata('year'));
+
+        $count4 = $this->db->count_all_results('school_unit');
+        if($count4>0){$count4=1;}
+
+        // print_r($count1);
+        // print_r($count2);
+        // print_r($count3);
+        // print_r($count4);
+        $count=$count1+$count2+$count3+$count4;
+        // print_r($count);
+
+        if($count<4){
+            return 'no';
+        }else if($count==4){
+            return 'yes';
+        }
+    }
+
+    /**
+     * TODO:檢查F是否匯入完整
+     */
+    function check_f(){
+        
+        $this->db->where('year',$this->session->userdata('year'));
+        $this->db->where('ladder',$this->session->userdata('ladder'));
+        $count1 = $this->db->count_all_results('voice_exam_datetime');
+
+        if($count1>0){$count1=1;}
+
+        $this->db->where('year',$this->session->userdata('year'));
+        $this->db->where('ladder',$this->session->userdata('ladder'));
+        $count2 = $this->db->count_all_results('voice_test_pay');
+
+        if($count2>0){$count2=1;}
+        
+        $count=$count1+$count2;
+        if($count<2){
+            return 'no';
+        }else if($count==2){
+            return 'yes';
+        }
+    }
+
+
    
 
 }

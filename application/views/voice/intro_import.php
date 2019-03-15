@@ -24,6 +24,13 @@
                 alert("請輸入學年度跟場次並點選送出")
                 history.go(-1);
          <?php  }?>
+
+
+
+
+
+
+         
     })
 </script>
 <div class="row">
@@ -51,7 +58,7 @@
     </div>
     <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4 cube text-center">
         <a href="./voice/a/school_data"> 
-            <img src="assets_voice/images/a2.png" alt="" style="-webkit-filter:grayscale(1);">
+            <img src="assets_voice/images/a2.png" alt="">
         </a>    
     
     </div>

@@ -25,6 +25,23 @@
                 alert(data.sys_msg);
             })
         })
+        $("body").on("click", ".stop", function() {
+
+         <?php if ($a1_check=='no') {  ?>
+            alert("資料尚未匯入！");
+         <?php }else{?>
+
+            <?php if ($f_check=='no') {  ?>
+            alert("未設定考試相關資訊！");
+            <?php }?>
+
+         <?php }?>
+        })
+
+
+
+
+
     })
 </script>
 <div class="row">
@@ -57,27 +74,65 @@
             <img src="./assets_voice/images/a.png" alt="">
         </a>
     </div>
-    <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4 cube  text-center">
-        <a href="./voice/b">
-            <img src="./assets_voice/images/b.png" alt="">
-        </a>
+
+    <!-- b -->
+    <?php if($a1_check=='no'||$f_check=='no'){?>
+        <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4 cube  text-center">
+                <img src="./assets_voice/images/b.png" class='stop' alt="" style="-webkit-filter:grayscale(1);">
+        </div>
+    <?php }else{?>
+        <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4 cube  text-center">
+            <a href="./voice/b">
+                <img src="./assets_voice/images/b.png" alt="">
+            </a>
+        </div>
+    <?php }?>
+    <!-- b end -->
+
+    <!-- c -->
+    <?php if($a1_check=='no'||$f_check=='no'){?>
+        <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4 cube text-center">
+                <img src="./assets_voice/images/c.png" class='stop' alt=""style="-webkit-filter:grayscale(1);">
+        </div>
+    <?php }else{?>
+        <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4 cube text-center">
+            <a href="./voice/c">
+                <img src="./assets_voice/images/c.png" alt="">
+            </a>
+        </div>
+    <?php }?>
+    <!-- c end -->
+
+    <!-- d -->
+    <?php if($a1_check=='no'||$f_check=='no'){?>
+        <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4 cube text-center">
+            <img src="./assets_voice/images/d.png" class='stop' alt="" style="-webkit-filter:grayscale(1);">
     </div>
+    <?php }else{?>
+        <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4 cube text-center">
+            <a href="./voice/d">
+                <img src="./assets_voice/images/d.png" alt="">
+            </a>
+        </div>
+    <?php }?>
+    <!-- d end -->
+
+    <!-- e -->
+    <?php if($a1_check=='no'||$f_check=='no'){?>
+        <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4 cube text-center" style="filter: grayscale(100%);">
+                <img src="./assets_voice/images/e.png" class='stop' alt="">
+        </div>
+    <?php }else{?>
+        <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4 cube text-center">
+            <a href="./voice/e">
+                <img src="./assets_voice/images/e.png" alt="">
+            </a>
+        </div>
+    <?php }?>
+    <!-- e end -->
+
     <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4 cube text-center">
-        <a href="./voice/c">
-            <img src="./assets_voice/images/c.png" alt="">
-        </a>
-    </div>
-    <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4 cube text-center">
-        <a href="./voice/d">
-            <img src="./assets_voice/images/d.png" alt="">
-        </a>
-    </div>
-    <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4 cube text-center">
-        <a href="./voice/e">
-            <img src="./assets_voice/images/e.png" alt="">
-        </a>
-    </div>
-    <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4 cube text-center">
+    
         <a href="./voice/f">
             <img src="./assets_voice/images/f.png" alt="">
         </a>
