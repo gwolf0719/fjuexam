@@ -177,14 +177,17 @@ $(function(){
                         <?php
             
                             $block_name = explode(",",$v['block_name']);
+                            $new_block = array();
                             // echo $v['block_name'];
                             if(in_array(1,$block_name)){
-                                echo "上午場";
+                                $new_block[] = "上午場";
                             }
 
                             if(in_array(2,$block_name)){
-                                echo ",下午場";
+                                // echo ",下午場";
+                                $new_block[] = "下午場";
                             }
+                            echo implode(',',$new_block);
                         ?>
                     
                     </td>
