@@ -1134,7 +1134,8 @@ class Api extends CI_Controller {
  
      public function room_use_day()
      {
-         $this->load->model('mod_exam_datetime');
+        //  $this->load->model('mod_exam_datetime');
+         $this->load->model('subject_ability/mod_exam_datetime',"mod_exam_datetime");
          $getpost = array('start', 'end','part');
          $requred = array('start', 'end','part');
          $data = $this->getpost->getpost_array($getpost, $requred);

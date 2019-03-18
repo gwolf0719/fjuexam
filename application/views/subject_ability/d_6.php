@@ -118,7 +118,7 @@
         var nowHash = location.hash; //取得loading進來後目前#
         var nowTabNum = nowHash.slice(-1);
         var nowHtml = location.pathname.split("/").pop();
-        console.log(nowTabNum);
+        // console.log(nowTabNum);
         if (nowHash != "") {
             $(".part").hide();
             $('#part' + nowTabNum).show();
@@ -183,7 +183,7 @@
             $("#day_lunch_total").val(0);
             $("#section_total").val(0);
             $("#day_total").val(0);
-            console.log(newHash);
+            // console.log(newHash);
             if (nowHtml == "d_6") {
                 //開闔div
                 $(".part").css({
@@ -207,6 +207,7 @@
             var sn = $(this).attr("sn");
             var code = $(this).attr("code");
             var part = $(this).attr("part");
+            var do_date = $(this).attr("do_date");
 
             $('input[name="day"]').each(function() {
                 for (let index = 0; index < 3; index++) {
@@ -225,24 +226,27 @@
                 },
                 dataType: "json"
             }).done(function(data) {
-                console.log(data);
+                // console.log(data);
 
 
                 var date=data.info.do_date;
                 var date=date.split(",");
 
-                $('input[name="day"]').each(function() {
-                    for (let index = 0; index < 1; index++) {
+                $('.as').each(function() {
+                        // console.log(date);
+                        // $(this).prop("checked",true);
+               
                         var a=$(this).val();
-                        var ans=jQuery.inArray( a, date );
+                        // console.log(a);
+                        var ans=jQuery.inArray( a,date);
 
-                        if(ans>=0){
+                        if(ans>='0'){
                             console.log(ans);
                             $(this).prop("checked",true);
                         }else if(ans==-1){
                             $(this).prop("checked", false);
                         }
-                    }
+                  
                 })  
 
 
@@ -282,7 +286,7 @@
                     },
                     dataType: "json"
                 }).done(function(data) {
-                    console.log(data.section);
+                    // console.log(data.section);
                     $("#section_count").val(data.section);
                 })
                 switch (data.info.calculation) {
@@ -348,10 +352,10 @@
                     },
                     dataType: "json"
                 }).done(function(data) {
-                    console.log(data.day);
-                    $('input:checkbox[name="day"]').eq(0).prop("checked", data.day[0]);
-                    $('input:checkbox[name="day"]').eq(1).prop("checked", data.day[1]);
-                    $('input:checkbox[name="day"]').eq(2).prop("checked", data.day[2]);
+                    // console.log(data.day);
+                    // $('input:checkbox[name="day"]').eq(0).prop("checked", data.day[0]);
+                    // $('input:checkbox[name="day"]').eq(1).prop("checked", data.day[1]);
+                    // $('input:checkbox[name="day"]').eq(2).prop("checked", data.day[2]);
                     var day_count = $('input:checkbox:checked[name="day"]').map(
                         function() {
                             return $(this).val();
@@ -411,7 +415,7 @@
         });
 
         $("body").on("click", "#send", function() {
-            console.log($("#order_meal").val());
+            // console.log($("#order_meal").val());
             if (confirm("確定儲存修改資料？")) {
                 var sn = $("#sn").val();
                 var arr = $('input:checkbox:checked[name="day"]').map(function() {
@@ -472,7 +476,7 @@
                 }).done(function(data) {
                     alert(data.sys_msg);
                     if (data.sys_code == "200") {
-                        // location.reload();
+                        location.reload();
                     }
                 })
             }
@@ -510,7 +514,7 @@
         // })
 
         $("body").on("keyup", "#one_day_salary", function() {
-            console.log($(this).val());
+            // console.log($(this).val());
             var day_salary_total = parseInt($(this).val()) * parseInt($("#day_count").val());
             $("#day_salary_total").val(day_salary_total);
             if ($("#order_meal").val() == "N") {
@@ -524,7 +528,7 @@
         })
 
         $("body").on("keyup", "#salary_section", function() {
-            console.log($(this).val());
+            // console.log($(this).val());
             var section_salary_total = parseInt($(this).val()) * parseInt($("#section_count").val());
             $("#section_salary_total").val(section_salary_total);
             if ($("#order_meal").val() == "N") {
@@ -706,7 +710,7 @@
             </thead>
             <tbody>
                 <?php foreach ($part1 as $k => $v): ?>
-                <tr sn="<?=$v['sn']; ?>" code="<?=$v['patrol_staff_code']; ?>" part="2501">
+                <tr sn="<?=$v['sn']; ?>" code="<?=$v['patrol_staff_code']; ?>" part="2501" do_date='<?=$v['do_date']; ?>'>
                     <td>
                         <?=$k + 1; ?>
                     </td>
@@ -940,17 +944,17 @@
                 <div class="col-md-3 col-sm-3 col-xs-3 cube">
                     <div class="form-group">
                         <label for="start_date" class="" style="float:left;">執行日</label>
-                        <input type="checkbox" class="chbox" id="" name="day" value="<?=mb_substr($datetime_info['day_1'], 5, 8, 'utf-8'); ?>"
+                        <input type="checkbox" class="chbox as" id="" name="day" value="<?=mb_substr($datetime_info['day_1'], 5, 8, 'utf-8'); ?>"
                             >
                         <span class="chbox">
                             <?=mb_substr($datetime_info['day_1'], 5, 8, 'utf-8'); ?>
                         </span>
-                        <input type="checkbox" class="chbox" id="" name="day" value="<?=mb_substr($datetime_info['day_2'], 5, 8, 'utf-8'); ?>"
+                        <input type="checkbox" class="chbox as" id="" name="day" value="<?=mb_substr($datetime_info['day_2'], 5, 8, 'utf-8'); ?>"
                             >
                         <span class="chbox">
                             <?=mb_substr($datetime_info['day_2'], 5, 8, 'utf-8'); ?>
                         </span>
-                        <input type="checkbox" class="chbox" id="" name="day" value="<?=mb_substr($datetime_info['day_3'], 5, 8, 'utf-8'); ?>"
+                        <input type="checkbox" class="chbox as" id="" name="day" value="<?=mb_substr($datetime_info['day_3'], 5, 8, 'utf-8'); ?>"
                             >
                         <span class="chbox">
                             <?=mb_substr($datetime_info['day_3'], 5, 8, 'utf-8'); ?>
