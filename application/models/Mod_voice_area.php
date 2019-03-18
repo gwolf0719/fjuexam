@@ -12,8 +12,15 @@ class Mod_voice_area extends CI_Model {
             $this->db->where('ladder',$this->session->userdata('ladder'));
             $this->db->where('year',$this->session->userdata('year'));
             $this->db->where('part',$value['part']);
-            $this->db->where('block_name',$block_name);
-            $this->db->select('field,start,end,count_num,floor');
+
+            if($block_name=='上午場'){
+                $this->db->where('block_name',1);
+            }else{
+                $this->db->where('block_name',2);
+            }
+
+
+            // $this->db->select('field,start,end,count_num,floor');
             $this->db->distinct();
             $res[$key] = $value;
             $res[$key]['field'] = $this->db->get('voice_area_main')->result_array();
@@ -30,6 +37,7 @@ class Mod_voice_area extends CI_Model {
             $res[$key]['part_man_count'] = $part_man_count;
             $res[$key]['field_count'] = count($res[$key]['field']);
         }
+        // print_r($res);
         return $res;
     }
     function get_part_list(){

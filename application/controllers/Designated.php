@@ -5,12 +5,15 @@ defined('BASEPATH') or exit('No direct script access allowed');
 class Designated extends CI_Controller
 {
     public function index()
-    {
+    {   
+        $this->load->model('mod_area');
         $this->mod_user->chk_status();
         $data = array(
             'title' => '指考主選單',
             'path' => 'designated/index',
             'path_text' => ' > 指考主選單',
+            'a1_check' =>$this->mod_area->check_a1(),
+            'f_check' =>$this->mod_area->check_f(),
         );
         $this->load->view('layout', $data);
     }
@@ -4025,6 +4028,7 @@ class Designated extends CI_Controller
     {
         $this->mod_user->chk_status();
         $this->load->model('mod_exam_datetime');
+        $this->load->model('models/mod_exam_datetime',"mod_exam_datetime");
         $year = $this->session->userdata('year');
 
         if ($this->mod_exam_datetime->chk_once($year)) {
