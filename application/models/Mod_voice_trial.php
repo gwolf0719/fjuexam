@@ -245,12 +245,13 @@ class Mod_voice_trial extends CI_Model
             $this->db->where('voice_area_main.ladder',$ladder);
         }
         $this->db->from('voice_area_main');
-        $this->db->join('voice_trial_assign', 'voice_area_main.sn = voice_trial_assign.sn');
+        $this->db->join('voice_trial_assign', 'voice_area_main.field = voice_trial_assign.field');
         
         // $this->db->where('first_member_do_date !=', "");
         // $year = $this->session->userdata('year');
 
         $res = $this->db->get()->result_array();
+        // print_r($res);
         function even($var)
         {
             return($var['year'] == $_SESSION['year']);
@@ -259,7 +260,7 @@ class Mod_voice_trial extends CI_Model
         }
 
         $sub =  array_filter($res, "even");
-
+        // print_r($sub);
         sort($sub);
 
 
@@ -750,10 +751,11 @@ class Mod_voice_trial extends CI_Model
         $year = $this->session->userdata('year');
         $this->db->where('voice_area_main.year', $year);
         if ($part != '') {
+            $this->db->where('voice_area_main.ladder',$_SESSION['ladder']);
             $this->db->where('voice_area_main.part', $part);
         }
         $this->db->from('voice_area_main');
-        $this->db->join('voice_trial_assign', 'voice_area_main.sn = voice_trial_assign.sn');
+        $this->db->join('voice_trial_assign', 'voice_area_main.field = voice_trial_assign.field');
     
 
         $sub = $this->db->get()->result_array();
