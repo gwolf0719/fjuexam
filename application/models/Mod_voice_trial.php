@@ -601,7 +601,7 @@ class Mod_voice_trial extends CI_Model
             $fields = array();
             // 上午場
             if($v['first_start'] != ""){
-                $assign = $this->get_trial_assign_range($v['first_start'],$v['first_end'],"上午場");
+                $assign = $this->get_trial_assign_range($v['first_start'],$v['first_end'],"1");
                 foreach($assign as $k2=>$v2){
                     $fields[$v2['field']][] = array(
                         'field'=>$v2['field'],
@@ -614,7 +614,7 @@ class Mod_voice_trial extends CI_Model
             }
             // 下午場
             if($v['second_end'] != ""){
-                $assign = $this->get_trial_assign_range($v['second_start'],$v['second_end'],"下午場");
+                $assign = $this->get_trial_assign_range($v['second_start'],$v['second_end'],"2");
                 foreach($assign as $k2=>$v2){
                     $fields[$v2['field']][] = array(
                         'field'=>$v2['field'],

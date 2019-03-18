@@ -669,7 +669,7 @@ class Test_form extends CI_Controller
 
 
         $datetime_info = $this->mod_voice_exam_datetime->get_once($year,$ladder);
-
+        // print_r($this->mod_voice_trial->get_once_date_of_voucher1($part));
         $data = array(
             'part' => $this->mod_voice_trial->get_once_date_of_voucher1($part),
             'area' => $area,
