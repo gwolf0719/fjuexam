@@ -13,11 +13,14 @@ class Console extends CI_Controller {
 
     public function index()
     {
+        $this->load->model('subject_ability/mod_area',"mod_area");
         $this->mod_user->chk_status();
         $data = array(
             'title' => '學測主選單',
             'path' => 'subject_ability/index',
             'path_text' => ' > 學測主選單',
+            'a1_check' =>$this->mod_area->check_a1(),
+            'f_check' =>$this->mod_area->check_f(),
         );
         $this->load->view('subject_ability_layout', $data);
     }
