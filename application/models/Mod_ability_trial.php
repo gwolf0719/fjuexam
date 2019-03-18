@@ -77,6 +77,7 @@ class Mod_ability_trial extends CI_Model
     public function get_list($part = '')
     {
         $this->db->select('*');
+        $this->db->where('ability_part_info.year', $this->session->userdata('year'));
         if ($part != '') {
             $this->db->where('part', $part);
         }
