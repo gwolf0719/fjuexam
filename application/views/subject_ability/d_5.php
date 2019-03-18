@@ -1075,90 +1075,90 @@
             <form method="POST" enctype="multipart/form-data" action="" id="form" class="">
                 <div class="col-md-3 col-sm-3 col-xs-3 cube W14">
                     <div class="form-group">
-                        <label for="job_code" class="" style="float:left;">職員代碼</label>
+                        <label for="job_code" class="" style="float:left;font-size: 12px">職員代碼</label>
                         <input type="hidden" id="sn">
                         <input type="hidden" id="member_job_title">
                         <input type="text" class="form-control" id="job_code" readonly>
                     </div>
                     <div class="form-group">
-                        <label for="job_title" class="" style="float:left;">職稱</label>
+                        <label for="job_title" class="" style="float:left;font-size: 12px">職稱</label>
                         <input type="text" class="form-control" id="job_title" readonly>
                     </div>
                     <div class="form-group">
-                        <label for="member_name" class="" style="float:left;">姓名</label>
+                        <label for="member_name" class="" style="float:left;font-size: 12px">姓名</label>
                         <input type="text" class="form-control" id="name" readonly>
                     </div>
                     <div class="form-group">
-                        <label for="trial_start" class="" style="float:left;">聯絡電話</label>
+                        <label for="trial_start" class="" style="float:left;font-size: 12px">聯絡電話</label>
                         <input type="text" class="form-control" id="phone" readonly>
                     </div>
                 </div>
                 <div class="col-md-3 col-sm-3 col-xs-3 cube W14">
-                    <p style="text-align:center">第一天
+                    <p style="text-align:center;font-size: 15px">第一天
                         <?=$datetime_info['day_1']; ?>
                     </p>
                     <div class="form-group">
-                        <label for="trial_start" class="" style="float:left;">試場起號</label>
+                        <label for="trial_start" class="" style="float:left;font-size: 12px">試場起號</label>
                         <input type="text" class="form-control" id="first_start" readonly>
                     </div>
                     <div class="form-group">
-                        <label for="trial_end" class="" style="float:left;">試場迄號</label>
+                        <label for="trial_end" class="" style="float:left;font-size: 12px">試場迄號</label>
                         <input type="text" class="form-control" id="first_end" readonly>
                     </div>
                     <div class="form-group">
-                        <label for="trial_end" class="" style="float:left;">最大節數</label>
+                        <label for="trial_end" class="" style="float:left;font-size: 12px">最大節數</label>
                         <input type="text" class="form-control day" id="first_section" readonly day="<?=mb_substr($datetime_info['day_1'], 5, 8, 'utf-8'); ?>">
                     </div>
                 </div>
                 <div class="col-md-3 col-sm-3 col-xs-3 cube W14">
-                    <p style="text-align:center">第二天
+                    <p style="text-align:center;font-size: 15px">第二天
                         <?=$datetime_info['day_2']; ?>
                     </p>
                     <div class="form-group">
-                        <label for="trial_start" class="" style="float:left;">試場起號</label>
+                        <label for="trial_start" class="" style="float:left;font-size: 12px">試場起號</label>
                         <input type="text" class="form-control" id="second_start" readonly>
                     </div>
                     <div class="form-group">
-                        <label for="trial_end" class="" style="float:left;">試場迄號</label>
+                        <label for="trial_end" class="" style="float:left;font-size: 12px">試場迄號</label>
                         <input type="text" class="form-control" id="second_end" readonly>
                     </div>
                     <div class="form-group">
-                        <label for="trial_end" class="" style="float:left;">最大節數</label>
+                        <label for="trial_end" class="" style="float:left;font-size: 12px">最大節數</label>
                         <input type="text" class="form-control day" id="second_section" readonly day="<?=mb_substr($datetime_info['day_2'], 5, 8, 'utf-8'); ?>">
                     </div>
                 </div>
                 <div class="col-md-3 col-sm-3 col-xs-3 cube W14">
-                    <p style="text-align:center">第三天
+                    <p style="text-align:center;font-size: 15px">第三天
                         <?=$datetime_info['day_3']; ?>
                     </p>
                     <div class="form-group">
-                        <label for="trial_start" class="" style="float:left;">試場起號</label>
+                        <label for="trial_start" class="" style="float:left;font-size: 12px">試場起號</label>
                         <input type="text" class="form-control" id="third_start" readonly>
                     </div>
                     <div class="form-group">
-                        <label for="trial_end" class="" style="float:left;">試場迄號</label>
+                        <label for="trial_end" class="" style="float:left;font-size: 12px">試場迄號</label>
                         <input type="text" class="form-control" id="third_end" readonly>
                     </div>
                     <div class="form-group">
-                        <label for="trial_end" class="" style="float:left;">最大節數</label>
+                        <label for="trial_end" class="" style="float:left;font-size: 12px">最大節數</label>
                         <input type="text" class="form-control day" id="third_section" readonly day="<?=mb_substr($datetime_info['day_3'], 5, 8, 'utf-8'); ?>">
                     </div>
                 </div>
                 <div class="col-md-3 col-sm-3 col-xs-3 cube W14">
                     <div class="form-group">
-                        <label for="order_meal">訂餐需求</label>
+                        <label for="order_meal" style='font-size: 12px;'>訂餐需求</label>
                         <input type="checkbox" class="" name="need" id="order_meal">
-                        <span>需訂餐</span>
+                        <span style='font-size: 12px;'>需訂餐</span>
                     </div>
                     <div class="form-group">
-                        <label for="trial_end" class="" style="float:left;">計算方式</label>
-                        <select class="form-control" id="calculation">
+                        <label for="trial_end" class="" style="float:left;font-size: 12px">計算方式</label>
+                        <select class="form-control" id="calculation" style='width: 100%;'>
                             <option value="by_section">以節計算</option>
                             <option value="by_day">以天計算</option>
                         </select>
                     </div>
                     <div class="form-group meal" style="display:none;">
-                        <label for="trial_end" class="" style="float:left;">餐別</label>
+                        <label for="trial_end" class="" style="float:left;font-size: 12px">餐別</label>
                         <select class="form-control" id="meal">
                             <option value="葷">葷</option>
                             <option value="素">素</option>
@@ -1168,28 +1168,28 @@
                 <div class="col-md-3 col-sm-3 col-xs-3 cube W20">
                     <div class="form-group">
                         <label for="start_date" class="" style="float:left;">天數/節數</label>
-                        <input type="text" class="form-control" style="display:none" id="day_count" readonly value="0">
+                        <input type="text" class="form-control" style="display:none;font-size: 12px" id="day_count" readonly value="0">
                         <input type="text" class="form-control" id="section_count" readonly value="0">
                     </div>
                     <div class="form-group" style="padding: 0% 3%;">
                         <div class="W50">
-                            <label for="trial_start" class="" style="float:left;width: 50%;">薪資單價</label>
-                            <input type="text" class="form-control" id="one_day_salary" style="display:none" value="<?=$fees_info['one_day_salary']; ?>">
+                            <label for="trial_start" class="" style="float:left;width: 50%;font-size: 10px">薪資單價</label>
+                            <input type="text" class="form-control" id="one_day_salary" style="display:none;width: 50%;" value="<?=$fees_info['one_day_salary']; ?>">
                             <input type="text" class="form-control" id="salary_section" value="<?=$fees_info['salary_section']; ?>">
                         </div>
                         <div class="W50">
-                            <label for="trial_start" class="" style="float:left;width: 50%;">薪資總計</label>
-                            <input type="text" class="form-control" id="day_salary_total" style="display:none" value="0" readonly>
+                            <label for="trial_start" class="" style="float:left;width: 50%;font-size: 10px">薪資總計</label>
+                            <input type="text" class="form-control" id="day_salary_total" style="display:none;width: 50%;" value="0" readonly>
                             <input type="text" class="form-control" id="section_salary_total" value="0" readonly>
                         </div>
                     </div>
                     <div class="form-group" style="padding: 0% 3%;">
                         <div class="W50">
-                            <label for="trial_start" class="" style="float:left;width: 50%;">便當費 </label>
+                            <label for="trial_start" class="" style="float:left;width: 50%;font-size: 12px">便當費 </label>
                             <input type="text" class="form-control" id="lunch_price" value="0" lunch_price="">
                         </div>
                         <div class="W50">
-                            <label for="trial_start" class="" style="float:left;width: 50%;">便當總計</label>
+                            <label for="trial_start" class="" style="float:left;width: 50%;font-size: 12px">便當總計</label>
                             <input type="text" class="form-control" id="day_lunch_total" style="display:none" value="0" readonly>
                             <input type="text" class="form-control" id="section_lunch_total" value="0" readonly>
                             <input type="hidden" name="lunch" id="lunch" value="">
