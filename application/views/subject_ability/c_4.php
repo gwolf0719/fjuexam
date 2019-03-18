@@ -71,7 +71,7 @@ $(function(){
         // console.log(arr);
         if(addr == ""){
             alert("目前 C3 考試地址尚未填寫資料，請先填寫資料再進行操作");
-            location.href="./subject_ability/c_4";
+            location.href="./subject_ability/c_6";
         }
     })
 
