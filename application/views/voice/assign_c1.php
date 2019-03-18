@@ -174,18 +174,17 @@ $(function(){
                     <td><?=$v['area_name']; ?></td>
                     <td><?=$v['field']; ?></td>
                     <td>
-                        <?php 
-                        switch ($v['block_name']) {
-                            case 1:
-                                echo '上午場';
-                                break;
-                            case 2:
-                                echo '下午場';
-                                break;
-                            default:
-                                echo '上午場,下午場';
-                                break;
-                        }
+                        <?php
+            
+                            $block_name = explode(",",$v['block_name']);
+                            // echo $v['block_name'];
+                            if(in_array(1,$block_name)){
+                                echo "上午場";
+                            }
+
+                            if(in_array(2,$block_name)){
+                                echo ",下午場";
+                            }
                         ?>
                     
                     </td>

@@ -23,19 +23,30 @@ class Mod_voice_part_info extends CI_Model
     public function get_list($part = '')
     {
 
-        // 1=上午場 2=下午場 3=上午場下午場
-        $this->db->group_by('field');
         $this->db->select('*');
-        $this->db->select_sum('block_name');
         $this->db->where('year', $this->session->userdata('year'));
         $this->db->where('ladder', $this->session->userdata('ladder'));
         if ($part != '') {
             $this->db->where('part', $part);
         }
-        $this->db->distinct('field');
         $res=$this->db->get('voice_area_main')->result_array();
+        // print_r($res);
 
-        return $res;
+
+        $result = array();
+        $arr = array();
+        foreach($res as $val){
+            $key = $val['field'];                           //填入要塞選的項目
+            if(!isset($result[$key])){
+                $result[$key] = $val;
+            }else{
+                $result[$key]['block_name'] = $result[$key]['block_name'].','.$val['block_name'];   //填入要疊加的項目
+            }
+        }
+        // print_r($result);
+
+        return $result;
+
 
         // $exist=[];
         // for ($i=0; $i <count($res); $i++) { 
