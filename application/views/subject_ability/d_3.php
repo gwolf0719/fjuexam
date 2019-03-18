@@ -123,6 +123,17 @@
                 alert("目前 C1 考試地址尚未填寫資料，請先填寫資料再進行操作");
                 location.href = "./subject_ability/c_4";
             }
+
+
+            
+            $("#send").attr('disabled',true);
+            $("#remove").attr('disabled',true);
+            $("#fresh").attr('disabled',true);
+            $("#add").attr('disabled',false);
+        })
+
+        $("body").on("click", "#fresh", function() {
+            location.reload();
         })
 
         //tab設定
@@ -298,6 +309,13 @@
         // })
 
         $("body").on("click", "tr", function() {
+
+                        
+            $("#send").attr('disabled',false);
+            $("#remove").attr('disabled',false);
+            $("#fresh").attr('disabled',false);
+            $("#add").attr('disabled',true);
+
             var sn = $(this).attr("sn");
             var part = $(this).attr("part");
             $("html, body").animate({
@@ -770,7 +788,9 @@
                 <div class="col-md-6 col-sm-6 col-xs-6" style="float:left;margin: 20px auto;">
                     <div class="form-group" style="text-align:right">
                         <div class="">
-                            <button type="button" class="btn btn-primary" id="add">新增</button>
+                            <button type="button" class="btn btn-primary" id="add" style="position: relative;right: 5%">新增</button>
+
+                            <button type="button" class="btn btn-warning" id="fresh" style="color: white;">取消修改</button>
                             <button type="button" class="btn btn-danger" id="remove">取消指派</button>
                             <button type="button" class="btn btn-primary" id="send" style="background:#346a90">修改</button>
                         </div>
