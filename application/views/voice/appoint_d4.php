@@ -285,6 +285,7 @@
                 }
 
             $('#do_date').prop("checked",true);
+            $('#do_date2').prop("checked",true);
             $("html, body").animate({
                 scrollTop: $("body").height()
             }, 1000);
@@ -800,7 +801,7 @@
                         <div class="form-group">
                         
                             <label for="start_date" class="" style="float:left;">執行日</label>
-                            <input type="checkbox" class="chbox" id="do_date" name="day day2" checked>
+                            <input type="checkbox" class="chbox" id="do_date2" name="day day2" checked>
                             <span class="chbox"  >
                                 <?=$datetime_info['day']; ?>
                             </span>
