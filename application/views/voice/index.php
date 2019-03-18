@@ -17,6 +17,7 @@
 
 <script>
     $(function() {
+        
         $("body").on("click", "#set_year", function() {
             $.getJSON("./voice/api/ch_year", {
                 year: $("#year").val(),
@@ -72,8 +73,15 @@
             <span class="input-group-text" id="">場次</span>
         </div>  
         <select class='selectpicker' id="ladder">
-            <option value="第一次">第一次</option>
-            <option value="第二次">第二次</option>
+
+            <?php if($_SESSION['ladder']=='第一次'){?>
+                <option value="第一次" selected>第一次</option>
+                <option value="第二次">第二次</option>
+            <?php }else{?>
+                <option value="第一次" >第一次</option>
+                <option value="第二次" selected>第二次</option>
+            <?php }?>
+
         </select>
     </div>
     <div class="input-group-append">
