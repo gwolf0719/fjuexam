@@ -163,14 +163,14 @@ class Console extends CI_Controller {
              fgetcsv($file);
              while (!feof($file)) {
                  $data = fgetcsv($file);
-                 // print_r($data);
+                //  print_r($data);
                  $datas[] = array(
                       'sn' => uniqid(),
                       'year' => $this->session->userdata('year'),
                       'department' => $data[1],
                       'code' => $data[2],
                       'company_name_01' => $data[3],
-                      'company_name_02' => $data[4],
+                    //   'company_name_02' => $data[4],
                   );
                  // print_r($datas); 
              }
