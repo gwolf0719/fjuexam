@@ -1745,8 +1745,8 @@ class Test_form extends CI_Controller
                 $arr[$i] = $v;
                 $i ++ ;
             }else{
-                $arr[$key]['first_member_salary_section'] = $v['first_member_salary_section']+$arr[$key]['first_member_salary_section'];
-                $arr[$key]['second_member_salary_section'] = $v['second_member_salary_section']+$arr[$key]['second_member_salary_section'];
+                $arr[$key]['first_member_salary_section'] = $v['first_member_salary_section'];
+                $arr[$key]['second_member_salary_section'] = $v['second_member_salary_section'];
                 $arr[$key]['first_member_section_salary_total'] = $v['first_member_section_salary_total']+$arr[$key]['first_member_section_salary_total'];
                 $arr[$key]['second_member_section_salary_total'] = $v['second_member_section_salary_total']+$arr[$key]['second_member_section_salary_total'];
             }
@@ -1765,22 +1765,22 @@ class Test_form extends CI_Controller
 
         // $view = $this->load->view('voice/form_e_6_1', $data);
         
-        $view = $this->load->view('voice/form_e_6_1', $data,true);
-        if (!is_dir('./html/')) {
-            mkdir('./html/');
-        } else {
-            $path = 'form_e_6_1.html';
-            $fp = fopen('./html/'.$path,'w');//建檔
-            fwrite($fp,$view);
-            fclose($fp);//關閉開啟的檔案
-        }
+        echo$view = $this->load->view('voice/form_e_6_1', $data,true);
+        // if (!is_dir('./html/')) {
+        //     mkdir('./html/');
+        // } else {
+        //     $path = 'form_e_6_1.html';
+        //     $fp = fopen('./html/'.$path,'w');//建檔
+        //     fwrite($fp,$view);
+        //     fclose($fp);//關閉開啟的檔案
+        // }
 
-        if (!is_dir('./pdf/')) {
-            mkdir('./pdf/');
-        } else {
-            exec('wkhtmltopdf --lowquality --enable-forms http://uat.fofo.tw/fjuexam/html/form_e_6_1.html  ./pdf/form_e_6_1.pdf');
-        }
-        echo '<script>location.href="http://uat.fofo.tw/fjuexam/pdf/form_e_6_1.pdf"</script>';
+        // if (!is_dir('./pdf/')) {
+        //     mkdir('./pdf/');
+        // } else {
+        //     exec('wkhtmltopdf --lowquality --enable-forms http://uat.fofo.tw/fjuexam/html/form_e_6_1.html  ./pdf/form_e_6_1.pdf');
+        // }
+        // echo '<script>location.href="http://uat.fofo.tw/fjuexam/pdf/form_e_6_1.pdf"</script>';
     }
 
     public function form_e_6_2()
@@ -1807,8 +1807,8 @@ class Test_form extends CI_Controller
                 $arr[$i] = $v;
                 $i ++ ;
             }else{
-                $arr[$key]['first_member_salary_section'] = $v['first_member_salary_section']+$arr[$key]['first_member_salary_section'];
-                $arr[$key]['second_member_salary_section'] = $v['second_member_salary_section']+$arr[$key]['second_member_salary_section'];
+                $arr[$key]['first_member_salary_section'] = $v['first_member_salary_section'];
+                $arr[$key]['second_member_salary_section'] = $v['second_member_salary_section'];
                 $arr[$key]['first_member_section_salary_total'] = $v['first_member_section_salary_total']+$arr[$key]['first_member_section_salary_total'];
                 $arr[$key]['second_member_section_salary_total'] = $v['second_member_section_salary_total']+$arr[$key]['second_member_section_salary_total'];
 

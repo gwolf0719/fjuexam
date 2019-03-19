@@ -1172,6 +1172,7 @@ class Mod_voice_trial extends CI_Model
                 $patrol = $this->db->where('start <=', $sub[$i]['start'])->where('end >=', $sub[$i]['end'])->get('voice_patrol_staff')->row_array();
                 $course = $this->db->where('year', $year)->where('field', $sub[$i]['field'])->get('voice_exam_area')->row_array();
                 $trial = $this->db->get('voice_trial_staff')->result_array();
+                
                 if($sub[$i]['first_member_section_salary_total'] == ""){
                     $first_member_section_salary_total = 0;
                 }else{
