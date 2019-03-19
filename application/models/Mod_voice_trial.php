@@ -885,17 +885,17 @@ class Mod_voice_trial extends CI_Model
     public function get_list_for_csv()
     {
         // $this->db->where('year', $_SESSION['year']);
+        // $this->db->where('year', $_SESSION['year']);
 
         $this->db->select('*');
         $this->db->from('voice_area_main');
-        $this->db->join('voice_trial_assign', 'voice_area_main.sn = voice_trial_assign.sn');
-        // $this->db->where('year', $_SESSION['year']);
+        $this->db->join('voice_trial_assign', 'voice_area_main.field = voice_trial_assign.field');
 
         $this->db->where('first_member_do_date !=', "");
 
         $res = $this->db->get()->result_array();
     
-        
+        // print_r($res);
         function even($var)
         {
             return($var['year'] == $_SESSION['year']);
@@ -905,6 +905,7 @@ class Mod_voice_trial extends CI_Model
 
         $sub =  array_filter($res, "even");
         sort($sub);
+      
 
         for ($i=0; $i < count($sub); $i++) {
             # code...
@@ -918,6 +919,7 @@ class Mod_voice_trial extends CI_Model
                     'year' => $sub[$i]['year'],
                     'ladder' => $sub[$i]['ladder'],                    
                     'area_name'=>$sub[$i]['area_name'],
+                    'do_date' => $sub[$i]['first_member_do_date'],
                     'member_unit' => $supervisor1['member_unit'],
                     'member_name'=> $supervisor1['member_name'],
                     'member_code' =>$supervisor1['member_code'],

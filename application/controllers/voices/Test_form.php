@@ -1256,6 +1256,7 @@ class Test_form extends CI_Controller
         }
         // print_r($arr);
         for ($i=0; $i < count($arr); $i++) {
+            // print_r($arr[$i]);
             # code...
             $objPHPExcel->getActiveSheet()->setCellValue('A1', '學年度');
             $objPHPExcel->getActiveSheet()->setCellValue('B1', '場次');
