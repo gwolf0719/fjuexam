@@ -400,7 +400,7 @@
                 var sn = $("#sn").val();
                 console.log(sn);
                 $.ajax({
-                    url: 'api/remove_patrol_staff',
+                    url: './voice/api/remove_patrol_staff',
                     data: {
                         "sn": sn,
                     },
@@ -408,7 +408,7 @@
                 }).done(function(data) {
                     alert(data.sys_msg);
                     if (data.sys_code == "200") {
-                        location.reload();
+                        // location.reload();
                     }
                 })
             }

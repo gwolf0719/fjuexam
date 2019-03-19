@@ -955,6 +955,7 @@ class Api extends CI_Controller {
             $this->load->model('mod_voice_patrol');
             $getpost = array('sn');
             $requred = array('sn');
+           
             $data = $this->getpost->getpost_array($getpost, $requred);
             if ($data == false) {
                 $json_arr['sys_code'] = '000';
@@ -962,7 +963,7 @@ class Api extends CI_Controller {
                 $json_arr['requred'] = $this->getpost->report_requred($requred);
             } else {
                 $data['year'] = $this->session->userdata('year');
-                $this->mod_voice_patrol->remove_patrol_staff($data['sn'], $data);
+                $this->mod_voice_patrol->remove_patrol_staff($data['sn']);
                 $json_arr['sys_code'] = '200';
                 $json_arr['sys_msg'] = '資料刪除完成';
             }
