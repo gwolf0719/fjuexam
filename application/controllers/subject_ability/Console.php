@@ -254,7 +254,7 @@ class Console extends CI_Controller {
              copy($file, $file_name);
              $file = fopen($file_name, 'r');
              $datas = array();
-             fgetcsv($file);
+            //  fgetcsv($file);
              $start = $this->mod_ability_exam_area->get_min_start();
              $end = $this->mod_ability_exam_area->get_max_end();
              while (!feof($file)) {
@@ -301,7 +301,7 @@ class Console extends CI_Controller {
              $end_3 = $this->mod_ability_exam_area->get_max_end('2503');
              while (!feof($file)) {
                  $data = fgetcsv($file);
-                 print_r($data);
+                //  print_r($data);
                  $area_1[] = array(
                      'year' => $this->session->userdata('year'),
                      'area' => '第一分區',
@@ -333,14 +333,14 @@ class Console extends CI_Controller {
              fclose($file);
              unlink($file_name);
             //  print_r(fgetcsv($file));
-            //  redirect('subject_ability/a_4');
+             redirect('subject_ability/a_4');
          } elseif (isset($_FILES['inputGroupFile02'])) {
              $file = $_FILES['inputGroupFile02']['tmp_name'];
              $file_name = './tmp/'.time().'.csv';
              copy($file, $file_name);
              $file = fopen($file_name, 'r');
              $datas = array();
-             fgetcsv($file);
+            //  fgetcsv($file);
              $start_2 = $this->mod_ability_exam_area->get_min_start('2502');
              $end_2 = $this->mod_ability_exam_area->get_max_end('2502');
              while (!feof($file)) {
@@ -380,7 +380,7 @@ class Console extends CI_Controller {
              copy($file, $file_name);
              $file = fopen($file_name, 'r');
              $datas = array();
-             fgetcsv($file);
+            //  fgetcsv($file);
              $start_3 = $this->mod_ability_exam_area->get_min_start('2503');
              $end_3 = $this->mod_ability_exam_area->get_max_end('2503');
              while (!feof($file)) {
@@ -412,7 +412,7 @@ class Console extends CI_Controller {
              $this->mod_ability_task->import_3($area_3);
              fclose($file);
              unlink($file_name);
-             print_r(fgetcsv($file));
+            //  print_r(fgetcsv($file));
              redirect('subject_ability/a_4');
         } elseif (isset($_FILES['inputGroupFile04'])) {
             $file = $_FILES['inputGroupFile04']['tmp_name'];
@@ -420,7 +420,7 @@ class Console extends CI_Controller {
             copy($file, $file_name);
             $file = fopen($file_name, 'r');
             $datas = array();
-            fgetcsv($file);
+            // fgetcsv($file);
             $start_4 = $this->mod_ability_exam_area->get_min_start('2504');
             $end_4 = $this->mod_ability_exam_area->get_max_end('2504');
             while (!feof($file)) {
@@ -462,7 +462,7 @@ class Console extends CI_Controller {
             copy($file, $file_name);
             $file = fopen($file_name, 'r');
             $datas = array();
-            fgetcsv($file);
+            // fgetcsv($file);
             $start_5 = $this->mod_ability_exam_area->get_min_start('2505');
             $end_5 = $this->mod_ability_exam_area->get_max_end('2505');
             while (!feof($file)) {
@@ -494,7 +494,7 @@ class Console extends CI_Controller {
             $this->mod_ability_task->import_5($area_5);
             fclose($file);
             unlink($file_name);
-            print_r(fgetcsv($file));
+            // print_r(fgetcsv($file));
             redirect('subject_ability/a_4');
 
          } else {
