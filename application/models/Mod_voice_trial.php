@@ -892,6 +892,8 @@ class Mod_voice_trial extends CI_Model
         $this->db->join('voice_trial_assign', 'voice_area_main.field = voice_trial_assign.field');
 
         $this->db->where('first_member_do_date !=', "");
+        $this->db->where('voice_area_main.year=',$_SESSION['year']);
+        $this->db->where('voice_area_main.ladder=',$_SESSION['ladder']);
 
         $res = $this->db->get()->result_array();
     
@@ -906,11 +908,12 @@ class Mod_voice_trial extends CI_Model
         $sub =  array_filter($res, "even");
         sort($sub);
       
-
+        // print_r($sub);
         for ($i=0; $i < count($sub); $i++) {
             # code...
-            $supervisor1 = $this->db->where('member_code', $sub[$i]['supervisor_1_code'])->get('voice_import_member')->row_array();
-            $supervisor2 = $this->db->where('member_code', $sub[$i]['supervisor_2_code'])->get('voice_import_member')->row_array();
+            
+            $supervisor1 = $this->db->where('member_name', $sub[$i]['supervisor_1'])->get('voice_import_member')->row_array();
+            $supervisor2 = $this->db->where('member_name', $sub[$i]['supervisor_2'])->get('voice_import_member')->row_array();
             
 
             // foreach ($res as $k => $v) {
