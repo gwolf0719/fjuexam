@@ -681,47 +681,60 @@ class Mod_voice_trial extends CI_Model
 
     public function get_patrol_member_count_1($part = '')
     {
-        $this->db->select('*');
+
+        $this->db->where('year', $_SESSION['year']);
+        $this->db->where('ladder', $_SESSION['ladder']);
+        $this->db->where('supervisor_1!=', "");
         if ($part != '') {
-            $this->db->where('voice_area_main.part', $part);
+                $this->db->where('part', $part);
         }
-        $this->db->from('voice_area_main');
-        $this->db->join('voice_trial_assign', 'voice_area_main.sn = voice_trial_assign.sn');
+
+        $res=$this->db->get('voice_trial_assign')->result_array();
+        print_r($res);
+        print_r('wqewretr');
+        // $this->db->select('*');
+        // if ($part != '') {
+        //     $this->db->where('voice_area_main.part', $part);
+        // }
+        // $this->db->from('voice_area_main');
+        // $this->db->join('voice_trial_assign', 'voice_area_main.field = voice_trial_assign.field');
         
-        $year = $this->session->userdata('year');
-        $ladder = $this->session->userdata('ladder');
+        // $year = $this->session->userdata('year');
+        // $ladder = $this->session->userdata('ladder');
 
 
-        $res = $this->db->get()->result_array();
-        // print_r($res);
+        // $res = $this->db->get()->result_array();
+        // // print_r($res);
 
-        if(!empty($res)){
-            function odd($var)
-            {
-                return($var['year'] == $_SESSION['year']);
-            }
+        // if(!empty($res)){
+        //     function odd($var)
+        //     {
+        //         return($var['year'] == $_SESSION['year']);
+        //     }
 
-            $sub =  array_filter($res, "odd");
+        //     $sub =  array_filter($res, "odd");
 
-            sort($sub);
-            for ($i=0; $i < count($sub); $i++) {
+        //     sort($sub);
+        //     for ($i=0; $i < count($sub); $i++) {
                 
-                $voucher = $this->db->where('part', $part)->where('first_start <=', $sub[$i]['field'])->where('first_end >=', $sub[$i]['field'])->get('voice_trial_staff')->result_array();
-                foreach ($voucher as $k => $v) {
-                    # code...
-                    $arr[$v['trial_staff_code']][] = array(
-                        'trial_staff_name'=>$v['trial_staff_name'],
-                    );
-                }
-            }
-            if(!empty($arr)){
-                return count($arr);
-            }else{
-                return false;
-            }
-        }else{
-            return false;
-        }
+        //         $voucher = $this->db->where('part', $part)->where('first_start <=', $sub[$i]['field'])->where('first_end >=', $sub[$i]['field'])->get('voice_trial_staff')->result_array();
+        //         foreach ($voucher as $k => $v) {
+        //             # code...
+        //             $arr[$v['trial_staff_code']][] = array(
+        //                 'trial_staff_name'=>$v['trial_staff_name'],
+        //             );
+        //         }
+        //     }
+        //     // print_r($arr);
+        //     if(!empty($arr)){
+        //         // print_r($arr);
+        //         return count($arr);
+        //     }else{
+        //         return false;
+        //     }
+        // }else{
+        //     return false;
+        // }
     }
 
     public function get_supervisor_list($part = '')
