@@ -375,6 +375,7 @@ class Mod_voice_job_list extends CI_Model
                         'member_name'=>$member[$m]['member_name'],
                         'member_unit'=>$member[$m]['member_unit'],
                         'job'=>$res[$i]['job'],
+                        'note'=>$res[$i]['note'],
                     );
                 }
             }
@@ -382,21 +383,25 @@ class Mod_voice_job_list extends CI_Model
             for ($i=0; $i < count($sub); $i++) {
                 # code...
                 $member = $this->db->where('year', $this->session->userdata('year'))->where('member_code', $sub[$i]['supervisor_2_code'])->get('voice_import_member')->row_array();
-
+                $note1 = $this->db->select('note')->where('year', $this->session->userdata('year'))->where('ladder',$this->session->userdata('ladder'))->where('supervisor_1_code',$member['member_code'])->get('voice_trial_assign')->row_array();
                 $unit = $this->db->where('year', $this->session->userdata('year'))->where('unit', $member['unit'])->where('member_code',$member['member_code'])->get('voice_import_member')->row_array();
 
                 $member1 = $this->db->where('year', $this->session->userdata('year'))->where('member_code', $sub[$i]['supervisor_1_code'])->get('voice_import_member')->row_array();
+                $note2 = $this->db->select('note')->where('year', $this->session->userdata('year'))->where('ladder',$this->session->userdata('ladder'))->where('supervisor_2_code',$member['member_code'])->get('voice_trial_assign')->row_array();
                 $unit1 = $this->db->where('year', $this->session->userdata('year'))->where('unit', $member1['unit'])->where('member_code',$member1['member_code'])->get('voice_import_member')->row_array();
                 $arr[$unit['unit']][] = array(
                     'member_code'=>$member['member_code'],
                     'member_name'=>$member['member_name'],
                     'member_unit'=>$member['member_unit'],
+                    'member_unit'=>$member['member_unit'],
+                    'note'=>$note1['note'],
                     'job'=>'監試人員',
                 );  
                 $arr[$unit1['unit']][] = array(
                     'member_code'=>$member1['member_code'],
                     'member_name'=>$member1['member_name'],
                     'member_unit'=>$member1['member_unit'],
+                    'note'=>$note2['note'],
                     'job'=>'監試人員',
                 );                   
             }      
@@ -405,10 +410,12 @@ class Mod_voice_job_list extends CI_Model
                 # code...
                 $member = $this->db->where('year', $this->session->userdata('year'))->where('member_code', $trial_staff[$i]['trial_staff_code'])->get('voice_import_member')->row_array();
                 $unit = $this->db->where('year', $this->session->userdata('year'))->where('unit', $member['unit'])->where('member_code',$member['member_code'])->get('voice_import_member')->row_array();
+                $note = $this->db->select('note')->where('year', $this->session->userdata('year'))->where('ladder',$this->session->userdata('ladder'))->where('trial_staff_code',$member['member_code'])->get('voice_trial_staff')->row_array();
                 $arr[$unit['unit']][] = array(
                     'member_code'=>$member['member_code'],
                     'member_name'=>$member['member_name'],
                     'member_unit'=>$member['member_unit'],
+                    'note'=>$note['note'],
                     'job'=>'管卷人員',
                 );   
             }        
@@ -417,10 +424,12 @@ class Mod_voice_job_list extends CI_Model
                 # code...
                 $member = $this->db->where('year', $this->session->userdata('year'))->where('member_code', $patrol[$i]['patrol_staff_code'])->get('voice_import_member')->row_array();
                 $unit = $this->db->where('year', $this->session->userdata('year'))->where('unit', $member['unit'])->where('member_code',$member['member_code'])->get('voice_import_member')->row_array();
+                $note = $this->db->select('note')->where('year', $this->session->userdata('year'))->where('ladder',$this->session->userdata('ladder'))->where('patrol_staff_code',$member['member_code'])->get('voice_patrol_staff')->row_array();
                 $arr[$unit['unit']][] = array(
                     'member_code'=>$member['member_code'],
                     'member_name'=>$member['member_name'],
                     'member_unit'=>$member['member_unit'],
+                    'note'=>$note['note'],
                     'job'=>'巡場人員',
                 );   
             }            

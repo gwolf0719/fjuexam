@@ -47,7 +47,7 @@
                     <td  style="border: 1px solid #999999;" nowrap="nowrap"><?=$vc['member_name']?></td>
                     <td  style="border: 1px solid #999999;" nowrap="nowrap"><?=$vc['member_unit']?></td>
                     <td  style="border: 1px solid #999999;"></td>
-                    <td  style="border: 1px solid #999999;"></td>
+                    <td  style="border: 1px solid #999999;"><?=$vc['note']?></td>
                 </tr>
                 <?php endforeach; ?>
                 <tr>
