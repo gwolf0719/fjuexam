@@ -202,7 +202,7 @@ class Mod_voice_trial extends CI_Model
         }
     }
 
-    public function chk_d2($trial_staff_code){
+    public function chk_all_d($trial_staff_code){
         $this->db->where('year', $_SESSION['year']);
         $this->db->where('ladder', $_SESSION['ladder']);
         $this->db->where('supervisor_1_code',$trial_staff_code);
@@ -213,7 +213,14 @@ class Mod_voice_trial extends CI_Model
             $this->db->where('ladder', $_SESSION['ladder']);
             $this->db->where('trial_staff_code',$trial_staff_code);
             if($this->db->count_all_results('voice_trial_staff') == 0){
-                return false;
+                $this->db->where('year', $_SESSION['year']);
+                $this->db->where('ladder', $_SESSION['ladder']);
+                $this->db->where('patrol_staff_code',$trial_staff_code);
+                if($this->db->count_all_results('voice_patrol_staff') == 0){
+                    return false;
+                }else{
+                    return true;
+                }
             }else{
                 return true;
             }
