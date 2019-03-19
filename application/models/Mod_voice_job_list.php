@@ -353,7 +353,7 @@ class Mod_voice_job_list extends CI_Model
         $this->db->where('voice_trial_assign.supervisor_2_code !=',"");
         $year = $this->session->userdata('year');
         $sub = $this->db->get()->result_array();
-        print_r($sub);
+        // print_r($sub);
 
         //取出管卷人員
         $this->db->where('year', $this->session->userdata('year'));
@@ -411,7 +411,7 @@ class Mod_voice_job_list extends CI_Model
             
             for ($i=0; $i < count($trial_staff); $i++) {
                 # code...
-                $member = $this->db->where('year', $this->session->userdata('year'))->where('member_code', $trial_staff[$i]['trial_staff_code'])->get('voice_import_member')->row_array();
+                $member = $this->db->where('year', $this->session->userdata('year'))->where('member_name', $trial_staff[$i]['trial_staff_name'])->get('voice_import_member')->row_array();
                 $unit = $this->db->where('year', $this->session->userdata('year'))->where('unit', $member['unit'])->where('member_code',$member['member_code'])->get('voice_import_member')->row_array();
                 $note = $this->db->select('note')->where('year', $this->session->userdata('year'))->where('ladder',$this->session->userdata('ladder'))->where('trial_staff_code',$member['member_code'])->get('voice_trial_staff')->row_array();
                 $arr[$unit['unit']][] = array(
@@ -425,7 +425,7 @@ class Mod_voice_job_list extends CI_Model
             
             for ($i=0; $i < count($patrol); $i++) {
                 # code...
-                $member = $this->db->where('year', $this->session->userdata('year'))->where('member_code', $patrol[$i]['patrol_staff_code'])->get('voice_import_member')->row_array();
+                $member = $this->db->where('year', $this->session->userdata('year'))->where('member_name', $patrol[$i]['patrol_staff_name'])->get('voice_import_member')->row_array();
                 $unit = $this->db->where('year', $this->session->userdata('year'))->where('unit', $member['unit'])->where('member_code',$member['member_code'])->get('voice_import_member')->row_array();
                 $note = $this->db->select('note')->where('year', $this->session->userdata('year'))->where('ladder',$this->session->userdata('ladder'))->where('patrol_staff_code',$member['member_code'])->get('voice_patrol_staff')->row_array();
                 $arr[$unit['unit']][] = array(
