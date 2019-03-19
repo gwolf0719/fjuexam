@@ -167,12 +167,12 @@ class Console extends CI_Controller {
                  $datas[] = array(
                       'sn' => uniqid(),
                       'year' => $this->session->userdata('year'),
-                      'department' => $data[1],
-                      'code' => $data[2],
-                      'company_name_01' => $data[3],
-                    //   'company_name_02' => $data[4],
+                      'department' => $data[0],
+                      'code' => $data[1],
+                      'company_name_01' => $data[2],
+                      'company_name_02' => $data[3],
                   );
-                 // print_r($datas); 
+                //  print_r($datas); 
              }
              // echo json_encode($datas);
  

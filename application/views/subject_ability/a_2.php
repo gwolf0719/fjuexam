@@ -208,6 +208,7 @@ tr{
                     <td><?=$v['year']; ?></td>
                     <td><?=$v['department']; ?></td>
                     <td><?=$v['code']; ?></td>
+                 
                     <td><?=$v['company_name_01']; ?></td>
                     <td><?=$v['company_name_02']; ?></td>
                     
