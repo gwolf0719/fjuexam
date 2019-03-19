@@ -1286,6 +1286,7 @@ class Mod_voice_trial extends CI_Model
                     'one_day_salary'=>$res[$i]['salary'],
                     'salary_total'=>$res[$i]['salary_total'],
                     'total'=>$res[$i]['total'],
+                    'note'=>$res[$i]['note'],
                 );
 
             }
@@ -1362,6 +1363,7 @@ class Mod_voice_trial extends CI_Model
                     'one_day_salary'=>$res[$i]['salary'],
                     'salary_total'=>$res[$i]['salary_total'],
                     'total'=>$res[$i]['total'],
+                    'note'=>$res[$i]['note'],
                 );
 
             }

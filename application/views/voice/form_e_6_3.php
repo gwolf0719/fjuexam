@@ -68,7 +68,7 @@
         </td> -->
         <td colspan="2" class="bb" style="font-size:18px;font-weight:bold;"><?=number_format($v['total'])?></td>
         <td colspan="2" class="bb"></td>
-        <td colspan="2" class="bb"></td>
+        <td colspan="2" class="bb"><?=$v['note']?></td>
     </tr>
     <?php endforeach; ?>
     <tr>

@@ -748,6 +748,7 @@ class Mod_voice_job_list extends CI_Model
                     'one_day_salary'=>$res[$i]['one_day_salary'] * count($do_date),
                     'salary_total'=>$res[$i]['salary_total'],
                     'total'=>$res[$i]['total'],
+                    'note'=>$res[$i]['note'],
                 );
 
             }
