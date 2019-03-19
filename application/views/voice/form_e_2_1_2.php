@@ -36,7 +36,7 @@
     </tr>
     <tr>
         <td colspan="2" style="font-size:22px;text-align:left;padding:20px 0px">分區：<?=$area?></td>
-        <td colspan="3" style="font-size:22px;text-align:right;padding:20px 0px"><?=$school['area_name']?> </td>
+        <td colspan="3" style="font-size:22px;position: fixed;text-align: left;padding:20px 0px;left: 40%;"><?=$school['area_name']?> </td>
         <!-- <td colspan="1" style="font-size:22px;text-align:right;padding:20px 0px"></td> -->
     </tr>
     <tr>
