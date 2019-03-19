@@ -358,7 +358,7 @@ class Mod_voice_trial extends CI_Model
             $res[$k]['do_date'] = $res[$k]['first_member_do_date'];
              // 預先宣告要有設定人的才找資料
                 if($res[$k]['supervisor_1_code'] != ""){
-                    $supervisor1 = $this->db->where('member_code', $res[$k]['supervisor_1_code'])->get('voice_import_member')->row_array();
+                    $supervisor1 = $this->db->where('member_name', $res[$k]['supervisor_1'])->where('ladder',$this->session->userdata('ladder'))->where('year',$this->session->userdata('year'))->get('voice_import_member')->row_array();
                     $res[$k]['supervisor_1_unit'] = $supervisor1['member_unit'];
                     $res[$k]['supervisor_1_phone'] =  $supervisor1['member_phone'];
                 }else{
@@ -367,7 +367,7 @@ class Mod_voice_trial extends CI_Model
                 }
                 
                 if($res[$k]['supervisor_2_code'] != ""){
-                    $supervisor2 = $this->db->where('member_code', $res[$k]['supervisor_2_code'])->get('voice_import_member')->row_array();
+                    $supervisor2 = $this->db->where('member_name', $res[$k]['supervisor_2'])->where('ladder',$this->session->userdata('ladder'))->where('year',$this->session->userdata('year'))->get('voice_import_member')->row_array();
                     // print_r($supervisor2);
                     $res[$k]['supervisor_2_unit'] = $supervisor2['member_unit'];
                     $res[$k]['supervisor_2_phone'] = $supervisor2['member_phone'];

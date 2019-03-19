@@ -115,7 +115,7 @@ class Test_form extends CI_Controller
        
        
         if($data['part'] != false){
-          $view =  $this->load->view('voice/form_e1_3', $data, true);
+        $view =  $this->load->view('voice/form_e1_3', $data, true);
           if (!is_dir('./html/')) {
               mkdir('./html/');
           } else {
