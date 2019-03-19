@@ -1185,11 +1185,16 @@ class Test_form extends CI_Controller
         $this->load->model('mod_voice_trial');
         $this->load->model('mod_voice_exam_area');
         $this->load->model('mod_voice_area');
+        $this->load->model('mod_voice_exam_datetime');
         $block_name = $this->input->get('block_name');
         $data_list = $this->mod_voice_area->total_list_by_part_name($block_name);
-        
+        $year=$_SESSION['year'];
+        $ladder=$_SESSION['ladder'];
+        $date = $this->mod_voice_exam_datetime->get_once($year,$ladder);
+        // print_r($date);
         $data = array(
             'data_list'=>$data_list,
+            'date'=>$date,
 
         );
        

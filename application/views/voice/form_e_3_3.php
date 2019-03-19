@@ -36,7 +36,7 @@
         <td width="100%" colspan="7" style="font-size:26px;text-align:center;"><?=$_SESSION['year']?>學年度英語聽力測驗<?=$_SESSION['ladder']?>考試新北一考區</td>
     </tr>
     <tr>
-        <td width="100%" colspan="7" style="font-size:22px;text-align:left;">測驗日期：10月27日</td>
+        <td width="100%" colspan="7" style="font-size:22px;text-align:left;">測驗日期：<?=$date['day']?></td>
     </tr>
 
     <tr>
