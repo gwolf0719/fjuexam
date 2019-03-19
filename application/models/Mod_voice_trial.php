@@ -1425,7 +1425,7 @@ class Mod_voice_trial extends CI_Model
             $this->db->not_like('voice_area_main.field', '9','after');
         }
         $this->db->from('voice_area_main');
-        $this->db->join('voice_trial_assign', 'voice_area_main.sn = voice_trial_assign.sn');
+        $this->db->join('voice_trial_assign', 'voice_area_main.field = voice_trial_assign.field');
         
         // $this->db->where('first_member_do_date !=', "");
         $year = $this->session->userdata('year');
@@ -1443,6 +1443,7 @@ class Mod_voice_trial extends CI_Model
             $sub =  array_filter($res, "even");
 
             sort($sub);
+            // print_r($sub);
 
 
             for ($i=0; $i < count($sub); $i++) {
@@ -1487,6 +1488,7 @@ class Mod_voice_trial extends CI_Model
                     'supervisor_code'=>$sub[$i]['supervisor_2_code'],
                 ); 
             }
+            // print_r($arr);
             return $arr;
         }else{
             return false;

@@ -2014,6 +2014,7 @@ class Test_form extends CI_Controller
         $supervisor_codes = array();
         $i = 0;
         foreach($this->mod_voice_trial->get_trial_moneylist_for_csv($part,'') as $k=>$v){
+            // print_r($v['salary_section']);
             if($v['salary_section'] != 0){ //有費用的才列出來
                 $key = array_search($v['supervisor_code'],$supervisor_codes);
                 if($key === false){ //如果不曾出現過
@@ -2027,8 +2028,8 @@ class Test_form extends CI_Controller
             
             
         }
-        // $arr = $this->mod_voice_trial->get_trial_moneylist_for_csv($part);
         // print_r($arr);
+        // $arr = $this->mod_voice_trial->get_trial_moneylist_for_csv($part);
         for ($i=0; $i < count($arr); $i++) {
             # code...
 
