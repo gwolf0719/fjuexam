@@ -940,8 +940,21 @@ class Mod_voice_trial extends CI_Model
                 );                
             // }
         }
+
+
+        $result = array();
+        
+        foreach($arr as $val){
+            $key = $val['member_name'];                           //填入要塞選的項目
+            if(!isset($result[$key])){
+                $result[$key] = $val;
+            }else{
+                
+            }
+        }
+        // print_r($result);
         // print_r($arr);
-        return $arr;
+        return $result;
     }
 
     public function e_6_1($part = '')
