@@ -771,7 +771,7 @@ class Api extends CI_Controller {
     {
 
         $this->load->model('mod_voice_patrol');
-        $getpost = array('sn','count', 'salary', 'salary_total', 'total','note');
+        $getpost = array('sn','count', 'salary', 'salary_total', 'total','note','do_date');
         $requred = array('sn');
         $data = $this->getpost->getpost_array($getpost, $requred);
         if ($data == false) {
@@ -975,7 +975,7 @@ class Api extends CI_Controller {
             $this->load->model('mod_voice_exam_datetime');
             $this->load->model('Mod_voice_test_pay');
             $this->load->model('mod_voice_staff');
-            $getpost = array('part', 'allocation_code', 'patrol_staff_code', 'patrol_staff_name',  'start', 'end', 'first_section', 'second_start', 'second_end', 'second_section', 'note');
+            $getpost = array('part', 'allocation_code', 'patrol_staff_code', 'patrol_staff_name',  'start', 'end', 'first_section', 'second_start', 'second_end', 'second_section', 'note', 'do_date');
             $requred = array('part', 'allocation_code', 'patrol_staff_code', 'patrol_staff_name');
             $data = $this->getpost->getpost_array($getpost, $requred);
             if ($data == false) {
@@ -1086,7 +1086,7 @@ class Api extends CI_Controller {
         {
             $this->load->model('mod_voice_trial');
             $this->load->model('mod_voice_test_pay');
-            $getpost = array('sn', 'part', 'allocation_code', 'trial_staff_code', 'trial_staff_name', 'first_start', 'first_end', 'first_section', 'second_start', 'second_end', 'second_section','note');
+            $getpost = array('sn', 'part', 'allocation_code', 'trial_staff_code', 'trial_staff_name', 'first_start', 'first_end', 'first_section', 'second_start', 'second_end', 'second_section','note','do_date');
             $requred = array('sn', 'part', 'allocation_code', 'trial_staff_code', 'trial_staff_name');
             $data = $this->getpost->getpost_array($getpost, $requred);
             if ($data == false) {
