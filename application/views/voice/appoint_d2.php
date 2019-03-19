@@ -370,6 +370,8 @@
                 var first_end = $("#first_end").val();
                 var second_start = $("#second_start").val();
                 var second_end = $("#second_end").val();
+                var date = $("#morning_field").attr("date");
+                console.log(date);
                 if(first_start != "" && first_end != ""){
                     var first_section = 1;
                 }else{
@@ -397,7 +399,8 @@
                         "second_start": second_start,
                         "second_end": second_end,
                         "second_section": second_section,
-                        "note": note
+                        "note": note,
+                        "do_date": date,
                     },
                     dataType: "json"
                 }).done(function(data) {
@@ -441,6 +444,8 @@
                 var first_end = $("#first_end").val();
                 var second_start = $("#second_start").val();
                 var second_end = $("#second_end").val();
+                var date = $("#morning_field").attr("date");
+                console.log(date);
                 if(first_start != "" && first_end != ""){
                     var first_section = 1;
                 }else{
@@ -474,13 +479,13 @@
                         "second_end": second_end,
                         "second_section": second_section,
                         "note": note,
-                        "do_date":do_date
+                        "do_date":date
                     },
                     dataType: "json"
                 }).done(function(data) {
                     alert(data.sys_msg);
                     if (data.sys_code == "200") {
-                        window.location.reload();
+                        // window.location.reload();
                     }
                 })
             }
@@ -740,7 +745,7 @@
                         <button type="button" class="btn btn-primary assgin" data-toggle="modal" data-target="#exampleModal" style="float:left;width:20%;margin-left:5px;background:#346a90;border:unset">指派</button>
                     </div>
                 </div>
-                <div class="col-md-3 col-sm-3 col-xs-3 cube" style="max-width: 20%; " id="morning_field"> 
+                <div class="col-md-3 col-sm-3 col-xs-3 cube" style="max-width: 20%; " id="morning_field" date='<?=$datetime_info['day']; ?>'> 
                     <p style="text-align:center">上午場
                         <?=$datetime_info['day']; ?>
                     </p>
