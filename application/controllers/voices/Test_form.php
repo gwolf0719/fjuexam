@@ -1962,7 +1962,11 @@ class Test_form extends CI_Controller
         $objPHPExcel = new PHPExcel();
         $objPHPExcel->setActiveSheetIndex(0);
         $arr = $this->mod_voice_job_list->get_all_assign_member_list();
-        for ($i=0; $i < count($arr); $i++) {
+        // print_r($arr);
+        // for ($i=0; $i < count($arr); $i++) {
+            $i=0;
+            foreach ($arr as $key => $value) {
+        
             # code...
 
             $objPHPExcel->getActiveSheet()->getStyle()->getNumberFormat()->setFormatCode();
@@ -1972,12 +1976,13 @@ class Test_form extends CI_Controller
             $objPHPExcel->getActiveSheet()->setCellValue('D1', '職稱');
             $objPHPExcel->getActiveSheet()->setCellValue('E1', '執勤日期');
 
-
-            $objPHPExcel->getActiveSheet()->setCellValue('A'.(2+$i), (string)$arr[$i]['job_code'],PHPExcel_Cell_DataType::TYPE_STRING);
-            $objPHPExcel->getActiveSheet()->setCellValue('B'.(2+$i), $arr[$i]['name']);
-            $objPHPExcel->getActiveSheet()->setCellValue('C'.(2+$i), $arr[$i]['member_unit']);
-            $objPHPExcel->getActiveSheet()->setCellValue('D'.(2+$i), $arr[$i]['job']);
-            $objPHPExcel->getActiveSheet()->setCellValue('E'.(2+$i), $arr[$i]['do_date']);
+            
+            $objPHPExcel->getActiveSheet()->setCellValue('A'.(2+$i), (string)$value['job_code'],PHPExcel_Cell_DataType::TYPE_STRING);
+            $objPHPExcel->getActiveSheet()->setCellValue('B'.(2+$i), $value['name']);
+            $objPHPExcel->getActiveSheet()->setCellValue('C'.(2+$i), $value['member_unit']);
+            $objPHPExcel->getActiveSheet()->setCellValue('D'.(2+$i), $value['job']);
+            $objPHPExcel->getActiveSheet()->setCellValue('E'.(2+$i), $value['do_date']);
+            $i=$i+1;
         }
 
         $objWriter = PHPExcel_IOFactory::createWriter($objPHPExcel, 'CSV');
