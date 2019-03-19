@@ -1602,13 +1602,18 @@ class Test_form extends CI_Controller
         $objPHPExcel = new PHPExcel();
         $objPHPExcel->setActiveSheetIndex(0);
         $arr = $this->mod_voice_trial->get_list_for_csv();
-        for ($i=0; $i < count($arr); $i++) {
+        // for ($i=0; $i < count($arr); $i++) {
+            $i=0;
+            foreach ($arr as $key => $value) {
+       
+            
             # code...
             $objPHPExcel->getActiveSheet()->setCellValue('A1', '單位');
             $objPHPExcel->getActiveSheet()->setCellValue('B1', '監試人員');
 
-            $objPHPExcel->getActiveSheet()->setCellValue('A'.(2+$i), $arr[$i]['member_unit']);
-            $objPHPExcel->getActiveSheet()->setCellValue('B'.(2+$i), $arr[$i]['member_name']);
+            $objPHPExcel->getActiveSheet()->setCellValue('A'.(2+$i), $value['member_unit']);
+            $objPHPExcel->getActiveSheet()->setCellValue('B'.(2+$i), $value['member_name']);
+            $i=$i+1;
         }
 
         $objWriter = PHPExcel_IOFactory::createWriter($objPHPExcel, 'CSV');
