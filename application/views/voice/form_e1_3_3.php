@@ -56,6 +56,7 @@
                 <?=$v['name']; ?>
             </td>
             <td class="bb">
+            <?=$v['note']; ?>
             </td>
         </tr>
         <?php endforeach; ?>
