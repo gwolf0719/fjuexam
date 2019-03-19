@@ -208,6 +208,8 @@ class Console extends CI_Controller {
              while (!feof($file)) {
                  $data = fgetcsv($file);
                  if ($data[0] != '') {
+                     if(!isset($data[6])){$data[6]='';}
+                     if(!isset($data[7])){$data[7]='';}
                      $datas[] = array(
                          'year' => $this->session->userdata('year'),
                          'member_code' => $data[0],
