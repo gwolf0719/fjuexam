@@ -794,7 +794,7 @@ class Mod_voice_trial extends CI_Model
                 # code...
                 $supervisor1 = $this->db->where('member_code', $sub[$i]['supervisor_1_code'])->get('voice_import_member')->row_array();
                 $supervisor2 = $this->db->where('member_code', $sub[$i]['supervisor_2_code'])->get('voice_import_member')->row_array();
-                $voucher = $this->db->where('part', $part)->where('first_start <=', $sub[$i]['field'])->where('first_end >=', $sub[$i]['field'])->get('voice_trial_staff')->row_array();
+                $voucher = $this->db->where('part', $part)->where('start <=', $sub[$i]['field'])->where('end >=', $sub[$i]['field'])->get('voice_patrol_staff')->row_array();
                 $course = $this->db->where('year', $year)->where('field', $sub[$i]['field'])->get('voice_exam_area')->row_array();
                 $trial = $this->db->get('voice_trial_staff')->result_array();
                 # code...
@@ -809,7 +809,7 @@ class Mod_voice_trial extends CI_Model
                     'supervisor_1'=>$sub[$i]['supervisor_1'],
                     'supervisor_2'=>$sub[$i]['supervisor_2'],
                     'allocation_code'=>$voucher['allocation_code'],
-                    'voucher'=>$voucher['trial_staff_name']
+                    'voucher'=>$voucher['patrol_staff_name']
                 );        
             }
             return $arr;
