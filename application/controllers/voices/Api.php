@@ -543,7 +543,7 @@ class Api extends CI_Controller {
             $json_arr['sys_msg'] = '資料不足';
             $json_arr['requred'] = $this->getpost->report_requred($requred);
         } else {
-            if($this->mod_voice_trial->chk_trial_assigned($data['job_code'])){
+            if($this->mod_voice_trial->chk_d2($data['job_code'])){
                 $json_arr['sys_code'] = '500';
                 $json_arr['sys_msg'] = '該人員已經被指派過，請選擇其他人員';
             // }else if($this->mod_voice_job_list->chk_job_code($data['job_code'])){

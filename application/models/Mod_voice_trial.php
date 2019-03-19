@@ -188,7 +188,7 @@ class Mod_voice_trial extends CI_Model
     }
 
       /**
-     * 檢查監試人員是否指派過
+     * 檢查監試人員是否指派過D1專用
      */
      public function chk_trial_assigned($trial_staff_code){
         $this->db->where('year', $_SESSION['year']);
@@ -201,6 +201,27 @@ class Mod_voice_trial extends CI_Model
             return true;
         }
     }
+
+    public function chk_d2($trial_staff_code){
+        $this->db->where('year', $_SESSION['year']);
+        $this->db->where('ladder', $_SESSION['ladder']);
+        $this->db->where('supervisor_1_code',$trial_staff_code);
+        $this->db->or_where('supervisor_2_code',$trial_staff_code);
+        if($this->db->count_all_results('voice_trial_assign') == 0){
+
+            $this->db->where('year', $_SESSION['year']);
+            $this->db->where('ladder', $_SESSION['ladder']);
+            $this->db->where('trial_staff_code',$trial_staff_code);
+            if($this->db->count_all_results('voice_trial_staff') == 0){
+                return false;
+            }else{
+                return true;
+            }
+        }else{
+            return true;
+        }
+    }
+
     public function chk_trial($sn)
     {
         $this->db->where('sn', $sn);
