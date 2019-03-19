@@ -950,7 +950,7 @@ class Mod_voice_trial extends CI_Model
      
         $this->db->not_like('voice_area_main.field', '9','after');
         $this->db->from('voice_area_main');
-        $this->db->join('voice_trial_assign', 'voice_area_main.sn = voice_trial_assign.sn');
+        $this->db->join('voice_trial_assign', 'voice_area_main.field = voice_trial_assign.field');
         $year = $this->session->userdata('year');
         $ladder = $this->session->userdata('ladder');
     
