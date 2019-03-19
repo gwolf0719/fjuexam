@@ -64,7 +64,16 @@
                 <?=$v['job_title']; ?>
             </td>
             <td class="bb" colspan="3">
-                <?=$v['do_date']; ?>
+                <?php 
+                
+                $date= explode(",",$v['do_date']);
+                echo $date[0];
+                
+                
+                
+                
+                ?>
+                
             </td>
         </tr>
         <?php endforeach; ?>

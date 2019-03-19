@@ -245,13 +245,14 @@ class Mod_voice_job_list extends CI_Model
             # code...
             $trial_staff_member = $this->db->where('member_name', $trial_staff[$i]['trial_staff_name'])->get('voice_import_member')->row_array();
             if($trial_staff[$i]['trial_staff_code'] != ""){
+                $date = explode("年",$trial_staff[$i]['do_date']);
                 $arr[] = array(
                     'job_code' => $trial_staff[$i]['trial_staff_code'],
                     'job' => '管卷人員',
                     'name' => $trial_staff[$i]['trial_staff_name'],
                     'job_title' => $trial_staff_member['member_title'],
                     'member_unit'=>$trial_staff_member['member_unit'],
-                    'do_date' => $trial_staff[$i]['do_date']
+                    'do_date' => $date[1],
                 );
             }
         }    
@@ -260,13 +261,14 @@ class Mod_voice_job_list extends CI_Model
             # code...
             $patrol_member = $this->db->where('member_name', $patrol[$i]['patrol_staff_name'])->get('voice_import_member')->row_array();
             if($patrol[$i]['patrol_staff_code'] != ""){
+                $date = explode("年",$patrol[$i]['do_date']);
                 $arr[] = array(
                     'job_code' => $patrol[$i]['patrol_staff_code'],
                     'job' => '巡場人員',
                     'name' => $patrol[$i]['patrol_staff_name'],
                     'job_title' => $patrol_member['member_title'],
                     'member_unit'=>$patrol_member['member_unit'],
-                    'do_date' => $patrol[$i]['do_date']
+                    'do_date' => $date[1],
                 );
             }
         }
