@@ -114,14 +114,13 @@ class Mod_ability_trial extends CI_Model
 
             $assign = array();
             $this->db->where('year',$this->session->userdata('year'));
+            $this->db->where('sn',$value['sn']);
+            // if($part!=""){
+            //     $this->db->where('part',$part);
+            // }
+            
 
-    
-            // print_r($part);
-            if($part!=""){
-                $this->db->where('part',$part);
-            }
-          
-            $assign = $this->db->get('voice_trial_assign')->result_array();
+            $assign = $this->db->get('ability_trial_assign')->result_array();
             // print_r($assign);
     
             if(empty($assign)){
@@ -130,7 +129,7 @@ class Mod_ability_trial extends CI_Model
 
   
                 
-            
+                
                 $res[$key]['field'] = $value['field'];            
                 $res[$key]['trial_staff_code_1'] = $assign[0]['trial_staff_code_1'];
                 $res[$key]['supervisor_1'] = $assign[0]['supervisor_1'];
@@ -142,7 +141,13 @@ class Mod_ability_trial extends CI_Model
             }
         }
         $res = array_values($res);
-        // print_r($res);
+        for ($i=0; $i <count($res); $i++) { 
+            # code...
+            if($res[$i]['field']=='100645'){
+                // print_r($res[$i]);
+
+            }
+        }
         return $res;
     }
 

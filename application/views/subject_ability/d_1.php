@@ -331,9 +331,9 @@
                 var part = $("#part").val();
                 var field = $("#field").val();
                 var supervisor_1 = $("#supervisor_1").val();
-                var supervisor_1_code = $("#supervisor_1_code").val();
+                var supervisor_1_code = $("#trial_staff_code_1").val();
                 var supervisor_2 = $("#supervisor_2").val();
-                var supervisor_2_code = $("#supervisor_2_code").val();
+                var supervisor_2_code = $("#trial_staff_code_2").val();
                 var trial_staff_code_1 = $("#trial_staff_code_1").val();
                 var trial_staff_code_2 = $("#trial_staff_code_2").val();
                 var note = $("textarea[name='note']").val();
@@ -486,6 +486,7 @@
                 </tr>
             </thead>
             <tbody>
+        
                 <?php foreach ($part1 as $k => $v): ?>
                 <tr sn="<?=$v['sn']; ?>" part="2501" field="<?=$v['field']?>">
                     <td>
