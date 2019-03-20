@@ -8,11 +8,8 @@ class Mod_voice_staff extends CI_Model
       //工作人員寫入
     function insert_job($data)
     {
-        $where = array(
-            'year'=>$this->session->userdata('year'),
-            "ladder"=>$this->session->userdata('ladder')
-        );
-        $this->db->where($where);
+        $this->db->where('year', $this->session->userdata('year'));
+        $this->db->where('ladder',$this->session->userdata('ladder'));
         $this->db->delete('voice_import_member');
         $this->db->insert_batch('voice_import_member', $data);
     }
@@ -88,7 +85,10 @@ class Mod_voice_staff extends CI_Model
         //     'note' =>'', 
         
         // );
-        $this->db->where('year', $this->session->userdata('year'))->where('ladder', $this->session->userdata('ladder'))->truncate('voice_trial_staff');
+        $this->db->where('year', $this->session->userdata('year'));
+        $this->db->where('ladder',$this->session->userdata('ladder'));
+        $this->db->delete('voice_trial_staff');
+        // $this->db->where('year', $this->session->userdata('year'))->where('ladder', $this->session->userdata('ladder'))->truncate('voice_trial_staff');
         // $this->db->where('year', $this->session->userdata('year'))->where('ladder', $this->session->userdata('ladder'))->update('voice_trial_staff',$datas);
     }
     public function remove_voice_patrol_staff()
@@ -116,7 +116,10 @@ class Mod_voice_staff extends CI_Model
         //     'note' =>'', 
         
         // );
-        $this->db->where('year', $this->session->userdata('year'))->where('ladder', $this->session->userdata('ladder'))->truncate('voice_patrol_staff');
+        $this->db->where('year', $this->session->userdata('year'));
+        $this->db->where('ladder',$this->session->userdata('ladder'));
+        $this->db->delete('voice_patrol_staff');
+        // $this->db->where('year', $this->session->userdata('year'))->where('ladder', $this->session->userdata('ladder'))->truncate('voice_patrol_staff');
 
         // $this->db->where('year', $this->session->userdata('year'))->where('ladder', $this->session->userdata('ladder'))->update('voice_patrol_staff',$datas);
     }
