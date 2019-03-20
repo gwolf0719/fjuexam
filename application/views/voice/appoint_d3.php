@@ -188,6 +188,8 @@
     $(function() {
 
         init();
+        var a=$('.tab1').attr('part');
+        $('#part').val(a);
         //tab設定
         var nowHash = location.hash; //取得loading進來後目前#
         var nowTabNum = nowHash.slice(-1);
@@ -206,21 +208,29 @@
             switch (nowHash) {
                 case "":
                     $('.tab1').addClass('active');
+                    var a=$('.tab1').attr('part');
+                    $('#part').val(a);
                     $(".part").hide();
                     $('#part1').show();
                     break;                   
                 case "#1":
                     $('.tab1').addClass('active');
+                    var a=$('.tab1').attr('part');
+                    $('#part').val(a);
                     $(".part").hide();
                     $('#part' + nowTabNum).show();
                     break;                    
                 case "#2":
                     $('.tab2').addClass('active');
+                    var a=$('.tab2').attr('part');
+                    $('#part').val(a);
                     $(".part").hide();                
                     $('#part' + nowTabNum).show();
                     break;
                 case "#3":
                     $('.tab3').addClass('active');
+                    var a=$('.tab3').attr('part');
+                    $('#part').val(a);
                     $(".part").hide();                 
                     $('#part' + nowTabNum).show();
                     break;
@@ -297,6 +307,7 @@
             $("#remove").attr('disabled',false);
             $("#fresh").attr('disabled',false);
             $("#add").attr('disabled',true);
+            $("#part").val(part);
 
 
             $("html, body").animate({
@@ -723,7 +734,7 @@
                     <div class="form-group" style="width: 100%;float: left;">
                         <label for="floor" class="" style="float:left;">巡場人員</label>
                         <input type="hidden" class="form-control" id="sn">
-                        <input type="hidden" class="form-control" id="part" value="2501">
+                        <input type="hidden" class="form-control" id="part" value="">
                         <input type="text" class="form-control" id="allocation_code" style="width: 25%;float: left;" placeholder="巡場人員編號">
                         <input type="hidden" class="form-control" id="patrol_staff_code" style="width: 20%;float: left;" placeholder="">
                         <input type="text" class="form-control" id="patrol_staff_name" style="width: 25%;float: left;margin-left: 5px;">
