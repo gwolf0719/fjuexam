@@ -229,8 +229,8 @@
             chk_code_use(arr[0],function(params) {
                 if(params){
                     // alert(arr);
-                    $("#supervisor_1").val(arr);
-                    $("#supervisor_1_code").val(arr[0]);
+                    $("#supervisor_1").val(arr[1]);
+                    $("#trial_staff_code_1").val(arr[0]);
                     $('#exampleModal1').modal('hide');
                 }
             })
@@ -240,8 +240,8 @@
             var arr = $("#number_2").val().split(" - ");
             chk_code_use(arr[0],function(params) {
                 if(params){
-                    $("#supervisor_2").val(arr);
-                    $("#supervisor_2_code").val(arr[0]);
+                    $("#supervisor_2").val(arr[1]);
+                    $("#trial_staff_code_2").val(arr[0]);
                     $('#exampleModal2').modal('hide');
                 }
             })

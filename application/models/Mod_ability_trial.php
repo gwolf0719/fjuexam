@@ -53,7 +53,7 @@ class Mod_ability_trial extends CI_Model
 
     public function year_get_list()
     {
-        return $this->db->where('year', $this->session->userdata('year'))->get('ability_trial_assign')->result_array();
+        return $this->db->where('year', $thability_trial_assignis->session->userdata('year'))->get('ability_trial_assign')->result_array();
     }
 
     public function chk_once($sn)
@@ -86,6 +86,64 @@ class Mod_ability_trial extends CI_Model
         $this->db->from('ability_part_info');
         $this->db->join('ability_trial_assign', 'ability_part_info.sn = ability_trial_assign.sn');
         return $this->db->get()->result_array();
+    }
+    public function new_get_list($part = '')
+    {
+
+       $this->db->where('year', $this->session->userdata('year'));
+       if ($part != '') {
+           $this->db->where('part', $part);
+       }
+
+
+       $res = array();
+        foreach ($this->db->get('ability_part_info')->result_array() as $key => $value) {
+          
+            # code...
+            $res[$key]=$value;
+            $res[$key]['trial_staff_code_1'] = '';
+            $res[$key]['supervisor_1'] = '';
+            $res[$key]['supervisor_1_code'] = '';
+            $res[$key]['trial_staff_code_2'] = '';
+            $res[$key]['supervisor_2'] = '';
+            $res[$key]['supervisor_2_code'] = '';
+            $res[$key]['note'] = '';
+
+            
+
+
+            $assign = array();
+            $this->db->where('year',$this->session->userdata('year'));
+
+    
+            // print_r($part);
+            if($part!=""){
+                $this->db->where('part',$part);
+            }
+          
+            $assign = $this->db->get('voice_trial_assign')->result_array();
+            // print_r($assign);
+    
+            if(empty($assign)){
+                // unset($res[$key]);
+            }else{
+
+  
+                
+            
+                $res[$key]['field'] = $value['field'];            
+                $res[$key]['trial_staff_code_1'] = $assign[0]['trial_staff_code_1'];
+                $res[$key]['supervisor_1'] = $assign[0]['supervisor_1'];
+                $res[$key]['supervisor_1_code'] = $assign[0]['supervisor_1_code'];
+                $res[$key]['trial_staff_code_2'] = $assign[0]['trial_staff_code_2'];
+                $res[$key]['supervisor_2'] = $assign[0]['supervisor_2'];
+                $res[$key]['supervisor_2_code'] = $assign[0]['supervisor_2_code'];
+                $res[$key]['note'] = $assign[0]['note'];
+            }
+        }
+        $res = array_values($res);
+        // print_r($res);
+        return $res;
     }
 
     public function chk_part_list($part, $area)

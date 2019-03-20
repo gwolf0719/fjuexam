@@ -242,7 +242,7 @@ class Console extends CI_Controller {
             //  D2
              $this->mod_ability_staff->remove_ability_trial_staff();
             //  D3
-             $this->mod_ability_staff->remove_remove_ability_patrol_staff();
+             $this->mod_ability_staff->remove_ability_patrol_staff();
             //  A3
              $this->mod_ability_staff->import($datas);
 
@@ -1009,11 +1009,11 @@ class Console extends CI_Controller {
          $this->load->model('mod_ability_trial');
          $this->mod_user->chk_status();
          $year = $this->session->userdata('year');
-         $part1 = $this->mod_ability_trial->get_list('2501');
-         $part2 = $this->mod_ability_trial->get_list('2502');
-         $part3 = $this->mod_ability_trial->get_list('2503');
-         $part4 = $this->mod_ability_trial->get_list('2504');
-         $part5 = $this->mod_ability_trial->get_list('2505');
+         $part1 = $this->mod_ability_trial->new_get_list('2501');
+         $part2 = $this->mod_ability_trial->new_get_list('2502');
+         $part3 = $this->mod_ability_trial->new_get_list('2503');
+         $part4 = $this->mod_ability_trial->new_get_list('2504');
+         $part5 = $this->mod_ability_trial->new_get_list('2505');
          $data = array(
              'title' => '監試人員指派',
              'path' => 'subject_ability/d_1',
