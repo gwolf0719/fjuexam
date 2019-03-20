@@ -38,7 +38,9 @@ class Mod_ability_trial extends CI_Model
     public function import($datas)
     {
         // 先清除當年資料
-        $this->db->where('year', $this->session->userdata('year'))->delete('ability_trial_assign');
+        // $this->db->where('year', $this->session->userdata('year'))->truncate('ability_trial_assign');
+        $this->db->where('year', $this->session->userdata('year'));
+        $this->db->delete('ability_trial_assign');
         $this->db->insert_batch('ability_trial_assign', $datas);
     }
 
@@ -2518,6 +2520,27 @@ class Mod_ability_trial extends CI_Model
 
         return true;
     }
+
+    public function remove_ability_trial_staff()
+    {   
+        // $this->db->where('year', $this->session->userdata('year'))->truncate('ability_trial_staff');
+        $this->db->where('year', $this->session->userdata('year'));
+        $this->db->delete('ability_trial_staff');
+        // $r=$this->db->last_query('ability_exam_area');
+        // print_r($r);
+    }
+    public function remove_ability_patrol_staff()
+    {   
+
+
+        $this->db->where('year', $this->session->userdata('year'));
+        $this->db->delete('ability_patrol_staff');
+        // $r=$this->db->last_query('ability_exam_area');
+        // print_r($r);
+    }
+
+
+
 }
 
 /* End of file Mod_exam_area.php */

@@ -127,10 +127,17 @@ class Console extends CI_Controller {
                  );
              }
              // echo json_encode($datas);
- 
+
+                //  c
              $this->mod_ability_exam_area->import($datas);
              $this->mod_ability_part_info->import($datas_part);
+             //d1監試
              $this->mod_ability_trial->import($datas_trial);
+
+            // D管卷
+            $this->mod_ability_trial->remove_ability_trial_staff();
+            // D巡場
+            $this->mod_ability_trial->remove_ability_patrol_staff();
  
  
              fclose($file);

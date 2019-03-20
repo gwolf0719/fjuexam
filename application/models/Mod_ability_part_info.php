@@ -7,7 +7,9 @@ class Mod_ability_part_info extends CI_Model
     public function import($datas)
     {
         // 先清除當年資料
-        $this->db->where('year', $this->session->userdata('year'))->delete('ability_part_info');
+        // $this->db->where('year', $this->session->userdata('year'))->truncate('ability_part_info');
+        $this->db->where('year', $this->session->userdata('year'));
+        $this->db->delete('ability_part_info');
         $this->db->insert_batch('ability_part_info', $datas);
     }
 

@@ -7,7 +7,10 @@ class Mod_ability_exam_area extends CI_Model
     public function import($datas)
     {
         // 先清除當年資料
-        $this->db->where('year', $this->session->userdata('year'))->truncate('ability_exam_area');
+        $this->db->where('year', $this->session->userdata('year'));
+        $this->db->delete('ability_exam_area');
+        // $r=$this->db->last_query('ability_exam_area');
+        // print_r($r);
         $this->db->insert_batch('ability_exam_area', $datas);
     }
 
