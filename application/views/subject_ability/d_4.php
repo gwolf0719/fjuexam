@@ -126,7 +126,7 @@
         var nowHash = location.hash; //取得loading進來後目前#
         var nowTabNum = nowHash.slice(-1);
         var nowHtml = location.pathname.split("/").pop();
-        console.log(nowTabNum);
+        // console.log(nowTabNum);
         if (nowHash != "") {
             $(".part").hide();
             $('#part' + nowTabNum).show();
@@ -212,7 +212,7 @@
             $("#second_member_section_salary_total").val(0);     
             $(".first_member_meal").hide();
             $(".second_member_meal").hide();
-            console.log(newHash);
+            // console.log(newHash);
             if (nowHtml == "d_4") {
                 //開闔div
                 $(".part").css({
@@ -295,7 +295,7 @@
                 },
                 dataType: "json"
             }).done(function(data) {
-                console.log(data.info);
+                // console.log(data.info);
                 // console.log(data.info.first_member_do_date);
                 
                 var date=data.info.first_member_do_date;
@@ -307,11 +307,13 @@
                     for (let index = 0; index < 1; index++) {
                         var a=$(this).val();
                         var ans=jQuery.inArray( a, date );
+                        // console.log(a);
+                        // console.log(date);
 
                         if(ans>=0){
                             console.log(ans);
                             $(this).prop("checked",true);
-                        }else if(and==-1){
+                        }else if(ans==-1){
                             $(this).prop("checked", false);
                         }
                     }
@@ -323,9 +325,9 @@
                         var ans=jQuery.inArray( a, date2 );
 
                         if(ans>=0){
-                            console.log(ans);
+                            // console.log(ans);
                             $(this).prop("checked",true);
-                        }else if(and==-1){
+                        }else if(ans==-1){
                             $(this).prop("checked", false);
                         }
                     }
@@ -388,7 +390,7 @@
                     },
                     dataType: "json"
                 }).done(function(member) {
-                    console.log(member);
+                    // console.log(member);
                     $("#first_member_job_title").val(member.info.member_title);
                     $("#first_member_phone").val(member.info.member_phone);
                 })
@@ -413,16 +415,16 @@
                         },
                         dataType: "json"
                     }).done(function(day) {
-                        console.log(day.day);
-                        // 監試人員一天數
-                        $('input:checkbox[name="first_member_day"]').eq(0).prop("checked", day.day[0]);
-                        $('input:checkbox[name="first_member_day"]').eq(1).prop("checked", day.day[1]);
-                        $('input:checkbox[name="first_member_day"]').eq(2).prop("checked", day.day[2]);
+                        // console.log(day.day);
+                        // // 監試人員一天數
+                        // $('input:checkbox[name="first_member_day"]').eq(0).prop("checked", day.day[0]);
+                        // $('input:checkbox[name="first_member_day"]').eq(1).prop("checked", day.day[1]);
+                        // $('input:checkbox[name="first_member_day"]').eq(2).prop("checked", day.day[2]);
 
-                        // 監試人員二天數
-                        $('input:checkbox[name="second_member_day"]').eq(0).prop("checked", day.day[0]);
-                        $('input:checkbox[name="second_member_day"]').eq(1).prop("checked", day.day[1]);
-                        $('input:checkbox[name="second_member_day"]').eq(2).prop("checked", day.day[2]);
+                        // // 監試人員二天數
+                        // $('input:checkbox[name="second_member_day"]').eq(0).prop("checked", day.day[0]);
+                        // $('input:checkbox[name="second_member_day"]').eq(1).prop("checked", day.day[1]);
+                        // $('input:checkbox[name="second_member_day"]').eq(2).prop("checked", day.day[2]);
                     })
             })
         })
@@ -487,7 +489,7 @@
                 }).done(function(data) {
                     alert(data.sys_msg);
                     if (data.sys_code == "200") {
-                        // location.reload();
+                        location.reload();
                     }
                 })
             }
