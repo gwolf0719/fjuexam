@@ -458,9 +458,16 @@ class Api extends CI_Controller {
             $json_arr['sys_msg'] = '資料不足';
             $json_arr['requred'] = $this->getpost->report_requred($requred);
         } else {
-            $json_arr['info'] = $this->mod_voice_job_list->get_once_info($data['job_code']);
-            $json_arr['sys_code'] = '200';
-            $json_arr['sys_msg'] = '資料處理完成';
+            $count=$this->mod_voice_job_list->check_use_member_job($data['job_code']);
+            if($count>0){
+                $json_arr['sys_code'] = '000';
+                $json_arr['sys_msg'] = '人員已重複指派';
+            }else{
+                $json_arr['info'] = $this->mod_voice_job_list->get_once_info($data['job_code']);
+                $json_arr['sys_code'] = '200';
+                $json_arr['sys_msg'] = '資料處理完成';
+
+            }
         }
         echo json_encode($json_arr);
     }
