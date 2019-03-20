@@ -124,6 +124,7 @@
 
         // 點選列表顯示內容
         $("body").on("click", "tr", function() {
+            console.log('asdsad');
             var sn = $(this).attr("sn");
             
             $("#job").val($(this).find('td').eq(2).text().trim());
@@ -140,7 +141,9 @@
             $.getJSON('./voice/api/get_job_once',{
                 sn:sn
             },function(jsonData){
-                console.log(jsonData.info);
+                
+                // console.log(jsonData.info.job);
+                $("#job").val(jsonData.info.job);
                 $("#one_day_salary").val(jsonData.info.one_day_salary);
                 $("#day_count").val(jsonData.info.day_count);
                 $("#salary_total").val(jsonData.info.salary_total);
