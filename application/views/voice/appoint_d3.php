@@ -150,6 +150,7 @@
                 break;                
         }
         console.log(part);
+        $('#part').val(part);
         return part;
     }
     // 選擇試場選單
@@ -188,6 +189,11 @@
     $(function() {
 
         init();
+
+        // var as =$(location).attr('href');
+        // var res = as.split("#");
+        // console.log(res[1]);
+
         var a=$('.tab1').attr('part');
         $('#part').val(a);
         //tab設定
@@ -257,6 +263,7 @@
             }
             var part = $(this).attr("part");
             console.log(part);
+            
             $("#part").val(part);
             init(); 
                     
