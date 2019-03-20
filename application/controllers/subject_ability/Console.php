@@ -233,7 +233,24 @@ class Console extends CI_Controller {
              }
              // echo json_encode($datas);
  
+
+
+            //  B
+             $this->mod_ability_staff->remove_ability_district_task();
+            //  D1
+             $this->mod_ability_staff->remove_ability_trial_assign();
+            //  D2
+             $this->mod_ability_staff->remove_ability_trial_staff();
+            //  D3
+             $this->mod_ability_staff->remove_remove_ability_patrol_staff();
+            //  A3
              $this->mod_ability_staff->import($datas);
+
+
+
+
+
+
              fclose($file);
              unlink($file_name);
              redirect('subject_ability/a_3');
