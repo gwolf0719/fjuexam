@@ -67,6 +67,9 @@
 </div>
 <div class="row" style="">
 <!-- <?=print_r($_SESSION)?> -->
+<!-- <?=print_r($a1_check)?> -->
+<!-- <?=print_r($f_check)?> -->
+<!-- <?=print_r('asdf')?> -->
 
 <!-- A-->
  <?php if(!isset($_SESSION['year'])){?>
@@ -83,7 +86,7 @@
     <!-- A END -->
     
     <!-- b -->
-    <?php if($a1_check=='no'||$f_check=='no'||!isset($_SESSION['year'])||!isset($_SESSION['ladder'])){?>
+    <?php if($a1_check=='no'||$f_check=='no'||!isset($_SESSION['year'])){?>
         <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4 cube  text-center">
             <img src="assets/images/b.png" alt="" class='stop' style="-webkit-filter:grayscale(1);">
         </div>
@@ -97,7 +100,7 @@
     <!-- b end -->
 
     <!-- C -->
-    <?php if($a1_check=='no'||$f_check=='no'||!isset($_SESSION['year'])||!isset($_SESSION['ladder'])){?>
+    <?php if($a1_check=='no'||$f_check=='no'||!isset($_SESSION['year'])){?>
         <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4 cube text-center">
             <img src="assets/images/c.png" alt="" class='stop' style="-webkit-filter:grayscale(1);">
         </div>
@@ -111,7 +114,7 @@
     <!-- C end -->
 
     <!-- D -->
-    <?php if($a1_check=='no'||$f_check=='no'||!isset($_SESSION['year'])||!isset($_SESSION['ladder'])){?>
+    <?php if($a1_check=='no'||$f_check=='no'||!isset($_SESSION['year'])){?>
         <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4 cube text-center">
             <img src="assets/images/d.png" alt="" class='stop' style="-webkit-filter:grayscale(1);">
         </div>
@@ -125,7 +128,7 @@
     <!-- D end -->
 
     <!-- E -->
-    <?php if($a1_check=='no'||$f_check=='no'||!isset($_SESSION['year'])||!isset($_SESSION['ladder'])){?>
+    <?php if($a1_check=='no'||$f_check=='no'||!isset($_SESSION['year'])){?>
         <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4 cube text-center">
             <img src="assets/images/e.png" alt="" class='stop' style="-webkit-filter:grayscale(1);">
         </div>
