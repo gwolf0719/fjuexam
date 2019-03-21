@@ -141,23 +141,14 @@ class Mod_voice_job_list extends CI_Model
         $this->db->where('year',$this->session->userdata('year'));
         $this->db->where('ladder',$this->session->userdata('ladder'));
         $this->db->where('job_code', $job_code);
-        switch ($area) {
-            case '第一分區':
-            $area=1;
-                break;
-            case '第二分區':
-            $area=2;
-                break;
-            default:
-            $area=3;
-
-                break;
-        }
+     
         // print_r($area);
         $this->db->where('test_partition', $area);
 
         $count=$this->db->count_all_results('voice_job_list');
+        $a=$this->db->last_query();
         // print_r($count);
+        // print_r($a);
 
         return $count;
     }

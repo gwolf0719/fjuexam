@@ -61,7 +61,7 @@ class Test_duty extends CI_Controller {
             'job'=>$job,
             'datatime_info'=>$datatime_info,
             'test_partition'=>$test_partition,
-            'block'=> $block,
+            'block'=> $test_partition,
 
         );
         $this->load->view('voice_layout', $data);

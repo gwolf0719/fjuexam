@@ -459,7 +459,8 @@ class Api extends CI_Controller {
             $json_arr['requred'] = $this->getpost->report_requred($requred);
         } else {
             $count=$this->mod_voice_job_list->check_use_member_job($data['job_code'],$data['area']);
-            if($count>=0){
+            // print_r($count);
+            if($count>0){
                 $json_arr['sys_code'] = '000';
                 $json_arr['sys_msg'] = '人員已重複指派';
             }else{

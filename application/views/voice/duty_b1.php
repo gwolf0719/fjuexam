@@ -205,7 +205,7 @@
             $.post("./voice/api/assignment", {
                 job_code: code[0],
                 job: $("#search_job").text(),
-                area:  "<?=$block?>",
+                area:<?=$test_partition?>,
             }, function(data) {
                 // alert(data.sys_msg);
                 if (data.sys_code == "200") {
