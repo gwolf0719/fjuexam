@@ -130,13 +130,32 @@ class Mod_voice_job_list extends CI_Model
     public function get_once_info($job_code)
     {
         // print_r($job_code);
+        $this->db->where('year',$this->session->userdata('year'));
+        $this->db->where('ladder',$this->session->userdata('ladder'));
         $this->db->where('member_code', $job_code);
         return $this->db->get('voice_import_member')->row_array();
     }
     // 人員是否被使用
-    public function check_use_member_job($job_code)
+    public function check_use_member_job($job_code,$area)
     {
+        $this->db->where('year',$this->session->userdata('year'));
+        $this->db->where('ladder',$this->session->userdata('ladder'));
         $this->db->where('job_code', $job_code);
+        switch ($area) {
+            case '第一分區':
+            $area=1;
+                break;
+            case '第二分區':
+            $area=2;
+
+                break;
+            default:
+            $area=3;
+
+                break;
+        }
+        // print_r($area);
+        $this->db->where('test_partition', $area);
 
         $count=$this->db->count_all_results('voice_job_list');
         return $count;

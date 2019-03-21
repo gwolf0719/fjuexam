@@ -458,7 +458,7 @@ class Api extends CI_Controller {
             $json_arr['sys_msg'] = '資料不足';
             $json_arr['requred'] = $this->getpost->report_requred($requred);
         } else {
-            $count=$this->mod_voice_job_list->check_use_member_job($data['job_code']);
+            $count=$this->mod_voice_job_list->check_use_member_job($data['job_code'],$data['area']);
             if($count>0){
                 $json_arr['sys_code'] = '000';
                 $json_arr['sys_msg'] = '人員已重複指派';
@@ -553,6 +553,7 @@ class Api extends CI_Controller {
             if($this->mod_voice_trial->chk_all_d($data['job_code'])){
                 $json_arr['sys_code'] = '500';
                 $json_arr['sys_msg'] = '該人員已經被指派過，請選擇其他人員';
+                // $json_arr['sql'] = $this->db->last_query();
             // }else if($this->mod_voice_job_list->chk_job_code($data['job_code'])){
             //     $json_arr['sys_code'] = '500';
             //     $json_arr['sys_msg'] = '該人員已經被指派過，請選擇其他人員';
@@ -560,7 +561,7 @@ class Api extends CI_Controller {
                 $json_arr['sys_code'] = '200';
                 $json_arr['sys_msg'] = 'data can use';
             }
-               
+            $json_arr['sql'] = $this->db->last_query();
         }
         echo json_encode($json_arr);
     }

@@ -215,6 +215,7 @@ class Mod_voice_trial extends CI_Model
         $this->db->where('ladder', $_SESSION['ladder']);
         $this->db->where('supervisor_2_code',$trial_staff_code);
         $count2=$this->db->count_all_results('voice_trial_assign');
+        
         $count=$count+$count2;
         // print_r($count);
         if($count == 0){
@@ -228,8 +229,16 @@ class Mod_voice_trial extends CI_Model
         $this->db->where('year', $_SESSION['year']);
         $this->db->where('ladder', $_SESSION['ladder']);
         $this->db->where('supervisor_1_code',$trial_staff_code);
-        $this->db->or_where('supervisor_2_code',$trial_staff_code);
-        if($this->db->count_all_results('voice_trial_assign') == 0){
+        // $this->db->or_where('supervisor_2_code',$trial_staff_code);
+        $count1=$this->db->count_all_results('voice_trial_assign');
+
+        $this->db->where('year', $_SESSION['year']);
+        $this->db->where('ladder', $_SESSION['ladder']);
+        $this->db->where('supervisor_2_code',$trial_staff_code);
+        $count2=$this->db->count_all_results('voice_trial_assign');
+
+        $count=$count1+$count2;
+        if($count == 0){
 
             $this->db->where('year', $_SESSION['year']);
             $this->db->where('ladder', $_SESSION['ladder']);
