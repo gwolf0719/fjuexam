@@ -18,6 +18,9 @@ class Mod_voice_job_list extends CI_Model
 
         $this->db->where('year', $this->session->userdata('year'));
         $this->db->where('ladder',$this->session->userdata('ladder'));
+        $this->db->where('test_partition',$this->input->post('test_partition'));
+        
+
         $this->db->delete('voice_job_list');
         
         $this->db->insert_batch('voice_job_list', $data);
