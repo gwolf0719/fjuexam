@@ -147,7 +147,6 @@ class Mod_voice_job_list extends CI_Model
                 break;
             case '第二分區':
             $area=2;
-
                 break;
             default:
             $area=3;
@@ -158,6 +157,8 @@ class Mod_voice_job_list extends CI_Model
         $this->db->where('test_partition', $area);
 
         $count=$this->db->count_all_results('voice_job_list');
+        // print_r($count);
+
         return $count;
     }
 
