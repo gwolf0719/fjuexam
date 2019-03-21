@@ -143,10 +143,10 @@ class Mod_voice_job_list extends CI_Model
         $this->db->where('job_code', $job_code);
      
         // print_r($area);
-        $this->db->where('test_partition', $area);
+        // $this->db->where('test_partition', $area);
 
         $count=$this->db->count_all_results('voice_job_list');
-        $a=$this->db->last_query();
+        // $a=$this->db->last_query();
         // print_r($count);
         // print_r($a);
 
