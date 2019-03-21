@@ -18,9 +18,9 @@ class Console extends CI_Controller {
         $a=$this->mod_area->check_a1();
         $b=$this->mod_area->check_f();
         $c=$this->session->userdata('year');
-        print_r($a);
-        print_r($b);
-        print_r($c);
+        // print_r($a);
+        // print_r($b);
+        // print_r($c);
         $data = array(
             'title' => '學測主選單',
             'path' => 'subject_ability/index',
