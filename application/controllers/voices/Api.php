@@ -66,7 +66,7 @@ class Api extends CI_Controller {
                     $datas[$i]['area_name'] = $data[1];
                     $datas[$i]['class'] = '1';
                     $datas[$i]['block_name'] = $data[2];
-                    $datas[$i]['field'] = $data[3];
+                    $datas[$i]['field'] =str_pad($data[3],4,'0',STR_PAD_LEFT);
                     $datas[$i]['start'] = $data[4];
                     $datas[$i]['end'] = $data[5];
                     $datas[$i]['count_num'] = $data[6];
@@ -79,7 +79,7 @@ class Api extends CI_Controller {
                         'year' => $this->session->userdata('year'),
                         'ladder'=>$this->session->userdata('ladder'),
                         'part'=>$data[0],
-                        'field'=>$data[3],
+                        'field'=>str_pad($data[3],4,'0',STR_PAD_LEFT),
                         'block_name'=>$data[2],
                         'supervisor_1' => '',
                         'supervisor_1_code' => '',
