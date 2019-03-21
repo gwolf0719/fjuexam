@@ -129,8 +129,9 @@ class Mod_voice_job_list extends CI_Model
     // 用代號取得完整資料
     public function get_once_info($job_code)
     {
+        // print_r($job_code);
         $this->db->where('member_code', $job_code);
-        $this->db->get('voice_job_list')->row_array();
+        return $this->db->get('voice_import_member')->row_array();
     }
     // 人員是否被使用
     public function check_use_member_job($job_code)
