@@ -64,7 +64,14 @@ class Mod_voice_area extends CI_Model {
     {
         $this->db->where('year',$this->session->userdata('year'));
         $this->db->where('ladder',$this->session->userdata('ladder'));
-        return $this->db->get('voice_area_main')->result_array();
+        $res=$this->db->get('voice_area_main')->result_array();
+        for ($i=0; $i <count($res); $i++) { 
+            # code...
+            $res[$i]['field']=str_pad($res[$i]['field'],4,'0',STR_PAD_LEFT);
+        }
+        
+        // print_r($res);
+        return $res;
     }
     public function get_part($part = '')
     {
