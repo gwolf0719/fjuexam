@@ -168,7 +168,13 @@ $(function(){
             <tbody>
             <?php foreach ($datalist as $k => $v): ?>
                 <tr sn="<?=$v['sn']; ?>" field="<?=$v['field']?>">
-                    <td><?=$k + 1; ?></td>
+                    <td>
+                    <?php
+                    $value=$k + 1; 
+                    $value = str_pad($value,4,'0',STR_PAD_LEFT);
+                    echo $value;
+                    ?>
+                    </td>
                     <td><?=$v['year']; ?></td>
                     <td><?=$v['part']; ?></td>
                     <td><?=$v['area_name']; ?></td>

@@ -36,11 +36,19 @@ class Mod_voice_part_info extends CI_Model
         $result = array();
         $arr = array();
         foreach($res as $val){
-            $key = $val['field'];                           //填入要塞選的項目
+            // $key = $val['field'];                           //填入要塞選的項目
+            $key =str_pad($val['field'],4,'0',STR_PAD_LEFT);                          //填入要塞選的項目
             if(!isset($result[$key])){
                 $result[$key] = $val;
+                $result[$key]['field']=str_pad($val['field'],4,'0',STR_PAD_LEFT);
+
+
+
+
+
             }else{
                 $result[$key]['block_name'] = $result[$key]['block_name'].','.$val['block_name'];   //填入要疊加的項目
+                $result[$key]['field']=str_pad($val['field'],4,'0',STR_PAD_LEFT);
             }
         }
         // print_r($result);
