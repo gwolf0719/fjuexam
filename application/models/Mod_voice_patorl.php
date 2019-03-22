@@ -8,13 +8,13 @@ class Mod_voice_patorl extends CI_Model
     public function import($datas)
     {
         // 先清除當年資料
-        $this->db->where('year', $this->session->userdata('year'))->delete('voice_patrol_staff');
+        $this->db->where('year',$this->session->userdata('year'))->where('ladder',$this->session->userdata('ladder'))->delete('voice_patrol_staff');
         $this->db->insert_batch('voice_patrol_staff', $datas);
     }
 
     public function year_get_list()
     {
-        return $this->db->where('year', $this->session->userdata('year'))->get('voice_patrol_staff')->result_array();
+        return $this->db->where('year',$this->session->userdata('year'))->where('ladder',$this->session->userdata('ladder'))->get('voice_patrol_staff')->result_array();
     }
 
     public function chk_once($sn)
@@ -29,7 +29,8 @@ class Mod_voice_patorl extends CI_Model
 
     public function get_patrol_list($part = '')
     {
-        $this->db->where('year', $this->session->userdata('year'));
+        $this->db->where('year',$this->session->userdata('year'));
+        $this->db->where('ladder',$this->session->userdata('ladder'));
         if ($part != '') {
             $this->db->where('part', $part);
         }

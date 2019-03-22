@@ -172,7 +172,7 @@ class Mod_voice_staff extends CI_Model
     
     public function get_staff_member($code)
     {
-        return $this->db->where('member_code', $code)->get('voice_import_member')->row_array();
+        return $this->db->where('member_code', $code)->where('year',$this->session->userdata('year'))->where('ladder',$this->session->userdata('ladder'))->get('voice_import_member')->row_array();
     }
 
     

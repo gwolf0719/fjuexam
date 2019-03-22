@@ -99,7 +99,8 @@ class Mod_voice_part_info extends CI_Model
     public function update_floor($data)
     {
         $this->db->where('sn',$data['sn']);
-        $this->db->where('year', $this->session->userdata('year'));
+        $this->db->where('year',$this->session->userdata('year'));
+        $this->db->where('ladder',$this->session->userdata('ladder'));
         $this->db->where('part',$data['part']);
         $this->db->where('field>=', $data['start']);
         $this->db->where('field<=', $data['end']);
