@@ -134,7 +134,7 @@ public function get_once_day_section($uses_day, $start, $end)
     $year = $this->session->userdata('year');
     //先取得當天考試科目
     $day = array();
-    foreach ($this->db->select('subject_1')->where('year', $year)->where('day', $uses_day)->get('exam_course')->result_array() as $key => $value) {
+    foreach ($this->db->select('subject_1')->where('year',$this->session->userdata('year'))->where('ladder',$this->session->userdata('ladder'))->where('day', $uses_day)->get('exam_course')->result_array() as $key => $value) {
         // code...
         // if ($value['subject'] != 'subject_00') {
         $day[$uses_day][] = $value['subject'];
@@ -154,7 +154,7 @@ public function get_once_day_section($uses_day, $start, $end)
             $v.'!=' => 0,
         );
 
-            if ($this->db->where($where)->count_all_results('exam_area') != 0) {
+            if ($this->db->where($where)->where('year',$this->session->userdata('year'))->where('ladder',$this->session->userdata('ladder'))->count_all_results('exam_area') != 0) {
                 $count = $count + 1;
             }
         }
