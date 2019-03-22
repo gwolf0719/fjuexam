@@ -7,6 +7,7 @@ class Mod_voice_assign extends CI_Controller{
     public function get_list($part = '')
     {
         $this->db->where('year',$this->session->userdata('year'));
+        $this->db->where('ladder',$this->session->userdata('ladder'));
         if($part != ''){
 
             $this->db->where('area_id',$part);
