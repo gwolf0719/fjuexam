@@ -717,7 +717,9 @@ class Mod_voice_trial extends CI_Model
         $this->db->where('year', $this->session->userdata('year'));
         $this->db->where('ladder', $this->session->userdata('ladder'));
         $this->db->where('part',$part);
+        //  $res = $this->db->get('voice_patrol_staff')->result_array();
         $res = $this->db->count_all_results('voice_patrol_staff');
+        // print_r($res);
         return $res;
         // $this->db->select('*');
         // if ($part != '') {
@@ -866,7 +868,10 @@ class Mod_voice_trial extends CI_Model
         $this->db->where('year', $this->session->userdata('year'));
         $this->db->where('ladder', $this->session->userdata('ladder'));
         $this->db->where('part',$part);
+        $this->db->where('supervisor_1!=','');
+        // $res = $this->db->get('voice_trial_assign')->result_array();
         $res = $this->db->count_all_results('voice_trial_assign');
+        // print_r($res);
         return $res;
         // $this->db->select('*');
         // if ($part != '') {
