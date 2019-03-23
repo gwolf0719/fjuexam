@@ -226,7 +226,12 @@ class Designated extends CI_Controller
             }
             // echo json_encode($datas);
 
+            $this->mod_staff->remove_district_task();
+            $this->mod_staff->remove_trial_assign();
+            $this->mod_staff->remove_trial_staff();
+            $this->mod_staff->remove_patrol_staff();
             $this->mod_staff->import($datas);
+            
             fclose($file);
             unlink($file_name);
             redirect('designated/a_3');
