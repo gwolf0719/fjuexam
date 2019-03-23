@@ -7,7 +7,9 @@ class Mod_school_unit extends CI_Model
     public function import($datas)
     {
         // 先清除當年資料
-        $this->db->where('year', $this->session->userdata('year'))->delete('school_unit');
+        // $this->db->where('year', $this->session->userdata('year'))->delete('school_unit');
+        $this->db->where('year', $this->session->userdata('year'));
+        $this->db->delete('school_unit');
         $this->db->insert_batch('school_unit', $datas);
     }
 
