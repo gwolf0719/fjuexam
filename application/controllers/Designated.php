@@ -37,7 +37,7 @@ class Designated extends CI_Controller
      */
     public function a_1()
     {
-        $this->load->model('mod_exam_area');
+        // $this->load->model('mod_exam_area');
         $this->load->model('mod_part_info');
         $this->load->model('mod_trial');
         $this->load->model('mod_patrol');
@@ -118,10 +118,20 @@ class Designated extends CI_Controller
                 );
             }
             // echo json_encode($datas);
+            $this->load->model('mod_exam_area');
+
+
 
             $this->mod_exam_area->import($datas);
             $this->mod_part_info->import($datas_part);
+
+            // d1
             $this->mod_trial->import($datas_trial);
+
+            // D管卷
+            $this->mod_trial->remove_trial_staff_data();
+            // D巡場
+            $this->mod_trial->remove_patrol_staff_data();
 
 
             fclose($file);
@@ -129,11 +139,12 @@ class Designated extends CI_Controller
             // print_r(fgetcsv($file));
             redirect('designated/a_1');
         } else {
+            $this->load->model('mod_trial');
             $data = array(
                 'title' => '考區試場資料',
                 'path' => 'designated/a_1',
                 'path_text' => ' > 指考主選單 > 資料匯入作業 > 考區試場資料',
-                'datalist' => $this->mod_exam_area->year_get_list(),
+                'datalist' => $this->mod_trial->year_get_lists(),
                 
             );
             $this->load->view('layout', $data);

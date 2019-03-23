@@ -7,7 +7,9 @@ class Mod_part_info extends CI_Model
     public function import($datas)
     {
         // 先清除當年資料
-        $this->db->where('year', $this->session->userdata('year'))->delete('part_info');
+        // $this->db->where('year', $this->session->userdata('year'))->delete('part_info');
+        $this->db->where('year', $this->session->userdata('year'));
+        $this->db->delete('part_info');
         $this->db->insert_batch('part_info', $datas);
     }
 

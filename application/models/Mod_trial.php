@@ -2308,6 +2308,28 @@ class Mod_trial extends CI_Model
 
         return true;
     }
+    public function year_get_lists($part='')
+    {
+        $this->db->where('year', $this->session->userdata('year'));
+        if($part != ''){
+            $this->db->where('part', $part);
+        }
+
+        return $this->db->get('exam_area')->result_array();
+    }
+
+    public function remove_trial_staff_data()
+    {   
+        $this->db->where('year', $this->session->userdata('year'));
+        $this->db->delete('trial_staff');
+        // $this->db->where('year', $this->session->userdata('year'))->where('ladder', $this->session->userdata('ladder'))->truncate('voice_trial_staff');
+    }
+    public function remove_patrol_staff_data()
+    {   
+        $this->db->where('year', $this->session->userdata('year'));
+        $this->db->delete('patrol_staff');
+        // $this->db->where('year', $this->session->userdata('year'))->where('ladder', $this->session->userdata('ladder'))->truncate('voice_patrol_staff');
+    }
 }
 
 /* End of file Mod_exam_area.php */
