@@ -209,7 +209,11 @@ class Designated extends CI_Controller
             // print_r(fgetcsv($file));
             while (!feof($file)) {
                 $data = fgetcsv($file);
+                // print_r($data);
                 if ($data[0] != '') {
+                    if(!isset($data[7])){
+                        $data[7]='';
+                    }
                     $datas[] = array(
                         'year' => $this->session->userdata('year'),
                         'member_code' => $data[0],
