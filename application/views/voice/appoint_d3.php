@@ -291,7 +291,7 @@
                 job_code:code[0]
             },function(jsonData){
                 if(jsonData.sys_code == '200'){
-                    // $("#allocation_code").val(code[0]);
+                    $("#allocation_code").val(code[0]);
                     $("#patrol_staff_name").val(code[1]);
                     $('#exampleModal').modal('hide');
                 }else{
@@ -452,7 +452,7 @@
             } else {
                 var part = $("#part").val();
                 var allocation_code = $("#allocation_code").val();
-                var patrol_staff_code = $("#allocation_code").val();
+                var patrol_staff_code = $("#patrol_staff_code").val();
                 var patrol_staff_name = $("#patrol_staff_name").val();
                 var first_start = $("#first_start").val();
                 var first_end = $("#first_end").val();
@@ -577,7 +577,7 @@
                         <?=$k + 1; ?>
                     </td>
                     <td class="bt">
-                        <?=$v['allocation_code']; ?>
+                        <?=$v['patrol_staff_code']; ?>
                     </td>
                     <td class="bt">
                         <?=$v['patrol_staff_name']; ?>
@@ -638,7 +638,7 @@
                         <?=$k + 1; ?>
                     </td>
                     <td class="bt">
-                        <?=$v['allocation_code']; ?>
+                        <?=$v['patrol_staff_code']; ?>
                     </td>
                     <td class="bt">
                         <?=$v['patrol_staff_name']; ?>
@@ -699,7 +699,7 @@
                         <?=$k + 1; ?>
                     </td>
                     <td class="bt">
-                        <?=$v['allocation_code']; ?>
+                        <?=$v['patrol_staff_code']; ?>
                     </td>
                     <td class="bt">
                         <?=$v['patrol_staff_name']; ?>
@@ -742,8 +742,8 @@
                         <label for="floor" class="" style="float:left;">巡場人員</label>
                         <input type="hidden" class="form-control" id="sn">
                         <input type="hidden" class="form-control" id="part" value="">
-                        <input type="text" class="form-control" id="allocation_code" style="width: 25%;float: left;" placeholder="巡場人員編號">
-                        <input type="hidden" class="form-control" id="patrol_staff_code" style="width: 20%;float: left;" placeholder="">
+                        <input type="hidden" class="form-control" id="allocation_code" style="width: 25%;float: left;" placeholder="">
+                        <input type="text" class="form-control" id="patrol_staff_code" style="width: 20%;float: left;" placeholder="巡場人員編號">
                         <input type="text" class="form-control" id="patrol_staff_name" style="width: 25%;float: left;margin-left: 5px;">
                         <button type="button" class="btn btn-primary assgin" data-toggle="modal" data-target="#exampleModal" style="float:left;width:15%;margin-left:5px;background:#346a90;border:unset">指派</button>
                     </div>

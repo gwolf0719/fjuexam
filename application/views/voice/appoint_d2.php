@@ -579,7 +579,7 @@
                         <?=$k + 1; ?>
                     </td>
                     <td class="bt">
-                        <?=$v['allocation_code']; ?>
+                        <?=$v['trial_staff_code']; ?>
                     </td>
                     <td class="bt">
                         <?=$v['trial_staff_name']; ?>
@@ -640,7 +640,7 @@
                         <?=$k + 1; ?>
                     </td>
                     <td class="bt">
-                        <?=$v['allocation_code']; ?>
+                        <?=$v['trial_staff_code']; ?>
                     </td>
                     <td class="bt">
                         <?=$v['trial_staff_name']; ?>
@@ -700,7 +700,7 @@
                         <?=$k + 1; ?>
                     </td>
                     <td class="bt">
-                        <?=$v['allocation_code']; ?>
+                        <?=$v['trial_staff_code']; ?>
                     </td>
                     <td class="bt">
                         <?=$v['trial_staff_name']; ?>
