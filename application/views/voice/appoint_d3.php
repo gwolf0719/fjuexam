@@ -743,7 +743,7 @@
                         <input type="hidden" class="form-control" id="sn">
                         <input type="hidden" class="form-control" id="part" value="">
                         <input type="hidden" class="form-control" id="allocation_code" style="width: 25%;float: left;" placeholder="">
-                        <input type="text" class="form-control" id="patrol_staff_code" style="width: 20%;float: left;" placeholder="巡場人員編號">
+                        <input type="text" class="form-control" id="patrol_staff_code" style="width: 25%;float: left;" placeholder="巡場人員編號">
                         <input type="text" class="form-control" id="patrol_staff_name" style="width: 25%;float: left;margin-left: 5px;">
                         <button type="button" class="btn btn-primary assgin" data-toggle="modal" data-target="#exampleModal" style="float:left;width:15%;margin-left:5px;background:#346a90;border:unset">指派</button>
                     </div>
