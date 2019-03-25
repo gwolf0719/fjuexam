@@ -248,7 +248,7 @@
                 },
                 dataType: "json"
             }).done(function(data) {
-                console.log(data.info);
+                // console.log(data.info.trial_staff_name);
                 $("#sn").val(sn);
                 $("#first_start").val(data.info.first_start);
                 $("#first_end").val(data.info.first_end);
@@ -264,21 +264,23 @@
                 $("#section_total").val(data.info.total);
                
 
-            })
-            //取得職員資料
-            var code = $(this).attr("code");
-            $.ajax({
-                url: './voice/api/get_staff_member',
-                data: {
-                    "code": code,
-                },
-                dataType: "json"
-            }).done(function(data) {
-                // console.log(data.info);
-                $("#job_code").val(code);
-                $("#job_title").val(data.info.member_title);
-                $("#name").val(data.info.member_name);
-                $("#phone").val(data.info.member_phone);
+                var person=data.info.trial_staff_name;
+                //取得職員資料
+                var code = $(this).attr("code");
+                // console.log(code);
+                $.ajax({
+                    url: './voice/api/get_staff_member',
+                    data: {
+                        "code": person,
+                    },
+                    dataType: "json"
+                }).done(function(data) {
+                    // console.log(data.info);
+                    $("#job_code").val(data.info.member_code);
+                    $("#job_title").val(data.info.member_title);
+                    $("#name").val(data.info.member_name);
+                    $("#phone").val(data.info.member_phone);
+                })
             })
 
         })

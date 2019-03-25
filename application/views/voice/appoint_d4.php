@@ -347,7 +347,7 @@
                         },
                         dataType: "json"
                     }).done(function(member) {
-                        // console.log(member);
+                        console.log(member);
                         $("#first_member_job_title").val(member.info.member_title);
                         $("#first_member_phone").val(member.info.member_phone);
                     })
