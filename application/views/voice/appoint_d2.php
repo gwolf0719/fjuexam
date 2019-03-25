@@ -297,7 +297,7 @@
                 job_code:code[0]
             },function(jsonData){
                 if(jsonData.sys_code == '200'){
-                    $("#allocation_code").val(code[0]);
+                    // $("#allocation_code").val(code[0]);
                     $("#trial_staff_name").val(code[1]);
                     $('#exampleModal').modal('hide');
                 }else{
