@@ -334,8 +334,8 @@
             //監試人員編號第二碼產生
             var c2 = field.substring(1,4);
             $("#sn").val($(this).attr("sn"));
-            $("#trial_staff_code_1").val(c1 + c2 + "1");
-            $("#trial_staff_code_2").val(c1 + c2 + "2");
+            // $("#trial_staff_code_1").val(c1 + c2 + "1");
+            // $("#trial_staff_code_2").val(c1 + c2 + "2");
             $("#supervisor_1").val($(this).find('td').eq(4).text());
             $("#supervisor_2").val($(this).find('td').eq(6).text());
             
