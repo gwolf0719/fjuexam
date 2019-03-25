@@ -296,7 +296,7 @@
                 },
                 dataType: "json"
             }).done(function(data) {
-                console.log(data);
+                // console.log(data);
                 $(".field").val(field);
                 $("#sn").val(data.info.sn);
                 //職員一
@@ -307,9 +307,11 @@
                 $("#first_member_job_code").val(data.info.supervisor_1_code);
 
                 var part=data.info.part;
-                var f=field.substr(field.length-3)
-                var person1=part+f+'01';
-                var person2=part+f+'02';
+                var nowpart=part.substr(part.length-1);
+                var f=field.substr(field.length-3);
+                
+                var person1=nowpart+f+1;
+                var person2=nowpart+f+2;
        
 
                 $("#trial_staff_code_1").val(person1);
