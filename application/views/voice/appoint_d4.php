@@ -532,7 +532,7 @@
                     <th>場次</th>
                     <!-- <th>考生應試號起</th> -->
                     <!-- <th>考生應試號迄</th> -->
-                    <th>應試人數</th>
+                    <!-- <th>應試人數</th>、 -->
                     <th>樓層別</th>
                     <th>監試人員一編號</th>
                     <th>監試人員一</th>
@@ -561,7 +561,7 @@
                             }
                         ?>
                    </td>
-                    <td><?=$v['count_num']; ?></td>
+                    <!-- <td><?=$v['count_num']; ?></td> -->
                     <td><?=$v['floor']; ?></td>
                     <td><?=$v['trial_staff_code_1']; ?></td>
                     <td><?=$v['supervisor_1']; ?></td>
@@ -585,7 +585,7 @@
                     <th>場次</th>
                     <!-- <th>考生應試號起</th>
                     <th>考生應試號迄</th> -->
-                    <th>應試人數</th>
+                    <!-- <th>應試人數</th> -->
                     <th>樓層別</th>
                     <th>監試人員一編號</th>
                     <th>監試人員一</th>
@@ -615,7 +615,7 @@
                             }
                         ?>
                    </td>
-                    <td><?=$v['count_num']; ?></td>
+                    <!-- <td><?=$v['count_num']; ?></td> -->
                     <td><?=$v['floor']; ?></td>
                     <td><?=$v['trial_staff_code_1']; ?></td>
                     <td><?=$v['supervisor_1']; ?></td>
@@ -639,7 +639,7 @@
                     <th>場次</th>
                     <!-- <th>考生應試號起</th>
                     <th>考生應試號迄</th> -->
-                    <th>應試人數</th>
+                    <!-- <th>應試人數</th> -->
                     <th>樓層別</th>
                     <th>監試人員一編號</th>
                     <th>監試人員一</th>
@@ -668,7 +668,7 @@
                             }
                         ?>
                    </td>
-                    <td><?=$v['count_num']; ?></td>
+                    <!-- <td><?=$v['count_num']; ?></td> -->
                     <td><?=$v['floor']; ?></td>
                     <td><?=$v['trial_staff_code_1']; ?></td>
                     <td><?=$v['supervisor_1']; ?></td>
