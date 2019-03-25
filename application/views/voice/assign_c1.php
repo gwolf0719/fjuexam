@@ -152,8 +152,8 @@ $(function(){
         <table class="table table-hover" id="">
             <thead>
                 <tr>
-                    <th>序號</th>
-                    <th>年度</th>
+                    <!-- <th>序號</th> -->
+                    <!-- <th>年度</th> -->
                     <th>分區</th>
                     <th>分區名稱</th>
                     <th>試場</th>
@@ -168,14 +168,14 @@ $(function(){
             <tbody>
             <?php foreach ($datalist as $k => $v): ?>
                 <tr sn="<?=$v['sn']; ?>" field="<?=$v['field']?>">
-                    <td>
+                    <!-- <td>
                     <?php
                     $value=$k + 1; 
                     $value = str_pad($value,4,'0',STR_PAD_LEFT);
                     echo $value;
                     ?>
-                    </td>
-                    <td><?=$v['year']; ?></td>
+                    </td> -->
+                    <!-- <td><?=$v['year']; ?></td> -->
                     <td><?=$v['part']; ?></td>
                     <td><?=$v['area_name']; ?></td>
                     <td><?=$v['field']; ?></td>
