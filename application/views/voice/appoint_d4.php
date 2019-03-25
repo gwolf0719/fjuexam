@@ -296,7 +296,7 @@
                 },
                 dataType: "json"
             }).done(function(data) {
-                // console.log(data);
+                console.log(data);
                 $(".field").val(field);
                 $("#sn").val(data.info.sn);
                 //職員一

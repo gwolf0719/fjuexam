@@ -211,7 +211,7 @@
             chk_code_use(arr[0],function(params) {
                 if(params){
                     $("#supervisor_1").val(arr[1]);
-                    // $("#trial_staff_code_1").val(arr[0]);
+                    $("#supervisor_1_code").val(arr[0]);
                     $('#exampleModal1').modal('hide');
 
                     
@@ -233,7 +233,7 @@
             chk_code_use(arr[0],function(params) {
                 if(params){
                     $("#supervisor_2").val(arr[1]);
-                    // $("#trial_staff_code_2").val(arr[0]);
+                    $("#supervisor_2_code").val(arr[0]);
                     $('#exampleModal2').modal('hide');
 
                     $s1=$("#supervisor_1").val();
@@ -354,9 +354,9 @@
                 var field = $("#field").val();
                 // var block_name = $('.block').val();
                 var supervisor_1 = $("#supervisor_1").val();
-                var supervisor_1_code = $("#trial_staff_code_1").val();
+                var supervisor_1_code = $("#supervisor_1_code").val();
                 var supervisor_2 = $("#supervisor_2").val();
-                var supervisor_2_code = $("#trial_staff_code_2").val();
+                var supervisor_2_code = $("#supervisor_2_code").val();
                 var trial_staff_code_1 = $("#trial_staff_code_1").val();
                 var trial_staff_code_2 = $("#trial_staff_code_2").val();
                 var block_name = $("#block_name").val();
