@@ -811,7 +811,7 @@
                 </div>
                 <div class="col-md-6 col-sm-6 col-xs-6" style="float:left;margin: 20px auto;">
                     <div class="form-group" style="text-align:right">
-                        <div class="">
+                        <div class="" style="position: relative;text-align: left;left: 17%;">
                             <button type="button" class="btn btn-primary" id="add" style="position: relative;right: 5%">新增</button>
                             <button type="button" class="btn btn-warning" id="fresh" style="color: white;">取消修改</button>
                             <button type="button" class="btn btn-danger" id="remove">取消指派</button>
