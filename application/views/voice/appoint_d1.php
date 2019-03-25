@@ -602,7 +602,7 @@
                             <input type="text" class="form-control" id="block_name" readonly hidden>
                         </div>
                     </div>
-                    <div class="col-md-3 col-sm-3 col-xs-3 cube">
+                    <div class="col-md-3 col-sm-3 col-xs-3 cube" style="width: 20%;">
                         <div class="form-group">
                             <label for="start_date" class=""  value="<?=$datatime_info['day'];?>">執行日</label>
                             <input type="checkbox" class="chbox"  name="day" checked disabled>
@@ -642,7 +642,7 @@
                     </div>
                 </div>
                 <div class="col-md-6 col-sm-6 col-xs-6" style="float:left;margin: 20px auto;">
-                    <div class="form-group" style="text-align:right">
+                    <div class="form-group" style="text-align: left;position: relative;left: 56%;">
                         <div class="">
                             <button type="button" class="btn btn-danger" id="remove">取消指派</button>
                             <button type="button" class="btn btn-primary" id="send">修改</button>
