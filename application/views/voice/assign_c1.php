@@ -158,9 +158,9 @@ $(function(){
                     <th>分區名稱</th>
                     <th>試場</th>
                     <th>考試節數</th>
-                    <th>考生應試號起</th>
+                    <!-- <th>考生應試號起</th>
                     <th>考生應試號迄</th>
-                    <th>應試人數</th>
+                    <th>應試人數</th> -->
                     <th>樓層</th>
                     <th>備註</th>                    
                 </tr>
@@ -197,9 +197,9 @@ $(function(){
                         ?>
                     
                     </td>
-                    <td><?=$v['start']; ?></td>
+                    <!-- <td><?=$v['start']; ?></td>
                     <td><?=$v['end']; ?></td>
-                    <td><?=$v['count_num']; ?></td>
+                    <td><?=$v['count_num']; ?></td> -->
                     <td><?=$v['floor'];?></td>
                     <td><?=$v['note']; ?></td>
                 </tr>                    
