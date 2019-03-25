@@ -343,7 +343,7 @@
                     $.ajax({
                         url: './voice/api/get_staff_member',
                         data: {
-                            "code": data.info.supervisor_1_code,
+                            "code": data.info.supervisor_1,
                         },
                         dataType: "json"
                     }).done(function(member) {
@@ -358,7 +358,7 @@
                     $.ajax({
                         url: './voice/api/get_staff_member',
                         data: {
-                            "code": data.info.supervisor_2_code,
+                            "code": data.info.supervisor_2,
                         },
                         dataType: "json"
                     }).done(function(data) {
@@ -468,7 +468,7 @@
                 }).done(function(data) {
                     alert(data.sys_msg);
                     if (data.sys_code == "200") {
-                        // location.reload();
+                        location.reload();
                     }
                 })
             }
