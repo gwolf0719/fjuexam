@@ -296,7 +296,7 @@
                 },
                 dataType: "json"
             }).done(function(data) {
-                // console.log(data);
+                console.log(data);
                 $(".field").val(field);
                 $("#sn").val(data.info.sn);
                 //職員一
@@ -305,7 +305,14 @@
                 
                 $("#first_member_name").val(data.info.supervisor_1);
                 $("#first_member_job_code").val(data.info.supervisor_1_code);
-                $("#trial_staff_code_1").val(data.info.trial_staff_code_1);
+
+                var part=data.info.part;
+                var f=field.substr(field.length-3)
+                var person1=part+f+'01';
+                var person2=part+f+'02';
+       
+
+                $("#trial_staff_code_1").val(person1);
                 // console.log(tr.find('td').eq(2).text());
                 var block_names= tr.find('td').eq(2).text();
 
@@ -318,7 +325,7 @@
                 
                 $("#second_member_name").val(data.info.supervisor_2);
                 $("#second_member_job_code").val(data.info.supervisor_2_code);
-                $("#trial_staff_code_2").val(data.info.trial_staff_code_2);
+                $("#trial_staff_code_2").val(person2);
                 var block_names_2 = tr.find('td').eq(2).text().split(',');
                 if(block_names_2.indexOf('上午場') >= 0){
                     $('.block').eq(2).prop("checked",true);
