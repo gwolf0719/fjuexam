@@ -1749,6 +1749,7 @@ class Test_form extends CI_Controller
         $date = date('yyyy/m/d');
         $part = $_GET['part'];
         $area = $_GET['area'];
+        
         $arr = array();
         $fields = array();
         $dataarray = $this->mod_voice_trial->e_6_1($part);
@@ -1760,11 +1761,6 @@ class Test_form extends CI_Controller
                 $fields[] = $v['field'];
                 $arr[$i] = $v;
                 $i ++ ;
-            }else{
-                $arr[$key]['first_member_salary_section'] = $v['first_member_salary_section'];
-                $arr[$key]['second_member_salary_section'] = $v['second_member_salary_section'];
-                $arr[$key]['first_member_section_salary_total'] = $v['first_member_section_salary_total']+$arr[$key]['first_member_section_salary_total'];
-                $arr[$key]['second_member_section_salary_total'] = $v['second_member_section_salary_total']+$arr[$key]['second_member_section_salary_total'];
             }
             
         }
@@ -1781,7 +1777,7 @@ class Test_form extends CI_Controller
 
         // $view = $this->load->view('voice/form_e_6_1', $data);
         
-        echo$view = $this->load->view('voice/form_e_6_1', $data,true);
+        echo $view = $this->load->view('voice/form_e_6_1', $data,true);
         // if (!is_dir('./html/')) {
         //     mkdir('./html/');
         // } else {
