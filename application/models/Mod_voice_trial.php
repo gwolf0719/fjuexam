@@ -844,7 +844,7 @@ class Mod_voice_trial extends CI_Model
                 $arr[] = array(
                     'sn'=>$sub[$i]['sn'],
                     'field' => $sub[$i]['field'],
-                    'test_section'=>$sub[$i]['class'],
+                    'test_section'=>$sub[$i]['block_name'],
                     'start'=>$sub[$i]['start'],
                     'end'=>$sub[$i]['end'],
                     'floor'=>$sub[$i]['floor'],
