@@ -619,33 +619,43 @@ class Test_form extends CI_Controller
 
         $year = $this->session->userdata('year');
         $ladder = $this->session->userdata('ladder');
-        // print_r($this->mod_voice_trial->get_list_for_pdf($part));
+        $res=$this->mod_voice_trial->get_list_for_pdf($part);
+        
+        $count=[];
+        foreach ($res as $key => $value) {
+            if($value['supervisor_1']!=''){
+                $count[$key]=$value;
+            }
+        }
+
         $data = array(
             'part' => $this->mod_voice_trial->get_list_for_pdf($part),
             'area' =>$area,
             'school' => $this->mod_voice_exam_area->year_school_name($part),
-            'datetime_info'=> $this->mod_voice_exam_datetime->get_once($year,$ladder)
+            'datetime_info'=> $this->mod_voice_exam_datetime->get_once($year,$ladder),
+            'count'=>count($count),
+            
         );
        
 
        
         if ($data['part'] != false) {
-            $view = $this->load->view('voice/form_e_2_2', $data,true);
-            if (!is_dir('./html/')) {
-                mkdir('./html/');
-            } else {
-                $path = 'form_e_2_2.html';
-                $fp = fopen('./html/'.$path,'w');//建檔
-                fwrite($fp,$view);
-                fclose($fp);//關閉開啟的檔案
-            }
+            echo $view = $this->load->view('voice/form_e_2_2', $data,true);
+            // if (!is_dir('./html/')) {
+            //     mkdir('./html/');
+            // } else {
+            //     $path = 'form_e_2_2.html';
+            //     $fp = fopen('./html/'.$path,'w');//建檔
+            //     fwrite($fp,$view);
+            //     fclose($fp);//關閉開啟的檔案
+            // }
 
-            if (!is_dir('./pdf/')) {
-                mkdir('./pdf/');
-            } else {
-                exec('wkhtmltopdf --lowquality  --enable-forms http://uat.fofo.tw/fjuexam/html/form_e_2_2.html  ./pdf/form_e_2_2.pdf');
-            }
-            echo '<script>location.href="http://uat.fofo.tw/fjuexam/pdf/form_e_2_2.pdf"</script>';
+            // if (!is_dir('./pdf/')) {
+            //     mkdir('./pdf/');
+            // } else {
+            //     exec('wkhtmltopdf --lowquality  --enable-forms http://uat.fofo.tw/fjuexam/html/form_e_2_2.html  ./pdf/form_e_2_2.pdf');
+            // }
+            // echo '<script>location.href="http://uat.fofo.tw/fjuexam/pdf/form_e_2_2.pdf"</script>';
         }else{
             return false;
         }

@@ -65,7 +65,7 @@
     </tr>
     <?php endforeach;?>
     <tr>
-        <td colspan="9" style="font-size:16px;text-align:left;">共計：<?=(count($part)*2)?>人</td>
+        <td colspan="9" style="font-size:16px;text-align:left;">共計：<?=($count*2)?>人</td>
     </tr>
 </table>
 
