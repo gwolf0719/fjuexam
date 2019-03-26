@@ -73,6 +73,6 @@
         <?php endif;?>
     <?php endforeach; ?>
     <tr>
-        <td style="text-align:left;font-size:16px;">共計：<?=$trial_count*2+$patrol_count?>人</td>
+        <td style="text-align:left;font-size:16px;">共計：<?=$trial_count+$patrol_count?>人</td>
     </tr>
 </table>
