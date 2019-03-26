@@ -73,8 +73,8 @@ $(function(){
         }, 1000);         
         var _this = $(this);
         
-        $("#start").val(_this.find("td").eq(4).text());
-        $("#end").val(_this.find("td").eq(4).text());
+        $("#start").val(_this.find("td").eq(2).text());
+        $("#end").val(_this.find("td").eq(2).text());
         $("#note").val(_this.find("td").eq(-1).text());
         $("#floor").val(_this.find("td").eq(-2).text());
         
