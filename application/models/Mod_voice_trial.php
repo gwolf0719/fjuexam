@@ -841,10 +841,11 @@ class Mod_voice_trial extends CI_Model
                 $course = $this->db->where('year', $year)->where('year',$this->session->userdata('year'))->where('ladder',$this->session->userdata('ladder'))->where('field', $sub[$i]['field'])->get('voice_exam_area')->row_array();
                 $trial = $this->db->get('voice_trial_staff')->result_array();
                 # code...
+
                 $arr[] = array(
                     'sn'=>$sub[$i]['sn'],
                     'field' => $sub[$i]['field'],
-                    'test_section'=>$sub[$i]['block_name'],
+                    'test_section'=>$sub[$i]['class'],
                     'start'=>$sub[$i]['start'],
                     'end'=>$sub[$i]['end'],
                     'floor'=>$sub[$i]['floor'],
@@ -854,8 +855,31 @@ class Mod_voice_trial extends CI_Model
                     'allocation_code'=>$voucher['allocation_code'],
                     'voucher'=>$voucher['patrol_staff_name']
                 );        
+
+
+
+
+                
             }
-            return $arr;
+
+
+            $data=[];
+            $result=[];
+            foreach ($arr as $key => $value) {
+                if(in_array($value['field'],$data)){
+                    // sadf
+                } else {
+                    $result[$key]=$value;
+                    array_push($data,$value['field']);
+                }
+
+              
+            }
+            // print_r($result);
+
+
+
+            return $result;
         }else{
             return false;
         }

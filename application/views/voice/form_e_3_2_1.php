@@ -51,14 +51,7 @@
 
         <tr>
             <td class="bb"><?=trim($v['field'])?></td>
-            <td class="bb"><?php 
-
-            if($v['test_section']==1){
-                echo '上午場';
-            }else{
-                echo '下午場';
-            }
-            ?></td>
+            <td class="bb"><?=trim($v['test_section']) ?></td>
             <td class="bb"><?=trim($v['start']) ?>~<?=trim($v['end']) ?></td>
             <td class="bb"><?=trim($v['floor']) ?></td>
             <td class="bb"><?=trim($v['supervisor_1'])?></td>
@@ -68,6 +61,6 @@
   
     <?php endforeach; ?>
     <tr>
-        <td style="text-align:left;font-size:16px;">共計：<?=$patrol_count?>人</td>
+        <td style="text-align:left;font-size:16px;">共計：<?=count($part)*2+$patrol_count?>人</td>
     </tr>
 </table>
