@@ -252,7 +252,7 @@
             var field = $(this).attr("field");
             var block_names = $(this).attr("block_name");
             var tr = $(this);
-            console.log(fee);
+            // console.log(fee);
             $("#sn").val(sn);
             $("#first_member_section_count").val(section);
             $("#second_member_section_count").val(section);
