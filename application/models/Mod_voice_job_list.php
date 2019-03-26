@@ -246,7 +246,7 @@ class Mod_voice_job_list extends CI_Model
             $supervisor_1 = $this->db->where('member_name', $sub[$i]['supervisor_1'])->where('year',$this->session->userdata('year'))->where('ladder',$this->session->userdata('ladder'))->get('voice_import_member')->row_array();
             if($sub[$i]['trial_staff_code_1'] != ""){
                 $arr[] = array(
-                    'job_code' => $sub[$i]['trial_staff_code_1'],
+                    'job_code' => $sub[$i]['supervisor_1_code'],
                     'job' => '監試人員',
                     'name' => $sub[$i]['supervisor_1'],
                     'job_title' => $supervisor_1['member_title'],
@@ -261,7 +261,7 @@ class Mod_voice_job_list extends CI_Model
             $supervisor_2 = $this->db->where('member_name', $sub[$i]['supervisor_2'])->where('year',$this->session->userdata('year'))->where('ladder',$this->session->userdata('ladder'))->get('voice_import_member')->row_array();
             if($sub[$i]['trial_staff_code_2'] != ""){
                 $arr[] = array(
-                    'job_code' => $sub[$i]['trial_staff_code_2'],
+                    'job_code' => $sub[$i]['supervisor_2_code'],
                     'job' => '監試人員',
                     'name' => $sub[$i]['supervisor_2'],
                     'job_title' => $supervisor_2['member_title'],
@@ -277,7 +277,7 @@ class Mod_voice_job_list extends CI_Model
             if($trial_staff[$i]['trial_staff_code'] != ""){
                 $date = explode("年",$trial_staff[$i]['do_date']);
                 $arr[] = array(
-                    'job_code' => $trial_staff[$i]['trial_staff_code'],
+                    'job_code' => $trial_staff[$i]['allocation_code'],
                     'job' => '管卷人員',
                     'name' => $trial_staff[$i]['trial_staff_name'],
                     'job_title' => $trial_staff_member['member_title'],
@@ -292,8 +292,11 @@ class Mod_voice_job_list extends CI_Model
             $patrol_member = $this->db->where('member_name', $patrol[$i]['patrol_staff_name'])->where('year',$this->session->userdata('year'))->where('ladder',$this->session->userdata('ladder'))->get('voice_import_member')->row_array();
             if($patrol[$i]['patrol_staff_code'] != ""){
                 $date = explode("年",$patrol[$i]['do_date']);
+                if(!isset($date[1])){
+                    $date[1]="無";
+                }
                 $arr[] = array(
-                    'job_code' => $patrol[$i]['patrol_staff_code'],
+                    'job_code' => $patrol[$i]['allocation_code'],
                     'job' => '巡場人員',
                     'name' => $patrol[$i]['patrol_staff_name'],
                     'job_title' => $patrol_member['member_title'],
