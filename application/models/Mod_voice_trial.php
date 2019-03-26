@@ -157,7 +157,7 @@ class Mod_voice_trial extends CI_Model
     }
     public function get_once_trial_by_code($trial_staff_code)
     {
-        return $this->db->where('member_code', $trial_staff_code)->get('voice_import_member')->row_array();
+        return $this->db->where('member_code', $trial_staff_code)->where('year', $year)->where('ladder', $_SESSION['ladder'])->get('voice_import_member')->row_array();
     }  
 
     public function get_once_trial($sn)
