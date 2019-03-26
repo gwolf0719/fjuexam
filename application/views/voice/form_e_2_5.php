@@ -24,6 +24,7 @@
     }
 </style>
 <?php foreach ($list as $k => $v): ?>
+<?php if($k!=''){?>
 <table style="padding:10px 0px;text-align:center;">
     <thead>
       <tr>
@@ -57,4 +58,5 @@
     </tr>
 
 </table>
+<?php }?>
 <?php endforeach; ?>

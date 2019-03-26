@@ -252,7 +252,7 @@
             var field = $(this).attr("field");
             var block_names = $(this).attr("block_name");
             var tr = $(this);
-            console.log(fee);
+            // console.log(fee);
             $("#sn").val(sn);
             $("#first_member_section_count").val(section);
             $("#second_member_section_count").val(section);
@@ -296,7 +296,7 @@
                 },
                 dataType: "json"
             }).done(function(data) {
-                // console.log(data);
+                console.log(data);
                 $(".field").val(field);
                 $("#sn").val(data.info.sn);
                 //職員一
@@ -305,7 +305,16 @@
                 
                 $("#first_member_name").val(data.info.supervisor_1);
                 $("#first_member_job_code").val(data.info.supervisor_1_code);
-                $("#trial_staff_code_1").val(data.info.trial_staff_code_1);
+
+                var part=data.info.part;
+                var nowpart=part.substr(part.length-1);
+                var f=field.substr(field.length-3);
+                
+                var person1=nowpart+f+1;
+                var person2=nowpart+f+2;
+       
+
+                $("#trial_staff_code_1").val(person1);
                 // console.log(tr.find('td').eq(2).text());
                 var block_names= tr.find('td').eq(2).text();
 
@@ -318,7 +327,7 @@
                 
                 $("#second_member_name").val(data.info.supervisor_2);
                 $("#second_member_job_code").val(data.info.supervisor_2_code);
-                $("#trial_staff_code_2").val(data.info.trial_staff_code_2);
+                $("#trial_staff_code_2").val(person2);
                 var block_names_2 = tr.find('td').eq(2).text().split(',');
                 if(block_names_2.indexOf('上午場') >= 0){
                     $('.block').eq(2).prop("checked",true);
@@ -334,11 +343,11 @@
                     $.ajax({
                         url: './voice/api/get_staff_member',
                         data: {
-                            "code": data.info.supervisor_1_code,
+                            "code": data.info.supervisor_1,
                         },
                         dataType: "json"
                     }).done(function(member) {
-                        // console.log(member);
+                        console.log(member);
                         $("#first_member_job_title").val(member.info.member_title);
                         $("#first_member_phone").val(member.info.member_phone);
                     })
@@ -349,7 +358,7 @@
                     $.ajax({
                         url: './voice/api/get_staff_member',
                         data: {
-                            "code": data.info.supervisor_2_code,
+                            "code": data.info.supervisor_2,
                         },
                         dataType: "json"
                     }).done(function(data) {
@@ -459,7 +468,7 @@
                 }).done(function(data) {
                     alert(data.sys_msg);
                     if (data.sys_code == "200") {
-                        // location.reload();
+                        location.reload();
                     }
                 })
             }
@@ -532,7 +541,7 @@
                     <th>場次</th>
                     <!-- <th>考生應試號起</th> -->
                     <!-- <th>考生應試號迄</th> -->
-                    <th>應試人數</th>
+                    <!-- <th>應試人數</th>、 -->
                     <th>樓層別</th>
                     <th>監試人員一編號</th>
                     <th>監試人員一</th>
@@ -561,7 +570,7 @@
                             }
                         ?>
                    </td>
-                    <td><?=$v['count_num']; ?></td>
+                    <!-- <td><?=$v['count_num']; ?></td> -->
                     <td><?=$v['floor']; ?></td>
                     <td><?=$v['trial_staff_code_1']; ?></td>
                     <td><?=$v['supervisor_1']; ?></td>
@@ -585,7 +594,7 @@
                     <th>場次</th>
                     <!-- <th>考生應試號起</th>
                     <th>考生應試號迄</th> -->
-                    <th>應試人數</th>
+                    <!-- <th>應試人數</th> -->
                     <th>樓層別</th>
                     <th>監試人員一編號</th>
                     <th>監試人員一</th>
@@ -615,7 +624,7 @@
                             }
                         ?>
                    </td>
-                    <td><?=$v['count_num']; ?></td>
+                    <!-- <td><?=$v['count_num']; ?></td> -->
                     <td><?=$v['floor']; ?></td>
                     <td><?=$v['trial_staff_code_1']; ?></td>
                     <td><?=$v['supervisor_1']; ?></td>
@@ -639,7 +648,7 @@
                     <th>場次</th>
                     <!-- <th>考生應試號起</th>
                     <th>考生應試號迄</th> -->
-                    <th>應試人數</th>
+                    <!-- <th>應試人數</th> -->
                     <th>樓層別</th>
                     <th>監試人員一編號</th>
                     <th>監試人員一</th>
@@ -668,7 +677,7 @@
                             }
                         ?>
                    </td>
-                    <td><?=$v['count_num']; ?></td>
+                    <!-- <td><?=$v['count_num']; ?></td> -->
                     <td><?=$v['floor']; ?></td>
                     <td><?=$v['trial_staff_code_1']; ?></td>
                     <td><?=$v['supervisor_1']; ?></td>

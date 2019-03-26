@@ -157,7 +157,7 @@ class Mod_voice_trial extends CI_Model
     }
     public function get_once_trial_by_code($trial_staff_code)
     {
-        return $this->db->where('member_code', $trial_staff_code)->get('voice_import_member')->row_array();
+        return $this->db->where('member_code', $trial_staff_code)->where('year', $year)->where('ladder', $_SESSION['ladder'])->get('voice_import_member')->row_array();
     }  
 
     public function get_once_trial($sn)
@@ -168,7 +168,7 @@ class Mod_voice_trial extends CI_Model
     
     public function get_once_assign($field,$year)
     {
-        return $this->db->where('field', $field)->where('year', $year)->get('voice_trial_assign')->row_array();
+        return $this->db->where('field', $field)->where('year', $year)->where('ladder', $_SESSION['ladder'])->get('voice_trial_assign')->row_array();
     }
 
     public function chk_once($year,$ladder,$field,$part)
@@ -841,6 +841,7 @@ class Mod_voice_trial extends CI_Model
                 $course = $this->db->where('year', $year)->where('year',$this->session->userdata('year'))->where('ladder',$this->session->userdata('ladder'))->where('field', $sub[$i]['field'])->get('voice_exam_area')->row_array();
                 $trial = $this->db->get('voice_trial_staff')->result_array();
                 # code...
+
                 $arr[] = array(
                     'sn'=>$sub[$i]['sn'],
                     'field' => $sub[$i]['field'],
@@ -854,8 +855,31 @@ class Mod_voice_trial extends CI_Model
                     'allocation_code'=>$voucher['allocation_code'],
                     'voucher'=>$voucher['patrol_staff_name']
                 );        
+
+
+
+
+                
             }
-            return $arr;
+
+
+            $data=[];
+            $result=[];
+            foreach ($arr as $key => $value) {
+                if(in_array($value['field'],$data)){
+                    // sadf
+                } else {
+                    $result[$key]=$value;
+                    array_push($data,$value['field']);
+                }
+
+              
+            }
+            // print_r($result);
+
+
+
+            return $result;
         }else{
             return false;
         }
@@ -1017,6 +1041,8 @@ class Mod_voice_trial extends CI_Model
         if ($part != '') {
             $this->db->where('voice_area_main.part', $part);
         }
+        $this->db->where('voice_area_main.year', $this->session->userdata('year'));
+        $this->db->where('voice_area_main.ladder', $this->session->userdata('ladder'));
      
         $this->db->not_like('voice_area_main.field', '9','after');
         $this->db->from('voice_area_main');

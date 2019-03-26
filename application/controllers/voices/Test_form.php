@@ -400,8 +400,8 @@ class Test_form extends CI_Controller
         // 取得考場資料
         foreach($area_list as $k=>$v){
             // echo '1';
-            $area_list[$k]['count_num_1']= $this->mod_voice_area->get_count_num($v['field'],'上午場');
-            $area_list[$k]['count_num_2']= $this->mod_voice_area->get_count_num($v['field'],'下午場');
+            $area_list[$k]['count_num_1']= $this->mod_voice_area->get_count_num($v['field'],'1');
+            $area_list[$k]['count_num_2']= $this->mod_voice_area->get_count_num($v['field'],'2');
 
         }
 
@@ -619,12 +619,22 @@ class Test_form extends CI_Controller
 
         $year = $this->session->userdata('year');
         $ladder = $this->session->userdata('ladder');
-        // print_r($this->mod_voice_trial->get_list_for_pdf($part));
+        $res=$this->mod_voice_trial->get_list_for_pdf($part);
+        
+        $count=[];
+        foreach ($res as $key => $value) {
+            if($value['supervisor_1']!=''){
+                $count[$key]=$value;
+            }
+        }
+
         $data = array(
             'part' => $this->mod_voice_trial->get_list_for_pdf($part),
             'area' =>$area,
             'school' => $this->mod_voice_exam_area->year_school_name($part),
-            'datetime_info'=> $this->mod_voice_exam_datetime->get_once($year,$ladder)
+            'datetime_info'=> $this->mod_voice_exam_datetime->get_once($year,$ladder),
+            'count'=>count($count),
+            
         );
        
 
@@ -814,9 +824,10 @@ class Test_form extends CI_Controller
         }
 
 
-
+        // print_r($data_list);
+  
         $data = array(
-            'part' => $data_list
+            'part' => $this->mod_voice_job_list->get_sign_list()
         );
         
 
@@ -1738,6 +1749,7 @@ class Test_form extends CI_Controller
         $date = date('yyyy/m/d');
         $part = $_GET['part'];
         $area = $_GET['area'];
+        
         $arr = array();
         $fields = array();
         $dataarray = $this->mod_voice_trial->e_6_1($part);
@@ -1749,11 +1761,6 @@ class Test_form extends CI_Controller
                 $fields[] = $v['field'];
                 $arr[$i] = $v;
                 $i ++ ;
-            }else{
-                $arr[$key]['first_member_salary_section'] = $v['first_member_salary_section'];
-                $arr[$key]['second_member_salary_section'] = $v['second_member_salary_section'];
-                $arr[$key]['first_member_section_salary_total'] = $v['first_member_section_salary_total']+$arr[$key]['first_member_section_salary_total'];
-                $arr[$key]['second_member_section_salary_total'] = $v['second_member_section_salary_total']+$arr[$key]['second_member_section_salary_total'];
             }
             
         }
@@ -1770,22 +1777,22 @@ class Test_form extends CI_Controller
 
         // $view = $this->load->view('voice/form_e_6_1', $data);
         
-        echo$view = $this->load->view('voice/form_e_6_1', $data,true);
-        // if (!is_dir('./html/')) {
-        //     mkdir('./html/');
-        // } else {
-        //     $path = 'form_e_6_1.html';
-        //     $fp = fopen('./html/'.$path,'w');//建檔
-        //     fwrite($fp,$view);
-        //     fclose($fp);//關閉開啟的檔案
-        // }
+        $view = $this->load->view('voice/form_e_6_1', $data,true);
+        if (!is_dir('./html/')) {
+            mkdir('./html/');
+        } else {
+            $path = 'form_e_6_1.html';
+            $fp = fopen('./html/'.$path,'w');//建檔
+            fwrite($fp,$view);
+            fclose($fp);//關閉開啟的檔案
+        }
 
-        // if (!is_dir('./pdf/')) {
-        //     mkdir('./pdf/');
-        // } else {
-        //     exec('wkhtmltopdf --lowquality --enable-forms http://uat.fofo.tw/fjuexam/html/form_e_6_1.html  ./pdf/form_e_6_1.pdf');
-        // }
-        // echo '<script>location.href="http://uat.fofo.tw/fjuexam/pdf/form_e_6_1.pdf"</script>';
+        if (!is_dir('./pdf/')) {
+            mkdir('./pdf/');
+        } else {
+            exec('wkhtmltopdf --lowquality --enable-forms http://uat.fofo.tw/fjuexam/html/form_e_6_1.html  ./pdf/form_e_6_1.pdf');
+        }
+        echo '<script>location.href="http://uat.fofo.tw/fjuexam/pdf/form_e_6_1.pdf"</script>';
     }
 
     public function form_e_6_2()

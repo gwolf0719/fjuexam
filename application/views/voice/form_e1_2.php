@@ -46,10 +46,11 @@
             <th class="bb" colspan="3">執勤日期</th>
         </tr>
     </thead>
+    <?php  $i=0?>
         <?php foreach ($list as $k => $v): ?>
         <tr>
             <td class="bb" colspan="1">
-                <?=$k + 1?>
+                <?=$i + 1?>
             </td>
             <td class="bb" colspan="2">
                 <?=$v['job_code']?>
@@ -76,6 +77,7 @@
                 
             </td>
         </tr>
+        <?php $i=$i + 1;?>
         <?php endforeach; ?>
         <tr>
             <td colspan="13" style="font-size:16px;text-align:left;">共計：<?=count($list)?>人</td>

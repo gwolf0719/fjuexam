@@ -48,29 +48,17 @@
     <?php $field_arr = array();?>
     <?php foreach ($part as $k => $v): ?>
 
-        <?php 
-            // $field_arr = array();
-            $show = false;
-            if(in_array($v['field'],$field_arr)){
-                $show = false;
-                $test_section = 2;
-            }else{
-                $show = true;
-                $field_arr[] = $v['field'];
-                $test_section = 1;
-            }
-        ?>
-        <?php if($show==true):?>
+
         <tr>
             <td class="bb"><?=trim($v['field'])?></td>
-            <td class="bb"><?=$v['test_section']?></td>
+            <td class="bb"><?=trim($v['test_section']) ?></td>
             <td class="bb"><?=trim($v['start']) ?>~<?=trim($v['end']) ?></td>
             <td class="bb"><?=trim($v['floor']) ?></td>
             <td class="bb"><?=trim($v['supervisor_1'])?></td>
             <td class="bb"><?=trim($v['supervisor_2'])?></td>
             <td class="bb"><?=trim($v['allocation_code'])?>&emsp;<?=trim($v['voucher'])?></td>
         </tr>
-        <?php endif;?>
+  
     <?php endforeach; ?>
     <tr>
         <td style="text-align:left;font-size:16px;">共計：<?=$trial_count*2+$patrol_count?>人</td>

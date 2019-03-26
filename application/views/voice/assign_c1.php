@@ -73,8 +73,8 @@ $(function(){
         }, 1000);         
         var _this = $(this);
         
-        $("#start").val(_this.find("td").eq(4).text());
-        $("#end").val(_this.find("td").eq(4).text());
+        $("#start").val(_this.find("td").eq(2).text());
+        $("#end").val(_this.find("td").eq(2).text());
         $("#note").val(_this.find("td").eq(-1).text());
         $("#floor").val(_this.find("td").eq(-2).text());
         
@@ -152,15 +152,15 @@ $(function(){
         <table class="table table-hover" id="">
             <thead>
                 <tr>
-                    <th>序號</th>
-                    <th>年度</th>
+                    <!-- <th>序號</th> -->
+                    <!-- <th>年度</th> -->
                     <th>分區</th>
                     <th>分區名稱</th>
                     <th>試場</th>
                     <th>考試節數</th>
-                    <th>考生應試號起</th>
+                    <!-- <th>考生應試號起</th>
                     <th>考生應試號迄</th>
-                    <th>應試人數</th>
+                    <th>應試人數</th> -->
                     <th>樓層</th>
                     <th>備註</th>                    
                 </tr>
@@ -168,14 +168,14 @@ $(function(){
             <tbody>
             <?php foreach ($datalist as $k => $v): ?>
                 <tr sn="<?=$v['sn']; ?>" field="<?=$v['field']?>">
-                    <td>
+                    <!-- <td>
                     <?php
                     $value=$k + 1; 
                     $value = str_pad($value,4,'0',STR_PAD_LEFT);
                     echo $value;
                     ?>
-                    </td>
-                    <td><?=$v['year']; ?></td>
+                    </td> -->
+                    <!-- <td><?=$v['year']; ?></td> -->
                     <td><?=$v['part']; ?></td>
                     <td><?=$v['area_name']; ?></td>
                     <td><?=$v['field']; ?></td>
@@ -197,9 +197,9 @@ $(function(){
                         ?>
                     
                     </td>
-                    <td><?=$v['start']; ?></td>
+                    <!-- <td><?=$v['start']; ?></td>
                     <td><?=$v['end']; ?></td>
-                    <td><?=$v['count_num']; ?></td>
+                    <td><?=$v['count_num']; ?></td> -->
                     <td><?=$v['floor'];?></td>
                     <td><?=$v['note']; ?></td>
                 </tr>                    

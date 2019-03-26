@@ -203,15 +203,24 @@ class Mod_voice_job_list extends CI_Model
 
     public function get_all_assign_member_list()
     {
-        // //取出試務人員
-        // $this->db->where('year', $this->session->userdata('year'));
-        // $res = $this->db->get('voice_job_list')->result_array();
+        $adate = $this->db->where('year', $this->session->userdata('year'))->where('ladder', $this->session->userdata('ladder'))->get('voice_exam_datetime')->row_array();
+        $day=$adate['day'];
+        $day = explode("年",$adate['day']);
+
+
+        //取出試務人員
+        $this->db->where('year', $this->session->userdata('year'));
+        $this->db->where('ladder', $this->session->userdata('ladder'));
+        $res = $this->db->get('voice_job_list')->result_array();
+        
+
 
         //取出監試人員
         $this->db->select('*');
         $this->db->from('voice_exam_area');
         $this->db->join('voice_trial_assign', 'voice_exam_area.sn = voice_trial_assign.sn');
         $this->db->where("voice_exam_area.year",$_SESSION['year']);
+        $this->db->where("voice_exam_area.ladder",$_SESSION['ladder']);
         $year = $this->session->userdata('year');
         $sub = $this->db->get()->result_array();
         // print_r($sub);、
@@ -227,26 +236,26 @@ class Mod_voice_job_list extends CI_Model
 
         $patrol = $this->db->get('voice_patrol_staff')->result_array();
 
-        // for ($i=0; $i < count($res); $i++) {
-        //     # code...
-        //     $member_unit = $this->db->where('member_code', $res[$i]['job_code'])->select('member_unit')->get('voice_import_member')->row_array();
-        //     if ($res[$i]['job_code'] != "") {
-        //         $arr[] = array(
-        //             'job_code' => $res[$i]['job_code'],
-        //             'job' => $res[$i]['job'],
-        //             'name' => $res[$i]['name'],
-        //             'job_title' => $res[$i]['job_title'],
-        //             'member_unit'=>$member_unit['member_unit'],
-        //             'do_date' => $res[$i]['do_date']
-        //         );
-        //     }
-        // }
+        for ($i=0; $i < count($res); $i++) {
+            # code...
+            $member_unit = $this->db->where('member_code', $res[$i]['job_code'])->select('member_unit')->get('voice_import_member')->row_array();
+            if ($res[$i]['job_code'] != "") {
+                $arr[] = array(
+                    'job_code' => $res[$i]['job_code'],
+                    'job' => $res[$i]['job'],
+                    'name' => $res[$i]['name'],
+                    'job_title' => $res[$i]['job'],
+                    'member_unit'=>$member_unit['member_unit'],
+                    'do_date' => $day[1],
+                );
+            }
+        }
         for ($i=0; $i < count($sub); $i++) {
             # code...
-            $supervisor_1 = $this->db->where('member_name', $sub[$i]['supervisor_1'])->where('year',$this->session->userdata('year'))->where('ladder',$this->session->userdata('ladder'))->get('voice_import_member')->row_array();
+            $supervisor_1 = $this->db->where('member_name', $sub[$i]['supervisor_1'])->where('year',$this->session->userdata('year'))->get('voice_import_member')->row_array();
             if($sub[$i]['trial_staff_code_1'] != ""){
                 $arr[] = array(
-                    'job_code' => $sub[$i]['trial_staff_code_1'],
+                    'job_code' => $sub[$i]['supervisor_1_code'],
                     'job' => '監試人員',
                     'name' => $sub[$i]['supervisor_1'],
                     'job_title' => $supervisor_1['member_title'],
@@ -261,7 +270,7 @@ class Mod_voice_job_list extends CI_Model
             $supervisor_2 = $this->db->where('member_name', $sub[$i]['supervisor_2'])->where('year',$this->session->userdata('year'))->where('ladder',$this->session->userdata('ladder'))->get('voice_import_member')->row_array();
             if($sub[$i]['trial_staff_code_2'] != ""){
                 $arr[] = array(
-                    'job_code' => $sub[$i]['trial_staff_code_2'],
+                    'job_code' => $sub[$i]['supervisor_2_code'],
                     'job' => '監試人員',
                     'name' => $sub[$i]['supervisor_2'],
                     'job_title' => $supervisor_2['member_title'],
@@ -277,7 +286,7 @@ class Mod_voice_job_list extends CI_Model
             if($trial_staff[$i]['trial_staff_code'] != ""){
                 $date = explode("年",$trial_staff[$i]['do_date']);
                 $arr[] = array(
-                    'job_code' => $trial_staff[$i]['trial_staff_code'],
+                    'job_code' => $trial_staff[$i]['allocation_code'],
                     'job' => '管卷人員',
                     'name' => $trial_staff[$i]['trial_staff_name'],
                     'job_title' => $trial_staff_member['member_title'],
@@ -292,8 +301,11 @@ class Mod_voice_job_list extends CI_Model
             $patrol_member = $this->db->where('member_name', $patrol[$i]['patrol_staff_name'])->where('year',$this->session->userdata('year'))->where('ladder',$this->session->userdata('ladder'))->get('voice_import_member')->row_array();
             if($patrol[$i]['patrol_staff_code'] != ""){
                 $date = explode("年",$patrol[$i]['do_date']);
+                if(!isset($date[1])){
+                    $date[1]="無";
+                }
                 $arr[] = array(
-                    'job_code' => $patrol[$i]['patrol_staff_code'],
+                    'job_code' => $patrol[$i]['allocation_code'],
                     'job' => '巡場人員',
                     'name' => $patrol[$i]['patrol_staff_name'],
                     'job_title' => $patrol_member['member_title'],
@@ -310,7 +322,8 @@ class Mod_voice_job_list extends CI_Model
                 $result[$key] = $val;
                 // print_r($val);
             }
-        }            
+        }  
+        print_r($result);    
         return $result;
     }
 
@@ -336,8 +349,11 @@ class Mod_voice_job_list extends CI_Model
         }
 
         $this->db->where('job_code !=', "");
+        $this->db->from('voice_job_list');
+        $this->db->join('voice_import_member', 'voice_import_member.member_name = voice_job_list.name');
+        $this->db->order_by('voice_import_member.member_unit');
+        $res = $this->db->get()->result_array();
 
-        $res = $this->db->get('voice_job_list')->result_array();
         if (!empty($res)) {
             for ($i=0; $i < count($res); $i++) {
                 # code...
@@ -372,8 +388,12 @@ class Mod_voice_job_list extends CI_Model
         }
 
         $this->db->where('job_code !=', "");
+        $this->db->order_by('job');
+
+        
         
         $res = $this->db->get('voice_job_list')->result_array();
+ 
 
         //取出監試人員
         $this->db->select('*');
@@ -400,7 +420,7 @@ class Mod_voice_job_list extends CI_Model
 
         if (!empty($res)) {
             for ($i=0; $i < count($res); $i++) {
-                # code...
+                # code...$this->db->order_by('name');
                 $member = $this->db->where('year',$this->session->userdata('year'))->where('ladder',$this->session->userdata('ladder'))->where('member_code', $res[$i]['job_code'])->get('voice_import_member')->result_array();
 
                 for ($m=0; $m < count($member); $m++) { 
@@ -468,8 +488,10 @@ class Mod_voice_job_list extends CI_Model
                     'note'=>$note['note'],
                     'job'=>'巡場人員',
                 );   
-            }            
+            }
+            // print_r($arr)            
             return $arr;
+            
         }else{
             return false;
         }

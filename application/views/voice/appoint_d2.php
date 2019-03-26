@@ -371,7 +371,10 @@
                 var second_start = $("#second_start").val();
                 var second_end = $("#second_end").val();
                 var date = $("#morning_field").attr("date");
-                console.log(date);
+                
+
+
+
                 if(first_start != "" && first_end != ""){
                     var first_section = 1;
                 }else{
@@ -438,7 +441,7 @@
             } else {
                 var part = $("#part").val();
                 var allocation_code = $("#allocation_code").val();
-                var trial_staff_code = $("#allocation_code").val();
+                var trial_staff_code = $("#trial_staff_code").val();
                 var trial_staff_name = $("#trial_staff_name").val();
                 var first_start = $("#first_start").val();
                 var first_end = $("#first_end").val();
@@ -576,7 +579,7 @@
                         <?=$k + 1; ?>
                     </td>
                     <td class="bt">
-                        <?=$v['allocation_code']; ?>
+                        <?=$v['trial_staff_code']; ?>
                     </td>
                     <td class="bt">
                         <?=$v['trial_staff_name']; ?>
@@ -637,7 +640,7 @@
                         <?=$k + 1; ?>
                     </td>
                     <td class="bt">
-                        <?=$v['allocation_code']; ?>
+                        <?=$v['trial_staff_code']; ?>
                     </td>
                     <td class="bt">
                         <?=$v['trial_staff_name']; ?>
@@ -697,7 +700,7 @@
                         <?=$k + 1; ?>
                     </td>
                     <td class="bt">
-                        <?=$v['allocation_code']; ?>
+                        <?=$v['trial_staff_code']; ?>
                     </td>
                     <td class="bt">
                         <?=$v['trial_staff_name']; ?>
@@ -738,9 +741,9 @@
                     <div class="form-group" style="width: 100%;float: left;">
                         <label for="floor" class="" style="float:left;">管卷人員</label>
                         <input type="hidden" class="form-control" id="sn">
-                        <input type="text" class="form-control" id="allocation_code" style="width: 28%;float: left;" placeholder="管卷人員編號">
+                        <input type="hidden" class="form-control" id="allocation_code" style="width: 28%;float: left;" placeholder="">
                         <input type="hidden" class="form-control" id="part" style="" placeholder="" value="2501">
-                        <input type="hidden" class="form-control" id="trial_staff_code" style="width: 20%;float: left;" placeholder="">
+                        <input type="text" class="form-control" id="trial_staff_code" style="width: 25%;float: left;" placeholder="管卷人員編號">
                         <input type="text" class="form-control" id="trial_staff_name" style="width: 24%;float: left;margin-left: 5px;">
                         <button type="button" class="btn btn-primary assgin" data-toggle="modal" data-target="#exampleModal" style="float:left;width:20%;margin-left:5px;background:#346a90;border:unset">指派</button>
                     </div>
@@ -808,7 +811,7 @@
                 </div>
                 <div class="col-md-6 col-sm-6 col-xs-6" style="float:left;margin: 20px auto;">
                     <div class="form-group" style="text-align:right">
-                        <div class="">
+                        <div class="" style="position: relative;text-align: left;left: 17%;">
                             <button type="button" class="btn btn-primary" id="add" style="position: relative;right: 5%">新增</button>
                             <button type="button" class="btn btn-warning" id="fresh" style="color: white;">取消修改</button>
                             <button type="button" class="btn btn-danger" id="remove">取消指派</button>

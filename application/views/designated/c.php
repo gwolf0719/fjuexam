@@ -15,17 +15,7 @@
         max-width:65%;
     }
 </style>
-<script>
-$(function(){
-    $(window).on("load",function(){
-        var arr = <?php print_r($datalist); ?>;
-        if(arr == ""){
-            alert("目前 A1 考區試場資料尚未匯入資料，請先匯入資料再進行操作");
-            location.href="./designated/a_1";
-        }
-    })
-})
-</script>
+
 <div class="row">
     <div class="input-group col-sm-3">
 
@@ -40,7 +30,7 @@ $(function(){
     
 </div>
 <div class="row" >
-    <input type="hidden" arr="<?php print_r($datalist); ?>" id="arr">
+    
     <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4 cube text-center">
         <a href="./designated/c_1">
             <img src="assets/images/c1.png" alt="">
@@ -64,9 +54,7 @@ $(function(){
         </a>    
     </div>
     <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4 cube text-center">
-        <a href="./designated/c_5">
-            <img src="assets/images/c5.png" alt="">
-        </a>    
+       
     </div> 
     <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4 cube text-center">
         

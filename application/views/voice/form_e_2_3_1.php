@@ -14,8 +14,10 @@
     * {
         overflow: visible !important;
     }
-    table, tr, td, th, tbody, thead, tfoot {
+    h1{
         page-break-before: always;
+    }
+    table, tr, td, th, tbody, thead, tfoot {
         page-break-inside: avoid;
     }
     
@@ -29,21 +31,26 @@
 </style>
 
 <?php foreach ($part as $key => $value) :?>
-
+<h1 style="font-size:26px;text-align:center;">
+    <?=$_SESSION['year']?>學年度英語聽力測驗<?=$_SESSION['ladder']?>考試新北一考區
+</h1>
+<h3 style="font-size:22px;text-align:center;"><?=$_GET['area']?><?=$school['area_name']?>試題本、答案卷卡收發記錄單</h3>
+<h4 style="font-size:22px;text-align:left;font-weight:bold;">管卷人員：<?=$value['trial_staff_name']?></h4>
 <table style="text-align:center;margin:0px auto;">
     <thead>
-        <tr>
-            <td colspan="5" style="font-size:26px;text-align:center;"><?=$_SESSION['year']?>學年度英語聽力測驗<?=$_SESSION['ladder']?>考試新北一考區</td>
+        <!-- <tr>
+            <td colspan="4" style="font-size:26px;text-align:center;"></td>
         </tr>
         <tr>
-            <td colspan="5" style="font-size:22px;text-align:center;"><?=$_GET['area']?><?=$school['area_name']?>試題本、答案卷卡收發記錄單</td>
-        </tr>
-        <tr>
-            <td colspan="5" style="font-size:22px;text-align:left;font-weight:bold;">管卷人員：<?=$value['trial_staff_name']?></td>
-        </tr>
+            <td colspan="4" style="font-size:22px;text-align:center;"></td>
+        </tr> -->
+        <!-- <tr>
+            <td colspan="4" style="font-size:22px;text-align:left;font-weight:bold;">
+            </td>
+        </tr> -->
         <tr>
             <td class="bb" colspan="2"><div class="W50">日期</div>  <div class="W50">科目</div></td>
-            <td class="bb" colspan="3"><?=mb_substr($datetime_info['day'], 5, 8, 'utf-8'); ?></td>
+            <td class="bb" colspan="2"><?=mb_substr($datetime_info['day'], 5, 8, 'utf-8'); ?></td>
         </tr>
         <tr>
             <td class="bb" style="width: 15%;">試場</td>
@@ -52,6 +59,7 @@
             <td class="bb">下午場</td>
         </tr>
     </thead>
+    <tbody>
     <?php foreach ($value['trial'] as $kc => $vc): ?>
         
         <tr>
@@ -98,5 +106,7 @@
             
         </tr>
     <?php endforeach;?>
+    </tbody>
+    <tfoot></tfoot>
 </table>
  <?php endforeach;?>

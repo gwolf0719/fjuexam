@@ -211,7 +211,7 @@
             chk_code_use(arr[0],function(params) {
                 if(params){
                     $("#supervisor_1").val(arr[1]);
-                    $("#trial_staff_code_1").val(arr[0]);
+                    $("#supervisor_1_code").val(arr[0]);
                     $('#exampleModal1').modal('hide');
 
                     
@@ -233,7 +233,7 @@
             chk_code_use(arr[0],function(params) {
                 if(params){
                     $("#supervisor_2").val(arr[1]);
-                    $("#trial_staff_code_2").val(arr[0]);
+                    $("#supervisor_2_code").val(arr[0]);
                     $('#exampleModal2').modal('hide');
 
                     $s1=$("#supervisor_1").val();
@@ -354,9 +354,9 @@
                 var field = $("#field").val();
                 // var block_name = $('.block').val();
                 var supervisor_1 = $("#supervisor_1").val();
-                var supervisor_1_code = $("#trial_staff_code_1").val();
+                var supervisor_1_code = $("#supervisor_1_code").val();
                 var supervisor_2 = $("#supervisor_2").val();
-                var supervisor_2_code = $("#trial_staff_code_2").val();
+                var supervisor_2_code = $("#supervisor_2_code").val();
                 var trial_staff_code_1 = $("#trial_staff_code_1").val();
                 var trial_staff_code_2 = $("#trial_staff_code_2").val();
                 var block_name = $("#block_name").val();
@@ -602,7 +602,7 @@
                             <input type="text" class="form-control" id="block_name" readonly hidden>
                         </div>
                     </div>
-                    <div class="col-md-3 col-sm-3 col-xs-3 cube">
+                    <div class="col-md-3 col-sm-3 col-xs-3 cube" style="width: 20%;">
                         <div class="form-group">
                             <label for="start_date" class=""  value="<?=$datatime_info['day'];?>">執行日</label>
                             <input type="checkbox" class="chbox"  name="day" checked disabled>
@@ -642,7 +642,7 @@
                     </div>
                 </div>
                 <div class="col-md-6 col-sm-6 col-xs-6" style="float:left;margin: 20px auto;">
-                    <div class="form-group" style="text-align:right">
+                    <div class="form-group" style="text-align: left;position: relative;left: 56%;">
                         <div class="">
                             <button type="button" class="btn btn-danger" id="remove">取消指派</button>
                             <button type="button" class="btn btn-primary" id="send">修改</button>

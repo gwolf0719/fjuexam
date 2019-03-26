@@ -110,7 +110,7 @@
             <thead>
                 <tr>
                     <th>序號</th>
-                    <th>年度</th>
+                    <!-- <th>年度</th> -->
                     <th>考區</th>
                     <th>職務</th>
                     <th>職員代碼</th>
@@ -127,9 +127,9 @@
                     <td>
                         <?=$k + 1; ?>
                     </td>
-                    <td>
+                    <!-- <td>
                         <?=$v['year']; ?>
-                    </td>
+                    </td> -->
                     <td>
                         <?=$this->config->item('partition')[$v['test_partition']];?>
                     </td>
@@ -170,7 +170,7 @@
             <thead>
                 <tr>
                     <th>序號</th>
-                    <th>年度</th>
+                    <!-- <th>年度</th> -->
                     <th>考區</th>
                     <th>職務</th>
                     <th>職員代碼</th>
@@ -187,9 +187,9 @@
                     <td>
                         <?=$k + 1; ?>
                     </td>
-                    <td>
+                    <!-- <td>
                         <?=$v['year']; ?>
-                    </td>
+                    </td> -->
                     <td>
                          <?=$this->config->item('partition')[$v['test_partition']];?>
                     </td>
@@ -230,7 +230,7 @@
             <thead>
                 <tr>
                     <th>序號</th>
-                    <th>年度</th>
+                    <!-- <th>年度</th> -->
                     <th>考區</th>
                     <th>職務</th>
                     <th>職員代碼</th>
@@ -249,9 +249,9 @@
                     <td>
                         <?=$k + 1; ?>
                     </td>
-                    <td>
+                    <!-- <td>
                         <?=$v['year']; ?>
-                    </td>
+                    </td> -->
                     <td>
                         <?=$this->config->item('partition')[$v['test_partition']];?>
                     </td>
@@ -292,7 +292,7 @@
             <thead>
                 <tr>
                     <th>序號</th>
-                    <th>年度</th>
+                    <!-- <th>年度</th> -->
                     <th>考區</th>
                     <th>職務</th>
                     <th>職員代碼</th>
@@ -311,9 +311,9 @@
                     <td>
                         <?=$k + 1; ?>
                     </td>
-                    <td>
+                    <!-- <td>
                         <?=$v['year']; ?>
-                    </td>
+                    </td> -->
                     <td>
                         <?=$this->config->item('partition')[$v['test_partition']];?>
                     </td>
@@ -354,7 +354,7 @@
             <thead>
                 <tr>
                     <th>序號</th>
-                    <th>年度</th>
+                    <!-- <th>年度</th> -->
                     <th>考區</th>
                     <th>職務</th>
                     <th>職員代碼</th>
@@ -371,9 +371,9 @@
                     <td>
                         <?=$k + 1; ?>
                     </td>
-                    <td>
+                    <!-- <td>
                         <?=$v['year']; ?>
-                    </td>
+                    </td> -->
                     <td>
                         <?=$this->config->item('partition')[$v['test_partition']];?>
                     </td>

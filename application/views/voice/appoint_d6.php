@@ -255,19 +255,24 @@
                         var section_total = section_salary_total;
                         $("#section_total").val(section_total);
                 
-            })
-            //取得職員資料     
-            $.ajax({
-                url: './voice/api/get_staff_member',
-                data: {
-                    "code": code,
-                },
-                dataType: "json"
-            }).done(function(data) {
-                $("#job_code").val(data.info.member_code);
-                $("#job_title").val(data.info.member_title);
-                $("#name").val(data.info.member_name);
-                $("#phone").val(data.info.member_phone);
+
+
+
+                var person =data.info.patrol_staff_name;
+                //取得職員資料     
+                $.ajax({
+                    url: './voice/api/get_staff_member',
+                    data: {
+                        "code": person,
+                    },
+                    dataType: "json"
+                }).done(function(data) {
+                    console.log(data);
+                    $("#job_code").val(data.info.member_code);
+                    $("#job_title").val(data.info.member_title);
+                    $("#name").val(data.info.member_name);
+                    $("#phone").val(data.info.member_phone);
+                })
             })
 
 
@@ -407,7 +412,7 @@
                         <?=$k + 1; ?>
                     </td>
                     <td class="bt">
-                        <?=$v['allocation_code']; ?>
+                        <?=$v['patrol_staff_code']; ?>
                     </td>
                     <td class="bt">
                         <?=$v['patrol_staff_name']; ?>
@@ -468,7 +473,7 @@
                         <?=$k + 1; ?>
                     </td>
                     <td class="bt">
-                        <?=$v['allocation_code']; ?>
+                        <?=$v['patrol_staff_code']; ?>
                     </td>
                     <td class="bt">
                         <?=$v['patrol_staff_name']; ?>
@@ -528,7 +533,7 @@
                         <?=$k + 1; ?>
                     </td>
                     <td class="bt">
-                        <?=$v['allocation_code']; ?>
+                        <?=$v['patrol_staff_code']; ?>
                     </td>
                     <td class="bt">
                         <?=$v['patrol_staff_name']; ?>
