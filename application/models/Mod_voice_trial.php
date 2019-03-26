@@ -1017,6 +1017,8 @@ class Mod_voice_trial extends CI_Model
         if ($part != '') {
             $this->db->where('voice_area_main.part', $part);
         }
+        $this->db->where('voice_area_main.year', $this->session->userdata('year'));
+        $this->db->where('voice_area_main.ladder', $this->session->userdata('ladder'));
      
         $this->db->not_like('voice_area_main.field', '9','after');
         $this->db->from('voice_area_main');
