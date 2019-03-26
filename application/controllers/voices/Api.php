@@ -985,7 +985,7 @@ class Api extends CI_Controller {
             $this->load->model('Mod_voice_test_pay');
             $this->load->model('mod_voice_staff');
             $getpost = array('part', 'allocation_code', 'patrol_staff_code', 'patrol_staff_name',  'start', 'end', 'first_section', 'second_start', 'second_end', 'second_section', 'note', 'do_date');
-            $requred = array('part', 'allocation_code', 'patrol_staff_code', 'patrol_staff_name');
+            $requred = array('part', 'allocation_code', 'patrol_staff_code', 'patrol_staff_name','do_date');
             $data = $this->getpost->getpost_array($getpost, $requred);
             if ($data == false) {
                 $json_arr['sys_code'] = '000';
@@ -1016,7 +1016,7 @@ class Api extends CI_Controller {
                     'second_end'=>$data['second_end'],
                     'second_section'=>$data['second_section'],
                     'note'=>$data['note'],
-                    // 'do_date'=>$date,
+                    'do_date'=>$data['do_date'],
                     'calculation'=> 'by_section',
                     'count'=> $count,
                     'salary'=>$fees_info['pay_2'],
