@@ -400,8 +400,8 @@ class Test_form extends CI_Controller
         // 取得考場資料
         foreach($area_list as $k=>$v){
             // echo '1';
-            $area_list[$k]['count_num_1']= $this->mod_voice_area->get_count_num($v['field'],'上午場');
-            $area_list[$k]['count_num_2']= $this->mod_voice_area->get_count_num($v['field'],'下午場');
+            $area_list[$k]['count_num_1']= $this->mod_voice_area->get_count_num($v['field'],'1');
+            $area_list[$k]['count_num_2']= $this->mod_voice_area->get_count_num($v['field'],'2');
 
         }
 
