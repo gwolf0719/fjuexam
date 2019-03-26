@@ -824,9 +824,10 @@ class Test_form extends CI_Controller
         }
 
 
-
+        // print_r($data_list);
+  
         $data = array(
-            'part' => $data_list
+            'part' => $this->mod_voice_job_list->get_sign_list()
         );
         
 

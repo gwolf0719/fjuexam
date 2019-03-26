@@ -339,8 +339,11 @@ class Mod_voice_job_list extends CI_Model
         }
 
         $this->db->where('job_code !=', "");
+        $this->db->from('voice_job_list');
+        $this->db->join('voice_import_member', 'voice_import_member.member_name = voice_job_list.name');
+        $this->db->order_by('voice_import_member.member_unit');
+        $res = $this->db->get()->result_array();
 
-        $res = $this->db->get('voice_job_list')->result_array();
         if (!empty($res)) {
             for ($i=0; $i < count($res); $i++) {
                 # code...
@@ -375,8 +378,12 @@ class Mod_voice_job_list extends CI_Model
         }
 
         $this->db->where('job_code !=', "");
+        $this->db->order_by('job');
+
+        
         
         $res = $this->db->get('voice_job_list')->result_array();
+ 
 
         //取出監試人員
         $this->db->select('*');
@@ -403,7 +410,7 @@ class Mod_voice_job_list extends CI_Model
 
         if (!empty($res)) {
             for ($i=0; $i < count($res); $i++) {
-                # code...
+                # code...$this->db->order_by('name');
                 $member = $this->db->where('year',$this->session->userdata('year'))->where('ladder',$this->session->userdata('ladder'))->where('member_code', $res[$i]['job_code'])->get('voice_import_member')->result_array();
 
                 for ($m=0; $m < count($member); $m++) { 
@@ -471,8 +478,10 @@ class Mod_voice_job_list extends CI_Model
                     'note'=>$note['note'],
                     'job'=>'巡場人員',
                 );   
-            }            
+            }
+            // print_r($arr)            
             return $arr;
+            
         }else{
             return false;
         }
