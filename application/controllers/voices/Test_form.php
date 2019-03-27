@@ -811,7 +811,7 @@ class Test_form extends CI_Controller
         
         // 過濾重複資料
         $data_list = array();
-        foreach($this->mod_voice_job_list->get_sign_list() as $k=>$v){
+        foreach($this->mod_voice_job_list->get_member_map_list() as $k=>$v){
             $clean_list = array();
             $member_code= array();
             foreach($v as $k1=>$v1){
@@ -827,7 +827,7 @@ class Test_form extends CI_Controller
         // print_r($data_list);
   
         $data = array(
-            'part' => $this->mod_voice_job_list->get_sign_list()
+            'part' => $data_list
         );
         
 
