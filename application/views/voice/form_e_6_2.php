@@ -67,7 +67,7 @@
         }
         $money_count = $money_count+$v['first_member_salary_section']+$v['second_member_salary_section']
         ?>
-    <tr>
+     <tr style="height: 100px;">
         <td class="bb"  style="width:8%;font-size:18px;font-weight:bold;">
             <?=trim($v['field'])?>
         </td>

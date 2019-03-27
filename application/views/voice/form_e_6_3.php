@@ -59,7 +59,7 @@
         </tr>
     </thead>
     <?php foreach ($part as $k => $v): ?>
-    <tr>
+    <tr style="height: 100px;">
         <td class="bb"><?=$v['name']?>
         </td>
         <td colspan="2" class="bb"><?=$v['job']?>
