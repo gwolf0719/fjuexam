@@ -1824,12 +1824,7 @@ class Test_form extends CI_Controller
                 $fields[] = $v['field'];
                 $arr[$i] = $v;
                 $i ++ ;
-            }else{
-                $arr[$key]['first_member_salary_section'] = $v['first_member_salary_section'];
-                $arr[$key]['second_member_salary_section'] = $v['second_member_salary_section'];
-                $arr[$key]['first_member_section_salary_total'] = $v['first_member_section_salary_total']+$arr[$key]['first_member_section_salary_total'];
-                $arr[$key]['second_member_section_salary_total'] = $v['second_member_section_salary_total']+$arr[$key]['second_member_section_salary_total'];
-
+            
             }
             
         }

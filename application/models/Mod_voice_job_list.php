@@ -323,7 +323,7 @@ class Mod_voice_job_list extends CI_Model
                 // print_r($val);
             }
         }  
-        print_r($result);    
+        // print_r($result);    
         return $result;
     }
 
