@@ -351,7 +351,7 @@ class Mod_voice_job_list extends CI_Model
         $this->db->where('job_code !=', "");
         $this->db->from('voice_job_list');
         $this->db->join('voice_import_member', 'voice_import_member.member_name = voice_job_list.name');
-        $this->db->order_by('voice_import_member.member_unit');
+        $this->db->order_by('voice_job_list.job',"desc"); 
         $res = $this->db->get()->result_array();
 
         if (!empty($res)) {
@@ -373,7 +373,22 @@ class Mod_voice_job_list extends CI_Model
                 }
             }
 
-            return $arr;
+            $result = array();
+            foreach($arr as $val){
+                $key = $val['name'];                           //填入要塞選的項目
+                if(!isset($result[$key])){
+                    $result[$key] = $val;
+                    // print_r($val);
+                }
+            }  
+            // print_r($result);    
+            return $result;
+
+
+
+
+            
+            // return $arr;
         }else{
             return false;
         }
