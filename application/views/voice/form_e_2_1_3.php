@@ -57,11 +57,11 @@
     </tr>
     <?php foreach ($part as $kc => $vc): ?>
     <tr>
-        <td style="border:1px solid #999"><?=$vc['job']?></td>
-        <td style="border:1px solid #999"><?=$vc['name']?></td>
-        <td style="border:1px solid #999"><?=$vc['member_unit']?></td>
-        <td style="border:1px solid #999"></td>
-        <td style="border:1px solid #999"><?=$vc['note']?></td>
+        <td style="border:1px solid #999;height: 100px;"><?=$vc['job']?></td>
+        <td style="border:1px solid #999;height: 100px;"><?=$vc['name']?></td>
+        <td style="border:1px solid #999;height: 100px;"><?=$vc['member_unit']?></td>
+        <td style="border:1px solid #999;height: 100px;"></td>
+        <td style="border:1px solid #999;height: 100px;"><?=$vc['note']?></td>
     </tr>
     <?php endforeach; ?>
     <tr>
