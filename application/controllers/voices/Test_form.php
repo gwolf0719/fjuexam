@@ -1049,9 +1049,11 @@ class Test_form extends CI_Controller
 
         $data = array(
             'part' => $this->mod_voice_trial->e_3_2_1($part),
+            'part1' => $this->mod_voice_trial->e_3_2_1_1($part),
             'area' => $area,
             'patrol_count'=> $this->mod_voice_trial->get_patrol_member_count_1($part),
             'trial_count'=>$this->mod_voice_trial->get_trial_member_count($part),
+            'trial_count1'=>$this->mod_voice_trial->get_trial_member_count1($part),
             'school' => $this->mod_voice_exam_area->year_school_name($part),
             'date' => $date,
         );
@@ -1123,9 +1125,11 @@ class Test_form extends CI_Controller
         $date = $_GET['date'];
         $data = array(
             'part' => $this->mod_voice_trial->e_3_2_1($part),
+            'part1' => $this->mod_voice_trial->e_3_2_1_1($part),
             'area' => $area,
             'patrol_count'=> $this->mod_voice_trial->get_patrol_member_count_1($part),
             'trial_count'=>$this->mod_voice_trial->get_trial_member_count($part),
+            'trial_count1'=>$this->mod_voice_trial->get_trial_member_count1($part),
             'school' => $this->mod_voice_exam_area->year_school_name($part),
             'date' => $date,
         );
@@ -1163,9 +1167,11 @@ class Test_form extends CI_Controller
         $area = $_GET['area'];
         $data = array(
             'part' => $this->mod_voice_trial->e_3_2_1($part),
+            'part1' => $this->mod_voice_trial->e_3_2_1_1($part),
             'area' => $area,
             'patrol_count'=> $this->mod_voice_trial->get_patrol_member_count_1($part),
             'trial_count'=>$this->mod_voice_trial->get_trial_member_count($part),
+            'trial_count1'=>$this->mod_voice_trial->get_trial_member_count1($part),
             'school' => $this->mod_voice_exam_area->year_school_name($part),
             'date' => $date,
         );

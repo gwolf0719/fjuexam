@@ -342,8 +342,8 @@ class Mod_voice_job_list extends CI_Model
 
     public function e_2_1($area = '',$part)
     {
-        $this->db->where('year',$this->session->userdata('year'));
-        $this->db->where('ladder',$this->session->userdata('ladder'));
+        $this->db->where('voice_job_list.year',$this->session->userdata('year'));
+        $this->db->where('voice_job_list.ladder',$this->session->userdata('ladder'));
         if ($area != '') {
             $this->db->where('test_partition', $area);
         }

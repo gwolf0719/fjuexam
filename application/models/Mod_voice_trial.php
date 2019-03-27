@@ -845,7 +845,7 @@ class Mod_voice_trial extends CI_Model
                 $arr[] = array(
                     'sn'=>$sub[$i]['sn'],
                     'field' => $sub[$i]['field'],
-                    'test_section'=>$sub[$i]['class'],
+                    'test_section'=>$sub[$i]['block_name'],
                     'start'=>$sub[$i]['start'],
                     'end'=>$sub[$i]['end'],
                     'floor'=>$sub[$i]['floor'],
@@ -863,14 +863,81 @@ class Mod_voice_trial extends CI_Model
             }
 
 
-            $data=[];
+
             $result=[];
             foreach ($arr as $key => $value) {
-                if(in_array($value['field'],$data)){
-                    // sadf
-                } else {
+                if($value['test_section']==1){
+            
                     $result[$key]=$value;
-                    array_push($data,$value['field']);
+
+                }
+
+              
+            }
+
+
+
+
+            return $result;
+        }else{
+            return false;
+        }
+    }  
+    public function e_3_2_1_1($part = '')
+    {
+        $this->db->select('*');
+        $year = $this->session->userdata('year');
+        $ladder = $this->session->userdata('ladder');
+        
+        $this->db->where('voice_area_main.year', $year);
+        $this->db->where('voice_area_main.ladder', $ladder);
+        $this->db->where('voice_area_main.part', $part);
+        
+        $this->db->from('voice_area_main');
+        $this->db->join('voice_trial_assign', 'voice_area_main.sn = voice_trial_assign.sn');
+    
+        $sub = $this->db->get()->result_array();
+        // print_r($sub);
+        if(!empty($sub)){
+            for ($i=0; $i < count($sub); $i++) {
+                # code...
+                $supervisor = $this->db->where('field',$sub[$i]['field'])->where('ladder',$this->session->userdata('ladder'))->where('year',$this->session->userdata('year'))->get('voice_trial_assign')->row_array();
+                // print_r($supervisor['supervisor_1']);
+                // print_r($supervisor['supervisor_2']);
+                // $supervisor2 = $this->db->where('member_code', $sub[$i]['supervisor_2_code'])->get('voice_import_member')->row_array();
+                $voucher = $this->db->where('part', $part)->where('year',$this->session->userdata('year'))->where('ladder',$this->session->userdata('ladder'))->where('start <=', $sub[$i]['field'])->where('end >=', $sub[$i]['field'])->get('voice_patrol_staff')->row_array();
+                $course = $this->db->where('year', $year)->where('year',$this->session->userdata('year'))->where('ladder',$this->session->userdata('ladder'))->where('field', $sub[$i]['field'])->get('voice_exam_area')->row_array();
+                $trial = $this->db->get('voice_trial_staff')->result_array();
+                # code...
+
+                $arr[] = array(
+                    'sn'=>$sub[$i]['sn'],
+                    'field' => $sub[$i]['field'],
+                    'test_section'=>$sub[$i]['block_name'],
+                    'start'=>$sub[$i]['start'],
+                    'end'=>$sub[$i]['end'],
+                    'floor'=>$sub[$i]['floor'],
+                    'part' => $sub[$i]['part'],
+                    'supervisor_1'=>$supervisor['supervisor_1'],
+                    'supervisor_2'=>$supervisor['supervisor_2'],
+                    'allocation_code'=>$voucher['allocation_code'],
+                    'voucher'=>$voucher['patrol_staff_name']
+                );        
+
+
+
+
+                
+            }
+
+
+
+            $result=[];
+            foreach ($arr as $key => $value) {
+                if($value['test_section']==2){
+             
+                    $result[$key]=$value;
+
                 }
 
               
@@ -892,6 +959,81 @@ class Mod_voice_trial extends CI_Model
         $this->db->where('year', $this->session->userdata('year'));
         $this->db->where('ladder', $this->session->userdata('ladder'));
         $this->db->where('part',$part);
+        $this->db->where('block_name',1);
+        $this->db->where('supervisor_1!=','');
+        // $res = $this->db->get('voice_trial_assign')->result_array();
+        $res = $this->db->count_all_results('voice_trial_assign');
+        // print_r($res);
+        return $res;
+        // $this->db->select('*');
+        // if ($part != '') {
+        //     $this->db->where('voice_area_main.part', $part);
+        // }
+        // // $this->db->where("voice_area_main.year",$_SESSION['year']);
+        // $this->db->where('voice_area_main.year',$this->session->userdata('year'));
+        // $this->db->where('voice_area_main.ladder',$this->session->userdata('ladder'));
+
+        // $this->db->where("voice_trial_assign.supervisor_1 != ","");
+        // $this->db->where("voice_trial_assign.supervisor_2 != ","");      
+        // $this->db->from('voice_area_main');
+        // $this->db->join('voice_trial_assign', 'voice_area_main.sn = voice_trial_assign.sn');
+        // $year = $this->session->userdata('year');
+        
+        // $sub = $this->db->get()->result_array();
+        // if(!empty($sub)){
+
+        //     // print_r($sub);
+
+        //     for ($i=0; $i < count($sub); $i++) {
+        //         # code...
+        //         $supervisor1 = $this->db->where('member_code', $sub[$i]['supervisor_1_code'])->where('year',$this->session->userdata('year'))->where('ladder',$this->session->userdata('ladder'))->get('voice_import_member')->row_array();
+        //         $supervisor2 = $this->db->where('member_code', $sub[$i]['supervisor_2_code'])->where('year',$this->session->userdata('year'))->where('ladder',$this->session->userdata('ladder'))->get('voice_import_member')->row_array();
+        //         $patrol = $this->db->where('start <=', $sub[$i]['start'])->where('end >=', $sub[$i]['end'])->where('year',$this->session->userdata('year'))->where('ladder',$this->session->userdata('ladder'))->get('voice_patrol_staff')->row_array();
+        //         $course = $this->db->where('year', $year)->where('field', $sub[$i]['field'])->where('year',$this->session->userdata('year'))->where('ladder',$this->session->userdata('ladder'))->get('voice_exam_area')->row_array();
+        //         $trial = $this->db->get('voice_trial_staff')->result_array();
+        //         if($sub[$i]['first_member_salary_section'] == ""){
+        //             $first_member_salary_section = 0;
+        //         }else{
+        //             $first_member_salary_section = $sub[$i]['first_member_salary_section'];
+        //         }
+        //         if($sub[$i]['second_member_salary_section'] == ""){
+        //             $second_member_salary_section = 0;
+        //         }else{
+        //             $second_member_salary_section = $sub[$i]['second_member_salary_section'];
+        //         }      
+        //         $do_date1 = explode(",", $sub[$i]['first_member_do_date']);
+        //         $do_date2 = explode(",", $sub[$i]['second_member_do_date']);
+        //         $arr[] = array(
+        //             'sn'=>$sub[$i]['sn'],
+        //             'field' => $sub[$i]['field'],
+        //             'test_section' => $sub[$i]['class'],
+        //             'part' => $sub[$i]['part'],
+        //             'do_date' => $sub[$i]['first_member_do_date'],
+        //             'first_member_salary_section'=> $sub[$i]['first_member_section_salary_total'] * count($do_date1),
+        //             'first_member_section_salary_total'=>$sub[$i]['first_member_section_salary_total']*count($do_date1),
+        //             'supervisor_1'=>$sub[$i]['supervisor_1'],
+        //             'supervisor_1_unit' => $supervisor1['member_unit'] ,
+        //             'supervisor_1_phone' => $supervisor1['member_phone'],
+        //             'second_member_salary_section'=> $sub[$i]['second_member_section_salary_total']*count($do_date2),
+        //             'second_member_section_salary_total'=>$sub[$i]['second_member_section_salary_total']*count($do_date2),
+        //             'supervisor_2'=>$sub[$i]['supervisor_2'],
+        //             'supervisor_2_unit' => $supervisor2['member_unit'] ,
+        //             'supervisor_2_phone' => $supervisor2['member_phone'],
+        //         );
+        //     }
+        //     // print_r($arr);
+        //     return $arr;
+        // }else{
+        //     return false;
+        // }
+    }     
+    public function get_trial_member_count1($part = '')
+    {
+        
+        $this->db->where('year', $this->session->userdata('year'));
+        $this->db->where('ladder', $this->session->userdata('ladder'));
+        $this->db->where('part',$part);
+        $this->db->where('block_name',2);
         $this->db->where('supervisor_1!=','');
         // $res = $this->db->get('voice_trial_assign')->result_array();
         $res = $this->db->count_all_results('voice_trial_assign');
