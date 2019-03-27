@@ -70,10 +70,18 @@
         if($v['supervisor_1'] != ""){
             $member_count = $member_count+1;
         }
+
+
+
         if($v['supervisor_2'] != ""){
             $member_count = $member_count+1;
         }
-        $money_count = $money_count+$v['first_member_salary_section']+$v['second_member_salary_section']
+
+
+
+
+
+        $money_count = $money_count+$v['first_member_salary_section']*$v['count']+$v['second_member_salary_section']*$v['count'];
         ?>
     <tr>
         <td class="bb"  style="width:8%;font-size:18px;font-weight:bold;">
@@ -82,14 +90,14 @@
         <td class="bb" style="width:8%"><?=trim($v['supervisor_1'])?>
         </td>
         <td class="bb" style="width:8%;font-size:18px;font-weight:bold;" >
-            <?=trim(number_format($v['first_member_salary_section']))?>
+            <?=trim(number_format($v['first_member_salary_section']*$v['count']))?>
         </td>
      
         <td class="bb" style="padding: 30px 0px;"></td>
         <td class="bb" style="width:8%"><?=trim($v['supervisor_2'])?>
         </td>
         <td class="bb" style="width:8%;font-size:18px;font-weight:bold;" >
-            <?=trim(number_format($v['second_member_salary_section']))?>
+            <?=trim(number_format($v['second_member_salary_section']*$v['count']))?>
         </td>
       
         <td class="bb" style="padding: 30px 0px;"></td>

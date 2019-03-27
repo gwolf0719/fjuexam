@@ -1228,6 +1228,22 @@ class Mod_voice_trial extends CI_Model
                 }      
                 $do_date1 = explode(",", $sub[$i]['first_member_do_date']);
                 $do_date2 = explode(",", $sub[$i]['second_member_do_date']);
+
+
+
+
+
+       
+                $this->db->where('year', $this->session->userdata('year'));
+                $this->db->where('ladder', $this->session->userdata('ladder'));
+                if ($part != '') {
+                    $this->db->where('part', $part);
+                }
+                $this->db->where('field', $sub[$i]['field']);
+                $count = $this->db->count_all_results('voice_area_main');
+        
+     
+
                 $arr[] = array(
                     'sn'=>$sub[$i]['sn'],
                     'field' => $sub[$i]['field'],
@@ -1244,6 +1260,7 @@ class Mod_voice_trial extends CI_Model
                     'supervisor_2'=>$sub[$i]['supervisor_2'],
                     'supervisor_2_unit' => $supervisor2['member_unit'] ,
                     'supervisor_2_phone' => $supervisor2['member_phone'],
+                    'count' => $count,
                 );
             }
             // print_r($arr);
