@@ -658,6 +658,9 @@ class Mod_voice_job_list extends CI_Model
         $this->db->where('job_code !=', "");
 
         $res = $this->db->get('voice_job_list')->result_array();
+        if(empty($res)){
+            return;
+        }
         if (!empty($res)) {
             for ($i=0; $i < count($res); $i++) {
                 # code...

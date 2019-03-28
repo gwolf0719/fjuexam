@@ -1277,30 +1277,33 @@ class Test_form extends CI_Controller
             }
         }
         // print_r($arr);
-        for ($i=0; $i < count($arr); $i++) {
-            // print_r($arr[$i]);
-            # code...
-            $objPHPExcel->getActiveSheet()->setCellValue('A1', '學年度');
-            $objPHPExcel->getActiveSheet()->setCellValue('B1', '場次');
-            $objPHPExcel->getActiveSheet()->setCellValue('C1', '監試人員');
-            $objPHPExcel->getActiveSheet()->setCellValue('D1', '監試日期');
+        if(isset($arr)){
 
-            $objPHPExcel->getActiveSheet()->setCellValue('A'.(2+$i), $arr[$i]['year']);
-            $objPHPExcel->getActiveSheet()->setCellValue('B'.(2+$i), $arr[$i]['ladder']);
-            $objPHPExcel->getActiveSheet()->setCellValue('C'.(2+$i), $arr[$i]['member_name']);
-            $objPHPExcel->getActiveSheet()->setCellValue('D'.(2+$i), $arr[$i]['do_date']);
+            for ($i=0; $i < count($arr); $i++) {
+                // print_r($arr[$i]);
+                # code...
+                $objPHPExcel->getActiveSheet()->setCellValue('A1', '學年度');
+                $objPHPExcel->getActiveSheet()->setCellValue('B1', '場次');
+                $objPHPExcel->getActiveSheet()->setCellValue('C1', '監試人員');
+                $objPHPExcel->getActiveSheet()->setCellValue('D1', '監試日期');
+    
+                $objPHPExcel->getActiveSheet()->setCellValue('A'.(2+$i), $arr[$i]['year']);
+                $objPHPExcel->getActiveSheet()->setCellValue('B'.(2+$i), $arr[$i]['ladder']);
+                $objPHPExcel->getActiveSheet()->setCellValue('C'.(2+$i), $arr[$i]['member_name']);
+                $objPHPExcel->getActiveSheet()->setCellValue('D'.(2+$i), $arr[$i]['do_date']);
+            }
+    
+            $objWriter = PHPExcel_IOFactory::createWriter($objPHPExcel, 'CSV');
+    
+    
+            header('Content-Type: application/vnd.ms-excel');
+            header('Content-Disposition: attachment;filename="監試人員'.'.csv"');
+            header('Cache-Control: max-age=0');
+    
+    
+    
+            $objWriter->save('php://output');
         }
-
-        $objWriter = PHPExcel_IOFactory::createWriter($objPHPExcel, 'CSV');
-
-
-        header('Content-Type: application/vnd.ms-excel');
-        header('Content-Disposition: attachment;filename="監試人員'.'.csv"');
-        header('Cache-Control: max-age=0');
-
-
-
-        $objWriter->save('php://output');
     }
 
     public function form_e_4_1_2()
@@ -1322,28 +1325,29 @@ class Test_form extends CI_Controller
             }
         }
 
+        if(isset($res)){
+            for ($i=0; $i < count($res); $i++) {
+                # code...
+                $objPHPExcel->getActiveSheet()->setCellValue('A1', '學年度');
+                $objPHPExcel->getActiveSheet()->setCellValue('B1', '場次');
+                $objPHPExcel->getActiveSheet()->setCellValue('C1', '試務人員');
+                $objPHPExcel->getActiveSheet()->setCellValue('D1', '執行日');
+                $objPHPExcel->getActiveSheet()->setCellValue('A'.(2+$i), $res[$i]['year']);
+                $objPHPExcel->getActiveSheet()->setCellValue('B'.(2+$i), $res[$i]['ladder']);
+                $objPHPExcel->getActiveSheet()->setCellValue('C'.(2+$i), $res[$i]['name']);
+                $objPHPExcel->getActiveSheet()->setCellValue('D'.(2+$i), $res[$i]['do_date']);
+            }
 
-        for ($i=0; $i < count($res); $i++) {
-            # code...
-            $objPHPExcel->getActiveSheet()->setCellValue('A1', '學年度');
-            $objPHPExcel->getActiveSheet()->setCellValue('B1', '場次');
-            $objPHPExcel->getActiveSheet()->setCellValue('C1', '試務人員');
-            $objPHPExcel->getActiveSheet()->setCellValue('D1', '執行日');
-            $objPHPExcel->getActiveSheet()->setCellValue('A'.(2+$i), $res[$i]['year']);
-            $objPHPExcel->getActiveSheet()->setCellValue('B'.(2+$i), $res[$i]['ladder']);
-            $objPHPExcel->getActiveSheet()->setCellValue('C'.(2+$i), $res[$i]['name']);
-            $objPHPExcel->getActiveSheet()->setCellValue('D'.(2+$i), $res[$i]['do_date']);
+
+            $objWriter = PHPExcel_IOFactory::createWriter($objPHPExcel, 'CSV');
+
+
+            header('Content-Type: application/vnd.ms-excel');
+            header('Content-Disposition: attachment;filename="試務人員'. '.csv"');
+            header('Cache-Control: max-age=0');
+
+            $objWriter->save('php://output');
         }
-
-
-        $objWriter = PHPExcel_IOFactory::createWriter($objPHPExcel, 'CSV');
-
-
-        header('Content-Type: application/vnd.ms-excel');
-        header('Content-Disposition: attachment;filename="試務人員'. '.csv"');
-        header('Cache-Control: max-age=0');
-
-        $objWriter->save('php://output');
     }
 
     public function form_e_4_1_3()
@@ -1355,29 +1359,32 @@ class Test_form extends CI_Controller
         $objPHPExcel->setActiveSheetIndex(0);
         $arr = $this->mod_voice_patorl->get_trial_staff_for_csv();
 
-        for ($i=0; $i < count($arr); $i++) {
-            # code...
-            $objPHPExcel->getActiveSheet()->setCellValue('A1', '學年度');
-            $objPHPExcel->getActiveSheet()->setCellValue('B1', '場次');
-            $objPHPExcel->getActiveSheet()->setCellValue('C1', '管卷人員');
-            $objPHPExcel->getActiveSheet()->setCellValue('D1', '監試日期');
+        if(isset($arr)){
+            for ($i=0; $i < count($arr); $i++) {
+                # code...
+                $objPHPExcel->getActiveSheet()->setCellValue('A1', '學年度');
+                $objPHPExcel->getActiveSheet()->setCellValue('B1', '場次');
+                $objPHPExcel->getActiveSheet()->setCellValue('C1', '管卷人員');
+                $objPHPExcel->getActiveSheet()->setCellValue('D1', '監試日期');
 
-            $objPHPExcel->getActiveSheet()->setCellValue('A'.(2+$i), $arr[$i]['year']);
-            $objPHPExcel->getActiveSheet()->setCellValue('B'.(2+$i), $arr[$i]['ladder']);
-            $objPHPExcel->getActiveSheet()->setCellValue('C'.(2+$i), $arr[$i]['member_name']);
-            $objPHPExcel->getActiveSheet()->setCellValue('D'.(2+$i), $arr[$i]['do_date']);
+                $objPHPExcel->getActiveSheet()->setCellValue('A'.(2+$i), $arr[$i]['year']);
+                $objPHPExcel->getActiveSheet()->setCellValue('B'.(2+$i), $arr[$i]['ladder']);
+                $objPHPExcel->getActiveSheet()->setCellValue('C'.(2+$i), $arr[$i]['member_name']);
+                $objPHPExcel->getActiveSheet()->setCellValue('D'.(2+$i), $arr[$i]['do_date']);
+            }
+
+            $objWriter = PHPExcel_IOFactory::createWriter($objPHPExcel, 'CSV');
+
+
+            header('Content-Type: application/vnd.ms-excel');
+            header('Content-Disposition: attachment;filename="管卷人員'.'.csv"');
+            header('Cache-Control: max-age=0');
+
+
+
+            $objWriter->save('php://output');
         }
-
-        $objWriter = PHPExcel_IOFactory::createWriter($objPHPExcel, 'CSV');
-
-
-        header('Content-Type: application/vnd.ms-excel');
-        header('Content-Disposition: attachment;filename="管卷人員'.'.csv"');
-        header('Cache-Control: max-age=0');
-
-
-
-        $objWriter->save('php://output');
+        
     }
 
     public function form_e_4_1_4()
@@ -1389,30 +1396,33 @@ class Test_form extends CI_Controller
         $objPHPExcel = new PHPExcel();
         $objPHPExcel->setActiveSheetIndex(0);
         $arr = $this->mod_voice_patorl->get_patrol_for_csv();
+        
+      
+        if(isset($arr)){
+            for ($i=0; $i < count($arr); $i++) {
+                # code...
+                $objPHPExcel->getActiveSheet()->setCellValue('A1', '學年度');
+                $objPHPExcel->getActiveSheet()->setCellValue('B1', '場次');
+                $objPHPExcel->getActiveSheet()->setCellValue('C1', '巡場人員');
+                $objPHPExcel->getActiveSheet()->setCellValue('D1', '監試日期');
 
-        for ($i=0; $i < count($arr); $i++) {
-            # code...
-            $objPHPExcel->getActiveSheet()->setCellValue('A1', '學年度');
-            $objPHPExcel->getActiveSheet()->setCellValue('B1', '場次');
-            $objPHPExcel->getActiveSheet()->setCellValue('C1', '巡場人員');
-            $objPHPExcel->getActiveSheet()->setCellValue('D1', '監試日期');
+                $objPHPExcel->getActiveSheet()->setCellValue('A'.(2+$i), $arr[$i]['year']);
+                $objPHPExcel->getActiveSheet()->setCellValue('B'.(2+$i), $arr[$i]['ladder']);
+                $objPHPExcel->getActiveSheet()->setCellValue('C'.(2+$i), $arr[$i]['member_name']);
+                $objPHPExcel->getActiveSheet()->setCellValue('D'.(2+$i), $arr[$i]['do_date']);
+            }
 
-            $objPHPExcel->getActiveSheet()->setCellValue('A'.(2+$i), $arr[$i]['year']);
-            $objPHPExcel->getActiveSheet()->setCellValue('B'.(2+$i), $arr[$i]['ladder']);
-            $objPHPExcel->getActiveSheet()->setCellValue('C'.(2+$i), $arr[$i]['member_name']);
-            $objPHPExcel->getActiveSheet()->setCellValue('D'.(2+$i), $arr[$i]['do_date']);
+            $objWriter = PHPExcel_IOFactory::createWriter($objPHPExcel, 'CSV');
+
+
+            header('Content-Type: application/vnd.ms-excel');
+            header('Content-Disposition: attachment;filename="巡場人員'.'.csv"');
+            header('Cache-Control: max-age=0');
+
+
+
+            $objWriter->save('php://output');
         }
-
-        $objWriter = PHPExcel_IOFactory::createWriter($objPHPExcel, 'CSV');
-
-
-        header('Content-Type: application/vnd.ms-excel');
-        header('Content-Disposition: attachment;filename="巡場人員'.'.csv"');
-        header('Cache-Control: max-age=0');
-
-
-
-        $objWriter->save('php://output');
     }
 
     public function form_e_5()

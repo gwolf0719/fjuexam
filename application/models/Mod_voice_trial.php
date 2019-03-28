@@ -1116,7 +1116,10 @@ class Mod_voice_trial extends CI_Model
         $this->db->where('voice_area_main.ladder=',$_SESSION['ladder']);
 
         $res = $this->db->get()->result_array();
-    
+        
+        if(empty($res)){
+            return;
+        }
         // print_r($res);
         function even($var)
         {
