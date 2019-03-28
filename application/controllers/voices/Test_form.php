@@ -2091,6 +2091,8 @@ class Test_form extends CI_Controller
         $obs = $_GET['obs'];
         
         $dataarray = $this->mod_voice_trial->get_trial_moneylist_for_csv($part, $obs);
+
+        // print_r($dataarray);
         $arr = array();
         $supervisor_codes = array();
         $i = 0;
@@ -2102,7 +2104,7 @@ class Test_form extends CI_Controller
                     $arr[$i] = $v;
                     $i ++ ;
                 }else{
-                    $arr[$key]['section_salary_total'] = $v['salary_section']+$arr[$key]['section_salary_total'];
+                    $arr[$key]['section_salary_total'] = $v['salary_section'];
                 }
             }
             
@@ -2124,7 +2126,7 @@ class Test_form extends CI_Controller
 
 
         header('Content-Type: application/vnd.ms-excel');
-        header('Content-Disposition: attachment;filename="'.$area.'印領清冊'.'.csv"');
+        header('Content-Disposition: attachment;filename="'.$area.'印領清冊(身障)'.'.csv"');
         header('Cache-Control: max-age=0');
 
 
