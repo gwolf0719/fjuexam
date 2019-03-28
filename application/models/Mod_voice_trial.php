@@ -1716,7 +1716,7 @@ class Mod_voice_trial extends CI_Model
                 # code...
                 $supervisor1 = $this->db->where('member_code', $sub[$i]['supervisor_1_code'])->where('year',$this->session->userdata('year'))->where('ladder',$this->session->userdata('ladder'))->get('voice_import_member')->row_array();
                 $supervisor2 = $this->db->where('member_code', $sub[$i]['supervisor_2_code'])->where('year',$this->session->userdata('year'))->where('ladder',$this->session->userdata('ladder'))->get('voice_import_member')->row_array();
-                $patrol = $this->db->where('start <=', $sub[$i]['start'])->where('end >=', $sub[$i]['end'])->get('voice_patrol_staff')->where('year',$this->session->userdata('year'))->where('ladder',$this->session->userdata('ladder'))->row_array();
+                $patrol = $this->db->where('start <=', $sub[$i]['start'])->where('end >=', $sub[$i]['end'])->where('year',$this->session->userdata('year'))->where('ladder',$this->session->userdata('ladder'))->get('voice_patrol_staff')->row_array();
                 $course = $this->db->where('year', $year)->where('field', $sub[$i]['field'])->where('year',$this->session->userdata('year'))->where('ladder',$this->session->userdata('ladder'))->get('voice_exam_area')->row_array();
                 $trial = $this->db->get('voice_trial_staff')->result_array();
                 if($sub[$i]['first_member_section_salary_total'] == ""){
