@@ -185,7 +185,7 @@ class Mod_voice_patorl extends CI_Model
                 'do_date'=>$res[$i]['do_date']
             );
         }
-        print_r($arr);
+        // print_r($arr);
         return $arr;
     }    
 }
