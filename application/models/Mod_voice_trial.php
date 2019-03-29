@@ -157,7 +157,7 @@ class Mod_voice_trial extends CI_Model
     }
     public function get_once_trial_by_code($trial_staff_code)
     {
-        return $this->db->where('member_code', $trial_staff_code)->where('year', $year)->where('ladder', $_SESSION['ladder'])->get('voice_import_member')->row_array();
+        return $this->db->where('member_code', $trial_staff_code)->where('year',$_SESSION['year'])->where('ladder', $_SESSION['ladder'])->get('voice_import_member')->row_array();
     }  
 
     public function get_once_trial($sn)
@@ -226,38 +226,60 @@ class Mod_voice_trial extends CI_Model
     }
 
     public function chk_all_d($trial_staff_code){
+
+
+        $trial_staff_code=trim($trial_staff_code);
+        // d1
         $this->db->where('year', $_SESSION['year']);
         $this->db->where('ladder', $_SESSION['ladder']);
-        $this->db->where('supervisor_1_code',$trial_staff_code);
-        // $this->db->or_where('supervisor_2_code',$trial_staff_code);
+        $this->db->where('supervisor_1',$trial_staff_code);
         $count1=$this->db->count_all_results('voice_trial_assign');
 
+        // d1
         $this->db->where('year', $_SESSION['year']);
         $this->db->where('ladder', $_SESSION['ladder']);
-        $this->db->where('supervisor_2_code',$trial_staff_code);
+        $this->db->where('supervisor_2',$trial_staff_code);
         $count2=$this->db->count_all_results('voice_trial_assign');
+        
+        // d2
+        $this->db->where('year', $_SESSION['year']);
+        $this->db->where('ladder', $_SESSION['ladder']);
+        $this->db->where('trial_staff_name',$trial_staff_code);
+        $count3=$this->db->count_all_results('voice_trial_staff');
 
-        $count=$count1+$count2;
+        // d3
+        $this->db->where('year', $_SESSION['year']);
+        $this->db->where('ladder', $_SESSION['ladder']);
+        $this->db->where('patrol_staff_name',$trial_staff_code);
+        $count4=$this->db->count_all_results('voice_patrol_staff');
+
+        $count=$count1+$count2+$count3+$count4;
+        // print_r($count);
         if($count == 0){
-
-            $this->db->where('year', $_SESSION['year']);
-            $this->db->where('ladder', $_SESSION['ladder']);
-            $this->db->where('trial_staff_code',$trial_staff_code);
-            if($this->db->count_all_results('voice_trial_staff') == 0){
-                $this->db->where('year', $_SESSION['year']);
-                $this->db->where('ladder', $_SESSION['ladder']);
-                $this->db->where('patrol_staff_code',$trial_staff_code);
-                if($this->db->count_all_results('voice_patrol_staff') == 0){
-                    return false;
-                }else{
-                    return true;
-                }
-            }else{
-                return true;
-            }
+            return 'no';
         }else{
-            return true;
+            return 'yes';
         }
+
+        //     $this->db->where('year', $_SESSION['year']);
+        //     $this->db->where('ladder', $_SESSION['ladder']);
+        //     $this->db->where('trial_staff_name',$trial_staff_code);
+        //     if($this->db->count_all_results('voice_trial_staff') == 0){
+        //         $this->db->where('year', $_SESSION['year']);
+        //         $this->db->where('ladder', $_SESSION['ladder']);
+        //         $this->db->where('patrol_staff_name',$trial_staff_code);
+        //         if($this->db->count_all_results('voice_patrol_staff') == 0){
+             
+        //             return false;
+        //         }else{
+        //             return true;
+        //         }
+        //     }else{
+        //         return true;
+        //     }
+        // }else{
+        //     return true;
+        // }
     }
 
     public function chk_trial($sn)

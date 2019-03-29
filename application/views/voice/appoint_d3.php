@@ -288,7 +288,8 @@
             
             // 先確認這個人有沒有事
             $.getJSON('./voice/api/chk_job_code_can_use',{
-                job_code:code[0]
+                job_code:code[0],
+                name:code[1],
             },function(jsonData){
                 if(jsonData.sys_code == '200'){
                     $("#allocation_code").val(code[0]);
