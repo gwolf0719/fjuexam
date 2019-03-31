@@ -543,15 +543,15 @@ class Api extends CI_Controller {
     function chk_job_code_can_use(){
         $this->load->model('mod_voice_job_list');
         $this->load->model('mod_voice_trial');
-        $getpost = array('job_code');
-        $requred = array('job_code');
+        $getpost = array('job_code','name');
+        $requred = array('job_code','name');
         $data = $this->getpost->getpost_array($getpost, $requred);
         if ($data == false) {
             $json_arr['sys_code'] = '000';
             $json_arr['sys_msg'] = '資料不足';
             $json_arr['requred'] = $this->getpost->report_requred($requred);
         } else {
-            if($this->mod_voice_trial->chk_all_d($data['job_code'])){
+            if($this->mod_voice_trial->chk_all_d($data['name'])=='yes'){
                 $json_arr['sys_code'] = '500';
                 $json_arr['sys_msg'] = '該人員已經被指派過，請選擇其他人員';
                 // $json_arr['sql'] = $this->db->last_query();
@@ -678,9 +678,9 @@ class Api extends CI_Controller {
                     array_push($do_date,mb_substr($datetime_info['day'], 5, 8, 'utf-8'));
                 }
                 $date = implode(",",$do_date); 
-                $first_member_salary_total = $part_info['class'] * $fees_info['pay_2'];
+                $first_member_salary_total = 2 * $fees_info['pay_2'];
                 $first_member_total = $first_member_salary_total; 
-                $second_member_salary_total = $part_info['class'] * $fees_info['pay_2'];
+                $second_member_salary_total = 2 * $fees_info['pay_2'];
                 $second_member_total = $second_member_salary_total ;              
                 
                 $sql_data = array (

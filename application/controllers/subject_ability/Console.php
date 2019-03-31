@@ -827,7 +827,7 @@ class Console extends CI_Controller {
          $data = array(
              'title' => '試場分配',
              'path' => 'subject_ability/c',
-             'path_text' => ' > 英聽主選單 > 試場分配',
+             'path_text' => ' > 學測主選單 > 試場分配',
              'datalist' => $this->mod_ability_part_info->get_list(),
          );
          $this->load->view('subject_ability_layout', $data);
@@ -853,7 +853,7 @@ class Console extends CI_Controller {
          $data = array(
              'title' => '第一分區',
              'path' => 'subject_ability/c_1',
-             'path_text' => ' > 英聽主選單 > 試場分配 > 第一分區',
+             'path_text' => ' > 學測主選單 > 試場分配 > 第一分區',
              'datalist' => $this->mod_ability_part_info->get_list('2501'),
              'addr_info' => $addr_info,
          );
@@ -880,7 +880,7 @@ class Console extends CI_Controller {
         $data = array(
             'title' => '第二分區',
             'path' => 'subject_ability/c_2',
-            'path_text' => ' > 英聽主選單 > 試場分配 > 第二分區',
+            'path_text' => ' > 學測主選單 > 試場分配 > 第二分區',
             'datalist' => $this->mod_ability_part_info->get_list('2502'),
             'addr_info' => $addr_info,
         );
@@ -907,7 +907,7 @@ class Console extends CI_Controller {
         $data = array(
             'title' => '第三分區',
             'path' => 'subject_ability/c_3',
-            'path_text' => ' > 英聽主選單 > 試場分配 > 第三分區',
+            'path_text' => ' > 學測主選單 > 試場分配 > 第三分區',
             'datalist' => $this->mod_ability_part_info->get_list('2503'),
             'addr_info' => $addr_info,
         );
@@ -933,7 +933,7 @@ class Console extends CI_Controller {
         $data = array(
             'title' => '第三分區',
             'path' => 'subject_ability/c_4',
-            'path_text' => ' > 英聽主選單 > 試場分配 > 第三分區',
+            'path_text' => ' > 學測主選單 > 試場分配 > 第三分區',
             'datalist' => $this->mod_ability_part_info->get_list('2504'),
             'addr_info' => $addr_info,
         );
@@ -959,7 +959,7 @@ class Console extends CI_Controller {
         $data = array(
             'title' => '第三分區',
             'path' => 'subject_ability/c_5',
-            'path_text' => ' > 英聽主選單 > 試場分配 > 第三分區',
+            'path_text' => ' > 學測主選單 > 試場分配 > 第三分區',
             'datalist' => $this->mod_ability_part_info->get_list('2505'),
             'addr_info' => $addr_info,
         );
@@ -987,7 +987,7 @@ class Console extends CI_Controller {
         $data = array(
             'title' => '分區地址',
             'path' => 'subject_ability/c_6',
-            'path_text' => ' > 英聽主選單 > 分區地址',
+            'path_text' => ' > 學測主選單 > 分區地址',
             'addr_info' => $addr_info,
         );
         $this->load->view('subject_ability_layout', $data);

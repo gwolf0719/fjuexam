@@ -51,11 +51,11 @@
     </tr>
     <?php foreach ($part as $kc => $vc): ?>
     <tr class="item">
-        <td style="border:1px solid #999" nowrap="nowrap"><?=$vc['job']?></td>
-        <td style="border:1px solid #999" nowrap="nowrap"><?=$vc['name']?></td>
-        <td style="border:1px solid #999" nowrap="nowrap"><?=$vc['member_unit']?></td>
-        <td style="border:1px solid #999" nowrap="nowrap" colspan="2"></td>
-        <td style="border:1px solid #999" nowrap="nowrap"><?=$vc['note']?></td>
+        <td style="border:1px solid #999;height: 100px;" nowrap="nowrap"><?=$vc['job']?></td>
+        <td style="border:1px solid #999;height: 100px;" nowrap="nowrap"><?=$vc['name']?></td>
+        <td style="border:1px solid #999;height: 100px;" nowrap="nowrap"><?=$vc['member_unit']?></td>
+        <td style="border:1px solid #999;height: 100px;" nowrap="nowrap" colspan="2"></td>
+        <td style="border:1px solid #999;height: 100px;" nowrap="nowrap"><?=$vc['note']?></td>
     </tr>
     <?php endforeach; ?>
     <tr>

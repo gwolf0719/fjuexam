@@ -79,9 +79,12 @@ class Mod_voice_patorl extends CI_Model
 
 
         $res = $this->db->get('voice_patrol_staff')->result_array();
+        if(empty($res)){
+            return;
+        }
         for ($i=0; $i < count($res); $i++) { 
             # code...
-            $patrol = $this->db->where('member_code', $res[$i]['patrol_staff_code'])->get('voice_import_member')->row_array();
+            $patrol = $this->db->where('member_name', $res[$i]['patrol_staff_name'])->get('voice_import_member')->row_array();
             switch ($res[$i]['part']) {
                 case '2501':
                     $part = '第一分區';
@@ -152,9 +155,12 @@ class Mod_voice_patorl extends CI_Model
 
 
         $res = $this->db->get('voice_trial_staff')->result_array();
+        if(empty($res)){
+            return;
+        }
         for ($i=0; $i < count($res); $i++) { 
             # code...
-            $patrol = $this->db->where('member_code', $res[$i]['trial_staff_code'])->get('voice_import_member')->row_array();
+            $patrol = $this->db->where('member_name', $res[$i]['trial_staff_name'])->get('voice_import_member')->row_array();
             switch ($res[$i]['part']) {
                 case '2501':
                     $part = '第一分區';

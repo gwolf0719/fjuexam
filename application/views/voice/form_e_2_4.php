@@ -25,6 +25,7 @@
 </style>
 
 <?php foreach ($part as $k => $v): ?>
+<?php if($k!=''){?>
                 <table style="padding:10px 0px;text-align:center;">
                 <thead>
                     <tr>
@@ -47,7 +48,7 @@
                     <td  style="border: 1px solid #999999;" nowrap="nowrap"><?=$vc['member_name']?></td>
                     <td  style="border: 1px solid #999999;" nowrap="nowrap"><?=$vc['member_unit']?></td>
                     <td  style="border: 1px solid #999999;"></td>
-                    <td  style="border: 1px solid #999999;"><?=$vc['note']?></td>
+                    <td  style="border: 1px solid #999999;"></td>
                 </tr>
                 <?php endforeach; ?>
                 <tr>
@@ -55,4 +56,5 @@
                 </tr>
 
                 </table>
+                <?php }?>
 <?php endforeach; ?>

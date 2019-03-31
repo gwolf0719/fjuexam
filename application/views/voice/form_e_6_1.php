@@ -70,10 +70,18 @@
         if($v['supervisor_1'] != ""){
             $member_count = $member_count+1;
         }
+
+
+
         if($v['supervisor_2'] != ""){
             $member_count = $member_count+1;
         }
-        $money_count = $money_count+$v['first_member_salary_section']+$v['second_member_salary_section']
+
+
+
+
+
+        $money_count = $money_count+$v['first_member_salary_section']+$v['second_member_salary_section'];
         ?>
     <tr>
         <td class="bb"  style="width:8%;font-size:18px;font-weight:bold;">

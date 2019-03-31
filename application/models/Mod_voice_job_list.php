@@ -323,7 +323,7 @@ class Mod_voice_job_list extends CI_Model
                 // print_r($val);
             }
         }  
-        print_r($result);    
+        // print_r($result);    
         return $result;
     }
 
@@ -342,8 +342,8 @@ class Mod_voice_job_list extends CI_Model
 
     public function e_2_1($area = '',$part)
     {
-        $this->db->where('year',$this->session->userdata('year'));
-        $this->db->where('ladder',$this->session->userdata('ladder'));
+        $this->db->where('voice_job_list.year',$this->session->userdata('year'));
+        $this->db->where('voice_job_list.ladder',$this->session->userdata('ladder'));
         if ($area != '') {
             $this->db->where('test_partition', $area);
         }
@@ -351,7 +351,7 @@ class Mod_voice_job_list extends CI_Model
         $this->db->where('job_code !=', "");
         $this->db->from('voice_job_list');
         $this->db->join('voice_import_member', 'voice_import_member.member_name = voice_job_list.name');
-        $this->db->order_by('voice_import_member.member_unit');
+        $this->db->order_by('voice_job_list.job',"desc"); 
         $res = $this->db->get()->result_array();
 
         if (!empty($res)) {
@@ -373,7 +373,22 @@ class Mod_voice_job_list extends CI_Model
                 }
             }
 
-            return $arr;
+            $result = array();
+            foreach($arr as $val){
+                $key = $val['name'];                           //填入要塞選的項目
+                if(!isset($result[$key])){
+                    $result[$key] = $val;
+                    // print_r($val);
+                }
+            }  
+            // print_r($result);    
+            return $result;
+
+
+
+
+            
+            // return $arr;
         }else{
             return false;
         }
@@ -643,6 +658,9 @@ class Mod_voice_job_list extends CI_Model
         $this->db->where('job_code !=', "");
 
         $res = $this->db->get('voice_job_list')->result_array();
+        if(empty($res)){
+            return;
+        }
         if (!empty($res)) {
             for ($i=0; $i < count($res); $i++) {
                 # code...

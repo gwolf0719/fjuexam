@@ -411,9 +411,9 @@
                 if(second_fee==""){
                     $("#second_member_salary_section").val(fee);
                 }else{
-                    $("#second_member_salary_section").val(first_fee);
-                    $("#second_member_section_salary_total").val(first_fee*section);
-                    $("#second_member_section_total").val(first_fee*section);
+                    $("#second_member_salary_section").val(second_fee);
+                    $("#second_member_section_salary_total").val(second_fee*section);
+                    $("#second_member_section_total").val(second_fee*section);
                 }
 
             });

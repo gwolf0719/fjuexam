@@ -50,7 +50,7 @@
     </div>
 
     <div class="col-sm-8" style="text-align: center;">
-        <img src="assets/images/c4_title.png" alt="" style="width: 20%;">
+        <img src="assets/images/c4_titles.png" alt="" style="width: 20%;">
     </div>
     
 </div>

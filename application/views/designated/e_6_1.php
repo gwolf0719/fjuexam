@@ -15,7 +15,6 @@
     }
     * {
         overflow: visible !important;
-
     }
     table, tr, td, th, tbody, thead, tfoot {
         page-break-before: always;
@@ -29,9 +28,7 @@
 
 
 <!-- <h3 style="text-align:center;">監試人員印領清冊</h3>
-
 <h3>
-
 </h3> -->
 
 <table class="" id="" style="text-align:center;">
@@ -71,7 +68,7 @@
             <?=trim($v['field'])?>
         </td>
         <td class="bb" style="width:8%;font-size:18px;font-weight:bold;" >
-            <?=trim(number_format($v['first_member_salary_section']))?>
+            <?=$v['first_member_salary_section']?>
         </td>
         <td class="bb" style="width:8%"><?=trim($v['supervisor_1'])?>
         </td>
@@ -95,7 +92,7 @@
         </td>
         <td class="bb" style="padding: 30px 0px;"></td>
         <td class="bb" style="width:8%;font-size:18px;font-weight:bold;" >
-            <?=trim(number_format($v['second_member_salary_section']))?>
+            <?=$v['second_member_salary_section']?>
         </td>
         <td class="bb" style="width:8%"><?=trim($v['supervisor_2'])?>
         </td>
