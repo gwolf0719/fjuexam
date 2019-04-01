@@ -1284,7 +1284,7 @@ class Test_form extends CI_Controller
                 # code...
                 $objPHPExcel->getActiveSheet()->setCellValue('A1', '學年度');
                 $objPHPExcel->getActiveSheet()->setCellValue('B1', '場次');
-                $objPHPExcel->getActiveSheet()->setCellValue('C1', '監試人員');
+                $objPHPExcel->getActiveSheet()->setCellValue('C1', '人員');
                 $objPHPExcel->getActiveSheet()->setCellValue('D1', '監試日期');
     
                 $objPHPExcel->getActiveSheet()->setCellValue('A'.(2+$i), $arr[$i]['year']);
@@ -1330,7 +1330,7 @@ class Test_form extends CI_Controller
                 # code...
                 $objPHPExcel->getActiveSheet()->setCellValue('A1', '學年度');
                 $objPHPExcel->getActiveSheet()->setCellValue('B1', '場次');
-                $objPHPExcel->getActiveSheet()->setCellValue('C1', '試務人員');
+                $objPHPExcel->getActiveSheet()->setCellValue('C1', '人員');
                 $objPHPExcel->getActiveSheet()->setCellValue('D1', '執行日');
                 $objPHPExcel->getActiveSheet()->setCellValue('A'.(2+$i), $res[$i]['year']);
                 $objPHPExcel->getActiveSheet()->setCellValue('B'.(2+$i), $res[$i]['ladder']);
@@ -1364,7 +1364,7 @@ class Test_form extends CI_Controller
                 # code...
                 $objPHPExcel->getActiveSheet()->setCellValue('A1', '學年度');
                 $objPHPExcel->getActiveSheet()->setCellValue('B1', '場次');
-                $objPHPExcel->getActiveSheet()->setCellValue('C1', '管卷人員');
+                $objPHPExcel->getActiveSheet()->setCellValue('C1', '人員');
                 $objPHPExcel->getActiveSheet()->setCellValue('D1', '監試日期');
 
                 $objPHPExcel->getActiveSheet()->setCellValue('A'.(2+$i), $arr[$i]['year']);
@@ -1403,7 +1403,7 @@ class Test_form extends CI_Controller
                 # code...
                 $objPHPExcel->getActiveSheet()->setCellValue('A1', '學年度');
                 $objPHPExcel->getActiveSheet()->setCellValue('B1', '場次');
-                $objPHPExcel->getActiveSheet()->setCellValue('C1', '巡場人員');
+                $objPHPExcel->getActiveSheet()->setCellValue('C1', '人員');
                 $objPHPExcel->getActiveSheet()->setCellValue('D1', '監試日期');
 
                 $objPHPExcel->getActiveSheet()->setCellValue('A'.(2+$i), $arr[$i]['year']);
@@ -1476,7 +1476,7 @@ class Test_form extends CI_Controller
                     # code...
                     $objPHPExcel->getActiveSheet()->setCellValue('A1', '分區');
                     $objPHPExcel->getActiveSheet()->setCellValue('B1', '職務');
-                    $objPHPExcel->getActiveSheet()->setCellValue('C1', '監試人員');
+                    $objPHPExcel->getActiveSheet()->setCellValue('C1', '人員');
                     $objPHPExcel->getActiveSheet()->setCellValue('D1', '編號');
                     
                     
@@ -1532,7 +1532,7 @@ class Test_form extends CI_Controller
                 # code...
                 $objPHPExcel->getActiveSheet()->setCellValue('A1', '分區');
                 $objPHPExcel->getActiveSheet()->setCellValue('B1', '職務');
-                $objPHPExcel->getActiveSheet()->setCellValue('C1', '試務人員');
+                $objPHPExcel->getActiveSheet()->setCellValue('C1', '人員');
                 $objPHPExcel->getActiveSheet()->setCellValue('D1', '編號');
 
 
@@ -1568,7 +1568,7 @@ class Test_form extends CI_Controller
                 # code...
                 $objPHPExcel->getActiveSheet()->setCellValue('A1', '分區');
                 $objPHPExcel->getActiveSheet()->setCellValue('B1', '職務');
-                $objPHPExcel->getActiveSheet()->setCellValue('C1', '試務人員');
+                $objPHPExcel->getActiveSheet()->setCellValue('C1', '人員');
                 $objPHPExcel->getActiveSheet()->setCellValue('D1', '編號');
 
 
@@ -1604,7 +1604,7 @@ class Test_form extends CI_Controller
                 # code...
                 $objPHPExcel->getActiveSheet()->setCellValue('A1', '分區');
                 $objPHPExcel->getActiveSheet()->setCellValue('B1', '職務');
-                $objPHPExcel->getActiveSheet()->setCellValue('C1', '試務人員');
+                $objPHPExcel->getActiveSheet()->setCellValue('C1', '人員');
                 $objPHPExcel->getActiveSheet()->setCellValue('D1', '編號');
 
 
@@ -1644,7 +1644,7 @@ class Test_form extends CI_Controller
                 
                 # code...
                 $objPHPExcel->getActiveSheet()->setCellValue('A1', '單位');
-                $objPHPExcel->getActiveSheet()->setCellValue('B1', '監試人員');
+                $objPHPExcel->getActiveSheet()->setCellValue('B1', '人員');
 
                 $objPHPExcel->getActiveSheet()->setCellValue('A'.(2+$i), $value['member_unit']);
                 $objPHPExcel->getActiveSheet()->setCellValue('B'.(2+$i), $value['member_name']);
@@ -1676,7 +1676,7 @@ class Test_form extends CI_Controller
             for ($i=0; $i < count($arr); $i++) {
                 # code...
                 $objPHPExcel->getActiveSheet()->setCellValue('A1', '單位');
-                $objPHPExcel->getActiveSheet()->setCellValue('B1', '試務人員');
+                $objPHPExcel->getActiveSheet()->setCellValue('B1', '人員');
 
                 $objPHPExcel->getActiveSheet()->setCellValue('A'.(2+$i), $arr[$i]['member_unit']);
                 $objPHPExcel->getActiveSheet()->setCellValue('B'.(2+$i), $arr[$i]['name']);
@@ -1708,7 +1708,7 @@ class Test_form extends CI_Controller
             for ($i=0; $i < count($arr); $i++) {
                 # code...
                 $objPHPExcel->getActiveSheet()->setCellValue('A1', '單位');
-                $objPHPExcel->getActiveSheet()->setCellValue('B1', '管卷人員');
+                $objPHPExcel->getActiveSheet()->setCellValue('B1', '人員');
 
                 $objPHPExcel->getActiveSheet()->setCellValue('A'.(2+$i), $arr[$i]['member_unit']);
                 $objPHPExcel->getActiveSheet()->setCellValue('B'.(2+$i), $arr[$i]['member_name']);
@@ -1739,7 +1739,7 @@ class Test_form extends CI_Controller
             for ($i=0; $i < count($arr); $i++) {
                 # code...
                 $objPHPExcel->getActiveSheet()->setCellValue('A1', '單位');
-                $objPHPExcel->getActiveSheet()->setCellValue('B1', '巡場人員');
+                $objPHPExcel->getActiveSheet()->setCellValue('B1', '人員');
 
                 $objPHPExcel->getActiveSheet()->setCellValue('A'.(2+$i), $arr[$i]['member_unit']);
                 $objPHPExcel->getActiveSheet()->setCellValue('B'.(2+$i), $arr[$i]['member_name']);

@@ -263,7 +263,7 @@ class Designated extends CI_Controller
             copy($file, $file_name);
             $file = fopen($file_name, 'r');
             $datas = array();
-            fgetcsv($file);
+            // fgetcsv($file);
             $start = $this->mod_exam_area->get_min_start();
             $end = $this->mod_exam_area->get_max_end();
             while (!feof($file)) {
