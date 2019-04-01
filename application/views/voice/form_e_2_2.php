@@ -54,7 +54,7 @@
         </tr>
     </thead>
     <?php foreach ($part as $kc => $vc): ?>
-    <tr>
+    <tr style="height:60px;">
         <td style="border:1px solid #999;font-size:18px;" nowrap="nowrap"><?=$vc['field']?></td>
         <td style="border:1px solid #999;font-size:18px;" nowrap="nowrap"><?=$vc['supervisor_1']?></td>
         <td style="border:1px solid #999;font-size:18px;" nowrap="nowrap"><?=$vc['supervisor_1_unit']?></td>
