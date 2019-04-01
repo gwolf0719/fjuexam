@@ -55,7 +55,7 @@
         <td style="border:1px solid #999;height:50px;font-size:20px;text-align:left;padding:5px" nowrap="nowrap"><?=$vc['job']?></td>
         <td style="border:1px solid #999;height:50px;font-size:20px;padding:5px" nowrap="nowrap"><?=$vc['name']?></td>
         <td style="border:1px solid #999;height:50px;font-size:20px;padding:5px;" nowrap="nowrap"><?=$vc['job_title']?></td>
-        <td style="border:1px solid #999;height:50px;font-size:20px;text-align:left;padding:5px;vertical-align:text-top;" nowrap="nowrap"><?=$vc['member_unit']?></td>
+        <td style="border:1px solid #999;height:50px;font-size:20px;text-align:left;padding:5px;" nowrap="nowrap"><?=$vc['member_unit']?></td>
         <td style="border:1px solid #999;height:50px;font-size:20px;text-align:left;padding:5px" nowrap="nowrap" colspan="2"></td>
         <td style="border:1px solid #999;height:50px;font-size:20px;text-align:left;padding:5px" nowrap="nowrap"><?=$vc['note']?></td>
     </tr>
