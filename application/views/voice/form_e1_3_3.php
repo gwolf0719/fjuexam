@@ -43,11 +43,12 @@
         </tr>
         <tr>
             <td class="bb" style="width: 6%;font-size:21px;">職別</td>
-            <td class="bb" style="width: 5%;font-size:21px;">姓名</td>
-            <td class="bb" style="width: 6%;font-size:21px;">單位別&連絡電話</td>
-            <td class="bb" style="width: 6%;font-size:21px;">職別</td>
-            <td class="bb" style="width: 5%;font-size:21px;">姓名</td>
-            <td class="bb" style="width: 6%;font-size:21px;">單位別&連絡電話</td>
+            <td class="bb" style="width: 4%;font-size:21px;">姓名</td>
+            <td class="bb" style="width: 7%;font-size:21px;">單位別&連絡電話</td>
+            <!-- <td class="bb" style="width: 7%;font-size:21px;">單位二</td> -->
+            <td class="bb" style="width: 6%;font-size:21px;">職稱</td>
+            <td class="bb" style="width: 4%;font-size:21px;">姓名</td>
+            <td class="bb" style="width: 7%;font-size:21px;">單位別&連絡電話</td>
             <!-- <td class="bb" colspan="2" >備註(工作分配)</td> -->
         </tr>
     </thead>
@@ -63,8 +64,11 @@
                 <?=$v['member_unit']; ?></br>
                 <?=$v['member_phone']; ?>
             </td>
+            <!-- <td class="bb" style="font-size:21px;">
+            <?=$v['member_unit']; ?>
+            </td> -->
             <td class="bb" style="font-size:21px;">
-            <?=$v['note']; ?>
+            <?=$v['job_title']; ?>
             </td>
             <td class="bb" style="font-size:21px;">
             <?=$v['note']; ?>

@@ -33,7 +33,7 @@
             <td colspan="9" style="font-size:26px;"><?=$_SESSION['year']?>學年度英語聽力測驗<?=$_SESSION['ladder']?>考試新北一考區監試人員一覽表</td>
         </tr>
         <tr>
-            <td colspan="3" style="font-size:20px;padding:20px 0px;">分區：<?=$area?></td>
+            <td colspan="1" style="font-size:20px;padding:20px 0px;">分區：<?=$area?></td>
             <td colspan="3" style="font-size:20px;padding:20px 0px;">考場：<?=$school['area_name']?></td>
             <td colspan="3" style="font-size:20px;padding:20px 0px;">印表日期：<?=(date("Y") - 1911).date("/m/d")?></td>
         </tr>
@@ -51,7 +51,14 @@
             <td class="bb" colspan="2" width="20%">單位別＆聯絡電話</td>
         </tr>
     </thead>
+    <?php  $count=0;?>
     <?php foreach ($part as $k => $v): ?>
+    <?php 
+        if($v['trial_staff_code_1']!=''){
+            $count=$count+1;
+        }
+
+    ?>
     <tr>
         <td class="bb">
             <?=$v['field']?>
@@ -78,6 +85,6 @@
     </tr>
     <?php endforeach; ?>
     <tr>
-        <td colspan="9" style="font-size:16px;text-align:left"> 共計：<?=count($part)*2?>人</td>
+        <td colspan="9" style="font-size:16px;text-align:left"> 共計：<?=$count*2?>人</td>
     </tr>
 </table>
