@@ -31,11 +31,11 @@
 </style>
 
 <?php foreach ($part as $key => $value) :?>
-<h1 style="font-size:26px;text-align:center;">
+<h1 style="font-size:30px;text-align:center;">
     <?=$_SESSION['year']?>學年度英語聽力測驗<?=$_SESSION['ladder']?>考試新北一考區
 </h1>
-<h3 style="font-size:22px;text-align:center;"><?=$_GET['area']?><?=$school['area_name']?>試題本、答案卷卡收發記錄單</h3>
-<h4 style="font-size:22px;text-align:left;font-weight:bold;">管卷人員：<?=$value['trial_staff_name']?></h4>
+<h3 style="font-size:26px;text-align:center;"><?=$_GET['area']?><?=$school['area_name']?>試題本、答案卷卡收發記錄單</h3>
+<h4 style="font-size:26px;text-align:left;font-weight:bold;">管卷人員：<?=$value['trial_staff_name']?></h4>
 <table style="text-align:center;margin:0px auto;">
     <thead>
         <!-- <tr>
@@ -49,8 +49,8 @@
             </td>
         </tr> -->
         <tr>
-            <td class="bb" colspan="2"><div class="W50">日期</div>  <div class="W50">科目</div></td>
-            <td class="bb" colspan="2"><?=mb_substr($datetime_info['day'], 5, 8, 'utf-8'); ?></td>
+            <td class="bb" colspan="2" style="font-size:20px;"><div class="W50">日期</div>  <div class="W50">科目</div></td>
+            <td class="bb" colspan="2" style="font-size:20px;"><?=mb_substr($datetime_info['day'], 5, 8, 'utf-8'); ?></td>
         </tr>
         <tr>
             <td class="bb" style="width: 15%;">試場</td>
@@ -63,14 +63,14 @@
     <?php foreach ($value['trial'] as $kc => $vc): ?>
         
         <tr>
-            <td class="bb" rowspan="2" style="font-size:18px;"><?=$vc['field']?></td>
-            <td class="bb" style="height:50px;"><?=$vc['supervisor_1']?></td>
-            <td class="bb" style="font-weight:bold;font-size:18px;">
+            <td class="bb" rowspan="2" style="font-size:20px;"><?=$vc['field']?></td>
+            <td class="bb" style="height:50px;font-size:20px;"><?=$vc['supervisor_1']?></td>
+            <td class="bb" style="font-weight:bold;font-size:20px;">
                 <?php if(!isset($vc['block_1'])){
                     echo "X";
                 }?>
             </td>
-            <td class="bb" style="font-weight:bold;font-size:18px;">
+            <td class="bb" style="font-weight:bold;font-size:20px;">
                 <?php if(!isset($vc['block_2'])){
                     echo "X";
                 }?>
@@ -78,13 +78,13 @@
             
         </tr>
         <tr>
-            <td class="bb" style="height:50px;"><?=$vc['supervisor_2']?></td>
-            <td class="bb" style="font-weight:bold;font-size:18px;">
+            <td class="bb" style="height:50px;font-size:20px;"><?=$vc['supervisor_2']?></td>
+            <td class="bb" style="font-weight:bold;font-size:20px;">
                 <?php if(!isset($vc['block_1'])){
                     echo "X";
                 }?>
             </td>
-            <td class="bb" style="font-weight:bold;font-size:18px;">
+            <td class="bb" style="font-weight:bold;font-size:20px;">
                 <?php if(!isset($vc['block_2'])){
                     echo "X";
                 }?>
@@ -93,12 +93,12 @@
         </tr>
         <tr>
             <td class="bb" colspan="2" style="font-weight:bold;height:50px;">管卷人員簽收記錄表</td>
-            <td class="bb" style="font-weight:bold;font-size:18px;">
+            <td class="bb" style="font-weight:bold;font-size:20px;">
                 <?php if(!isset($vc['block_1'])){
                     echo "X";
                 }?>
             </td>
-            <td class="bb" style="font-weight:bold;font-size:18px;">
+            <td class="bb" style="font-weight:bold;font-size:20px;">
                 <?php if(!isset($vc['block_2'])){
                     echo "X";
                 }?>
