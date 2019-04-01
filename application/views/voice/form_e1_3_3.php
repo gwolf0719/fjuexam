@@ -42,34 +42,34 @@
             <td colspan="1"  style="font-size:22px;text-align:right"></td>
         </tr>
         <tr>
-            <td class="bb" style="width: 5%;font-size:20px;">職別</td>
-            <td class="bb" style="width: 5%;font-size:20px;">姓名</td>
-            <td class="bb" style="width: 6%;font-size:20px;">單位別&連絡電話</td>
-            <td class="bb" style="width: 5%;font-size:20px;">職別</td>
-            <td class="bb" style="width: 5%;font-size:20px;">姓名</td>
-            <td class="bb" style="width: 6%;font-size:20px;">單位別&連絡電話</td>
+            <td class="bb" style="width: 6%;font-size:21px;">職別</td>
+            <td class="bb" style="width: 5%;font-size:21px;">姓名</td>
+            <td class="bb" style="width: 6%;font-size:21px;">單位別&連絡電話</td>
+            <td class="bb" style="width: 6%;font-size:21px;">職別</td>
+            <td class="bb" style="width: 5%;font-size:21px;">姓名</td>
+            <td class="bb" style="width: 6%;font-size:21px;">單位別&連絡電話</td>
             <!-- <td class="bb" colspan="2" >備註(工作分配)</td> -->
         </tr>
     </thead>
         <?php foreach ($part as $k => $v): ?>
         <tr>
-            <td class="bb" style="text-align: left;padding-left:10px; ">
+            <td class="bb" style="text-align: left;padding-left:10px;font-size:21px; ">
                 <?=$v['job']?>
             </td>
-            <td class="bb">
+            <td class="bb" style="font-size:21px;">
                 <?=$v['name']; ?>
             </td>
-            <td class="bb" style="text-align: left;padding-left:10px; ">
+            <td class="bb" style="text-align: left;padding-left:10px;font-size:21px; ">
                 <?=$v['member_unit']; ?></br>
                 <?=$v['member_phone']; ?>
             </td>
-            <td class="bb">
+            <td class="bb" style="font-size:21px;">
             <?=$v['note']; ?>
             </td>
-            <td class="bb">
+            <td class="bb" style="font-size:21px;">
             <?=$v['note']; ?>
             </td>
-            <td class="bb">
+            <td class="bb" style="font-size:21px;">
             <?=$v['note']; ?>
             </td>
             <!-- <td class="bb">

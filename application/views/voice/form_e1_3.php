@@ -39,12 +39,12 @@
         </tr>
         <tr>
             <td class="bb" rowspan="2">試場</td>
-            <td class="bb" colspan="2" rowspan="1" class="bb">監考日期</td>
+            <!-- <td class="bb" colspan="2" rowspan="1" class="bb"> </td> -->
             <td class="bb" colspan="3" class="bb">監試人員(1)</td>
             <td class="bb" colspan="3" class="bb">監試人員(2)</td>
         </tr>
         <tr>
-            <td class="bb" colspan="2" rowspan="1" >監考節數</td>
+            <!-- <td class="bb" colspan="2" rowspan="1" >監考節數</td> -->
             <td class="bb" colspan="1" width="10%">姓名</td>
             <td class="bb" colspan="2" width="20%">單位別＆聯絡電話</td>
             <td class="bb" colspan="1" width="10%">姓名</td>
@@ -56,18 +56,20 @@
         <td class="bb">
             <?=$v['field']?>
         </td>
-        <td class="bb" colspan="2" nowrap="nowrap">
+        <!-- <td class="bb" colspan="2" nowrap="nowrap">
             <?=$v['do_date']?><br><?=$v['class']?>節
-        </td>
+        </td> -->
         <td class="bb">
-            <?=$v['supervisor_1']?>
+            <?=$v['supervisor_1']?></br>
+            <?=$v['trial_staff_code_1']?>
         </td>
         <td class="bb" colspan="2" nowrap="nowrap">
             <?=$v['supervisor_1_unit']?><br>
             <?=$v['supervisor_1_phone']?>
         </td>
         <td class="bb">
-            <?=$v['supervisor_2']?>
+            <?=$v['supervisor_2']?></br>
+            <?=$v['trial_staff_code_2']?>
         </td>
         <td class="bb" colspan="2" nowrap="nowrap">
             <?=$v['supervisor_2_unit']?><br>
