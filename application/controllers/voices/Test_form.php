@@ -1212,6 +1212,8 @@ class Test_form extends CI_Controller
         $data = array(
             'data_list'=>$data_list,
             'date'=>$date,
+            'block_name'=>$block_name,
+            
 
         );
        
