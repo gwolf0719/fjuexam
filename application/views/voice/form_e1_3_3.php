@@ -31,10 +31,10 @@
 <table class="" id="" style="padding:4px;text-align:center;">
     <thead>
         <tr>
-            <td colspan="3" style="font-size:26px;"><?=$_SESSION['year']?>學年度英語聽力測驗<?=$_SESSION['ladder']?>考試新北一考區</td>
+            <td colspan="3" style="position: relative;font-size:30px;left: 25%;"><?=$_SESSION['year']?>學年度英語聽力測驗<?=$_SESSION['ladder']?>考試新北一考區</td>
         </tr>
         <tr>
-            <td colspan="3" style="font-size:22px;"><?=$school['area_name']?>試務人員一覽表</td>
+            <td colspan="3" style="position: relative;font-size:26px;left: 25%;"><?=$school['area_name']?>試務人員一覽表</td>
         </tr>
         <tr>
             <td colspan="1"  style="font-size:22px;text-align:left"><?=$this->config->item('partition')[$_GET['area']] ?></td>
@@ -42,22 +42,39 @@
             <td colspan="1"  style="font-size:22px;text-align:right"></td>
         </tr>
         <tr>
-            <td class="bb">職別</td>
-            <td class="bb">姓名</td>
-            <td class="bb" colspan="2" >備註(工作分配)</td>
+            <td class="bb" style="width: 5%;font-size:20px;">職別</td>
+            <td class="bb" style="width: 5%;font-size:20px;">姓名</td>
+            <td class="bb" style="width: 6%;font-size:20px;">單位別&連絡電話</td>
+            <td class="bb" style="width: 5%;font-size:20px;">職別</td>
+            <td class="bb" style="width: 5%;font-size:20px;">姓名</td>
+            <td class="bb" style="width: 6%;font-size:20px;">單位別&連絡電話</td>
+            <!-- <td class="bb" colspan="2" >備註(工作分配)</td> -->
         </tr>
     </thead>
         <?php foreach ($part as $k => $v): ?>
         <tr>
-            <td class="bb">
+            <td class="bb" style="text-align: left;padding-left:10px; ">
                 <?=$v['job']?>
             </td>
             <td class="bb">
                 <?=$v['name']; ?>
             </td>
+            <td class="bb" style="text-align: left;padding-left:10px; ">
+                <?=$v['member_unit']; ?></br>
+                <?=$v['member_phone']; ?>
+            </td>
             <td class="bb">
             <?=$v['note']; ?>
             </td>
+            <td class="bb">
+            <?=$v['note']; ?>
+            </td>
+            <td class="bb">
+            <?=$v['note']; ?>
+            </td>
+            <!-- <td class="bb">
+            <?=$v['note']; ?>
+            </td> -->
         </tr>
         <?php endforeach; ?>
 </table>

@@ -767,6 +767,7 @@ class Mod_voice_job_list extends CI_Model
                         'job_title' => $res[$i]['job_title'],
                         'name' => $res[$i]['name'],
                         'member_unit'=>$member['member_unit'],
+                        'member_phone'=>$member['member_phone'],
                         'note' => $res[$i]['note'],
                     );
             }
