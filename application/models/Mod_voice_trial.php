@@ -532,7 +532,7 @@ class Mod_voice_trial extends CI_Model
         if (!empty($res)) {
             for ($i=0; $i < count($res); $i++) {
                 # code...
-                $member = $this->db->where('member_name', $res[$i]['trial_staff_name'])->where('year',$this->session->userdata('year'))->where('ladder',$this->session->userdata('ladder'))->get('voice_import_member')->row_array();
+                $member = $this->db->where('member_name', trim($res[$i]['trial_staff_name']))->where('year',$this->session->userdata('year'))->where('ladder',$this->session->userdata('ladder'))->get('voice_import_member')->row_array();
                 // $trial = $this->db->where('part',$part)->where('year',$_SESSION['year'])->get('trial_staff')->row_array();
                 $do_date = explode(",", $res[$i]['do_date']);
                 for ($d=0; $d < count($do_date); $d++) {

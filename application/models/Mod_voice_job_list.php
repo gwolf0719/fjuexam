@@ -238,13 +238,14 @@ class Mod_voice_job_list extends CI_Model
 
         for ($i=0; $i < count($res); $i++) {
             # code...
-            $member_unit = $this->db->where('member_code', $res[$i]['job_code'])->select('member_unit')->get('voice_import_member')->row_array();
+            $member_unit = $this->db->where('member_code', $res[$i]['job_code'])->get('voice_import_member')->row_array();
+            // print_r($member_unit);
             if ($res[$i]['job_code'] != "") {
                 $arr[] = array(
                     'job_code' => $res[$i]['job_code'],
                     'job' => $res[$i]['job'],
                     'name' => $res[$i]['name'],
-                    'job_title' => $res[$i]['job'],
+                    'job_title' => $member_unit['member_title'],
                     'member_unit'=>$member_unit['member_unit'],
                     'do_date' => $day[1],
                 );
