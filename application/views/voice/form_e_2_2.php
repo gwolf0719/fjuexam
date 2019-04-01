@@ -31,7 +31,7 @@
 <table class="" id="" style="padding:5px 0px;;text-align:center;">
     <thead>
         <tr>
-            <td style="font-size:26px;lne-height:50px;" colspan="9"><?=$_SESSION['year']?>學年度英語聽力測驗<?=$_SESSION['ladder']?>考試新北一考區監試人員簽到表</td>
+            <td style="font-size:30px;lne-height:50px;" colspan="9"><?=$_SESSION['year']?>學年度英語聽力測驗<?=$_SESSION['ladder']?>考試新北一考區監試人員簽到表</td>
         </tr>
         <tr>
             <td colspan="3" style="font-size:22px;padding:20px 0px">分區：<?=$area?></td>
@@ -55,13 +55,13 @@
     </thead>
     <?php foreach ($part as $kc => $vc): ?>
     <tr>
-        <td style="border:1px solid #999" nowrap="nowrap"><?=$vc['field']?></td>
-        <td style="border:1px solid #999" nowrap="nowrap"><?=$vc['supervisor_1']?></td>
-        <td style="border:1px solid #999" nowrap="nowrap"><?=$vc['supervisor_1_unit']?></td>
-        <td style="border:1px solid #999" colspan="2" nowrap="nowrap"></td>
-        <td style="border:1px solid #999" nowrap="nowrap"><?=$vc['supervisor_2']?></td>
-        <td style="border:1px solid #999" nowrap="nowrap"><?=$vc['supervisor_2_unit']?></td>
-        <td style="border:1px solid #999" colspan="2"></td>
+        <td style="border:1px solid #999;font-size:18px;" nowrap="nowrap"><?=$vc['field']?></td>
+        <td style="border:1px solid #999;font-size:18px;" nowrap="nowrap"><?=$vc['supervisor_1']?></td>
+        <td style="border:1px solid #999;font-size:18px;" nowrap="nowrap"><?=$vc['supervisor_1_unit']?></td>
+        <td style="border:1px solid #999;font-size:18px;" colspan="2" nowrap="nowrap"></td>
+        <td style="border:1px solid #999;font-size:18px;" nowrap="nowrap"><?=$vc['supervisor_2']?></td>
+        <td style="border:1px solid #999;font-size:18px;" nowrap="nowrap"><?=$vc['supervisor_2_unit']?></td>
+        <td style="border:1px solid #999;font-size:18px;" colspan="2"></td>
     </tr>
     <?php endforeach;?>
     <tr>
