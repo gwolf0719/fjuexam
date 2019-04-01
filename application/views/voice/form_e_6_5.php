@@ -48,25 +48,25 @@
         </tr>
         <tr>
             <td class="bb">姓名</td>
-            <td colspan="2"class="bb">職務</td>
+            <td colspan="2"class="bb" style="font-size:20px;">職務</td>
             <!-- <td class="bb">工作費</td> -->
             <!-- <td class="bb">餐費</td> -->
-            <td class="bb" colspan="2">應領費用</td>
-            <td colspan="2" class="bb">簽名或蓋章</td>
-            <td colspan="2"  class="bb">備註</th>
+            <td class="bb" colspan="2" style="font-size:20px;">應領費用</td>
+            <td colspan="2" class="bb" style="font-size:20px;">簽名或蓋章</td>
+            <td colspan="2"  class="bb" style="font-size:20px;">備註</th>
         </tr>
     </thead>
     <?php foreach ($part as $k => $v): ?>
-    <tr>
-        <td class="bb"><?=$v['name']?>
+    <tr style="height: 100px;">
+        <td class="bb" style="font-size:20px;"><?=$v['name']?>
         </td>
-        <td colspan="2" class="bb"><?=$v['job']?>
+        <td colspan="2" class="bb" style="font-size:20px;"><?=$v['job']?>
         </td>
         <!-- <td class="bb" style="font-size:18px;font-weight:bold;"><?=number_format($v['salary_total'])?>
         </td> -->
-        <td class="bb" colspan="2" style="font-size:18px;font-weight:bold;"><?=number_format($v['total'])?></td>
-        <td colspan="2" class="bb"></td>
-        <td colspan="2" class="bb"><?=$v['note']?></td>
+        <td class="bb" colspan="2" style="font-size:20px;font-weight:bold;"><?=number_format($v['total'])?></td>
+        <td colspan="2" class="bb" ></td>
+        <td colspan="2" class="bb" ><?=$v['note']?></td>
     </tr>
     <?php endforeach; ?>
     <tr>
