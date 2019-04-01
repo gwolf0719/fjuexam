@@ -244,7 +244,7 @@ class Mod_voice_job_list extends CI_Model
                     'job_code' => $res[$i]['job_code'],
                     'job' => $res[$i]['job'],
                     'name' => $res[$i]['name'],
-                    'job_title' => $res[$i]['job'],
+                    'job_title' => $member_unit['member_title'],
                     'member_unit'=>$member_unit['member_unit'],
                     'do_date' => $day[1],
                 );
