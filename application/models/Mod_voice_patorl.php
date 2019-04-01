@@ -160,7 +160,7 @@ class Mod_voice_patorl extends CI_Model
         }
         for ($i=0; $i < count($res); $i++) { 
             # code...
-            $patrol = $this->db->where('member_name', $res[$i]['trial_staff_name'])->get('voice_import_member')->row_array();
+            $patrol = $this->db->where('member_name', trim($res[$i]['trial_staff_name']))->get('voice_import_member')->row_array();
             switch ($res[$i]['part']) {
                 case '2501':
                     $part = '第一分區';
@@ -178,7 +178,7 @@ class Mod_voice_patorl extends CI_Model
                 'job'=>'分區管卷人員',
                 'area'=>$part,
                 'member_code'=>$res[$i]['trial_staff_code'],
-                'member_name'=>$patrol['member_name'],
+                'member_name'=>trim($res[$i]['trial_staff_name']),
                 'member_unit'=>$patrol['member_unit'],
                 'member_phone'=>$patrol['member_phone'],
                 'member_title'=>$patrol['member_title'],
