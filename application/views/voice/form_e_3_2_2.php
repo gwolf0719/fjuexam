@@ -31,39 +31,39 @@
 <table class="" id="" style="padding: 15px 0px;text-align:center;">
 
     <tr>
-        <td width="100%" colspan="7" style="font-size:26px;text-align:center;"><?=$_SESSION['year']?>學年度英語聽力測驗<?=$_SESSION['ladder']?>考試新北一考區</td>
+        <td width="100%" colspan="7" style="font-size:30px;text-align:center;"><?=$_SESSION['year']?>學年度英語聽力測驗<?=$_SESSION['ladder']?>考試新北一考區</td>
     </tr>
     <tr>
-        <td width="100%" colspan="7" style="font-size:22px;text-align:center;"><?=$area?><?=$school['ladder']?>試場工作人員分配表 (<?=$date?>)</td>
+        <td width="100%" colspan="7" style="font-size:26px;text-align:center;"><?=$area?><?=$school['ladder']?>試場工作人員分配表 (<?=$date?>)(上午場)</td>
     </tr>
     <tr style="background:#FFE4E7">
-        <th class="bb">試場</th>
-        <th class="bb">節次</th>
-        <th class="bb">考生起訖號碼</th>
-        <th class="bb">樓層別</th>
-        <th class="bb">監試人員</th>
-        <th class="bb">監試人員</th>
-        <th class="bb">試務人員</th>
+        <th class="bb" style="font-size:20px;">試場</th>
+        <!-- <th class="bb" style="font-size:20px;">節次</th> -->
+        <th class="bb" style="font-size:20px;">考生起訖號碼</th>
+        <th class="bb" style="font-size:20px;">樓層別</th>
+        <th class="bb" style="font-size:20px;">監試人員</th>
+        <th class="bb" style="font-size:20px;">監試人員</th>
+        <th class="bb" style="font-size:20px;">試務人員</th>
     </tr>
     <?php $field_arr = array();?>
     <?php foreach ($part as $k => $v): ?>
 
 
         <tr>
-            <td class="bb"><?=trim($v['field'])?></td>
-            <td class="bb">
+            <td class="bb" style="font-size:18px;"><?=trim($v['field'])?></td>
+            <!-- <td class="bb" style="font-size:18px;">
                 <?php if($v['test_section']==1){
                     echo '上午場';
                 }else{
                     echo '下午場';
                 }
                 ?>
-            </td>
-            <td class="bb"><?=trim($v['start']) ?>~<?=trim($v['end']) ?></td>
-            <td class="bb"><?=trim($v['floor']) ?></td>
-            <td class="bb"><?=trim($v['supervisor_1'])?></td>
-            <td class="bb"><?=trim($v['supervisor_2'])?></td>
-            <td class="bb"><?=trim($v['allocation_code'])?>&emsp;<?=trim($v['voucher'])?></td>
+            </td> -->
+            <td class="bb" style="font-size:18px;"><?=trim($v['start']) ?>~<?=trim($v['end']) ?></td>
+            <td class="bb" style="font-size:18px;"><?=trim($v['floor']) ?></td>
+            <td class="bb" style="font-size:18px;"><?=trim($v['supervisor_1'])?></td>
+            <td class="bb" style="font-size:18px;"><?=trim($v['supervisor_2'])?></td>
+            <td class="bb" style="font-size:18px;"><?=trim($v['allocation_code'])?>&emsp;<?=trim($v['voucher'])?></td>
         </tr>
   
     <?php endforeach; ?>
@@ -83,19 +83,19 @@
 <table class="" id="" style="padding: 15px 0px;text-align:center;">
 
 <tr>
-    <td width="100%" colspan="7" style="font-size:26px;text-align:center;"><?=$_SESSION['year']?>學年度英語聽力測驗<?=$_SESSION['ladder']?>考試新北一考區</td>
+    <td width="100%" colspan="7" style="font-size:30px;text-align:center;"><?=$_SESSION['year']?>學年度英語聽力測驗<?=$_SESSION['ladder']?>考試新北一考區</td>
 </tr>
 <tr>
-    <td width="100%" colspan="7" style="font-size:22px;text-align:center;"><?=$area?><?=$school['ladder']?>試場工作人員分配表 (<?=$date?>)</td>
+    <td width="100%" colspan="7" style="font-size:26px;text-align:center;"><?=$area?><?=$school['ladder']?>試場工作人員分配表 (<?=$date?>)(下午場)</td>
 </tr>
 <tr style="background:#FFE4E7">
-    <th class="bb">試場</th>
-    <th class="bb">節次</th>
-    <th class="bb">考生起訖號碼</th>
-    <th class="bb">樓層別</th>
-    <th class="bb">監試人員</th>
-    <th class="bb">監試人員</th>
-    <th class="bb">試務人員</th>
+    <th class="bb" style="font-size:20px;">試場</th>
+    <!-- <th class="bb" style="font-size:20px;">節次</th> -->
+    <th class="bb" style="font-size:20px;">考生起訖號碼</th>
+    <th class="bb" style="font-size:20px;">樓層別</th>
+    <th class="bb" style="font-size:20px;">監試人員</th>
+    <th class="bb" style="font-size:20px;">監試人員</th>
+    <th class="bb" style="font-size:20px;">試務人員</th>
 </tr>
 <?php }?>
 <?php $field_arr = array();?>
@@ -103,20 +103,20 @@
 
 
     <tr>
-        <td class="bb"><?=trim($v['field'])?></td>
-        <td class="bb">
+        <td class="bb" style="font-size:18px;"><?=trim($v['field'])?></td>
+        <!-- <td class="bb" style="font-size:18px;">
             <?php if($v['test_section']==1){
                 echo '上午場';
             }else{
                 echo '下午場';
             }
             ?>
-        </td>
-        <td class="bb"><?=trim($v['start']) ?>~<?=trim($v['end']) ?></td>
-        <td class="bb"><?=trim($v['floor']) ?></td>
-        <td class="bb"><?=trim($v['supervisor_1'])?></td>
-        <td class="bb"><?=trim($v['supervisor_2'])?></td>
-        <td class="bb"><?=trim($v['allocation_code'])?>&emsp;<?=trim($v['voucher'])?></td>
+        </td> -->
+        <td class="bb" style="font-size:18px;"><?=trim($v['start']) ?>~<?=trim($v['end']) ?></td>
+        <td class="bb" style="font-size:18px;"><?=trim($v['floor']) ?></td>
+        <td class="bb" style="font-size:18px;"><?=trim($v['supervisor_1'])?></td>
+        <td class="bb" style="font-size:18px;"><?=trim($v['supervisor_2'])?></td>
+        <td class="bb" style="font-size:18px;"><?=trim($v['allocation_code'])?>&emsp;<?=trim($v['voucher'])?></td>
     </tr>
 
 <?php endforeach; ?>

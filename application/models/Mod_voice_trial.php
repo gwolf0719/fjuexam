@@ -874,7 +874,7 @@ class Mod_voice_trial extends CI_Model
                     'part' => $sub[$i]['part'],
                     'supervisor_1'=>$supervisor['supervisor_1'],
                     'supervisor_2'=>$supervisor['supervisor_2'],
-                    'allocation_code'=>$voucher['allocation_code'],
+                    'allocation_code'=>$voucher['patrol_staff_code'],
                     'voucher'=>$voucher['patrol_staff_name']
                 );        
 
@@ -942,7 +942,7 @@ class Mod_voice_trial extends CI_Model
                     'part' => $sub[$i]['part'],
                     'supervisor_1'=>$supervisor['supervisor_1'],
                     'supervisor_2'=>$supervisor['supervisor_2'],
-                    'allocation_code'=>$voucher['allocation_code'],
+                    'allocation_code'=>$voucher['patrol_staff_code'],
                     'voucher'=>$voucher['patrol_staff_name']
                 );        
 
