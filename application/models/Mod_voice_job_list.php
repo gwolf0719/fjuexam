@@ -282,7 +282,7 @@ class Mod_voice_job_list extends CI_Model
         
         for ($i=0; $i < count($trial_staff); $i++) {
             # code...
-            $trial_staff_member = $this->db->where('member_name', $trial_staff[$i]['trial_staff_name'])->where('year',$this->session->userdata('year'))->where('ladder',$this->session->userdata('ladder'))->get('voice_import_member')->row_array();
+            $trial_staff_member = $this->db->where('member_name', trim($trial_staff[$i]['trial_staff_name']))->where('year',$this->session->userdata('year'))->where('ladder',$this->session->userdata('ladder'))->get('voice_import_member')->row_array();
             if($trial_staff[$i]['trial_staff_code'] != ""){
                 $date = explode("年",$trial_staff[$i]['do_date']);
                 $arr[] = array(
