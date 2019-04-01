@@ -45,8 +45,27 @@
         <th class="bb" style="font-size:20px;">監試人員</th>
         <th class="bb" style="font-size:20px;">試務人員</th>
     </tr>
-    <?php $field_arr = array();?>
+    <?php 
+        $data = array();
+        $p_count=0;
+
+    ?>
     <?php foreach ($part as $k => $v): ?>
+    <?php 
+        $p=trim($v['voucher']);
+
+
+        if(in_array($p,$data)){
+
+        } else {
+            if(strlen($p)>0){
+                array_push($data,$p);
+                $p_count=$p_count+1;
+            }
+        }
+
+
+    ?>
 
 
         <tr>
@@ -68,7 +87,7 @@
   
     <?php endforeach; ?>
     <tr>
-        <td style="text-align:left;font-size:16px;">共計：<?=$trial_count*2+$patrol_count?>人</td>
+        <td style="text-align:left;font-size:16px;">共計：<?=$trial_count*2+$p_count?>人</td>
     </tr>
 </table>
 
@@ -98,9 +117,27 @@
     <th class="bb" style="font-size:20px;">試務人員</th>
 </tr>
 <?php }?>
-<?php $field_arr = array();?>
-<?php foreach ($part1 as $k => $v): ?>
+<?php 
+$data = array();
+$p_count=0;
 
+?>
+<?php foreach ($part1 as $k => $v): ?>
+<?php 
+$p=trim($v['voucher']);
+
+
+if(in_array($p,$data)){
+
+} else {
+    if(strlen($p)>0){
+        array_push($data,$p);
+        $p_count=$p_count+1;
+    }
+}
+
+
+?>
 
     <tr>
         <td class="bb" style="font-size:18px;"><?=trim($v['field'])?></td>
@@ -124,7 +161,7 @@
 
 <?php if(!empty($part1)){?>
 <tr>
-    <td style="text-align:left;font-size:16px;">共計：<?=$trial_count1*2+$patrol_count?>人</td>
+    <td style="text-align:left;font-size:16px;">共計：<?=$trial_count1*2+$p_count?>人</td>
 </tr>
 </table>
 <?php }?>
