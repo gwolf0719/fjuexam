@@ -31,7 +31,7 @@
 <table class="" id="" style="padding:4px;text-align:center;">
     <thead>
         <tr>
-            <td colspan="3" style="position: relative;font-size:30px;left: 25%;"><?=$_SESSION['year']?>學年度英語聽力測驗<?=$_SESSION['ladder']?>考試新北一考區</td>
+            <td colspan="9" style="position: relative;font-size:30px;"><?=$_SESSION['year']?>學年度英語聽力測驗<?=$_SESSION['ladder']?>考試新北一考區</td>
         </tr>
         <tr>
             <td colspan="3" style="position: relative;font-size:26px;left: 25%;"><?=$school['area_name']?>試務人員一覽表</td>
