@@ -35,7 +35,7 @@
 
 <table class="" id="" style="padding:5px 0px;;text-align:center;">
     <tr>
-        <td style="font-size:26px;lne-height:50px;" colspan="6"><?=$_SESSION['year']?>學年度英語聽力測驗<?=$_SESSION['ladder']?>考試新北一考區試務人員簽到表</td>
+        <td style="font-size:30px;lne-height:50px;" colspan="6"><?=$_SESSION['year']?>學年度英語聽力測驗<?=$_SESSION['ladder']?>考試新北一考區試務人員簽到表</td>
     </tr>
     <tr>
         <td colspan="2" style="font-size:20px;text-align:left;padding:20px 0px">分區：<?= $this->config->item('partition')[$area] ?></td>
@@ -44,18 +44,20 @@
     </tr>
     <tr>
         <td style="border:1px solid #999" width="15%">職務</td>
-        <td style="border:1px solid #999" width="15%">姓名</td>
+        <td style="border:1px solid #999" width="10%">姓名</td>
+        <td style="border:1px solid #999" width="15%">職稱</td>
         <td style="border:1px solid #999" width="15%">單位別</td>
-        <td style="border:1px solid #999" colspan="2" width="30%">簽名</td>
-        <td style="border:1px solid #999" width="15%">備註(工作分配)</td>
+        <td style="border:1px solid #999" colspan="2" width="22%">簽名</td>
+        <td style="border:1px solid #999" width="22%">備註(工作分配)</td>
     </tr>
     <?php foreach ($part as $kc => $vc): ?>
     <tr class="item">
-        <td style="border:1px solid #999;height: 100px;" nowrap="nowrap"><?=$vc['job']?></td>
-        <td style="border:1px solid #999;height: 100px;" nowrap="nowrap"><?=$vc['name']?></td>
-        <td style="border:1px solid #999;height: 100px;" nowrap="nowrap"><?=$vc['member_unit']?></td>
-        <td style="border:1px solid #999;height: 100px;" nowrap="nowrap" colspan="2"></td>
-        <td style="border:1px solid #999;height: 100px;" nowrap="nowrap"><?=$vc['note']?></td>
+        <td style="border:1px solid #999;height:50px;font-size:20px;text-align:left;padding:5px" nowrap="nowrap"><?=$vc['job']?></td>
+        <td style="border:1px solid #999;height:50px;font-size:20px;padding:5px" nowrap="nowrap"><?=$vc['name']?></td>
+        <td style="border:1px solid #999;height:50px;font-size:20px;padding:5px;" nowrap="nowrap"><?=$vc['job_title']?></td>
+        <td style="border:1px solid #999;height:50px;font-size:20px;text-align:left;padding:5px;vertical-align:text-top;" nowrap="nowrap"><?=$vc['member_unit']?></td>
+        <td style="border:1px solid #999;height:50px;font-size:20px;text-align:left;padding:5px" nowrap="nowrap" colspan="2"></td>
+        <td style="border:1px solid #999;height:50px;font-size:20px;text-align:left;padding:5px" nowrap="nowrap"><?=$vc['note']?></td>
     </tr>
     <?php endforeach; ?>
     <tr>
