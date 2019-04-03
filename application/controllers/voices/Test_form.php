@@ -1494,11 +1494,8 @@ class Test_form extends CI_Controller
 
 
             header('Content-Type: application/vnd.ms-excel');
-            header('Content-Disposition: attachment;filename="人員名牌'.'.csv"');
+            header('Content-Disposition: attachment;filename="監試人員名牌'.'.csv"');
             header('Cache-Control: max-age=0');
-
-
-
             $objWriter->save('php://output');
         }
     }
@@ -1546,9 +1543,8 @@ class Test_form extends CI_Controller
 
             $objWriter = PHPExcel_IOFactory::createWriter($objPHPExcel, 'CSV');
 
-
             header('Content-Type: application/vnd.ms-excel');
-            header('Content-Disposition: attachment;filename="人員名牌'.'.csv"');
+            header('Content-Disposition: attachment;filename="試務人員名牌'.'.csv"');
             header('Cache-Control: max-age=0');
 
 
@@ -1584,7 +1580,7 @@ class Test_form extends CI_Controller
 
 
             header('Content-Type: application/vnd.ms-excel');
-            header('Content-Disposition: attachment;filename="人員名牌'.'.csv"');
+            header('Content-Disposition: attachment;filename="管卷人員名牌'.'.csv"');
             header('Cache-Control: max-age=0');
 
 
@@ -1620,7 +1616,7 @@ class Test_form extends CI_Controller
 
 
             header('Content-Type: application/vnd.ms-excel');
-            header('Content-Disposition: attachment;filename="人員名牌'.'.csv"');
+            header('Content-Disposition: attachment;filename="巡場人員名牌'.'.csv"');
             header('Cache-Control: max-age=0');
 
 
@@ -1657,7 +1653,7 @@ class Test_form extends CI_Controller
 
 
             header('Content-Type: application/vnd.ms-excel');
-            header('Content-Disposition: attachment;filename="人員標籤樣式'.'.csv"');
+            header('Content-Disposition: attachment;filename="監試人員標籤樣式'.'.csv"');
             header('Cache-Control: max-age=0');
 
 
@@ -1688,7 +1684,7 @@ class Test_form extends CI_Controller
 
 
             header('Content-Type: application/vnd.ms-excel');
-            header('Content-Disposition: attachment;filename="人員標籤樣式'.'.csv"');
+            header('Content-Disposition: attachment;filename="試務人員標籤樣式'.'.csv"');
             header('Cache-Control: max-age=0');
 
 
@@ -1718,9 +1714,8 @@ class Test_form extends CI_Controller
 
             $objWriter = PHPExcel_IOFactory::createWriter($objPHPExcel, 'CSV');
 
-
             header('Content-Type: application/vnd.ms-excel');
-            header('Content-Disposition: attachment;filename="人員標籤樣式'.'.csv"');
+            header('Content-Disposition: attachment;filename="管卷人員標籤樣式'.'.csv"');
             header('Cache-Control: max-age=0');
 
 
@@ -1751,7 +1746,7 @@ class Test_form extends CI_Controller
 
 
             header('Content-Type: application/vnd.ms-excel');
-            header('Content-Disposition: attachment;filename="人員標籤樣式'.'.csv"');
+            header('Content-Disposition: attachment;filename="巡場人員標籤樣式'.'.csv"');
             header('Cache-Control: max-age=0');
 
 
