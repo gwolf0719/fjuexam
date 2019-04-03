@@ -38,8 +38,8 @@
     </tr>
     <tr style="background:#FFE4E7">
         <th class="bb" style="font-size:20px;">試場</th>
-        <!-- <th class="bb" style="font-size:20px;">節次</th> -->
         <th class="bb" style="font-size:20px;">考生起訖號碼</th>
+        <th class="bb" style="font-size:20px;">人數</th>
         <th class="bb" style="font-size:20px;">樓層別</th>
         <th class="bb" style="font-size:20px;">監試人員</th>
         <th class="bb" style="font-size:20px;">監試人員</th>
@@ -70,15 +70,10 @@
 
         <tr>
             <td class="bb" style="font-size:18px;"><?=trim($v['field'])?></td>
-            <!-- <td class="bb" style="font-size:18px;">
-                <?php if($v['test_section']==1){
-                    echo '上午場';
-                }else{
-                    echo '下午場';
-                }
-                ?>
-            </td> -->
             <td class="bb" style="font-size:18px;"><?=trim($v['start']) ?>~<?=trim($v['end']) ?></td>
+            <td class="bb" style="font-size:18px;">
+            <?=trim($v['count_num']) ?>
+            </td>
             <td class="bb" style="font-size:18px;"><?=trim($v['floor']) ?></td>
             <td class="bb" style="font-size:18px;"><?=trim($v['supervisor_1'])?></td>
             <td class="bb" style="font-size:18px;"><?=trim($v['supervisor_2'])?></td>
@@ -109,8 +104,8 @@
 </tr>
 <tr style="background:#FFE4E7">
     <th class="bb" style="font-size:20px;">試場</th>
-    <!-- <th class="bb" style="font-size:20px;">節次</th> -->
     <th class="bb" style="font-size:20px;">考生起訖號碼</th>
+    <th class="bb" style="font-size:20px;">人數</th>
     <th class="bb" style="font-size:20px;">樓層別</th>
     <th class="bb" style="font-size:20px;">監試人員</th>
     <th class="bb" style="font-size:20px;">監試人員</th>
@@ -141,15 +136,10 @@ if(in_array($p,$data)){
 
     <tr>
         <td class="bb" style="font-size:18px;"><?=trim($v['field'])?></td>
-        <!-- <td class="bb" style="font-size:18px;">
-            <?php if($v['test_section']==1){
-                echo '上午場';
-            }else{
-                echo '下午場';
-            }
-            ?>
-        </td> -->
         <td class="bb" style="font-size:18px;"><?=trim($v['start']) ?>~<?=trim($v['end']) ?></td>
+        <td class="bb" style="font-size:18px;">
+            <?=trim($v['count_num']) ?>
+            </td>
         <td class="bb" style="font-size:18px;"><?=trim($v['floor']) ?></td>
         <td class="bb" style="font-size:18px;"><?=trim($v['supervisor_1'])?></td>
         <td class="bb" style="font-size:18px;"><?=trim($v['supervisor_2'])?></td>
