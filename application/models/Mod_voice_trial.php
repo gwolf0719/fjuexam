@@ -680,6 +680,7 @@ class Mod_voice_trial extends CI_Model
             $rooms[$k]=array(
                 'trial_staff_name'=>$v['trial_staff_name'],
                 'trial_staff_code'=>$v['trial_staff_code'],
+                'first_section'=>$v['first_section'],
             );
             $fields = array();
             // 上午場
