@@ -46,29 +46,29 @@
         </tr>
         <tr>
             <td colspan="3" style="font-size:26px;text-align:left;padding:20px 0px"> 分區：<?=$this->config->item('partition')[$test_partition]?></td>
-            <td colspan="4" style="font-size:26px;text-align:center;padding:20px 0px">考場：<?=$school['area_name']?></td>
+            <td colspan="3" style="font-size:26px;text-align:center;padding:20px 0px;position: relative;">考場：<?=$school['area_name']?></td>
             <td colspan="3" style="font-size:26px;text-align:right;padding:20px 0px"> 印表日期：<?=date('Y/m/d')?></td>
         </tr>
         <tr>
-            <td class="bb" style="font-size:20px;">姓名</td>
-            <td colspan="2"class="bb" style="font-size:20px;">職務</td>
+            <td class="bb" style="font-size:22px;">姓名</td>
+            <td colspan="2"class="bb" style="font-size:22px;">職務</td>
             
-            <td colspan="2" class="bb" style="font-size:20px;">應領費用</td>
-            <td colspan="2" class="bb" style="font-size:20px;">簽名或蓋章</td>
-            <td colspan="2"  class="bb" style="font-size:20px;">備註</th>
+            <td colspan="2" class="bb" style="font-size:22px;">應領費用</td>
+            <td colspan="2" class="bb" style="font-size:22px;">簽名或蓋章</td>
+            <td colspan="2"  class="bb" style="font-size:22px;weight:10px;">備註</th>
         </tr>
     </thead>
     <?php foreach ($part as $k => $v): ?>
-    <tr style="height: 100px;">
-        <td class="bb" style="font-size:20px;"><?=$v['name']?>
+    <tr style="height: 30px;">
+        <td class="bb" style="font-size:22px;"><?=$v['name']?>
         </td>
-        <td colspan="2" class="bb" style="font-size:20px;"><?=$v['job']?>
+        <td colspan="2" class="bb" style="font-size:22px;"><?=$v['job']?>
         </td>
         <!-- <td class="bb" style="font-size:18px;font-weight:bold;"><?=number_format($v['one_day_salary'])?>
         </td> -->
-        <td colspan="2" class="bb" style="font-size:20px;font-weight:bold;"><?=number_format($v['total'])?></td>
+        <td colspan="2" class="bb" style="font-size:22px;font-weight:bold;"><?=number_format($v['total'])?></td>
         <td colspan="2" class="bb"></td>
-        <td colspan="2" class="bb"><?=$v['note']?></td>
+        <td colspan="2" class="bb" style="width: 15%;"><?=$v['note']?></td>
     </tr>
     <?php endforeach; ?>
     <tr>
