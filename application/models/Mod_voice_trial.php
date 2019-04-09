@@ -659,10 +659,11 @@ class Mod_voice_trial extends CI_Model
     }
 
     
-    function get_trial_assign_range($start,$end,$block){
+    function get_trial_assign_range($start,$end,$block,$part){
         $this->db->where('year',$this->session->userdata('year'));
         $this->db->where('ladder',$this->session->userdata('ladder'));
         $this->db->where('block_name',$block);
+        $this->db->where('part',$part);
         $this->db->where('field <='.$end);
         $this->db->where('field >='.$start);
         return $this->db->get('voice_trial_assign')->result_array();
@@ -674,6 +675,9 @@ class Mod_voice_trial extends CI_Model
         $this->db->where('ladder', $this->session->userdata('ladder'));
         $this->db->where('part',$part);
         $staff_arr = $this->db->get('voice_trial_staff')->result_array();
+
+        // print_r($staff_arr);
+
         // 加入上午場和下午場的考場們
         $rooms = array();
         foreach($staff_arr as $k=>$v){
@@ -685,7 +689,7 @@ class Mod_voice_trial extends CI_Model
             $fields = array();
             // 上午場
             if($v['first_start'] != ""){
-                $assign = $this->get_trial_assign_range($v['first_start'],$v['first_end'],"1");
+                $assign = $this->get_trial_assign_range($v['first_start'],$v['first_end'],"1",$part);
                 foreach($assign as $k2=>$v2){
                     $fields[$v2['field']][] = array(
                         'field'=>$v2['field'],
