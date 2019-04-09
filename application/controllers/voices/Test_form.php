@@ -462,9 +462,13 @@ class Test_form extends CI_Controller
         $this->load->library('pdf');
         $this->load->model('mod_voice_job_list');
         $this->load->model('mod_voice_exam_area');
+        $this->load->model('mod_voice_exam_datetime');
         $part = $_GET['part'];
         $area = $_GET['area'];
 
+        
+        $year = $this->session->userdata('year');
+        $ladder = $this->session->userdata('ladder');
         
 
         $data = array(
@@ -473,12 +477,13 @@ class Test_form extends CI_Controller
             // 'own'=> $this->mod_task->get_task_own_count($area),
             // 'veg'=> $this->mod_task->get_member_veg_count($area),
             // 'meat'=> $this->mod_task->get_member_meat_count($area),
+            'datetime_info'=> $this->mod_voice_exam_datetime->get_once($year,$ladder),
             'school' => $this->mod_voice_exam_area->year_school_name($part),
         );
     
        
         if ($data['part'] != false) {
-            $view =  $this->load->view('voice/form_e_2_1_1', $data, true);
+             $view =  $this->load->view('voice/form_e_2_1_1', $data, true);
             if (!is_dir('./html/')) {
                 mkdir('./html/');
             } else {
@@ -507,10 +512,13 @@ class Test_form extends CI_Controller
         $this->load->library('pdf');
         $this->load->model('mod_voice_trial');
         $this->load->model('mod_voice_exam_area');
+        $this->load->model('mod_voice_exam_datetime');
         
         $title = '試務人員執行任務簽到表';
         $area = $_GET['area'];
         $part = $_GET['part'];
+        $year = $this->session->userdata('year');
+        $ladder = $this->session->userdata('ladder');
         if ($_GET['part'] != "2500") {
             $part = $_GET['part'];
             $school = $this->mod_voice_exam_area->year_school_name($part);
@@ -526,6 +534,7 @@ class Test_form extends CI_Controller
             // 'own'=> $this->mod_task->get_task_own_count($area),
             // 'veg'=> $this->mod_task->get_member_veg_count($area),
             // 'meat'=> $this->mod_task->get_member_meat_count($area),
+            'datetime_info'=> $this->mod_voice_exam_datetime->get_once($year,$ladder),
             'school' => $school,
         );
         // print_r($data['part']);
@@ -558,10 +567,13 @@ class Test_form extends CI_Controller
         $this->load->library('pdf');
         $this->load->model('mod_voice_trial');
         $this->load->model('mod_voice_exam_area');
+        $this->load->model('mod_voice_exam_datetime');
         
         $title = '試務人員執行任務簽到表';
         $area = $_GET['area'];
         $part = $_GET['part'];
+        $year = $this->session->userdata('year');
+        $ladder = $this->session->userdata('ladder');
         if ($_GET['part'] != "2500") {
             $part = $_GET['part'];
             $school = $this->mod_voice_exam_area->year_school_name($part);
@@ -577,6 +589,7 @@ class Test_form extends CI_Controller
             // 'own'=> $this->mod_task->get_task_own_count($area),
             // 'veg'=> $this->mod_task->get_member_veg_count($area),
             // 'meat'=> $this->mod_task->get_member_meat_count($area),
+            'datetime_info'=> $this->mod_voice_exam_datetime->get_once($year,$ladder),
             'school' => $school,
         );
         if ($data['part'] != false) {
