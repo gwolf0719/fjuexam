@@ -864,7 +864,7 @@ class Mod_voice_trial extends CI_Model
                 // print_r($supervisor['supervisor_1']);
                 // print_r($supervisor['supervisor_2']);
                 // $supervisor2 = $this->db->where('member_code', $sub[$i]['supervisor_2_code'])->get('voice_import_member')->row_array();
-                $voucher = $this->db->where('part', $part)->where('year',$this->session->userdata('year'))->where('ladder',$this->session->userdata('ladder'))->where('start <=', $sub[$i]['field'])->where('end >=', $sub[$i]['field'])->get('voice_patrol_staff')->row_array();
+                $voucher = $this->db->where('part', $part)->where('year',$this->session->userdata('year'))->where('ladder',$this->session->userdata('ladder'))->where('first_start <=', $sub[$i]['field'])->where('first_end >=', $sub[$i]['field'])->get('voice_trial_staff')->row_array();
                 $course = $this->db->where('year', $year)->where('year',$this->session->userdata('year'))->where('ladder',$this->session->userdata('ladder'))->where('field', $sub[$i]['field'])->get('voice_exam_area')->row_array();
                 $trial = $this->db->get('voice_trial_staff')->result_array();
                 # code...
@@ -880,8 +880,8 @@ class Mod_voice_trial extends CI_Model
                     'count_num' => $sub[$i]['count_num'],
                     'supervisor_1'=>$supervisor['supervisor_1'],
                     'supervisor_2'=>$supervisor['supervisor_2'],
-                    'allocation_code'=>$voucher['patrol_staff_code'],
-                    'voucher'=>$voucher['patrol_staff_name']
+                    'allocation_code'=>$voucher['trial_staff_code'],
+                    'voucher'=>$voucher['trial_staff_name']
                 );        
 
 
