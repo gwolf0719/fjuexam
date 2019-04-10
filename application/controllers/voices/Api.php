@@ -1096,7 +1096,7 @@ class Api extends CI_Controller {
             $this->load->model('mod_voice_trial');
             $this->load->model('mod_voice_test_pay');
             $getpost = array('sn', 'part', 'allocation_code', 'trial_staff_code', 'trial_staff_name', 'first_start', 'first_end', 'first_section', 'second_start', 'second_end', 'second_section','note','do_date');
-            $requred = array('sn', 'part', 'allocation_code', 'trial_staff_code', 'trial_staff_name');
+            $requred = array('sn', 'part', 'allocation_code', 'trial_staff_name');
             $data = $this->getpost->getpost_array($getpost, $requred);
             if ($data == false) {
                 $json_arr['sys_code'] = '000';

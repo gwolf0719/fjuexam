@@ -373,7 +373,7 @@
                 var second_end = $("#second_end").val();
                 var date = $("#morning_field").attr("date");
                 
-                if(trial_staff_code=='')return alert('管卷人員編號未填寫!');
+                // if(trial_staff_code=='')return alert('管卷人員編號未填寫!');
 
 
                 if(first_start != "" && first_end != ""){
