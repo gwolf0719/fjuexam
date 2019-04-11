@@ -352,7 +352,7 @@ class Mod_voice_job_list extends CI_Model
         $this->db->where('job_code !=', "");
         $this->db->from('voice_job_list');
         $this->db->join('voice_import_member', 'voice_import_member.member_name = voice_job_list.name');
-        $this->db->order_by('voice_job_list.job',"desc"); 
+        // $this->db->order_by('voice_job_list.job',"desc"); 
         $res = $this->db->get()->result_array();
 
         if (!empty($res)) {
