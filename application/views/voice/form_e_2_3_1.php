@@ -38,16 +38,6 @@
 <h4 style="font-size:26px;text-align:left;height: 10px;font-weight:bold;">管卷人員：<?=$value['trial_staff_code']?><?=$value['trial_staff_name']?></h4>
 <table style="text-align:center;margin:0px auto;">
     <thead>
-        <!-- <tr>
-            <td colspan="4" style="font-size:26px;text-align:center;"></td>
-        </tr>
-        <tr>
-            <td colspan="4" style="font-size:22px;text-align:center;"></td>
-        </tr> -->
-        <!-- <tr>
-            <td colspan="4" style="font-size:22px;text-align:left;font-weight:bold;">
-            </td>
-        </tr> -->
         <tr>
             <td class="bb" colspan="2" style="font-size:20px;"><div class="W50">日期</div>  <div class="W50">科目</div></td>
             <td class="bb" colspan="2" style="font-size:20px;"><?=mb_substr($datetime_info['day'], 5, 8, 'utf-8'); ?></td>
