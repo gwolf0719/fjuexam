@@ -34,7 +34,7 @@
         <td width="100%" colspan="7" style="font-size:30px;text-align:center;"><?=$_SESSION['year']?>學年度英語聽力測驗<?=$_SESSION['ladder']?>考試新北一考區</td>
     </tr>
     <tr>
-        <td width="100%" colspan="7" style="font-size:26px;text-align:center;"><?=$area?><?=$school['ladder']?>試場工作人員分配表 (<?=$date?>)(上午場)</td>
+        <td width="100%" colspan="7" style="font-size:26px;text-align:center;"><?=$area?>>試場工作人員分配表 (<?=$date?>)(上午場)</td>
     </tr>
     <tr style="background:#FFE4E7">
         <th class="bb" style="font-size:20px;">試場</th>
