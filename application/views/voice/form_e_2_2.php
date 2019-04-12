@@ -31,7 +31,10 @@
 <table class="" id="" style="padding:5px 0px;;text-align:center;">
     <thead>
         <tr>
-            <td style="font-size:30px;lne-height:50px;" colspan="9"><?=$_SESSION['year']?>學年度英語聽力測驗<?=$_SESSION['ladder']?>考試新北一考區監試人員簽到表</td>
+            <td style="font-size:40px;lne-height:50px;" colspan="9"><?=$_SESSION['year']?>學年度英語聽力測驗<?=$_SESSION['ladder']?>考試</td>
+            </tr>
+            <tr>
+            <td style="font-size:30px;lne-height:50px;" colspan="9">新北一考區監試人員簽到表</td>
         </tr>
         <tr>
             <td colspan="3" style="font-size:22px;padding:20px 0px;position: relative;right: 1%;">分區：<?=$area?></td>
