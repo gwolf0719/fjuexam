@@ -34,8 +34,8 @@
             <td style="font-size:30px;lne-height:50px;" colspan="9"><?=$_SESSION['year']?>學年度英語聽力測驗<?=$_SESSION['ladder']?>考試新北一考區監試人員簽到表</td>
         </tr>
         <tr>
-            <td colspan="3" style="font-size:22px;padding:20px 0px;position: relative;right: 10%;">分區：<?=$area?></td>
-            <td colspan="5" style="font-size:22px;padding:20px 0px;position: relative;right: 5%;"><?=$school['area_name']?>&nbsp&nbsp&nbsp&nbsp&nbsp簽到日期：<?=$datetime_info['day']?></td>
+            <td colspan="3" style="font-size:22px;padding:20px 0px;position: relative;right: 1%;">分區：<?=$area?></td>
+            <td colspan="5" style="font-size:22px;padding:20px 0px;position: relative;right: 5%;text-align:left;"><?=$school['area_name']?>&nbsp&nbsp簽到日期：<?=$datetime_info['day']?></td>
             <!-- <td colspan="3" style="font-size:22px;position: relative;padding:20px 0px;left: 5%;">簽到日期：<?=$datetime_info['day']?></td> -->
         </tr>
         <tr>
