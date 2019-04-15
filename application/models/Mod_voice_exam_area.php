@@ -51,11 +51,12 @@ class Mod_voice_exam_area extends CI_Model
 
     public function year_school_name($part='')
     {
+        // print_r($part);
         $this->db->where('year', $this->session->userdata('year'));
         $this->db->where('ladder', $this->session->userdata('ladder'));
-        // if($part != ''){
-        //     $this->db->where('part', $part);
-        // }
+        if($part != ''){
+            $this->db->where('part', $part);
+        }
 
         $school = $this->db->get('voice_exam_area')->row_array();
      
