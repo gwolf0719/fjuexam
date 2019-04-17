@@ -49,18 +49,18 @@
             </td>
         </tr>
         <tr>
-            <td style="border:1px solid #999" rowspan="2" width="10%">試場</td>
-            <td style="border:1px solid #999" colspan="2" width="10%" class="bb">監試人員(1)</td>
+            <td style="border:1px solid #999" rowspan="2" width="5%">試場</td>
+            <td style="border:1px solid #999" colspan="2" width="6%" class="bb">監試人員(1)</td>
             <td style="border:1px solid #999" rowspan="2" width="20%" colspan="2">簽名</td>
-            <td style="border:1px solid #999" colspan="2" width="10%" class="bb">監試人員(2)</td>
+            <td style="border:1px solid #999" colspan="2" width="6%" class="bb">監試人員(2)</td>
             <td style="border:1px solid #999" rowspan="2" width="20%" colspan="2">簽名</td>
         </tr>
 
         <tr>
-            <td style="border:1px solid #999" width="11%">姓名</td>
-            <td style="border:1px solid #999" width="10%">單位別</td>
-            <td style="border:1px solid #999" width="10%">姓名</td>
-            <td style="border:1px solid #999" width="10%">單位別</td>
+            <td style="border:1px solid #999" width="8%">姓名</td>
+            <td style="border:1px solid #999" width="1%">單位別</td>
+            <td style="border:1px solid #999" width="8%">姓名</td>
+            <td style="border:1px solid #999" width="1%">單位別</td>
         </tr>
     </thead>
     <?php foreach ($part as $kc => $vc): ?>

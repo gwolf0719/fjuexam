@@ -80,6 +80,8 @@ class Mod_trial extends CI_Model
         if ($part != '') {
             $this->db->where('part', $part);
         }
+        $year = $this->session->userdata('year');
+        $this->db->where('part_info.year', $year);
         $this->db->from('part_info');
         $this->db->join('trial_assign', 'part_info.sn = trial_assign.sn');
         return $this->db->get()->result_array();

@@ -127,7 +127,6 @@ class Designated extends CI_Controller
 
             // d1
             $this->mod_trial->import($datas_trial);
-
             // D管卷
             $this->mod_trial->remove_trial_staff_data();
             // D巡場
