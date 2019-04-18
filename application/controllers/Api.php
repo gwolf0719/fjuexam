@@ -104,8 +104,8 @@ class Api extends CI_Controller
     public function add_staff()
     {
         $this->load->model('mod_staff');
-        $getpost = array('member_code', 'member_name', 'unit','member_unit', 'member_phone', 'member_title', 'order_meal', 'meal');
-        $requred = array('member_code', 'member_name', 'unit','member_unit', 'member_phone', 'member_title', 'order_meal', 'meal');
+        $getpost = array('member_code', 'member_name', 'unit', 'member_unit', 'member_phone', 'member_title', 'order_meal', 'meal');
+        $requred = array('member_code', 'member_name', 'unit', 'member_unit', 'member_phone', 'member_title', 'order_meal', 'meal');
         $data = $this->getpost->getpost_array($getpost, $requred);
         if ($data == false) {
             $json_arr['sys_code'] = '000';
@@ -127,8 +127,8 @@ class Api extends CI_Controller
     public function edit_staff()
     {
         $this->load->model('mod_staff');
-        $getpost = array('sn', 'member_code', 'member_name', 'unit','member_unit', 'member_phone', 'member_title', 'order_meal', 'meal');
-        $requred = array('sn', 'member_code', 'member_name', 'unit','member_unit', 'member_phone', 'member_title', 'order_meal', 'meal');
+        $getpost = array('sn', 'member_code', 'member_name', 'unit', 'member_unit', 'member_phone', 'member_title', 'order_meal', 'meal');
+        $requred = array('sn', 'member_code', 'member_name', 'unit', 'member_unit', 'member_phone', 'member_title', 'order_meal', 'meal');
         $data = $this->getpost->getpost_array($getpost, $requred);
         if ($data == false) {
             $json_arr['sys_code'] = '000';
@@ -208,8 +208,8 @@ class Api extends CI_Controller
     public function edit_task()
     {
         $this->load->model('mod_task');
-        $getpost = array('sn', 'area', 'job_code', 'job_title', 'name', 'phone', 'trial_start', 'trial_end', 'note', 'day_count', 'one_day_salary', 'salary_total', 'lunch_price', 'lunch_total', 'total', 'order_meal', 'do_date','meal');
-        $requred = array('sn', 'area', 'job_code', 'job_title', 'name', 'phone', 'trial_start', 'trial_end', 'day_count', 'one_day_salary', 'salary_total', 'lunch_price', 'lunch_total', 'total', 'order_meal', 'do_date','meal');
+        $getpost = array('sn', 'area', 'job_code', 'job_title', 'name', 'phone', 'trial_start', 'trial_end', 'note', 'day_count', 'one_day_salary', 'salary_total', 'lunch_price', 'lunch_total', 'total', 'order_meal', 'do_date', 'meal');
+        $requred = array('sn', 'area', 'job_code', 'job_title', 'name', 'phone', 'day_count', 'one_day_salary', 'salary_total', 'lunch_price', 'lunch_total', 'total', 'order_meal', 'do_date', 'meal');
         $data = $this->getpost->getpost_array($getpost, $requred);
         if ($data == false) {
             $json_arr['sys_code'] = '000';
@@ -266,7 +266,7 @@ class Api extends CI_Controller
         $res = $this->mod_task->get_member_info();
         foreach ($res as $key => $value) {
             $json_arr['info'][$key]['id'] = $value['member_code'];
-            $json_arr['info'][$key]['name'] = $value['member_code'].' - '.$value['member_name'];
+            $json_arr['info'][$key]['name'] = $value['member_code'] . ' - ' . $value['member_name'];
         }
         $json_arr['sys_code'] = '200';
         $json_arr['sys_msg'] = '搜尋成功';
@@ -473,8 +473,8 @@ class Api extends CI_Controller
     public function save_floor()
     {
         $this->load->model('mod_part_info');
-        $getpost = array('part','start', 'end','floor', 'note');
-        $requred = array('part','start', 'end','floor');
+        $getpost = array('part', 'start', 'end', 'floor', 'note');
+        $requred = array('part', 'start', 'end', 'floor');
         $data = $this->getpost->getpost_array($getpost, $requred);
         if ($data == false) {
             $json_arr['sys_code'] = '000';
@@ -533,9 +533,10 @@ class Api extends CI_Controller
     }
 
     /**
-    * 檢查監試人員是否指派過
-    */
-    function chk_trial_assigned(){
+     * 檢查監試人員是否指派過
+     */
+    function chk_trial_assigned()
+    {
         $this->load->model('mod_trial');
         $getpost = array('code');
         $requred = array('code');
@@ -545,10 +546,10 @@ class Api extends CI_Controller
             $json_arr['sys_msg'] = '資料不足';
             $json_arr['requred'] = $this->getpost->report_requred($requred);
         } else {
-            if($this->mod_trial->chk_trial_assigned($data['code'])){
+            if ($this->mod_trial->chk_trial_assigned($data['code'])) {
                 $json_arr['sys_code'] = '500';
                 $json_arr['sys_msg'] = '該人員已經被指派過，請選擇其他人員';
-            }else{
+            } else {
                 $json_arr['sys_code'] = '200';
                 $json_arr['sys_msg'] = 'success';
             }
@@ -564,8 +565,8 @@ class Api extends CI_Controller
         $this->load->model('mod_exam_datetime');
         $this->load->model('mod_exam_fees');
         $this->load->model('mod_part_info');
-        $getpost = array('sn', 'part','supervisor_1', 'supervisor_1_code', 'supervisor_2', 'supervisor_2_code', 'trial_staff_code_1', 'trial_staff_code_2', 'note','field');
-        $requred = array('sn', 'part','supervisor_1', 'supervisor_1_code', 'supervisor_2', 'supervisor_2_code', 'trial_staff_code_1', 'trial_staff_code_2','field');
+        $getpost = array('sn', 'part', 'supervisor_1', 'supervisor_1_code', 'supervisor_2', 'supervisor_2_code', 'trial_staff_code_1', 'trial_staff_code_2', 'note', 'field');
+        $requred = array('sn', 'part', 'supervisor_1', 'supervisor_1_code', 'supervisor_2', 'supervisor_2_code', 'trial_staff_code_1', 'trial_staff_code_2', 'field');
         $data = $this->getpost->getpost_array($getpost, $requred);
         if ($data == false) {
             $json_arr['sys_code'] = '000';
@@ -576,70 +577,70 @@ class Api extends CI_Controller
             if ($this->mod_trial->chk_once($data['sn'])) {
                 $member1 = $this->mod_staff->get_staff_member(trim($data['supervisor_1_code']));
                 $member2 = $this->mod_staff->get_staff_member(trim($data['supervisor_2_code']));
-                $day = $this->mod_exam_datetime->room_use_day($data['field'], $data['field'],$data['part']);
+                $day = $this->mod_exam_datetime->room_use_day($data['field'], $data['field'], $data['part']);
                 $datetime_info = $this->mod_exam_datetime->get_once($_SESSION['year']);
                 $fees_info = $this->mod_exam_fees->get_once($_SESSION['year']);
                 $part_info = $this->mod_part_info->get_once($data['sn']);
                 $do_date = array();
-                if($day[0] != ""){
-                    array_push($do_date,mb_substr($datetime_info['day_1'], 5, 8, 'utf-8'));
+                if ($day[0] != "") {
+                    array_push($do_date, mb_substr($datetime_info['day_1'], 5, 8, 'utf-8'));
                 }
-                if($day[1] != ""){
-                    array_push($do_date,mb_substr($datetime_info['day_2'], 5, 8, 'utf-8'));
-                }   
-                if($day[2] != ""){
-                    array_push($do_date,mb_substr($datetime_info['day_3'], 5, 8, 'utf-8'));
-                }                
-                $date = implode(",",$do_date);
-                if($member1['order_meal'] == "N"){
+                if ($day[1] != "") {
+                    array_push($do_date, mb_substr($datetime_info['day_2'], 5, 8, 'utf-8'));
+                }
+                if ($day[2] != "") {
+                    array_push($do_date, mb_substr($datetime_info['day_3'], 5, 8, 'utf-8'));
+                }
+                $date = implode(",", $do_date);
+                if ($member1['order_meal'] == "N") {
                     $first_lunch_fee = 0;
                     $first_lunch_total = 0;
                     $first_member_salary_total = $part_info['test_section'] * $fees_info['salary_section'];
                     $first_member_total = $first_member_salary_total;
-                }else{
+                } else {
                     $first_lunch_fee = $fees_info['lunch_fee'];
                     $first_lunch_total = $fees_info['lunch_fee'] * count($do_date);
                     $first_member_salary_total = $part_info['test_section'] * $fees_info['salary_section'];
-                    $first_member_total = $first_member_salary_total - $first_lunch_total;                    
+                    $first_member_total = $first_member_salary_total - $first_lunch_total;
                 }
-                if($member2['order_meal'] == "N"){
+                if ($member2['order_meal'] == "N") {
                     $second_lunch_fee = 0;
                     $second_lunch_total = 0;
                     $second_member_salary_total = $part_info['test_section'] * $fees_info['salary_section'];
                     $second_member_total = $second_member_salary_total;
-                }else{
+                } else {
                     $second_lunch_fee = $fees_info['lunch_fee'];
                     $second_lunch_total = $fees_info['lunch_fee'] * count($do_date);
                     $second_member_salary_total = $part_info['test_section'] * $fees_info['salary_section'];
-                    $second_member_total = $second_member_salary_total - $second_lunch_total;                    
-                }                
-                $sql_data = array (
-                    'sn'=>$data['sn'],
-                    'supervisor_1'=>trim($data['supervisor_1']),
-                    'supervisor_1_code'=>trim($data['supervisor_1_code']),
-                    'supervisor_2_code'=>trim($data['supervisor_2_code']),
-                    'supervisor_2'=>trim($data['supervisor_2']),
-                    'trial_staff_code_1'=>trim($data['trial_staff_code_1']),
-                    'trial_staff_code_2'=>trim($data['trial_staff_code_2']),
-                    'first_member_order_meal'=> $member1['order_meal'],
-                    'first_member_meal'=> $member1['meal'],
-                    'second_member_order_meal'=> $member2['order_meal'],
-                    'second_member_meal'=> $member2['meal'],
-                    'first_member_do_date'=>$date,
-                    'second_member_do_date'=>$date,
-                    'first_member_day_count'=>count($do_date),
-                    'second_member_day_count'=>count($do_date),
-                    'first_member_salary_section'=> $fees_info['salary_section'],
-                    'second_member_salary_section'=> $fees_info['salary_section'],
-                    'first_member_lunch_price'=> $fees_info['lunch_fee'],
-                    'second_member_lunch_price'=> $fees_info['lunch_fee'],
-                    'first_member_section_salary_total'=> $first_member_salary_total,
-                    'second_member_section_salary_total'=> $second_member_salary_total,
-                    'first_member_section_lunch_total'=> $first_lunch_total,
-                    'second_member_section_lunch_total'=> $second_lunch_total,      
-                    'first_member_section_total'=> $first_member_total,
-                    'second_member_section_total'=> $second_member_total,
-                    'note'=>$data['note'],
+                    $second_member_total = $second_member_salary_total - $second_lunch_total;
+                }
+                $sql_data = array(
+                    'sn' => $data['sn'],
+                    'supervisor_1' => trim($data['supervisor_1']),
+                    'supervisor_1_code' => trim($data['supervisor_1_code']),
+                    'supervisor_2_code' => trim($data['supervisor_2_code']),
+                    'supervisor_2' => trim($data['supervisor_2']),
+                    'trial_staff_code_1' => trim($data['trial_staff_code_1']),
+                    'trial_staff_code_2' => trim($data['trial_staff_code_2']),
+                    'first_member_order_meal' => $member1['order_meal'],
+                    'first_member_meal' => $member1['meal'],
+                    'second_member_order_meal' => $member2['order_meal'],
+                    'second_member_meal' => $member2['meal'],
+                    'first_member_do_date' => $date,
+                    'second_member_do_date' => $date,
+                    'first_member_day_count' => count($do_date),
+                    'second_member_day_count' => count($do_date),
+                    'first_member_salary_section' => $fees_info['salary_section'],
+                    'second_member_salary_section' => $fees_info['salary_section'],
+                    'first_member_lunch_price' => $fees_info['lunch_fee'],
+                    'second_member_lunch_price' => $fees_info['lunch_fee'],
+                    'first_member_section_salary_total' => $first_member_salary_total,
+                    'second_member_section_salary_total' => $second_member_salary_total,
+                    'first_member_section_lunch_total' => $first_lunch_total,
+                    'second_member_section_lunch_total' => $second_lunch_total,
+                    'first_member_section_total' => $first_member_total,
+                    'second_member_section_total' => $second_member_total,
+                    'note' => $data['note'],
                 );
                 $this->mod_trial->update_once($data['sn'], $sql_data);
             } else {
@@ -658,8 +659,8 @@ class Api extends CI_Controller
     {
         $this->load->model('mod_trial');
         $this->load->model('mod_staff');
-        $getpost = array('sn', 'supervisor_1', 'supervisor_1_code', 'supervisor_2', 'supervisor_2_code', 'trial_staff_code_1', 'trial_staff_code_2', 'note','first_member_order_meal','first_member_meal','second_member_order_meal','second_member_meal','first_member_do_date','first_member_day_count','first_member_salary_section','first_member_section_salary_total','first_member_lunch_price','first_member_section_lunch_total','first_member_section_total','second_member_do_date','second_member_day_count','second_member_salary_section','second_member_section_salary_total','second_member_lunch_price','second_member_section_lunch_total','second_member_section_total');
-        $requred = array('sn', 'supervisor_1', 'supervisor_1_code', 'supervisor_2', 'supervisor_2_code', 'trial_staff_code_1', 'trial_staff_code_2', 'note','first_member_order_meal','first_member_meal','second_member_order_meal','second_member_meal','first_member_do_date','first_member_day_count','first_member_salary_section','first_member_section_salary_total','first_member_lunch_price','first_member_section_lunch_total','first_member_section_total','second_member_do_date','second_member_day_count','second_member_salary_section','second_member_section_salary_total','second_member_lunch_price','second_member_section_lunch_total','second_member_section_total');
+        $getpost = array('sn', 'supervisor_1', 'supervisor_1_code', 'supervisor_2', 'supervisor_2_code', 'trial_staff_code_1', 'trial_staff_code_2', 'note', 'first_member_order_meal', 'first_member_meal', 'second_member_order_meal', 'second_member_meal', 'first_member_do_date', 'first_member_day_count', 'first_member_salary_section', 'first_member_section_salary_total', 'first_member_lunch_price', 'first_member_section_lunch_total', 'first_member_section_total', 'second_member_do_date', 'second_member_day_count', 'second_member_salary_section', 'second_member_section_salary_total', 'second_member_lunch_price', 'second_member_section_lunch_total', 'second_member_section_total');
+        $requred = array('sn', 'supervisor_1', 'supervisor_1_code', 'supervisor_2', 'supervisor_2_code', 'trial_staff_code_1', 'trial_staff_code_2', 'note', 'first_member_order_meal', 'first_member_meal', 'second_member_order_meal', 'second_member_meal', 'first_member_do_date', 'first_member_day_count', 'first_member_salary_section', 'first_member_section_salary_total', 'first_member_lunch_price', 'first_member_section_lunch_total', 'first_member_section_total', 'second_member_do_date', 'second_member_day_count', 'second_member_salary_section', 'second_member_section_salary_total', 'second_member_lunch_price', 'second_member_section_lunch_total', 'second_member_section_total');
         $data = $this->getpost->getpost_array($getpost, $requred);
         if ($data == false) {
             $json_arr['sys_code'] = '000';
@@ -678,13 +679,13 @@ class Api extends CI_Controller
             $json_arr['sys_msg'] = '資料刪除完成';
         }
         echo json_encode($json_arr);
-    }    
+    }
 
     public function save_trial_for_price()
     {
         $this->load->model('mod_trial');
-        $getpost = array('sn','first_member_do_date','second_member_do_date','first_member_day_count', 'first_member_salary_section', 'first_member_section_salary_total', 'first_member_lunch_price', 'first_member_section_lunch_total', 'first_member_section_total', 'second_member_day_count', 'second_member_salary_section', 'second_member_section_salary_total', 'second_member_lunch_price', 'second_member_section_lunch_total', 'second_member_section_total','first_member_order_meal','second_member_order_meal','first_member_meal','second_member_meal');
-        $requred = array('sn','first_member_do_date','second_member_do_date','first_member_day_count', 'first_member_salary_section', 'first_member_section_salary_total', 'first_member_lunch_price', 'first_member_section_lunch_total', 'first_member_section_total', 'second_member_day_count', 'second_member_salary_section', 'second_member_section_salary_total', 'second_member_lunch_price', 'second_member_section_lunch_total', 'second_member_section_total','first_member_order_meal','second_member_order_meal','first_member_meal','second_member_meal');
+        $getpost = array('sn', 'first_member_do_date', 'second_member_do_date', 'first_member_day_count', 'first_member_salary_section', 'first_member_section_salary_total', 'first_member_lunch_price', 'first_member_section_lunch_total', 'first_member_section_total', 'second_member_day_count', 'second_member_salary_section', 'second_member_section_salary_total', 'second_member_lunch_price', 'second_member_section_lunch_total', 'second_member_section_total', 'first_member_order_meal', 'second_member_order_meal', 'first_member_meal', 'second_member_meal');
+        $requred = array('sn', 'first_member_do_date', 'second_member_do_date', 'first_member_day_count', 'first_member_salary_section', 'first_member_section_salary_total', 'first_member_lunch_price', 'first_member_section_lunch_total', 'first_member_section_total', 'second_member_day_count', 'second_member_salary_section', 'second_member_section_salary_total', 'second_member_lunch_price', 'second_member_section_lunch_total', 'second_member_section_total', 'first_member_order_meal', 'second_member_order_meal', 'first_member_meal', 'second_member_meal');
         $data = $this->getpost->getpost_array($getpost, $requred);
         if ($data == false) {
             $json_arr['sys_code'] = '000';
@@ -760,8 +761,8 @@ class Api extends CI_Controller
     {
         $this->load->model('mod_trial');
         $this->load->model('mod_exam_fees');
-        $getpost = array('part', 'allocation_code', 'trial_staff_code', 'trial_staff_name', 'first_start', 'first_end', 'first_section', 'second_start', 'second_end', 'second_section', 'third_start', 'third_end', 'third_section', 'note','do_date');
-        $requred = array('part', 'allocation_code', 'trial_staff_code', 'trial_staff_name', 'first_start', 'first_end', 'first_section', 'second_start', 'second_end', 'second_section', 'third_start', 'third_end', 'third_section','do_date');
+        $getpost = array('part', 'allocation_code', 'trial_staff_code', 'trial_staff_name', 'first_start', 'first_end', 'first_section', 'second_start', 'second_end', 'second_section', 'third_start', 'third_end', 'third_section', 'note', 'do_date');
+        $requred = array('part', 'allocation_code', 'trial_staff_code', 'trial_staff_name', 'first_start', 'first_end', 'first_section', 'second_start', 'second_end', 'second_section', 'third_start', 'third_end', 'third_section', 'do_date');
         $data = $this->getpost->getpost_array($getpost, $requred);
         if ($data == false) {
             $json_arr['sys_code'] = '000';
@@ -771,52 +772,52 @@ class Api extends CI_Controller
             $data['year'] = $this->session->userdata('year');
             $member = $this->mod_trial->get_once_trial_by_code($data['trial_staff_code']);
             $do_date = explode(",", $data['do_date']);
-            $fees_info = $this->mod_exam_fees->get_once($_SESSION['year']);  
-            if($member['order_meal'] == "N"){
+            $fees_info = $this->mod_exam_fees->get_once($_SESSION['year']);
+            if ($member['order_meal'] == "N") {
                 $lunch_price = 0;
                 $lunch_total = 0;
-                $salary_total = ($data['first_section']+$data['second_section']+$data['third_section']) * $fees_info['salary_section'];
+                $salary_total = ($data['first_section'] + $data['second_section'] + $data['third_section']) * $fees_info['salary_section'];
                 $total = $salary_total;
-            }else{
+            } else {
                 $lunch_price = $fees_info['lunch_fee'];
                 $lunch_total = $lunch_price * count($do_date);
-                $salary_total = ($data['first_section']+$data['second_section']+$data['third_section']) * $fees_info['salary_section'];
+                $salary_total = ($data['first_section'] + $data['second_section'] + $data['third_section']) * $fees_info['salary_section'];
                 $total = $salary_total - $lunch_total;
             }
             $sql_data = array(
-                'part'=>$data['part'],
-                'year'=> $_SESSION['year'],
-                'allocation_code'=>$data['allocation_code'],
-                'trial_staff_code'=>trim($data['trial_staff_code']),
-                'trial_staff_name'=>trim($data['trial_staff_name']),
-                'first_start'=>$data['first_start'],
-                'first_end'=>$data['first_end'],
-                'first_section'=>$data['first_section'],
-                'second_start'=>$data['second_start'],
-                'second_end'=>$data['second_end'],
-                'second_section'=>$data['second_section'],
-                'third_start'=>$data['third_start'],
-                'third_end'=>$data['third_end'],
-                'third_section'=>$data['third_section'],
-                'order_meal'=>$member['order_meal'],
-                'meal'=>$member['meal'],
-                'calculation'=>'by_section',
-                'do_date'=>$data['do_date'],
-                'count'=>count($do_date),
-                'salary'=>$fees_info['salary_section'],
-                'salary_total'=> $salary_total,
-                'lunch_price'=> $lunch_price,
-                'lunch_total'=> $lunch_total,
-                'total'=> $total,
+                'part' => $data['part'],
+                'year' => $_SESSION['year'],
+                'allocation_code' => $data['allocation_code'],
+                'trial_staff_code' => trim($data['trial_staff_code']),
+                'trial_staff_name' => trim($data['trial_staff_name']),
+                'first_start' => $data['first_start'],
+                'first_end' => $data['first_end'],
+                'first_section' => $data['first_section'],
+                'second_start' => $data['second_start'],
+                'second_end' => $data['second_end'],
+                'second_section' => $data['second_section'],
+                'third_start' => $data['third_start'],
+                'third_end' => $data['third_end'],
+                'third_section' => $data['third_section'],
+                'order_meal' => $member['order_meal'],
+                'meal' => $member['meal'],
+                'calculation' => 'by_section',
+                'do_date' => $data['do_date'],
+                'count' => count($do_date),
+                'salary' => $fees_info['salary_section'],
+                'salary_total' => $salary_total,
+                'lunch_price' => $lunch_price,
+                'lunch_total' => $lunch_total,
+                'total' => $total,
             );
             // print_r($sql_data);
             // if($this->mod_trial->chk_trial_staff_field($data) == true){
             //     $json_arr['sys_code'] = '500';
             //     $json_arr['sys_msg'] = '有重複輸入試場';
             // }else{
-                $this->mod_trial->add_trial($sql_data);
-                $json_arr['sys_code'] = '200';
-                $json_arr['sys_msg'] = '資料新增完成';                
+            $this->mod_trial->add_trial($sql_data);
+            $json_arr['sys_code'] = '200';
+            $json_arr['sys_msg'] = '資料新增完成';                
             // }
 
         }
@@ -868,7 +869,7 @@ class Api extends CI_Controller
             $json_arr['sys_msg'] = '資料刪除完成';
         }
         echo json_encode($json_arr);
-    }    
+    }
 
     public function get_once_assign()
     {
@@ -943,52 +944,52 @@ class Api extends CI_Controller
             $json_arr['requred'] = $this->getpost->report_requred($requred);
         } else {
             $data['year'] = $this->session->userdata('year');
-            $day = $this->mod_exam_datetime->room_use_day($data['start'], $data['end'],$data['part']);
+            $day = $this->mod_exam_datetime->room_use_day($data['start'], $data['end'], $data['part']);
             $datetime_info = $this->mod_exam_datetime->get_once($_SESSION['year']);
             $fees_info = $this->mod_exam_fees->get_once($_SESSION['year']);
             $member = $this->mod_staff->get_staff_member(trim($data['patrol_staff_code']));
             $do_date = array();
-            if($day[0] != ""){
-                array_push($do_date,mb_substr($datetime_info['day_1'], 5, 8, 'utf-8'));
+            if ($day[0] != "") {
+                array_push($do_date, mb_substr($datetime_info['day_1'], 5, 8, 'utf-8'));
             }
-            if($day[1] != ""){
-                array_push($do_date,mb_substr($datetime_info['day_2'], 5, 8, 'utf-8'));
-            }   
-            if($day[2] != ""){
-                array_push($do_date,mb_substr($datetime_info['day_3'], 5, 8, 'utf-8'));
-            }                
-            $date = implode(",",$do_date);    
-            if($member['order_meal'] == "N"){
+            if ($day[1] != "") {
+                array_push($do_date, mb_substr($datetime_info['day_2'], 5, 8, 'utf-8'));
+            }
+            if ($day[2] != "") {
+                array_push($do_date, mb_substr($datetime_info['day_3'], 5, 8, 'utf-8'));
+            }
+            $date = implode(",", $do_date);
+            if ($member['order_meal'] == "N") {
                 $lunch_price = 0;
                 $lunch_total = 0;
-                $salary_total = $fees_info['salary_section']*$data['section'];
+                $salary_total = $fees_info['salary_section'] * $data['section'];
                 $total = $salary_total;
-            }else{
+            } else {
                 $lunch_price = $fees_info['lunch_fee'];
                 $lunch_total = $fees_info['lunch_fee'] * count($do_date);
-                $salary_total = $fees_info['salary_section']*$data['section'];
-                $total = $salary_total - $lunch_total;                
+                $salary_total = $fees_info['salary_section'] * $data['section'];
+                $total = $salary_total - $lunch_total;
             }
             $data = array(
-                'part'=>$data['part'],
-                'year'=>$_SESSION['year'],
-                'allocation_code'=>$data['allocation_code'],
-                'patrol_staff_code'=>trim($data['patrol_staff_code']),
-                'patrol_staff_name'=>trim($data['patrol_staff_name']),
-                'start'=>$data['start'],
-                'end'=>$data['end'],
-                'section'=>$data['section'],
-                'note'=>$data['note'],
-                'do_date'=>$date,
-                'calculation'=> 'by_section',
-                'count'=> count($do_date),
-                'salary'=>$fees_info['salary_section'],
-                'salary_total'=>$salary_total,
-                'lunch_price'=>$lunch_price,
-                'lunch_total'=>$lunch_total,
-                'total'=>$total,
-                'order_meal'=> $member['order_meal'],
-                'meal'=>$member['meal'],
+                'part' => $data['part'],
+                'year' => $_SESSION['year'],
+                'allocation_code' => $data['allocation_code'],
+                'patrol_staff_code' => trim($data['patrol_staff_code']),
+                'patrol_staff_name' => trim($data['patrol_staff_name']),
+                'start' => $data['start'],
+                'end' => $data['end'],
+                'section' => $data['section'],
+                'note' => $data['note'],
+                'do_date' => $date,
+                'calculation' => 'by_section',
+                'count' => count($do_date),
+                'salary' => $fees_info['salary_section'],
+                'salary_total' => $salary_total,
+                'lunch_price' => $lunch_price,
+                'lunch_total' => $lunch_total,
+                'total' => $total,
+                'order_meal' => $member['order_meal'],
+                'meal' => $member['meal'],
             );
             $this->mod_patrol->add_once($data);
             $json_arr['sys_code'] = '200';
@@ -1096,8 +1097,8 @@ class Api extends CI_Controller
         $this->load->model('mod_trial');
         $this->load->model('mod_staff');
         $this->load->model('mod_task');
-        $getpost = array('sn', 'calculation', 'do_date', 'count', 'salary', 'salary_total', 'lunch_price', 'lunch_total', 'total', 'note', 'order_meal','meal');
-        $requred = array('sn', 'calculation', 'do_date', 'count', 'salary', 'salary_total', 'lunch_price', 'lunch_total', 'total', 'order_meal','meal');
+        $getpost = array('sn', 'calculation', 'do_date', 'count', 'salary', 'salary_total', 'lunch_price', 'lunch_total', 'total', 'note', 'order_meal', 'meal');
+        $requred = array('sn', 'calculation', 'do_date', 'count', 'salary', 'salary_total', 'lunch_price', 'lunch_total', 'total', 'order_meal', 'meal');
         $data = $this->getpost->getpost_array($getpost, $requred);
         if ($data == false) {
             $json_arr['sys_code'] = '000';
@@ -1106,7 +1107,7 @@ class Api extends CI_Controller
         } else {
             $data['year'] = $this->session->userdata('year');
             $this->mod_trial->update_trial($data['sn'], $data);
-                               
+
             $json_arr['sys_code'] = '200';
             $json_arr['sys_msg'] = '資料修改完成';
         }
@@ -1118,8 +1119,8 @@ class Api extends CI_Controller
         $this->load->model('mod_patrol');
         $this->load->model('mod_staff');
         $this->load->model('mod_task');
-        $getpost = array('sn', 'calculation', 'do_date', 'count', 'salary', 'salary_total', 'lunch_price', 'lunch_total', 'total', 'order_meal','meal');
-        $requred = array('sn', 'calculation', 'do_date', 'count', 'salary', 'salary_total', 'lunch_price', 'lunch_total', 'total', 'order_meal','meal');
+        $getpost = array('sn', 'calculation', 'do_date', 'count', 'salary', 'salary_total', 'lunch_price', 'lunch_total', 'total', 'order_meal', 'meal');
+        $requred = array('sn', 'calculation', 'do_date', 'count', 'salary', 'salary_total', 'lunch_price', 'lunch_total', 'total', 'order_meal', 'meal');
         $data = $this->getpost->getpost_array($getpost, $requred);
         if ($data == false) {
             $json_arr['sys_code'] = '000';
@@ -1137,8 +1138,8 @@ class Api extends CI_Controller
     public function room_use_day()
     {
         $this->load->model('mod_exam_datetime');
-        $getpost = array('start', 'end','part');
-        $requred = array('start', 'end','part');
+        $getpost = array('start', 'end', 'part');
+        $requred = array('start', 'end', 'part');
         $data = $this->getpost->getpost_array($getpost, $requred);
         if ($data == false) {
             $json_arr['sys_code'] = '000';
@@ -1146,7 +1147,7 @@ class Api extends CI_Controller
             $json_arr['requred'] = $this->getpost->report_requred($requred);
         } else {
             $data['year'] = $this->session->userdata('year');
-            $json_arr['day'] = $res = $this->mod_exam_datetime->room_use_day($data['start'], $data['end'],$data['part']);
+            $json_arr['day'] = $res = $this->mod_exam_datetime->room_use_day($data['start'], $data['end'], $data['part']);
             $json_arr['sys_code'] = '200';
             $json_arr['sys_msg'] = '日期取得完成';
         }
@@ -1156,8 +1157,8 @@ class Api extends CI_Controller
     public function chk_part_list()
     {
         $this->load->model('mod_trial');
-        $getpost = array('part','area');
-        $requred = array('part','area');
+        $getpost = array('part', 'area');
+        $requred = array('part', 'area');
         $data = $this->getpost->getpost_array($getpost, $requred);
         if ($data == false) {
             $json_arr['sys_code'] = '000';
@@ -1217,7 +1218,7 @@ class Api extends CI_Controller
             }
         }
         echo json_encode($json_arr);
-    }        
+    }
 
 
     public function chk_trial_staff_task_list()
@@ -1240,7 +1241,7 @@ class Api extends CI_Controller
             }
         }
         echo json_encode($json_arr);
-    }    
+    }
 
     public function chk_patrol_staff_task_list()
     {
@@ -1262,7 +1263,7 @@ class Api extends CI_Controller
             }
         }
         echo json_encode($json_arr);
-    }        
+    }
 
     public function chk_supervisor_list()
     {
@@ -1276,10 +1277,10 @@ class Api extends CI_Controller
             $json_arr['requred'] = $this->getpost->report_requred($requred);
         } else {
             if ($this->mod_trial->chk_supervisor_list($data['part']) == true) {
-                if($this->mod_trial->chk_patrol_member($data['part']) == true){
+                if ($this->mod_trial->chk_patrol_member($data['part']) == true) {
                     $json_arr['sys_code'] = '200';
                     $json_arr['sys_msg'] = '匯出完成';
-                }else{
+                } else {
                     $json_arr['sys_code'] = '404';
                     $json_arr['sys_msg'] = '查無此資料，請確認是否管卷人員是否有資料';
                 }
@@ -1289,13 +1290,13 @@ class Api extends CI_Controller
             }
         }
         echo json_encode($json_arr);
-    }    
-    
+    }
+
     public function chk_part_list_of_obs()
     {
         $this->load->model('mod_trial');
-        $getpost = array('part','area','obs');
-        $requred = array('part','area','obs');
+        $getpost = array('part', 'area', 'obs');
+        $requred = array('part', 'area', 'obs');
         $data = $this->getpost->getpost_array($getpost, $requred);
         if ($data == false) {
             $json_arr['sys_code'] = '000';
