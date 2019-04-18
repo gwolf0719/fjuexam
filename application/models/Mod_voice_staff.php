@@ -9,7 +9,7 @@ class Mod_voice_staff extends CI_Model
     function insert_job($data)
     {
         $this->db->where('year', $this->session->userdata('year'));
-        $this->db->where('ladder',$this->session->userdata('ladder'));
+        $this->db->where('ladder', $this->session->userdata('ladder'));
         $this->db->delete('voice_import_member');
         $this->db->insert_batch('voice_import_member', $data);
     }
@@ -18,22 +18,22 @@ class Mod_voice_staff extends CI_Model
         // $data = array('job_code','job_title','name','trial_start','trial_end','number','phone','note','status',
         // 'do_date','day_count','one_day_salary','salary_total','total');
         $datas = array(
-            'job_code' =>'', 
-            'job_title' =>'', 
-            'name' =>'', 
-            'trial_start' =>'', 
-            'trial_end' =>'', 
-            'number' =>'', 
-            'phone' =>'', 
-            'note' =>'', 
-            'status' =>'', 
-            'do_date' =>'', 
-            'day_count' =>'', 
-            'one_day_salary' =>'', 
-            'salary_total' =>'', 
-            'total' =>'', 
+            'job_code' => '',
+            'job_title' => '',
+            'name' => '',
+            'trial_start' => '',
+            'trial_end' => '',
+            'number' => '',
+            'phone' => '',
+            'note' => '',
+            'status' => '',
+            'do_date' => '',
+            'day_count' => '',
+            'one_day_salary' => '',
+            'salary_total' => '',
+            'total' => '',
         );
-        $this->db->where('year', $this->session->userdata('year'))->where('ladder', $this->session->userdata('ladder'))->update('voice_job_list',$datas);
+        $this->db->where('year', $this->session->userdata('year'))->where('ladder', $this->session->userdata('ladder'))->update('voice_job_list', $datas);
     }
     public function remove_voice_trial_assign()
     {   
@@ -41,24 +41,24 @@ class Mod_voice_staff extends CI_Model
         // 'first_member_salary_section','first_member_section_salary_total','first_member_section_total','second_member_do_date','second_member_day_count',
         // 'second_member_salary_section','second_member_section_salary_total','second_member_section_total','note');
         $datas = array(
-            'supervisor_1' =>'', 
-            'supervisor_1_code' =>'', 
-            'supervisor_2' =>'', 
-            'supervisor_2_code' =>'', 
-            'trial_staff_code_1' =>'', 
-            'trial_staff_code_2' =>'', 
-            'first_member_do_date' =>'', 
-            'first_member_day_count' =>'', 
-            'first_member_salary_section' =>'', 
-            'first_member_section_salary_total' =>'', 
-            'first_member_section_total' =>'', 
-            'second_member_do_date' =>'', 
-            'second_member_day_count' =>'', 
-            'second_member_salary_section' =>'', 
-            'second_member_section_salary_total' =>'', 
-            'note' =>'', 
+            'supervisor_1' => '',
+            'supervisor_1_code' => '',
+            'supervisor_2' => '',
+            'supervisor_2_code' => '',
+            'trial_staff_code_1' => '',
+            'trial_staff_code_2' => '',
+            'first_member_do_date' => '',
+            'first_member_day_count' => '',
+            'first_member_salary_section' => '',
+            'first_member_section_salary_total' => '',
+            'first_member_section_total' => '',
+            'second_member_do_date' => '',
+            'second_member_day_count' => '',
+            'second_member_salary_section' => '',
+            'second_member_section_salary_total' => '',
+            'note' => '',
         );
-        $this->db->where('year', $this->session->userdata('year'))->where('ladder', $this->session->userdata('ladder'))->update('voice_trial_assign',$datas);
+        $this->db->where('year', $this->session->userdata('year'))->where('ladder', $this->session->userdata('ladder'))->update('voice_trial_assign', $datas);
     }
     public function remove_voice_trial_staff()
     {   
@@ -86,7 +86,7 @@ class Mod_voice_staff extends CI_Model
         
         // );
         $this->db->where('year', $this->session->userdata('year'));
-        $this->db->where('ladder',$this->session->userdata('ladder'));
+        $this->db->where('ladder', $this->session->userdata('ladder'));
         $this->db->delete('voice_trial_staff');
         // $this->db->where('year', $this->session->userdata('year'))->where('ladder', $this->session->userdata('ladder'))->truncate('voice_trial_staff');
         // $this->db->where('year', $this->session->userdata('year'))->where('ladder', $this->session->userdata('ladder'))->update('voice_trial_staff',$datas);
@@ -117,7 +117,7 @@ class Mod_voice_staff extends CI_Model
         
         // );
         $this->db->where('year', $this->session->userdata('year'));
-        $this->db->where('ladder',$this->session->userdata('ladder'));
+        $this->db->where('ladder', $this->session->userdata('ladder'));
         $this->db->delete('voice_patrol_staff');
         // $this->db->where('year', $this->session->userdata('year'))->where('ladder', $this->session->userdata('ladder'))->truncate('voice_patrol_staff');
 
@@ -126,8 +126,8 @@ class Mod_voice_staff extends CI_Model
 
     function voice_where_voice_import_staff_member()
     {
-        $this->db->where('year',$this->session->userdata('year'));
-        $this->db->where('ladder',$this->session->userdata('ladder'));
+        $this->db->where('year', $this->session->userdata('year'));
+        $this->db->where('ladder', $this->session->userdata('ladder'));
         return $this->db->get('voice_import_member')->result_array();
     }
 
@@ -137,7 +137,7 @@ class Mod_voice_staff extends CI_Model
     }
 
 
-     function voice_chk_once($member_code)
+    function voice_chk_once($member_code)
     {
         $this->db->where('member_code', $member_code);
         if ($this->db->count_all_results('voice_import_member') == 0) {
@@ -149,10 +149,10 @@ class Mod_voice_staff extends CI_Model
 
     function voice_add_once($data)
     {
-       $data['year'] = $this->session->userdata('year');
-       $this->db->insert('voice_import_member',$data);
+        $data['year'] = $this->session->userdata('year');
+        $this->db->insert('voice_import_member', $data);
 
-       return true;
+        return true;
     }
 
     function voice_update_once($sn, $data)
@@ -169,13 +169,13 @@ class Mod_voice_staff extends CI_Model
 
         return true;
     }
-    
-    public function get_staff_member($code)
+
+    public function get_staff_member($name)
     {
-        return $this->db->where('member_name', $code)->where('year',$this->session->userdata('year'))->where('ladder',$this->session->userdata('ladder'))->get('voice_import_member')->row_array();
+        return $this->db->where('member_name', trim($name))->where('year', $this->session->userdata('year'))->where('ladder', $this->session->userdata('ladder'))->get('voice_import_member')->row_array();
     }
 
-    
+
 
 
 }
