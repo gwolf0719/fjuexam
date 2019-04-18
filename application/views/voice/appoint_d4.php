@@ -1,505 +1,510 @@
 <style>
-    @media (min-width: 1200px) {
-        .container {
-            max-width: 1680px;
-            width: 1680px;
-        }
-    }
-
+@media (min-width: 1200px) {
     .container {
-        max-width: 2100px;
-        width: 2100px !important;
+        max-width: 1680px;
+        width: 1680px;
     }
+}
 
-    .typeahead {
-        z-index: 1051;
-        margin-left: 10px;
-    }
+.container {
+    max-width: 2100px;
+    width: 2100px !important;
+}
 
-    img {
-        max-width: 100%;
-    }
+.typeahead {
+    z-index: 1051;
+    margin-left: 10px;
+}
 
-    .boxs {
-        border-top: 1px solid;
-        background: #f2f2f2;
-        padding: 50px 0px 20px;
-    }
+img {
+    max-width: 100%;
+}
 
-    .table {
-        height: auto;
-        overflow: auto;
-    }
+.boxs {
+    border-top: 1px solid;
+    background: #f2f2f2;
+    padding: 50px 0px 20px;
+}
 
-    .cube {
-        background: #dacddf;
-        margin: 0px 10px;
-        padding: 20px;
-        border-radius: 10px;
-        float: left;
-        flex: 0 0 30%;
-        max-width: 31%;
-        height: auto;
-    }
+.table {
+    height: auto;
+    overflow: auto;
+}
 
-    .cube1 {
-        margin: 0px 10px;
-        padding: 20px;
-        border-radius: 10px;
-        float: left;
-        flex: 0 0 30%;
-        max-width: 32%;
-    }
+.cube {
+    background: #dacddf;
+    margin: 0px 10px;
+    padding: 20px;
+    border-radius: 10px;
+    float: left;
+    flex: 0 0 30%;
+    max-width: 31%;
+    height: auto;
+}
 
-    label {
-        display: inline-block;
-        line-height: 40px;
-        text-align: center;
-        width: 35%;
-        font-size: 14px;
-    }
+.cube1 {
+    margin: 0px 10px;
+    padding: 20px;
+    border-radius: 10px;
+    float: left;
+    flex: 0 0 30%;
+    max-width: 32%;
+}
 
-    .form-control {
-        display: block;
-        width: 50%;
-        padding: .375rem .75rem;
-        font-size: 14px;
-        line-height: 1.5;
-        color: #495057;
-        background-color: #fff;
-        background-clip: padding-boxs;
-        border: 1px solid #ced4da;
-        border-radius: .25rem;
-        transition: border-color .15s ease-in-out, boxs-shadow .15s ease-in-out;
-    }
+label {
+    display: inline-block;
+    line-height: 40px;
+    text-align: center;
+    width: 35%;
+    font-size: 14px;
+}
 
-    .form-group {
-        margin-bottom: 1rem;
-        padding-right: 0%;
-        float: left;
-        width: 100%;
-    }
+.form-control {
+    display: block;
+    width: 50%;
+    padding: .375rem .75rem;
+    font-size: 14px;
+    line-height: 1.5;
+    color: #495057;
+    background-color: #fff;
+    background-clip: padding-boxs;
+    border: 1px solid #ced4da;
+    border-radius: .25rem;
+    transition: border-color .15s ease-in-out, boxs-shadow .15s ease-in-out;
+}
 
-    .bottom {
-        bottom: 0px;
-        width: 100%;
-    }
+.form-group {
+    margin-bottom: 1rem;
+    padding-right: 0%;
+    float: left;
+    width: 100%;
+}
 
-    .tab {
-        width: 18%;
-        float: left;
-        text-align: center;
-        background: #e2e2e2;
-        height: 70px;
-        padding-top: 14px;
-        margin: 10px;
-        cursor: pointer;
-        border-radius: 10px 10px 0px 0px;
-    }
+.bottom {
+    bottom: 0px;
+    width: 100%;
+}
 
-    .tab.active {
-        background: #a97eb8;
-    }
+.tab {
+    width: 18%;
+    float: left;
+    text-align: center;
+    background: #e2e2e2;
+    height: 70px;
+    padding-top: 14px;
+    margin: 10px;
+    cursor: pointer;
+    border-radius: 10px 10px 0px 0px;
+}
 
-    .part {
-        display: none;
-    }
+.tab.active {
+    background: #a97eb8;
+}
 
-    .W50 {
-        width: 50%;
-        float: left;
-    }
+.part {
+    display: none;
+}
 
-    .tab_text {
-        text-align: center;
-        padding: 10px 0px;
-        font-size: 21px;
-    }
+.W50 {
+    width: 50%;
+    float: left;
+}
 
-    tr {
-        cursor: pointer;
-    }
+.tab_text {
+    text-align: center;
+    padding: 10px 0px;
+    font-size: 21px;
+}
+
+tr {
+    cursor: pointer;
+}
 </style>
 
 <script>
-    function init(){
-        
-        $(".chbox").prop('checked',false);
-        $("input[name=day]").prop('checked',true);
-        $(".chbox").attr('disabled',true);
-        $("#trial_staff_code_1").val("");
-        $("#trial_staff_code_2").val("");
-        $("#sn").val("");
-        $("#member_job_title").val("");
-        $("#first_member_job_code").val("");
-        $("#first_member_job_title").val("");
-        $("#first_member_name").val("");
-        $("#first_member_phone").val("");
-        $(".field").val("");
-        $("#first_member_meal").val("");
-        $("#second_member_meal").val("");
-        $("#first_member_order_meal").prop("checked",false);
-        $("#first_member_day_count").val('');
-        $("#first_member_section_count").val('');
-        $("#first_member_one_day_salary").val('');
-        $("#first_member_salary_section").val('');
-        $("#first_member_section_total").val('');
-        $("#first_member_day_total").val('');
-        $("#first_member_section_salary_total").val('');
-        $("#second_member_job_code").val("");
-        $("#second_member_job_title").val("");
-        $("#second_member_name").val("");
-        $("#second_member_phone").val("");
-        $("#second_member_order_meal").prop("checked",false);
-        $("#second_member_day_count").val('');
-        $("#second_member_section_count").val('');
-        $("#second_member_one_day_salary").val('');
-        $("#second_member_salary_section").val('');
-        $("#second_member_section_total").val('');
-        $("#second_member_day_total").val('');
-        $("#second_member_section_salary_total").val('');     
-    }
-    $(function() {
-        init();
-        var nowHash = location.hash; //取得loading進來後目前#
-        var nowTabNum = nowHash.slice(-1);
-        var nowHtml = location.pathname.split("/").pop();
-        // console.log(nowTabNum);
-        if (nowHash != "") {
-            $(".part").hide();
-            $('#part' + nowTabNum).show();
-            $(".tab").removeClass('active');
-            $('.tab' + nowTabNum).addClass('active');
-        } else {
-            //如果loading進來的網址沒有hash，判斷是不是tab頁面
-            // console.log(object);
-            switch (nowHash) {
-                case "":
-                    $('.tab1').addClass('active');
-                    $(".part").hide();
-                    $('#part1').show();
-                    break;                   
-                case "#1":
-                    $('.tab1').addClass('active');
-                    $(".part").hide();
-                    $('#part' + nowTabNum).show();
-                    break;                    
-                case "#2":
-                    $('.tab2').addClass('active');
-                    $(".part").hide();                
-                    $('#part' + nowTabNum).show();
-                    break;
-                case "#3":
-                    $('.tab3').addClass('active');
-                    $(".part").hide();                 
-                    $('#part' + nowTabNum).show();
-                    break;
-            }
-        }    
+function init() {
 
-        $("body").on("click", ".tab", function(e) {
-            e.preventDefault();
-            var newHash = $(this).attr("area"); //點到的id
-            //點擊先做還原動作
-            $('input[name="first_member_day"]').each(function() {
-                for (let index = 0; index < 3; index++) {
-                    $(this).prop("checked", false);
-                }
-            })              
-            $('input[name="second_member_day"]').each(function() {
-                for (let index = 0; index < 3; index++) {
-                    $(this).prop("checked", false);
-                }
-            })            
-            init();
-            // console.log(newHash);
-            if (nowHtml == "appoint_d4") {
-                //開闔div
+    $(".chbox").prop('checked', false);
+    $("input[name=day]").prop('checked', true);
+    $(".chbox").attr('disabled', true);
+    $("#trial_staff_code_1").val("");
+    $("#trial_staff_code_2").val("");
+    $("#sn").val("");
+    $("#member_job_title").val("");
+    $("#first_member_job_code").val("");
+    $("#first_member_job_title").val("");
+    $("#first_member_name").val("");
+    $("#first_member_phone").val("");
+    $(".field").val("");
+    $("#first_member_meal").val("");
+    $("#second_member_meal").val("");
+    $("#first_member_order_meal").prop("checked", false);
+    $("#first_member_day_count").val('');
+    $("#first_member_section_count").val('');
+    $("#first_member_one_day_salary").val('');
+    $("#first_member_salary_section").val('');
+    $("#first_member_section_total").val('');
+    $("#first_member_day_total").val('');
+    $("#first_member_section_salary_total").val('');
+    $("#second_member_job_code").val("");
+    $("#second_member_job_title").val("");
+    $("#second_member_name").val("");
+    $("#second_member_phone").val("");
+    $("#second_member_order_meal").prop("checked", false);
+    $("#second_member_day_count").val('');
+    $("#second_member_section_count").val('');
+    $("#second_member_one_day_salary").val('');
+    $("#second_member_salary_section").val('');
+    $("#second_member_section_total").val('');
+    $("#second_member_day_total").val('');
+    $("#second_member_section_salary_total").val('');
+}
+$(function() {
+    init();
+    var nowHash = location.hash; //取得loading進來後目前#
+    var nowTabNum = nowHash.slice(-1);
+    var nowHtml = location.pathname.split("/").pop();
+    // console.log(nowTabNum);
+    if (nowHash != "") {
+        $(".part").hide();
+        $('#part' + nowTabNum).show();
+        $(".tab").removeClass('active');
+        $('.tab' + nowTabNum).addClass('active');
+    } else {
+        //如果loading進來的網址沒有hash，判斷是不是tab頁面
+        // console.log(object);
+        switch (nowHash) {
+            case "":
+                $('.tab1').addClass('active');
                 $(".part").hide();
-                $('#part' + newHash).show();
-                //tab樣式
-                $(".tab").removeClass('active');
-                $(this).addClass('active');
-                location.hash = '#' + newHash;
-            } else {
-                location.href = './voice/d/appoint_d4' + newHash;
-                $('#part' + newHash).show();
+                $('#part1').show();
+                break;
+            case "#1":
+                $('.tab1').addClass('active');
+                $(".part").hide();
+                $('#part' + nowTabNum).show();
+                break;
+            case "#2":
+                $('.tab2').addClass('active');
+                $(".part").hide();
+                $('#part' + nowTabNum).show();
+                break;
+            case "#3":
+                $('.tab3').addClass('active');
+                $(".part").hide();
+                $('#part' + nowTabNum).show();
+                break;
+        }
+    }
+
+    $("body").on("click", ".tab", function(e) {
+        e.preventDefault();
+        var newHash = $(this).attr("area"); //點到的id
+        //點擊先做還原動作
+        $('input[name="first_member_day"]').each(function() {
+            for (let index = 0; index < 3; index++) {
+                $(this).prop("checked", false);
             }
-        })                   
-
-       
-
-        /**自動完成 */
-        var data;
-        $.getJSON("./api/get_member_info", function(data) {
-            data = data.info;
-            // console.log(data);
-            var $input = $(".typeahead");
-            $input.typeahead({
-                source: data,
-                autoSelect: true,
-            });
         })
-
-       
-        // 點選列表
-        $("body").on("click", "tr", function() {
-            init();
-            var section = $(this).attr("section");
-            var fee = $(this).attr("fee");
-            var sn = $(this).attr("sn");
-            var part = $(this).attr("part");
-            var field = $(this).attr("field");
-            var block_names = $(this).attr("block_name");
-            var tr = $(this);
-            // console.log(fee);
-            $("#sn").val(sn);
-            $("#first_member_section_count").val(section);
-            $("#second_member_section_count").val(section);
-
-            $("#first_member_salary_section").val(fee);
-            $("#second_member_salary_section").val(fee);
-
-            $('#morning').prop("checked",false);
-            $('#aftermorning').prop("checked",false);
-                    
-            $('#morning2').prop("checked",false);
-            $('#aftermorning2').prop("checked",false);
-
-            if(block_names==1){
-                    $('#morning').prop("checked",true);
-                    $('#morning2').prop("checked",true);
-                }
-                if(block_names==2){
-                    $('#aftermorning').prop("checked",true);
-                    $('#aftermorning2').prop("checked",true);
-                }
-                if(block_names==3){
-                    $('#morning').prop("checked",true);
-                    $('#aftermorning').prop("checked",true);
-                    
-                    $('#morning2').prop("checked",true);
-                    $('#aftermorning2').prop("checked",true);
-
-
-                }
-
-            $('#do_date').prop("checked",true);
-            $('#do_date2').prop("checked",true);
-            $("html, body").animate({
-                scrollTop: $("body").height()
-            }, 1000);
-            $.ajax({
-                url: './voice/api/get_once_assign',
-                data: {
-                    "field": field,
-                },
-                dataType: "json"
-            }).done(function(data) {
-                console.log(data);
-                $(".field").val(field);
-                $("#sn").val(data.info.sn);
-                //職員一
-                // $("#first_member_salary_section").val(data.info.first_member_salary_section);
-                // $("#first_member_section_salary_total").val(data.info.first_member_section_salary_total);
-                
-                $("#first_member_name").val(data.info.supervisor_1);
-                $("#first_member_job_code").val(data.info.supervisor_1_code);
-
-                var part=data.info.part;
-                var nowpart=part.substr(part.length-1);
-                var f=field.substr(field.length-3);
-                
-                var person1=nowpart+f+1;
-                var person2=nowpart+f+2;
-       
-
-                $("#trial_staff_code_1").val(person1);
-                // console.log(tr.find('td').eq(2).text());
-                var block_names= tr.find('td').eq(2).text();
-
-                
-
-                //職員二
-                $("#second_member_day_count").val(data.info.second_member_day_count);
-                // $("#second_member_salary_section").val(data.info.second_member_salary_section);
-                // $("#second_member_section_salary_total").val(data.info.second_member_section_salary_total);
-                
-                $("#second_member_name").val(data.info.supervisor_2);
-                $("#second_member_job_code").val(data.info.supervisor_2_code);
-                $("#trial_staff_code_2").val(person2);
-                var block_names_2 = tr.find('td').eq(2).text().split(',');
-                if(block_names_2.indexOf('上午場') >= 0){
-                    $('.block').eq(2).prop("checked",true);
-                }
-                if(block_names_2.indexOf('下午場') >= 0){
-                    $('.block').eq(3).prop("checked",true);
-                }
-                // $("#second_member_section_count").val(block_names_2.length);
-                // $("#second_member_section_total").val(block_names_2.length*data.info.second_member_section_total);
-                
-                // 取得職員一資料
-                if(data.info.supervisor_1_code != ""){
-                    $.ajax({
-                        url: './voice/api/get_staff_member',
-                        data: {
-                            "code": data.info.supervisor_1,
-                        },
-                        dataType: "json"
-                    }).done(function(member) {
-                        console.log(member);
-                        $("#first_member_job_title").val(member.info.member_title);
-                        $("#first_member_phone").val(member.info.member_phone);
-                    })
-                }
-                
-                // // 取得職員二資料
-                if(data.info.supervisor_2_code != ""){
-                    $.ajax({
-                        url: './voice/api/get_staff_member',
-                        data: {
-                            "code": data.info.supervisor_2,
-                        },
-                        dataType: "json"
-                    }).done(function(data) {
-                        // console.log(data);
-                        $("#second_member_job_title").val(data.info.member_title);
-                        $("#second_member_phone").val(data.info.member_phone);
-                    })
-                }
-                
-            })
-
-            $("#first_member_section_total").val(fee*section);
-            $("#second_member_section_total").val(fee*section);
-
-            $("#first_member_section_salary_total").val(fee*section);
-            $("#second_member_section_salary_total").val(fee*section);
-
-
-            // $.post('./voice/api/get_new_fee', { 
-            //     field: field, 
-            //     part: part 
-            //     },
-            // function(data){
-            //     alert("Data Loaded: " + data);
-            // });
-
-            $.ajax({
-                url: './voice/api/get_new_fee',
-                data: {
-                    "field": field,
-                    "part": part,
-                },
-                dataType: "json"
-            }).done(function(data) {
-
-                // console.log(data.data.first_member_salary_section);
-                // console.log(data.data.second_member_salary_section);
-                var first_fee=data.data.first_member_salary_section;
-                var second_fee=data.data.second_member_salary_section;
-                    $("#first_member_salary_section").val(fee);
-                    $("#second_member_salary_section").val(fee);
-                
-                if(first_fee==""){
-                    $("#first_member_salary_section").val(fee);
-                }else{
-                    $("#first_member_salary_section").val(first_fee);
-                    $("#first_member_section_salary_total").val(first_fee*section);
-                    $("#first_member_section_total").val(first_fee*section);
-                }
-                if(second_fee==""){
-                    $("#second_member_salary_section").val(fee);
-                }else{
-                    $("#second_member_salary_section").val(second_fee);
-                    $("#second_member_section_salary_total").val(second_fee*section);
-                    $("#second_member_section_total").val(second_fee*section);
-                }
-
-            });
-
-
-
-
-
-
+        $('input[name="second_member_day"]').each(function() {
+            for (let index = 0; index < 3; index++) {
+                $(this).prop("checked", false);
+            }
         })
+        init();
+        // console.log(newHash);
+        if (nowHtml == "appoint_d4") {
+            //開闔div
+            $(".part").hide();
+            $('#part' + newHash).show();
+            //tab樣式
+            $(".tab").removeClass('active');
+            $(this).addClass('active');
+            location.hash = '#' + newHash;
+        } else {
+            location.href = './voice/d/appoint_d4' + newHash;
+            $('#part' + newHash).show();
+        }
+    })
 
-       
+
+
+    /**自動完成 */
+    var data;
+    $.getJSON("./api/get_member_info", function(data) {
+        data = data.info;
+        // console.log(data);
+        var $input = $(".typeahead");
+        $input.typeahead({
+            source: data,
+            autoSelect: true,
+        });
+    })
+
+
+    // 點選列表
+    $("body").on("click", "tr", function() {
+        init();
+        var section = $(this).attr("section");
+        var fee = $(this).attr("fee");
+        var sn = $(this).attr("sn");
+        var part = $(this).attr("part");
+        var field = $(this).attr("field");
+        var block_names = $(this).attr("block_name");
+        var tr = $(this);
+        // console.log(fee);
+        $("#sn").val(sn);
+        $("#first_member_section_count").val(section);
+        $("#second_member_section_count").val(section);
+
+        $("#first_member_salary_section").val(fee);
+        $("#second_member_salary_section").val(fee);
+
+        $('#morning').prop("checked", false);
+        $('#aftermorning').prop("checked", false);
+
+        $('#morning2').prop("checked", false);
+        $('#aftermorning2').prop("checked", false);
+
+        if (block_names == 1) {
+            $('#morning').prop("checked", true);
+            $('#morning2').prop("checked", true);
+        }
+        if (block_names == 2) {
+            $('#aftermorning').prop("checked", true);
+            $('#aftermorning2').prop("checked", true);
+        }
+        if (block_names == 3) {
+            $('#morning').prop("checked", true);
+            $('#aftermorning').prop("checked", true);
+
+            $('#morning2').prop("checked", true);
+            $('#aftermorning2').prop("checked", true);
+
+
+        }
+
+        $('#do_date').prop("checked", true);
+        $('#do_date2').prop("checked", true);
+        $("html, body").animate({
+            scrollTop: $("body").height()
+        }, 1000);
+        $.ajax({
+            url: './voice/api/get_once_assign',
+            data: {
+                "field": field,
+            },
+            dataType: "json"
+        }).done(function(data) {
+            console.log(data);
+            $(".field").val(field);
+            $("#sn").val(data.info.sn);
+            //職員一
+            // $("#first_member_salary_section").val(data.info.first_member_salary_section);
+            // $("#first_member_section_salary_total").val(data.info.first_member_section_salary_total);
+
+            $("#first_member_name").val(data.info.supervisor_1);
+            $("#first_member_job_code").val(data.info.supervisor_1_code);
+
+            var part = data.info.part;
+            var nowpart = part.substr(part.length - 1);
+            var f = field.substr(field.length - 3);
+
+            var person1 = nowpart + f + 1;
+            var person2 = nowpart + f + 2;
+
+
+            $("#trial_staff_code_1").val(person1);
+            // console.log(tr.find('td').eq(2).text());
+            var block_names = tr.find('td').eq(2).text();
 
 
 
-        $("body").on("click", ".send", function() {
-            
+            //職員二
+            $("#second_member_day_count").val(data.info.second_member_day_count);
+            // $("#second_member_salary_section").val(data.info.second_member_salary_section);
+            // $("#second_member_section_salary_total").val(data.info.second_member_section_salary_total);
 
-            var part =$('.tab.active').attr('part');
-            var field = $("#field").val();
-            var block_name = $('.block').val();
-            var day_count1 = $('input:checkbox:checked[name="day1"]').map(function() {return $(this).val();}).get()
-            var first_member_do_date = $('#theday').attr('day');
-            var second_member_do_date = $('#theday').attr('day');
-            var day_count2 = $('input:checkbox:checked[name="day2"]').map(function() {return $(this).val();}).get()
-            // var second_member_do_date = day_count2.join(",");
-            // console.log(block_name);
-            console.log(first_member_do_date);
-            // console.log(field);
-            
-            if (confirm("是否要儲存?")) {
-                var sn = $("#sn").val();
+            $("#second_member_name").val(data.info.supervisor_2);
+            $("#second_member_job_code").val(data.info.supervisor_2_code);
+            $("#trial_staff_code_2").val(person2);
+            var block_names_2 = tr.find('td').eq(2).text().split(',');
+            if (block_names_2.indexOf('上午場') >= 0) {
+                $('.block').eq(2).prop("checked", true);
+            }
+            if (block_names_2.indexOf('下午場') >= 0) {
+                $('.block').eq(3).prop("checked", true);
+            }
+            // $("#second_member_section_count").val(block_names_2.length);
+            // $("#second_member_section_total").val(block_names_2.length*data.info.second_member_section_total);
+
+            // 取得職員一資料
+            if (data.info.supervisor_1_code != "") {
                 $.ajax({
-                    url: './voice/api/save_trial_for_price',
+                    url: './voice/api/get_staff_member',
                     data: {
-                        "sn": sn,
-                        "part": part,
-                        'block_name':block_name,
-                        "field":field,
-                        "first_member_do_date": first_member_do_date,
-                        "first_member_day_count":$("#first_member_section_count").val(),
-                        "first_member_salary_section": $("#first_member_salary_section").val(),
-                        "first_member_section_salary_total": $("#first_member_section_salary_total").val(),
-                        "first_member_section_total": $("#first_member_section_total").val(),
-                        "second_member_do_date": second_member_do_date,
-                        "second_member_day_count": $("#first_member_section_count").val(),
-                        "second_member_salary_section": $("#second_member_salary_section").val(),
-                        "second_member_section_salary_total": $("#second_member_section_salary_total").val(),
-                        "second_member_section_total": $("#second_member_section_total").val(),
+                        "name": data.info.supervisor_1,
+                    },
+                    dataType: "json"
+                }).done(function(member) {
+                    console.log(member);
+                    $("#first_member_job_title").val(member.info.member_title);
+                    $("#first_member_phone").val(member.info.member_phone);
+                })
+            }
+
+            // // 取得職員二資料
+            if (data.info.supervisor_2_code != "") {
+                $.ajax({
+                    url: './voice/api/get_staff_member',
+                    data: {
+                        "name": data.info.supervisor_2,
                     },
                     dataType: "json"
                 }).done(function(data) {
-                    alert(data.sys_msg);
-                    if (data.sys_code == "200") {
-                        location.reload();
-                    }
+                    // console.log(data);
+                    $("#second_member_job_title").val(data.info.member_title);
+                    $("#second_member_phone").val(data.info.member_phone);
                 })
             }
+
         })
 
+        $("#first_member_section_total").val(fee * section);
+        $("#second_member_section_total").val(fee * section);
+
+        $("#first_member_section_salary_total").val(fee * section);
+        $("#second_member_section_salary_total").val(fee * section);
+
+
+        // $.post('./voice/api/get_new_fee', { 
+        //     field: field, 
+        //     part: part 
+        //     },
+        // function(data){
+        //     alert("Data Loaded: " + data);
+        // });
+
+        $.ajax({
+            url: './voice/api/get_new_fee',
+            data: {
+                "field": field,
+                "part": part,
+            },
+            dataType: "json"
+        }).done(function(data) {
+
+            // console.log(data.data.first_member_salary_section);
+            // console.log(data.data.second_member_salary_section);
+            var first_fee = data.data.first_member_salary_section;
+            var second_fee = data.data.second_member_salary_section;
+            $("#first_member_salary_section").val(fee);
+            $("#second_member_salary_section").val(fee);
+
+            if (first_fee == "") {
+                $("#first_member_salary_section").val(fee);
+            } else {
+                $("#first_member_salary_section").val(first_fee);
+                $("#first_member_section_salary_total").val(first_fee * section);
+                $("#first_member_section_total").val(first_fee * section);
+            }
+            if (second_fee == "") {
+                $("#second_member_salary_section").val(fee);
+            } else {
+                $("#second_member_salary_section").val(second_fee);
+                $("#second_member_section_salary_total").val(second_fee * section);
+                $("#second_member_section_total").val(second_fee * section);
+            }
 
         });
 
-        $("body").on("keyup", "#first_member_salary_section", function() {
-            var section_total = $(this).val() * $("#first_member_section_count").val();
-            $("#first_member_section_salary_total").val(section_total);
-           
-                $("#first_member_section_total").val(section_total);
-                var first_member_section_lunch_total = parseInt($("#first_member_day_count").val()) ;
-                $("#first_member_section_lunch_total").val(first_member_section_lunch_total);
-                var first_member_section_total = parseInt($("#first_member_section_salary_total").val());
-                $("#first_member_section_total").val(first_member_section_total);
-            
-        })
 
-        $("body").on("keyup", "#second_member_salary_section", function() {
-            var section_total = $(this).val() * $("#second_member_section_count").val();
-            $("#second_member_section_salary_total").val(section_total);
-          
-                $("#second_member_section_total").val(section_total);
-                var second_member_section_lunch_total = parseInt($("#second_member_day_count").val());
-                $("#second_member_section_lunch_total").val(second_member_section_lunch_total);
-                var second_member_section_total = parseInt($("#second_member_section_salary_total").val());
-                $("#second_member_section_total").val(second_member_section_total); 
-        })
-    
+
+
+
+
+    })
+
+
+
+
+
+    $("body").on("click", ".send", function() {
+
+
+        var part = $('.tab.active').attr('part');
+        var field = $("#field").val();
+        var block_name = $('.block').val();
+        var day_count1 = $('input:checkbox:checked[name="day1"]').map(function() {
+            return $(this).val();
+        }).get()
+        var first_member_do_date = $('#theday').attr('day');
+        var second_member_do_date = $('#theday').attr('day');
+        var day_count2 = $('input:checkbox:checked[name="day2"]').map(function() {
+            return $(this).val();
+        }).get()
+        // var second_member_do_date = day_count2.join(",");
+        // console.log(block_name);
+        console.log(first_member_do_date);
+        // console.log(field);
+
+        if (confirm("是否要儲存?")) {
+            var sn = $("#sn").val();
+            $.ajax({
+                url: './voice/api/save_trial_for_price',
+                data: {
+                    "sn": sn,
+                    "part": part,
+                    'block_name': block_name,
+                    "field": field,
+                    "first_member_do_date": first_member_do_date,
+                    "first_member_day_count": $("#first_member_section_count").val(),
+                    "first_member_salary_section": $("#first_member_salary_section").val(),
+                    "first_member_section_salary_total": $("#first_member_section_salary_total")
+                        .val(),
+                    "first_member_section_total": $("#first_member_section_total").val(),
+                    "second_member_do_date": second_member_do_date,
+                    "second_member_day_count": $("#first_member_section_count").val(),
+                    "second_member_salary_section": $("#second_member_salary_section").val(),
+                    "second_member_section_salary_total": $(
+                        "#second_member_section_salary_total").val(),
+                    "second_member_section_total": $("#second_member_section_total").val(),
+                },
+                dataType: "json"
+            }).done(function(data) {
+                alert(data.sys_msg);
+                if (data.sys_code == "200") {
+                    location.reload();
+                }
+            })
+        }
+    })
+
+
+});
+
+$("body").on("keyup", "#first_member_salary_section", function() {
+    var section_total = $(this).val() * $("#first_member_section_count").val();
+    $("#first_member_section_salary_total").val(section_total);
+
+    $("#first_member_section_total").val(section_total);
+    var first_member_section_lunch_total = parseInt($("#first_member_day_count").val());
+    $("#first_member_section_lunch_total").val(first_member_section_lunch_total);
+    var first_member_section_total = parseInt($("#first_member_section_salary_total").val());
+    $("#first_member_section_total").val(first_member_section_total);
+
+})
+
+$("body").on("keyup", "#second_member_salary_section", function() {
+    var section_total = $(this).val() * $("#second_member_section_count").val();
+    $("#second_member_section_salary_total").val(section_total);
+
+    $("#second_member_section_total").val(section_total);
+    var second_member_section_lunch_total = parseInt($("#second_member_day_count").val());
+    $("#second_member_section_lunch_total").val(second_member_section_lunch_total);
+    var second_member_section_total = parseInt($("#second_member_section_salary_total").val());
+    $("#second_member_section_total").val(second_member_section_total);
+})
 </script>
 
 <div class="row">
@@ -508,9 +513,10 @@
         <div class="input-group-prepend">
             <span class="input-group-text" id="inputGroup-sizing-default">學年度</span>
         </div>
-        <input type="text" class="form-control" aria-label="Default" aria-describedby="inputGroup-sizing-default" value="<?=$this->session->userdata('year'); ?>"
+        <input type="text" class="form-control" aria-label="Default" aria-describedby="inputGroup-sizing-default"
+            value="<?= $this->session->userdata('year'); ?>" readonly>
+        <input type="text" class="form-control" value="<?= $this->session->userdata('ladder'); ?>" style="width:100px;"
             readonly>
-        <input type="text" class="form-control"  value="<?=$this->session->userdata('ladder'); ?>" style="width:100px;" readonly>
     </div>
 
     <div class="col-sm-8" style="text-align: center;">
@@ -551,32 +557,33 @@
                 </tr>
             </thead>
             <tbody>
-                <?php foreach ($part1 as $k => $v): ?>
-                <tr sn="<?=$v['sn']; ?>" part="2501" field="<?=$v['field']; ?>"  block_name='<?=$v['block_name']?>' section="<?=$v['class']; ?>" assign_sn="<?=$v['assign_sn']?>" fee='<?=$fee['pay_2']?>' >
-                    <td><?=$k + 1; ?></td>
-                    <td><?=$v['field']; ?></td>
+                <?php foreach ($part1 as $k => $v) : ?>
+                <tr sn="<?= $v['sn']; ?>" part="2501" field="<?= $v['field']; ?>" block_name='<?= $v['block_name'] ?>'
+                    section="<?= $v['class']; ?>" assign_sn="<?= $v['assign_sn'] ?>" fee='<?= $fee['pay_2'] ?>'>
+                    <td><?= $k + 1; ?></td>
+                    <td><?= $v['field']; ?></td>
                     <td>
-                    <?php 
-                            switch ($v['block_name']) {
-                                case 1:
-                                   echo '上午場';
-                                    break;
-                                case 2:
-                                    echo '上午場';
-                                    break;
-                                default:
-                                    echo '上午場,下午場';
-                                    break;
-                            }
+                        <?php 
+                        switch ($v['block_name']) {
+                            case 1:
+                                echo '上午場';
+                                break;
+                            case 2:
+                                echo '上午場';
+                                break;
+                            default:
+                                echo '上午場,下午場';
+                                break;
+                        }
                         ?>
-                   </td>
-                    <!-- <td><?=$v['count_num']; ?></td> -->
-                    <td><?=$v['floor']; ?></td>
-                    <td><?=$v['trial_staff_code_1']; ?></td>
-                    <td><?=$v['supervisor_1']; ?></td>
-                    <td><?=$v['trial_staff_code_2']; ?></td>
-                    <td><?=$v['supervisor_2']; ?></td>
-                    <td><?=$v['note']; ?></td>
+                    </td>
+                    <!-- <td><?= $v['count_num']; ?></td> -->
+                    <td><?= $v['floor']; ?></td>
+                    <td><?= $v['trial_staff_code_1']; ?></td>
+                    <td><?= $v['supervisor_1']; ?></td>
+                    <td><?= $v['trial_staff_code_2']; ?></td>
+                    <td><?= $v['supervisor_2']; ?></td>
+                    <td><?= $v['note']; ?></td>
                 </tr>
                 <?php endforeach; ?>
             </tbody>
@@ -604,33 +611,34 @@
                 </tr>
             </thead>
             <tbody>
-           
-                <?php foreach ($part2 as $k => $v): ?>
-                <tr sn="<?=$v['sn']; ?>" part="2502" field="<?=$v['field']; ?>"  block_name='<?=$v['block_name']?>' section="<?=$v['class']; ?>"assign_sn="<?=$v['assign_sn']?>" fee='<?=$fee['pay_2']?>' >
-                <td><?=$k + 1; ?></td>
-                    <td><?=$v['field']; ?></td>
+
+                <?php foreach ($part2 as $k => $v) : ?>
+                <tr sn="<?= $v['sn']; ?>" part="2502" field="<?= $v['field']; ?>" block_name='<?= $v['block_name'] ?>'
+                    section="<?= $v['class']; ?>" assign_sn="<?= $v['assign_sn'] ?>" fee='<?= $fee['pay_2'] ?>'>
+                    <td><?= $k + 1; ?></td>
+                    <td><?= $v['field']; ?></td>
                     <td>
                         <?php 
-                            switch ($v['block_name']) {
-                                case 1:
-                                   echo '上午場';
-                                    break;
-                                case 2:
-                                    echo '上午場';
-                                    break;
-                                default:
-                                    echo '上午場,下午場';
-                                    break;
-                            }
+                        switch ($v['block_name']) {
+                            case 1:
+                                echo '上午場';
+                                break;
+                            case 2:
+                                echo '上午場';
+                                break;
+                            default:
+                                echo '上午場,下午場';
+                                break;
+                        }
                         ?>
-                   </td>
-                    <!-- <td><?=$v['count_num']; ?></td> -->
-                    <td><?=$v['floor']; ?></td>
-                    <td><?=$v['trial_staff_code_1']; ?></td>
-                    <td><?=$v['supervisor_1']; ?></td>
-                    <td><?=$v['trial_staff_code_2']; ?></td>
-                    <td><?=$v['supervisor_2']; ?></td>
-                    <td><?=$v['note']; ?></td>
+                    </td>
+                    <!-- <td><?= $v['count_num']; ?></td> -->
+                    <td><?= $v['floor']; ?></td>
+                    <td><?= $v['trial_staff_code_1']; ?></td>
+                    <td><?= $v['supervisor_1']; ?></td>
+                    <td><?= $v['trial_staff_code_2']; ?></td>
+                    <td><?= $v['supervisor_2']; ?></td>
+                    <td><?= $v['note']; ?></td>
                 </tr>
                 <?php endforeach; ?>
             </tbody>
@@ -658,32 +666,33 @@
                 </tr>
             </thead>
             <tbody>
-                <?php foreach ($part3 as $k => $v): ?>
-                <tr sn="<?=$v['sn']; ?>" part="2503" field="<?=$v['field']; ?>"  block_name='<?=$v['block_name']?>' section="<?=$v['class']; ?>"assign_sn="<?=$v['assign_sn']?>" fee='<?=$fee['pay_2']?>' >
-                <td><?=$k + 1; ?></td>
-                    <td><?=$v['field']; ?></td>
+                <?php foreach ($part3 as $k => $v) : ?>
+                <tr sn="<?= $v['sn']; ?>" part="2503" field="<?= $v['field']; ?>" block_name='<?= $v['block_name'] ?>'
+                    section="<?= $v['class']; ?>" assign_sn="<?= $v['assign_sn'] ?>" fee='<?= $fee['pay_2'] ?>'>
+                    <td><?= $k + 1; ?></td>
+                    <td><?= $v['field']; ?></td>
                     <td>
-                    <?php 
-                            switch ($v['block_name']) {
-                                case 1:
-                                   echo '上午場';
-                                    break;
-                                case 2:
-                                    echo '上午場';
-                                    break;
-                                default:
-                                    echo '上午場,下午場';
-                                    break;
-                            }
+                        <?php 
+                        switch ($v['block_name']) {
+                            case 1:
+                                echo '上午場';
+                                break;
+                            case 2:
+                                echo '上午場';
+                                break;
+                            default:
+                                echo '上午場,下午場';
+                                break;
+                        }
                         ?>
-                   </td>
-                    <!-- <td><?=$v['count_num']; ?></td> -->
-                    <td><?=$v['floor']; ?></td>
-                    <td><?=$v['trial_staff_code_1']; ?></td>
-                    <td><?=$v['supervisor_1']; ?></td>
-                    <td><?=$v['trial_staff_code_2']; ?></td>
-                    <td><?=$v['supervisor_2']; ?></td>
-                    <td><?=$v['note']; ?></td>
+                    </td>
+                    <!-- <td><?= $v['count_num']; ?></td> -->
+                    <td><?= $v['floor']; ?></td>
+                    <td><?= $v['trial_staff_code_1']; ?></td>
+                    <td><?= $v['supervisor_1']; ?></td>
+                    <td><?= $v['trial_staff_code_2']; ?></td>
+                    <td><?= $v['supervisor_2']; ?></td>
+                    <td><?= $v['note']; ?></td>
                 </tr>
                 <?php endforeach; ?>
             </tbody>
@@ -726,22 +735,22 @@
                             <input type="text" class="form-control field" id='field' readonly>
                         </div>
                         <div class="form-group">
-                        
+
                             <label for="start_date" class="" style="float:left;">執行日</label>
                             <input type="checkbox" class="chbox" id="do_date" name="day day1" checked>
-                            <span class="chbox" id='theday'day='<?=$datetime_info['day']; ?>'>
-                                <?=$datetime_info['day']; ?>
+                            <span class="chbox" id='theday' day='<?= $datetime_info['day']; ?>'>
+                                <?= $datetime_info['day']; ?>
                             </span>
                         </div>
                         <div class="form-group">
-                        <label for="floor" class="">場次</label>
-                            <input type="checkbox" class="chbox block" id='morning'  value="上午場" >
-                            <span class="chbox"  >
-                                 上午場
+                            <label for="floor" class="">場次</label>
+                            <input type="checkbox" class="chbox block" id='morning' value="上午場">
+                            <span class="chbox">
+                                上午場
                             </span>
-                            <input type="checkbox" class="chbox block" id='aftermorning'  value="下午場"  >
-                            <span class="chbox"  >
-                                 下午場
+                            <input type="checkbox" class="chbox block" id='aftermorning' value="下午場">
+                            <span class="chbox">
+                                下午場
                             </span>
                         </div>
                     </div>
@@ -755,12 +764,14 @@
                             <div class="W50">
                                 <label for="trial_start" class="" style="float:left;width: 50%;">薪資單價</label>
                                 <input type="hidden" class="form-control" id="first_member_one_day_salary" value="">
-                                <input type="text" class="form-control" id="first_member_salary_section" value="" >
+                                <input type="text" class="form-control" id="first_member_salary_section" value="">
                             </div>
                             <div class="W50">
                                 <label for="trial_start" class="" style="float:left;width: 50%;">薪資總計</label>
-                                <input type="hidden" class="form-control" id="first_member_day_salary_total" value="" readonly>
-                                <input type="text" class="form-control" id="first_member_section_salary_total" value="" readonly>
+                                <input type="hidden" class="form-control" id="first_member_day_salary_total" value=""
+                                    readonly>
+                                <input type="text" class="form-control" id="first_member_section_salary_total" value=""
+                                    readonly>
                             </div>
                         </div>
                         <div class="form-group">
@@ -776,7 +787,7 @@
                             </div>
                         </div>
                     </div>
-            </div>
+                </div>
                 <div style="width:50%;float:left;padding-left:30px;border-left: 1px solid #000;">
                     <div style="width:70%;float:left;margin-left:35%;">
                         <input type="text" id="trial_staff_code_2" placeholder="監試人員編號" style="width:20%;float:left;">
@@ -808,22 +819,22 @@
 
                         </div>
                         <div class="form-group">
-                        
+
                             <label for="start_date" class="" style="float:left;">執行日</label>
                             <input type="checkbox" class="chbox" id="do_date2" name="day day2" checked>
-                            <span class="chbox"  >
-                                <?=$datetime_info['day']; ?>
+                            <span class="chbox">
+                                <?= $datetime_info['day']; ?>
                             </span>
                         </div>
                         <div class="form-group">
-                        <label for="floor" class="">場次</label>
-                        <input type="checkbox" class="chbox block" id='morning2'  value="上午場" >
-                            <span class="chbox"  >
-                                 上午場
+                            <label for="floor" class="">場次</label>
+                            <input type="checkbox" class="chbox block" id='morning2' value="上午場">
+                            <span class="chbox">
+                                上午場
                             </span>
-                            <input type="checkbox" class="chbox block" id='aftermorning2'  value="下午場">
-                            <span class="chbox"  >
-                                 下午場
+                            <input type="checkbox" class="chbox block" id='aftermorning2' value="下午場">
+                            <span class="chbox">
+                                下午場
                             </span>
                         </div>
                     </div>
@@ -837,12 +848,14 @@
                             <div class="W50">
                                 <label for="trial_start" class="" style="float:left;width: 50%;">薪資單價</label>
                                 <input type="hidden" class="form-control" id="second_member_one_day_salary" value="">
-                                <input type="text" class="form-control" id="second_member_salary_section" value="" >
+                                <input type="text" class="form-control" id="second_member_salary_section" value="">
                             </div>
                             <div class="W50">
                                 <label for="trial_start" class="" style="float:left;width: 50%;">薪資總計</label>
-                                <input type="hidden" class="form-control" id="second_member_day_salary_total" value="" readonly>
-                                <input type="text" class="form-control" id="second_member_section_salary_total" value="" readonly>
+                                <input type="hidden" class="form-control" id="second_member_day_salary_total" value=""
+                                    readonly>
+                                <input type="text" class="form-control" id="second_member_section_salary_total" value=""
+                                    readonly>
                             </div>
                         </div>
                         <div class="form-group">
