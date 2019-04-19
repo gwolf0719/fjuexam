@@ -251,11 +251,40 @@ $(function() {
             $("#salary_section").val(data.info.salary);
             $("#section_salary_total").val(data.info.salary_total);
             // $("#section_total").val(data.info.total);
+
+
+            if (data.info.start != "" && data.info.end != "") {
+                $("#first_section").val(1);
+            } else {
+                $("#first_section").val(0);
+            }
+
+
+            if (data.info.second_start != "" && data.info.second_end != "") {
+                $("#second_section").val(1);
+            } else {
+                $("#second_section").val(0);
+            }
+
+
+            var f = $("#first_section").val();
+            var s = $("#second_section").val();
+            var fs = parseInt(f) + parseInt(s);
+
+            $("#section_count").val(fs);
+
+
+
+
             var section_salary_total = parseInt($("#salary_section").val()) * parseInt($(
                 "#section_count").val());
             $("#section_salary_total").val(section_salary_total);
-            var section_total = section_salary_total;
-            $("#section_total").val(section_total);
+
+            $("#section_total").val(section_salary_total);
+
+
+
+
 
 
 
@@ -488,14 +517,15 @@ $(function() {
                         <?= $v['end']; ?>
                     </td>
                     <td class="bt">
+                        <?= $v['first_section']; ?>
+                    </td>
+                    <td class="bt">
                         <?= $v['second_start']; ?>
                     </td>
                     <td class="bt">
                         <?= $v['second_end']; ?>
                     </td>
-                    <td class="bt">
-                        <?= $v['first_section']; ?>
-                    </td>
+
                     <td class="bt">
                         <?= $v['second_section']; ?>
                     </td>

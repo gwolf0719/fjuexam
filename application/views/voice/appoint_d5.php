@@ -505,14 +505,15 @@ $(function() {
                         <?= $v['first_end']; ?>
                     </td>
                     <td class="bt">
+                        <?= $v['first_section']; ?>
+                    </td>
+                    <td class="bt">
                         <?= $v['second_start']; ?>
                     </td>
                     <td class="bt">
                         <?= $v['second_end']; ?>
                     </td>
-                    <td class="bt">
-                        <?= $v['first_section']; ?>
-                    </td>
+
                     <td class="bt">
                         <?= $v['second_section']; ?>
                     </td>
