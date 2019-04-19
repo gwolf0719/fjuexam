@@ -684,9 +684,23 @@ class Api extends CI_Controller
                     array_push($do_date, mb_substr($datetime_info['day'], 5, 8, 'utf-8'));
                 }
                 $date = implode(",", $do_date);
-                $first_member_salary_total = 2 * $fees_info['pay_2'];
+
+
+                switch ($data['block_name']) {
+                    case 1:
+                        $count = 1;
+                        break;
+                    case 2:
+                        $count = 1;
+                        break;
+                    default:
+                        $count = 2;
+                        break;
+                }
+
+                $first_member_salary_total = $count * $fees_info['pay_2'];
                 $first_member_total = $first_member_salary_total;
-                $second_member_salary_total = 2 * $fees_info['pay_2'];
+                $second_member_salary_total = $count * $fees_info['pay_2'];
                 $second_member_total = $second_member_salary_total;
 
                 $sql_data = array(
@@ -700,8 +714,8 @@ class Api extends CI_Controller
                     'trial_staff_code_2' => trim($data['trial_staff_code_2']),
                     'first_member_do_date' => $date,
                     'second_member_do_date' => $date,
-                    'first_member_day_count' => 1,
-                    'second_member_day_count' => 1,
+                    'first_member_day_count' => $count,
+                    'second_member_day_count' => $count,
                     'first_member_salary_section' => $fees_info['pay_2'],
                     'second_member_salary_section' => $fees_info['pay_2'],
                     'first_member_section_salary_total' => $first_member_salary_total,
