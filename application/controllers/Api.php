@@ -827,8 +827,8 @@ class Api extends CI_Controller
     public function save_trial_staff()
     {
         $this->load->model('mod_trial');
-        $getpost = array('sn', 'part', 'allocation_code', 'trial_staff_code', 'trial_staff_name', 'first_start', 'first_end', 'first_section', 'second_start', 'second_end', 'second_section', 'third_start', 'third_end', 'third_section', 'note');
-        $requred = array('sn', 'part', 'allocation_code', 'trial_staff_code', 'trial_staff_name', 'first_start', 'first_end', 'first_section', 'second_start', 'second_end', 'second_section', 'third_start', 'third_end', 'third_section');
+        $getpost = array('sn', 'part', 'allocation_code', 'trial_staff_code', 'trial_staff_name', 'first_start', 'first_end', 'first_section', 'second_start', 'second_end', 'second_section', 'third_start', 'third_end', 'third_section', 'note', 'count');
+        $requred = array('sn', 'part', 'allocation_code', 'trial_staff_code', 'trial_staff_name', 'first_start', 'first_end', 'first_section', 'second_start', 'second_end', 'second_section', 'third_start', 'third_end', 'third_section', 'count');
         $data = $this->getpost->getpost_array($getpost, $requred);
         if ($data == false) {
             $json_arr['sys_code'] = '000';
