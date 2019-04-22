@@ -1120,22 +1120,6 @@ class Mod_voice_trial extends CI_Model
         } else {
             return false;
         }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
     }
 
     public function get_all_salary_trial_total_of_obs($part = '', $obs)
