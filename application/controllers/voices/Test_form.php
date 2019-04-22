@@ -1795,31 +1795,31 @@ class Test_form extends CI_Controller
         $arr = array();
         $fields = array();
         $dataarray = $this->mod_voice_trial->e_6_1($part);
-        $i = 0;
-        foreach ($dataarray as $k => $v) {
+        // $i = 0;
+        // foreach ($dataarray as $k => $v) {
 
-            $key = array_search($v['field'], $fields);
-            if ($key === false) {
-                $fields[] = $v['field'];
-                $arr[$i] = $v;
-                $i++;
-            }
+        //     $key = array_search($v['field'], $fields);
+        //     if ($key === false) {
+        //         $fields[] = $v['field'];
+        //         $arr[$i] = $v;
+        //         $i++;
+        //     }
 
-        }
+        // }
 
 
-        $data = array(
-            'part' => $arr,
-            'area' => $area,
-            'school' => $this->mod_voice_exam_area->year_school_name($part),
-            'salary' => $this->mod_voice_trial->get_all_salary_trial_total($part),
-            'count' => $this->mod_voice_trial->e_6_1_member_count($part)
-        );
+        // $data = array(
+        //     'part' => $arr,
+        //     'area' => $area,
+        //     'school' => $this->mod_voice_exam_area->year_school_name($part),
+        //     'salary' => $this->mod_voice_trial->get_all_salary_trial_total($part),
+        //     'count' => $this->mod_voice_trial->e_6_1_member_count($part)
+        // );
     
 
-        // $view = $this->load->view('voice/form_e_6_1', $data);
+        // // $view = $this->load->view('voice/form_e_6_1', $data);
 
-        echo $view = $this->load->view('voice/form_e_6_1', $data, true);
+        // echo $view = $this->load->view('voice/form_e_6_1', $data, true);
         // if (!is_dir('./html/')) {
         //     mkdir('./html/');
         // } else {

@@ -949,22 +949,21 @@ class Mod_voice_trial extends CI_Model
         $year = $this->session->userdata('year');
         $ladder = $this->session->userdata('ladder');
 
-        $this->db->select('*');
+        $this->db->where('year', $year);
+        $this->db->where('ladder', $ladder);
+        $this->db->not_like('field', '9', 'after');
         if ($part != '') {
             $this->db->where('voice_area_main.part', $part);
         }
-        $this->db->where('voice_area_main.year', $year);
-        $this->db->where('voice_area_main.ladder', $ladder);
+        $main = $this->db->get('voice_area_main')->result_array();
+        $res = array();
+        foreach ($main as $key => $value) {
+            # code...
+            $this->db->where('field',$value['field']);
+            $res[] = $this->db->get('voice_trial_assign')->row_array();
+        }
 
-        $this->db->not_like('voice_area_main.field', '9', 'after');
-        $this->db->from('voice_area_main');
-        $this->db->join('voice_trial_assign', 'voice_area_main.field = voice_trial_assign.field');
-
-
-        // print_r($ladder);
-        $res = $this->db->get()->result_array();
-        // echo $this->db->last_query();
-        // print_r($res);
+       
 
 
         if (!empty($res)) {
