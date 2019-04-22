@@ -263,25 +263,6 @@ class Mod_voice_trial extends CI_Model
             return 'yes';
         }
 
-        //     $this->db->where('year', $_SESSION['year']);
-        //     $this->db->where('ladder', $_SESSION['ladder']);
-        //     $this->db->where('trial_staff_name',$trial_staff_code);
-        //     if($this->db->count_all_results('voice_trial_staff') == 0){
-        //         $this->db->where('year', $_SESSION['year']);
-        //         $this->db->where('ladder', $_SESSION['ladder']);
-        //         $this->db->where('patrol_staff_name',$trial_staff_code);
-        //         if($this->db->count_all_results('voice_patrol_staff') == 0){
-             
-        //             return false;
-        //         }else{
-        //             return true;
-        //         }
-        //     }else{
-        //         return true;
-        //     }
-        // }else{
-        //     return true;
-        // }
     }
 
     public function chk_trial($sn)
@@ -434,94 +415,6 @@ class Mod_voice_trial extends CI_Model
             }
         }
         return $res;
-        // print_r($res);
-        // $this->db->select('*');
-        // if ($part != '') {
-        //     $this->db->where('voice_area_main.part', $part);
-        // }
-        // $this->db->from('voice_area_main');
-        // $this->db->join('voice_trial_assign', 'voice_area_main.sn = voice_trial_assign.sn');
-        
-        // // $this->db->where('first_member_do_date !=', "");
-        // $year = $this->session->userdata('year');
-
-        // $res = $this->db->get()->result_array();
-        // if(!empty($res)){
-        //     function even($var)
-        //     {
-        //         return($var['year'] == $_SESSION['year']);
-        //     }
-
-        //     $sub =  array_filter($res, "even");
-        //     // print_r($sub);
-        //     sort($sub);
-
-
-        //     for ($i=0; $i < count($sub); $i++) {
-        //         # code...
-        //         // 預先宣告要有設定人的才找資料
-        //         if($sub[$i]['supervisor_1_code'] != ""){
-        //             $supervisor1 = $this->db->where('member_code', $sub[$i]['supervisor_1_code'])->get('voice_import_member')->row_array();
-        //         }else{
-        //             $supervisor1['member_unit'] = '';
-        //             $supervisor1['member_phone'] = '';
-        //         }
-                
-        //         if($sub[$i]['supervisor_2_code'] != ""){
-        //             $supervisor2 = $this->db->where('member_code', $sub[$i]['supervisor_2_code'])->get('voice_import_member')->row_array();
-        //         }else{
-        //             $supervisor2['member_unit'] = '';
-        //             $supervisor2['member_phone'] = '';
-        //         }
-                
-        //         $patrol = $this->db->where('start <=', $sub[$i]['start'])->where('end >=', $sub[$i]['end'])->get('voice_patrol_staff')->row_array();
-        //         $course = $this->db->where('year', $year)->where('field', $sub[$i]['field'])->get('voice_exam_area')->row_array();
-        //         $trial = $this->db->get('voice_trial_staff')->result_array();
-        //         // $trial_staff = $this->db->where('start <=', $sub[$i]['start'])->where('end >=', $sub[$i]['end'])->get('trial_staff')->row_array();
-        //         // print_r($trial_staff);
-
-        //         if($sub[$i]['first_member_salary_section'] == ""){
-        //             $first_member_salary_section = 0;
-        //         }else{
-        //             $first_member_salary_section = $sub[$i]['first_member_salary_section'];
-        //         }
-        //         if($sub[$i]['second_member_salary_section'] == ""){
-        //             $second_member_salary_section = 0;
-        //         }else{
-        //             $second_member_salary_section = $sub[$i]['second_member_salary_section'];
-        //         }            
-        //         $do_date1 = explode(",", $sub[$i]['first_member_do_date']);
-        //         $do_date2 = explode(",", $sub[$i]['second_member_do_date']);
-        //         $arr[] = array(
-                   
-        //             'sn'=>$sub[$i]['sn'],
-        //             'field' => $sub[$i]['field'],
-        //             'class' => $sub[$i]['class'],
-        //             'part' => $sub[$i]['part'],
-        //             'do_date' => $sub[$i]['first_member_do_date'],
-        //             'first_member_salary_section'=> $first_member_salary_section,
-        //             'first_member_section_salary_total'=>$sub[$i]['first_member_section_salary_total'],
-        //             'supervisor_1'=>$sub[$i]['supervisor_1'],
-        //             'supervisor_1_unit' => $supervisor1['member_unit'] ,
-        //             'supervisor_1_phone' => $supervisor1['member_phone'],
-        //             'second_member_salary_section'=>$second_member_salary_section,
-        //             'second_member_section_salary_total'=>$sub[$i]['second_member_section_salary_total'],
-        //             'supervisor_2'=>$sub[$i]['supervisor_2'],
-        //             'supervisor_2_unit' => $supervisor2['member_unit'] ,
-        //             'supervisor_2_phone' => $supervisor2['member_phone'],
-        //             // 'floor' =>$sub[$i]['floor'],
-        //             // 'number'=>$sub[$i]['count_num'],
-        //             // 'start'=>$sub[$i]['start'],
-        //             // 'end'=>$sub[$i]['end'],
-        //             // 'allocation_code'=>$patrol['allocation_code'],
-        //             // 'patrol'=>$patrol['patrol_staff_name'],
-        //             // 'subject_01'=>$course['subject_01'],
-        //         );
-        //     }
-        //     return $arr;
-        // }else{
-        //     return false;
-        // }
     }
 
     public function e_2_1_2($part = '')
@@ -749,51 +642,10 @@ class Mod_voice_trial extends CI_Model
         $this->db->where('year', $this->session->userdata('year'));
         $this->db->where('ladder', $this->session->userdata('ladder'));
         $this->db->where('part', $part);
-        //  $res = $this->db->get('voice_patrol_staff')->result_array();
+       
         $res = $this->db->count_all_results('voice_patrol_staff');
-        // print_r($res);
         return $res;
-        // $this->db->select('*');
-        // if ($part != '') {
-        //     $this->db->where('voice_area_main.part', $part);
-        // }
-        // $this->db->from('voice_area_main');
-        // $this->db->join('voice_trial_assign', 'voice_area_main.sn = voice_trial_assign.sn');
         
-        // $year = $this->session->userdata('year');
-        // $ladder = $this->session->userdata('ladder');
-
-
-        // $res = $this->db->get()->result_array();
-        // // print_r($res);
-
-        // if(!empty($res)){
-        //     function odd($var)
-        //     {
-        //         return($var['year'] == $_SESSION['year']);
-        //     }
-
-        //     $sub =  array_filter($res, "odd");
-
-        //     sort($sub);
-        //     for ($i=0; $i < count($sub); $i++) {
-                
-        //         $voucher = $this->db->where('part', $part)->where('first_start <=', $sub[$i]['field'])->where('first_end >=', $sub[$i]['field'])->get('voice_trial_staff')->result_array();
-        //         foreach ($voucher as $k => $v) {
-        //             # code...
-        //             $arr[$v['trial_staff_code']][] = array(
-        //                 'trial_staff_name'=>$v['trial_staff_name'],
-        //             );
-        //         }
-        //     }
-        //     if(!empty($arr)){
-        //         return count($arr);
-        //     }else{
-        //         return false;
-        //     }
-        // }else{
-        //     return false;
-        // }
     }
 
     public function get_supervisor_list($part = '')
@@ -935,9 +787,7 @@ class Mod_voice_trial extends CI_Model
             for ($i = 0; $i < count($sub); $i++) {
                 # code...
                 $supervisor = $this->db->where('field', $sub[$i]['field'])->where('ladder', $this->session->userdata('ladder'))->where('year', $this->session->userdata('year'))->get('voice_trial_assign')->row_array();
-                // print_r($supervisor['supervisor_1']);
-                // print_r($supervisor['supervisor_2']);
-                // $supervisor2 = $this->db->where('member_code', $sub[$i]['supervisor_2_code'])->get('voice_import_member')->row_array();
+               
                 $voucher = $this->db->where('part', $part)->where('year', $this->session->userdata('year'))->where('ladder', $this->session->userdata('ladder'))->where('first_start <=', $sub[$i]['field'])->where('first_end >=', $sub[$i]['field'])->get('voice_trial_staff')->row_array();
                 $course = $this->db->where('year', $year)->where('year', $this->session->userdata('year'))->where('ladder', $this->session->userdata('ladder'))->where('field', $sub[$i]['field'])->get('voice_exam_area')->row_array();
                 $trial = $this->db->get('voice_trial_staff')->result_array();
@@ -999,67 +849,7 @@ class Mod_voice_trial extends CI_Model
         $res = $this->db->count_all_results('voice_trial_assign');
         // print_r($res);
         return $res;
-        // $this->db->select('*');
-        // if ($part != '') {
-        //     $this->db->where('voice_area_main.part', $part);
-        // }
-        // // $this->db->where("voice_area_main.year",$_SESSION['year']);
-        // $this->db->where('voice_area_main.year',$this->session->userdata('year'));
-        // $this->db->where('voice_area_main.ladder',$this->session->userdata('ladder'));
-
-        // $this->db->where("voice_trial_assign.supervisor_1 != ","");
-        // $this->db->where("voice_trial_assign.supervisor_2 != ","");      
-        // $this->db->from('voice_area_main');
-        // $this->db->join('voice_trial_assign', 'voice_area_main.sn = voice_trial_assign.sn');
-        // $year = $this->session->userdata('year');
         
-        // $sub = $this->db->get()->result_array();
-        // if(!empty($sub)){
-
-        //     // print_r($sub);
-
-        //     for ($i=0; $i < count($sub); $i++) {
-        //         # code...
-        //         $supervisor1 = $this->db->where('member_code', $sub[$i]['supervisor_1_code'])->where('year',$this->session->userdata('year'))->where('ladder',$this->session->userdata('ladder'))->get('voice_import_member')->row_array();
-        //         $supervisor2 = $this->db->where('member_code', $sub[$i]['supervisor_2_code'])->where('year',$this->session->userdata('year'))->where('ladder',$this->session->userdata('ladder'))->get('voice_import_member')->row_array();
-        //         $patrol = $this->db->where('start <=', $sub[$i]['start'])->where('end >=', $sub[$i]['end'])->where('year',$this->session->userdata('year'))->where('ladder',$this->session->userdata('ladder'))->get('voice_patrol_staff')->row_array();
-        //         $course = $this->db->where('year', $year)->where('field', $sub[$i]['field'])->where('year',$this->session->userdata('year'))->where('ladder',$this->session->userdata('ladder'))->get('voice_exam_area')->row_array();
-        //         $trial = $this->db->get('voice_trial_staff')->result_array();
-        //         if($sub[$i]['first_member_salary_section'] == ""){
-        //             $first_member_salary_section = 0;
-        //         }else{
-        //             $first_member_salary_section = $sub[$i]['first_member_salary_section'];
-        //         }
-        //         if($sub[$i]['second_member_salary_section'] == ""){
-        //             $second_member_salary_section = 0;
-        //         }else{
-        //             $second_member_salary_section = $sub[$i]['second_member_salary_section'];
-        //         }      
-        //         $do_date1 = explode(",", $sub[$i]['first_member_do_date']);
-        //         $do_date2 = explode(",", $sub[$i]['second_member_do_date']);
-        //         $arr[] = array(
-        //             'sn'=>$sub[$i]['sn'],
-        //             'field' => $sub[$i]['field'],
-        //             'test_section' => $sub[$i]['class'],
-        //             'part' => $sub[$i]['part'],
-        //             'do_date' => $sub[$i]['first_member_do_date'],
-        //             'first_member_salary_section'=> $sub[$i]['first_member_section_salary_total'] * count($do_date1),
-        //             'first_member_section_salary_total'=>$sub[$i]['first_member_section_salary_total']*count($do_date1),
-        //             'supervisor_1'=>$sub[$i]['supervisor_1'],
-        //             'supervisor_1_unit' => $supervisor1['member_unit'] ,
-        //             'supervisor_1_phone' => $supervisor1['member_phone'],
-        //             'second_member_salary_section'=> $sub[$i]['second_member_section_salary_total']*count($do_date2),
-        //             'second_member_section_salary_total'=>$sub[$i]['second_member_section_salary_total']*count($do_date2),
-        //             'supervisor_2'=>$sub[$i]['supervisor_2'],
-        //             'supervisor_2_unit' => $supervisor2['member_unit'] ,
-        //             'supervisor_2_phone' => $supervisor2['member_phone'],
-        //         );
-        //     }
-        //     // print_r($arr);
-        //     return $arr;
-        // }else{
-        //     return false;
-        // }
     }
     public function get_trial_member_count1($part = '')
     {
@@ -1069,71 +859,11 @@ class Mod_voice_trial extends CI_Model
         $this->db->where('part', $part);
         $this->db->where('block_name', 2);
         $this->db->where('supervisor_1!=', '');
-        // $res = $this->db->get('voice_trial_assign')->result_array();
-        $res = $this->db->count_all_results('voice_trial_assign');
-        // print_r($res);
-        return $res;
-        // $this->db->select('*');
-        // if ($part != '') {
-        //     $this->db->where('voice_area_main.part', $part);
-        // }
-        // // $this->db->where("voice_area_main.year",$_SESSION['year']);
-        // $this->db->where('voice_area_main.year',$this->session->userdata('year'));
-        // $this->db->where('voice_area_main.ladder',$this->session->userdata('ladder'));
-
-        // $this->db->where("voice_trial_assign.supervisor_1 != ","");
-        // $this->db->where("voice_trial_assign.supervisor_2 != ","");      
-        // $this->db->from('voice_area_main');
-        // $this->db->join('voice_trial_assign', 'voice_area_main.sn = voice_trial_assign.sn');
-        // $year = $this->session->userdata('year');
         
-        // $sub = $this->db->get()->result_array();
-        // if(!empty($sub)){
-
-        //     // print_r($sub);
-
-        //     for ($i=0; $i < count($sub); $i++) {
-        //         # code...
-        //         $supervisor1 = $this->db->where('member_code', $sub[$i]['supervisor_1_code'])->where('year',$this->session->userdata('year'))->where('ladder',$this->session->userdata('ladder'))->get('voice_import_member')->row_array();
-        //         $supervisor2 = $this->db->where('member_code', $sub[$i]['supervisor_2_code'])->where('year',$this->session->userdata('year'))->where('ladder',$this->session->userdata('ladder'))->get('voice_import_member')->row_array();
-        //         $patrol = $this->db->where('start <=', $sub[$i]['start'])->where('end >=', $sub[$i]['end'])->where('year',$this->session->userdata('year'))->where('ladder',$this->session->userdata('ladder'))->get('voice_patrol_staff')->row_array();
-        //         $course = $this->db->where('year', $year)->where('field', $sub[$i]['field'])->where('year',$this->session->userdata('year'))->where('ladder',$this->session->userdata('ladder'))->get('voice_exam_area')->row_array();
-        //         $trial = $this->db->get('voice_trial_staff')->result_array();
-        //         if($sub[$i]['first_member_salary_section'] == ""){
-        //             $first_member_salary_section = 0;
-        //         }else{
-        //             $first_member_salary_section = $sub[$i]['first_member_salary_section'];
-        //         }
-        //         if($sub[$i]['second_member_salary_section'] == ""){
-        //             $second_member_salary_section = 0;
-        //         }else{
-        //             $second_member_salary_section = $sub[$i]['second_member_salary_section'];
-        //         }      
-        //         $do_date1 = explode(",", $sub[$i]['first_member_do_date']);
-        //         $do_date2 = explode(",", $sub[$i]['second_member_do_date']);
-        //         $arr[] = array(
-        //             'sn'=>$sub[$i]['sn'],
-        //             'field' => $sub[$i]['field'],
-        //             'test_section' => $sub[$i]['class'],
-        //             'part' => $sub[$i]['part'],
-        //             'do_date' => $sub[$i]['first_member_do_date'],
-        //             'first_member_salary_section'=> $sub[$i]['first_member_section_salary_total'] * count($do_date1),
-        //             'first_member_section_salary_total'=>$sub[$i]['first_member_section_salary_total']*count($do_date1),
-        //             'supervisor_1'=>$sub[$i]['supervisor_1'],
-        //             'supervisor_1_unit' => $supervisor1['member_unit'] ,
-        //             'supervisor_1_phone' => $supervisor1['member_phone'],
-        //             'second_member_salary_section'=> $sub[$i]['second_member_section_salary_total']*count($do_date2),
-        //             'second_member_section_salary_total'=>$sub[$i]['second_member_section_salary_total']*count($do_date2),
-        //             'supervisor_2'=>$sub[$i]['supervisor_2'],
-        //             'supervisor_2_unit' => $supervisor2['member_unit'] ,
-        //             'supervisor_2_phone' => $supervisor2['member_phone'],
-        //         );
-        //     }
-        //     // print_r($arr);
-        //     return $arr;
-        // }else{
-        //     return false;
-        // }
+        $res = $this->db->count_all_results('voice_trial_assign');
+        
+        return $res;
+        
     }
 
     public function get_list_for_csv()
@@ -1209,8 +939,7 @@ class Mod_voice_trial extends CI_Model
 
             }
         }
-        // print_r($result);
-        // print_r($arr);
+        
         return $result;
     }
 
