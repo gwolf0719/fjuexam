@@ -1819,7 +1819,7 @@ class Test_form extends CI_Controller
 
         // $view = $this->load->view('voice/form_e_6_1', $data);
 
-        echo $view = $this->load->view('voice/form_e_6_1', $data, true);
+        echo $view = $this->load->view('voice/forms_e_6_1', $data, true);
         // if (!is_dir('./html/')) {
         //     mkdir('./html/');
         // } else {
