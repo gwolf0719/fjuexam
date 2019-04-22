@@ -798,7 +798,7 @@ class Api extends CI_Controller
     public function save_patrol_staff_for_list()
     {
 
-        $this->load->model('mod_voice_patrol');
+        $this->load->model('mod_voice_patorl');
         $getpost = array('sn', 'count', 'salary', 'salary_total', 'total', 'note', 'do_date');
         $requred = array('sn');
         $data = $this->getpost->getpost_array($getpost, $requred);
@@ -808,7 +808,7 @@ class Api extends CI_Controller
             $json_arr['requred'] = $this->getpost->report_requred($requred);
         } else {
             $data['year'] = $this->session->userdata('year');
-            $this->mod_voice_patrol->update_once($data['sn'], $data);
+            $this->mod_voice_patorl->update_once($data['sn'], $data);
             $json_arr['sys_code'] = '200';
             $json_arr['sys_msg'] = '資料修改完成';
         }
@@ -957,7 +957,7 @@ class Api extends CI_Controller
 
     public function save_patrol_staff()
     {
-        $this->load->model('mod_voice_patrol');
+        $this->load->model('mod_voice_patorl');
         $this->load->model('mod_voice_test_pay');
         $getpost = array('sn', 'part', 'allocation_code', 'patrol_staff_code', 'patrol_staff_name', 'start', 'end', 'first_section', 'second_start', 'second_end', 'second_section', 'note', 'do_date');
         $requred = array('sn', 'part', 'allocation_code', 'patrol_staff_name');
@@ -972,7 +972,7 @@ class Api extends CI_Controller
             $data['salary'] = $fees_info['pay_2'];
             $data['salary_total'] = $data['count'] * $fees_info['pay_2'];
             $data['total'] = $data['salary_total'];
-            $this->mod_voice_patrol->update_once($data['sn'], $data);
+            $this->mod_voice_patorl->update_once($data['sn'], $data);
             $json_arr['sys_code'] = '200';
             $json_arr['sys_msg'] = '資料儲存完成';
         }
@@ -980,7 +980,7 @@ class Api extends CI_Controller
     }
     public function remove_patrol_staff()
     {
-        $this->load->model('mod_voice_patrol');
+        $this->load->model('mod_voice_patorl');
         $getpost = array('sn');
         $requred = array('sn');
 
@@ -991,7 +991,7 @@ class Api extends CI_Controller
             $json_arr['requred'] = $this->getpost->report_requred($requred);
         } else {
             $data['year'] = $this->session->userdata('year');
-            $this->mod_voice_patrol->remove_patrol_staff($data['sn']);
+            $this->mod_voice_patorl->remove_patrol_staff($data['sn']);
             $json_arr['sys_code'] = '200';
             $json_arr['sys_msg'] = '資料刪除完成';
         }
@@ -999,7 +999,7 @@ class Api extends CI_Controller
     }
     public function add_patrol_staff()
     {
-        $this->load->model('mod_voice_patrol');
+        $this->load->model('mod_voice_patorl');
         $this->load->model('mod_voice_exam_datetime');
         $this->load->model('Mod_voice_test_pay');
         $this->load->model('mod_voice_staff');
@@ -1043,7 +1043,7 @@ class Api extends CI_Controller
                 'total' => $total,
 
             );
-            $this->mod_voice_patrol->add_once($data);
+            $this->mod_voice_patorl->add_once($data);
             $json_arr['sys_code'] = '200';
             $json_arr['sys_msg'] = '資料儲存完成';
         }
@@ -1222,7 +1222,7 @@ class Api extends CI_Controller
     }
     public function get_patrol_list()
     {
-        $this->load->model('mod_voice_patrol');
+        $this->load->model('mod_voice_patorl');
         $getpost = array('part');
         $requred = array('part');
         $data = $this->getpost->getpost_array($getpost, $requred);
@@ -1231,7 +1231,7 @@ class Api extends CI_Controller
             $json_arr['sys_msg'] = '資料不足';
             $json_arr['requred'] = $this->getpost->report_requred($requred);
         } else {
-            $json_arr['info'] = $this->mod_voice_patrol->get_patrol_list($data['part']);
+            $json_arr['info'] = $this->mod_voice_patorl->get_patrol_list($data['part']);
             $json_arr['sys_code'] = '200';
             $json_arr['sys_msg'] = '資料處理完成';
         }
