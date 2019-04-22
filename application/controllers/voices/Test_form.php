@@ -36,18 +36,18 @@ class Test_form extends CI_Controller
     {
         $this->load->library('pdf');
         $this->load->model('mod_school_unit');
-        
+
         $data = array(
             'list' => $this->mod_school_unit->year_get_school_unit_list(),
         );
         if ($data['list'] != false) {
-            $view =  $this->load->view('voice/form_e1_1', $data, true);
+            $view = $this->load->view('voice/form_e1_1', $data, true);
             if (!is_dir('./html/')) {
                 mkdir('./html/');
             } else {
                 $path = 'form_e1_1.html';
-                $fp = fopen('./html/'.$path,'w');//建檔
-                fwrite($fp,$view);
+                $fp = fopen('./html/' . $path, 'w');//建檔
+                fwrite($fp, $view);
                 fclose($fp);//關閉開啟的檔案
                 // copy($path, './html/'.$path);
 
@@ -59,7 +59,7 @@ class Test_form extends CI_Controller
                 exec('wkhtmltopdf --lowquality --enable-forms http://uat.fofo.tw/fjuexam/html/form_e1_1.html  ./pdf/form_e1_1.pdf');
             }
             echo '<script>location.href="http://uat.fofo.tw/fjuexam/pdf/form_e1_1.pdf"</script>';
-        }else{
+        } else {
             return false;
         }
     }
@@ -68,18 +68,18 @@ class Test_form extends CI_Controller
     {
         $this->load->library('pdf');
         $this->load->model('mod_voice_job_list');
-        
+
         $data = array(
             'list' => $this->mod_voice_job_list->get_all_assign_member_list(),
         );
         // print_r($data);
-        $view =  $this->load->view('voice/form_e1_2', $data, true);
+        $view = $this->load->view('voice/form_e1_2', $data, true);
         if (!is_dir('./html/')) {
             mkdir('./html/');
         } else {
             $path = 'form_e1_2.html';
-            $fp = fopen('./html/'.$path,'w');//建檔
-            fwrite($fp,$view);
+            $fp = fopen('./html/' . $path, 'w');//建檔
+            fwrite($fp, $view);
             fclose($fp);//關閉開啟的檔案
             // copy($path, './html/'.$path);
 
@@ -101,7 +101,7 @@ class Test_form extends CI_Controller
         $this->load->library('pdf');
         $this->load->model('mod_voice_trial');
         $this->load->model('mod_voice_exam_area');
-        
+
         $part = $_GET['part'];
         $area = $_GET['area'];
 
@@ -111,36 +111,37 @@ class Test_form extends CI_Controller
             'area' => $area,
             'school' => $this->mod_voice_exam_area->year_school_name($part),
         );
-        
-       
-       
-        if($data['part'] != false){
-        $view =  $this->load->view('voice/form_e1_3', $data, true);
-          if (!is_dir('./html/')) {
-              mkdir('./html/');
-          } else {
-              $path = 'form_e1_3.html';
-              $fp = fopen('./html/'.$path,'w');//建檔
-              fwrite($fp,$view);
-              fclose($fp);//關閉開啟的檔案
+
+
+
+        if ($data['part'] != false) {
+            $view = $this->load->view('voice/form_e1_3', $data, true);
+            if (!is_dir('./html/')) {
+                mkdir('./html/');
+            } else {
+                $path = 'form_e1_3.html';
+                $fp = fopen('./html/' . $path, 'w');//建檔
+                fwrite($fp, $view);
+                fclose($fp);//關閉開啟的檔案
               // copy($path, './html/'.$path);
 
-          }
+            }
 
-          if (!is_dir('./pdf/')) {
-              mkdir('./pdf/');
-          } else {
-              exec('wkhtmltopdf --lowquality --enable-forms http://uat.fofo.tw/fjuexam/html/form_e1_3.html  ./pdf/form_e1_3.pdf');
-          }
-          echo '<script>location.href="http://uat.fofo.tw/fjuexam/pdf/form_e1_3.pdf"</script>';
-        }else{
-          return false;
+            if (!is_dir('./pdf/')) {
+                mkdir('./pdf/');
+            } else {
+                exec('wkhtmltopdf --lowquality --enable-forms http://uat.fofo.tw/fjuexam/html/form_e1_3.html  ./pdf/form_e1_3.pdf');
+            }
+            echo '<script>location.href="http://uat.fofo.tw/fjuexam/pdf/form_e1_3.pdf"</script>';
+        } else {
+            return false;
         }
     }
     /**
      * 監試及試務人員 > 試務
      */
-    function form_e1_3_2(){
+    function form_e1_3_2()
+    {
         $this->load->library('pdf');
         $this->load->model('mod_voice_job_list');
         $this->load->model('mod_voice_exam_area');
@@ -153,11 +154,11 @@ class Test_form extends CI_Controller
         } else {
             $school = "";
         }
-       
+
         $year = $this->input->get('year');
         $ladder = $this->input->get('ladder');
-        if ($this->mod_voice_part_addr->chk_once($year,$ladder)) {
-            $addr_info = $this->mod_voice_part_addr->get_once($year,$ladder);
+        if ($this->mod_voice_part_addr->chk_once($year, $ladder)) {
+            $addr_info = $this->mod_voice_part_addr->get_once($year, $ladder);
         } else {
             $addr_info = array(
                 'part_addr_1' => '',
@@ -166,33 +167,32 @@ class Test_form extends CI_Controller
             );
         }
         $data = array(
-            'part' => $this->mod_voice_job_list->get_district_task($area,$part),
+            'part' => $this->mod_voice_job_list->get_district_task($area, $part),
             'area' => $area,
             'school' => $this->mod_voice_exam_area->year_school_name($part),
             'addr_info' => $addr_info,
         );
-        if($data['part'] != false){
-         $view =  $this->load->view('voice/form_e1_3_3', $data, true);
-          if (!is_dir('./html/')) {
-              mkdir('./html/');
-          } else {
-              $path = 'form_e1_3_3.html';
-              $fp = fopen('./html/'.$path,'w');//建檔
-              fwrite($fp,$view);
-              fclose($fp);//關閉開啟的檔案
+        if ($data['part'] != false) {
+            $view = $this->load->view('voice/form_e1_3_3', $data, true);
+            if (!is_dir('./html/')) {
+                mkdir('./html/');
+            } else {
+                $path = 'form_e1_3_3.html';
+                $fp = fopen('./html/' . $path, 'w');//建檔
+                fwrite($fp, $view);
+                fclose($fp);//關閉開啟的檔案
               // copy($path, './html/'.$path);
 
-          }
+            }
 
-          if (!is_dir('./pdf/')) {
-              mkdir('./pdf/');
-          } else {
-              exec('wkhtmltopdf --lowquality --enable-forms http://uat.fofo.tw/fjuexam/html/form_e1_3_3.html  ./pdf/form_e1_3_3.pdf');
-          }
-          echo '<script>location.href="http://uat.fofo.tw/fjuexam/pdf/form_e1_3_3.pdf"</script>';
-        }
-        else{
-          return false;
+            if (!is_dir('./pdf/')) {
+                mkdir('./pdf/');
+            } else {
+                exec('wkhtmltopdf --lowquality --enable-forms http://uat.fofo.tw/fjuexam/html/form_e1_3_3.html  ./pdf/form_e1_3_3.pdf');
+            }
+            echo '<script>location.href="http://uat.fofo.tw/fjuexam/pdf/form_e1_3_3.pdf"</script>';
+        } else {
+            return false;
         }
     }
 
@@ -264,13 +264,13 @@ class Test_form extends CI_Controller
         } else {
             $school = "";
         }
-        
+
         $year = $_SESSION['year'];
         $ladder = $_SESSION['ladder'];
 
 
-        if ($this->mod_voice_part_addr->chk_once($year,$ladder)) {
-            $addr_info = $this->mod_voice_part_addr->get_once($year,$ladder);
+        if ($this->mod_voice_part_addr->chk_once($year, $ladder)) {
+            $addr_info = $this->mod_voice_part_addr->get_once($year, $ladder);
         } else {
             $addr_info = array(
                 'part_addr_1' => '',
@@ -279,32 +279,32 @@ class Test_form extends CI_Controller
             );
         }
         $data = array(
-            'part' => $this->mod_voice_job_list->get_trial_staff_list_for_pdf($area,$part),
+            'part' => $this->mod_voice_job_list->get_trial_staff_list_for_pdf($area, $part),
             'area' => $area,
             'school' => $this->mod_voice_exam_area->year_school_name($part),
             'addr_info' => $addr_info,
         );
-        if($data['part'] != false){
-          $view =  $this->load->view('voice/form_e1_3_4', $data, true);
-          if (!is_dir('./html/')) {
-              mkdir('./html/');
-          } else {
-              $path = 'form_e1_3_4.html';
-              $fp = fopen('./html/'.$path,'w');//建檔
-              fwrite($fp,$view);
-              fclose($fp);//關閉開啟的檔案
+        if ($data['part'] != false) {
+            $view = $this->load->view('voice/form_e1_3_4', $data, true);
+            if (!is_dir('./html/')) {
+                mkdir('./html/');
+            } else {
+                $path = 'form_e1_3_4.html';
+                $fp = fopen('./html/' . $path, 'w');//建檔
+                fwrite($fp, $view);
+                fclose($fp);//關閉開啟的檔案
               // copy($path, './html/'.$path);
 
-          }
+            }
 
-          if (!is_dir('./pdf/')) {
-              mkdir('./pdf/');
-          } else {
-              exec('wkhtmltopdf --lowquality --enable-forms http://uat.fofo.tw/fjuexam/html/form_e1_3_4.html  ./pdf/form_e1_3_4.pdf');
-          }
-          echo '<script>location.href="http://uat.fofo.tw/fjuexam/pdf/form_e1_3_4.pdf"</script>';
-        }else{
-          return false;
+            if (!is_dir('./pdf/')) {
+                mkdir('./pdf/');
+            } else {
+                exec('wkhtmltopdf --lowquality --enable-forms http://uat.fofo.tw/fjuexam/html/form_e1_3_4.html  ./pdf/form_e1_3_4.pdf');
+            }
+            echo '<script>location.href="http://uat.fofo.tw/fjuexam/pdf/form_e1_3_4.pdf"</script>';
+        } else {
+            return false;
         }
     }
 
@@ -322,12 +322,12 @@ class Test_form extends CI_Controller
         } else {
             $school = "";
         }
-        
+
         $year = $_SESSION['year'];
         $ladder = $_SESSION['ladder'];
 
-        if ($this->mod_voice_part_addr->chk_once($year,$ladder)) {
-            $addr_info = $this->mod_voice_part_addr->get_once($year,$ladder);
+        if ($this->mod_voice_part_addr->chk_once($year, $ladder)) {
+            $addr_info = $this->mod_voice_part_addr->get_once($year, $ladder);
         } else {
             $addr_info = array(
                 'part_addr_1' => '',
@@ -336,19 +336,19 @@ class Test_form extends CI_Controller
             );
         }
         $data = array(
-            'part' => $this->mod_voice_job_list->get_patrol_staff_list_for_pdf($area,$part),
+            'part' => $this->mod_voice_job_list->get_patrol_staff_list_for_pdf($area, $part),
             'area' => $area,
             'school' => $this->mod_voice_exam_area->year_school_name($part),
             'addr_info' => $addr_info,
         );
-        if($data['part'] != false){
-            $view =  $this->load->view('voice/form_e1_3_5', $data, true);
+        if ($data['part'] != false) {
+            $view = $this->load->view('voice/form_e1_3_5', $data, true);
             if (!is_dir('./html/')) {
                 mkdir('./html/');
             } else {
                 $path = 'form_e1_3_5.html';
-                $fp = fopen('./html/'.$path,'w');//建檔
-                fwrite($fp,$view);
+                $fp = fopen('./html/' . $path, 'w');//建檔
+                fwrite($fp, $view);
                 fclose($fp);//關閉開啟的檔案
                 // copy($path, './html/'.$path);
 
@@ -360,8 +360,8 @@ class Test_form extends CI_Controller
                 exec('wkhtmltopdf --lowquality --enable-forms http://uat.fofo.tw/fjuexam/html/form_e1_3_5.html  ./pdf/form_e1_3_5.pdf');
             }
             echo '<script>location.href="http://uat.fofo.tw/fjuexam/pdf/form_e1_3_5.pdf"</script>';
-        }else{
-          return false;
+        } else {
+            return false;
         }
     }
 
@@ -391,17 +391,17 @@ class Test_form extends CI_Controller
         //         $course[$i]['subject'] = '';
         //     }
         // }
-        
-        $datetime_info = $this->mod_voice_exam_datetime->get_once($year,$ladder);
+
+        $datetime_info = $this->mod_voice_exam_datetime->get_once($year, $ladder);
         
         // 取得所有考場
         $area_list = $this->mod_voice_trial->get_distinct_voice_area($part);
         // print_r($area_list);
         // 取得考場資料
-        foreach($area_list as $k=>$v){
+        foreach ($area_list as $k => $v) {
             // echo '1';
-            $area_list[$k]['count_num_1']= $this->mod_voice_area->get_count_num($v['field'],'1');
-            $area_list[$k]['count_num_2']= $this->mod_voice_area->get_count_num($v['field'],'2');
+            $area_list[$k]['count_num_1'] = $this->mod_voice_area->get_count_num($v['field'], '1');
+            $area_list[$k]['count_num_2'] = $this->mod_voice_area->get_count_num($v['field'], '2');
 
         }
 
@@ -410,18 +410,18 @@ class Test_form extends CI_Controller
             'count' => $this->mod_voice_exam_area->year_get_member_count_list($part),
             'school' => $this->mod_voice_exam_area->year_school_name($part),
             // 'course' => $this->mod_voice_exam_datetime->get_course($year,$ladder),
-            'datetime_info'=>$datetime_info,
-            'area'=>$area
+            'datetime_info' => $datetime_info,
+            'area' => $area
         );
-        if($data['list'] != false){
-            $view = $this->load->view('voice/form_e1_4',$data,true);
+        if ($data['list'] != false) {
+            $view = $this->load->view('voice/form_e1_4', $data, true);
 
             if (!is_dir('./html/')) {
                 mkdir('./html/');
             } else {
                 $path = 'form_e1_4.html';
-                $fp = fopen('./html/'.$path,'w');//建檔
-                fwrite($fp,$view);
+                $fp = fopen('./html/' . $path, 'w');//建檔
+                fwrite($fp, $view);
                 fclose($fp);//關閉開啟的檔案
                 // copy($path, './html/'.$path);
 
@@ -433,26 +433,26 @@ class Test_form extends CI_Controller
                 exec('wkhtmltopdf --lowquality --enable-forms http://uat.fofo.tw/fjuexam/html/form_e1_4.html  ./pdf/form_e1_4.pdf');
             }
             echo '<script>location.href="http://uat.fofo.tw/fjuexam/pdf/form_e1_4.pdf"</script>';
-        }else{
-          return false;
+        } else {
+            return false;
         }
     }
-    
 
-   /********************************************
-    * E2
-    */
+
+    /********************************************
+     * E2
+     */
 
     public function form_e_2()
     {
         $this->mod_user->chk_status();
         $this->load->model('mod_voice_exam_datetime');
-        $datetime_info = $this->mod_voice_exam_datetime->get_once($_SESSION['year'],$_SESSION['ladder']);
+        $datetime_info = $this->mod_voice_exam_datetime->get_once($_SESSION['year'], $_SESSION['ladder']);
         $data = array(
             'title' => '簽到表 / 簽收單',
             'path' => 'voice/form_e_2',
             'path_text' => ' > 製作報表 > 簽到表 / 簽收單',
-            'datetime_info'=>$datetime_info
+            'datetime_info' => $datetime_info
         );
         $this->load->view('layout', $data);
     }
@@ -466,30 +466,30 @@ class Test_form extends CI_Controller
         $part = $_GET['part'];
         $area = $_GET['area'];
 
-        
+
         $year = $this->session->userdata('year');
         $ladder = $this->session->userdata('ladder');
-        
+
 
         $data = array(
-            'part' => $this->mod_voice_job_list->e_2_1($area,$part),
+            'part' => $this->mod_voice_job_list->e_2_1($area, $part),
             'area' => $area,
             // 'own'=> $this->mod_task->get_task_own_count($area),
             // 'veg'=> $this->mod_task->get_member_veg_count($area),
             // 'meat'=> $this->mod_task->get_member_meat_count($area),
-            'datetime_info'=> $this->mod_voice_exam_datetime->get_once($year,$ladder),
+            'datetime_info' => $this->mod_voice_exam_datetime->get_once($year, $ladder),
             'school' => $this->mod_voice_exam_area->year_school_name($part),
         );
-    
-       
+
+
         if ($data['part'] != false) {
-             $view =  $this->load->view('voice/form_e_2_1_1', $data, true);
+            $view = $this->load->view('voice/form_e_2_1_1', $data, true);
             if (!is_dir('./html/')) {
                 mkdir('./html/');
             } else {
                 $path = 'form_e_2_1_1.html';
-                $fp = fopen('./html/'.$path,'w');//建檔
-                fwrite($fp,$view);
+                $fp = fopen('./html/' . $path, 'w');//建檔
+                fwrite($fp, $view);
                 fclose($fp);//關閉開啟的檔案
                 // copy($path, './html/'.$path);
 
@@ -501,19 +501,19 @@ class Test_form extends CI_Controller
                 exec('wkhtmltopdf --lowquality --enable-forms http://uat.fofo.tw/fjuexam/html/form_e_2_1_1.html  ./pdf/form_e_2_1_1.pdf');
             }
             echo '<script>location.href="http://uat.fofo.tw/fjuexam/pdf/form_e_2_1_1.pdf"</script>';
-        }else{
+        } else {
             return false;
         }
     }
 
     public function form_e_2_1_2()
     {
-        
+
         $this->load->library('pdf');
         $this->load->model('mod_voice_trial');
         $this->load->model('mod_voice_exam_area');
         $this->load->model('mod_voice_exam_datetime');
-        
+
         $title = '試務人員執行任務簽到表';
         $area = $_GET['area'];
         $part = $_GET['part'];
@@ -526,7 +526,7 @@ class Test_form extends CI_Controller
             $school = "";
         }
         $date = date('yyyy/m/d');
-        
+
 
         $data = array(
             'part' => $this->mod_voice_trial->e_2_1_2($part),
@@ -534,19 +534,19 @@ class Test_form extends CI_Controller
             // 'own'=> $this->mod_task->get_task_own_count($area),
             // 'veg'=> $this->mod_task->get_member_veg_count($area),
             // 'meat'=> $this->mod_task->get_member_meat_count($area),
-            'datetime_info'=> $this->mod_voice_exam_datetime->get_once($year,$ladder),
+            'datetime_info' => $this->mod_voice_exam_datetime->get_once($year, $ladder),
             'school' => $school,
         );
         // print_r($data['part']);
-        
+
         if ($data['part'] != false) {
-            $view = $this->load->view('voice/form_e_2_1_2', $data,true);
+            $view = $this->load->view('voice/form_e_2_1_2', $data, true);
             if (!is_dir('./html/')) {
                 mkdir('./html/');
             } else {
                 $path = 'form_e_2_1_2.html';
-                $fp = fopen('./html/'.$path,'w');//建檔
-                fwrite($fp,$view);
+                $fp = fopen('./html/' . $path, 'w');//建檔
+                fwrite($fp, $view);
                 fclose($fp);//關閉開啟的檔案
                 // copy($path, './html/'.$path);
 
@@ -557,7 +557,7 @@ class Test_form extends CI_Controller
                 exec('wkhtmltopdf --lowquality --enable-forms http://uat.fofo.tw/fjuexam/html/form_e_2_1_2.html  ./pdf/form_e_2_1_2.pdf');
             }
             echo '<script>location.href="http://uat.fofo.tw/fjuexam/pdf/form_e_2_1_2.pdf"</script>';
-        }else{
+        } else {
             return false;
         }
     }
@@ -568,7 +568,7 @@ class Test_form extends CI_Controller
         $this->load->model('mod_voice_trial');
         $this->load->model('mod_voice_exam_area');
         $this->load->model('mod_voice_exam_datetime');
-        
+
         $title = '試務人員執行任務簽到表';
         $area = $_GET['area'];
         $part = $_GET['part'];
@@ -581,7 +581,7 @@ class Test_form extends CI_Controller
             $school = "";
         }
         $date = date('yyyy/m/d');
-        
+
 
         $data = array(
             'part' => $this->mod_voice_trial->e_2_1_3($part),
@@ -589,17 +589,17 @@ class Test_form extends CI_Controller
             // 'own'=> $this->mod_task->get_task_own_count($area),
             // 'veg'=> $this->mod_task->get_member_veg_count($area),
             // 'meat'=> $this->mod_task->get_member_meat_count($area),
-            'datetime_info'=> $this->mod_voice_exam_datetime->get_once($year,$ladder),
+            'datetime_info' => $this->mod_voice_exam_datetime->get_once($year, $ladder),
             'school' => $school,
         );
         if ($data['part'] != false) {
-            $view =  $this->load->view('voice/form_e_2_1_3', $data, true);
+            $view = $this->load->view('voice/form_e_2_1_3', $data, true);
             if (!is_dir('./html/')) {
                 mkdir('./html/');
             } else {
                 $path = 'form_e_2_1_3.html';
-                $fp = fopen('./html/'.$path,'w');//建檔
-                fwrite($fp,$view);
+                $fp = fopen('./html/' . $path, 'w');//建檔
+                fwrite($fp, $view);
                 fclose($fp);//關閉開啟的檔案
                 // copy($path, './html/'.$path);
 
@@ -610,7 +610,7 @@ class Test_form extends CI_Controller
                 exec('wkhtmltopdf --lowquality --enable-forms http://uat.fofo.tw/fjuexam/html/form_e_2_1_3.html  ./pdf/form_e_2_1_3.pdf');
             }
             echo '<script>location.href="http://uat.fofo.tw/fjuexam/pdf/form_e_2_1_3.pdf"</script>';
-        }else{
+        } else {
             return false;
         }
     }
@@ -624,7 +624,7 @@ class Test_form extends CI_Controller
         $this->load->model('mod_voice_trial');
         $this->load->model('mod_voice_exam_area');
         $this->load->model('mod_voice_exam_datetime');
-        
+
         $title = '監試人員執行任務簽到表';
         $date = date('yyyy/m/d');
         $part = $_GET['part'];
@@ -632,34 +632,34 @@ class Test_form extends CI_Controller
 
         $year = $this->session->userdata('year');
         $ladder = $this->session->userdata('ladder');
-        $res=$this->mod_voice_trial->get_list_for_pdf($part);
-        
-        $count=[];
+        $res = $this->mod_voice_trial->get_list_for_pdf($part);
+
+        $count = [];
         foreach ($res as $key => $value) {
-            if($value['supervisor_1']!=''){
-                $count[$key]=$value;
+            if ($value['supervisor_1'] != '') {
+                $count[$key] = $value;
             }
         }
 
         $data = array(
             'part' => $this->mod_voice_trial->get_list_for_pdf($part),
-            'area' =>$area,
+            'area' => $area,
             'school' => $this->mod_voice_exam_area->year_school_name($part),
-            'datetime_info'=> $this->mod_voice_exam_datetime->get_once($year,$ladder),
-            'count'=>count($count),
-            
-        );
-       
+            'datetime_info' => $this->mod_voice_exam_datetime->get_once($year, $ladder),
+            'count' => count($count),
 
-       
+        );
+
+
+
         if ($data['part'] != false) {
-            $view = $this->load->view('voice/form_e_2_2', $data,true);
+            $view = $this->load->view('voice/form_e_2_2', $data, true);
             if (!is_dir('./html/')) {
                 mkdir('./html/');
             } else {
                 $path = 'form_e_2_2.html';
-                $fp = fopen('./html/'.$path,'w');//建檔
-                fwrite($fp,$view);
+                $fp = fopen('./html/' . $path, 'w');//建檔
+                fwrite($fp, $view);
                 fclose($fp);//關閉開啟的檔案
             }
 
@@ -669,7 +669,7 @@ class Test_form extends CI_Controller
                 exec('wkhtmltopdf --lowquality  --enable-forms http://uat.fofo.tw/fjuexam/html/form_e_2_2.html  ./pdf/form_e_2_2.pdf');
             }
             echo '<script>location.href="http://uat.fofo.tw/fjuexam/pdf/form_e_2_2.pdf"</script>';
-        }else{
+        } else {
             return false;
         }
 
@@ -692,13 +692,13 @@ class Test_form extends CI_Controller
         $ladder = $this->session->userdata('ladder');
 
 
-        $datetime_info = $this->mod_voice_exam_datetime->get_once($year,$ladder);
+        $datetime_info = $this->mod_voice_exam_datetime->get_once($year, $ladder);
         // print_r($this->mod_voice_trial->get_once_date_of_voucher1($part));
         $data = array(
             'part' => $this->mod_voice_trial->get_once_date_of_voucher1($part),
             'area' => $area,
             'datetime_info' => $datetime_info,
-            'count'=> $this->mod_voice_trial->get_patrol_member_count_1($part),
+            'count' => $this->mod_voice_trial->get_patrol_member_count_1($part),
             'school' => $this->mod_voice_exam_area->year_school_name($part),
         );
         // print_r($data['part']);
@@ -706,26 +706,26 @@ class Test_form extends CI_Controller
         // $view = $this->load->view('voice/form_e_2_3_1', $data);
 
 
-            if ($data['part'] != false) {
-                $view = $this->load->view('voice/form_e_2_3_1', $data,true);
-                if (!is_dir('./html/')) {
-                    mkdir('./html/');
-                } else {
-                    $path = 'form_e_2_3_1.html';
-                    $fp = fopen('./html/'.$path,'w');//建檔
-                    fwrite($fp,$view);
-                    fclose($fp);//關閉開啟的檔案
-                }
-
-                if (!is_dir('./pdf/')) {
-                    mkdir('./pdf/');
-                } else {
-                    exec('wkhtmltopdf --lowquality  --enable-forms http://uat.fofo.tw/fjuexam/html/form_e_2_3_1.html  ./pdf/form_e_2_3_1.pdf');
-                }
-                echo '<script>location.href="http://uat.fofo.tw/fjuexam/pdf/form_e_2_3_1.pdf"</script>';
-            }else{
-                return false;
+        if ($data['part'] != false) {
+            $view = $this->load->view('voice/form_e_2_3_1', $data, true);
+            if (!is_dir('./html/')) {
+                mkdir('./html/');
+            } else {
+                $path = 'form_e_2_3_1.html';
+                $fp = fopen('./html/' . $path, 'w');//建檔
+                fwrite($fp, $view);
+                fclose($fp);//關閉開啟的檔案
             }
+
+            if (!is_dir('./pdf/')) {
+                mkdir('./pdf/');
+            } else {
+                exec('wkhtmltopdf --lowquality  --enable-forms http://uat.fofo.tw/fjuexam/html/form_e_2_3_1.html  ./pdf/form_e_2_3_1.pdf');
+            }
+            echo '<script>location.href="http://uat.fofo.tw/fjuexam/pdf/form_e_2_3_1.pdf"</script>';
+        } else {
+            return false;
+        }
     }
 
     public function form_e_2_3_2()
@@ -749,17 +749,17 @@ class Test_form extends CI_Controller
             'part' => $this->mod_voice_trial->get_once_date_of_voucher2($part),
             'area' => $area,
             'datetime_info' => $datetime_info,
-            'count'=> $this->mod_voice_trial->get_patrol_member_count_2($part),
+            'count' => $this->mod_voice_trial->get_patrol_member_count_2($part),
             'school' => $this->mod_voice_exam_area->year_school_name($part),
         );
         if ($data['part'] != false) {
-            $view = $this->load->view('voice/form_e_2_3_2', $data,true);
+            $view = $this->load->view('voice/form_e_2_3_2', $data, true);
             if (!is_dir('./html/')) {
                 mkdir('./html/');
             } else {
                 $path = 'form_e_2_3_2.html';
-                $fp = fopen('./html/'.$path,'w');//建檔
-                fwrite($fp,$view);
+                $fp = fopen('./html/' . $path, 'w');//建檔
+                fwrite($fp, $view);
                 fclose($fp);//關閉開啟的檔案
             }
 
@@ -769,7 +769,7 @@ class Test_form extends CI_Controller
                 exec('wkhtmltopdf --lowquality  --enable-forms http://uat.fofo.tw/fjuexam/html/form_e_2_3_2.html  ./pdf/form_e_2_3_2.pdf');
             }
             echo '<script>location.href="http://uat.fofo.tw/fjuexam/pdf/form_e_2_3_2.pdf"</script>';
-        }else{
+        } else {
             return false;
         }
     }
@@ -781,7 +781,7 @@ class Test_form extends CI_Controller
         $this->load->model('mod_voice_exam_area');
         $this->load->model('mod_voice_exam_datetime');
 
-        
+
         $year = $this->session->userdata('year');
 
         $datetime_info = $this->mod_voice_exam_datetime->get_once($year);
@@ -790,17 +790,17 @@ class Test_form extends CI_Controller
             'part' => $this->mod_voice_trial->get_once_date_of_voucher3($part),
             'area' => $area,
             'datetime_info' => $datetime_info,
-            'count'=> $this->mod_voice_trial->get_patrol_member_count_3($part),
+            'count' => $this->mod_voice_trial->get_patrol_member_count_3($part),
             'school' => $this->mod_voice_exam_area->year_school_name($part),
         );
         if ($data['part'] != false) {
-            $view = $this->load->view('voice/form_e_2_3_3', $data,true);
+            $view = $this->load->view('voice/form_e_2_3_3', $data, true);
             if (!is_dir('./html/')) {
                 mkdir('./html/');
             } else {
                 $path = 'form_e_2_3_3.html';
-                $fp = fopen('./html/'.$path,'w');//建檔
-                fwrite($fp,$view);
+                $fp = fopen('./html/' . $path, 'w');//建檔
+                fwrite($fp, $view);
                 fclose($fp);//關閉開啟的檔案
             }
 
@@ -810,7 +810,7 @@ class Test_form extends CI_Controller
                 exec('wkhtmltopdf --lowquality  --enable-forms http://uat.fofo.tw/fjuexam/html/form_e_2_3_3.html  ./pdf/form_e_2_3_3.pdf');
             }
             echo '<script>location.href="http://uat.fofo.tw/fjuexam/pdf/form_e_2_3_3.pdf"</script>';
-        }else{
+        } else {
             return false;
         }
     }
@@ -824,34 +824,34 @@ class Test_form extends CI_Controller
         
         // 過濾重複資料
         $data_list = array();
-        foreach($this->mod_voice_job_list->get_member_map_list() as $k=>$v){
+        foreach ($this->mod_voice_job_list->get_member_map_list() as $k => $v) {
             $clean_list = array();
-            $member_code= array();
-            foreach($v as $k1=>$v1){
-                if(!in_array($v1['member_code'],$member_code)){
+            $member_code = array();
+            foreach ($v as $k1 => $v1) {
+                if (!in_array($v1['member_code'], $member_code)) {
                     $clean_list[] = $v1;
                     $member_code[] = $v1['member_code'];
                 }
             }
-            $data_list[$k]=$clean_list;
+            $data_list[$k] = $clean_list;
         }
 
 
         // print_r($data_list);
-  
+
         $data = array(
             'part' => $data_list
         );
-        
+
 
         if ($data['part'] != false) {
-            $view = $this->load->view('voice/form_e_2_4',$data,true);
+            $view = $this->load->view('voice/form_e_2_4', $data, true);
             if (!is_dir('./html/')) {
                 mkdir('./html/');
             } else {
                 $path = 'form_e_2_4.html';
-                $fp = fopen('./html/'.$path,'w');//建檔
-                fwrite($fp,$view);
+                $fp = fopen('./html/' . $path, 'w');//建檔
+                fwrite($fp, $view);
                 fclose($fp);//關閉開啟的檔案
             }
 
@@ -861,22 +861,23 @@ class Test_form extends CI_Controller
                 exec('wkhtmltopdf --lowquality  --enable-forms http://uat.fofo.tw/fjuexam/html/form_e_2_4.html  ./pdf/form_e_2_4.pdf');
             }
             echo '<script>location.href="http://uat.fofo.tw/fjuexam/pdf/form_e_2_4.pdf"</script>';
-        }else{
+        } else {
             return false;
         }
     }
 
 
-    function utf8_array_asort(&$array) {
+    function utf8_array_asort(&$array)
+    {
 
-        if(!isset($array) || !is_array($array)) {
+        if (!isset($array) || !is_array($array)) {
             return false;
         }
-        foreach($array as $k=>$v) {
-            $array[$k] = iconv('UTF-8', 'GBK',$v);
+        foreach ($array as $k => $v) {
+            $array[$k] = iconv('UTF-8', 'GBK', $v);
         }
         asort($array);
-        foreach($array as $k=>$v) {
+        foreach ($array as $k => $v) {
             $array[$k] = iconv('GBK', 'UTF-8', $v);
         }
         return true;
@@ -890,33 +891,33 @@ class Test_form extends CI_Controller
         $this->load->library('pdf');
         $this->load->model('mod_voice_job_list');
         $this->load->model('mod_voice_exam_area');
-        
+
         $data_list = array();
-        foreach($this->mod_voice_job_list->get_member_map_list() as $k=>$v){
+        foreach ($this->mod_voice_job_list->get_member_map_list() as $k => $v) {
             $clean_list = array();
-            $member_code= array();
-            foreach($v as $k1=>$v1){
-                if(!in_array($v1['member_code'],$member_code)){
+            $member_code = array();
+            foreach ($v as $k1 => $v1) {
+                if (!in_array($v1['member_code'], $member_code)) {
                     $clean_list[] = $v1;
                     $member_code[] = $v1['member_code'];
                 }
             }
-            $data_list[$k]=$clean_list;
+            $data_list[$k] = $clean_list;
         }
         // print_r($data_list);
         $data = array(
             'data' => $this->mod_voice_job_list->member_map(),
             'list' => $data_list,
         );
-      
+
         if ($data['list'] != false) {
-            $view = $this->load->view('voice/form_e_2_5',$data,true);
+            $view = $this->load->view('voice/form_e_2_5', $data, true);
             if (!is_dir('./html/')) {
                 mkdir('./html/');
             } else {
                 $path = 'form_e_2_5.html';
-                $fp = fopen('./html/'.$path,'w');//建檔
-                fwrite($fp,$view);
+                $fp = fopen('./html/' . $path, 'w');//建檔
+                fwrite($fp, $view);
                 fclose($fp);//關閉開啟的檔案
             }
 
@@ -926,7 +927,7 @@ class Test_form extends CI_Controller
                 exec('wkhtmltopdf --lowquality  --enable-forms http://uat.fofo.tw/fjuexam/html/form_e_2_5.html  ./pdf/form_e_2_5.pdf');
             }
             echo '<script>location.href="http://uat.fofo.tw/fjuexam/pdf/form_e_2_5.pdf"</script>';
-        }else{
+        } else {
             return false;
         }
     }
@@ -939,13 +940,13 @@ class Test_form extends CI_Controller
         $year = $this->session->userdata('year');
         $ladder = $this->session->userdata('ladder');
 
-        $datetime_info = $this->mod_voice_exam_datetime->get_once($year,$ladder);
-        
+        $datetime_info = $this->mod_voice_exam_datetime->get_once($year, $ladder);
+
         $data = array(
             'title' => '日程表 / 分配表',
             'path' => 'voice/form_e_3',
             'path_text' => ' > 製作報表 > 日程表 / 分配表',
-            'datetime_info'=> $datetime_info
+            'datetime_info' => $datetime_info
         );
         $this->load->view('voice_layout', $data);
     }
@@ -1055,7 +1056,7 @@ class Test_form extends CI_Controller
         $this->load->library('pdf');
         $this->load->model('mod_voice_trial');
         $this->load->model('mod_voice_exam_area');
-        
+
         $date = $_GET['date'];
         $part = $_GET['part'];
         $area = $_GET['area'];
@@ -1064,19 +1065,19 @@ class Test_form extends CI_Controller
             'part' => $this->mod_voice_trial->e_3_2_1($part),
             'part1' => $this->mod_voice_trial->e_3_2_1_1($part),
             'area' => $area,
-            'patrol_count'=> $this->mod_voice_trial->get_patrol_member_count_1($part),
-            'trial_count'=>$this->mod_voice_trial->get_trial_member_count($part),
-            'trial_count1'=>$this->mod_voice_trial->get_trial_member_count1($part),
+            'patrol_count' => $this->mod_voice_trial->get_patrol_member_count_1($part),
+            'trial_count' => $this->mod_voice_trial->get_trial_member_count($part),
+            'trial_count1' => $this->mod_voice_trial->get_trial_member_count1($part),
             'school' => $this->mod_voice_exam_area->year_school_name($part),
             'date' => $date,
         );
-         $view = $this->load->view('voice/form_e_3_2_1',$data, true);
+        $view = $this->load->view('voice/form_e_3_2_1', $data, true);
         if (!is_dir('./html/')) {
             mkdir('./html/');
         } else {
             $path = 'form_e_3_2_1.html';
-            $fp = fopen('./html/'.$path,'w');//建檔
-            fwrite($fp,$view);
+            $fp = fopen('./html/' . $path, 'w');//建檔
+            fwrite($fp, $view);
             fclose($fp);//關閉開啟的檔案
         }
 
@@ -1140,20 +1141,20 @@ class Test_form extends CI_Controller
             'part' => $this->mod_voice_trial->e_3_2_1($part),
             'part1' => $this->mod_voice_trial->e_3_2_1_1($part),
             'area' => $area,
-            'patrol_count'=> $this->mod_voice_trial->get_patrol_member_count_1($part),
-            'trial_count'=>$this->mod_voice_trial->get_trial_member_count($part),
-            'trial_count1'=>$this->mod_voice_trial->get_trial_member_count1($part),
+            'patrol_count' => $this->mod_voice_trial->get_patrol_member_count_1($part),
+            'trial_count' => $this->mod_voice_trial->get_trial_member_count($part),
+            'trial_count1' => $this->mod_voice_trial->get_trial_member_count1($part),
             'school' => $this->mod_voice_exam_area->year_school_name($part),
             'date' => $date,
         );
         // print_r($data);
-        $view =  $this->load->view('voice/form_e_3_2_2', $data, true);
+        $view = $this->load->view('voice/form_e_3_2_2', $data, true);
         if (!is_dir('./html/')) {
             mkdir('./html/');
         } else {
             $path = 'form_e_3_2_2.html';
-            $fp = fopen('./html/'.$path,'w');//建檔
-            fwrite($fp,$view);
+            $fp = fopen('./html/' . $path, 'w');//建檔
+            fwrite($fp, $view);
             fclose($fp);//關閉開啟的檔案
         }
 
@@ -1165,16 +1166,16 @@ class Test_form extends CI_Controller
         echo '<script>location.href="http://uat.fofo.tw/fjuexam/pdf/form_e_3_2_2.pdf"</script>';
     }
 
-  
 
-  
+
+
 
     public function form_e_3_2_3()
     {
         $this->load->library('pdf');
         $this->load->model('mod_voice_trial');
         $this->load->model('mod_voice_exam_area');
-        
+
         $date = $_GET['date'];
         $part = $_GET['part'];
         $area = $_GET['area'];
@@ -1182,20 +1183,20 @@ class Test_form extends CI_Controller
             'part' => $this->mod_voice_trial->e_3_2_1($part),
             'part1' => $this->mod_voice_trial->e_3_2_1_1($part),
             'area' => $area,
-            'patrol_count'=> $this->mod_voice_trial->get_patrol_member_count_1($part),
-            'trial_count'=>$this->mod_voice_trial->get_trial_member_count($part),
-            'trial_count1'=>$this->mod_voice_trial->get_trial_member_count1($part),
+            'patrol_count' => $this->mod_voice_trial->get_patrol_member_count_1($part),
+            'trial_count' => $this->mod_voice_trial->get_trial_member_count($part),
+            'trial_count1' => $this->mod_voice_trial->get_trial_member_count1($part),
             'school' => $this->mod_voice_exam_area->year_school_name($part),
             'date' => $date,
         );
         // print_r($data);
-        $view =  $this->load->view('voice/form_e_3_2_3', $data, true);
+        $view = $this->load->view('voice/form_e_3_2_3', $data, true);
         if (!is_dir('./html/')) {
             mkdir('./html/');
         } else {
             $path = 'form_e_3_2_3.html';
-            $fp = fopen('./html/'.$path,'w');//建檔
-            fwrite($fp,$view);
+            $fp = fopen('./html/' . $path, 'w');//建檔
+            fwrite($fp, $view);
             fclose($fp);//關閉開啟的檔案
         }
 
@@ -1218,25 +1219,25 @@ class Test_form extends CI_Controller
         $this->load->model('mod_voice_exam_datetime');
         $block_name = $this->input->get('block_name');
         $data_list = $this->mod_voice_area->total_list_by_part_name($block_name);
-        $year=$_SESSION['year'];
-        $ladder=$_SESSION['ladder'];
-        $date = $this->mod_voice_exam_datetime->get_once($year,$ladder);
+        $year = $_SESSION['year'];
+        $ladder = $_SESSION['ladder'];
+        $date = $this->mod_voice_exam_datetime->get_once($year, $ladder);
         // print_r($date);
         $data = array(
-            'data_list'=>$data_list,
-            'date'=>$date,
-            'block_name'=>$block_name,
-            
+            'data_list' => $data_list,
+            'date' => $date,
+            'block_name' => $block_name,
+
 
         );
-       
-       $view = $this->load->view('voice/form_e_3_3',$data,true);
+
+        $view = $this->load->view('voice/form_e_3_3', $data, true);
         if (!is_dir('./html/')) {
             mkdir('./html/');
         } else {
             $path = 'form_e_3_3.html';
-            $fp = fopen('./html/'.$path,'w');//建檔
-            fwrite($fp,$view);
+            $fp = fopen('./html/' . $path, 'w');//建檔
+            fwrite($fp, $view);
             fclose($fp);//關閉開啟的檔案
         }
 
@@ -1247,7 +1248,7 @@ class Test_form extends CI_Controller
         }
         echo '<script>location.href="http://uat.fofo.tw/fjuexam/pdf/form_e_3_3.pdf"</script>';
     }
-  
+
 
     public function form_e_4()
     {
@@ -1284,39 +1285,39 @@ class Test_form extends CI_Controller
 
         $i = 0;
         $arr = array();
-        foreach($this->mod_voice_trial->get_list_for_csv() as $k=>$v){
-            
-            if(!in_array($v['member_code'],$member_codes)){
+        foreach ($this->mod_voice_trial->get_list_for_csv() as $k => $v) {
+
+            if (!in_array($v['member_code'], $member_codes)) {
                 $member_codes[] = $v['member_code'];
                 $arr[] = $v;
             }
         }
         // print_r($arr);
-        if(isset($arr)){
+        if (isset($arr)) {
 
-            for ($i=0; $i < count($arr); $i++) {
+            for ($i = 0; $i < count($arr); $i++) {
                 // print_r($arr[$i]);
                 # code...
                 $objPHPExcel->getActiveSheet()->setCellValue('A1', '學年度');
                 $objPHPExcel->getActiveSheet()->setCellValue('B1', '場次');
                 $objPHPExcel->getActiveSheet()->setCellValue('C1', '人員');
                 $objPHPExcel->getActiveSheet()->setCellValue('D1', '監試日期');
-    
-                $objPHPExcel->getActiveSheet()->setCellValue('A'.(2+$i), $arr[$i]['year']);
-                $objPHPExcel->getActiveSheet()->setCellValue('B'.(2+$i), $arr[$i]['ladder']);
-                $objPHPExcel->getActiveSheet()->setCellValue('C'.(2+$i), $arr[$i]['member_name']);
-                $objPHPExcel->getActiveSheet()->setCellValue('D'.(2+$i), $arr[$i]['do_date']);
+
+                $objPHPExcel->getActiveSheet()->setCellValue('A' . (2 + $i), $arr[$i]['year']);
+                $objPHPExcel->getActiveSheet()->setCellValue('B' . (2 + $i), $arr[$i]['ladder']);
+                $objPHPExcel->getActiveSheet()->setCellValue('C' . (2 + $i), $arr[$i]['member_name']);
+                $objPHPExcel->getActiveSheet()->setCellValue('D' . (2 + $i), $arr[$i]['do_date']);
             }
-    
+
             $objWriter = PHPExcel_IOFactory::createWriter($objPHPExcel, 'CSV');
-    
-    
+
+
             header('Content-Type: application/vnd.ms-excel');
-            header('Content-Disposition: attachment;filename="監試人員'.'.csv"');
+            header('Content-Disposition: attachment;filename="監試人員' . '.csv"');
             header('Cache-Control: max-age=0');
-    
-    
-    
+
+
+
             $objWriter->save('php://output');
         }
     }
@@ -1328,29 +1329,29 @@ class Test_form extends CI_Controller
 
         $objPHPExcel = new PHPExcel();
         $objPHPExcel->setActiveSheetIndex(0);
-        
+
         $i = 0;
         $res = array();
         $member_codes = array();
-        foreach( $this->mod_voice_job_list->get_list_for_csv() as $k=>$v){
+        foreach ($this->mod_voice_job_list->get_list_for_csv() as $k => $v) {
             // print_r($v);
-            if(!in_array($v['member_code'],$member_codes)){
+            if (!in_array($v['member_code'], $member_codes)) {
                 $member_codes[] = $v['member_code'];
                 $res[] = $v;
             }
         }
 
-        if(isset($res)){
-            for ($i=0; $i < count($res); $i++) {
+        if (isset($res)) {
+            for ($i = 0; $i < count($res); $i++) {
                 # code...
                 $objPHPExcel->getActiveSheet()->setCellValue('A1', '學年度');
                 $objPHPExcel->getActiveSheet()->setCellValue('B1', '場次');
                 $objPHPExcel->getActiveSheet()->setCellValue('C1', '人員');
                 $objPHPExcel->getActiveSheet()->setCellValue('D1', '執行日');
-                $objPHPExcel->getActiveSheet()->setCellValue('A'.(2+$i), $res[$i]['year']);
-                $objPHPExcel->getActiveSheet()->setCellValue('B'.(2+$i), $res[$i]['ladder']);
-                $objPHPExcel->getActiveSheet()->setCellValue('C'.(2+$i), $res[$i]['name']);
-                $objPHPExcel->getActiveSheet()->setCellValue('D'.(2+$i), $res[$i]['do_date']);
+                $objPHPExcel->getActiveSheet()->setCellValue('A' . (2 + $i), $res[$i]['year']);
+                $objPHPExcel->getActiveSheet()->setCellValue('B' . (2 + $i), $res[$i]['ladder']);
+                $objPHPExcel->getActiveSheet()->setCellValue('C' . (2 + $i), $res[$i]['name']);
+                $objPHPExcel->getActiveSheet()->setCellValue('D' . (2 + $i), $res[$i]['do_date']);
             }
 
 
@@ -1358,7 +1359,7 @@ class Test_form extends CI_Controller
 
 
             header('Content-Type: application/vnd.ms-excel');
-            header('Content-Disposition: attachment;filename="試務人員'. '.csv"');
+            header('Content-Disposition: attachment;filename="試務人員' . '.csv"');
             header('Cache-Control: max-age=0');
 
             $objWriter->save('php://output');
@@ -1374,32 +1375,32 @@ class Test_form extends CI_Controller
         $objPHPExcel->setActiveSheetIndex(0);
         $arr = $this->mod_voice_patorl->get_trial_staff_for_csv();
 
-        if(isset($arr)){
-            for ($i=0; $i < count($arr); $i++) {
+        if (isset($arr)) {
+            for ($i = 0; $i < count($arr); $i++) {
                 # code...
                 $objPHPExcel->getActiveSheet()->setCellValue('A1', '學年度');
                 $objPHPExcel->getActiveSheet()->setCellValue('B1', '場次');
                 $objPHPExcel->getActiveSheet()->setCellValue('C1', '人員');
                 $objPHPExcel->getActiveSheet()->setCellValue('D1', '監試日期');
 
-                $objPHPExcel->getActiveSheet()->setCellValue('A'.(2+$i), $arr[$i]['year']);
-                $objPHPExcel->getActiveSheet()->setCellValue('B'.(2+$i), $arr[$i]['ladder']);
-                $objPHPExcel->getActiveSheet()->setCellValue('C'.(2+$i), $arr[$i]['member_name']);
-                $objPHPExcel->getActiveSheet()->setCellValue('D'.(2+$i), $arr[$i]['do_date']);
+                $objPHPExcel->getActiveSheet()->setCellValue('A' . (2 + $i), $arr[$i]['year']);
+                $objPHPExcel->getActiveSheet()->setCellValue('B' . (2 + $i), $arr[$i]['ladder']);
+                $objPHPExcel->getActiveSheet()->setCellValue('C' . (2 + $i), $arr[$i]['member_name']);
+                $objPHPExcel->getActiveSheet()->setCellValue('D' . (2 + $i), $arr[$i]['do_date']);
             }
 
             $objWriter = PHPExcel_IOFactory::createWriter($objPHPExcel, 'CSV');
 
 
             header('Content-Type: application/vnd.ms-excel');
-            header('Content-Disposition: attachment;filename="管卷人員'.'.csv"');
+            header('Content-Disposition: attachment;filename="管卷人員' . '.csv"');
             header('Cache-Control: max-age=0');
 
 
 
             $objWriter->save('php://output');
         }
-        
+
     }
 
     public function form_e_4_1_4()
@@ -1411,27 +1412,27 @@ class Test_form extends CI_Controller
         $objPHPExcel = new PHPExcel();
         $objPHPExcel->setActiveSheetIndex(0);
         $arr = $this->mod_voice_patorl->get_patrol_for_csv();
-        
-      
-        if(isset($arr)){
-            for ($i=0; $i < count($arr); $i++) {
+
+
+        if (isset($arr)) {
+            for ($i = 0; $i < count($arr); $i++) {
                 # code...
                 $objPHPExcel->getActiveSheet()->setCellValue('A1', '學年度');
                 $objPHPExcel->getActiveSheet()->setCellValue('B1', '場次');
                 $objPHPExcel->getActiveSheet()->setCellValue('C1', '人員');
                 $objPHPExcel->getActiveSheet()->setCellValue('D1', '監試日期');
 
-                $objPHPExcel->getActiveSheet()->setCellValue('A'.(2+$i), $arr[$i]['year']);
-                $objPHPExcel->getActiveSheet()->setCellValue('B'.(2+$i), $arr[$i]['ladder']);
-                $objPHPExcel->getActiveSheet()->setCellValue('C'.(2+$i), $arr[$i]['member_name']);
-                $objPHPExcel->getActiveSheet()->setCellValue('D'.(2+$i), $arr[$i]['do_date']);
+                $objPHPExcel->getActiveSheet()->setCellValue('A' . (2 + $i), $arr[$i]['year']);
+                $objPHPExcel->getActiveSheet()->setCellValue('B' . (2 + $i), $arr[$i]['ladder']);
+                $objPHPExcel->getActiveSheet()->setCellValue('C' . (2 + $i), $arr[$i]['member_name']);
+                $objPHPExcel->getActiveSheet()->setCellValue('D' . (2 + $i), $arr[$i]['do_date']);
             }
 
             $objWriter = PHPExcel_IOFactory::createWriter($objPHPExcel, 'CSV');
 
 
             header('Content-Type: application/vnd.ms-excel');
-            header('Content-Disposition: attachment;filename="巡場人員'.'.csv"');
+            header('Content-Disposition: attachment;filename="巡場人員' . '.csv"');
             header('Cache-Control: max-age=0');
 
 
@@ -1482,32 +1483,32 @@ class Test_form extends CI_Controller
         $objPHPExcel = new PHPExcel();
         $objPHPExcel->setActiveSheetIndex(0);
         $arr = $this->mod_voice_trial->get_list_for_csv();
-       
-        if(isset($arr)){
+
+        if (isset($arr)) {
             // for ($i=0; $i < count($arr); $i++) {
-                $i=0;
-                foreach ($arr as $key => $value) {
+            $i = 0;
+            foreach ($arr as $key => $value) {
                     # code...
                     # code...
-                    $objPHPExcel->getActiveSheet()->setCellValue('A1', '分區');
-                    $objPHPExcel->getActiveSheet()->setCellValue('B1', '職務');
-                    $objPHPExcel->getActiveSheet()->setCellValue('C1', '人員');
-                    $objPHPExcel->getActiveSheet()->setCellValue('D1', '編號');
-                    
-                    
-                    $objPHPExcel->getActiveSheet()->setCellValue('A'.(2+$i), $value['area_name']);
-                    $objPHPExcel->getActiveSheet()->setCellValue('B'.(2+$i), '監試人員');
-                    $objPHPExcel->getActiveSheet()->setCellValue('C'.(2+$i), $value['member_name']);
-                    $objPHPExcel->getActiveSheet()->setCellValue('D'.(2+$i), $value['trial_staff_code']);
-                    $i=$i+1;
-                
+                $objPHPExcel->getActiveSheet()->setCellValue('A1', '分區');
+                $objPHPExcel->getActiveSheet()->setCellValue('B1', '職務');
+                $objPHPExcel->getActiveSheet()->setCellValue('C1', '人員');
+                $objPHPExcel->getActiveSheet()->setCellValue('D1', '編號');
+
+
+                $objPHPExcel->getActiveSheet()->setCellValue('A' . (2 + $i), $value['area_name']);
+                $objPHPExcel->getActiveSheet()->setCellValue('B' . (2 + $i), '監試人員');
+                $objPHPExcel->getActiveSheet()->setCellValue('C' . (2 + $i), $value['member_name']);
+                $objPHPExcel->getActiveSheet()->setCellValue('D' . (2 + $i), $value['trial_staff_code']);
+                $i = $i + 1;
+
             }
 
             $objWriter = PHPExcel_IOFactory::createWriter($objPHPExcel, 'CSV');
 
 
             header('Content-Type: application/vnd.ms-excel');
-            header('Content-Disposition: attachment;filename="監試人員名牌'.'.csv"');
+            header('Content-Disposition: attachment;filename="監試人員名牌' . '.csv"');
             header('Cache-Control: max-age=0');
             $objWriter->save('php://output');
         }
@@ -1522,25 +1523,25 @@ class Test_form extends CI_Controller
         $objPHPExcel->setActiveSheetIndex(0);
         $arr = $this->mod_voice_job_list->get_list_for_csv();
         // print_r($arr);
-        if(isset($arr)){
-            for ($i=0; $i < count($arr); $i++) {
+        if (isset($arr)) {
+            for ($i = 0; $i < count($arr); $i++) {
 
-            switch ($arr[$i]['area']) {
-                case '0':
-                $area ='考區';
-                    break;
-                case '1':
-                $area = '第一分區';
-                    break;
-                case '2':
-                    $area = '第二分區';
-                    break;
-                case '3':
-                    $area = '第三分區';
-                    break;
-                
-            
-            }
+                switch ($arr[$i]['area']) {
+                    case '0':
+                        $area = '考區';
+                        break;
+                    case '1':
+                        $area = '第一分區';
+                        break;
+                    case '2':
+                        $area = '第二分區';
+                        break;
+                    case '3':
+                        $area = '第三分區';
+                        break;
+
+
+                }
                 # code...
                 $objPHPExcel->getActiveSheet()->setCellValue('A1', '分區');
                 $objPHPExcel->getActiveSheet()->setCellValue('B1', '職務');
@@ -1548,16 +1549,16 @@ class Test_form extends CI_Controller
                 $objPHPExcel->getActiveSheet()->setCellValue('D1', '編號');
 
 
-                $objPHPExcel->getActiveSheet()->setCellValue('A'.(2+$i), $area);
-                $objPHPExcel->getActiveSheet()->setCellValue('B'.(2+$i), $arr[$i]['job']);
-                $objPHPExcel->getActiveSheet()->setCellValue('C'.(2+$i), $arr[$i]['name']);
-                $objPHPExcel->getActiveSheet()->setCellValue('D'.(2+$i), $arr[$i]['job_code']);
+                $objPHPExcel->getActiveSheet()->setCellValue('A' . (2 + $i), $area);
+                $objPHPExcel->getActiveSheet()->setCellValue('B' . (2 + $i), $arr[$i]['job']);
+                $objPHPExcel->getActiveSheet()->setCellValue('C' . (2 + $i), $arr[$i]['name']);
+                $objPHPExcel->getActiveSheet()->setCellValue('D' . (2 + $i), $arr[$i]['job_code']);
             }
 
             $objWriter = PHPExcel_IOFactory::createWriter($objPHPExcel, 'CSV');
 
             header('Content-Type: application/vnd.ms-excel');
-            header('Content-Disposition: attachment;filename="試務人員名牌'.'.csv"');
+            header('Content-Disposition: attachment;filename="試務人員名牌' . '.csv"');
             header('Cache-Control: max-age=0');
 
 
@@ -1574,8 +1575,8 @@ class Test_form extends CI_Controller
         $objPHPExcel = new PHPExcel();
         $objPHPExcel->setActiveSheetIndex(0);
         $arr = $this->mod_voice_patorl->get_trial_staff_for_csv();
-        if(isset($arr)){
-            for ($i=0; $i < count($arr); $i++) {
+        if (isset($arr)) {
+            for ($i = 0; $i < count($arr); $i++) {
                 # code...
                 $objPHPExcel->getActiveSheet()->setCellValue('A1', '分區');
                 $objPHPExcel->getActiveSheet()->setCellValue('B1', '職務');
@@ -1583,17 +1584,17 @@ class Test_form extends CI_Controller
                 $objPHPExcel->getActiveSheet()->setCellValue('D1', '編號');
 
 
-                $objPHPExcel->getActiveSheet()->setCellValue('A'.(2+$i), $arr[$i]['area']);
-                $objPHPExcel->getActiveSheet()->setCellValue('B'.(2+$i), $arr[$i]['job']);
-                $objPHPExcel->getActiveSheet()->setCellValue('C'.(2+$i), $arr[$i]['member_name']);
-                $objPHPExcel->getActiveSheet()->setCellValue('D'.(2+$i), $arr[$i]['member_code']);
+                $objPHPExcel->getActiveSheet()->setCellValue('A' . (2 + $i), $arr[$i]['area']);
+                $objPHPExcel->getActiveSheet()->setCellValue('B' . (2 + $i), $arr[$i]['job']);
+                $objPHPExcel->getActiveSheet()->setCellValue('C' . (2 + $i), $arr[$i]['member_name']);
+                $objPHPExcel->getActiveSheet()->setCellValue('D' . (2 + $i), $arr[$i]['member_code']);
             }
 
             $objWriter = PHPExcel_IOFactory::createWriter($objPHPExcel, 'CSV');
 
 
             header('Content-Type: application/vnd.ms-excel');
-            header('Content-Disposition: attachment;filename="管卷人員名牌'.'.csv"');
+            header('Content-Disposition: attachment;filename="管卷人員名牌' . '.csv"');
             header('Cache-Control: max-age=0');
 
 
@@ -1610,8 +1611,8 @@ class Test_form extends CI_Controller
         $objPHPExcel = new PHPExcel();
         $objPHPExcel->setActiveSheetIndex(0);
         $arr = $this->mod_voice_patorl->get_patrol_for_csv();
-        if(isset($arr)){
-            for ($i=0; $i < count($arr); $i++) {
+        if (isset($arr)) {
+            for ($i = 0; $i < count($arr); $i++) {
                 # code...
                 $objPHPExcel->getActiveSheet()->setCellValue('A1', '分區');
                 $objPHPExcel->getActiveSheet()->setCellValue('B1', '職務');
@@ -1619,17 +1620,17 @@ class Test_form extends CI_Controller
                 $objPHPExcel->getActiveSheet()->setCellValue('D1', '編號');
 
 
-                $objPHPExcel->getActiveSheet()->setCellValue('A'.(2+$i), $arr[$i]['area']);
-                $objPHPExcel->getActiveSheet()->setCellValue('B'.(2+$i), $arr[$i]['job']);
-                $objPHPExcel->getActiveSheet()->setCellValue('C'.(2+$i), $arr[$i]['member_name']);
-                $objPHPExcel->getActiveSheet()->setCellValue('D'.(2+$i), $arr[$i]['member_code']);
+                $objPHPExcel->getActiveSheet()->setCellValue('A' . (2 + $i), $arr[$i]['area']);
+                $objPHPExcel->getActiveSheet()->setCellValue('B' . (2 + $i), $arr[$i]['job']);
+                $objPHPExcel->getActiveSheet()->setCellValue('C' . (2 + $i), $arr[$i]['member_name']);
+                $objPHPExcel->getActiveSheet()->setCellValue('D' . (2 + $i), $arr[$i]['member_code']);
             }
 
             $objWriter = PHPExcel_IOFactory::createWriter($objPHPExcel, 'CSV');
 
 
             header('Content-Type: application/vnd.ms-excel');
-            header('Content-Disposition: attachment;filename="巡場人員名牌'.'.csv"');
+            header('Content-Disposition: attachment;filename="巡場人員名牌' . '.csv"');
             header('Cache-Control: max-age=0');
 
 
@@ -1647,26 +1648,26 @@ class Test_form extends CI_Controller
         $objPHPExcel = new PHPExcel();
         $objPHPExcel->setActiveSheetIndex(0);
         $arr = $this->mod_voice_trial->get_list_for_csv();
-        if(isset($arr)){
+        if (isset($arr)) {
             // for ($i=0; $i < count($arr); $i++) {
-                $i=0;
-                foreach ($arr as $key => $value) {
+            $i = 0;
+            foreach ($arr as $key => $value) {
         
                 
                 # code...
                 $objPHPExcel->getActiveSheet()->setCellValue('A1', '單位');
                 $objPHPExcel->getActiveSheet()->setCellValue('B1', '人員');
 
-                $objPHPExcel->getActiveSheet()->setCellValue('A'.(2+$i), $value['member_unit']);
-                $objPHPExcel->getActiveSheet()->setCellValue('B'.(2+$i), $value['member_name']);
-                $i=$i+1;
+                $objPHPExcel->getActiveSheet()->setCellValue('A' . (2 + $i), $value['member_unit']);
+                $objPHPExcel->getActiveSheet()->setCellValue('B' . (2 + $i), $value['member_name']);
+                $i = $i + 1;
             }
 
             $objWriter = PHPExcel_IOFactory::createWriter($objPHPExcel, 'CSV');
 
 
             header('Content-Type: application/vnd.ms-excel');
-            header('Content-Disposition: attachment;filename="監試人員標籤樣式'.'.csv"');
+            header('Content-Disposition: attachment;filename="監試人員標籤樣式' . '.csv"');
             header('Cache-Control: max-age=0');
 
 
@@ -1683,21 +1684,21 @@ class Test_form extends CI_Controller
         $objPHPExcel = new PHPExcel();
         $objPHPExcel->setActiveSheetIndex(0);
         $arr = $this->mod_voice_job_list->get_district_task_csv();
-        if(isset($arr)){
-            for ($i=0; $i < count($arr); $i++) {
+        if (isset($arr)) {
+            for ($i = 0; $i < count($arr); $i++) {
                 # code...
                 $objPHPExcel->getActiveSheet()->setCellValue('A1', '單位');
                 $objPHPExcel->getActiveSheet()->setCellValue('B1', '人員');
 
-                $objPHPExcel->getActiveSheet()->setCellValue('A'.(2+$i), $arr[$i]['member_unit']);
-                $objPHPExcel->getActiveSheet()->setCellValue('B'.(2+$i), $arr[$i]['name']);
+                $objPHPExcel->getActiveSheet()->setCellValue('A' . (2 + $i), $arr[$i]['member_unit']);
+                $objPHPExcel->getActiveSheet()->setCellValue('B' . (2 + $i), $arr[$i]['name']);
             }
 
             $objWriter = PHPExcel_IOFactory::createWriter($objPHPExcel, 'CSV');
 
 
             header('Content-Type: application/vnd.ms-excel');
-            header('Content-Disposition: attachment;filename="試務人員標籤樣式'.'.csv"');
+            header('Content-Disposition: attachment;filename="試務人員標籤樣式' . '.csv"');
             header('Cache-Control: max-age=0');
 
 
@@ -1715,20 +1716,20 @@ class Test_form extends CI_Controller
         $objPHPExcel = new PHPExcel();
         $objPHPExcel->setActiveSheetIndex(0);
         $arr = $this->mod_voice_patorl->get_trial_staff_for_csv();
-        if(isset($arr)){
-            for ($i=0; $i < count($arr); $i++) {
+        if (isset($arr)) {
+            for ($i = 0; $i < count($arr); $i++) {
                 # code...
                 $objPHPExcel->getActiveSheet()->setCellValue('A1', '單位');
                 $objPHPExcel->getActiveSheet()->setCellValue('B1', '人員');
 
-                $objPHPExcel->getActiveSheet()->setCellValue('A'.(2+$i), $arr[$i]['member_unit']);
-                $objPHPExcel->getActiveSheet()->setCellValue('B'.(2+$i), $arr[$i]['member_name']);
+                $objPHPExcel->getActiveSheet()->setCellValue('A' . (2 + $i), $arr[$i]['member_unit']);
+                $objPHPExcel->getActiveSheet()->setCellValue('B' . (2 + $i), $arr[$i]['member_name']);
             }
 
             $objWriter = PHPExcel_IOFactory::createWriter($objPHPExcel, 'CSV');
 
             header('Content-Type: application/vnd.ms-excel');
-            header('Content-Disposition: attachment;filename="管卷人員標籤樣式'.'.csv"');
+            header('Content-Disposition: attachment;filename="管卷人員標籤樣式' . '.csv"');
             header('Cache-Control: max-age=0');
 
 
@@ -1745,21 +1746,21 @@ class Test_form extends CI_Controller
         $objPHPExcel = new PHPExcel();
         $objPHPExcel->setActiveSheetIndex(0);
         $arr = $this->mod_voice_patorl->get_patrol_for_csv();
-        if(isset($arr)){
-            for ($i=0; $i < count($arr); $i++) {
+        if (isset($arr)) {
+            for ($i = 0; $i < count($arr); $i++) {
                 # code...
                 $objPHPExcel->getActiveSheet()->setCellValue('A1', '單位');
                 $objPHPExcel->getActiveSheet()->setCellValue('B1', '人員');
 
-                $objPHPExcel->getActiveSheet()->setCellValue('A'.(2+$i), $arr[$i]['member_unit']);
-                $objPHPExcel->getActiveSheet()->setCellValue('B'.(2+$i), $arr[$i]['member_name']);
+                $objPHPExcel->getActiveSheet()->setCellValue('A' . (2 + $i), $arr[$i]['member_unit']);
+                $objPHPExcel->getActiveSheet()->setCellValue('B' . (2 + $i), $arr[$i]['member_name']);
             }
 
             $objWriter = PHPExcel_IOFactory::createWriter($objPHPExcel, 'CSV');
 
 
             header('Content-Type: application/vnd.ms-excel');
-            header('Content-Disposition: attachment;filename="巡場人員標籤樣式'.'.csv"');
+            header('Content-Disposition: attachment;filename="巡場人員標籤樣式' . '.csv"');
             header('Cache-Control: max-age=0');
 
 
@@ -1785,55 +1786,55 @@ class Test_form extends CI_Controller
         $this->load->library('pdf');
         $this->load->model('mod_voice_trial');
         $this->load->model('mod_voice_exam_area');
-        
+
         $title = '監試人員印領清冊';
         $date = date('yyyy/m/d');
         $part = $_GET['part'];
         $area = $_GET['area'];
-        
+
         $arr = array();
         $fields = array();
         $dataarray = $this->mod_voice_trial->e_6_1($part);
         $i = 0;
-        foreach($dataarray as $k=>$v){
-           
-            $key = array_search($v['field'],$fields);
-            if($key === false){
+        foreach ($dataarray as $k => $v) {
+
+            $key = array_search($v['field'], $fields);
+            if ($key === false) {
                 $fields[] = $v['field'];
                 $arr[$i] = $v;
-                $i ++ ;
+                $i++;
             }
-            
+
         }
 
-        
+
         $data = array(
             'part' => $arr,
-            'area'=> $area,
+            'area' => $area,
             'school' => $this->mod_voice_exam_area->year_school_name($part),
-            'salary'=>$this->mod_voice_trial->get_all_salary_trial_total($part),
-            'count'=>$this->mod_voice_trial->e_6_1_member_count($part)
+            'salary' => $this->mod_voice_trial->get_all_salary_trial_total($part),
+            'count' => $this->mod_voice_trial->e_6_1_member_count($part)
         );
     
 
         // $view = $this->load->view('voice/form_e_6_1', $data);
-        
-        $view = $this->load->view('voice/form_e_6_1', $data,true);
-        if (!is_dir('./html/')) {
-            mkdir('./html/');
-        } else {
-            $path = 'form_e_6_1.html';
-            $fp = fopen('./html/'.$path,'w');//建檔
-            fwrite($fp,$view);
-            fclose($fp);//關閉開啟的檔案
-        }
 
-        if (!is_dir('./pdf/')) {
-            mkdir('./pdf/');
-        } else {
-            exec('wkhtmltopdf --lowquality --enable-forms http://uat.fofo.tw/fjuexam/html/form_e_6_1.html  ./pdf/form_e_6_1.pdf');
-        }
-        echo '<script>location.href="http://uat.fofo.tw/fjuexam/pdf/form_e_6_1.pdf"</script>';
+        // echo $view = $this->load->view('voice/form_e_6_1', $data, true);
+        // if (!is_dir('./html/')) {
+        //     mkdir('./html/');
+        // } else {
+        //     $path = 'form_e_6_1.html';
+        //     $fp = fopen('./html/'.$path,'w');//建檔
+        //     fwrite($fp,$view);
+        //     fclose($fp);//關閉開啟的檔案
+        // }
+
+        // if (!is_dir('./pdf/')) {
+        //     mkdir('./pdf/');
+        // } else {
+        //     exec('wkhtmltopdf --lowquality --enable-forms http://uat.fofo.tw/fjuexam/html/form_e_6_1.html  ./pdf/form_e_6_1.pdf');
+        // }
+        // echo '<script>location.href="http://uat.fofo.tw/fjuexam/pdf/form_e_6_1.pdf"</script>';
     }
 
     public function form_e_6_2()
@@ -1841,7 +1842,7 @@ class Test_form extends CI_Controller
         $this->load->library('pdf');
         $this->load->model('mod_voice_trial');
         $this->load->model('mod_voice_exam_area');
-        
+
         $title = '監試人員印領清冊';
         $date = date('yyyy/m/d');
         $part = $_GET['part'];
@@ -1852,22 +1853,22 @@ class Test_form extends CI_Controller
         $fields = array();
         $arr = array();
         // print_r($dataarray);
-        foreach($dataarray as $k=>$v){
-           
-            $key = array_search($v['field'],$fields);
-            if($key === false){
+        foreach ($dataarray as $k => $v) {
+
+            $key = array_search($v['field'], $fields);
+            if ($key === false) {
                 $fields[] = $v['field'];
                 $arr[$i] = $v;
-                $i ++ ;
-            
+                $i++;
+
             }
-            
+
         }
         $data = array(
             'part' => $arr,
-            'area'=> $area,
+            'area' => $area,
             'school' => $this->mod_voice_exam_area->year_school_name($part),
-            'salary'=>$this->mod_voice_trial->get_all_salary_trial_total_of_obs($part,$obs),
+            'salary' => $this->mod_voice_trial->get_all_salary_trial_total_of_obs($part, $obs),
             'count' => $this->mod_voice_trial->get_list_for_obs_member_count($part, $obs),
         );
 
@@ -1875,25 +1876,25 @@ class Test_form extends CI_Controller
             // $view =  $this->load->view('voice/form_e_6_2', $data);
 
 
-        if($data['part'] != false){
-            $view =  $this->load->view('voice/form_e_6_2', $data, true);
+        if ($data['part'] != false) {
+            $view = $this->load->view('voice/form_e_6_2', $data, true);
             if (!is_dir('./html/')) {
-                    mkdir('./html/');
-                } else {
-                    $path = 'form_e_6_2.html';
-                    $fp = fopen('./html/'.$path,'w');//建檔
-                    fwrite($fp,$view);
-                    fclose($fp);//關閉開啟的檔案
-                }
+                mkdir('./html/');
+            } else {
+                $path = 'form_e_6_2.html';
+                $fp = fopen('./html/' . $path, 'w');//建檔
+                fwrite($fp, $view);
+                fclose($fp);//關閉開啟的檔案
+            }
 
-                if (!is_dir('./pdf/')) {
-                    mkdir('./pdf/');
-                } else {
-                    exec('wkhtmltopdf --lowquality --enable-forms http://uat.fofo.tw/fjuexam/html/form_e_6_2.html  ./pdf/form_e_6_2.pdf');
+            if (!is_dir('./pdf/')) {
+                mkdir('./pdf/');
+            } else {
+                exec('wkhtmltopdf --lowquality --enable-forms http://uat.fofo.tw/fjuexam/html/form_e_6_2.html  ./pdf/form_e_6_2.pdf');
             }
             echo '<script>location.href="http://uat.fofo.tw/fjuexam/pdf/form_e_6_2.pdf"</script>';
-        }else{
-          return false;
+        } else {
+            return false;
         }
     }
 
@@ -1902,7 +1903,7 @@ class Test_form extends CI_Controller
         $this->load->library('pdf');
         $this->load->model('mod_voice_job_list');
         $this->load->model('mod_voice_exam_area');
-        
+
         $title = '試務人員印領清冊';
         $date = date('yyyy/m/d');
         $part = $_GET['part'];
@@ -1910,18 +1911,18 @@ class Test_form extends CI_Controller
 
         $data = array(
             'part' => $this->mod_voice_job_list->get_district_task_money_list($test_partition),
-            'test_partition'=> $test_partition,
+            'test_partition' => $test_partition,
             'school' => $this->mod_voice_exam_area->year_school_name($part),
-            'salary'=>$this->mod_voice_job_list->get_all_salary_trial_total_of_district($test_partition),
+            'salary' => $this->mod_voice_job_list->get_all_salary_trial_total_of_district($test_partition),
         );
-        if($data['part'] != false){
-            $view =  $this->load->view('voice/form_e_6_3', $data,true);
+        if ($data['part'] != false) {
+            $view = $this->load->view('voice/form_e_6_3', $data, true);
             if (!is_dir('./html/')) {
                 mkdir('./html/');
             } else {
                 $path = 'form_e_6_3.html';
-                $fp = fopen('./html/'.$path,'w');//建檔
-                fwrite($fp,$view);
+                $fp = fopen('./html/' . $path, 'w');//建檔
+                fwrite($fp, $view);
                 fclose($fp);//關閉開啟的檔案
             }
 
@@ -1931,8 +1932,8 @@ class Test_form extends CI_Controller
                 exec('wkhtmltopdf --lowquality --enable-forms http://uat.fofo.tw/fjuexam/html/form_e_6_3.html  ./pdf/form_e_6_3.pdf');
             }
             echo '<script>location.href="http://uat.fofo.tw/fjuexam/pdf/form_e_6_3.pdf"</script>';
-        }else{
-          return false;
+        } else {
+            return false;
         }
     }
 
@@ -1941,26 +1942,26 @@ class Test_form extends CI_Controller
         $this->load->library('pdf');
         $this->load->model('mod_voice_trial');
         $this->load->model('mod_voice_exam_area');
-       
+
         $part = $_GET['part'];
         $area = $_GET['area'];
 
 
         $data = array(
             'part' => $this->mod_voice_trial->get_trial_staff_task_money_list($part),
-            'area'=> $area,
+            'area' => $area,
             'school' => $this->mod_voice_exam_area->year_school_name($part),
-            'salary'=>$this->mod_voice_trial->get_trial_staff_salary_total($part),
+            'salary' => $this->mod_voice_trial->get_trial_staff_salary_total($part),
             'count' => $this->mod_voice_trial->get_trial_staff_task_member_count($part),
         );
-        if($data['part'] != false){
-            $view =  $this->load->view('voice/form_e_6_4', $data, true);
+        if ($data['part'] != false) {
+            $view = $this->load->view('voice/form_e_6_4', $data, true);
             if (!is_dir('./html/')) {
                 mkdir('./html/');
             } else {
                 $path = 'form_e_6_4.html';
-                $fp = fopen('./html/'.$path,'w');//建檔
-                fwrite($fp,$view);
+                $fp = fopen('./html/' . $path, 'w');//建檔
+                fwrite($fp, $view);
                 fclose($fp);//關閉開啟的檔案
             }
 
@@ -1970,8 +1971,8 @@ class Test_form extends CI_Controller
                 exec('wkhtmltopdf --lowquality --enable-forms http://uat.fofo.tw/fjuexam/html/form_e_6_4.html  ./pdf/form_e_6_4.pdf');
             }
             echo '<script>location.href="http://uat.fofo.tw/fjuexam/pdf/form_e_6_4.pdf"</script>';
-        }else{
-          return false;
+        } else {
+            return false;
         }
     }
 
@@ -1980,24 +1981,24 @@ class Test_form extends CI_Controller
         $this->load->library('pdf');
         $this->load->model('mod_voice_trial');
         $this->load->model('mod_voice_exam_area');
-        
+
         $part = $_GET['part'];
         $area = $_GET['area'];
         $data = array(
             'part' => $this->mod_voice_trial->get_patrol_staff_task_money_list($part),
-            'area'=> $area,
+            'area' => $area,
             'school' => $this->mod_voice_exam_area->year_school_name($part),
-            'salary'=>$this->mod_voice_trial->get_patrol_staff_salary_total($part),
+            'salary' => $this->mod_voice_trial->get_patrol_staff_salary_total($part),
             'count' => $this->mod_voice_trial->get_patrol_staff_task_member_count($part),
         );
-        if($data['part'] != false){
-            $view =  $this->load->view('voice/form_e_6_5', $data, true);
+        if ($data['part'] != false) {
+            $view = $this->load->view('voice/form_e_6_5', $data, true);
             if (!is_dir('./html/')) {
                 mkdir('./html/');
             } else {
                 $path = 'form_e_6_5.html';
-                $fp = fopen('./html/'.$path,'w');//建檔
-                fwrite($fp,$view);
+                $fp = fopen('./html/' . $path, 'w');//建檔
+                fwrite($fp, $view);
                 fclose($fp);//關閉開啟的檔案
             }
 
@@ -2007,8 +2008,8 @@ class Test_form extends CI_Controller
                 exec('wkhtmltopdf --lowquality --enable-forms http://uat.fofo.tw/fjuexam/html/form_e_6_5.html  ./pdf/form_e_6_5.pdf');
             }
             echo '<script>location.href="http://uat.fofo.tw/fjuexam/pdf/form_e_6_5.pdf"</script>';
-        }else{
-          return false;
+        } else {
+            return false;
         }
     }
 
@@ -2022,8 +2023,8 @@ class Test_form extends CI_Controller
         $arr = $this->mod_voice_job_list->get_all_assign_member_list();
         // print_r($arr);
         // for ($i=0; $i < count($arr); $i++) {
-            $i=0;
-            foreach ($arr as $key => $value) {
+        $i = 0;
+        foreach ($arr as $key => $value) {
         
             # code...
 
@@ -2034,20 +2035,20 @@ class Test_form extends CI_Controller
             $objPHPExcel->getActiveSheet()->setCellValue('D1', '職稱');
             $objPHPExcel->getActiveSheet()->setCellValue('E1', '執勤日期');
 
-            
-            $objPHPExcel->getActiveSheet()->setCellValue('A'.(2+$i), (string)$value['job_code'],PHPExcel_Cell_DataType::TYPE_STRING);
-            $objPHPExcel->getActiveSheet()->setCellValue('B'.(2+$i), $value['name']);
-            $objPHPExcel->getActiveSheet()->setCellValue('C'.(2+$i), $value['member_unit']);
-            $objPHPExcel->getActiveSheet()->setCellValue('D'.(2+$i), $value['job']);
-            $objPHPExcel->getActiveSheet()->setCellValue('E'.(2+$i), $value['do_date']);
-            $i=$i+1;
+
+            $objPHPExcel->getActiveSheet()->setCellValue('A' . (2 + $i), (string)$value['job_code'], PHPExcel_Cell_DataType::TYPE_STRING);
+            $objPHPExcel->getActiveSheet()->setCellValue('B' . (2 + $i), $value['name']);
+            $objPHPExcel->getActiveSheet()->setCellValue('C' . (2 + $i), $value['member_unit']);
+            $objPHPExcel->getActiveSheet()->setCellValue('D' . (2 + $i), $value['job']);
+            $objPHPExcel->getActiveSheet()->setCellValue('E' . (2 + $i), $value['do_date']);
+            $i = $i + 1;
         }
 
         $objWriter = PHPExcel_IOFactory::createWriter($objPHPExcel, 'CSV');
 
 
         header("content-type:application/csv;charset=UTF-8");
-        header('Content-Disposition: attachment;filename="請公假名單檔案匯出'.'.csv"');
+        header('Content-Disposition: attachment;filename="請公假名單檔案匯出' . '.csv"');
         header('Cache-Control: max-age=0');
         header("Expires:0");
 
@@ -2071,24 +2072,24 @@ class Test_form extends CI_Controller
         $arr = array();
         $supervisor_codes = array();
         $i = 0;
-        foreach($this->mod_voice_trial->get_trial_moneylist_for_csv($part,'') as $k=>$v){
+        foreach ($this->mod_voice_trial->get_trial_moneylist_for_csv($part, '') as $k => $v) {
             // print_r($v['salary_section']);
-            if($v['salary_section'] != 0){ //有費用的才列出來
-                $key = array_search($v['supervisor_code'],$supervisor_codes);
-                if($key === false){ //如果不曾出現過
+            if ($v['salary_section'] != 0) { //有費用的才列出來
+                $key = array_search($v['supervisor_code'], $supervisor_codes);
+                if ($key === false) { //如果不曾出現過
                     $supervisor_codes[] = $v['supervisor_code'];
                     $arr[$i] = $v;
-                    $i ++ ;
-                }else{
+                    $i++;
+                } else {
                     $arr[$key]['section_salary_total'] = $v['salary_section'];
                 }
             }
-            
-            
+
+
         }
         // print_r($arr);
         // $arr = $this->mod_voice_trial->get_trial_moneylist_for_csv($part);
-        for ($i=0; $i < count($arr); $i++) {
+        for ($i = 0; $i < count($arr); $i++) {
             # code...
 
             // $objPHPExcel->getActiveSheet()->setCellValue('A0', '');
@@ -2096,17 +2097,17 @@ class Test_form extends CI_Controller
             $objPHPExcel->getActiveSheet()->setCellValue('B1', '監考費');
             $objPHPExcel->getActiveSheet()->setCellValue('C1', '姓名');
             $objPHPExcel->getActiveSheet()->setCellValue('D1', '應領費用');
-            $objPHPExcel->getActiveSheet()->setCellValue('A'.(2+$i), $arr[$i]['field']);
-            $objPHPExcel->getActiveSheet()->setCellValue('B'.(2+$i), $arr[$i]['section_salary_total']);
-            $objPHPExcel->getActiveSheet()->setCellValue('C'.(2+$i), $arr[$i]['supervisor']);
-            $objPHPExcel->getActiveSheet()->setCellValue('D'.(2+$i), $arr[$i]['section_salary_total']);
+            $objPHPExcel->getActiveSheet()->setCellValue('A' . (2 + $i), $arr[$i]['field']);
+            $objPHPExcel->getActiveSheet()->setCellValue('B' . (2 + $i), $arr[$i]['section_salary_total']);
+            $objPHPExcel->getActiveSheet()->setCellValue('C' . (2 + $i), $arr[$i]['supervisor']);
+            $objPHPExcel->getActiveSheet()->setCellValue('D' . (2 + $i), $arr[$i]['section_salary_total']);
         }
 
         $objWriter = PHPExcel_IOFactory::createWriter($objPHPExcel, 'CSV');
 
 
         header('Content-Type: application/vnd.ms-excel');
-        header('Content-Disposition: attachment;filename="'.$area.'印領清冊'.'.csv"');
+        header('Content-Disposition: attachment;filename="' . $area . '印領清冊' . '.csv"');
         header('Cache-Control: max-age=0');
 
 
@@ -2124,44 +2125,44 @@ class Test_form extends CI_Controller
         $part = $_GET['part'];
         $area = $_GET['area'];
         $obs = $_GET['obs'];
-        
+
         $dataarray = $this->mod_voice_trial->get_trial_moneylist_for_csv($part, $obs);
 
         // print_r($dataarray);
         $arr = array();
         $supervisor_codes = array();
         $i = 0;
-        foreach($dataarray as $k=>$v){
-            if($v['salary_section'] != 0){ //有費用的才列出來
-                $key = array_search($v['supervisor_code'],$supervisor_codes);
-                if($key === false){ //如果不曾出現過
+        foreach ($dataarray as $k => $v) {
+            if ($v['salary_section'] != 0) { //有費用的才列出來
+                $key = array_search($v['supervisor_code'], $supervisor_codes);
+                if ($key === false) { //如果不曾出現過
                     $supervisor_codes[] = $v['supervisor_code'];
                     $arr[$i] = $v;
-                    $i ++ ;
-                }else{
+                    $i++;
+                } else {
                     $arr[$key]['section_salary_total'] = $v['salary_section'];
                 }
             }
-            
+
         }
 
-        for ($i=0; $i < count($arr); $i++) {
+        for ($i = 0; $i < count($arr); $i++) {
             # code...
             $objPHPExcel->getActiveSheet()->setCellValue('A1', '試場');
             $objPHPExcel->getActiveSheet()->setCellValue('B1', '監考費');
             $objPHPExcel->getActiveSheet()->setCellValue('C1', '姓名');
             $objPHPExcel->getActiveSheet()->setCellValue('D1', '應領費用');
-            $objPHPExcel->getActiveSheet()->setCellValue('A'.(2+$i), $arr[$i]['field']);
-            $objPHPExcel->getActiveSheet()->setCellValue('B'.(2+$i), $arr[$i]['section_salary_total']);
-            $objPHPExcel->getActiveSheet()->setCellValue('C'.(2+$i), $arr[$i]['supervisor']);
-            $objPHPExcel->getActiveSheet()->setCellValue('D'.(2+$i), $arr[$i]['section_salary_total']);
+            $objPHPExcel->getActiveSheet()->setCellValue('A' . (2 + $i), $arr[$i]['field']);
+            $objPHPExcel->getActiveSheet()->setCellValue('B' . (2 + $i), $arr[$i]['section_salary_total']);
+            $objPHPExcel->getActiveSheet()->setCellValue('C' . (2 + $i), $arr[$i]['supervisor']);
+            $objPHPExcel->getActiveSheet()->setCellValue('D' . (2 + $i), $arr[$i]['section_salary_total']);
         }
 
         $objWriter = PHPExcel_IOFactory::createWriter($objPHPExcel, 'CSV');
 
 
         header('Content-Type: application/vnd.ms-excel');
-        header('Content-Disposition: attachment;filename="'.$area.'印領清冊(身障)'.'.csv"');
+        header('Content-Disposition: attachment;filename="' . $area . '印領清冊(身障)' . '.csv"');
         header('Cache-Control: max-age=0');
 
 
@@ -2182,7 +2183,7 @@ class Test_form extends CI_Controller
 
         $school = $this->mod_voice_exam_area->year_school_name($part);
         $arr = $this->mod_voice_job_list->get_district_task_money_list($area);
-        for ($i=0; $i < count($arr); $i++) {
+        for ($i = 0; $i < count($arr); $i++) {
             # code...
             $objPHPExcel->getActiveSheet()->setCellValue('A1', '序號');
             $objPHPExcel->getActiveSheet()->setCellValue('B1', '分區');
@@ -2191,13 +2192,13 @@ class Test_form extends CI_Controller
             $objPHPExcel->getActiveSheet()->setCellValue('E1', '職務');
             $objPHPExcel->getActiveSheet()->setCellValue('F1', '工作費');
             $objPHPExcel->getActiveSheet()->setCellValue('H1', '應領費用');
-            $objPHPExcel->getActiveSheet()->setCellValue('A'.(2+$i), $i+1);
-            $objPHPExcel->getActiveSheet()->setCellValue('B'.(2+$i), $area);
-            $objPHPExcel->getActiveSheet()->setCellValue('C'.(2+$i), $school['area_name']);
-            $objPHPExcel->getActiveSheet()->setCellValue('D'.(2+$i), $arr[$i]['name']);
-            $objPHPExcel->getActiveSheet()->setCellValue('E'.(2+$i), $arr[$i]['job']);
-            $objPHPExcel->getActiveSheet()->setCellValue('F'.(2+$i), number_format($arr[$i]['one_day_salary']));
-            $objPHPExcel->getActiveSheet()->setCellValue('H'.(2+$i), number_format($arr[$i]['total']));
+            $objPHPExcel->getActiveSheet()->setCellValue('A' . (2 + $i), $i + 1);
+            $objPHPExcel->getActiveSheet()->setCellValue('B' . (2 + $i), $area);
+            $objPHPExcel->getActiveSheet()->setCellValue('C' . (2 + $i), $school['area_name']);
+            $objPHPExcel->getActiveSheet()->setCellValue('D' . (2 + $i), $arr[$i]['name']);
+            $objPHPExcel->getActiveSheet()->setCellValue('E' . (2 + $i), $arr[$i]['job']);
+            $objPHPExcel->getActiveSheet()->setCellValue('F' . (2 + $i), number_format($arr[$i]['one_day_salary']));
+            $objPHPExcel->getActiveSheet()->setCellValue('H' . (2 + $i), number_format($arr[$i]['total']));
 
         }
 
@@ -2205,7 +2206,7 @@ class Test_form extends CI_Controller
 
 
         header('Content-Type: application/vnd.ms-excel');
-        header('Content-Disposition: attachment;filename="'.$area.'試務人員印領清冊'.'.csv"');
+        header('Content-Disposition: attachment;filename="' . $area . '試務人員印領清冊' . '.csv"');
         header('Cache-Control: max-age=0');
 
 
@@ -2226,7 +2227,7 @@ class Test_form extends CI_Controller
 
         $school = $this->mod_voice_exam_area->year_school_name($part);
         $arr = $this->mod_voice_trial->get_trial_staff_task_money_list($part);
-        for ($i=0; $i < count($arr); $i++) {
+        for ($i = 0; $i < count($arr); $i++) {
             # code...
             $objPHPExcel->getActiveSheet()->setCellValue('A1', '序號');
             $objPHPExcel->getActiveSheet()->setCellValue('B1', '分區');
@@ -2235,13 +2236,13 @@ class Test_form extends CI_Controller
             $objPHPExcel->getActiveSheet()->setCellValue('E1', '職務');
             $objPHPExcel->getActiveSheet()->setCellValue('F1', '工作費');
             $objPHPExcel->getActiveSheet()->setCellValue('H1', '應領費用');
-            $objPHPExcel->getActiveSheet()->setCellValue('A'.(2+$i), $i+1);
-            $objPHPExcel->getActiveSheet()->setCellValue('B'.(2+$i), $area);
-            $objPHPExcel->getActiveSheet()->setCellValue('C'.(2+$i), $school['area_name']);
-            $objPHPExcel->getActiveSheet()->setCellValue('D'.(2+$i), $arr[$i]['name']);
-            $objPHPExcel->getActiveSheet()->setCellValue('E'.(2+$i), $arr[$i]['job']);
-            $objPHPExcel->getActiveSheet()->setCellValue('F'.(2+$i), number_format($arr[$i]['salary_total']));
-            $objPHPExcel->getActiveSheet()->setCellValue('H'.(2+$i), number_format($arr[$i]['total']));
+            $objPHPExcel->getActiveSheet()->setCellValue('A' . (2 + $i), $i + 1);
+            $objPHPExcel->getActiveSheet()->setCellValue('B' . (2 + $i), $area);
+            $objPHPExcel->getActiveSheet()->setCellValue('C' . (2 + $i), $school['area_name']);
+            $objPHPExcel->getActiveSheet()->setCellValue('D' . (2 + $i), $arr[$i]['name']);
+            $objPHPExcel->getActiveSheet()->setCellValue('E' . (2 + $i), $arr[$i]['job']);
+            $objPHPExcel->getActiveSheet()->setCellValue('F' . (2 + $i), number_format($arr[$i]['salary_total']));
+            $objPHPExcel->getActiveSheet()->setCellValue('H' . (2 + $i), number_format($arr[$i]['total']));
 
         }
 
@@ -2249,7 +2250,7 @@ class Test_form extends CI_Controller
 
 
         header('Content-Type: application/vnd.ms-excel');
-        header('Content-Disposition: attachment;filename="'.$area.'管卷人員印領清冊'.'.csv"');
+        header('Content-Disposition: attachment;filename="' . $area . '管卷人員印領清冊' . '.csv"');
         header('Cache-Control: max-age=0');
 
 
@@ -2270,7 +2271,7 @@ class Test_form extends CI_Controller
 
         $school = $this->mod_voice_exam_area->year_school_name($part);
         $arr = $this->mod_voice_trial->get_patrol_staff_task_money_list($part);
-        for ($i=0; $i < count($arr); $i++) {
+        for ($i = 0; $i < count($arr); $i++) {
             # code...
             $objPHPExcel->getActiveSheet()->setCellValue('A1', '序號');
             $objPHPExcel->getActiveSheet()->setCellValue('B1', '分區');
@@ -2279,13 +2280,13 @@ class Test_form extends CI_Controller
             $objPHPExcel->getActiveSheet()->setCellValue('E1', '職務');
             $objPHPExcel->getActiveSheet()->setCellValue('F1', '工作費');
             $objPHPExcel->getActiveSheet()->setCellValue('H1', '應領費用');
-            $objPHPExcel->getActiveSheet()->setCellValue('A'.(2+$i), $i+1);
-            $objPHPExcel->getActiveSheet()->setCellValue('B'.(2+$i), $area);
-            $objPHPExcel->getActiveSheet()->setCellValue('C'.(2+$i), $school['area_name']);
-            $objPHPExcel->getActiveSheet()->setCellValue('D'.(2+$i), $arr[$i]['name']);
-            $objPHPExcel->getActiveSheet()->setCellValue('E'.(2+$i), $arr[$i]['job']);
-            $objPHPExcel->getActiveSheet()->setCellValue('F'.(2+$i), number_format($arr[$i]['salary_total']));
-            $objPHPExcel->getActiveSheet()->setCellValue('H'.(2+$i), number_format($arr[$i]['total']));
+            $objPHPExcel->getActiveSheet()->setCellValue('A' . (2 + $i), $i + 1);
+            $objPHPExcel->getActiveSheet()->setCellValue('B' . (2 + $i), $area);
+            $objPHPExcel->getActiveSheet()->setCellValue('C' . (2 + $i), $school['area_name']);
+            $objPHPExcel->getActiveSheet()->setCellValue('D' . (2 + $i), $arr[$i]['name']);
+            $objPHPExcel->getActiveSheet()->setCellValue('E' . (2 + $i), $arr[$i]['job']);
+            $objPHPExcel->getActiveSheet()->setCellValue('F' . (2 + $i), number_format($arr[$i]['salary_total']));
+            $objPHPExcel->getActiveSheet()->setCellValue('H' . (2 + $i), number_format($arr[$i]['total']));
 
         }
 
@@ -2293,7 +2294,7 @@ class Test_form extends CI_Controller
 
 
         header('Content-Type: application/vnd.ms-excel');
-        header('Content-Disposition: attachment;filename="'.$area.'巡場人員印領清冊'.'.csv"');
+        header('Content-Disposition: attachment;filename="' . $area . '巡場人員印領清冊' . '.csv"');
         header('Cache-Control: max-age=0');
 
 
@@ -2310,12 +2311,12 @@ class Test_form extends CI_Controller
         $objPHPExcel->setActiveSheetIndex(0);
         $proctor = $this->mod_voice_trial->get_all();
         // print_r($proctor);
-        $persons_data=[];
-        for ($i=0; $i <count($proctor); $i++) { 
-            $persons_data[$i]= $this->mod_voice_trial->get_person_data($proctor[$i]['supervisor_1']);
+        $persons_data = [];
+        for ($i = 0; $i < count($proctor); $i++) {
+            $persons_data[$i] = $this->mod_voice_trial->get_person_data($proctor[$i]['supervisor_1']);
         }
 
-        for ($i=0; $i < count($persons_data); $i++) {
+        for ($i = 0; $i < count($persons_data); $i++) {
             # code...
 
             $objPHPExcel->getActiveSheet()->getStyle()->getNumberFormat()->setFormatCode();
@@ -2329,20 +2330,20 @@ class Test_form extends CI_Controller
 
 
 
-            $objPHPExcel->getActiveSheet()->setCellValue('A'.(2+$i), ($i+1));
-            $objPHPExcel->getActiveSheet()->setCellValue('B'.(2+$i), $persons_data[$i]['member_code']);
-            $objPHPExcel->getActiveSheet()->setCellValue('C'.(2+$i), $persons_data[$i]['member_name']);
-            $objPHPExcel->getActiveSheet()->setCellValue('D'.(2+$i), $persons_data[$i]['unit']);
-            $objPHPExcel->getActiveSheet()->setCellValue('E'.(2+$i), $persons_data[$i]['member_unit']);
-            $objPHPExcel->getActiveSheet()->setCellValue('F'.(2+$i), $persons_data[$i]['member_title']);
-            $objPHPExcel->getActiveSheet()->setCellValue('G'.(2+$i), $persons_data[$i]['member_phone']);
+            $objPHPExcel->getActiveSheet()->setCellValue('A' . (2 + $i), ($i + 1));
+            $objPHPExcel->getActiveSheet()->setCellValue('B' . (2 + $i), $persons_data[$i]['member_code']);
+            $objPHPExcel->getActiveSheet()->setCellValue('C' . (2 + $i), $persons_data[$i]['member_name']);
+            $objPHPExcel->getActiveSheet()->setCellValue('D' . (2 + $i), $persons_data[$i]['unit']);
+            $objPHPExcel->getActiveSheet()->setCellValue('E' . (2 + $i), $persons_data[$i]['member_unit']);
+            $objPHPExcel->getActiveSheet()->setCellValue('F' . (2 + $i), $persons_data[$i]['member_title']);
+            $objPHPExcel->getActiveSheet()->setCellValue('G' . (2 + $i), $persons_data[$i]['member_phone']);
         }
 
         $objWriter = PHPExcel_IOFactory::createWriter($objPHPExcel, 'CSV');
 
 
         header("content-type:application/csv;charset=UTF-8");
-        header('Content-Disposition: attachment;filename="監試人員名單'.'.csv"');
+        header('Content-Disposition: attachment;filename="監試人員名單' . '.csv"');
         header('Cache-Control: max-age=0');
         header("Expires:0");
 
