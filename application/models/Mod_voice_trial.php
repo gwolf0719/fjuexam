@@ -93,6 +93,7 @@ class Mod_voice_trial extends CI_Model
     public function get_trial_list($part = '')
     {
         $this->db->where('year', $this->session->userdata('year'));
+        $this->db->where('ladder', $this->session->userdata('ladder'));
         if ($part != '') {
             $this->db->where('part', $part);
         }
