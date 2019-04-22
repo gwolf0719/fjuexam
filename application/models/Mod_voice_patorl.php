@@ -4,17 +4,17 @@ defined('BASEPATH') or exit('No direct script access allowed');
 
 class Mod_voice_patorl extends CI_Model
 {
-    
+
     public function import($datas)
     {
         // 先清除當年資料
-        $this->db->where('year',$this->session->userdata('year'))->where('ladder',$this->session->userdata('ladder'))->delete('voice_patrol_staff');
+        $this->db->where('year', $this->session->userdata('year'))->where('ladder', $this->session->userdata('ladder'))->delete('voice_patrol_staff');
         $this->db->insert_batch('voice_patrol_staff', $datas);
     }
 
     public function year_get_list()
     {
-        return $this->db->where('year',$this->session->userdata('year'))->where('ladder',$this->session->userdata('ladder'))->get('voice_patrol_staff')->result_array();
+        return $this->db->where('year', $this->session->userdata('year'))->where('ladder', $this->session->userdata('ladder'))->get('voice_patrol_staff')->result_array();
     }
 
     public function chk_once($sn)
@@ -29,8 +29,8 @@ class Mod_voice_patorl extends CI_Model
 
     public function get_patrol_list($part = '')
     {
-        $this->db->where('year',$this->session->userdata('year'));
-        $this->db->where('ladder',$this->session->userdata('ladder'));
+        $this->db->where('year', $this->session->userdata('year'));
+        $this->db->where('ladder', $this->session->userdata('ladder'));
         if ($part != '') {
             $this->db->where('part', $part);
         }
@@ -79,10 +79,10 @@ class Mod_voice_patorl extends CI_Model
 
 
         $res = $this->db->get('voice_patrol_staff')->result_array();
-        if(empty($res)){
+        if (empty($res)) {
             return;
         }
-        for ($i=0; $i < count($res); $i++) { 
+        for ($i = 0; $i < count($res); $i++) { 
             # code...
             $patrol = $this->db->where('member_name', $res[$i]['patrol_staff_name'])->get('voice_import_member')->row_array();
             switch ($res[$i]['part']) {
@@ -94,19 +94,19 @@ class Mod_voice_patorl extends CI_Model
                     break;
                 case '2503':
                     $part = '第三分區';
-                    break;                    
+                    break;
             }
             $arr[] = array(
-                'year'=>$res[$i]['year'],
-                'ladder'=>$res[$i]['ladder'],
-                'job'=>'分區巡場人員',
-                'area'=>$part,
-                'member_code'=>$res[$i]['patrol_staff_code'],
-                'member_name'=>$patrol['member_name'],
-                'member_unit'=>$patrol['member_unit'],
-                'member_phone'=>$patrol['member_phone'],
-                'member_title'=>$patrol['member_title'],
-                'do_date'=>$res[$i]['do_date']
+                'year' => $res[$i]['year'],
+                'ladder' => $res[$i]['ladder'],
+                'job' => '分區巡場人員',
+                'area' => $part,
+                'member_code' => $res[$i]['patrol_staff_code'],
+                'member_name' => $patrol['member_name'],
+                'member_unit' => $patrol['member_unit'],
+                'member_phone' => $patrol['member_phone'],
+                'member_title' => $patrol['member_title'],
+                'do_date' => $res[$i]['do_date']
             );
         }
         return $arr;
@@ -155,10 +155,10 @@ class Mod_voice_patorl extends CI_Model
 
 
         $res = $this->db->get('voice_trial_staff')->result_array();
-        if(empty($res)){
+        if (empty($res)) {
             return;
         }
-        for ($i=0; $i < count($res); $i++) { 
+        for ($i = 0; $i < count($res); $i++) { 
             # code...
             $patrol = $this->db->where('member_name', trim($res[$i]['trial_staff_name']))->get('voice_import_member')->row_array();
             switch ($res[$i]['part']) {
@@ -170,27 +170,25 @@ class Mod_voice_patorl extends CI_Model
                     break;
                 case '2503':
                     $part = '第三分區';
-                    break;                    
-            }            
+                    break;
+            }
             $arr[] = array(
-                'year'=>$res[$i]['year'],
-                'ladder'=>$res[$i]['ladder'],
-                'job'=>'分區管卷人員',
-                'area'=>$part,
-                'member_code'=>$res[$i]['trial_staff_code'],
-                'member_name'=>trim($res[$i]['trial_staff_name']),
-                'member_unit'=>$patrol['member_unit'],
-                'member_phone'=>$patrol['member_phone'],
-                'member_title'=>$patrol['member_title'],
-                'do_date'=>$res[$i]['do_date']
+                'year' => $res[$i]['year'],
+                'ladder' => $res[$i]['ladder'],
+                'job' => '分區管卷人員',
+                'area' => $part,
+                'member_code' => $res[$i]['trial_staff_code'],
+                'member_name' => trim($res[$i]['trial_staff_name']),
+                'member_unit' => $patrol['member_unit'],
+                'member_phone' => $patrol['member_phone'],
+                'member_title' => $patrol['member_title'],
+                'do_date' => $res[$i]['do_date']
             );
         }
         // print_r($arr);
         return $arr;
-    }    
+    }
 }
 
 /* End of file Mod_exam_area.php */
 ?>
-
-
