@@ -880,6 +880,8 @@ class Mod_voice_trial extends CI_Model
         foreach ($main as $key => $value) {
             # code...
             $this->db->where('field', $value['field']);
+            $this->db->where('year', $year);
+            $this->db->where('ladder', $ladder);
             $res[] = $this->db->get('voice_trial_assign')->row_array();
         }
 
@@ -963,10 +965,12 @@ class Mod_voice_trial extends CI_Model
         foreach ($main as $key => $value) {
             # code...
             $this->db->where('field', $value['field']);
+            $this->db->where('year', $year);
+            $this->db->where('ladder', $ladder);
             $res[] = $this->db->get('voice_trial_assign')->row_array();
         }
 
-
+        // print_r($res);
 
 
         if (!empty($res)) {
