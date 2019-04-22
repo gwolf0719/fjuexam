@@ -869,18 +869,21 @@ class Mod_voice_trial extends CI_Model
 
     public function get_list_for_csv()
     {
-        // $this->db->where('year', $_SESSION['year']);
-        // $this->db->where('year', $_SESSION['year']);
 
-        $this->db->select('*');
-        $this->db->from('voice_area_main');
-        $this->db->join('voice_trial_assign', 'voice_area_main.field = voice_trial_assign.field');
+        $year = $this->session->userdata('year');
+        $ladder = $this->session->userdata('ladder');
 
-        $this->db->where('first_member_do_date !=', "");
-        $this->db->where('voice_area_main.year=', $_SESSION['year']);
-        $this->db->where('voice_area_main.ladder=', $_SESSION['ladder']);
+        $this->db->where('year', $year);
+        $this->db->where('ladder', $ladder);
+        $main = $this->db->get('voice_area_main')->result_array();
+        $res = array();
+        foreach ($main as $key => $value) {
+            # code...
+            $this->db->where('field', $value['field']);
+            $res[] = $this->db->get('voice_trial_assign')->row_array();
+        }
 
-        $res = $this->db->get()->result_array();
+
 
         if (empty($res)) {
             return;
@@ -909,7 +912,6 @@ class Mod_voice_trial extends CI_Model
             $arr[] = array(
                 'year' => $sub[$i]['year'],
                 'ladder' => $sub[$i]['ladder'],
-                'area_name' => $sub[$i]['area_name'],
                 'do_date' => $sub[$i]['first_member_do_date'],
                 'member_unit' => $supervisor1['member_unit'],
                 'member_name' => $supervisor1['member_name'],
@@ -919,7 +921,6 @@ class Mod_voice_trial extends CI_Model
             $arr[] = array(
                 'year' => $sub[$i]['year'],
                 'ladder' => $sub[$i]['ladder'],
-                'area_name' => $sub[$i]['area_name'],
                 'do_date' => $sub[$i]['second_member_do_date'],
                 'member_unit' => $supervisor2['member_unit'],
                 'member_name' => $supervisor2['member_name'],
@@ -940,6 +941,7 @@ class Mod_voice_trial extends CI_Model
 
             }
         }
+        // print_r($result);
 
         return $result;
     }
