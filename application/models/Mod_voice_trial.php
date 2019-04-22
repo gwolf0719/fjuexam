@@ -642,10 +642,10 @@ class Mod_voice_trial extends CI_Model
         $this->db->where('year', $this->session->userdata('year'));
         $this->db->where('ladder', $this->session->userdata('ladder'));
         $this->db->where('part', $part);
-       
+
         $res = $this->db->count_all_results('voice_patrol_staff');
         return $res;
-        
+
     }
 
     public function get_supervisor_list($part = '')
@@ -787,7 +787,7 @@ class Mod_voice_trial extends CI_Model
             for ($i = 0; $i < count($sub); $i++) {
                 # code...
                 $supervisor = $this->db->where('field', $sub[$i]['field'])->where('ladder', $this->session->userdata('ladder'))->where('year', $this->session->userdata('year'))->get('voice_trial_assign')->row_array();
-               
+
                 $voucher = $this->db->where('part', $part)->where('year', $this->session->userdata('year'))->where('ladder', $this->session->userdata('ladder'))->where('first_start <=', $sub[$i]['field'])->where('first_end >=', $sub[$i]['field'])->get('voice_trial_staff')->row_array();
                 $course = $this->db->where('year', $year)->where('year', $this->session->userdata('year'))->where('ladder', $this->session->userdata('ladder'))->where('field', $sub[$i]['field'])->get('voice_exam_area')->row_array();
                 $trial = $this->db->get('voice_trial_staff')->result_array();
@@ -849,7 +849,7 @@ class Mod_voice_trial extends CI_Model
         $res = $this->db->count_all_results('voice_trial_assign');
         // print_r($res);
         return $res;
-        
+
     }
     public function get_trial_member_count1($part = '')
     {
@@ -859,11 +859,11 @@ class Mod_voice_trial extends CI_Model
         $this->db->where('part', $part);
         $this->db->where('block_name', 2);
         $this->db->where('supervisor_1!=', '');
-        
+
         $res = $this->db->count_all_results('voice_trial_assign');
-        
+
         return $res;
-        
+
     }
 
     public function get_list_for_csv()
@@ -939,7 +939,7 @@ class Mod_voice_trial extends CI_Model
 
             }
         }
-        
+
         return $result;
     }
 
