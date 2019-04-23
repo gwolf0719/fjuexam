@@ -5,15 +5,15 @@ defined('BASEPATH') or exit('No direct script access allowed');
 class Designated extends CI_Controller
 {
     public function index()
-    {   
+    {
         $this->load->model('mod_area');
         $this->mod_user->chk_status();
         $data = array(
             'title' => '指考主選單',
             'path' => 'designated/index',
             'path_text' => ' > 指考主選單',
-            'a1_check' =>$this->mod_area->check_a1(),
-            'f_check' =>$this->mod_area->check_f(),
+            'a1_check' => $this->mod_area->check_a1(),
+            'f_check' => $this->mod_area->check_f(),
         );
         $this->load->view('layout', $data);
     }
@@ -43,9 +43,9 @@ class Designated extends CI_Controller
         $this->load->model('mod_patrol');
         $this->mod_user->chk_status();
         if (isset($_FILES['file'])) { // 如果有接收到上傳檔案資料
-            
+
             $file = $_FILES['file']['tmp_name'];
-            $file_name = './tmp/'.time().'.csv';
+            $file_name = './tmp/' . time() . '.csv';
             copy($file, $file_name);
             $file = fopen($file_name, 'r');
             $datas = array();
@@ -54,7 +54,7 @@ class Designated extends CI_Controller
                 $data = fgetcsv($file);
                 $arr = array();
                 array_push($arr, $data['6'], $data['7'], $data['8'], $data['9'], $data['10'], $data['11'], $data['12'], $data['13'], $data['14'], $data['15']);
-                
+
                 foreach ($arr as $k => $v) {
                     if ($v == '0') {
                         unset($arr[$k]);
@@ -144,7 +144,7 @@ class Designated extends CI_Controller
                 'path' => 'designated/a_1',
                 'path_text' => ' > 指考主選單 > 資料匯入作業 > 考區試場資料',
                 'datalist' => $this->mod_trial->year_get_lists(),
-                
+
             );
             $this->load->view('layout', $data);
         }
@@ -157,7 +157,7 @@ class Designated extends CI_Controller
         if (isset($_FILES['file'])) { // 如果有接收到上傳檔案資料
             // print_r($_FILES);
             $file = $_FILES['file']['tmp_name'];
-            $file_name = './tmp/'.time().'.csv';
+            $file_name = './tmp/' . time() . '.csv';
             copy($file, $file_name);
             $file = fopen($file_name, 'r');
             $datas = array();
@@ -166,13 +166,13 @@ class Designated extends CI_Controller
                 $data = fgetcsv($file);
                 // print_r($data);
                 $datas[] = array(
-                     'sn' => uniqid(),
-                     'year' => $this->session->userdata('year'),
-                     'department' => $data[0],
-                     'code' => $data[1],
-                     'company_name_01' => $data[2],
-                     'company_name_02' => $data[3],
-                 );
+                    'sn' => uniqid(),
+                    'year' => $this->session->userdata('year'),
+                    'department' => $data[0],
+                    'code' => $data[1],
+                    'company_name_01' => $data[2],
+                    'company_name_02' => $data[3],
+                );
                 // print_r($datas);
             }
             // echo json_encode($datas);
@@ -200,7 +200,7 @@ class Designated extends CI_Controller
         if (isset($_FILES['file'])) { // 如果有接收到上傳檔案資料
             // print_r($_FILES);
             $file = $_FILES['file']['tmp_name'];
-            $file_name = './tmp/'.time().'.csv';
+            $file_name = './tmp/' . time() . '.csv';
             copy($file, $file_name);
             $file = fopen($file_name, 'r');
             $datas = array();
@@ -210,14 +210,14 @@ class Designated extends CI_Controller
                 $data = fgetcsv($file);
                 // print_r($data);
                 if ($data[0] != '') {
-                    if(!isset($data[7])){
-                        $data[7]='';
+                    if (!isset($data[7])) {
+                        $data[7] = '';
                     }
                     $datas[] = array(
                         'year' => $this->session->userdata('year'),
                         'member_code' => $data[0],
                         'member_name' => $data[1],
-                        'unit'=>$data[2],
+                        'unit' => $data[2],
                         'member_unit' => $data[3],
                         'member_title' => $data[4],
                         'member_phone' => $data[5],
@@ -234,7 +234,7 @@ class Designated extends CI_Controller
             $this->mod_staff->remove_trial_staff();
             $this->mod_staff->remove_patrol_staff();
             $this->mod_staff->import($datas);
-            
+
             fclose($file);
             unlink($file_name);
             redirect('designated/a_3');
@@ -258,7 +258,7 @@ class Designated extends CI_Controller
 
         if (isset($_FILES['inputGroupFile00'])) { // 如果有接收到上傳檔案資料
             $file = $_FILES['inputGroupFile00']['tmp_name'];
-            $file_name = './tmp/'.time().'.csv';
+            $file_name = './tmp/' . time() . '.csv';
             copy($file, $file_name);
             $file = fopen($file_name, 'r');
             $datas = array();
@@ -288,7 +288,7 @@ class Designated extends CI_Controller
                     'lunch_total' => '',
                     'total' => '',
                     'status' => '1',
-                 );
+                );
             }
             $this->mod_task->import($area);
             fclose($file);
@@ -296,7 +296,7 @@ class Designated extends CI_Controller
             redirect('designated/a_4');
         } elseif (isset($_FILES['inputGroupFile01'])) {
             $file = $_FILES['inputGroupFile01']['tmp_name'];
-            $file_name = './tmp/'.time().'.csv';
+            $file_name = './tmp/' . time() . '.csv';
             copy($file, $file_name);
             $file = fopen($file_name, 'r');
             $datas = array();
@@ -329,8 +329,8 @@ class Designated extends CI_Controller
                     'lunch_total' => '',
                     'total' => '',
                     'status' => '1',
-                 );
-             
+                );
+
             }
             // echo json_encode($datas);
 
@@ -343,7 +343,7 @@ class Designated extends CI_Controller
             redirect('designated/a_4');
         } elseif (isset($_FILES['inputGroupFile02'])) {
             $file = $_FILES['inputGroupFile02']['tmp_name'];
-            $file_name = './tmp/'.time().'.csv';
+            $file_name = './tmp/' . time() . '.csv';
             copy($file, $file_name);
             $file = fopen($file_name, 'r');
             $datas = array();
@@ -372,7 +372,7 @@ class Designated extends CI_Controller
                     'lunch_total' => '',
                     'total' => '',
                     'status' => '1',
-                 );
+                );
             }
             // echo json_encode($datas);
 
@@ -383,7 +383,7 @@ class Designated extends CI_Controller
             redirect('designated/a_4');
         } elseif (isset($_FILES['inputGroupFile03'])) {
             $file = $_FILES['inputGroupFile03']['tmp_name'];
-            $file_name = './tmp/'.time().'.csv';
+            $file_name = './tmp/' . time() . '.csv';
             copy($file, $file_name);
             $file = fopen($file_name, 'r');
             $datas = array();
@@ -412,7 +412,7 @@ class Designated extends CI_Controller
                     'lunch_total' => '',
                     'total' => '',
                     'status' => '1',
-                 );
+                );
             }
             // echo json_encode($datas);
 
@@ -423,15 +423,15 @@ class Designated extends CI_Controller
             redirect('designated/a_4');
         } else {
             $data = array(
-                    'title' => '職務資料',
-                    'path' => 'designated/a_4',
-                    'path_text' => ' > 指考主選單 > 資料匯入作業 > 職務資料',
-                    'all' => $this->mod_task->get_list(),
-                    'b1' => $this->mod_task->get_list('考區'),
-                    'b2' => $this->mod_task->get_list('第一分區'),
-                    'b3' => $this->mod_task->get_list('第二分區'),
-                    'b4' => $this->mod_task->get_list('第三分區'),
-                );
+                'title' => '職務資料',
+                'path' => 'designated/a_4',
+                'path_text' => ' > 指考主選單 > 資料匯入作業 > 職務資料',
+                'all' => $this->mod_task->get_list(),
+                'b1' => $this->mod_task->get_list('考區'),
+                'b2' => $this->mod_task->get_list('第一分區'),
+                'b3' => $this->mod_task->get_list('第二分區'),
+                'b4' => $this->mod_task->get_list('第三分區'),
+            );
             $this->load->view('layout', $data);
         }
     }
@@ -1004,11 +1004,11 @@ class Designated extends CI_Controller
         $title = '行政單位';
         $date = date('yyyy/m/d');
         $obj_pdf->SetTitle($title);
-        $obj_pdf->SetHeaderData('', '', $title, '印表日期：'.$date);
+        $obj_pdf->SetHeaderData('', '', $title, '印表日期：' . $date);
         $obj_pdf->setPrintHeader(false);
         // $obj_pdf->SetHeaderMargin(PDF_MARGIN_HEADER);
         $obj_pdf->SetFooterMargin(PDF_MARGIN_FOOTER);
-        $obj_pdf->SetMargins(PDF_MARGIN_LEFT, 2,PDF_MARGIN_RIGHT);
+        $obj_pdf->SetMargins(PDF_MARGIN_LEFT, 2, PDF_MARGIN_RIGHT);
         $obj_pdf->SetAutoPageBreak(true, 10);
         $obj_pdf->SetFont('msungstdlight', 'L', 14);
 
@@ -1017,13 +1017,13 @@ class Designated extends CI_Controller
             'list' => $this->mod_school_unit->year_get_school_unit_list(),
         );
         if ($data['list'] != false) {
-            $view =  $this->load->view('designated/e_1_1', $data, true);
+            $view = $this->load->view('designated/e_1_1', $data, true);
             if (!is_dir('./html/')) {
                 mkdir('./html/');
             } else {
                 $path = 'e_1_1.html';
-                $fp = fopen('./html/'.$path,'w');//建檔
-                fwrite($fp,$view);
+                $fp = fopen('./html/' . $path, 'w');//建檔
+                fwrite($fp, $view);
                 fclose($fp);//關閉開啟的檔案
                 // copy($path, './html/'.$path);
 
@@ -1035,7 +1035,7 @@ class Designated extends CI_Controller
                 exec('wkhtmltopdf --lowquality --enable-forms http://uat.fofo.tw/fjuexam/html/e_1_1.html  ./pdf/e_1_1.pdf');
             }
             echo '<script>location.href="http://uat.fofo.tw/fjuexam/pdf/e_1_1.pdf"</script>';
-        }else{
+        } else {
             return false;
         }
     }
@@ -1049,11 +1049,11 @@ class Designated extends CI_Controller
         $title = '請公假名單';
         $date = date('yyyy/m/d');
         $obj_pdf->SetTitle($title);
-        $obj_pdf->SetHeaderData('', '', $title, '印表日期：'.$date);
+        $obj_pdf->SetHeaderData('', '', $title, '印表日期：' . $date);
         $obj_pdf->setPrintHeader(false);
         // $obj_pdf->SetHeaderMargin(PDF_MARGIN_HEADER);
         $obj_pdf->SetFooterMargin(PDF_MARGIN_FOOTER);
-        $obj_pdf->SetMargins(PDF_MARGIN_LEFT, 7,PDF_MARGIN_RIGHT);
+        $obj_pdf->SetMargins(PDF_MARGIN_LEFT, 7, PDF_MARGIN_RIGHT);
         $obj_pdf->SetAutoPageBreak(true, PDF_MARGIN_BOTTOM);
         $obj_pdf->SetFont('msungstdlight', 'L', 14);
         $obj_pdf->SetCellPadding(0);
@@ -1065,13 +1065,13 @@ class Designated extends CI_Controller
             'list' => $this->mod_task->get_all_assign_member_list(),
         );
         // print_r($data);
-        $view =  $this->load->view('designated/e_1_2', $data, true);
+        $view = $this->load->view('designated/e_1_2', $data, true);
         if (!is_dir('./html/')) {
             mkdir('./html/');
         } else {
             $path = 'e_1_2.html';
-            $fp = fopen('./html/'.$path,'w');//建檔
-            fwrite($fp,$view);
+            $fp = fopen('./html/' . $path, 'w');//建檔
+            fwrite($fp, $view);
             fclose($fp);//關閉開啟的檔案
             // copy($path, './html/'.$path);
 
@@ -1098,11 +1098,11 @@ class Designated extends CI_Controller
         $title = '監試及試務人員一覽表';
         $date = date('yyyy/m/d');
         $obj_pdf->SetTitle($title);
-        $obj_pdf->SetHeaderData('', '', $title, '印表日期：'.$date);
+        $obj_pdf->SetHeaderData('', '', $title, '印表日期：' . $date);
         $obj_pdf->setPrintHeader(false);
         // $obj_pdf->SetHeaderMargin(PDF_MARGIN_HEADER);
         $obj_pdf->SetFooterMargin(PDF_MARGIN_FOOTER);
-        $obj_pdf->SetMargins(PDF_MARGIN_LEFT, 5,PDF_MARGIN_RIGHT);
+        $obj_pdf->SetMargins(PDF_MARGIN_LEFT, 5, PDF_MARGIN_RIGHT);
         $obj_pdf->SetAutoPageBreak(true, 10);
         $obj_pdf->SetFont('msungstdlight', 'L', 14);
 
@@ -1113,27 +1113,27 @@ class Designated extends CI_Controller
             'area' => $area,
             'school' => $this->mod_exam_area->year_school_name($part),
         );
-        if($data['part'] != false){
-          $view =  $this->load->view('designated/e_1_3', $data, true);
-          if (!is_dir('./html/')) {
-              mkdir('./html/');
-          } else {
-              $path = 'e_1_3.html';
-              $fp = fopen('./html/'.$path,'w');//建檔
-              fwrite($fp,$view);
-              fclose($fp);//關閉開啟的檔案
+        if ($data['part'] != false) {
+            $view = $this->load->view('designated/e_1_3', $data, true);
+            if (!is_dir('./html/')) {
+                mkdir('./html/');
+            } else {
+                $path = 'e_1_3.html';
+                $fp = fopen('./html/' . $path, 'w');//建檔
+                fwrite($fp, $view);
+                fclose($fp);//關閉開啟的檔案
               // copy($path, './html/'.$path);
 
-          }
+            }
 
-          if (!is_dir('./pdf/')) {
-              mkdir('./pdf/');
-          } else {
-              exec('wkhtmltopdf --lowquality --enable-forms http://uat.fofo.tw/fjuexam/html/e_1_3.html  ./pdf/e_1_3.pdf');
-          }
-          echo '<script>location.href="http://uat.fofo.tw/fjuexam/pdf/e_1_3.pdf"</script>';
-        }else{
-          return false;
+            if (!is_dir('./pdf/')) {
+                mkdir('./pdf/');
+            } else {
+                exec('wkhtmltopdf --lowquality --enable-forms http://uat.fofo.tw/fjuexam/html/e_1_3.html  ./pdf/e_1_3.pdf');
+            }
+            echo '<script>location.href="http://uat.fofo.tw/fjuexam/pdf/e_1_3.pdf"</script>';
+        } else {
+            return false;
         }
     }
 
@@ -1156,7 +1156,7 @@ class Designated extends CI_Controller
         $title = '監試及試務人員一覽表';
         $date = date('yyyy/m/d');
         $obj_pdf->SetTitle($title);
-        $obj_pdf->SetHeaderData('', '', $title, '印表日期：'.$date);
+        $obj_pdf->SetHeaderData('', '', $title, '印表日期：' . $date);
         $obj_pdf->setPrintHeader(false);
         // $obj_pdf->SetHeaderMargin(PDF_MARGIN_HEADER);
         $obj_pdf->SetFooterMargin(PDF_MARGIN_FOOTER);
@@ -1177,32 +1177,32 @@ class Designated extends CI_Controller
             );
         }
         $data = array(
-            'part' => $this->mod_task->get_district_task($area,$part),
+            'part' => $this->mod_task->get_district_task($area, $part),
             'area' => $area,
             'school' => $this->mod_exam_area->year_school_name($part),
             'addr_info' => $addr_info,
         );
-        if($data['part'] != false){
-          $view =  $this->load->view('designated/e_1_3_3', $data, true);
-          if (!is_dir('./html/')) {
-              mkdir('./html/');
-          } else {
-              $path = 'e_1_3_3.html';
-              $fp = fopen('./html/'.$path,'w');//建檔
-              fwrite($fp,$view);
-              fclose($fp);//關閉開啟的檔案
+        if ($data['part'] != false) {
+            $view = $this->load->view('designated/e_1_3_3', $data, true);
+            if (!is_dir('./html/')) {
+                mkdir('./html/');
+            } else {
+                $path = 'e_1_3_3.html';
+                $fp = fopen('./html/' . $path, 'w');//建檔
+                fwrite($fp, $view);
+                fclose($fp);//關閉開啟的檔案
               // copy($path, './html/'.$path);
 
-          }
+            }
 
-          if (!is_dir('./pdf/')) {
-              mkdir('./pdf/');
-          } else {
-              exec('wkhtmltopdf --lowquality --enable-forms http://uat.fofo.tw/fjuexam/html/e_1_3_3.html  ./pdf/e_1_3_3.pdf');
-          }
-          echo '<script>location.href="http://uat.fofo.tw/fjuexam/pdf/e_1_3_3.pdf"</script>';
-        }else{
-          return false;
+            if (!is_dir('./pdf/')) {
+                mkdir('./pdf/');
+            } else {
+                exec('wkhtmltopdf --lowquality --enable-forms http://uat.fofo.tw/fjuexam/html/e_1_3_3.html  ./pdf/e_1_3_3.pdf');
+            }
+            echo '<script>location.href="http://uat.fofo.tw/fjuexam/pdf/e_1_3_3.pdf"</script>';
+        } else {
+            return false;
         }
     }
 
@@ -1225,7 +1225,7 @@ class Designated extends CI_Controller
         $title = '監試及試務人員一覽表';
         $date = date('yyyy/m/d');
         $obj_pdf->SetTitle($title);
-        $obj_pdf->SetHeaderData('', '', $title, '印表日期：'.$date);
+        $obj_pdf->SetHeaderData('', '', $title, '印表日期：' . $date);
         $obj_pdf->setPrintHeader(false);
         // $obj_pdf->SetHeaderMargin(PDF_MARGIN_HEADER);
         $obj_pdf->SetFooterMargin(PDF_MARGIN_FOOTER);
@@ -1246,32 +1246,32 @@ class Designated extends CI_Controller
             );
         }
         $data = array(
-            'part' => $this->mod_task->get_trial_staff_list_for_pdf($area,$part),
+            'part' => $this->mod_task->get_trial_staff_list_for_pdf($area, $part),
             'area' => $area,
             'school' => $this->mod_exam_area->year_school_name($part),
             'addr_info' => $addr_info,
         );
-        if($data['part'] != false){
-          $view =  $this->load->view('designated/e_1_3_4', $data, true);
-          if (!is_dir('./html/')) {
-              mkdir('./html/');
-          } else {
-              $path = 'e_1_3_4.html';
-              $fp = fopen('./html/'.$path,'w');//建檔
-              fwrite($fp,$view);
-              fclose($fp);//關閉開啟的檔案
+        if ($data['part'] != false) {
+            $view = $this->load->view('designated/e_1_3_4', $data, true);
+            if (!is_dir('./html/')) {
+                mkdir('./html/');
+            } else {
+                $path = 'e_1_3_4.html';
+                $fp = fopen('./html/' . $path, 'w');//建檔
+                fwrite($fp, $view);
+                fclose($fp);//關閉開啟的檔案
               // copy($path, './html/'.$path);
 
-          }
+            }
 
-          if (!is_dir('./pdf/')) {
-              mkdir('./pdf/');
-          } else {
-              exec('wkhtmltopdf --lowquality --enable-forms http://uat.fofo.tw/fjuexam/html/e_1_3_4.html  ./pdf/e_1_3_4.pdf');
-          }
-          echo '<script>location.href="http://uat.fofo.tw/fjuexam/pdf/e_1_3_4.pdf"</script>';
-        }else{
-          return false;
+            if (!is_dir('./pdf/')) {
+                mkdir('./pdf/');
+            } else {
+                exec('wkhtmltopdf --lowquality --enable-forms http://uat.fofo.tw/fjuexam/html/e_1_3_4.html  ./pdf/e_1_3_4.pdf');
+            }
+            echo '<script>location.href="http://uat.fofo.tw/fjuexam/pdf/e_1_3_4.pdf"</script>';
+        } else {
+            return false;
         }
     }
 
@@ -1294,11 +1294,11 @@ class Designated extends CI_Controller
         $title = '監試及試務人員一覽表';
         $date = date('yyyy/m/d');
         $obj_pdf->SetTitle($title);
-        $obj_pdf->SetHeaderData('', '', $title, '印表日期：'.$date);
+        $obj_pdf->SetHeaderData('', '', $title, '印表日期：' . $date);
         $obj_pdf->setPrintHeader(false);
         // $obj_pdf->SetHeaderMargin(PDF_MARGIN_HEADER);
         $obj_pdf->SetFooterMargin(PDF_MARGIN_FOOTER);
-        $obj_pdf->SetMargins(PDF_MARGIN_LEFT,PDF_MARGIN_RIGHT);
+        $obj_pdf->SetMargins(PDF_MARGIN_LEFT, PDF_MARGIN_RIGHT);
         $obj_pdf->SetAutoPageBreak(true, PDF_MARGIN_BOTTOM);
         $obj_pdf->SetFont('msungstdlight', 'L', 14);
 
@@ -1315,19 +1315,19 @@ class Designated extends CI_Controller
             );
         }
         $data = array(
-            'part' => $this->mod_task->get_patrol_staff_list_for_pdf($area,$part),
+            'part' => $this->mod_task->get_patrol_staff_list_for_pdf($area, $part),
             'area' => $area,
             'school' => $this->mod_exam_area->year_school_name($part),
             'addr_info' => $addr_info,
         );
-        if($data['part'] != false){
-            $view =  $this->load->view('designated/e_1_3_5', $data, true);
+        if ($data['part'] != false) {
+            $view = $this->load->view('designated/e_1_3_5', $data, true);
             if (!is_dir('./html/')) {
                 mkdir('./html/');
             } else {
                 $path = 'e_1_3_5.html';
-                $fp = fopen('./html/'.$path,'w');//建檔
-                fwrite($fp,$view);
+                $fp = fopen('./html/' . $path, 'w');//建檔
+                fwrite($fp, $view);
                 fclose($fp);//關閉開啟的檔案
                 // copy($path, './html/'.$path);
 
@@ -1339,8 +1339,8 @@ class Designated extends CI_Controller
                 exec('wkhtmltopdf --lowquality --enable-forms http://uat.fofo.tw/fjuexam/html/e_1_3_5.html  ./pdf/e_1_3_5.pdf');
             }
             echo '<script>location.href="http://uat.fofo.tw/fjuexam/pdf/e_1_3_5.pdf"</script>';
-        }else{
-          return false;
+        } else {
+            return false;
         }
     }
 
@@ -1378,18 +1378,18 @@ class Designated extends CI_Controller
             'count' => $this->mod_exam_area->year_get_member_count_list($part),
             'school' => $this->mod_exam_area->year_school_name($part),
             'course' => $this->mod_exam_datetime->get_course($year),
-            'datetime_info'=>$datetime_info,
-            'area'=>$area
+            'datetime_info' => $datetime_info,
+            'area' => $area
         );
-        if($data['list'] != false){
-            $view = $this->load->view('designated/e_1_4',$data,true);
+        if ($data['list'] != false) {
+            $view = $this->load->view('designated/e_1_4', $data, true);
 
             if (!is_dir('./html/')) {
                 mkdir('./html/');
             } else {
                 $path = 'e_1_4.html';
-                $fp = fopen('./html/'.$path,'w');//建檔
-                fwrite($fp,$view);
+                $fp = fopen('./html/' . $path, 'w');//建檔
+                fwrite($fp, $view);
                 fclose($fp);//關閉開啟的檔案
                 // copy($path, './html/'.$path);
 
@@ -1401,8 +1401,8 @@ class Designated extends CI_Controller
                 exec('wkhtmltopdf --lowquality --enable-forms http://uat.fofo.tw/fjuexam/html/e_1_4.html  ./pdf/e_1_4.pdf');
             }
             echo '<script>location.href="http://uat.fofo.tw/fjuexam/pdf/e_1_4.pdf"</script>';
-        }else{
-          return false;
+        } else {
+            return false;
         }
     }
 
@@ -1415,10 +1415,10 @@ class Designated extends CI_Controller
         $part = $_GET['part'];
         $area = $_GET['area'];
 
-        $title = $area.'監試人員午餐一覽表';
+        $title = $area . '監試人員午餐一覽表';
         $date = date('yyyy/m/d');
         $obj_pdf->SetTitle($title);
-        $obj_pdf->SetHeaderData('', '', $title, '印表日期：'.$date);
+        $obj_pdf->SetHeaderData('', '', $title, '印表日期：' . $date);
         $obj_pdf->setPrintHeader(false);
         // $obj_pdf->SetHeaderMargin(PDF_MARGIN_HEADER);
         $obj_pdf->SetFooterMargin(PDF_MARGIN_FOOTER);
@@ -1432,32 +1432,32 @@ class Designated extends CI_Controller
         $data = array(
             'part' => $this->mod_trial->get_dinner_list_for_pdf($part),
             'area' => $area,
-            'count'=>$this->mod_trial->e_6_1_member_count($part),
+            'count' => $this->mod_trial->e_6_1_member_count($part),
             'own' => $this->mod_trial->get_trial_own_meal_count($part),
             'veg' => $this->mod_trial->get_trial_veg_meal_count($part),
             'meat' => $this->mod_trial->get_trial_meat_meal_count($part),
         );
-        if($data['part'] != false){
-          $view =  $this->load->view('designated/e_1_5', $data, true);
-          if (!is_dir('./html/')) {
-              mkdir('./html/');
-          } else {
-              $path = 'e_1_5.html';
-              $fp = fopen('./html/'.$path,'w');//建檔
-              fwrite($fp,$view);
-              fclose($fp);//關閉開啟的檔案
+        if ($data['part'] != false) {
+            $view = $this->load->view('designated/e_1_5', $data, true);
+            if (!is_dir('./html/')) {
+                mkdir('./html/');
+            } else {
+                $path = 'e_1_5.html';
+                $fp = fopen('./html/' . $path, 'w');//建檔
+                fwrite($fp, $view);
+                fclose($fp);//關閉開啟的檔案
               // copy($path, './html/'.$path);
 
-          }
+            }
 
-          if (!is_dir('./pdf/')) {
-              mkdir('./pdf/');
-          } else {
-              exec('wkhtmltopdf --lowquality --enable-forms http://uat.fofo.tw/fjuexam/html/e_1_5.html  ./pdf/e_1_5.pdf');
-          }
-          echo '<script>location.href="http://uat.fofo.tw/fjuexam/pdf/e_1_5.pdf"</script>';
-        }else{
-          return false;
+            if (!is_dir('./pdf/')) {
+                mkdir('./pdf/');
+            } else {
+                exec('wkhtmltopdf --lowquality --enable-forms http://uat.fofo.tw/fjuexam/html/e_1_5.html  ./pdf/e_1_5.pdf');
+            }
+            echo '<script>location.href="http://uat.fofo.tw/fjuexam/pdf/e_1_5.pdf"</script>';
+        } else {
+            return false;
         }
     }
 
@@ -1470,7 +1470,7 @@ class Designated extends CI_Controller
             'title' => '簽到表 / 簽收單',
             'path' => 'designated/e_2',
             'path_text' => ' > 製作報表 > 簽到表 / 簽收單',
-            'datetime_info'=>$datetime_info
+            'datetime_info' => $datetime_info
         );
         $this->load->view('layout', $data);
     }
@@ -1493,7 +1493,7 @@ class Designated extends CI_Controller
         }
         $date = date('yyyy/m/d');
         $obj_pdf->SetTitle($title);
-        $obj_pdf->SetHeaderData('', '', $title, '印表日期：'.$date);
+        $obj_pdf->SetHeaderData('', '', $title, '印表日期：' . $date);
         $obj_pdf->setPrintHeader(false);
         // $obj_pdf->SetHeaderMargin(PDF_MARGIN_HEADER);
         $obj_pdf->SetFooterMargin(PDF_MARGIN_FOOTER);
@@ -1504,7 +1504,7 @@ class Designated extends CI_Controller
         $obj_pdf->setFontSubsetting(false);
 
         $data = array(
-            'part' => $this->mod_task->e_2_1($area,$part),
+            'part' => $this->mod_task->e_2_1($area, $part),
             'area' => $area,
             // 'own'=> $this->mod_task->get_task_own_count($area),
             // 'veg'=> $this->mod_task->get_member_veg_count($area),
@@ -1512,13 +1512,13 @@ class Designated extends CI_Controller
             'school' => $school,
         );
         if ($data['part'] != false) {
-            $view =  $this->load->view('designated/e_2_1_1', $data, true);
+            $view = $this->load->view('designated/e_2_1_1', $data, true);
             if (!is_dir('./html/')) {
                 mkdir('./html/');
             } else {
                 $path = 'e_2_1_1.html';
-                $fp = fopen('./html/'.$path,'w');//建檔
-                fwrite($fp,$view);
+                $fp = fopen('./html/' . $path, 'w');//建檔
+                fwrite($fp, $view);
                 fclose($fp);//關閉開啟的檔案
                 // copy($path, './html/'.$path);
 
@@ -1530,7 +1530,7 @@ class Designated extends CI_Controller
                 exec('wkhtmltopdf --lowquality --enable-forms http://uat.fofo.tw/fjuexam/html/e_2_1_1.html  ./pdf/e_2_1_1.pdf');
             }
             echo '<script>location.href="http://uat.fofo.tw/fjuexam/pdf/e_2_1_1.pdf"</script>';
-        }else{
+        } else {
             return false;
         }
     }
@@ -1554,7 +1554,7 @@ class Designated extends CI_Controller
         }
         $date = date('yyyy/m/d');
         $obj_pdf->SetTitle($title);
-        $obj_pdf->SetHeaderData('', '', $title, '印表日期：'.$date);
+        $obj_pdf->SetHeaderData('', '', $title, '印表日期：' . $date);
         $obj_pdf->setPrintHeader(false);
         // $obj_pdf->SetHeaderMargin(PDF_MARGIN_HEADER);
         $obj_pdf->SetFooterMargin(PDF_MARGIN_FOOTER);
@@ -1573,13 +1573,13 @@ class Designated extends CI_Controller
             'school' => $school,
         );
         if ($data['part'] != false) {
-            $view = $this->load->view('designated/e_2_1_2', $data,true);
+            $view = $this->load->view('designated/e_2_1_2', $data, true);
             if (!is_dir('./html/')) {
                 mkdir('./html/');
             } else {
                 $path = 'e_2_1_2.html';
-                $fp = fopen('./html/'.$path,'w');//建檔
-                fwrite($fp,$view);
+                $fp = fopen('./html/' . $path, 'w');//建檔
+                fwrite($fp, $view);
                 fclose($fp);//關閉開啟的檔案
                 // copy($path, './html/'.$path);
 
@@ -1590,7 +1590,7 @@ class Designated extends CI_Controller
                 exec('wkhtmltopdf --lowquality --enable-forms http://uat.fofo.tw/fjuexam/html/e_2_1_2.html  ./pdf/e_2_1_2.pdf');
             }
             echo '<script>location.href="http://uat.fofo.tw/fjuexam/pdf/e_2_1_2.pdf"</script>';
-        }else{
+        } else {
             return false;
         }
     }
@@ -1614,7 +1614,7 @@ class Designated extends CI_Controller
         }
         $date = date('yyyy/m/d');
         $obj_pdf->SetTitle($title);
-        $obj_pdf->SetHeaderData('', '', $title, '印表日期：'.$date);
+        $obj_pdf->SetHeaderData('', '', $title, '印表日期：' . $date);
         $obj_pdf->setPrintHeader(false);
         // $obj_pdf->SetHeaderMargin(PDF_MARGIN_HEADER);
         $obj_pdf->SetFooterMargin(PDF_MARGIN_FOOTER);
@@ -1633,13 +1633,13 @@ class Designated extends CI_Controller
             'school' => $school,
         );
         if ($data['part'] != false) {
-            $view =  $this->load->view('designated/e_2_1_3', $data, true);
+            $view = $this->load->view('designated/e_2_1_3', $data, true);
             if (!is_dir('./html/')) {
                 mkdir('./html/');
             } else {
                 $path = 'e_2_1_3.html';
-                $fp = fopen('./html/'.$path,'w');//建檔
-                fwrite($fp,$view);
+                $fp = fopen('./html/' . $path, 'w');//建檔
+                fwrite($fp, $view);
                 fclose($fp);//關閉開啟的檔案
                 // copy($path, './html/'.$path);
 
@@ -1650,7 +1650,7 @@ class Designated extends CI_Controller
                 exec('wkhtmltopdf --lowquality --enable-forms http://uat.fofo.tw/fjuexam/html/e_2_1_3.html  ./pdf/e_2_1_3.pdf');
             }
             echo '<script>location.href="http://uat.fofo.tw/fjuexam/pdf/e_2_1_3.pdf"</script>';
-        }else{
+        } else {
             return false;
         }
     }
@@ -1668,7 +1668,7 @@ class Designated extends CI_Controller
         $area = $_GET['area'];
 
         $obj_pdf->SetTitle($title);
-        $obj_pdf->SetHeaderData('', '', $title, '印表日期：'.$date);
+        $obj_pdf->SetHeaderData('', '', $title, '印表日期：' . $date);
         $obj_pdf->setPrintHeader(false);
         // $obj_pdf->SetHeaderMargin(PDF_MARGIN_HEADER);
         $obj_pdf->SetFooterMargin(PDF_MARGIN_FOOTER);
@@ -1681,7 +1681,7 @@ class Designated extends CI_Controller
         $year = $this->session->userdata('year');
         $data = array(
             'part' => $this->mod_trial->get_date_for_trial_list($part),
-            'area' =>$area,
+            'area' => $area,
             'school' => $this->mod_exam_area->year_school_name($part),
             'own' => $this->mod_trial->get_trial_own_meal_count($part),
             'veg' => $this->mod_trial->get_trial_veg_meal_count($part),
@@ -1689,13 +1689,13 @@ class Designated extends CI_Controller
         );
 
         if ($data['part'] != false) {
-            $view = $this->load->view('designated/e_2_2', $data,true);
+            $view = $this->load->view('designated/e_2_2', $data, true);
             if (!is_dir('./html/')) {
                 mkdir('./html/');
             } else {
                 $path = 'e_2_2.html';
-                $fp = fopen('./html/'.$path,'w');//建檔
-                fwrite($fp,$view);
+                $fp = fopen('./html/' . $path, 'w');//建檔
+                fwrite($fp, $view);
                 fclose($fp);//關閉開啟的檔案
             }
 
@@ -1705,7 +1705,7 @@ class Designated extends CI_Controller
                 exec('wkhtmltopdf --lowquality  --enable-forms http://uat.fofo.tw/fjuexam/html/e_2_2.html  ./pdf/e_2_2.pdf');
             }
             echo '<script>location.href="http://uat.fofo.tw/fjuexam/pdf/e_2_2.pdf"</script>';
-        }else{
+        } else {
             return false;
         }
 
@@ -1726,7 +1726,7 @@ class Designated extends CI_Controller
         $area = $_GET['area'];
 
         $obj_pdf->SetTitle($title);
-        $obj_pdf->SetHeaderData('', '', $title, '印表日期：'.$date);
+        $obj_pdf->SetHeaderData('', '', $title, '印表日期：' . $date);
         $obj_pdf->setPrintHeader(false);
         // $obj_pdf->SetHeaderMargin(PDF_MARGIN_HEADER);
         $obj_pdf->SetFooterMargin(PDF_MARGIN_FOOTER);
@@ -1742,18 +1742,18 @@ class Designated extends CI_Controller
             'part' => $this->mod_trial->get_once_date_of_voucher1($part),
             'area' => $area,
             'datetime_info' => $datetime_info,
-            'count'=> $this->mod_trial->get_patrol_member_count_1($part),
+            'count' => $this->mod_trial->get_patrol_member_count_1($part),
             'school' => $this->mod_exam_area->year_school_name($part),
         );
-
+        // print_r($this->mod_trial->get_once_date_of_voucher1($part));
         if ($data['part'] != false) {
-            $view = $this->load->view('designated/e_2_3_1', $data,true);
+            $view = $this->load->view('designated/e_2_3_1', $data, true);
             if (!is_dir('./html/')) {
                 mkdir('./html/');
             } else {
                 $path = 'e_2_3_1.html';
-                $fp = fopen('./html/'.$path,'w');//建檔
-                fwrite($fp,$view);
+                $fp = fopen('./html/' . $path, 'w');//建檔
+                fwrite($fp, $view);
                 fclose($fp);//關閉開啟的檔案
             }
 
@@ -1763,7 +1763,7 @@ class Designated extends CI_Controller
                 exec('wkhtmltopdf --lowquality  --enable-forms http://uat.fofo.tw/fjuexam/html/e_2_3_1.html  ./pdf/e_2_3_1.pdf');
             }
             echo '<script>location.href="http://uat.fofo.tw/fjuexam/pdf/e_2_3_1.pdf"</script>';
-        }else{
+        } else {
             return false;
         }
     }
@@ -1783,7 +1783,7 @@ class Designated extends CI_Controller
         $area = $_GET['area'];
 
         $obj_pdf->SetTitle($title);
-        $obj_pdf->SetHeaderData('', '', $title, '印表日期：'.$date);
+        $obj_pdf->SetHeaderData('', '', $title, '印表日期：' . $date);
         $obj_pdf->setPrintHeader(false);
         // $obj_pdf->SetHeaderMargin(PDF_MARGIN_HEADER);
         $obj_pdf->SetFooterMargin(PDF_MARGIN_FOOTER);
@@ -1799,17 +1799,17 @@ class Designated extends CI_Controller
             'part' => $this->mod_trial->get_once_date_of_voucher2($part),
             'area' => $area,
             'datetime_info' => $datetime_info,
-            'count'=> $this->mod_trial->get_patrol_member_count_2($part),
+            'count' => $this->mod_trial->get_patrol_member_count_2($part),
             'school' => $this->mod_exam_area->year_school_name($part),
         );
         if ($data['part'] != false) {
-            $view = $this->load->view('designated/e_2_3_2', $data,true);
+            $view = $this->load->view('designated/e_2_3_2', $data, true);
             if (!is_dir('./html/')) {
                 mkdir('./html/');
             } else {
                 $path = 'e_2_3_2.html';
-                $fp = fopen('./html/'.$path,'w');//建檔
-                fwrite($fp,$view);
+                $fp = fopen('./html/' . $path, 'w');//建檔
+                fwrite($fp, $view);
                 fclose($fp);//關閉開啟的檔案
             }
 
@@ -1819,7 +1819,7 @@ class Designated extends CI_Controller
                 exec('wkhtmltopdf --lowquality  --enable-forms http://uat.fofo.tw/fjuexam/html/e_2_3_2.html  ./pdf/e_2_3_2.pdf');
             }
             echo '<script>location.href="http://uat.fofo.tw/fjuexam/pdf/e_2_3_2.pdf"</script>';
-        }else{
+        } else {
             return false;
         }
     }
@@ -1839,7 +1839,7 @@ class Designated extends CI_Controller
         $area = $_GET['area'];
 
         $obj_pdf->SetTitle($title);
-        $obj_pdf->SetHeaderData('', '', $title, '印表日期：'.$date);
+        $obj_pdf->SetHeaderData('', '', $title, '印表日期：' . $date);
         $obj_pdf->setPrintHeader(false);
         // $obj_pdf->SetHeaderMargin(PDF_MARGIN_HEADER);
         $obj_pdf->SetFooterMargin(PDF_MARGIN_FOOTER);
@@ -1856,17 +1856,17 @@ class Designated extends CI_Controller
             'part' => $this->mod_trial->get_once_date_of_voucher3($part),
             'area' => $area,
             'datetime_info' => $datetime_info,
-            'count'=> $this->mod_trial->get_patrol_member_count_3($part),
+            'count' => $this->mod_trial->get_patrol_member_count_3($part),
             'school' => $this->mod_exam_area->year_school_name($part),
         );
         if ($data['part'] != false) {
-            $view = $this->load->view('designated/e_2_3_3', $data,true);
+            $view = $this->load->view('designated/e_2_3_3', $data, true);
             if (!is_dir('./html/')) {
                 mkdir('./html/');
             } else {
                 $path = 'e_2_3_3.html';
-                $fp = fopen('./html/'.$path,'w');//建檔
-                fwrite($fp,$view);
+                $fp = fopen('./html/' . $path, 'w');//建檔
+                fwrite($fp, $view);
                 fclose($fp);//關閉開啟的檔案
             }
 
@@ -1876,7 +1876,7 @@ class Designated extends CI_Controller
                 exec('wkhtmltopdf --lowquality  --enable-forms http://uat.fofo.tw/fjuexam/html/e_2_3_3.html  ./pdf/e_2_3_3.pdf');
             }
             echo '<script>location.href="http://uat.fofo.tw/fjuexam/pdf/e_2_3_3.pdf"</script>';
-        }else{
+        } else {
             return false;
         }
     }
@@ -1891,11 +1891,11 @@ class Designated extends CI_Controller
         $date = date('yyyy/m/d');
 
         $obj_pdf->SetTitle($title);
-        $obj_pdf->SetHeaderData('', '', $title, '印表日期：'.$date);
+        $obj_pdf->SetHeaderData('', '', $title, '印表日期：' . $date);
         $obj_pdf->setPrintHeader(false);
         // $obj_pdf->SetHeaderMargin(PDF_MARGIN_HEADER);
         $obj_pdf->SetFooterMargin(PDF_MARGIN_FOOTER);
-        $obj_pdf->SetMargins(PDF_MARGIN_LEFT,3,PDF_MARGIN_RIGHT);
+        $obj_pdf->SetMargins(PDF_MARGIN_LEFT, 3, PDF_MARGIN_RIGHT);
         $obj_pdf->SetAutoPageBreak(true, PDF_MARGIN_BOTTOM);
         $obj_pdf->SetFont('msungstdlight', 'L', 14);
 
@@ -1904,13 +1904,13 @@ class Designated extends CI_Controller
             'part' => $this->mod_task->get_sign_list(),
         );
         if ($data['part'] != false) {
-            $view = $this->load->view('designated/e_2_4',$data,true);
+            $view = $this->load->view('designated/e_2_4', $data, true);
             if (!is_dir('./html/')) {
                 mkdir('./html/');
             } else {
                 $path = 'e_2_4.html';
-                $fp = fopen('./html/'.$path,'w');//建檔
-                fwrite($fp,$view);
+                $fp = fopen('./html/' . $path, 'w');//建檔
+                fwrite($fp, $view);
                 fclose($fp);//關閉開啟的檔案
             }
 
@@ -1920,22 +1920,23 @@ class Designated extends CI_Controller
                 exec('wkhtmltopdf --lowquality  --enable-forms http://uat.fofo.tw/fjuexam/html/e_2_4.html  ./pdf/e_2_4.pdf');
             }
             echo '<script>location.href="http://uat.fofo.tw/fjuexam/pdf/e_2_4.pdf"</script>';
-        }else{
+        } else {
             return false;
         }
     }
 
 
-    function utf8_array_asort(&$array) {
+    function utf8_array_asort(&$array)
+    {
 
-        if(!isset($array) || !is_array($array)) {
+        if (!isset($array) || !is_array($array)) {
             return false;
         }
-        foreach($array as $k=>$v) {
-            $array[$k] = iconv('UTF-8', 'GBK',$v);
+        foreach ($array as $k => $v) {
+            $array[$k] = iconv('UTF-8', 'GBK', $v);
         }
         asort($array);
-        foreach($array as $k=>$v) {
+        foreach ($array as $k => $v) {
             $array[$k] = iconv('GBK', 'UTF-8', $v);
         }
         return true;
@@ -1949,11 +1950,11 @@ class Designated extends CI_Controller
 
         $obj_pdf = new Pdf(PDF_PAGE_ORIENTATION, PDF_UNIT, PDF_PAGE_FORMAT, false, 'UTF-8', false);
         $obj_pdf->SetCreator(PDF_CREATOR);
-        $title = '大學入學考試中心'.$_SESSION['year'].'學年度指定科目考試新北一考區監試說明會開會通知簽收表';
+        $title = '大學入學考試中心' . $_SESSION['year'] . '學年度指定科目考試新北一考區監試說明會開會通知簽收表';
 
         $date = date('yyyy/m/d');
         $obj_pdf->SetTitle($title);
-        $obj_pdf->SetHeaderData('', '', $title, '印表日期：'.$date);
+        $obj_pdf->SetHeaderData('', '', $title, '印表日期：' . $date);
         $obj_pdf->setPrintHeader(false);
         // $obj_pdf->SetHeaderMargin(PDF_MARGIN_HEADER);
         $obj_pdf->SetFooterMargin(PDF_MARGIN_FOOTER);
@@ -1967,13 +1968,13 @@ class Designated extends CI_Controller
             'list' => $this->mod_task->get_member_map_list()
         );
         if ($data['list'] != false) {
-            $view = $this->load->view('designated/e_2_5',$data,true);
+            $view = $this->load->view('designated/e_2_5', $data, true);
             if (!is_dir('./html/')) {
                 mkdir('./html/');
             } else {
                 $path = 'e_2_5.html';
-                $fp = fopen('./html/'.$path,'w');//建檔
-                fwrite($fp,$view);
+                $fp = fopen('./html/' . $path, 'w');//建檔
+                fwrite($fp, $view);
                 fclose($fp);//關閉開啟的檔案
             }
 
@@ -1983,7 +1984,7 @@ class Designated extends CI_Controller
                 exec('wkhtmltopdf --lowquality  --enable-forms http://uat.fofo.tw/fjuexam/html/e_2_5.html  ./pdf/e_2_5.pdf');
             }
             echo '<script>location.href="http://uat.fofo.tw/fjuexam/pdf/e_2_5.pdf"</script>';
-        }else{
+        } else {
             return false;
         }
     }
@@ -1997,9 +1998,9 @@ class Designated extends CI_Controller
             $datetime_info = $this->mod_exam_datetime->get_once($_SESSION['year']);
         } else {
             $datetime_info = array(
-                'day_1' => '1911' + $this->session->userdata('year').'/07/01',
-                'day_2' => '1911' + $this->session->userdata('year').'/07/02',
-                'day_3' => '1911' + $this->session->userdata('year').'/07/03',
+                'day_1' => '1911' + $this->session->userdata('year') . '/07/01',
+                'day_2' => '1911' + $this->session->userdata('year') . '/07/02',
+                'day_3' => '1911' + $this->session->userdata('year') . '/07/03',
                 'course_1_start' => '08:40',
                 'course_1_end' => '10:00',
                 'course_2_start' => '10:50',
@@ -2018,7 +2019,7 @@ class Designated extends CI_Controller
             'title' => '日程表 / 分配表',
             'path' => 'designated/e_3',
             'path_text' => ' > 製作報表 > 日程表 / 分配表',
-            'datetime_info'=> $datetime_info
+            'datetime_info' => $datetime_info
         );
         $this->load->view('layout', $data);
     }
@@ -2037,54 +2038,54 @@ class Designated extends CI_Controller
         $datetime_info = $this->mod_exam_datetime->get_once($year);
         $course = $this->mod_exam_datetime->get_course($year);
         $res = $this->mod_trial->get_supervisor_list($part);
-        print_r($course);
-        for ($i=0; $i < count($res); $i++) {
+        // print_r($course);
+        for ($i = 0; $i < count($res); $i++) {
             # code...
             switch ($res[$i]['subject_01']) {
                 case '0':
-                    $subject_01 =  '';
+                    $subject_01 = '';
                     break;
                 default:
-                    $subject_01 =  'V';
+                    $subject_01 = 'V';
             }
             switch ($res[$i]['subject_02']) {
                 case '0':
-                    $subject_02 =  '';
+                    $subject_02 = '';
                     break;
                 default:
-                    $subject_02 =  'V';
+                    $subject_02 = 'V';
             }
             switch ($res[$i]['subject_03']) {
                 case '0':
-                    $subject_03 =  '';
+                    $subject_03 = '';
                     break;
                 default:
-                    $subject_03 =  'V';
+                    $subject_03 = 'V';
             }
             switch ($res[$i]['subject_04']) {
                 case '0':
-                    $subject_04 =  '';
+                    $subject_04 = '';
                     break;
                 default:
-                    $subject_04 =  'V';
+                    $subject_04 = 'V';
             }
             switch ($res[$i]['subject_05']) {
                 case '0':
-                    $subject_05 =  '';
+                    $subject_05 = '';
                     break;
                 default:
-                    $subject_05 =  'V';
+                    $subject_05 = 'V';
             }
             switch ($res[$i]['subject_06']) {
                 case '0':
-                    $subject_06 =  '';
+                    $subject_06 = '';
                     break;
                 default:
-                    $subject_06 =  'V';
+                    $subject_06 = 'V';
             }
             switch ($res[$i]['subject_07']) {
                 case '0':
-                    $subject_07 =  '';
+                    $subject_07 = '';
                     break;
                 default:
                     $subject_07 = 'V';
@@ -2147,7 +2148,7 @@ class Designated extends CI_Controller
                     break;
             }
 
-           switch ($course[1]['subject']) {
+            switch ($course[1]['subject']) {
                 case 'subject_00':
                     $course2 = '';
                     break;
@@ -2183,7 +2184,7 @@ class Designated extends CI_Controller
                     break;
             }
 
-           switch ($course[2]['subject']) {
+            switch ($course[2]['subject']) {
                 case 'subject_00':
                     $course3 = '';
                     break;
@@ -2255,7 +2256,7 @@ class Designated extends CI_Controller
                     break;
             }
 
-           switch ($course[4]['subject']) {
+            switch ($course[4]['subject']) {
                 case 'subject_00':
                     $course5 = '';
                     break;
@@ -2291,7 +2292,7 @@ class Designated extends CI_Controller
                     break;
             }
 
-           switch ($course[5]['subject']) {
+            switch ($course[5]['subject']) {
                 case 'subject_00':
                     $course6 = '';
                     break;
@@ -2327,7 +2328,7 @@ class Designated extends CI_Controller
                     break;
             }
 
-           switch ($course[6]['subject']) {
+            switch ($course[6]['subject']) {
                 case 'subject_00':
                     $course7 = '';
                     break;
@@ -2363,7 +2364,7 @@ class Designated extends CI_Controller
                     break;
             }
 
-           switch ($course[7]['subject']) {
+            switch ($course[7]['subject']) {
                 case 'subject_00':
                     $course8 = '';
                     break;
@@ -2399,7 +2400,7 @@ class Designated extends CI_Controller
                     break;
             }
 
-           switch ($course[8]['subject']) {
+            switch ($course[8]['subject']) {
                 case 'subject_00':
                     $course9 = '';
                     break;
@@ -2435,7 +2436,7 @@ class Designated extends CI_Controller
                     break;
             }
 
-           switch ($course[9]['subject']) {
+            switch ($course[9]['subject']) {
                 case 'subject_00':
                     $course10 = '';
                     break;
@@ -2471,7 +2472,7 @@ class Designated extends CI_Controller
                     break;
             }
 
-           switch ($course[10]['subject']) {
+            switch ($course[10]['subject']) {
                 case 'subject_00':
                     $course11 = '';
                     break;
@@ -2578,48 +2579,48 @@ class Designated extends CI_Controller
             $objPHPExcel->getActiveSheet()->setCellValue('AE1', '第12科');
 
 
-            $objPHPExcel->getActiveSheet()->setCellValue('A'.(2+$i), $_SESSION['year']);
-            $objPHPExcel->getActiveSheet()->setCellValue('B'.(2+$i), mb_substr($datetime_info['day_1'], 5, 8, 'utf-8'));
-            $objPHPExcel->getActiveSheet()->setCellValue('C'.(2+$i), mb_substr($datetime_info['day_2'], 5, 8, 'utf-8'));
-            $objPHPExcel->getActiveSheet()->setCellValue('D'.(2+$i), mb_substr($datetime_info['day_3'], 5, 8, 'utf-8'));
-            $objPHPExcel->getActiveSheet()->setCellValue('E'.(2+$i), $res[$i]['supervisor_code']);
-            $objPHPExcel->getActiveSheet()->setCellValue('F'.(2+$i), trim($res[$i]['supervisor']));
-            $objPHPExcel->getActiveSheet()->setCellValue('G'.(2+$i), $_GET['area']);
-            $objPHPExcel->getActiveSheet()->setCellValue('H'.(2+$i), str_replace("、",",",$res[$i]['do_date']));
-            $objPHPExcel->getActiveSheet()->setCellValue('I'.(2+$i), $res[$i]['test_section']);
-            $objPHPExcel->getActiveSheet()->setCellValue('J'.(2+$i), $subject_01);
-            $objPHPExcel->getActiveSheet()->setCellValue('K'.(2+$i), $subject_02);
-            $objPHPExcel->getActiveSheet()->setCellValue('L'.(2+$i), $subject_03);
-            $objPHPExcel->getActiveSheet()->setCellValue('M'.(2+$i), $subject_04);
-            $objPHPExcel->getActiveSheet()->setCellValue('N'.(2+$i), $subject_05);
-            $objPHPExcel->getActiveSheet()->setCellValue('O'.(2+$i), $subject_06);
-            $objPHPExcel->getActiveSheet()->setCellValue('P'.(2+$i), $subject_07);
-            $objPHPExcel->getActiveSheet()->setCellValue('Q'.(2+$i), $subject_08);
-            $objPHPExcel->getActiveSheet()->setCellValue('R'.(2+$i), $subject_09);
-            $objPHPExcel->getActiveSheet()->setCellValue('S'.(2+$i), $subject_10);
-            $objPHPExcel->getActiveSheet()->setCellValue('T'.(2+$i), $course1);
-            $objPHPExcel->getActiveSheet()->setCellValue('U'.(2+$i), $course2);
-            $objPHPExcel->getActiveSheet()->setCellValue('V'.(2+$i), $course3);
-            $objPHPExcel->getActiveSheet()->setCellValue('W'.(2+$i), $course4);
-            $objPHPExcel->getActiveSheet()->setCellValue('X'.(2+$i), $course5);
-            $objPHPExcel->getActiveSheet()->setCellValue('Y'.(2+$i), $course6);
-            $objPHPExcel->getActiveSheet()->setCellValue('Z'.(2+$i), $course7);
-            $objPHPExcel->getActiveSheet()->setCellValue('AA'.(2+$i), $course8);
-            $objPHPExcel->getActiveSheet()->setCellValue('AB'.(2+$i), $course9);
-            $objPHPExcel->getActiveSheet()->setCellValue('AC'.(2+$i), $course10);
-            $objPHPExcel->getActiveSheet()->setCellValue('AD'.(2+$i), $course11);
-            $objPHPExcel->getActiveSheet()->setCellValue('AE'.(2+$i), $course12);
+            $objPHPExcel->getActiveSheet()->setCellValue('A' . (2 + $i), $_SESSION['year']);
+            $objPHPExcel->getActiveSheet()->setCellValue('B' . (2 + $i), mb_substr($datetime_info['day_1'], 5, 8, 'utf-8'));
+            $objPHPExcel->getActiveSheet()->setCellValue('C' . (2 + $i), mb_substr($datetime_info['day_2'], 5, 8, 'utf-8'));
+            $objPHPExcel->getActiveSheet()->setCellValue('D' . (2 + $i), mb_substr($datetime_info['day_3'], 5, 8, 'utf-8'));
+            $objPHPExcel->getActiveSheet()->setCellValue('E' . (2 + $i), $res[$i]['supervisor_code']);
+            $objPHPExcel->getActiveSheet()->setCellValue('F' . (2 + $i), trim($res[$i]['supervisor']));
+            $objPHPExcel->getActiveSheet()->setCellValue('G' . (2 + $i), $_GET['area']);
+            $objPHPExcel->getActiveSheet()->setCellValue('H' . (2 + $i), str_replace("、", ",", $res[$i]['do_date']));
+            $objPHPExcel->getActiveSheet()->setCellValue('I' . (2 + $i), $res[$i]['test_section']);
+            $objPHPExcel->getActiveSheet()->setCellValue('J' . (2 + $i), $subject_01);
+            $objPHPExcel->getActiveSheet()->setCellValue('K' . (2 + $i), $subject_02);
+            $objPHPExcel->getActiveSheet()->setCellValue('L' . (2 + $i), $subject_03);
+            $objPHPExcel->getActiveSheet()->setCellValue('M' . (2 + $i), $subject_04);
+            $objPHPExcel->getActiveSheet()->setCellValue('N' . (2 + $i), $subject_05);
+            $objPHPExcel->getActiveSheet()->setCellValue('O' . (2 + $i), $subject_06);
+            $objPHPExcel->getActiveSheet()->setCellValue('P' . (2 + $i), $subject_07);
+            $objPHPExcel->getActiveSheet()->setCellValue('Q' . (2 + $i), $subject_08);
+            $objPHPExcel->getActiveSheet()->setCellValue('R' . (2 + $i), $subject_09);
+            $objPHPExcel->getActiveSheet()->setCellValue('S' . (2 + $i), $subject_10);
+            $objPHPExcel->getActiveSheet()->setCellValue('T' . (2 + $i), $course1);
+            $objPHPExcel->getActiveSheet()->setCellValue('U' . (2 + $i), $course2);
+            $objPHPExcel->getActiveSheet()->setCellValue('V' . (2 + $i), $course3);
+            $objPHPExcel->getActiveSheet()->setCellValue('W' . (2 + $i), $course4);
+            $objPHPExcel->getActiveSheet()->setCellValue('X' . (2 + $i), $course5);
+            $objPHPExcel->getActiveSheet()->setCellValue('Y' . (2 + $i), $course6);
+            $objPHPExcel->getActiveSheet()->setCellValue('Z' . (2 + $i), $course7);
+            $objPHPExcel->getActiveSheet()->setCellValue('AA' . (2 + $i), $course8);
+            $objPHPExcel->getActiveSheet()->setCellValue('AB' . (2 + $i), $course9);
+            $objPHPExcel->getActiveSheet()->setCellValue('AC' . (2 + $i), $course10);
+            $objPHPExcel->getActiveSheet()->setCellValue('AD' . (2 + $i), $course11);
+            $objPHPExcel->getActiveSheet()->setCellValue('AE' . (2 + $i), $course12);
         }
 
-        // $objWriter = PHPExcel_IOFactory::createWriter($objPHPExcel, 'CSV');
+        $objWriter = PHPExcel_IOFactory::createWriter($objPHPExcel, 'CSV');
 
 
-        // header('Content-Type: application/vnd.ms-excel');
-        // header('Content-Disposition: attachment;filename="監試人員監考日程表'.'.csv"');
-        // header('Cache-Control: max-age=0');
+        header('Content-Type: application/vnd.ms-excel');
+        header('Content-Disposition: attachment;filename="監試人員監考日程表' . '.csv"');
+        header('Cache-Control: max-age=0');
 
 
-        // $objWriter->save('php://output');
+        $objWriter->save('php://output');
     }
 
     public function e_3_2_1_1()
@@ -2635,7 +2636,7 @@ class Designated extends CI_Controller
         $area = $_GET['area'];
 
         $obj_pdf->SetTitle($title);
-        $obj_pdf->SetHeaderData('', '', $title, '印表日期：'.$date);
+        $obj_pdf->SetHeaderData('', '', $title, '印表日期：' . $date);
         $obj_pdf->setPrintHeader(false);
         // $obj_pdf->SetHeaderMargin(PDF_MARGIN_HEADER);
         $obj_pdf->SetFooterMargin(PDF_MARGIN_FOOTER);
@@ -2649,8 +2650,8 @@ class Designated extends CI_Controller
         $data = array(
             'part' => $this->mod_trial->e_3_2_1($part),
             'area' => $area,
-            'patrol_count'=> $this->mod_trial->get_patrol_member_count_1($part),
-            'trial_count'=>$this->mod_trial->get_trial_member_count($part),
+            'patrol_count' => $this->mod_trial->get_patrol_member_count_1($part),
+            'trial_count' => $this->mod_trial->get_trial_member_count($part),
             'school' => $this->mod_exam_area->year_school_name($part),
             'date' => $date,
         );
@@ -2660,8 +2661,8 @@ class Designated extends CI_Controller
             mkdir('./html/');
         } else {
             $path = 'e_3_2_1.html';
-            $fp = fopen('./html/'.$path,'w');//建檔
-            fwrite($fp,$view);
+            $fp = fopen('./html/' . $path, 'w');//建檔
+            fwrite($fp, $view);
             fclose($fp);//關閉開啟的檔案
         }
 
@@ -2686,7 +2687,7 @@ class Designated extends CI_Controller
         $area = $_GET['area'];
 
         $obj_pdf->SetTitle($title);
-        $obj_pdf->SetHeaderData('', '', $title, '印表日期：'.$date);
+        $obj_pdf->SetHeaderData('', '', $title, '印表日期：' . $date);
         $obj_pdf->setPrintHeader(false);
         // $obj_pdf->SetHeaderMargin(PDF_MARGIN_HEADER);
         $obj_pdf->SetFooterMargin(PDF_MARGIN_FOOTER);
@@ -2700,8 +2701,8 @@ class Designated extends CI_Controller
         $data = array(
             'part' => $this->mod_trial->e_3_2_2($part),
             'area' => $area,
-            'patrol_count'=> $this->mod_trial->get_patrol_member_count_2($part),
-            'trial_count'=>$this->mod_trial->get_trial_member_count($part),
+            'patrol_count' => $this->mod_trial->get_patrol_member_count_2($part),
+            'trial_count' => $this->mod_trial->get_trial_member_count($part),
             'school' => $this->mod_exam_area->year_school_name($part),
             'date' => $date,
         );
@@ -2711,8 +2712,8 @@ class Designated extends CI_Controller
             mkdir('./html/');
         } else {
             $path = 'e_3_2_1.html';
-            $fp = fopen('./html/'.$path,'w');//建檔
-            fwrite($fp,$view);
+            $fp = fopen('./html/' . $path, 'w');//建檔
+            fwrite($fp, $view);
             fclose($fp);//關閉開啟的檔案
         }
 
@@ -2737,7 +2738,7 @@ class Designated extends CI_Controller
         $area = $_GET['area'];
 
         $obj_pdf->SetTitle($title);
-        $obj_pdf->SetHeaderData('', '', $title, '印表日期：'.$date);
+        $obj_pdf->SetHeaderData('', '', $title, '印表日期：' . $date);
         $obj_pdf->setPrintHeader(false);
         // $obj_pdf->SetHeaderMargin(PDF_MARGIN_HEADER);
         $obj_pdf->SetFooterMargin(PDF_MARGIN_FOOTER);
@@ -2751,8 +2752,8 @@ class Designated extends CI_Controller
         $data = array(
             'part' => $this->mod_trial->e_3_2_3($part),
             'area' => $area,
-            'patrol_count'=> $this->mod_trial->get_patrol_member_count_3($part),
-            'trial_count'=>$this->mod_trial->get_trial_member_count($part),
+            'patrol_count' => $this->mod_trial->get_patrol_member_count_3($part),
+            'trial_count' => $this->mod_trial->get_trial_member_count($part),
             'school' => $this->mod_exam_area->year_school_name($part),
             'date' => $date,
         );
@@ -2762,8 +2763,8 @@ class Designated extends CI_Controller
             mkdir('./html/');
         } else {
             $path = 'e_3_2_1.html';
-            $fp = fopen('./html/'.$path,'w');//建檔
-            fwrite($fp,$view);
+            $fp = fopen('./html/' . $path, 'w');//建檔
+            fwrite($fp, $view);
             fclose($fp);//關閉開啟的檔案
         }
 
@@ -2788,7 +2789,7 @@ class Designated extends CI_Controller
         $area = $_GET['area'];
 
         $obj_pdf->SetTitle($title);
-        $obj_pdf->SetHeaderData('', '', $title, '印表日期：'.$date);
+        $obj_pdf->SetHeaderData('', '', $title, '印表日期：' . $date);
         $obj_pdf->setPrintHeader(false);
         // $obj_pdf->SetHeaderMargin(PDF_MARGIN_HEADER);
         $obj_pdf->SetFooterMargin(PDF_MARGIN_FOOTER);
@@ -2802,19 +2803,19 @@ class Designated extends CI_Controller
         $data = array(
             'part' => $this->mod_trial->e_3_2_1($part),
             'area' => $area,
-            'patrol_count'=> $this->mod_trial->get_patrol_member_count_1($part),
-            'trial_count'=>$this->mod_trial->get_trial_member_count($part),
+            'patrol_count' => $this->mod_trial->get_patrol_member_count_1($part),
+            'trial_count' => $this->mod_trial->get_trial_member_count($part),
             'school' => $this->mod_exam_area->year_school_name($part),
             'date' => $date,
         );
         // print_r($data);
-        $view =  $this->load->view('designated/e_3_2_2', $data, true);
+        $view = $this->load->view('designated/e_3_2_2', $data, true);
         if (!is_dir('./html/')) {
             mkdir('./html/');
         } else {
             $path = 'e_3_2_2.html';
-            $fp = fopen('./html/'.$path,'w');//建檔
-            fwrite($fp,$view);
+            $fp = fopen('./html/' . $path, 'w');//建檔
+            fwrite($fp, $view);
             fclose($fp);//關閉開啟的檔案
         }
 
@@ -2839,7 +2840,7 @@ class Designated extends CI_Controller
         $area = $_GET['area'];
 
         $obj_pdf->SetTitle($title);
-        $obj_pdf->SetHeaderData('', '', $title, '印表日期：'.$date);
+        $obj_pdf->SetHeaderData('', '', $title, '印表日期：' . $date);
         $obj_pdf->setPrintHeader(false);
         // $obj_pdf->SetHeaderMargin(PDF_MARGIN_HEADER);
         $obj_pdf->SetFooterMargin(PDF_MARGIN_FOOTER);
@@ -2853,19 +2854,19 @@ class Designated extends CI_Controller
         $data = array(
             'part' => $this->mod_trial->e_3_2_2($part),
             'area' => $area,
-            'patrol_count'=> $this->mod_trial->get_patrol_member_count_2($part),
-            'trial_count'=>$this->mod_trial->get_trial_member_count($part),
+            'patrol_count' => $this->mod_trial->get_patrol_member_count_2($part),
+            'trial_count' => $this->mod_trial->get_trial_member_count($part),
             'school' => $this->mod_exam_area->year_school_name($part),
             'date' => $date,
         );
         // print_r($data);
-        $view =  $this->load->view('designated/e_3_2_2', $data, true);
+        $view = $this->load->view('designated/e_3_2_2', $data, true);
         if (!is_dir('./html/')) {
             mkdir('./html/');
         } else {
             $path = 'e_3_2_2.html';
-            $fp = fopen('./html/'.$path,'w');//建檔
-            fwrite($fp,$view);
+            $fp = fopen('./html/' . $path, 'w');//建檔
+            fwrite($fp, $view);
             fclose($fp);//關閉開啟的檔案
         }
 
@@ -2890,7 +2891,7 @@ class Designated extends CI_Controller
         $area = $_GET['area'];
 
         $obj_pdf->SetTitle($title);
-        $obj_pdf->SetHeaderData('', '', $title, '印表日期：'.$date);
+        $obj_pdf->SetHeaderData('', '', $title, '印表日期：' . $date);
         $obj_pdf->setPrintHeader(false);
         // $obj_pdf->SetHeaderMargin(PDF_MARGIN_HEADER);
         $obj_pdf->SetFooterMargin(PDF_MARGIN_FOOTER);
@@ -2904,19 +2905,19 @@ class Designated extends CI_Controller
         $data = array(
             'part' => $this->mod_trial->e_3_2_3($part),
             'area' => $area,
-            'patrol_count'=> $this->mod_trial->get_patrol_member_count_3($part),
-            'trial_count'=>$this->mod_trial->get_trial_member_count($part),
+            'patrol_count' => $this->mod_trial->get_patrol_member_count_3($part),
+            'trial_count' => $this->mod_trial->get_trial_member_count($part),
             'school' => $this->mod_exam_area->year_school_name($part),
             'date' => $date,
         );
         // print_r($data);
-        $view =  $this->load->view('designated/e_3_2_2', $data, true);
+        $view = $this->load->view('designated/e_3_2_2', $data, true);
         if (!is_dir('./html/')) {
             mkdir('./html/');
         } else {
             $path = 'e_3_2_2.html';
-            $fp = fopen('./html/'.$path,'w');//建檔
-            fwrite($fp,$view);
+            $fp = fopen('./html/' . $path, 'w');//建檔
+            fwrite($fp, $view);
             fclose($fp);//關閉開啟的檔案
         }
 
@@ -2941,7 +2942,7 @@ class Designated extends CI_Controller
         $area = $_GET['area'];
 
         $obj_pdf->SetTitle($title);
-        $obj_pdf->SetHeaderData('', '', $title, '印表日期：'.$date);
+        $obj_pdf->SetHeaderData('', '', $title, '印表日期：' . $date);
         $obj_pdf->setPrintHeader(false);
         // $obj_pdf->SetHeaderMargin(PDF_MARGIN_HEADER);
         $obj_pdf->SetFooterMargin(PDF_MARGIN_FOOTER);
@@ -2955,19 +2956,19 @@ class Designated extends CI_Controller
         $data = array(
             'part' => $this->mod_trial->e_3_2_1($part),
             'area' => $area,
-            'patrol_count'=> $this->mod_trial->get_patrol_member_count_1($part),
-            'trial_count'=>$this->mod_trial->get_trial_member_count($part),
+            'patrol_count' => $this->mod_trial->get_patrol_member_count_1($part),
+            'trial_count' => $this->mod_trial->get_trial_member_count($part),
             'school' => $this->mod_exam_area->year_school_name($part),
             'date' => $date,
         );
         // print_r($data);
-        $view =  $this->load->view('designated/e_3_2_3', $data, true);
+        $view = $this->load->view('designated/e_3_2_3', $data, true);
         if (!is_dir('./html/')) {
             mkdir('./html/');
         } else {
             $path = 'e_3_2_3.html';
-            $fp = fopen('./html/'.$path,'w');//建檔
-            fwrite($fp,$view);
+            $fp = fopen('./html/' . $path, 'w');//建檔
+            fwrite($fp, $view);
             fclose($fp);//關閉開啟的檔案
         }
 
@@ -2979,7 +2980,7 @@ class Designated extends CI_Controller
         echo '<script>location.href="http://uat.fofo.tw/fjuexam/pdf/e_3_2_3.pdf"</script>';
     }
 
-       public function e_3_2_3_2()
+    public function e_3_2_3_2()
     {
         $this->load->library('pdf');
         $this->load->model('mod_trial');
@@ -2992,7 +2993,7 @@ class Designated extends CI_Controller
         $area = $_GET['area'];
 
         $obj_pdf->SetTitle($title);
-        $obj_pdf->SetHeaderData('', '', $title, '印表日期：'.$date);
+        $obj_pdf->SetHeaderData('', '', $title, '印表日期：' . $date);
         $obj_pdf->setPrintHeader(false);
         // $obj_pdf->SetHeaderMargin(PDF_MARGIN_HEADER);
         $obj_pdf->SetFooterMargin(PDF_MARGIN_FOOTER);
@@ -3006,19 +3007,19 @@ class Designated extends CI_Controller
         $data = array(
             'part' => $this->mod_trial->e_3_2_2($part),
             'area' => $area,
-            'patrol_count'=> $this->mod_trial->get_patrol_member_count_2($part),
-            'trial_count'=>$this->mod_trial->get_trial_member_count($part),
+            'patrol_count' => $this->mod_trial->get_patrol_member_count_2($part),
+            'trial_count' => $this->mod_trial->get_trial_member_count($part),
             'school' => $this->mod_exam_area->year_school_name($part),
             'date' => $date,
         );
         // print_r($data);
-        $view =  $this->load->view('designated/e_3_2_3', $data, true);
+        $view = $this->load->view('designated/e_3_2_3', $data, true);
         if (!is_dir('./html/')) {
             mkdir('./html/');
         } else {
             $path = 'e_3_2_3.html';
-            $fp = fopen('./html/'.$path,'w');//建檔
-            fwrite($fp,$view);
+            $fp = fopen('./html/' . $path, 'w');//建檔
+            fwrite($fp, $view);
             fclose($fp);//關閉開啟的檔案
         }
 
@@ -3030,7 +3031,7 @@ class Designated extends CI_Controller
         echo '<script>location.href="http://uat.fofo.tw/fjuexam/pdf/e_3_2_3.pdf"</script>';
     }
 
-       public function e_3_2_3_3()
+    public function e_3_2_3_3()
     {
         $this->load->library('pdf');
         $this->load->model('mod_trial');
@@ -3043,7 +3044,7 @@ class Designated extends CI_Controller
         $area = $_GET['area'];
 
         $obj_pdf->SetTitle($title);
-        $obj_pdf->SetHeaderData('', '', $title, '印表日期：'.$date);
+        $obj_pdf->SetHeaderData('', '', $title, '印表日期：' . $date);
         $obj_pdf->setPrintHeader(false);
         // $obj_pdf->SetHeaderMargin(PDF_MARGIN_HEADER);
         $obj_pdf->SetFooterMargin(PDF_MARGIN_FOOTER);
@@ -3057,19 +3058,19 @@ class Designated extends CI_Controller
         $data = array(
             'part' => $this->mod_trial->e_3_2_3($part),
             'area' => $area,
-            'patrol_count'=> $this->mod_trial->get_patrol_member_count_3($part),
-            'trial_count'=>$this->mod_trial->get_trial_member_count($part),
+            'patrol_count' => $this->mod_trial->get_patrol_member_count_3($part),
+            'trial_count' => $this->mod_trial->get_trial_member_count($part),
             'school' => $this->mod_exam_area->year_school_name($part),
             'date' => $date,
         );
         // print_r($data);
-        $view =  $this->load->view('designated/e_3_2_3', $data, true);
+        $view = $this->load->view('designated/e_3_2_3', $data, true);
         if (!is_dir('./html/')) {
             mkdir('./html/');
         } else {
             $path = 'e_3_2_3.html';
-            $fp = fopen('./html/'.$path,'w');//建檔
-            fwrite($fp,$view);
+            $fp = fopen('./html/' . $path, 'w');//建檔
+            fwrite($fp, $view);
             fclose($fp);//關閉開啟的檔案
         }
 
@@ -3112,22 +3113,22 @@ class Designated extends CI_Controller
         $objPHPExcel = new PHPExcel();
         $objPHPExcel->setActiveSheetIndex(0);
         $arr = $this->mod_trial->get_list_for_csv();
-        for ($i=0; $i < count($arr); $i++) {
+        for ($i = 0; $i < count($arr); $i++) {
             # code...
             $objPHPExcel->getActiveSheet()->setCellValue('A1', '學年度');
             $objPHPExcel->getActiveSheet()->setCellValue('B1', '監試人員');
             $objPHPExcel->getActiveSheet()->setCellValue('C1', '監試日期');
 
-            $objPHPExcel->getActiveSheet()->setCellValue('A'.(2+$i), $arr[$i]['year']);
-            $objPHPExcel->getActiveSheet()->setCellValue('B'.(2+$i), $arr[$i]['member_name']);
-            $objPHPExcel->getActiveSheet()->setCellValue('C'.(2+$i), $arr[$i]['do_date']);
+            $objPHPExcel->getActiveSheet()->setCellValue('A' . (2 + $i), $arr[$i]['year']);
+            $objPHPExcel->getActiveSheet()->setCellValue('B' . (2 + $i), $arr[$i]['member_name']);
+            $objPHPExcel->getActiveSheet()->setCellValue('C' . (2 + $i), $arr[$i]['do_date']);
         }
 
         $objWriter = PHPExcel_IOFactory::createWriter($objPHPExcel, 'CSV');
 
 
         header('Content-Type: application/vnd.ms-excel');
-        header('Content-Disposition: attachment;filename="監試人員'.'.csv"');
+        header('Content-Disposition: attachment;filename="監試人員' . '.csv"');
         header('Cache-Control: max-age=0');
 
 
@@ -3144,14 +3145,14 @@ class Designated extends CI_Controller
         $objPHPExcel = new PHPExcel();
         $objPHPExcel->setActiveSheetIndex(0);
         $res = $this->mod_task->get_list_for_csv();
-        for ($i=0; $i < count($res); $i++) {
+        for ($i = 0; $i < count($res); $i++) {
             # code...
             $objPHPExcel->getActiveSheet()->setCellValue('A1', '學年度');
             $objPHPExcel->getActiveSheet()->setCellValue('B1', '試務人員');
             $objPHPExcel->getActiveSheet()->setCellValue('C1', '執行日');
-            $objPHPExcel->getActiveSheet()->setCellValue('A'.(2+$i), $res[$i]['year']);
-            $objPHPExcel->getActiveSheet()->setCellValue('B'.(2+$i), $res[$i]['name']);
-            $objPHPExcel->getActiveSheet()->setCellValue('C'.(2+$i), $res[$i]['do_date']);
+            $objPHPExcel->getActiveSheet()->setCellValue('A' . (2 + $i), $res[$i]['year']);
+            $objPHPExcel->getActiveSheet()->setCellValue('B' . (2 + $i), $res[$i]['name']);
+            $objPHPExcel->getActiveSheet()->setCellValue('C' . (2 + $i), $res[$i]['do_date']);
         }
 
 
@@ -3159,7 +3160,7 @@ class Designated extends CI_Controller
 
 
         header('Content-Type: application/vnd.ms-excel');
-        header('Content-Disposition: attachment;filename="試務人員'. '.csv"');
+        header('Content-Disposition: attachment;filename="試務人員' . '.csv"');
         header('Cache-Control: max-age=0');
 
         $objWriter->save('php://output');
@@ -3173,22 +3174,22 @@ class Designated extends CI_Controller
         $objPHPExcel = new PHPExcel();
         $objPHPExcel->setActiveSheetIndex(0);
         $arr = $this->mod_patrol->get_trial_staff_for_csv();
-        for ($i=0; $i < count($arr); $i++) {
+        for ($i = 0; $i < count($arr); $i++) {
             # code...
             $objPHPExcel->getActiveSheet()->setCellValue('A1', '學年度');
             $objPHPExcel->getActiveSheet()->setCellValue('B1', '試務人員');
             $objPHPExcel->getActiveSheet()->setCellValue('C1', '監試日期');
 
-            $objPHPExcel->getActiveSheet()->setCellValue('A'.(2+$i), $arr[$i]['year']);
-            $objPHPExcel->getActiveSheet()->setCellValue('B'.(2+$i), $arr[$i]['member_name']);
-            $objPHPExcel->getActiveSheet()->setCellValue('C'.(2+$i), $arr[$i]['do_date']);
+            $objPHPExcel->getActiveSheet()->setCellValue('A' . (2 + $i), $arr[$i]['year']);
+            $objPHPExcel->getActiveSheet()->setCellValue('B' . (2 + $i), $arr[$i]['member_name']);
+            $objPHPExcel->getActiveSheet()->setCellValue('C' . (2 + $i), $arr[$i]['do_date']);
         }
 
         $objWriter = PHPExcel_IOFactory::createWriter($objPHPExcel, 'CSV');
 
 
         header('Content-Type: application/vnd.ms-excel');
-        header('Content-Disposition: attachment;filename="管卷人員'.'.csv"');
+        header('Content-Disposition: attachment;filename="管卷人員' . '.csv"');
         header('Cache-Control: max-age=0');
 
 
@@ -3205,22 +3206,22 @@ class Designated extends CI_Controller
         $objPHPExcel = new PHPExcel();
         $objPHPExcel->setActiveSheetIndex(0);
         $arr = $this->mod_patrol->get_patrol_for_csv();
-        for ($i=0; $i < count($arr); $i++) {
+        for ($i = 0; $i < count($arr); $i++) {
             # code...
             $objPHPExcel->getActiveSheet()->setCellValue('A1', '學年度');
             $objPHPExcel->getActiveSheet()->setCellValue('B1', '試務人員');
             $objPHPExcel->getActiveSheet()->setCellValue('C1', '監試日期');
 
-            $objPHPExcel->getActiveSheet()->setCellValue('A'.(2+$i), $arr[$i]['year']);
-            $objPHPExcel->getActiveSheet()->setCellValue('B'.(2+$i), $arr[$i]['member_name']);
-            $objPHPExcel->getActiveSheet()->setCellValue('C'.(2+$i), $arr[$i]['do_date']);
+            $objPHPExcel->getActiveSheet()->setCellValue('A' . (2 + $i), $arr[$i]['year']);
+            $objPHPExcel->getActiveSheet()->setCellValue('B' . (2 + $i), $arr[$i]['member_name']);
+            $objPHPExcel->getActiveSheet()->setCellValue('C' . (2 + $i), $arr[$i]['do_date']);
         }
 
         $objWriter = PHPExcel_IOFactory::createWriter($objPHPExcel, 'CSV');
 
 
         header('Content-Type: application/vnd.ms-excel');
-        header('Content-Disposition: attachment;filename="巡場人員'.'.csv"');
+        header('Content-Disposition: attachment;filename="巡場人員' . '.csv"');
         header('Cache-Control: max-age=0');
 
 
@@ -3270,7 +3271,7 @@ class Designated extends CI_Controller
         $objPHPExcel = new PHPExcel();
         $objPHPExcel->setActiveSheetIndex(0);
         $arr = $this->mod_trial->get_list_for_csv();
-        for ($i=0; $i < count($arr); $i++) {
+        for ($i = 0; $i < count($arr); $i++) {
             # code...
             $objPHPExcel->getActiveSheet()->setCellValue('A1', '分區');
             $objPHPExcel->getActiveSheet()->setCellValue('B1', '職務');
@@ -3278,17 +3279,17 @@ class Designated extends CI_Controller
             $objPHPExcel->getActiveSheet()->setCellValue('D1', '編號');
 
 
-            $objPHPExcel->getActiveSheet()->setCellValue('A'.(2+$i), $arr[$i]['part_name']);
-            $objPHPExcel->getActiveSheet()->setCellValue('B'.(2+$i), '監試人員');
-            $objPHPExcel->getActiveSheet()->setCellValue('C'.(2+$i), $arr[$i]['member_name']);
-            $objPHPExcel->getActiveSheet()->setCellValue('D'.(2+$i), $arr[$i]['trial_staff_code']);
+            $objPHPExcel->getActiveSheet()->setCellValue('A' . (2 + $i), $arr[$i]['part_name']);
+            $objPHPExcel->getActiveSheet()->setCellValue('B' . (2 + $i), '監試人員');
+            $objPHPExcel->getActiveSheet()->setCellValue('C' . (2 + $i), $arr[$i]['member_name']);
+            $objPHPExcel->getActiveSheet()->setCellValue('D' . (2 + $i), $arr[$i]['trial_staff_code']);
         }
 
         $objWriter = PHPExcel_IOFactory::createWriter($objPHPExcel, 'CSV');
 
 
         header('Content-Type: application/vnd.ms-excel');
-        header('Content-Disposition: attachment;filename="監試人員名牌'.'.csv"');
+        header('Content-Disposition: attachment;filename="監試人員名牌' . '.csv"');
         header('Cache-Control: max-age=0');
 
 
@@ -3304,7 +3305,7 @@ class Designated extends CI_Controller
         $objPHPExcel = new PHPExcel();
         $objPHPExcel->setActiveSheetIndex(0);
         $arr = $this->mod_task->get_list_for_csv();
-        for ($i=0; $i < count($arr); $i++) {
+        for ($i = 0; $i < count($arr); $i++) {
             # code...
             $objPHPExcel->getActiveSheet()->setCellValue('A1', '分區');
             $objPHPExcel->getActiveSheet()->setCellValue('B1', '職務');
@@ -3312,17 +3313,17 @@ class Designated extends CI_Controller
             $objPHPExcel->getActiveSheet()->setCellValue('D1', '編號');
 
 
-            $objPHPExcel->getActiveSheet()->setCellValue('A'.(2+$i), $arr[$i]['area']);
-            $objPHPExcel->getActiveSheet()->setCellValue('B'.(2+$i), $arr[$i]['job']);
-            $objPHPExcel->getActiveSheet()->setCellValue('C'.(2+$i), $arr[$i]['name']);
-            $objPHPExcel->getActiveSheet()->setCellValue('D'.(2+$i), $arr[$i]['job_code']);
+            $objPHPExcel->getActiveSheet()->setCellValue('A' . (2 + $i), $arr[$i]['area']);
+            $objPHPExcel->getActiveSheet()->setCellValue('B' . (2 + $i), $arr[$i]['job']);
+            $objPHPExcel->getActiveSheet()->setCellValue('C' . (2 + $i), $arr[$i]['name']);
+            $objPHPExcel->getActiveSheet()->setCellValue('D' . (2 + $i), $arr[$i]['job_code']);
         }
 
         $objWriter = PHPExcel_IOFactory::createWriter($objPHPExcel, 'CSV');
 
 
         header('Content-Type: application/vnd.ms-excel');
-        header('Content-Disposition: attachment;filename="試務人員名牌'.'.csv"');
+        header('Content-Disposition: attachment;filename="試務人員名牌' . '.csv"');
         header('Cache-Control: max-age=0');
 
 
@@ -3338,7 +3339,7 @@ class Designated extends CI_Controller
         $objPHPExcel = new PHPExcel();
         $objPHPExcel->setActiveSheetIndex(0);
         $arr = $this->mod_patrol->get_trial_staff_for_csv();
-        for ($i=0; $i < count($arr); $i++) {
+        for ($i = 0; $i < count($arr); $i++) {
             # code...
             $objPHPExcel->getActiveSheet()->setCellValue('A1', '分區');
             $objPHPExcel->getActiveSheet()->setCellValue('B1', '職務');
@@ -3346,17 +3347,17 @@ class Designated extends CI_Controller
             $objPHPExcel->getActiveSheet()->setCellValue('D1', '編號');
 
 
-            $objPHPExcel->getActiveSheet()->setCellValue('A'.(2+$i), $arr[$i]['area']);
-            $objPHPExcel->getActiveSheet()->setCellValue('B'.(2+$i), $arr[$i]['job']);
-            $objPHPExcel->getActiveSheet()->setCellValue('C'.(2+$i), $arr[$i]['member_name']);
-            $objPHPExcel->getActiveSheet()->setCellValue('D'.(2+$i), $arr[$i]['member_code']);
+            $objPHPExcel->getActiveSheet()->setCellValue('A' . (2 + $i), $arr[$i]['area']);
+            $objPHPExcel->getActiveSheet()->setCellValue('B' . (2 + $i), $arr[$i]['job']);
+            $objPHPExcel->getActiveSheet()->setCellValue('C' . (2 + $i), $arr[$i]['member_name']);
+            $objPHPExcel->getActiveSheet()->setCellValue('D' . (2 + $i), $arr[$i]['member_code']);
         }
 
         $objWriter = PHPExcel_IOFactory::createWriter($objPHPExcel, 'CSV');
 
 
         header('Content-Type: application/vnd.ms-excel');
-        header('Content-Disposition: attachment;filename="管卷人員名牌'.'.csv"');
+        header('Content-Disposition: attachment;filename="管卷人員名牌' . '.csv"');
         header('Cache-Control: max-age=0');
 
 
@@ -3372,7 +3373,7 @@ class Designated extends CI_Controller
         $objPHPExcel = new PHPExcel();
         $objPHPExcel->setActiveSheetIndex(0);
         $arr = $this->mod_patrol->get_patrol_for_csv();
-        for ($i=0; $i < count($arr); $i++) {
+        for ($i = 0; $i < count($arr); $i++) {
             # code...
             $objPHPExcel->getActiveSheet()->setCellValue('A1', '分區');
             $objPHPExcel->getActiveSheet()->setCellValue('B1', '職務');
@@ -3380,17 +3381,17 @@ class Designated extends CI_Controller
             $objPHPExcel->getActiveSheet()->setCellValue('D1', '編號');
 
 
-            $objPHPExcel->getActiveSheet()->setCellValue('A'.(2+$i), $arr[$i]['area']);
-            $objPHPExcel->getActiveSheet()->setCellValue('B'.(2+$i), $arr[$i]['job']);
-            $objPHPExcel->getActiveSheet()->setCellValue('C'.(2+$i), $arr[$i]['member_name']);
-            $objPHPExcel->getActiveSheet()->setCellValue('D'.(2+$i), $arr[$i]['member_code']);
+            $objPHPExcel->getActiveSheet()->setCellValue('A' . (2 + $i), $arr[$i]['area']);
+            $objPHPExcel->getActiveSheet()->setCellValue('B' . (2 + $i), $arr[$i]['job']);
+            $objPHPExcel->getActiveSheet()->setCellValue('C' . (2 + $i), $arr[$i]['member_name']);
+            $objPHPExcel->getActiveSheet()->setCellValue('D' . (2 + $i), $arr[$i]['member_code']);
         }
 
         $objWriter = PHPExcel_IOFactory::createWriter($objPHPExcel, 'CSV');
 
 
         header('Content-Type: application/vnd.ms-excel');
-        header('Content-Disposition: attachment;filename="巡場人員名牌'.'.csv"');
+        header('Content-Disposition: attachment;filename="巡場人員名牌' . '.csv"');
         header('Cache-Control: max-age=0');
 
 
@@ -3407,20 +3408,20 @@ class Designated extends CI_Controller
         $objPHPExcel = new PHPExcel();
         $objPHPExcel->setActiveSheetIndex(0);
         $arr = $this->mod_trial->get_list_for_csv();
-        for ($i=0; $i < count($arr); $i++) {
+        for ($i = 0; $i < count($arr); $i++) {
             # code...
             $objPHPExcel->getActiveSheet()->setCellValue('A1', '單位');
             $objPHPExcel->getActiveSheet()->setCellValue('B1', '監試人員');
 
-            $objPHPExcel->getActiveSheet()->setCellValue('A'.(2+$i), $arr[$i]['member_unit']);
-            $objPHPExcel->getActiveSheet()->setCellValue('B'.(2+$i), $arr[$i]['member_name']);
+            $objPHPExcel->getActiveSheet()->setCellValue('A' . (2 + $i), $arr[$i]['member_unit']);
+            $objPHPExcel->getActiveSheet()->setCellValue('B' . (2 + $i), $arr[$i]['member_name']);
         }
 
         $objWriter = PHPExcel_IOFactory::createWriter($objPHPExcel, 'CSV');
 
 
         header('Content-Type: application/vnd.ms-excel');
-        header('Content-Disposition: attachment;filename="監試人員標籤樣式'.'.csv"');
+        header('Content-Disposition: attachment;filename="監試人員標籤樣式' . '.csv"');
         header('Cache-Control: max-age=0');
 
 
@@ -3436,20 +3437,20 @@ class Designated extends CI_Controller
         $objPHPExcel = new PHPExcel();
         $objPHPExcel->setActiveSheetIndex(0);
         $arr = $this->mod_task->get_district_task_csv();
-        for ($i=0; $i < count($arr); $i++) {
+        for ($i = 0; $i < count($arr); $i++) {
             # code...
             $objPHPExcel->getActiveSheet()->setCellValue('A1', '單位');
             $objPHPExcel->getActiveSheet()->setCellValue('B1', '試務人員');
 
-            $objPHPExcel->getActiveSheet()->setCellValue('A'.(2+$i), $arr[$i]['member_unit']);
-            $objPHPExcel->getActiveSheet()->setCellValue('B'.(2+$i), $arr[$i]['name']);
+            $objPHPExcel->getActiveSheet()->setCellValue('A' . (2 + $i), $arr[$i]['member_unit']);
+            $objPHPExcel->getActiveSheet()->setCellValue('B' . (2 + $i), $arr[$i]['name']);
         }
 
         $objWriter = PHPExcel_IOFactory::createWriter($objPHPExcel, 'CSV');
 
 
         header('Content-Type: application/vnd.ms-excel');
-        header('Content-Disposition: attachment;filename="試務人員標籤樣式'.'.csv"');
+        header('Content-Disposition: attachment;filename="試務人員標籤樣式' . '.csv"');
         header('Cache-Control: max-age=0');
 
 
@@ -3466,20 +3467,20 @@ class Designated extends CI_Controller
         $objPHPExcel = new PHPExcel();
         $objPHPExcel->setActiveSheetIndex(0);
         $arr = $this->mod_patrol->get_trial_staff_for_csv();
-        for ($i=0; $i < count($arr); $i++) {
+        for ($i = 0; $i < count($arr); $i++) {
             # code...
             $objPHPExcel->getActiveSheet()->setCellValue('A1', '單位');
             $objPHPExcel->getActiveSheet()->setCellValue('B1', '試務人員');
 
-            $objPHPExcel->getActiveSheet()->setCellValue('A'.(2+$i), $arr[$i]['member_unit']);
-            $objPHPExcel->getActiveSheet()->setCellValue('B'.(2+$i), $arr[$i]['member_name']);
+            $objPHPExcel->getActiveSheet()->setCellValue('A' . (2 + $i), $arr[$i]['member_unit']);
+            $objPHPExcel->getActiveSheet()->setCellValue('B' . (2 + $i), $arr[$i]['member_name']);
         }
 
         $objWriter = PHPExcel_IOFactory::createWriter($objPHPExcel, 'CSV');
 
 
         header('Content-Type: application/vnd.ms-excel');
-        header('Content-Disposition: attachment;filename="管卷人員標籤樣式'.'.csv"');
+        header('Content-Disposition: attachment;filename="管卷人員標籤樣式' . '.csv"');
         header('Cache-Control: max-age=0');
 
 
@@ -3495,20 +3496,20 @@ class Designated extends CI_Controller
         $objPHPExcel = new PHPExcel();
         $objPHPExcel->setActiveSheetIndex(0);
         $arr = $this->mod_patrol->get_patrol_for_csv();
-        for ($i=0; $i < count($arr); $i++) {
+        for ($i = 0; $i < count($arr); $i++) {
             # code...
             $objPHPExcel->getActiveSheet()->setCellValue('A1', '單位');
             $objPHPExcel->getActiveSheet()->setCellValue('B1', '試務人員');
 
-            $objPHPExcel->getActiveSheet()->setCellValue('A'.(2+$i), $arr[$i]['member_unit']);
-            $objPHPExcel->getActiveSheet()->setCellValue('B'.(2+$i), $arr[$i]['member_name']);
+            $objPHPExcel->getActiveSheet()->setCellValue('A' . (2 + $i), $arr[$i]['member_unit']);
+            $objPHPExcel->getActiveSheet()->setCellValue('B' . (2 + $i), $arr[$i]['member_name']);
         }
 
         $objWriter = PHPExcel_IOFactory::createWriter($objPHPExcel, 'CSV');
 
 
         header('Content-Type: application/vnd.ms-excel');
-        header('Content-Disposition: attachment;filename="試務人員標籤樣式'.'.csv"');
+        header('Content-Disposition: attachment;filename="試務人員標籤樣式' . '.csv"');
         header('Cache-Control: max-age=0');
 
 
@@ -3541,19 +3542,19 @@ class Designated extends CI_Controller
         $area = $_GET['area'];
         $data = array(
             'part' => $this->mod_trial->e_6_1($part),
-            'area'=> $area,
+            'area' => $area,
             'school' => $this->mod_exam_area->year_school_name($part),
-            'salary'=>$this->mod_trial->get_all_salary_trial_total($part),
-            'lunch'=>$this->mod_trial->get_all_trial_lunch_total($part),
-            'count'=>$this->mod_trial->e_6_1_member_count($part)
+            'salary' => $this->mod_trial->get_all_salary_trial_total($part),
+            'lunch' => $this->mod_trial->get_all_trial_lunch_total($part),
+            'count' => $this->mod_trial->e_6_1_member_count($part)
         );
-        $view = $this->load->view('designated/e_6_1', $data,true);
+        $view = $this->load->view('designated/e_6_1', $data, true);
         if (!is_dir('./html/')) {
             mkdir('./html/');
         } else {
             $path = 'e_6_1.html';
-            $fp = fopen('./html/'.$path,'w');//建檔
-            fwrite($fp,$view);
+            $fp = fopen('./html/' . $path, 'w');//建檔
+            fwrite($fp, $view);
             fclose($fp);//關閉開啟的檔案
         }
 
@@ -3579,32 +3580,32 @@ class Designated extends CI_Controller
         $obs = $_GET['obs'];
         $data = array(
             'part' => $this->mod_trial->get_list_for_obs($part, $obs),
-            'area'=> $area,
+            'area' => $area,
             'school' => $this->mod_exam_area->year_school_name($part),
-            'salary'=>$this->mod_trial->get_all_salary_trial_total_of_obs($part,$obs),
-            'lunch'=>$this->mod_trial->get_all_trial_lunch_total_of_obs($part,$obs),
+            'salary' => $this->mod_trial->get_all_salary_trial_total_of_obs($part, $obs),
+            'lunch' => $this->mod_trial->get_all_trial_lunch_total_of_obs($part, $obs),
             'count' => $this->mod_trial->get_list_for_obs_member_count($part, $obs),
         );
 
-        if($data['part'] != false){
-            $view =  $this->load->view('designated/e_6_2', $data, true);
+        if ($data['part'] != false) {
+            $view = $this->load->view('designated/e_6_2', $data, true);
             if (!is_dir('./html/')) {
-                    mkdir('./html/');
-                } else {
-                    $path = 'e_6_2.html';
-                    $fp = fopen('./html/'.$path,'w');//建檔
-                    fwrite($fp,$view);
-                    fclose($fp);//關閉開啟的檔案
-                }
+                mkdir('./html/');
+            } else {
+                $path = 'e_6_2.html';
+                $fp = fopen('./html/' . $path, 'w');//建檔
+                fwrite($fp, $view);
+                fclose($fp);//關閉開啟的檔案
+            }
 
-                if (!is_dir('./pdf/')) {
-                    mkdir('./pdf/');
-                } else {
-                    exec('wkhtmltopdf --lowquality --enable-forms http://uat.fofo.tw/fjuexam/html/e_6_2.html  ./pdf/e_6_2.pdf');
+            if (!is_dir('./pdf/')) {
+                mkdir('./pdf/');
+            } else {
+                exec('wkhtmltopdf --lowquality --enable-forms http://uat.fofo.tw/fjuexam/html/e_6_2.html  ./pdf/e_6_2.pdf');
             }
             echo '<script>location.href="http://uat.fofo.tw/fjuexam/pdf/e_6_2.pdf"</script>';
-        }else{
-          return false;
+        } else {
+            return false;
         }
     }
 
@@ -3621,7 +3622,7 @@ class Designated extends CI_Controller
         $area = $_GET['area'];
 
         $obj_pdf->SetTitle($title);
-        $obj_pdf->SetHeaderData('', '', $title, '印表日期：'.$date);
+        $obj_pdf->SetHeaderData('', '', $title, '印表日期：' . $date);
         $obj_pdf->setPrintHeader(false);
         // $obj_pdf->SetHeaderMargin(PDF_MARGIN_HEADER);
         $obj_pdf->SetFooterMargin(PDF_MARGIN_FOOTER);
@@ -3633,19 +3634,19 @@ class Designated extends CI_Controller
         $obj_pdf->AddPage();
         $data = array(
             'part' => $this->mod_task->get_district_task_money_list($area),
-            'area'=> $area,
+            'area' => $area,
             'school' => $this->mod_exam_area->year_school_name($part),
-            'salary'=>$this->mod_task->get_all_salary_trial_total_of_district($area),
-            'lunch'=>$this->mod_task->get_all_lunch_trial_total_of_district($area)
+            'salary' => $this->mod_task->get_all_salary_trial_total_of_district($area),
+            'lunch' => $this->mod_task->get_all_lunch_trial_total_of_district($area)
         );
-        if($data['part'] != false){
-            $view =  $this->load->view('designated/e_6_3', $data,true);
+        if ($data['part'] != false) {
+            $view = $this->load->view('designated/e_6_3', $data, true);
             if (!is_dir('./html/')) {
                 mkdir('./html/');
             } else {
                 $path = 'e_6_3.html';
-                $fp = fopen('./html/'.$path,'w');//建檔
-                fwrite($fp,$view);
+                $fp = fopen('./html/' . $path, 'w');//建檔
+                fwrite($fp, $view);
                 fclose($fp);//關閉開啟的檔案
             }
 
@@ -3655,8 +3656,8 @@ class Designated extends CI_Controller
                 exec('wkhtmltopdf --lowquality --enable-forms http://uat.fofo.tw/fjuexam/html/e_6_3.html  ./pdf/e_6_3.pdf');
             }
             echo '<script>location.href="http://uat.fofo.tw/fjuexam/pdf/e_6_3.pdf"</script>';
-        }else{
-          return false;
+        } else {
+            return false;
         }
     }
 
@@ -3673,7 +3674,7 @@ class Designated extends CI_Controller
         $area = $_GET['area'];
 
         $obj_pdf->SetTitle($title);
-        $obj_pdf->SetHeaderData('', '', $title, '印表日期：'.$date);
+        $obj_pdf->SetHeaderData('', '', $title, '印表日期：' . $date);
         $obj_pdf->setPrintHeader(false);
         // $obj_pdf->SetHeaderMargin(PDF_MARGIN_HEADER);
         $obj_pdf->SetFooterMargin(PDF_MARGIN_FOOTER);
@@ -3685,20 +3686,20 @@ class Designated extends CI_Controller
         $obj_pdf->AddPage();
         $data = array(
             'part' => $this->mod_trial->get_trial_staff_task_money_list($part),
-            'area'=> $area,
+            'area' => $area,
             'school' => $this->mod_exam_area->year_school_name($part),
-            'salary'=>$this->mod_trial->get_trial_staff_salary_total($part),
-            'lunch'=>$this->mod_trial->get_trial_staff_lunch_total($part),
+            'salary' => $this->mod_trial->get_trial_staff_salary_total($part),
+            'lunch' => $this->mod_trial->get_trial_staff_lunch_total($part),
             'count' => $this->mod_trial->get_trial_staff_task_member_count($part),
         );
-        if($data['part'] != false){
-            $view =  $this->load->view('designated/e_6_4', $data, true);
+        if ($data['part'] != false) {
+            $view = $this->load->view('designated/e_6_4', $data, true);
             if (!is_dir('./html/')) {
                 mkdir('./html/');
             } else {
                 $path = 'e_6_4.html';
-                $fp = fopen('./html/'.$path,'w');//建檔
-                fwrite($fp,$view);
+                $fp = fopen('./html/' . $path, 'w');//建檔
+                fwrite($fp, $view);
                 fclose($fp);//關閉開啟的檔案
             }
 
@@ -3708,8 +3709,8 @@ class Designated extends CI_Controller
                 exec('wkhtmltopdf --lowquality --enable-forms http://uat.fofo.tw/fjuexam/html/e_6_4.html  ./pdf/e_6_4.pdf');
             }
             echo '<script>location.href="http://uat.fofo.tw/fjuexam/pdf/e_6_4.pdf"</script>';
-        }else{
-          return false;
+        } else {
+            return false;
         }
     }
 
@@ -3726,7 +3727,7 @@ class Designated extends CI_Controller
         $area = $_GET['area'];
 
         $obj_pdf->SetTitle($title);
-        $obj_pdf->SetHeaderData('', '', $title, '印表日期：'.$date);
+        $obj_pdf->SetHeaderData('', '', $title, '印表日期：' . $date);
         $obj_pdf->setPrintHeader(false);
         // $obj_pdf->SetHeaderMargin(PDF_MARGIN_HEADER);
         $obj_pdf->SetFooterMargin(PDF_MARGIN_FOOTER);
@@ -3738,20 +3739,20 @@ class Designated extends CI_Controller
         $obj_pdf->AddPage();
         $data = array(
             'part' => $this->mod_trial->get_patrol_staff_task_money_list($part),
-            'area'=> $area,
+            'area' => $area,
             'school' => $this->mod_exam_area->year_school_name($part),
-            'salary'=>$this->mod_trial->get_patrol_staff_salary_total($part),
-            'lunch'=>$this->mod_trial->get_patrol_staff_lunch_total($part),
+            'salary' => $this->mod_trial->get_patrol_staff_salary_total($part),
+            'lunch' => $this->mod_trial->get_patrol_staff_lunch_total($part),
             'count' => $this->mod_trial->get_patrol_staff_task_member_count($part),
         );
-        if($data['part'] != false){
-            $view =  $this->load->view('designated/e_6_5', $data, true);
+        if ($data['part'] != false) {
+            $view = $this->load->view('designated/e_6_5', $data, true);
             if (!is_dir('./html/')) {
                 mkdir('./html/');
             } else {
                 $path = 'e_6_5.html';
-                $fp = fopen('./html/'.$path,'w');//建檔
-                fwrite($fp,$view);
+                $fp = fopen('./html/' . $path, 'w');//建檔
+                fwrite($fp, $view);
                 fclose($fp);//關閉開啟的檔案
             }
 
@@ -3761,8 +3762,8 @@ class Designated extends CI_Controller
                 exec('wkhtmltopdf --lowquality --enable-forms http://uat.fofo.tw/fjuexam/html/e_6_5.html  ./pdf/e_6_5.pdf');
             }
             echo '<script>location.href="http://uat.fofo.tw/fjuexam/pdf/e_6_5.pdf"</script>';
-        }else{
-          return false;
+        } else {
+            return false;
         }
     }
 
@@ -3774,7 +3775,7 @@ class Designated extends CI_Controller
         $objPHPExcel = new PHPExcel();
         $objPHPExcel->setActiveSheetIndex(0);
         $arr = $this->mod_task->get_all_assign_member_list();
-        for ($i=0; $i < count($arr); $i++) {
+        for ($i = 0; $i < count($arr); $i++) {
             # code...
 
             $objPHPExcel->getActiveSheet()->getStyle()->getNumberFormat()->setFormatCode();
@@ -3785,18 +3786,18 @@ class Designated extends CI_Controller
             $objPHPExcel->getActiveSheet()->setCellValue('E1', '執勤日期');
 
 
-            $objPHPExcel->getActiveSheet()->setCellValue('A'.(2+$i), (string)$arr[$i]['job_code'],PHPExcel_Cell_DataType::TYPE_STRING);
-            $objPHPExcel->getActiveSheet()->setCellValue('B'.(2+$i), $arr[$i]['name']);
-            $objPHPExcel->getActiveSheet()->setCellValue('C'.(2+$i), $arr[$i]['member_unit']);
-            $objPHPExcel->getActiveSheet()->setCellValue('D'.(2+$i), $arr[$i]['job']);
-            $objPHPExcel->getActiveSheet()->setCellValue('E'.(2+$i), $arr[$i]['do_date']);
+            $objPHPExcel->getActiveSheet()->setCellValue('A' . (2 + $i), (string)$arr[$i]['job_code'], PHPExcel_Cell_DataType::TYPE_STRING);
+            $objPHPExcel->getActiveSheet()->setCellValue('B' . (2 + $i), $arr[$i]['name']);
+            $objPHPExcel->getActiveSheet()->setCellValue('C' . (2 + $i), $arr[$i]['member_unit']);
+            $objPHPExcel->getActiveSheet()->setCellValue('D' . (2 + $i), $arr[$i]['job']);
+            $objPHPExcel->getActiveSheet()->setCellValue('E' . (2 + $i), $arr[$i]['do_date']);
         }
 
         $objWriter = PHPExcel_IOFactory::createWriter($objPHPExcel, 'CSV');
 
 
         header("content-type:application/csv;charset=UTF-8");
-        header('Content-Disposition: attachment;filename="檔案匯出'.'.csv"');
+        header('Content-Disposition: attachment;filename="檔案匯出' . '.csv"');
         header('Cache-Control: max-age=0');
         header("Expires:0");
 
@@ -3818,7 +3819,7 @@ class Designated extends CI_Controller
 
         $arr = $this->mod_trial->get_trial_moneylist_for_csv($part);
         // print_r($arr);
-        for ($i=0; $i < count($arr); $i++) {
+        for ($i = 0; $i < count($arr); $i++) {
             # code...
 
 
@@ -3830,18 +3831,18 @@ class Designated extends CI_Controller
             $objPHPExcel->getActiveSheet()->setCellValue('C1', '姓名');
             $objPHPExcel->getActiveSheet()->setCellValue('D1', '餐費');
             $objPHPExcel->getActiveSheet()->setCellValue('E1', '應領費用');
-            $objPHPExcel->getActiveSheet()->setCellValue('A'.(2+$i), $arr[$i]['field']);
-            $objPHPExcel->getActiveSheet()->setCellValue('B'.(2+$i), number_format($arr[$i]['salary_section']));
-            $objPHPExcel->getActiveSheet()->setCellValue('C'.(2+$i), $arr[$i]['supervisor']);
-            $objPHPExcel->getActiveSheet()->setCellValue('D'.(2+$i), $arr[$i]['section_lunch_total']);
-            $objPHPExcel->getActiveSheet()->setCellValue('E'.(2+$i), $arr[$i]['section_salary_total']);
+            $objPHPExcel->getActiveSheet()->setCellValue('A' . (2 + $i), $arr[$i]['field']);
+            $objPHPExcel->getActiveSheet()->setCellValue('B' . (2 + $i), number_format($arr[$i]['salary_section']));
+            $objPHPExcel->getActiveSheet()->setCellValue('C' . (2 + $i), $arr[$i]['supervisor']);
+            $objPHPExcel->getActiveSheet()->setCellValue('D' . (2 + $i), $arr[$i]['section_lunch_total']);
+            $objPHPExcel->getActiveSheet()->setCellValue('E' . (2 + $i), $arr[$i]['section_salary_total']);
         }
 
         $objWriter = PHPExcel_IOFactory::createWriter($objPHPExcel, 'CSV');
 
 
         header('Content-Type: application/vnd.ms-excel');
-        header('Content-Disposition: attachment;filename="'.$area.'印領清冊'.'.csv"');
+        header('Content-Disposition: attachment;filename="' . $area . '印領清冊' . '.csv"');
         header('Cache-Control: max-age=0');
 
 
@@ -3862,7 +3863,7 @@ class Designated extends CI_Controller
 
 
         $arr = $this->mod_trial->get_trial_list_of_obs_for_csv($part, $obs);
-        for ($i=0; $i < count($arr); $i++) {
+        for ($i = 0; $i < count($arr); $i++) {
             # code...
 
             $objPHPExcel->getActiveSheet()->setCellValue('A1', '試場');
@@ -3870,18 +3871,18 @@ class Designated extends CI_Controller
             $objPHPExcel->getActiveSheet()->setCellValue('C1', '姓名');
             $objPHPExcel->getActiveSheet()->setCellValue('D1', '餐費');
             $objPHPExcel->getActiveSheet()->setCellValue('E1', '應領費用');
-            $objPHPExcel->getActiveSheet()->setCellValue('A'.(2+$i), $arr[$i]['field']);
-            $objPHPExcel->getActiveSheet()->setCellValue('B'.(2+$i), number_format($arr[$i]['salary_section']));
-            $objPHPExcel->getActiveSheet()->setCellValue('C'.(2+$i), $arr[$i]['supervisor']);
-            $objPHPExcel->getActiveSheet()->setCellValue('D'.(2+$i), $arr[$i]['section_lunch_total']);
-            $objPHPExcel->getActiveSheet()->setCellValue('E'.(2+$i), $arr[$i]['section_salary_total']);
+            $objPHPExcel->getActiveSheet()->setCellValue('A' . (2 + $i), $arr[$i]['field']);
+            $objPHPExcel->getActiveSheet()->setCellValue('B' . (2 + $i), number_format($arr[$i]['salary_section']));
+            $objPHPExcel->getActiveSheet()->setCellValue('C' . (2 + $i), $arr[$i]['supervisor']);
+            $objPHPExcel->getActiveSheet()->setCellValue('D' . (2 + $i), $arr[$i]['section_lunch_total']);
+            $objPHPExcel->getActiveSheet()->setCellValue('E' . (2 + $i), $arr[$i]['section_salary_total']);
         }
 
         $objWriter = PHPExcel_IOFactory::createWriter($objPHPExcel, 'CSV');
 
 
         header('Content-Type: application/vnd.ms-excel');
-        header('Content-Disposition: attachment;filename="'.$area.'印領清冊'.'.csv"');
+        header('Content-Disposition: attachment;filename="' . $area . '印領清冊' . '.csv"');
         header('Cache-Control: max-age=0');
 
 
@@ -3902,7 +3903,7 @@ class Designated extends CI_Controller
 
         $school = $this->mod_exam_area->year_school_name($part);
         $arr = $this->mod_task->get_district_task_money_list($area);
-        for ($i=0; $i < count($arr); $i++) {
+        for ($i = 0; $i < count($arr); $i++) {
             # code...
             $objPHPExcel->getActiveSheet()->setCellValue('A1', '序號');
             $objPHPExcel->getActiveSheet()->setCellValue('B1', '分區');
@@ -3912,14 +3913,14 @@ class Designated extends CI_Controller
             $objPHPExcel->getActiveSheet()->setCellValue('F1', '工作費');
             $objPHPExcel->getActiveSheet()->setCellValue('G1', '餐費費');
             $objPHPExcel->getActiveSheet()->setCellValue('H1', '應領費用');
-            $objPHPExcel->getActiveSheet()->setCellValue('A'.(2+$i), $i+1);
-            $objPHPExcel->getActiveSheet()->setCellValue('B'.(2+$i), $area);
-            $objPHPExcel->getActiveSheet()->setCellValue('C'.(2+$i), $school);
-            $objPHPExcel->getActiveSheet()->setCellValue('D'.(2+$i), $arr[$i]['name']);
-            $objPHPExcel->getActiveSheet()->setCellValue('E'.(2+$i), $arr[$i]['job']);
-            $objPHPExcel->getActiveSheet()->setCellValue('F'.(2+$i), number_format($arr[$i]['one_day_salary']));
-            $objPHPExcel->getActiveSheet()->setCellValue('G'.(2+$i), number_format($arr[$i]['lunch_total']));
-            $objPHPExcel->getActiveSheet()->setCellValue('H'.(2+$i), number_format($arr[$i]['total']));
+            $objPHPExcel->getActiveSheet()->setCellValue('A' . (2 + $i), $i + 1);
+            $objPHPExcel->getActiveSheet()->setCellValue('B' . (2 + $i), $area);
+            $objPHPExcel->getActiveSheet()->setCellValue('C' . (2 + $i), $school);
+            $objPHPExcel->getActiveSheet()->setCellValue('D' . (2 + $i), $arr[$i]['name']);
+            $objPHPExcel->getActiveSheet()->setCellValue('E' . (2 + $i), $arr[$i]['job']);
+            $objPHPExcel->getActiveSheet()->setCellValue('F' . (2 + $i), number_format($arr[$i]['one_day_salary']));
+            $objPHPExcel->getActiveSheet()->setCellValue('G' . (2 + $i), number_format($arr[$i]['lunch_total']));
+            $objPHPExcel->getActiveSheet()->setCellValue('H' . (2 + $i), number_format($arr[$i]['total']));
 
         }
 
@@ -3927,7 +3928,7 @@ class Designated extends CI_Controller
 
 
         header('Content-Type: application/vnd.ms-excel');
-        header('Content-Disposition: attachment;filename="'.$area.'試務人員印領清冊'.'.csv"');
+        header('Content-Disposition: attachment;filename="' . $area . '試務人員印領清冊' . '.csv"');
         header('Cache-Control: max-age=0');
 
 
@@ -3948,7 +3949,7 @@ class Designated extends CI_Controller
 
         $school = $this->mod_exam_area->year_school_name($part);
         $arr = $this->mod_trial->get_trial_staff_task_money_list($part);
-        for ($i=0; $i < count($arr); $i++) {
+        for ($i = 0; $i < count($arr); $i++) {
             # code...
             $objPHPExcel->getActiveSheet()->setCellValue('A1', '序號');
             $objPHPExcel->getActiveSheet()->setCellValue('B1', '分區');
@@ -3958,14 +3959,14 @@ class Designated extends CI_Controller
             $objPHPExcel->getActiveSheet()->setCellValue('F1', '工作費');
             $objPHPExcel->getActiveSheet()->setCellValue('G1', '餐費費');
             $objPHPExcel->getActiveSheet()->setCellValue('H1', '應領費用');
-            $objPHPExcel->getActiveSheet()->setCellValue('A'.(2+$i), $i+1);
-            $objPHPExcel->getActiveSheet()->setCellValue('B'.(2+$i), $area);
-            $objPHPExcel->getActiveSheet()->setCellValue('C'.(2+$i), $school);
-            $objPHPExcel->getActiveSheet()->setCellValue('D'.(2+$i), $arr[$i]['name']);
-            $objPHPExcel->getActiveSheet()->setCellValue('E'.(2+$i), $arr[$i]['job']);
-            $objPHPExcel->getActiveSheet()->setCellValue('F'.(2+$i), number_format($arr[$i]['salary_total']));
-            $objPHPExcel->getActiveSheet()->setCellValue('G'.(2+$i), number_format($arr[$i]['lunch_total']));
-            $objPHPExcel->getActiveSheet()->setCellValue('H'.(2+$i), number_format($arr[$i]['total']));
+            $objPHPExcel->getActiveSheet()->setCellValue('A' . (2 + $i), $i + 1);
+            $objPHPExcel->getActiveSheet()->setCellValue('B' . (2 + $i), $area);
+            $objPHPExcel->getActiveSheet()->setCellValue('C' . (2 + $i), $school);
+            $objPHPExcel->getActiveSheet()->setCellValue('D' . (2 + $i), $arr[$i]['name']);
+            $objPHPExcel->getActiveSheet()->setCellValue('E' . (2 + $i), $arr[$i]['job']);
+            $objPHPExcel->getActiveSheet()->setCellValue('F' . (2 + $i), number_format($arr[$i]['salary_total']));
+            $objPHPExcel->getActiveSheet()->setCellValue('G' . (2 + $i), number_format($arr[$i]['lunch_total']));
+            $objPHPExcel->getActiveSheet()->setCellValue('H' . (2 + $i), number_format($arr[$i]['total']));
 
         }
 
@@ -3973,7 +3974,7 @@ class Designated extends CI_Controller
 
 
         header('Content-Type: application/vnd.ms-excel');
-        header('Content-Disposition: attachment;filename="'.$area.'管卷人員印領清冊'.'.csv"');
+        header('Content-Disposition: attachment;filename="' . $area . '管卷人員印領清冊' . '.csv"');
         header('Cache-Control: max-age=0');
 
 
@@ -3994,7 +3995,7 @@ class Designated extends CI_Controller
 
         $school = $this->mod_exam_area->year_school_name($part);
         $arr = $this->mod_trial->get_patrol_staff_task_money_list($part);
-        for ($i=0; $i < count($arr); $i++) {
+        for ($i = 0; $i < count($arr); $i++) {
             # code...
             $objPHPExcel->getActiveSheet()->setCellValue('A1', '序號');
             $objPHPExcel->getActiveSheet()->setCellValue('B1', '分區');
@@ -4004,14 +4005,14 @@ class Designated extends CI_Controller
             $objPHPExcel->getActiveSheet()->setCellValue('F1', '工作費');
             $objPHPExcel->getActiveSheet()->setCellValue('G1', '餐費費');
             $objPHPExcel->getActiveSheet()->setCellValue('H1', '應領費用');
-            $objPHPExcel->getActiveSheet()->setCellValue('A'.(2+$i), $i+1);
-            $objPHPExcel->getActiveSheet()->setCellValue('B'.(2+$i), $area);
-            $objPHPExcel->getActiveSheet()->setCellValue('C'.(2+$i), $school);
-            $objPHPExcel->getActiveSheet()->setCellValue('D'.(2+$i), $arr[$i]['name']);
-            $objPHPExcel->getActiveSheet()->setCellValue('E'.(2+$i), $arr[$i]['job']);
-            $objPHPExcel->getActiveSheet()->setCellValue('F'.(2+$i), number_format($arr[$i]['salary_total']));
-            $objPHPExcel->getActiveSheet()->setCellValue('G'.(2+$i), number_format($arr[$i]['lunch_total']));
-            $objPHPExcel->getActiveSheet()->setCellValue('H'.(2+$i), number_format($arr[$i]['total']));
+            $objPHPExcel->getActiveSheet()->setCellValue('A' . (2 + $i), $i + 1);
+            $objPHPExcel->getActiveSheet()->setCellValue('B' . (2 + $i), $area);
+            $objPHPExcel->getActiveSheet()->setCellValue('C' . (2 + $i), $school);
+            $objPHPExcel->getActiveSheet()->setCellValue('D' . (2 + $i), $arr[$i]['name']);
+            $objPHPExcel->getActiveSheet()->setCellValue('E' . (2 + $i), $arr[$i]['job']);
+            $objPHPExcel->getActiveSheet()->setCellValue('F' . (2 + $i), number_format($arr[$i]['salary_total']));
+            $objPHPExcel->getActiveSheet()->setCellValue('G' . (2 + $i), number_format($arr[$i]['lunch_total']));
+            $objPHPExcel->getActiveSheet()->setCellValue('H' . (2 + $i), number_format($arr[$i]['total']));
 
         }
 
@@ -4019,7 +4020,7 @@ class Designated extends CI_Controller
 
 
         header('Content-Type: application/vnd.ms-excel');
-        header('Content-Disposition: attachment;filename="'.$area.'巡場人員印領清冊'.'.csv"');
+        header('Content-Disposition: attachment;filename="' . $area . '巡場人員印領清冊' . '.csv"');
         header('Cache-Control: max-age=0');
 
 
@@ -4047,16 +4048,16 @@ class Designated extends CI_Controller
     {
         $this->mod_user->chk_status();
         $this->load->model('mod_exam_datetime');
-        $this->load->model('models/mod_exam_datetime',"mod_exam_datetime");
+        $this->load->model('models/mod_exam_datetime', "mod_exam_datetime");
         $year = $this->session->userdata('year');
 
         if ($this->mod_exam_datetime->chk_once($year)) {
             $datetime_info = $this->mod_exam_datetime->get_once($year);
         } else {
             $datetime_info = array(
-                'day_1' => '1911' + $this->session->userdata('year').'年7月1日',
-                'day_2' => '1911' + $this->session->userdata('year').'年7月2日',
-                'day_3' => '1911' + $this->session->userdata('year').'年7月3日',
+                'day_1' => '1911' + $this->session->userdata('year') . '年7月1日',
+                'day_2' => '1911' + $this->session->userdata('year') . '年7月2日',
+                'day_3' => '1911' + $this->session->userdata('year') . '年7月3日',
                 'course_1_start' => '08:40',
                 'course_1_end' => '10:00',
                 'course_2_start' => '10:50',
@@ -4136,9 +4137,9 @@ class Designated extends CI_Controller
             $datetime_info = $this->mod_exam_datetime->get_once($year);
         } else {
             $datetime_info = array(
-                'day_1' => date('Y').'年7月1日',
-                'day_2' => date('Y').'年7月2日',
-                'day_3' => date('Y').'年7月3日',
+                'day_1' => date('Y') . '年7月1日',
+                'day_2' => date('Y') . '年7月2日',
+                'day_3' => date('Y') . '年7月3日',
                 'course_1_start' => '08:40',
                 'course_1_end' => '10:00',
                 'course_2_start' => '10:50',
