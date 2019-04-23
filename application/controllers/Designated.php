@@ -1860,22 +1860,22 @@ class Designated extends CI_Controller
             'school' => $this->mod_exam_area->year_school_name($part),
         );
         if ($data['part'] != false) {
-            echo $view = $this->load->view('designated/e_2_3_3', $data, true);
-            // if (!is_dir('./html/')) {
-            //     mkdir('./html/');
-            // } else {
-            //     $path = 'e_2_3_3.html';
-            //     $fp = fopen('./html/' . $path, 'w');//建檔
-            //     fwrite($fp, $view);
-            //     fclose($fp);//關閉開啟的檔案
-            // }
+            $view = $this->load->view('designated/e_2_3_3', $data, true);
+            if (!is_dir('./html/')) {
+                mkdir('./html/');
+            } else {
+                $path = 'e_2_3_3.html';
+                $fp = fopen('./html/' . $path, 'w');//建檔
+                fwrite($fp, $view);
+                fclose($fp);//關閉開啟的檔案
+            }
 
-            // if (!is_dir('./pdf/')) {
-            //     mkdir('./pdf/');
-            // } else {
-            //     exec('wkhtmltopdf --lowquality  --enable-forms http://uat.fofo.tw/fjuexam/html/e_2_3_3.html  ./pdf/e_2_3_3.pdf');
-            // }
-            // echo '<script>location.href="http://uat.fofo.tw/fjuexam/pdf/e_2_3_3.pdf"</script>';
+            if (!is_dir('./pdf/')) {
+                mkdir('./pdf/');
+            } else {
+                exec('wkhtmltopdf --lowquality  --enable-forms http://uat.fofo.tw/fjuexam/html/e_2_3_3.html  ./pdf/e_2_3_3.pdf');
+            }
+            echo '<script>location.href="http://uat.fofo.tw/fjuexam/pdf/e_2_3_3.pdf"</script>';
         } else {
             return false;
         }

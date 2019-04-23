@@ -62,7 +62,7 @@ tfoot {
         </tr>
     </thead>
     <?php foreach ($v as $kc => $vc) : ?>
-    <?php print_r($vc) ?>
+
     <tr>
         <td class="bb" rowspan="2" style="font-size:18px;"><?= $vc['field'] ?></td>
         <td class="bb"><?= $vc['supervisor_1'] ?></td>
