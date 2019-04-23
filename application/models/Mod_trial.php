@@ -884,7 +884,7 @@ class Mod_trial extends CI_Model
                 if (!empty($voucher)) {
                     for ($v = 0; $v < count($voucher); $v++) { 
                         # code...
-                        $arr[$voucher[$v]['allocation_code'] . $voucher[$v]['trial_staff_name']][] = array(
+                        $arr[$voucher[$v]['allocation_code'] . ' ' . $voucher[$v]['trial_staff_name']][] = array(
                             'sn' => $sub[$i]['sn'],
                             'field' => $sub[$i]['field'],
                             'test_section' => $sub[$i]['test_section'],
@@ -932,7 +932,7 @@ class Mod_trial extends CI_Model
                 if (!empty($voucher)) {
                     for ($v = 0; $v < count($voucher); $v++) { 
                         # code...
-                        $arr[$voucher[$v]['trial_staff_name']][] = array(
+                        $arr[$voucher[$v]['allocation_code'] . ' ' . $voucher[$v]['trial_staff_name']][] = array(
                             'sn' => $sub[$i]['sn'],
                             'field' => $sub[$i]['field'],
                             'test_section' => $sub[$i]['test_section'],
@@ -980,7 +980,7 @@ class Mod_trial extends CI_Model
                 if (!empty($voucher)) {
                     for ($v = 0; $v < count($voucher); $v++) { 
                         # code...
-                        $arr[$voucher[$v]['trial_staff_name']][] = array(
+                        $arr[$voucher[$v]['allocation_code'] . ' ' . $voucher[$v]['trial_staff_name']][] = array(
                             'sn' => $sub[$i]['sn'],
                             'field' => $sub[$i]['field'],
                             'test_section' => $sub[$i]['test_section'],
@@ -997,7 +997,7 @@ class Mod_trial extends CI_Model
                 }
 
             }
-
+            // print_r($arr);
             return $arr;
         } else {
             return false;
