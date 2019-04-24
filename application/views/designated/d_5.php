@@ -892,7 +892,7 @@ $(function() {
     <div class="row boxs">
         <div class="col-md-12 col-sm-12 col-xs-12" style="margin: 50px auto 0px;">
             <form method="POST" enctype="multipart/form-data" action="" id="form" class="">
-                <div class="col-md-3 col-sm-3 col-xs-3 cube W14" style="width: 16%;height: 270px;">
+                <div class="col-md-3 col-sm-3 col-xs-3 cube W14">
                     <div class="form-group">
                         <label for="job_code" class="" style="float:left;">職員代碼</label>
                         <input type="hidden" id="sn">
@@ -912,7 +912,7 @@ $(function() {
                         <input type="text" class="form-control" id="phone" readonly>
                     </div>
                 </div>
-                <div class="col-md-3 col-sm-3 col-xs-3 cube W14" style="width: 16%;">
+                <div class="col-md-3 col-sm-3 col-xs-3 cube W14">
                     <p style="text-align:center">第一天
                         <?= $datetime_info['day_1']; ?>
                     </p>
@@ -930,7 +930,7 @@ $(function() {
                             day="<?= mb_substr($datetime_info['day_1'], 5, 8, 'utf-8'); ?>">
                     </div>
                 </div>
-                <div class="col-md-3 col-sm-3 col-xs-3 cube W14" style="width: 16%;">
+                <div class="col-md-3 col-sm-3 col-xs-3 cube W14">
                     <p style="text-align:center">第二天
                         <?= $datetime_info['day_2']; ?>
                     </p>
@@ -948,7 +948,7 @@ $(function() {
                             day="<?= mb_substr($datetime_info['day_2'], 5, 8, 'utf-8'); ?>">
                     </div>
                 </div>
-                <div class="col-md-3 col-sm-3 col-xs-3 cube W14" style="width: 16%;">
+                <div class="col-md-3 col-sm-3 col-xs-3 cube W14">
                     <p style="text-align:center">第三天
                         <?= $datetime_info['day_3']; ?>
                     </p>
@@ -966,10 +966,10 @@ $(function() {
                             day="<?= mb_substr($datetime_info['day_3'], 5, 8, 'utf-8'); ?>">
                     </div>
                 </div>
-                <div class="col-md-3 col-sm-3 col-xs-3 cube W14" style="width: 25%;">
+                <div class="col-md-3 col-sm-3 col-xs-3 cube W14">
                     <div class="form-group">
                         <label for="order_meal">訂餐需求</label>
-                        <input type="checkbox" class="" name="need" id="order_meal" onclick="return false;" />
+                        <input type="checkbox" class="" name="need" id="order_meal" disabled>
                         <span>需訂餐</span>
                     </div>
                     <div class="form-group">
@@ -987,7 +987,7 @@ $(function() {
                         </select>
                     </div>
                 </div>
-                <div class="col-md-3 col-sm-3 col-xs-3 cube W20" style="position: relative;width: 25%;top: 15px;">
+                <div class="col-md-3 col-sm-3 col-xs-3 cube W20">
                     <div class="form-group">
                         <label for="start_date" class="" style="float:left;">天數/節數</label>
                         <input type="text" class="form-control" style="display:none" id="day_count" readonly value="0">

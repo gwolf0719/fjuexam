@@ -846,7 +846,7 @@ $(function() {
                 <div class="col-md-3 col-sm-3 col-xs-3 cube" style="height:200px;">
                     <div class="form-group">
                         <label for="order_meal">訂餐需求</label>
-                        <input type="checkbox" class="" name="need" id="order_meal" value="Y" onclick="return false;" />
+                        <input type="checkbox" class="" name="need" id="order_meal" value="Y" disabled>
                         <span>需訂餐</span>
                     </div>
                     <div class="form-group">

@@ -841,8 +841,7 @@ $(function() {
                         </div>
                         <div class="form-group">
                             <label for="order_meal">訂餐需求</label>
-                            <input type="checkbox" class="" name="need" id="first_member_order_meal"
-                                onclick="return false;" />
+                            <input type="checkbox" class="" name="need" id="first_member_order_meal" disabled>
                             <span>需訂餐</span>
                         </div>
                         <div class="form-group first_member_meal">
