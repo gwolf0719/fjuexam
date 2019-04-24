@@ -2275,9 +2275,11 @@ class Mod_trial extends CI_Model
         $res = $this->db->where('sn', $sn)->get('trial_staff')->row_array();
         // print_r($res);
         $a = $res['salary_total'] - $res['lunch_total'];
+        $b = $res['count'] * $res['lunch_price'];
         // print_r($a);
         $total = array(
             'total' => $a,
+            'lunch_total' => $b,
         );
         $this->db->where('sn', $sn);
         $this->db->update('trial_staff', $total);

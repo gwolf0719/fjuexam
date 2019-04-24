@@ -806,7 +806,7 @@ class Api extends CI_Controller
                 'count' => count($do_date),
                 'salary' => $fees_info['salary_section'],
                 'salary_total' => $salary_total,
-                'lunch_price' => $lunch_price,
+                'lunch_price' => $fees_info['lunch_fee'],
                 'lunch_total' => $lunch_total,
                 'total' => $total,
             );

@@ -45,9 +45,40 @@ class Mod_staff extends CI_Model
     }
 
     public function update_once($sn, $data)
-    {
+    {   
+        // 改會員資料
         $this->db->where('sn', $sn);
         $this->db->update('staff_member', $data);
+
+        // 更新管卷人員資料
+        $res1 = $this->db->where('year', $this->session->userdata('year'))->where('trial_staff_code', $data['member_code'])->get('trial_staff')->row_array();
+        $day = 0;
+        if ($res1['first_section'] != 0) {
+            $day = $day + 1;
+        }
+        if ($res1['second_section'] != 0) {
+            $day = $day + 1;
+        }
+        if ($res1['third_section'] != 0) {
+            $day = $day + 1;
+        }
+        switch ($data['order_meal']) {
+            case 'Y':
+                $lunch_total = $day * $res1['lunch_price'];
+                break;
+            default:
+                $lunch_total = 0;
+                break;
+        }
+        $trail = array(
+            'order_meal' => $data['order_meal'],
+            'meal' => $data['meal'],
+            'lunch_total' => $lunch_total,
+            'total' => $res1['salary_total'] - $lunch_total,
+        );
+        $this->db->where('year', $this->session->userdata('year'));
+        $this->db->where('trial_staff_code', $data['member_code']);
+        $this->db->update('trial_staff', $trail);
 
         return true;
     }
@@ -64,22 +95,22 @@ class Mod_staff extends CI_Model
         // $data = array('job_code','job_title','name','trial_start','trial_end','number','phone','note','status',
         // 'do_date','day_count','one_day_salary','salary_total','total');
         $datas = array(
-            'job_code' =>'', 
-            'job_title' =>'', 
-            'name' =>'', 
-            'trial_start' =>'', 
-            'trial_end' =>'', 
-            'number' =>'', 
-            'phone' =>'', 
-            'note' =>'', 
-            'status' =>'', 
-            'do_date' =>'', 
-            'day_count' =>'', 
-            'one_day_salary' =>'', 
-            'salary_total' =>'', 
-            'total' =>'', 
+            'job_code' => '',
+            'job_title' => '',
+            'name' => '',
+            'trial_start' => '',
+            'trial_end' => '',
+            'number' => '',
+            'phone' => '',
+            'note' => '',
+            'status' => '',
+            'do_date' => '',
+            'day_count' => '',
+            'one_day_salary' => '',
+            'salary_total' => '',
+            'total' => '',
         );
-        $this->db->where('year', $this->session->userdata('year'))->update('district_task',$datas);
+        $this->db->where('year', $this->session->userdata('year'))->update('district_task', $datas);
     }
     public function remove_trial_assign()
     {   
@@ -87,24 +118,24 @@ class Mod_staff extends CI_Model
         // 'first_member_salary_section','first_member_section_salary_total','first_member_section_total','second_member_do_date','second_member_day_count',
         // 'second_member_salary_section','second_member_section_salary_total','second_member_section_total','note');
         $datas = array(
-            'supervisor_1' =>'', 
-            'supervisor_1_code' =>'', 
-            'supervisor_2' =>'', 
-            'supervisor_2_code' =>'', 
-            'trial_staff_code_1' =>'', 
-            'trial_staff_code_2' =>'', 
-            'first_member_do_date' =>'', 
-            'first_member_day_count' =>'', 
-            'first_member_salary_section' =>'', 
-            'first_member_section_salary_total' =>'', 
-            'first_member_section_total' =>'', 
-            'second_member_do_date' =>'', 
-            'second_member_day_count' =>'', 
-            'second_member_salary_section' =>'', 
-            'second_member_section_salary_total' =>'', 
-            'note' =>'', 
+            'supervisor_1' => '',
+            'supervisor_1_code' => '',
+            'supervisor_2' => '',
+            'supervisor_2_code' => '',
+            'trial_staff_code_1' => '',
+            'trial_staff_code_2' => '',
+            'first_member_do_date' => '',
+            'first_member_day_count' => '',
+            'first_member_salary_section' => '',
+            'first_member_section_salary_total' => '',
+            'first_member_section_total' => '',
+            'second_member_do_date' => '',
+            'second_member_day_count' => '',
+            'second_member_salary_section' => '',
+            'second_member_section_salary_total' => '',
+            'note' => '',
         );
-        $this->db->where('year', $this->session->userdata('year'))->update('trial_assign',$datas);
+        $this->db->where('year', $this->session->userdata('year'))->update('trial_assign', $datas);
     }
     public function remove_trial_staff()
     {   
