@@ -50,6 +50,49 @@ class Mod_staff extends CI_Model
         $this->db->where('sn', $sn);
         $this->db->update('staff_member', $data);
 
+        // 更新監考人員資料
+        // 1
+        $res2 = $this->db->where('year', $this->session->userdata('year'))->where('supervisor_1_code', $data['member_code'])->get('trial_assign')->row_array();
+
+        switch ($data['order_meal']) {
+            case 'Y':
+                $lunch_total = $res2['first_member_day_count'] * $res2['first_member_lunch_price'];
+                break;
+            default:
+                $lunch_total = 0;
+                break;
+        }
+        $assign = array(
+            'first_member_order_meal' => $data['order_meal'],
+            'first_member_meal' => $data['meal'],
+            'first_member_section_lunch_total' => $lunch_total,
+            'first_member_section_total' => $res2['first_member_section_salary_total'] - $lunch_total,
+        );
+        $this->db->where('year', $this->session->userdata('year'));
+        $this->db->where('supervisor_1_code', $data['member_code']);
+        $this->db->update('trial_assign', $assign);
+
+        // 2
+        $res3 = $this->db->where('year', $this->session->userdata('year'))->where('supervisor_2_code', $data['member_code'])->get('trial_assign')->row_array();
+
+        switch ($data['order_meal']) {
+            case 'Y':
+                $lunch_total = $res3['second_member_day_count'] * $res3['second_member_lunch_price'];
+                break;
+            default:
+                $lunch_total = 0;
+                break;
+        }
+        $assign = array(
+            'second_member_order_meal' => $data['order_meal'],
+            'second_member_meal' => $data['meal'],
+            'second_member_section_lunch_total' => $lunch_total,
+            'second_member_section_total' => $res3['second_member_section_salary_total'] - $lunch_total,
+        );
+        $this->db->where('year', $this->session->userdata('year'));
+        $this->db->where('supervisor_2_code', $data['member_code']);
+        $this->db->update('trial_assign', $assign);
+
         // 更新管卷人員資料
         $res1 = $this->db->where('year', $this->session->userdata('year'))->where('trial_staff_code', $data['member_code'])->get('trial_staff')->row_array();
         $day = 0;
@@ -79,6 +122,28 @@ class Mod_staff extends CI_Model
         $this->db->where('year', $this->session->userdata('year'));
         $this->db->where('trial_staff_code', $data['member_code']);
         $this->db->update('trial_staff', $trail);
+
+
+        // 更新巡場人員資料
+        $res5 = $this->db->where('year', $this->session->userdata('year'))->where('patrol_staff_code', $data['member_code'])->get('patrol_staff')->row_array();
+
+        switch ($data['order_meal']) {
+            case 'Y':
+                $lunch_total = $res5['count'] * $res5['lunch_price'];
+                break;
+            default:
+                $lunch_total = 0;
+                break;
+        }
+        $trail = array(
+            'order_meal' => $data['order_meal'],
+            'meal' => $data['meal'],
+            'lunch_total' => $lunch_total,
+            'total' => $res5['salary_total'] - $lunch_total,
+        );
+        $this->db->where('year', $this->session->userdata('year'));
+        $this->db->where('patrol_staff_code', $data['member_code']);
+        $this->db->update('patrol_staff', $trail);
 
         return true;
     }

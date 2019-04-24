@@ -41,7 +41,7 @@ class Mod_patrol extends CI_Model
         $this->db->where('year', $this->session->userdata('year'));
 
         $res = $this->db->get('trial_staff')->result_array();
-        for ($i=0; $i < count($res); $i++) { 
+        for ($i = 0; $i < count($res); $i++) { 
             # code...
             $patrol = $this->db->where('member_code', $res[$i]['trial_staff_code'])->get('staff_member')->row_array();
             switch ($res[$i]['part']) {
@@ -53,29 +53,29 @@ class Mod_patrol extends CI_Model
                     break;
                 case '2503':
                     $part = '第三分區';
-                    break;                    
-            }            
+                    break;
+            }
             $arr[] = array(
-                'year'=>$patrol['year'],
-                'job'=>'分區管卷人員',
-                'area'=>$part,
-                'member_code'=>$res[$i]['allocation_code'],
-                'member_name'=>$patrol['member_name'],
-                'member_unit'=>$patrol['member_unit'],
-                'member_phone'=>$patrol['member_phone'],
-                'member_title'=>$patrol['member_title'],
-                'do_date'=>$res[$i]['do_date']
+                'year' => $patrol['year'],
+                'job' => '分區管卷人員',
+                'area' => $part,
+                'member_code' => $res[$i]['allocation_code'],
+                'member_name' => $patrol['member_name'],
+                'member_unit' => $patrol['member_unit'],
+                'member_phone' => $patrol['member_phone'],
+                'member_title' => $patrol['member_title'],
+                'do_date' => $res[$i]['do_date']
             );
         }
         return $arr;
-    }    
+    }
 
     public function get_patrol_for_csv()
     {
         $this->db->where('year', $this->session->userdata('year'));
 
         $res = $this->db->get('patrol_staff')->result_array();
-        for ($i=0; $i < count($res); $i++) { 
+        for ($i = 0; $i < count($res); $i++) { 
             # code...
             $patrol = $this->db->where('member_code', $res[$i]['patrol_staff_code'])->get('staff_member')->row_array();
             switch ($res[$i]['part']) {
@@ -87,18 +87,18 @@ class Mod_patrol extends CI_Model
                     break;
                 case '2503':
                     $part = '第三分區';
-                    break;                    
+                    break;
             }
             $arr[] = array(
-                'year'=>$patrol['year'],
-                'job'=>'分區巡場人員',
-                'area'=>$part,
-                'member_code'=>$res[$i]['allocation_code'],
-                'member_name'=>$patrol['member_name'],
-                'member_unit'=>$patrol['member_unit'],
-                'member_phone'=>$patrol['member_phone'],
-                'member_title'=>$patrol['member_title'],
-                'do_date'=>$res[$i]['do_date']
+                'year' => $patrol['year'],
+                'job' => '分區巡場人員',
+                'area' => $part,
+                'member_code' => $res[$i]['allocation_code'],
+                'member_name' => $patrol['member_name'],
+                'member_unit' => $patrol['member_unit'],
+                'member_phone' => $patrol['member_phone'],
+                'member_title' => $patrol['member_title'],
+                'do_date' => $res[$i]['do_date']
             );
         }
         return $arr;
@@ -114,6 +114,13 @@ class Mod_patrol extends CI_Model
         $this->db->where('sn', $sn);
         $this->db->update('patrol_staff', $data);
 
+        $res = $this->db->where('sn', $sn)->get('patrol_staff')->row_array();
+        $lunch = $res['lunch_price'] * $res['count'];
+        $new = array(
+            'lunch_total' => $lunch,
+            'total' => $res['salary_total'] - $lunch,
+        );
+        $this->db->update('patrol_staff', $new);
         return true;
     }
 
@@ -130,7 +137,7 @@ class Mod_patrol extends CI_Model
         return true;
     }
 
-        public function remove_patrol_staff($sn)
+    public function remove_patrol_staff($sn)
     {
         $this->db->where('sn', $sn);
         $this->db->delete('patrol_staff');
