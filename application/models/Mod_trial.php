@@ -2254,6 +2254,16 @@ class Mod_trial extends CI_Model
     {
         $this->db->where('sn', $sn);
         $this->db->update('trial_assign', $data);
+
+
+        $res = $this->db->where('sn', $sn)->get('trial_assign')->row_array();
+        $total = $res['first_member_section_salary_total'] - $res['first_member_section_lunch_total'];
+        $total2 = $res['second_member_section_salary_total'] - $res['second_member_section_lunch_total'];
+        $new_total = array(
+            'first_member_section_total' => $total,
+            'second_member_section_total' => $total2,
+        );
+        $this->db->update('trial_assign', $new_total);
         return true;
     }
 

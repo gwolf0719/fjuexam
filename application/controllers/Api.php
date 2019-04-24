@@ -684,15 +684,15 @@ class Api extends CI_Controller
     public function save_trial_for_price()
     {
         $this->load->model('mod_trial');
-        $getpost = array('sn', 'first_member_do_date', 'second_member_do_date', 'first_member_day_count', 'first_member_salary_section', 'first_member_section_salary_total', 'first_member_lunch_price', 'first_member_section_lunch_total', 'first_member_section_total', 'second_member_day_count', 'second_member_salary_section', 'second_member_section_salary_total', 'second_member_lunch_price', 'second_member_section_lunch_total', 'second_member_section_total', 'first_member_order_meal', 'second_member_order_meal', 'first_member_meal', 'second_member_meal');
-        $requred = array('sn', 'first_member_do_date', 'second_member_do_date', 'first_member_day_count', 'first_member_salary_section', 'first_member_section_salary_total', 'first_member_lunch_price', 'first_member_section_lunch_total', 'first_member_section_total', 'second_member_day_count', 'second_member_salary_section', 'second_member_section_salary_total', 'second_member_lunch_price', 'second_member_section_lunch_total', 'second_member_section_total', 'first_member_order_meal', 'second_member_order_meal', 'first_member_meal', 'second_member_meal');
+        $getpost = array('sn', 'first_member_do_date', 'second_member_do_date', 'first_member_day_count', 'first_member_salary_section', 'first_member_section_salary_total', 'second_member_day_count', 'second_member_salary_section', 'second_member_section_salary_total');
+        $requred = array('sn', 'first_member_do_date', 'second_member_do_date', 'first_member_day_count', 'first_member_salary_section', 'first_member_section_salary_total', 'second_member_day_count', 'second_member_salary_section', 'second_member_section_salary_total');
         $data = $this->getpost->getpost_array($getpost, $requred);
         if ($data == false) {
             $json_arr['sys_code'] = '000';
             $json_arr['sys_msg'] = '資料不足';
             $json_arr['requred'] = $this->getpost->report_requred($requred);
         } else {
-            print_r($data);
+            // print_r($data);
             $data['year'] = $this->session->userdata('year');
             $this->mod_trial->update_once($data['sn'], $data);
             $json_arr['sys_code'] = '200';
