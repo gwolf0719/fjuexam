@@ -308,7 +308,8 @@ $(function() {
                 .first_member_section_lunch_total);
             $("#first_member_section_salary_total").val(data.info
                 .first_member_section_salary_total);
-            $("#first_member_section_total").val(data.info.first_member_section_total);
+            $("#first_member_section_total").val(data.info
+                .first_member_section_salary_total);
             $("#first_member_name").val(data.info.supervisor_1);
             $("#first_member_job_code").val(data.info.supervisor_1_code);
             $("#trial_staff_code_1").val(data.info.trial_staff_code_1);

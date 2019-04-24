@@ -1097,8 +1097,8 @@ class Api extends CI_Controller
         $this->load->model('mod_trial');
         $this->load->model('mod_staff');
         $this->load->model('mod_task');
-        $getpost = array('sn', 'calculation', 'do_date', 'count', 'salary', 'salary_total', 'lunch_price', 'lunch_total', 'total', 'note', 'order_meal', 'meal');
-        $requred = array('sn', 'calculation', 'do_date', 'count', 'salary', 'salary_total', 'lunch_price', 'lunch_total', 'total', 'order_meal', 'meal');
+        $getpost = array('sn', 'calculation', 'do_date', 'count', 'salary', 'salary_total', 'total', 'note');
+        $requred = array('sn', 'calculation', 'do_date', 'count', 'salary', 'salary_total', 'total');
         $data = $this->getpost->getpost_array($getpost, $requred);
         if ($data == false) {
             $json_arr['sys_code'] = '000';
