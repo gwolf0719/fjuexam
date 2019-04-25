@@ -202,7 +202,7 @@ $(function() {
 
             if (data.info.order_meal.toUpperCase() == "Y") {
                 $("#order_meal").prop("checked", true);
-                $("#lunch_price").attr("readonly", false);
+                // $("#lunch_price").attr("readonly", false);
                 $('.meal').show();
             } else {
                 $("#order_meal").prop("checked", false);
@@ -629,7 +629,8 @@ $(function() {
                     </div>
                     <div class="form-group meal" style="display:none;">
                         <label for="meal" class="" style="float:left;">餐別</label>
-                        <select class="form-control" id="meal">
+                        <select class="form-control" id="meal" disabled>
+
                             <option value="葷">葷食</option>
                             <option value="素">素食</option>
                         </select>
@@ -674,7 +675,7 @@ $(function() {
                     <div class="form-group" style="padding: 0% 3%;">
                         <div class="W50">
                             <label for="trial_start" class="" style="float:left;width: 50%;">便當費 </label>
-                            <input type="text" class="form-control" id="lunch_price" value="0">
+                            <input type="text" class="form-control" id="lunch_price" value="0" readonly>
                         </div>
                         <div class="W50">
                             <label for="trial_start" class="" style="float:left;width: 50%;">便當總計</label>
