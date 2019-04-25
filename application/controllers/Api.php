@@ -208,8 +208,8 @@ class Api extends CI_Controller
     public function edit_task()
     {
         $this->load->model('mod_task');
-        $getpost = array('sn', 'area', 'job_code', 'job_title', 'name', 'phone', 'trial_start', 'trial_end', 'note', 'day_count', 'one_day_salary', 'salary_total', 'lunch_price', 'lunch_total', 'total', 'order_meal', 'do_date', 'meal');
-        $requred = array('sn', 'area', 'job_code', 'job_title', 'name', 'phone', 'day_count', 'one_day_salary', 'salary_total', 'lunch_price', 'lunch_total', 'total', 'order_meal', 'do_date', 'meal');
+        $getpost = array('sn', 'area', 'job_code', 'job_title', 'name', 'phone', 'trial_start', 'trial_end', 'note', 'day_count', 'one_day_salary', 'salary_total', 'lunch_price', 'lunch_total', 'total', 'do_date');
+        $requred = array('sn', 'area', 'job_code', 'job_title', 'name', 'phone', 'day_count', 'one_day_salary', 'salary_total', 'lunch_price', 'lunch_total', 'total', 'do_date');
         $data = $this->getpost->getpost_array($getpost, $requred);
         if ($data == false) {
             $json_arr['sys_code'] = '000';

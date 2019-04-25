@@ -271,18 +271,6 @@ $(function() {
             var lunch_price = $("#lunch_price").val();
             var lunch_total = $("#lunch_total").val();
             var total = $("#total").val();
-            var order_meal;
-            if ($("#order_meal").prop("checked") == false) {
-                order_meal = "N";
-            } else {
-                order_meal = "Y";
-            }
-            var meal;
-            if (order_meal.toUpperCase() == "Y") {
-                meal = $("#meal").val();
-            } else {
-                meal = "自備";
-            }
             $.ajax({
                 url: 'api/edit_task',
                 data: {
@@ -458,7 +446,7 @@ $(function() {
     $("body").on("keyup", "#one_day_salary", function() {
         var day_total = $(this).val() * $("#day_count").val();
         $("#salary_total").val(day_total);
-        var total = parseInt($("#lunch_total").val()) + day_total;
+        var total = day_total - parseInt($("#lunch_total").val());
         $("#total").val(total)
     })
 
@@ -636,7 +624,7 @@ $(function() {
                 <div class="col-md-3 col-sm-3 col-xs-3 cube" style="height:150px;">
                     <div class="form-group">
                         <label for="order_meal">訂餐需求</label>
-                        <input type="checkbox" class="" name="need" id="order_meal">
+                        <input type="checkbox" class="" name="need" id="order_meal" disabled>
                         <span>需訂餐</span>
                     </div>
                     <div class="form-group meal" style="display:none;">

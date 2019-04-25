@@ -145,6 +145,29 @@ class Mod_staff extends CI_Model
         $this->db->where('patrol_staff_code', $data['member_code']);
         $this->db->update('patrol_staff', $trail);
 
+
+
+        // 更新b員資料
+        $res6 = $this->db->where('year', $this->session->userdata('year'))->where('job_code', $data['member_code'])->get('district_task')->row_array();
+
+        switch ($data['order_meal']) {
+            case 'Y':
+                $lunch_total = $res6['day_count'] * $res6['lunch_price'];
+                break;
+            default:
+                $lunch_total = 0;
+                break;
+        }
+        $b = array(
+            'order_meal' => $data['order_meal'],
+            'meal' => $data['meal'],
+            'lunch_total' => $lunch_total,
+            'total' => $res6['salary_total'] - $lunch_total,
+        );
+        $this->db->where('year', $this->session->userdata('year'));
+        $this->db->where('job_code', $data['member_code']);
+        $this->db->update('district_task', $b);
+
         return true;
     }
 
