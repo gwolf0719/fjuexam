@@ -882,6 +882,7 @@ class Mod_voice_trial extends CI_Model
             $this->db->where('field', $value['field']);
             $this->db->where('year', $year);
             $this->db->where('ladder', $ladder);
+            $this->db->where('supervisor_1!=', '');
             $res[] = $this->db->get('voice_trial_assign')->row_array();
         }
 
@@ -911,6 +912,8 @@ class Mod_voice_trial extends CI_Model
 
             // foreach ($res as $k => $v) {
             # code...
+            $a = $this->db->where('field', $sub[$i]['field'])->where('year', $this->session->userdata('year'))->where('ladder', $this->session->userdata('ladder'))->where('part', $sub[$i]['part'])->get('voice_area_main')->row_array();
+
             $arr[] = array(
                 'year' => $sub[$i]['year'],
                 'ladder' => $sub[$i]['ladder'],
@@ -919,6 +922,7 @@ class Mod_voice_trial extends CI_Model
                 'member_name' => $supervisor1['member_name'],
                 'member_code' => $supervisor1['member_code'],
                 'trial_staff_code' => $sub[$i]['trial_staff_code_1'],
+                'area_name' => $a['area_name'],
             );
             $arr[] = array(
                 'year' => $sub[$i]['year'],
@@ -928,6 +932,7 @@ class Mod_voice_trial extends CI_Model
                 'member_name' => $supervisor2['member_name'],
                 'member_code' => $supervisor2['member_code'],
                 'trial_staff_code' => $sub[$i]['trial_staff_code_2'],
+                'area_name' => $a['area_name'],
             );                
             // }
         }
