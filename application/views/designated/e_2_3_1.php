@@ -2,7 +2,7 @@
 .bb {
     border: 1px solid #999999;
     line-height:1cm;
-    height:1cm;
+    height:1.2cm;
 }
 
 table {
@@ -24,9 +24,6 @@ table,tr,td,th,tbody,thead,tfoot {
     page-break-before: always;
     page-break-inside: avoid;
 }
-/* table td {
-        word-break: break-all;
-    }     */
 .W50 {
     width: 50%;
     float: left;
