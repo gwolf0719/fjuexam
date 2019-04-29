@@ -1,6 +1,12 @@
 <?php 
 defined('BASEPATH') OR exit('No direct script access allowed');
 class Pdf {
+    /**
+     * view 頁面 檔案直接轉成  pdf 檔案
+     * @view 頁面資料
+     * @file 存檔檔名
+     * @debug 模式 預設 false 會直接出 pdf檔 ,如果是 true 就會印 html
+     */
     function view_to_pdf($view,$file,$debug=false){
         if($debug == true){
             echo $view;
