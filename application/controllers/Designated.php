@@ -992,7 +992,7 @@ class Designated extends CI_Controller
 
     public function e_1_1()
     {
-        $this->load->library('pdf');
+        
         $this->load->model('mod_school_unit');
        
         $title = '行政單位';
@@ -1003,22 +1003,7 @@ class Designated extends CI_Controller
         );
         if ($data['list'] != false) {
             $view = $this->load->view('designated/e_1_1', $data, true);
-            if (!is_dir('./html/')) {
-                mkdir('./html/');
-            } else {
-                $path = 'e_1_1.html';
-                $fp = fopen('./html/' . $path, 'w');//建檔
-                fwrite($fp, $view);
-                fclose($fp);//關閉開啟的檔案
-
-            }
-
-            if (!is_dir('./pdf/')) {
-                mkdir('./pdf/');
-            } else {
-                exec('wkhtmltopdf --lowquality --enable-forms http://uat.fofo.tw/fjuexam/html/e_1_1.html  ./pdf/e_1_1.pdf');
-            }
-            echo '<script>location.href="http://uat.fofo.tw/fjuexam/pdf/e_1_1.pdf"</script>';
+            $this->pdf->view_to_pdf($view,'e_1_1');
         } else {
             return false;
         }
@@ -1026,7 +1011,7 @@ class Designated extends CI_Controller
 
     public function e_1_2()
     {
-        $this->load->library('pdf');
+        
         $this->load->model('mod_task');
         
         $title = '請公假名單';
@@ -1037,28 +1022,12 @@ class Designated extends CI_Controller
         );
         
         $view = $this->load->view('designated/e_1_2', $data, true);
-        if (!is_dir('./html/')) {
-            mkdir('./html/');
-        } else {
-            $path = 'e_1_2.html';
-            $fp = fopen('./html/' . $path, 'w');//建檔
-            fwrite($fp, $view);
-            fclose($fp);//關閉開啟的檔案
-            
-
-        }
-
-        if (!is_dir('./pdf/')) {
-            mkdir('./pdf/');
-        } else {
-            exec('wkhtmltopdf --lowquality --enable-forms http://uat.fofo.tw/fjuexam/html/e_1_2.html  ./pdf/e_1_2.pdf');
-        }
-        echo '<script>location.href="http://uat.fofo.tw/fjuexam/pdf/e_1_2.pdf"</script>';
+        $this->pdf->view_to_pdf($view,'e_1_2');
     }
 
     public function e_1_3()
     {
-        $this->load->library('pdf');
+        
         $this->load->model('mod_trial');
         $this->load->model('mod_exam_area');
 
@@ -1075,22 +1044,7 @@ class Designated extends CI_Controller
         );
         if ($data['part'] != false) {
             $view = $this->load->view('designated/e_1_3', $data, true);
-            if (!is_dir('./html/')) {
-                mkdir('./html/');
-            } else {
-                $path = 'e_1_3.html';
-                $fp = fopen('./html/' . $path, 'w');//建檔
-                fwrite($fp, $view);
-                fclose($fp);//關閉開啟的檔案
-
-            }
-
-            if (!is_dir('./pdf/')) {
-                mkdir('./pdf/');
-            } else {
-                exec('wkhtmltopdf --lowquality --enable-forms http://uat.fofo.tw/fjuexam/html/e_1_3.html  ./pdf/e_1_3.pdf');
-            }
-            echo '<script>location.href="http://uat.fofo.tw/fjuexam/pdf/e_1_3.pdf"</script>';
+            $this->pdf->view_to_pdf($view,'e_1_3');
         } else {
             return false;
         }
@@ -1098,7 +1052,7 @@ class Designated extends CI_Controller
 
     public function e_1_3_3()
     {
-        $this->load->library('pdf');
+        
         $this->load->model('mod_task');
         $this->load->model('mod_exam_area');
         $this->load->model("mod_part_addr");
@@ -1132,23 +1086,7 @@ class Designated extends CI_Controller
         );
         if ($data['part'] != false) {
             $view = $this->load->view('designated/e_1_3_3', $data, true);
-            if (!is_dir('./html/')) {
-                mkdir('./html/');
-            } else {
-                $path = 'e_1_3_3.html';
-                $fp = fopen('./html/' . $path, 'w');//建檔
-                fwrite($fp, $view);
-                fclose($fp);//關閉開啟的檔案
-              
-
-            }
-
-            if (!is_dir('./pdf/')) {
-                mkdir('./pdf/');
-            } else {
-                exec('wkhtmltopdf --lowquality --enable-forms http://uat.fofo.tw/fjuexam/html/e_1_3_3.html  ./pdf/e_1_3_3.pdf');
-            }
-            echo '<script>location.href="http://uat.fofo.tw/fjuexam/pdf/e_1_3_3.pdf"</script>';
+            $this->pdf->view_to_pdf($view,'e_1_3_3');
         } else {
             return false;
         }
@@ -1156,7 +1094,7 @@ class Designated extends CI_Controller
 
     public function e_1_3_4()
     {
-        $this->load->library('pdf');
+        
         $this->load->model('mod_task');
         $this->load->model('mod_exam_area');
         $this->load->model("mod_part_addr");
@@ -1190,22 +1128,7 @@ class Designated extends CI_Controller
         );
         if ($data['part'] != false) {
             $view = $this->load->view('designated/e_1_3_4', $data, true);
-            if (!is_dir('./html/')) {
-                mkdir('./html/');
-            } else {
-                $path = 'e_1_3_4.html';
-                $fp = fopen('./html/' . $path, 'w');//建檔
-                fwrite($fp, $view);
-                fclose($fp);//關閉開啟的檔案
-
-            }
-
-            if (!is_dir('./pdf/')) {
-                mkdir('./pdf/');
-            } else {
-                exec('wkhtmltopdf --lowquality --enable-forms http://uat.fofo.tw/fjuexam/html/e_1_3_4.html  ./pdf/e_1_3_4.pdf');
-            }
-            echo '<script>location.href="http://uat.fofo.tw/fjuexam/pdf/e_1_3_4.pdf"</script>';
+            $this->pdf->view_to_pdf($view,'e_1_3_4');
         } else {
             return false;
         }
@@ -1213,7 +1136,7 @@ class Designated extends CI_Controller
 
     public function e_1_3_5()
     {
-        $this->load->library('pdf');
+        
         $this->load->model('mod_task');
         $this->load->model('mod_exam_area');
         $this->load->model("mod_part_addr");
@@ -1247,23 +1170,7 @@ class Designated extends CI_Controller
         );
         if ($data['part'] != false) {
             $view = $this->load->view('designated/e_1_3_5', $data, true);
-            if (!is_dir('./html/')) {
-                mkdir('./html/');
-            } else {
-                $path = 'e_1_3_5.html';
-                $fp = fopen('./html/' . $path, 'w');//建檔
-                fwrite($fp, $view);
-                fclose($fp);//關閉開啟的檔案
-                // copy($path, './html/'.$path);
-
-            }
-
-            if (!is_dir('./pdf/')) {
-                mkdir('./pdf/');
-            } else {
-                exec('wkhtmltopdf --lowquality --enable-forms http://uat.fofo.tw/fjuexam/html/e_1_3_5.html  ./pdf/e_1_3_5.pdf');
-            }
-            echo '<script>location.href="http://uat.fofo.tw/fjuexam/pdf/e_1_3_5.pdf"</script>';
+            $this->pdf->view_to_pdf($view,'e_1_3_5');
         } else {
             return false;
         }
@@ -1308,24 +1215,7 @@ class Designated extends CI_Controller
         );
         if ($data['list'] != false) {
             $view = $this->load->view('designated/e_1_4', $data, true);
-
-            if (!is_dir('./html/')) {
-                mkdir('./html/');
-            } else {
-                $path = 'e_1_4.html';
-                $fp = fopen('./html/' . $path, 'w');//建檔
-                fwrite($fp, $view);
-                fclose($fp);//關閉開啟的檔案
-                // copy($path, './html/'.$path);
-
-            }
-
-            if (!is_dir('./pdf/')) {
-                mkdir('./pdf/');
-            } else {
-                exec('wkhtmltopdf --lowquality --enable-forms http://uat.fofo.tw/fjuexam/html/e_1_4.html  ./pdf/e_1_4.pdf');
-            }
-            echo '<script>location.href="http://uat.fofo.tw/fjuexam/pdf/e_1_4.pdf"</script>';
+            $this->pdf->view_to_pdf($view,'e_1_4');
         } else {
             return false;
         }
@@ -1333,10 +1223,9 @@ class Designated extends CI_Controller
 
     public function e_1_5()
     {
-        $this->load->library('pdf');
+        
         $this->load->model('mod_trial');
-        // $obj_pdf = new Pdf(PDF_PAGE_ORIENTATION, PDF_UNIT, PDF_PAGE_FORMAT, false, 'UTF-8', false);
-        // $obj_pdf->SetCreator(PDF_CREATOR);
+        
         $part = $_GET['part'];
         $area = $_GET['area'];
 
@@ -1352,23 +1241,7 @@ class Designated extends CI_Controller
         );
         if ($data['part'] != false) {
             $view = $this->load->view('designated/e_1_5', $data, true);
-            if (!is_dir('./html/')) {
-                mkdir('./html/');
-            } else {
-                $path = 'e_1_5.html';
-                $fp = fopen('./html/' . $path, 'w');//建檔
-                fwrite($fp, $view);
-                fclose($fp);//關閉開啟的檔案
-              
-
-            }
-
-            if (!is_dir('./pdf/')) {
-                mkdir('./pdf/');
-            } else {
-                exec('wkhtmltopdf --lowquality --enable-forms http://uat.fofo.tw/fjuexam/html/e_1_5.html  ./pdf/e_1_5.pdf');
-            }
-            echo '<script>location.href="http://uat.fofo.tw/fjuexam/pdf/e_1_5.pdf"</script>';
+            $this->pdf->view_to_pdf($view,'e_1_5');
         } else {
             return false;
         }
@@ -1390,11 +1263,10 @@ class Designated extends CI_Controller
 
     public function e_2_1_1()
     {
-        $this->load->library('pdf');
+        
         $this->load->model('mod_task');
         $this->load->model('mod_exam_area');
-        // $obj_pdf = new Pdf(PDF_PAGE_ORIENTATION, PDF_UNIT, PDF_PAGE_FORMAT, false, 'UTF-8', false);
-        // $obj_pdf->SetCreator(PDF_CREATOR);
+       
         $title = '試務人員執行任務簽到表';
         $area = $_GET['area'];
         $part = $_GET['part'];
@@ -1414,23 +1286,7 @@ class Designated extends CI_Controller
         );
         if ($data['part'] != false) {
             $view = $this->load->view('designated/e_2_1_1', $data, true);
-            if (!is_dir('./html/')) {
-                mkdir('./html/');
-            } else {
-                $path = 'e_2_1_1.html';
-                $fp = fopen('./html/' . $path, 'w');//建檔
-                fwrite($fp, $view);
-                fclose($fp);//關閉開啟的檔案
-                // copy($path, './html/'.$path);
-
-            }
-
-            if (!is_dir('./pdf/')) {
-                mkdir('./pdf/');
-            } else {
-                exec('wkhtmltopdf --lowquality --enable-forms http://uat.fofo.tw/fjuexam/html/e_2_1_1.html  ./pdf/e_2_1_1.pdf');
-            }
-            echo '<script>location.href="http://uat.fofo.tw/fjuexam/pdf/e_2_1_1.pdf"</script>';
+            $this->pdf->view_to_pdf($view,'e_2_1_1');
         } else {
             return false;
         }
@@ -1438,12 +1294,11 @@ class Designated extends CI_Controller
 
     public function e_2_1_2()
     {
-        $this->load->library('pdf');
+        
         $this->load->model('mod_task');
         $this->load->model('mod_trial');
         $this->load->model('mod_exam_area');
-        // $obj_pdf = new Pdf(PDF_PAGE_ORIENTATION, PDF_UNIT, PDF_PAGE_FORMAT, false, 'UTF-8', false);
-        // $obj_pdf->SetCreator(PDF_CREATOR);
+       
         $title = '試務人員執行任務簽到表';
         $area = $_GET['area'];
         $part = $_GET['part'];
@@ -1464,22 +1319,7 @@ class Designated extends CI_Controller
         );
         if ($data['part'] != false) {
             $view = $this->load->view('designated/e_2_1_2', $data, true);
-            if (!is_dir('./html/')) {
-                mkdir('./html/');
-            } else {
-                $path = 'e_2_1_2.html';
-                $fp = fopen('./html/' . $path, 'w');//建檔
-                fwrite($fp, $view);
-                fclose($fp);//關閉開啟的檔案
-                // copy($path, './html/'.$path);
-
-            }
-            if (!is_dir('./pdf/')) {
-                mkdir('./pdf/');
-            } else {
-                exec('wkhtmltopdf --lowquality --enable-forms http://uat.fofo.tw/fjuexam/html/e_2_1_2.html  ./pdf/e_2_1_2.pdf');
-            }
-            echo '<script>location.href="http://uat.fofo.tw/fjuexam/pdf/e_2_1_2.pdf"</script>';
+            $this->pdf->view_to_pdf($view,'e_2_1_2');
         } else {
             return false;
         }
@@ -1487,12 +1327,11 @@ class Designated extends CI_Controller
 
     public function e_2_1_3()
     {
-        $this->load->library('pdf');
+        
         $this->load->model('mod_task');
         $this->load->model('mod_trial');
         $this->load->model('mod_exam_area');
-        // $obj_pdf = new Pdf(PDF_PAGE_ORIENTATION, PDF_UNIT, PDF_PAGE_FORMAT, false, 'UTF-8', false);
-        // $obj_pdf->SetCreator(PDF_CREATOR);
+        
         $title = '試務人員執行任務簽到表';
         $area = $_GET['area'];
         $part = $_GET['part'];
@@ -1513,22 +1352,7 @@ class Designated extends CI_Controller
         );
         if ($data['part'] != false) {
             $view = $this->load->view('designated/e_2_1_3', $data, true);
-            if (!is_dir('./html/')) {
-                mkdir('./html/');
-            } else {
-                $path = 'e_2_1_3.html';
-                $fp = fopen('./html/' . $path, 'w');//建檔
-                fwrite($fp, $view);
-                fclose($fp);//關閉開啟的檔案
-             
-
-            }
-            if (!is_dir('./pdf/')) {
-                mkdir('./pdf/');
-            } else {
-                exec('wkhtmltopdf --lowquality --enable-forms http://uat.fofo.tw/fjuexam/html/e_2_1_3.html  ./pdf/e_2_1_3.pdf');
-            }
-            echo '<script>location.href="http://uat.fofo.tw/fjuexam/pdf/e_2_1_3.pdf"</script>';
+            $this->pdf->view_to_pdf($view,'e_2_1_3');
         } else {
             return false;
         }
@@ -1536,7 +1360,7 @@ class Designated extends CI_Controller
 
     public function e_2_2()
     {
-        $this->load->library('pdf');
+        
         $this->load->model('mod_trial');
         $this->load->model('mod_exam_area');
      
@@ -1558,21 +1382,7 @@ class Designated extends CI_Controller
 
         if ($data['part'] != false) {
             $view = $this->load->view('designated/e_2_2', $data, true);
-            if (!is_dir('./html/')) {
-                mkdir('./html/');
-            } else {
-                $path = 'e_2_2.html';
-                $fp = fopen('./html/' . $path, 'w');//建檔
-                fwrite($fp, $view);
-                fclose($fp);//關閉開啟的檔案
-            }
-
-            if (!is_dir('./pdf/')) {
-                mkdir('./pdf/');
-            } else {
-                exec('wkhtmltopdf --lowquality  --enable-forms http://uat.fofo.tw/fjuexam/html/e_2_2.html  ./pdf/e_2_2.pdf');
-            }
-            echo '<script>location.href="http://uat.fofo.tw/fjuexam/pdf/e_2_2.pdf"</script>';
+            $this->pdf->view_to_pdf($view,'e_2_2');
         } else {
             return false;
         }
@@ -1581,7 +1391,7 @@ class Designated extends CI_Controller
 
     public function e_2_3_1()
     {
-        $this->load->library('pdf');
+        
         $this->load->model('mod_trial');
         $this->load->model('mod_exam_area');
         $this->load->model('mod_exam_datetime');
@@ -1610,7 +1420,7 @@ class Designated extends CI_Controller
 
     public function e_2_3_2()
     {
-        $this->load->library('pdf');
+        
         $this->load->model('mod_trial');
         $this->load->model('mod_exam_area');
         $this->load->model('mod_exam_datetime');
@@ -1639,7 +1449,7 @@ class Designated extends CI_Controller
 
     public function e_2_3_3()
     {
-        $this->load->library('pdf');
+        
         $this->load->model('mod_trial');
         $this->load->model('mod_exam_area');
         $this->load->model('mod_exam_datetime');
@@ -1663,21 +1473,7 @@ class Designated extends CI_Controller
         );
         if ($data['part'] != false) {
             $view = $this->load->view('designated/e_2_3_3', $data, true);
-            if (!is_dir('./html/')) {
-                mkdir('./html/');
-            } else {
-                $path = 'e_2_3_3.html';
-                $fp = fopen('./html/' . $path, 'w');//建檔
-                fwrite($fp, $view);
-                fclose($fp);//關閉開啟的檔案
-            }
-
-            if (!is_dir('./pdf/')) {
-                mkdir('./pdf/');
-            } else {
-                exec('wkhtmltopdf --lowquality  --enable-forms http://uat.fofo.tw/fjuexam/html/e_2_3_3.html  ./pdf/e_2_3_3.pdf');
-            }
-            echo '<script>location.href="http://uat.fofo.tw/fjuexam/pdf/e_2_3_3.pdf"</script>';
+            $this->pdf->view_to_pdf($view,'e_2_3_3');
         } else {
             return false;
         }
@@ -1685,7 +1481,7 @@ class Designated extends CI_Controller
 
     public function e_2_4()
     {
-        $this->load->library('pdf');
+        
         $this->load->model('mod_task');
         
         $title = '監試說明會簽到表';
@@ -1696,21 +1492,7 @@ class Designated extends CI_Controller
         );
         if ($data['part'] != false) {
             $view = $this->load->view('designated/e_2_4', $data, true);
-            if (!is_dir('./html/')) {
-                mkdir('./html/');
-            } else {
-                $path = 'e_2_4.html';
-                $fp = fopen('./html/' . $path, 'w');//建檔
-                fwrite($fp, $view);
-                fclose($fp);//關閉開啟的檔案
-            }
-
-            if (!is_dir('./pdf/')) {
-                mkdir('./pdf/');
-            } else {
-                exec('wkhtmltopdf --lowquality  --enable-forms http://uat.fofo.tw/fjuexam/html/e_2_4.html  ./pdf/e_2_4.pdf');
-            }
-            echo '<script>location.href="http://uat.fofo.tw/fjuexam/pdf/e_2_4.pdf"</script>';
+            $this->pdf->view_to_pdf($view,'e_2_4');
         } else {
             return false;
         }
@@ -1735,7 +1517,7 @@ class Designated extends CI_Controller
 
     public function e_2_5()
     {
-        $this->load->library('pdf');
+        
         $this->load->model('mod_task');
         $this->load->model('mod_exam_area');
 
@@ -1750,21 +1532,7 @@ class Designated extends CI_Controller
         );
         if ($data['list'] != false) {
             $view = $this->load->view('designated/e_2_5', $data, true);
-            if (!is_dir('./html/')) {
-                mkdir('./html/');
-            } else {
-                $path = 'e_2_5.html';
-                $fp = fopen('./html/' . $path, 'w');//建檔
-                fwrite($fp, $view);
-                fclose($fp);//關閉開啟的檔案
-            }
-
-            if (!is_dir('./pdf/')) {
-                mkdir('./pdf/');
-            } else {
-                exec('wkhtmltopdf --lowquality  --enable-forms http://uat.fofo.tw/fjuexam/html/e_2_5.html  ./pdf/e_2_5.pdf');
-            }
-            echo '<script>location.href="http://uat.fofo.tw/fjuexam/pdf/e_2_5.pdf"</script>';
+            $this->pdf->view_to_pdf($view,'e_2_5');
         } else {
             return false;
         }
@@ -2406,11 +2174,10 @@ class Designated extends CI_Controller
 
     public function e_3_2_1_1()
     {
-        $this->load->library('pdf');
+        
         $this->load->model('mod_trial');
         $this->load->model('mod_exam_area');
-        // $obj_pdf = new Pdf(PDF_PAGE_ORIENTATION, PDF_UNIT, PDF_PAGE_FORMAT, false, 'UTF-8', false);
-        // $obj_pdf->SetCreator(PDF_CREATOR);
+        
         $title = '試場工作人員分配表';
         $date = date('yyyy/m/d');
         $part = $_GET['part'];
@@ -2426,26 +2193,12 @@ class Designated extends CI_Controller
             'date' => $date,
         );
         $view = $this->load->view('designated/e_3_2_1', $data, true);
-        if (!is_dir('./html/')) {
-            mkdir('./html/');
-        } else {
-            $path = 'e_3_2_1.html';
-            $fp = fopen('./html/' . $path, 'w');//建檔
-            fwrite($fp, $view);
-            fclose($fp);//關閉開啟的檔案
-        }
-
-        if (!is_dir('./pdf/')) {
-            mkdir('./pdf/');
-        } else {
-            exec('wkhtmltopdf --lowquality http://uat.fofo.tw/fjuexam/html/e_3_2_1.html  ./pdf/e_3_2_1.pdf');
-        }
-        echo '<script>location.href="http://uat.fofo.tw/fjuexam/pdf/e_3_2_1.pdf"</script>';
+        $this->pdf->view_to_pdf($view,'e_3_2_1');
     }
 
     public function e_3_2_1_2()
     {
-        $this->load->library('pdf');
+        
         $this->load->model('mod_trial');
         $this->load->model('mod_exam_area');
         $title = '試場工作人員分配表';
@@ -2463,26 +2216,12 @@ class Designated extends CI_Controller
             'date' => $date,
         );
         $view = $this->load->view('designated/e_3_2_1', $data, true);
-        if (!is_dir('./html/')) {
-            mkdir('./html/');
-        } else {
-            $path = 'e_3_2_1.html';
-            $fp = fopen('./html/' . $path, 'w');//建檔
-            fwrite($fp, $view);
-            fclose($fp);//關閉開啟的檔案
-        }
-
-        if (!is_dir('./pdf/')) {
-            mkdir('./pdf/');
-        } else {
-            exec('wkhtmltopdf --lowquality http://uat.fofo.tw/fjuexam/html/e_3_2_1.html  ./pdf/e_3_2_1.pdf');
-        }
-        echo '<script>location.href="http://uat.fofo.tw/fjuexam/pdf/e_3_2_1.pdf"</script>';
+        $this->pdf->view_to_pdf($view,'e_3_2_1');
     }
 
     public function e_3_2_1_3()
     {
-        $this->load->library('pdf');
+        
         $this->load->model('mod_trial');
         $this->load->model('mod_exam_area');
         $title = '試場工作人員分配表';
@@ -2501,26 +2240,12 @@ class Designated extends CI_Controller
         );
         // print_r($data);
         $view = $this->load->view('designated/e_3_2_1', $data, true);
-        if (!is_dir('./html/')) {
-            mkdir('./html/');
-        } else {
-            $path = 'e_3_2_1.html';
-            $fp = fopen('./html/' . $path, 'w');//建檔
-            fwrite($fp, $view);
-            fclose($fp);//關閉開啟的檔案
-        }
-
-        if (!is_dir('./pdf/')) {
-            mkdir('./pdf/');
-        } else {
-            exec('wkhtmltopdf --lowquality http://uat.fofo.tw/fjuexam/html/e_3_2_1.html  ./pdf/e_3_2_1.pdf');
-        }
-        echo '<script>location.href="http://uat.fofo.tw/fjuexam/pdf/e_3_2_1.pdf"</script>';
+        $this->pdf->view_to_pdf($view,'e_3_2_1');
     }
 
     public function e_3_2_2_1()
     {
-        $this->load->library('pdf');
+        
         $this->load->model('mod_trial');
         $this->load->model('mod_exam_area');
         
@@ -2539,26 +2264,12 @@ class Designated extends CI_Controller
             'date' => $date,
         );
         $view = $this->load->view('designated/e_3_2_2', $data, true);
-        if (!is_dir('./html/')) {
-            mkdir('./html/');
-        } else {
-            $path = 'e_3_2_2.html';
-            $fp = fopen('./html/' . $path, 'w');//建檔
-            fwrite($fp, $view);
-            fclose($fp);//關閉開啟的檔案
-        }
-
-        if (!is_dir('./pdf/')) {
-            mkdir('./pdf/');
-        } else {
-            exec('wkhtmltopdf --lowquality http://uat.fofo.tw/fjuexam/html/e_3_2_2.html  ./pdf/e_3_2_2.pdf');
-        }
-        echo '<script>location.href="http://uat.fofo.tw/fjuexam/pdf/e_3_2_2.pdf"</script>';
+        $this->pdf->view_to_pdf($view,'e_3_2_2');
     }
 
     public function e_3_2_2_2()
     {
-        $this->load->library('pdf');
+        
         $this->load->model('mod_trial');
         $this->load->model('mod_exam_area');
         $title = '試場工作人員分配表';
@@ -2577,26 +2288,12 @@ class Designated extends CI_Controller
         );
         // print_r($data);
         $view = $this->load->view('designated/e_3_2_2', $data, true);
-        if (!is_dir('./html/')) {
-            mkdir('./html/');
-        } else {
-            $path = 'e_3_2_2.html';
-            $fp = fopen('./html/' . $path, 'w');//建檔
-            fwrite($fp, $view);
-            fclose($fp);//關閉開啟的檔案
-        }
-
-        if (!is_dir('./pdf/')) {
-            mkdir('./pdf/');
-        } else {
-            exec('wkhtmltopdf --lowquality http://uat.fofo.tw/fjuexam/html/e_3_2_2.html  ./pdf/e_3_2_2.pdf');
-        }
-        echo '<script>location.href="http://uat.fofo.tw/fjuexam/pdf/e_3_2_2.pdf"</script>';
+        $this->pdf->view_to_pdf($view,'e_3_2_2');
     }
 
     public function e_3_2_2_3()
     {
-        $this->load->library('pdf');
+        
         $this->load->model('mod_trial');
         $this->load->model('mod_exam_area');
         $title = '試場工作人員分配表';
@@ -2614,26 +2311,12 @@ class Designated extends CI_Controller
             'date' => $date,
         );
         $view = $this->load->view('designated/e_3_2_2', $data, true);
-        if (!is_dir('./html/')) {
-            mkdir('./html/');
-        } else {
-            $path = 'e_3_2_2.html';
-            $fp = fopen('./html/' . $path, 'w');//建檔
-            fwrite($fp, $view);
-            fclose($fp);//關閉開啟的檔案
-        }
-
-        if (!is_dir('./pdf/')) {
-            mkdir('./pdf/');
-        } else {
-            exec('wkhtmltopdf --lowquality http://uat.fofo.tw/fjuexam/html/e_3_2_2.html  ./pdf/e_3_2_2.pdf');
-        }
-        echo '<script>location.href="http://uat.fofo.tw/fjuexam/pdf/e_3_2_2.pdf"</script>';
+        $this->pdf->view_to_pdf($view,'e_3_2_2');
     }
 
     public function e_3_2_3_1()
     {
-        $this->load->library('pdf');
+        
         $this->load->model('mod_trial');
         $this->load->model('mod_exam_area');
         $title = '試場工作人員分配表';
@@ -2651,26 +2334,12 @@ class Designated extends CI_Controller
         );
         
         $view = $this->load->view('designated/e_3_2_3', $data, true);
-        if (!is_dir('./html/')) {
-            mkdir('./html/');
-        } else {
-            $path = 'e_3_2_3.html';
-            $fp = fopen('./html/' . $path, 'w');//建檔
-            fwrite($fp, $view);
-            fclose($fp);//關閉開啟的檔案
-        }
-
-        if (!is_dir('./pdf/')) {
-            mkdir('./pdf/');
-        } else {
-            exec('wkhtmltopdf --lowquality http://uat.fofo.tw/fjuexam/html/e_3_2_3.html  ./pdf/e_3_2_3.pdf');
-        }
-        echo '<script>location.href="http://uat.fofo.tw/fjuexam/pdf/e_3_2_3.pdf"</script>';
+        $this->pdf->view_to_pdf($view,'e_3_2_3');
     }
 
     public function e_3_2_3_2()
     {
-        $this->load->library('pdf');
+        
         $this->load->model('mod_trial');
         $this->load->model('mod_exam_area');
         $title = '試場工作人員分配表';
@@ -2688,26 +2357,12 @@ class Designated extends CI_Controller
             'date' => $date,
         );
         $view = $this->load->view('designated/e_3_2_3', $data, true);
-        if (!is_dir('./html/')) {
-            mkdir('./html/');
-        } else {
-            $path = 'e_3_2_3.html';
-            $fp = fopen('./html/' . $path, 'w');//建檔
-            fwrite($fp, $view);
-            fclose($fp);//關閉開啟的檔案
-        }
-
-        if (!is_dir('./pdf/')) {
-            mkdir('./pdf/');
-        } else {
-            exec('wkhtmltopdf --lowquality http://uat.fofo.tw/fjuexam/html/e_3_2_3.html  ./pdf/e_3_2_3.pdf');
-        }
-        echo '<script>location.href="http://uat.fofo.tw/fjuexam/pdf/e_3_2_3.pdf"</script>';
+        $this->pdf->view_to_pdf($view,'e_3_2_3');
     }
 
     public function e_3_2_3_3()
     {
-        $this->load->library('pdf');
+        
         $this->load->model('mod_trial');
         $this->load->model('mod_exam_area');
         $title = '試場工作人員分配表';
@@ -2725,21 +2380,7 @@ class Designated extends CI_Controller
             'date' => $date,
         );
         $view = $this->load->view('designated/e_3_2_3', $data, true);
-        if (!is_dir('./html/')) {
-            mkdir('./html/');
-        } else {
-            $path = 'e_3_2_3.html';
-            $fp = fopen('./html/' . $path, 'w');//建檔
-            fwrite($fp, $view);
-            fclose($fp);//關閉開啟的檔案
-        }
-
-        if (!is_dir('./pdf/')) {
-            mkdir('./pdf/');
-        } else {
-            exec('wkhtmltopdf --lowquality http://uat.fofo.tw/fjuexam/html/e_3_2_3.html  ./pdf/e_3_2_3.pdf');
-        }
-        echo '<script>location.href="http://uat.fofo.tw/fjuexam/pdf/e_3_2_3.pdf"</script>';
+        $this->pdf->view_to_pdf($view,'e_3_2_3');
     }
 
     public function e_4()
@@ -3191,11 +2832,10 @@ class Designated extends CI_Controller
 
     public function e_6_1()
     {
-        $this->load->library('pdf');
+        
         $this->load->model('mod_trial');
         $this->load->model('mod_exam_area');
-        // $obj_pdf = new Pdf(PDF_PAGE_ORIENTATION, PDF_UNIT, PDF_PAGE_FORMAT, false, 'UTF-8', false);
-        // $obj_pdf->SetCreator(PDF_CREATOR);
+       
         $title = '監試人員印領清冊';
         $date = date('yyyy/m/d');
         $part = $_GET['part'];
@@ -3209,30 +2849,15 @@ class Designated extends CI_Controller
             'count' => $this->mod_trial->e_6_1_member_count($part)
         );
         $view = $this->load->view('designated/e_6_1', $data, true);
-        if (!is_dir('./html/')) {
-            mkdir('./html/');
-        } else {
-            $path = 'e_6_1.html';
-            $fp = fopen('./html/' . $path, 'w');//建檔
-            fwrite($fp, $view);
-            fclose($fp);//關閉開啟的檔案
-        }
-
-        if (!is_dir('./pdf/')) {
-            mkdir('./pdf/');
-        } else {
-            exec('wkhtmltopdf --lowquality --enable-forms http://uat.fofo.tw/fjuexam/html/e_6_1.html  ./pdf/e_6_1.pdf');
-        }
-        echo '<script>location.href="http://uat.fofo.tw/fjuexam/pdf/e_6_1.pdf"</script>';
+        $this->pdf->view_to_pdf($view,'e_6_1');
     }
 
     public function e_6_2()
     {
-        $this->load->library('pdf');
+        
         $this->load->model('mod_trial');
         $this->load->model('mod_exam_area');
-        // $obj_pdf = new Pdf(PDF_PAGE_ORIENTATION, PDF_UNIT, PDF_PAGE_FORMAT, false, 'UTF-8', false);
-        // $obj_pdf->SetCreator(PDF_CREATOR);
+       
         $title = '監試人員印領清冊';
         $date = date('yyyy/m/d');
         $part = $_GET['part'];
@@ -3249,21 +2874,7 @@ class Designated extends CI_Controller
 
         if ($data['part'] != false) {
             $view = $this->load->view('designated/e_6_2', $data, true);
-            if (!is_dir('./html/')) {
-                mkdir('./html/');
-            } else {
-                $path = 'e_6_2.html';
-                $fp = fopen('./html/' . $path, 'w');//建檔
-                fwrite($fp, $view);
-                fclose($fp);//關閉開啟的檔案
-            }
-
-            if (!is_dir('./pdf/')) {
-                mkdir('./pdf/');
-            } else {
-                exec('wkhtmltopdf --lowquality --enable-forms http://uat.fofo.tw/fjuexam/html/e_6_2.html  ./pdf/e_6_2.pdf');
-            }
-            echo '<script>location.href="http://uat.fofo.tw/fjuexam/pdf/e_6_2.pdf"</script>';
+            $this->pdf->view_to_pdf($view,'e_6_2');
         } else {
             return false;
         }
@@ -3271,7 +2882,7 @@ class Designated extends CI_Controller
 
     public function e_6_3()
     {
-        $this->load->library('pdf');
+        
         $this->load->model('mod_task');
         $this->load->model('mod_exam_area');
         $title = '試務人員印領清冊';
@@ -3288,21 +2899,7 @@ class Designated extends CI_Controller
         );
         if ($data['part'] != false) {
             $view = $this->load->view('designated/e_6_3', $data, true);
-            if (!is_dir('./html/')) {
-                mkdir('./html/');
-            } else {
-                $path = 'e_6_3.html';
-                $fp = fopen('./html/' . $path, 'w');//建檔
-                fwrite($fp, $view);
-                fclose($fp);//關閉開啟的檔案
-            }
-
-            if (!is_dir('./pdf/')) {
-                mkdir('./pdf/');
-            } else {
-                exec('wkhtmltopdf --lowquality --enable-forms http://uat.fofo.tw/fjuexam/html/e_6_3.html  ./pdf/e_6_3.pdf');
-            }
-            echo '<script>location.href="http://uat.fofo.tw/fjuexam/pdf/e_6_3.pdf"</script>';
+            $this->pdf->view_to_pdf($view,'e_6_3');
         } else {
             return false;
         }
@@ -3310,11 +2907,10 @@ class Designated extends CI_Controller
 
     public function e_6_4()
     {
-        $this->load->library('pdf');
+        
         $this->load->model('mod_trial');
         $this->load->model('mod_exam_area');
-        $obj_pdf = new Pdf(PDF_PAGE_ORIENTATION, PDF_UNIT, PDF_PAGE_FORMAT, false, 'UTF-8', false);
-        $obj_pdf->SetCreator(PDF_CREATOR);
+        
         $title = '管卷人員印領清冊';
         $date = date('yyyy/m/d');
         $part = $_GET['part'];
@@ -3330,21 +2926,7 @@ class Designated extends CI_Controller
         );
         if ($data['part'] != false) {
             $view = $this->load->view('designated/e_6_4', $data, true);
-            if (!is_dir('./html/')) {
-                mkdir('./html/');
-            } else {
-                $path = 'e_6_4.html';
-                $fp = fopen('./html/' . $path, 'w');//建檔
-                fwrite($fp, $view);
-                fclose($fp);//關閉開啟的檔案
-            }
-
-            if (!is_dir('./pdf/')) {
-                mkdir('./pdf/');
-            } else {
-                exec('wkhtmltopdf --lowquality --enable-forms http://uat.fofo.tw/fjuexam/html/e_6_4.html  ./pdf/e_6_4.pdf');
-            }
-            echo '<script>location.href="http://uat.fofo.tw/fjuexam/pdf/e_6_4.pdf"</script>';
+            $this->pdf->view_to_pdf($view,'e_6_4');
         } else {
             return false;
         }
@@ -3352,7 +2934,7 @@ class Designated extends CI_Controller
 
     public function e_6_5()
     {
-        $this->load->library('pdf');
+        
         $this->load->model('mod_trial');
         $this->load->model('mod_exam_area');
         $title = '巡場人員印領清冊';
@@ -3369,21 +2951,7 @@ class Designated extends CI_Controller
         );
         if ($data['part'] != false) {
             $view = $this->load->view('designated/e_6_5', $data, true);
-            if (!is_dir('./html/')) {
-                mkdir('./html/');
-            } else {
-                $path = 'e_6_5.html';
-                $fp = fopen('./html/' . $path, 'w');//建檔
-                fwrite($fp, $view);
-                fclose($fp);//關閉開啟的檔案
-            }
-
-            if (!is_dir('./pdf/')) {
-                mkdir('./pdf/');
-            } else {
-                exec('wkhtmltopdf --lowquality --enable-forms http://uat.fofo.tw/fjuexam/html/e_6_5.html  ./pdf/e_6_5.pdf');
-            }
-            echo '<script>location.href="http://uat.fofo.tw/fjuexam/pdf/e_6_5.pdf"</script>';
+            $this->pdf->view_to_pdf($view,'e_6_5');
         } else {
             return false;
         }
