@@ -1,7 +1,8 @@
 <style>
 .bb {
     border: 1px solid #999999;
-    line-height:25px;
+    line-height:1cm;
+    height:1cm;
 }
 
 table {
