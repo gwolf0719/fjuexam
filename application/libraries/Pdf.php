@@ -1,13 +1,27 @@
-<?php if (! defined('BASEPATH')) {
-    exit('No direct script access allowed');
-}
+<?php 
+defined('BASEPATH') OR exit('No direct script access allowed');
+class Pdf {
+    function view_to_pdf($view,$file,$debug=false){
+        if($debug == true){
+            echo $view;
+        }else{
+            if (!is_dir('./html/')) {
+                mkdir('./html/');
+            } else {
+                $path = $file.'.html';
+                $fp = fopen('./html/' . $path, 'w');//建檔
+                fwrite($fp, $view);
+                fclose($fp);//關閉開啟的檔案
+            }
 
-require_once dirname(__FILE__) . '/tcpdf/tcpdf.php';
-
-class Pdf extends TCPDF
-{
-    public function __construct()
-    {
-        parent::__construct();
+            if (!is_dir('./pdf/')) {
+                mkdir('./pdf/');
+            } else {
+                exec('wkhtmltopdf --lowquality  --enable-forms '.base_url().'/html/'.$file.'.html  ./pdf/'.$file.'.pdf');
+            }
+            echo '<script>location.href="'.base_url().'/pdf/'.$file.'.pdf"</script>';
+        }
+        
     }
 }
+?>
