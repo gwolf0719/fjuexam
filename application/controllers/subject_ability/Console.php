@@ -1265,20 +1265,10 @@ class Console extends CI_Controller {
     {
         $this->load->library('pdf');
         $this->load->model('mod_ability_school_unit');
-        $obj_pdf = new Pdf(PDF_PAGE_ORIENTATION, PDF_UNIT, PDF_PAGE_FORMAT, false, 'UTF-8', false);
-        $obj_pdf->SetCreator(PDF_CREATOR);
+        
         $title = '行政單位';
         $date = date('yyyy/m/d');
-        $obj_pdf->SetTitle($title);
-        $obj_pdf->SetHeaderData('', '', $title, '印表日期：'.$date);
-        $obj_pdf->setPrintHeader(false);
-        // $obj_pdf->SetHeaderMargin(PDF_MARGIN_HEADER);
-        $obj_pdf->SetFooterMargin(PDF_MARGIN_FOOTER);
-        $obj_pdf->SetMargins(PDF_MARGIN_LEFT, 2,PDF_MARGIN_RIGHT);
-        $obj_pdf->SetAutoPageBreak(true, 10);
-        $obj_pdf->SetFont('msungstdlight', 'L', 14);
-
-        $obj_pdf->setFontSubsetting(false);
+        
         $data = array(
             'list' => $this->mod_ability_school_unit->year_get_school_unit_list(),
         );
@@ -1310,23 +1300,10 @@ class Console extends CI_Controller {
     {
         $this->load->library('pdf');
         $this->load->model('mod_ability_task');
-        $obj_pdf = new Pdf(PDF_PAGE_ORIENTATION, PDF_UNIT, PDF_PAGE_FORMAT, false, 'UTF-8', false);
-        $obj_pdf->SetCreator(PDF_CREATOR);
+        
         $title = '請公假名單';
         $date = date('yyyy/m/d');
-        $obj_pdf->SetTitle($title);
-        $obj_pdf->SetHeaderData('', '', $title, '印表日期：'.$date);
-        $obj_pdf->setPrintHeader(false);
-        // $obj_pdf->SetHeaderMargin(PDF_MARGIN_HEADER);
-        $obj_pdf->SetFooterMargin(PDF_MARGIN_FOOTER);
-        $obj_pdf->SetMargins(PDF_MARGIN_LEFT, 7,PDF_MARGIN_RIGHT);
-        $obj_pdf->SetAutoPageBreak(true, PDF_MARGIN_BOTTOM);
-        $obj_pdf->SetFont('msungstdlight', 'L', 14);
-        $obj_pdf->SetCellPadding(0);
-
-        $obj_pdf->setFontSubsetting(false);
-
-        $obj_pdf->AddPage();
+        
         $data = array(
             'list' => $this->mod_ability_task->get_all_assign_member_list(),
         );
@@ -1359,21 +1336,10 @@ class Console extends CI_Controller {
 
         $part = $_GET['part'];
         $area = $_GET['area'];
-        $obj_pdf = new Pdf(PDF_PAGE_ORIENTATION, PDF_UNIT, PDF_PAGE_FORMAT, false, 'UTF-8', false);
-        $obj_pdf->SetCreator(PDF_CREATOR);
+        
         $title = '監試及試務人員一覽表';
         $date = date('yyyy/m/d');
-        $obj_pdf->SetTitle($title);
-        $obj_pdf->SetHeaderData('', '', $title, '印表日期：'.$date);
-        $obj_pdf->setPrintHeader(false);
-        // $obj_pdf->SetHeaderMargin(PDF_MARGIN_HEADER);
-        $obj_pdf->SetFooterMargin(PDF_MARGIN_FOOTER);
-        $obj_pdf->SetMargins(PDF_MARGIN_LEFT, 5,PDF_MARGIN_RIGHT);
-        $obj_pdf->SetAutoPageBreak(true, 10);
-        $obj_pdf->SetFont('msungstdlight', 'L', 14);
-
-        $obj_pdf->setFontSubsetting(false);
-        $obj_pdf->AddPage();
+        
         $data = array(
             'part' => $this->mod_ability_trial->get_list_for_pdf($part),
             'area' => $area,
@@ -1417,21 +1383,10 @@ class Console extends CI_Controller {
         } else {
             $school = "";
         }
-        $obj_pdf = new Pdf(PDF_PAGE_ORIENTATION, PDF_UNIT, PDF_PAGE_FORMAT, false, 'UTF-8', false);
-        $obj_pdf->SetCreator(PDF_CREATOR);
+        
         $title = '監試及試務人員一覽表';
         $date = date('yyyy/m/d');
-        $obj_pdf->SetTitle($title);
-        $obj_pdf->SetHeaderData('', '', $title, '印表日期：'.$date);
-        $obj_pdf->setPrintHeader(false);
-        // $obj_pdf->SetHeaderMargin(PDF_MARGIN_HEADER);
-        $obj_pdf->SetFooterMargin(PDF_MARGIN_FOOTER);
-        $obj_pdf->SetMargins(PDF_MARGIN_LEFT, PDF_MARGIN_RIGHT);
-        $obj_pdf->SetAutoPageBreak(true, PDF_MARGIN_BOTTOM);
-        $obj_pdf->SetFont('msungstdlight', 'L', 14);
-
-        $obj_pdf->setFontSubsetting(false);
-        $obj_pdf->AddPage();
+        
         $year = $_SESSION['year'];
         if ($this->mod_ability_part_addr->chk_once($year)) {
             $addr_info = $this->mod_ability_part_addr->get_once($year);
@@ -1485,21 +1440,10 @@ class Console extends CI_Controller {
         } else {
             $school = "";
         }
-        $obj_pdf = new Pdf(PDF_PAGE_ORIENTATION, PDF_UNIT, PDF_PAGE_FORMAT, false, 'UTF-8', false);
-        $obj_pdf->SetCreator(PDF_CREATOR);
+        
         $title = '監試及試務人員一覽表';
         $date = date('yyyy/m/d');
-        $obj_pdf->SetTitle($title);
-        $obj_pdf->SetHeaderData('', '', $title, '印表日期：'.$date);
-        $obj_pdf->setPrintHeader(false);
-        // $obj_pdf->SetHeaderMargin(PDF_MARGIN_HEADER);
-        $obj_pdf->SetFooterMargin(PDF_MARGIN_FOOTER);
-        $obj_pdf->SetMargins(PDF_MARGIN_LEFT, PDF_MARGIN_RIGHT);
-        $obj_pdf->SetAutoPageBreak(true, PDF_MARGIN_BOTTOM);
-        $obj_pdf->SetFont('msungstdlight', 'L', 14);
-
-        $obj_pdf->setFontSubsetting(false);
-        $obj_pdf->AddPage();
+        
         $year = $_SESSION['year'];
         if ($this->mod_ability_part_addr->chk_once($year)) {
             $addr_info = $this->mod_ability_part_addr->get_once($year);
@@ -1554,21 +1498,10 @@ class Console extends CI_Controller {
         } else {
             $school = "";
         }
-        $obj_pdf = new Pdf(PDF_PAGE_ORIENTATION, PDF_UNIT, PDF_PAGE_FORMAT, false, 'UTF-8', false);
-        $obj_pdf->SetCreator(PDF_CREATOR);
+        
         $title = '監試及試務人員一覽表';
         $date = date('yyyy/m/d');
-        $obj_pdf->SetTitle($title);
-        $obj_pdf->SetHeaderData('', '', $title, '印表日期：'.$date);
-        $obj_pdf->setPrintHeader(false);
-        // $obj_pdf->SetHeaderMargin(PDF_MARGIN_HEADER);
-        $obj_pdf->SetFooterMargin(PDF_MARGIN_FOOTER);
-        $obj_pdf->SetMargins(PDF_MARGIN_LEFT,PDF_MARGIN_RIGHT);
-        $obj_pdf->SetAutoPageBreak(true, PDF_MARGIN_BOTTOM);
-        $obj_pdf->SetFont('msungstdlight', 'L', 14);
-
-        $obj_pdf->setFontSubsetting(false);
-        $obj_pdf->AddPage();
+        
         $year = $_SESSION['year'];
         if ($this->mod_ability_part_addr->chk_once($year)) {
             $addr_info = $this->mod_ability_part_addr->get_once($year);
@@ -1612,7 +1545,6 @@ class Console extends CI_Controller {
     public function e_1_4()
     {
         $this->load->model('mod_ability_exam_area');
-        // $this->load->model('mod_exam_datetime');
         $this->load->model('subject_ability/mod_exam_datetime',"mod_exam_datetime");
 
         $title = '缺考人數統計';
@@ -1677,25 +1609,13 @@ class Console extends CI_Controller {
     {
         $this->load->library('pdf');
         $this->load->model('mod_ability_trial');
-        $obj_pdf = new Pdf(PDF_PAGE_ORIENTATION, PDF_UNIT, PDF_PAGE_FORMAT, false, 'UTF-8', false);
-        $obj_pdf->SetCreator(PDF_CREATOR);
+        
         $part = $_GET['part'];
         $area = $_GET['area'];
 
         $title = $area.'監試人員午餐一覽表';
         $date = date('yyyy/m/d');
-        $obj_pdf->SetTitle($title);
-        $obj_pdf->SetHeaderData('', '', $title, '印表日期：'.$date);
-        $obj_pdf->setPrintHeader(false);
-        // $obj_pdf->SetHeaderMargin(PDF_MARGIN_HEADER);
-        $obj_pdf->SetFooterMargin(PDF_MARGIN_FOOTER);
-        $obj_pdf->SetMargins(PDF_MARGIN_LEFT, PDF_MARGIN_RIGHT);
-        $obj_pdf->SetAutoPageBreak(true, PDF_MARGIN_BOTTOM);
-        $obj_pdf->SetFont('msungstdlight', 'L', 10);
-
-        $obj_pdf->setFontSubsetting(false);
-
-        $obj_pdf->AddPage();
+       
         $data = array(
             'part' => $this->mod_ability_trial->get_dinner_list_for_pdf($part),
             'area' => $area,
@@ -1748,8 +1668,7 @@ class Console extends CI_Controller {
         $this->load->library('pdf');
         $this->load->model('mod_ability_task');
         $this->load->model('mod_ability_exam_area');
-        $obj_pdf = new Pdf(PDF_PAGE_ORIENTATION, PDF_UNIT, PDF_PAGE_FORMAT, false, 'UTF-8', false);
-        $obj_pdf->SetCreator(PDF_CREATOR);
+        
         $title = '試務人員執行任務簽到表';
         $area = $_GET['area'];
         $part = $_GET['part'];
@@ -1760,16 +1679,7 @@ class Console extends CI_Controller {
             $school = "";
         }
         $date = date('yyyy/m/d');
-        $obj_pdf->SetTitle($title);
-        $obj_pdf->SetHeaderData('', '', $title, '印表日期：'.$date);
-        $obj_pdf->setPrintHeader(false);
-        // $obj_pdf->SetHeaderMargin(PDF_MARGIN_HEADER);
-        $obj_pdf->SetFooterMargin(PDF_MARGIN_FOOTER);
-        $obj_pdf->SetMargins(PDF_MARGIN_LEFT, PDF_MARGIN_RIGHT);
-        $obj_pdf->SetAutoPageBreak(true, PDF_MARGIN_BOTTOM);
-        $obj_pdf->SetFont('msungstdlight', 'L', 14);
-
-        $obj_pdf->setFontSubsetting(false);
+        
 
         $data = array(
             'part' => $this->mod_ability_task->e_2_1($area,$part),
@@ -1809,9 +1719,7 @@ class Console extends CI_Controller {
         $this->load->model('mod_ability_task');
         $this->load->model('mod_ability_trial');
         $this->load->model('mod_ability_exam_area');
-        $obj_pdf = new Pdf(PDF_PAGE_ORIENTATION, PDF_UNIT, PDF_PAGE_FORMAT, false, 'UTF-8', false);
-        $obj_pdf->SetCreator(PDF_CREATOR);
-        $title = '試務人員執行任務簽到表';
+        
         $area = $_GET['area'];
         $part = $_GET['part'];
         if ($_GET['part'] != "2500") {
@@ -1821,23 +1729,11 @@ class Console extends CI_Controller {
             $school = "";
         }
         $date = date('yyyy/m/d');
-        $obj_pdf->SetTitle($title);
-        $obj_pdf->SetHeaderData('', '', $title, '印表日期：'.$date);
-        $obj_pdf->setPrintHeader(false);
-        // $obj_pdf->SetHeaderMargin(PDF_MARGIN_HEADER);
-        $obj_pdf->SetFooterMargin(PDF_MARGIN_FOOTER);
-        $obj_pdf->SetMargins(PDF_MARGIN_LEFT, PDF_MARGIN_RIGHT);
-        $obj_pdf->SetAutoPageBreak(true, PDF_MARGIN_BOTTOM);
-        $obj_pdf->SetFont('msungstdlight', 'L', 14);
-
-        $obj_pdf->setFontSubsetting(false);
+        
 
         $data = array(
             'part' => $this->mod_ability_trial->e_2_1_2($part),
             'area' => $area,
-            // 'own'=> $this->mod_task->get_task_own_count($area),
-            // 'veg'=> $this->mod_task->get_member_veg_count($area),
-            // 'meat'=> $this->mod_task->get_member_meat_count($area),
             'school' => $school,
         );
         if ($data['part'] != false) {
@@ -1869,8 +1765,7 @@ class Console extends CI_Controller {
         $this->load->model('mod_ability_task');
         $this->load->model('mod_ability_trial');
         $this->load->model('mod_ability_exam_area');
-        $obj_pdf = new Pdf(PDF_PAGE_ORIENTATION, PDF_UNIT, PDF_PAGE_FORMAT, false, 'UTF-8', false);
-        $obj_pdf->SetCreator(PDF_CREATOR);
+        
         $title = '試務人員執行任務簽到表';
         $area = $_GET['area'];
         $part = $_GET['part'];
@@ -1881,23 +1776,11 @@ class Console extends CI_Controller {
             $school = "";
         }
         $date = date('yyyy/m/d');
-        $obj_pdf->SetTitle($title);
-        $obj_pdf->SetHeaderData('', '', $title, '印表日期：'.$date);
-        $obj_pdf->setPrintHeader(false);
-        // $obj_pdf->SetHeaderMargin(PDF_MARGIN_HEADER);
-        $obj_pdf->SetFooterMargin(PDF_MARGIN_FOOTER);
-        $obj_pdf->SetMargins(PDF_MARGIN_LEFT, PDF_MARGIN_RIGHT);
-        $obj_pdf->SetAutoPageBreak(true, PDF_MARGIN_BOTTOM);
-        $obj_pdf->SetFont('msungstdlight', 'L', 14);
-
-        $obj_pdf->setFontSubsetting(false);
+        
 
         $data = array(
             'part' => $this->mod_ability_trial->e_2_1_3($part),
             'area' => $area,
-            // 'own'=> $this->mod_task->get_task_own_count($area),
-            // 'veg'=> $this->mod_task->get_member_veg_count($area),
-            // 'meat'=> $this->mod_task->get_member_meat_count($area),
             'school' => $school,
         );
         if ($data['part'] != false) {
@@ -1928,23 +1811,13 @@ class Console extends CI_Controller {
         $this->load->library('pdf');
         $this->load->model('mod_ability_trial');
         $this->load->model('mod_ability_exam_area');
-        $obj_pdf = new Pdf(PDF_PAGE_ORIENTATION, PDF_UNIT, PDF_PAGE_FORMAT, false, 'UTF-8', false);
-        $obj_pdf->SetCreator(PDF_CREATOR);
+        
         $title = '監試人員執行任務簽到表';
         $date = date('yyyy/m/d');
         $part = $_GET['part'];
         $area = $_GET['area'];
 
-        $obj_pdf->SetTitle($title);
-        $obj_pdf->SetHeaderData('', '', $title, '印表日期：'.$date);
-        $obj_pdf->setPrintHeader(false);
-        // $obj_pdf->SetHeaderMargin(PDF_MARGIN_HEADER);
-        $obj_pdf->SetFooterMargin(PDF_MARGIN_FOOTER);
-        $obj_pdf->SetMargins(PDF_MARGIN_LEFT, PDF_MARGIN_RIGHT);
-        $obj_pdf->SetAutoPageBreak(true, PDF_MARGIN_BOTTOM);
-        $obj_pdf->SetFont('msungstdlight', 'L', 14);
-
-        $obj_pdf->setFontSubsetting(false);
+        
 
         $year = $this->session->userdata('year');
         $data = array(
@@ -1984,30 +1857,19 @@ class Console extends CI_Controller {
         $this->load->library('pdf');
         $this->load->model('mod_ability_trial');
         $this->load->model('mod_ability_exam_area');
-        // $this->load->model('mod_exam_datetime');
         $this->load->model('subject_ability/mod_exam_datetime',"mod_exam_datetime");
         
 
-        $obj_pdf = new Pdf(PDF_PAGE_ORIENTATION, PDF_UNIT, PDF_PAGE_FORMAT, false, 'UTF-8', false);
-        $obj_pdf->SetCreator(PDF_CREATOR);
+       
         $title = '答案卷卡收發記錄單';
         $date = date('yyyy/m/d');
         $part = $_GET['part'];
         $area = $_GET['area'];
 
-        $obj_pdf->SetTitle($title);
-        $obj_pdf->SetHeaderData('', '', $title, '印表日期：'.$date);
-        $obj_pdf->setPrintHeader(false);
-        // $obj_pdf->SetHeaderMargin(PDF_MARGIN_HEADER);
-        $obj_pdf->SetFooterMargin(PDF_MARGIN_FOOTER);
-        $obj_pdf->SetMargins(PDF_MARGIN_LEFT, PDF_MARGIN_RIGHT);
-        $obj_pdf->SetAutoPageBreak(true, PDF_MARGIN_BOTTOM);
-        $obj_pdf->SetFont('msungstdlight', 'L', 14);
         $year = $this->session->userdata('year');
 
         $datetime_info = $this->mod_exam_datetime->get_once($year);
 
-        $obj_pdf->setFontSubsetting(false);
         $data = array(
             'part' => $this->mod_ability_trial->get_once_date_of_voucher1($part),
             'area' => $area,
@@ -2044,26 +1906,16 @@ class Console extends CI_Controller {
         $this->load->model('mod_ability_exam_area');
         $this->load->model('mod_exam_datetime');
 
-        $obj_pdf = new Pdf(PDF_PAGE_ORIENTATION, PDF_UNIT, PDF_PAGE_FORMAT, false, 'UTF-8', false);
-        $obj_pdf->SetCreator(PDF_CREATOR);
+       
         $title = '答案卷卡收發記錄單';
         $date = date('yyyy/m/d');
         $part = $_GET['part'];
         $area = $_GET['area'];
 
-        $obj_pdf->SetTitle($title);
-        $obj_pdf->SetHeaderData('', '', $title, '印表日期：'.$date);
-        $obj_pdf->setPrintHeader(false);
-        // $obj_pdf->SetHeaderMargin(PDF_MARGIN_HEADER);
-        $obj_pdf->SetFooterMargin(PDF_MARGIN_FOOTER);
-        $obj_pdf->SetMargins(PDF_MARGIN_LEFT, PDF_MARGIN_RIGHT);
-        $obj_pdf->SetAutoPageBreak(true, PDF_MARGIN_BOTTOM);
-        $obj_pdf->SetFont('msungstdlight', 'L', 10);
         $year = $this->session->userdata('year');
 
         $datetime_info = $this->mod_exam_datetime->get_once($year);
 
-        $obj_pdf->setFontSubsetting(false);
         $data = array(
             'part' => $this->mod_ability_trial->get_once_date_of_voucher2($part),
             'area' => $area,
@@ -2100,27 +1952,16 @@ class Console extends CI_Controller {
         $this->load->model('mod_ability_exam_area');
         $this->load->model('mod_exam_datetime');
 
-        $obj_pdf = new Pdf(PDF_PAGE_ORIENTATION, PDF_UNIT, PDF_PAGE_FORMAT, false, 'UTF-8', false);
-        $obj_pdf->SetCreator(PDF_CREATOR);
+       
         $title = '答案卷卡收發記錄單';
         $date = date('yyyy/m/d');
         $part = $_GET['part'];
         $area = $_GET['area'];
 
-        $obj_pdf->SetTitle($title);
-        $obj_pdf->SetHeaderData('', '', $title, '印表日期：'.$date);
-        $obj_pdf->setPrintHeader(false);
-        // $obj_pdf->SetHeaderMargin(PDF_MARGIN_HEADER);
-        $obj_pdf->SetFooterMargin(PDF_MARGIN_FOOTER);
-        $obj_pdf->SetMargins(PDF_MARGIN_LEFT, PDF_MARGIN_RIGHT);
-        $obj_pdf->SetAutoPageBreak(true, PDF_MARGIN_BOTTOM);
-        $obj_pdf->SetFont('msungstdlight', 'L', 10);
         $year = $this->session->userdata('year');
 
         $datetime_info = $this->mod_exam_datetime->get_once($year);
 
-        $obj_pdf->setFontSubsetting(false);
-        $obj_pdf->AddPage();
         $data = array(
             'part' => $this->mod_ability_trial->get_once_date_of_voucher3($part),
             'area' => $area,
@@ -2154,21 +1995,10 @@ class Console extends CI_Controller {
     {
         $this->load->library('pdf');
         $this->load->model('mod_ability_task');
-        $obj_pdf = new Pdf(PDF_PAGE_ORIENTATION, PDF_UNIT, PDF_PAGE_FORMAT, false, 'UTF-8', false);
-        $obj_pdf->SetCreator(PDF_CREATOR);
+        
         $title = '監試說明會簽到表';
         $date = date('yyyy/m/d');
 
-        $obj_pdf->SetTitle($title);
-        $obj_pdf->SetHeaderData('', '', $title, '印表日期：'.$date);
-        $obj_pdf->setPrintHeader(false);
-        // $obj_pdf->SetHeaderMargin(PDF_MARGIN_HEADER);
-        $obj_pdf->SetFooterMargin(PDF_MARGIN_FOOTER);
-        $obj_pdf->SetMargins(PDF_MARGIN_LEFT,3,PDF_MARGIN_RIGHT);
-        $obj_pdf->SetAutoPageBreak(true, PDF_MARGIN_BOTTOM);
-        $obj_pdf->SetFont('msungstdlight', 'L', 14);
-
-        $obj_pdf->setFontSubsetting(false);
         $data = array(
             'part' => $this->mod_ability_task->get_sign_list(),
         );
@@ -2216,21 +2046,11 @@ class Console extends CI_Controller {
         $this->load->model('mod_ability_task');
         $this->load->model('mod_ability_exam_area');
 
-        $obj_pdf = new Pdf(PDF_PAGE_ORIENTATION, PDF_UNIT, PDF_PAGE_FORMAT, false, 'UTF-8', false);
-        $obj_pdf->SetCreator(PDF_CREATOR);
+       
         $title = '大學入學考試中心'.$_SESSION['year'].'學年度指定科目考試新北一考區監試說明會開會通知簽收表';
 
         $date = date('yyyy/m/d');
-        $obj_pdf->SetTitle($title);
-        $obj_pdf->SetHeaderData('', '', $title, '印表日期：'.$date);
-        $obj_pdf->setPrintHeader(false);
-        // $obj_pdf->SetHeaderMargin(PDF_MARGIN_HEADER);
-        $obj_pdf->SetFooterMargin(PDF_MARGIN_FOOTER);
-        $obj_pdf->SetMargins(PDF_MARGIN_LEFT, PDF_MARGIN_RIGHT);
-        $obj_pdf->SetAutoPageBreak(true, PDF_MARGIN_BOTTOM);
-        $obj_pdf->SetFont('msungstdlight', 'L', 14);
-
-        $obj_pdf->setFontSubsetting(false);
+        
         $data = array(
             'data' => $this->mod_ability_task->member_map(),
             'list' => $this->mod_ability_task->get_member_map_list()
@@ -2899,25 +2719,13 @@ class Console extends CI_Controller {
         $this->load->model('subject_ability/mod_trial',"mod_trial");
         $this->load->model('subject_ability/mod_exam_area',"mod_exam_area");
         // $this->load->model('mod_ability_exam_area');
-        $obj_pdf = new Pdf(PDF_PAGE_ORIENTATION, PDF_UNIT, PDF_PAGE_FORMAT, false, 'UTF-8', false);
-        $obj_pdf->SetCreator(PDF_CREATOR);
+        
         $title = '試場工作人員分配表';
         $date = date('yyyy/m/d');
         $part = $_GET['part'];
         $area = $_GET['area'];
         $datee = $_GET['date'];
 
-        $obj_pdf->SetTitle($title);
-        $obj_pdf->SetHeaderData('', '', $title, '印表日期：'.$date);
-        $obj_pdf->setPrintHeader(false);
-        // $obj_pdf->SetHeaderMargin(PDF_MARGIN_HEADER);
-        $obj_pdf->SetFooterMargin(PDF_MARGIN_FOOTER);
-        $obj_pdf->SetMargins(PDF_MARGIN_LEFT, PDF_MARGIN_RIGHT);
-        $obj_pdf->SetAutoPageBreak(true, PDF_MARGIN_BOTTOM);
-        $obj_pdf->SetFont('msungstdlight', '', 10);
-
-        $obj_pdf->setFontSubsetting(false);
-        $obj_pdf->AddPage();
         $date = $_GET['date'];
         $data = array(
             'part' => $this->mod_ability_trial->e_3_2_1($part,$datee),
@@ -2954,24 +2762,12 @@ class Console extends CI_Controller {
         $this->load->model('subject_ability/mod_exam_area',"mod_exam_area");
         // $this->load->model('mod_ability_exam_area');
 
-        $obj_pdf = new Pdf(PDF_PAGE_ORIENTATION, PDF_UNIT, PDF_PAGE_FORMAT, false, 'UTF-8', false);
-        $obj_pdf->SetCreator(PDF_CREATOR);
+        
         $title = '試場工作人員分配表';
         $date = date('yyyy/m/d');
         $part = $_GET['part'];
         $area = $_GET['area'];
 
-        $obj_pdf->SetTitle($title);
-        $obj_pdf->SetHeaderData('', '', $title, '印表日期：'.$date);
-        $obj_pdf->setPrintHeader(false);
-        // $obj_pdf->SetHeaderMargin(PDF_MARGIN_HEADER);
-        $obj_pdf->SetFooterMargin(PDF_MARGIN_FOOTER);
-        $obj_pdf->SetMargins(PDF_MARGIN_LEFT, PDF_MARGIN_RIGHT);
-        $obj_pdf->SetAutoPageBreak(true, PDF_MARGIN_BOTTOM);
-        $obj_pdf->SetFont('msungstdlight', '', 12);
-
-        $obj_pdf->setFontSubsetting(false);
-        $obj_pdf->AddPage();
         $date = $_GET['date'];
         $data = array(
             'part' => $this->mod_ability_trial->e_3_2_2($part),
@@ -3007,24 +2803,13 @@ class Console extends CI_Controller {
         $this->load->model('subject_ability/mod_trial',"mod_trial");
         $this->load->model('subject_ability/mod_exam_area',"mod_exam_area");
         // $this->load->model('mod_ability_exam_area');
-        $obj_pdf = new Pdf(PDF_PAGE_ORIENTATION, PDF_UNIT, PDF_PAGE_FORMAT, false, 'UTF-8', false);
-        $obj_pdf->SetCreator(PDF_CREATOR);
+       
         $title = '試場工作人員分配表';
         $date = date('yyyy/m/d');
         $part = $_GET['part'];
         $area = $_GET['area'];
 
-        $obj_pdf->SetTitle($title);
-        $obj_pdf->SetHeaderData('', '', $title, '印表日期：'.$date);
-        $obj_pdf->setPrintHeader(false);
-        // $obj_pdf->SetHeaderMargin(PDF_MARGIN_HEADER);
-        $obj_pdf->SetFooterMargin(PDF_MARGIN_FOOTER);
-        $obj_pdf->SetMargins(PDF_MARGIN_LEFT, PDF_MARGIN_RIGHT);
-        $obj_pdf->SetAutoPageBreak(true, PDF_MARGIN_BOTTOM);
-        $obj_pdf->SetFont('msungstdlight', '', 12);
-
-        $obj_pdf->setFontSubsetting(false);
-        $obj_pdf->AddPage();
+      
         $date = $_GET['date'];
         $data = array(
             'part' => $this->mod_ability_trial->e_3_2_3($part),
@@ -3059,25 +2844,12 @@ class Console extends CI_Controller {
         $this->load->model('mod_ability_trial');
         $this->load->model('subject_ability/mod_trial',"mod_trial");
         $this->load->model('subject_ability/mod_exam_area',"mod_exam_area");
-        // $this->load->model('mod_ability_exam_area');
-        $obj_pdf = new Pdf(PDF_PAGE_ORIENTATION, PDF_UNIT, PDF_PAGE_FORMAT, false, 'UTF-8', false);
-        $obj_pdf->SetCreator(PDF_CREATOR);
+       
         $title = '試場工作人員分配表';
         $date = date('yyyy/m/d');
         $part = $_GET['part'];
         $area = $_GET['area'];
 
-        $obj_pdf->SetTitle($title);
-        $obj_pdf->SetHeaderData('', '', $title, '印表日期：'.$date);
-        $obj_pdf->setPrintHeader(false);
-        // $obj_pdf->SetHeaderMargin(PDF_MARGIN_HEADER);
-        $obj_pdf->SetFooterMargin(PDF_MARGIN_FOOTER);
-        $obj_pdf->SetMargins(PDF_MARGIN_LEFT, PDF_MARGIN_RIGHT);
-        $obj_pdf->SetAutoPageBreak(true, PDF_MARGIN_BOTTOM);
-        $obj_pdf->SetFont('msungstdlight', '', 12);
-
-        $obj_pdf->setFontSubsetting(false);
-        $obj_pdf->AddPage();
         $date = $_GET['date'];
         $data = array(
             'part' => $this->mod_ability_trial->e_3_2_1($part),
@@ -3112,25 +2884,12 @@ class Console extends CI_Controller {
         $this->load->model('mod_ability_trial');
         $this->load->model('subject_ability/mod_trial',"mod_trial");
         $this->load->model('subject_ability/mod_exam_area',"mod_exam_area");
-        // $this->load->model('mod_ability_exam_area');
-        $obj_pdf = new Pdf(PDF_PAGE_ORIENTATION, PDF_UNIT, PDF_PAGE_FORMAT, false, 'UTF-8', false);
-        $obj_pdf->SetCreator(PDF_CREATOR);
+       
         $title = '試場工作人員分配表';
         $date = date('yyyy/m/d');
         $part = $_GET['part'];
         $area = $_GET['area'];
 
-        $obj_pdf->SetTitle($title);
-        $obj_pdf->SetHeaderData('', '', $title, '印表日期：'.$date);
-        $obj_pdf->setPrintHeader(false);
-        // $obj_pdf->SetHeaderMargin(PDF_MARGIN_HEADER);
-        $obj_pdf->SetFooterMargin(PDF_MARGIN_FOOTER);
-        $obj_pdf->SetMargins(PDF_MARGIN_LEFT, PDF_MARGIN_RIGHT);
-        $obj_pdf->SetAutoPageBreak(true, PDF_MARGIN_BOTTOM);
-        $obj_pdf->SetFont('msungstdlight', '', 12);
-
-        $obj_pdf->setFontSubsetting(false);
-        $obj_pdf->AddPage();
         $date = $_GET['date'];
         $data = array(
             'part' => $this->mod_ability_trial->e_3_2_2($part),
@@ -3165,25 +2924,13 @@ class Console extends CI_Controller {
         $this->load->model('mod_ability_trial');
         $this->load->model('subject_ability/mod_trial',"mod_trial");
         $this->load->model('subject_ability/mod_exam_area',"mod_exam_area");
-        // $this->load->model('mod_ability_exam_area');
-        $obj_pdf = new Pdf(PDF_PAGE_ORIENTATION, PDF_UNIT, PDF_PAGE_FORMAT, false, 'UTF-8', false);
-        $obj_pdf->SetCreator(PDF_CREATOR);
+        
         $title = '試場工作人員分配表';
         $date = date('yyyy/m/d');
         $part = $_GET['part'];
         $area = $_GET['area'];
 
-        $obj_pdf->SetTitle($title);
-        $obj_pdf->SetHeaderData('', '', $title, '印表日期：'.$date);
-        $obj_pdf->setPrintHeader(false);
-        // $obj_pdf->SetHeaderMargin(PDF_MARGIN_HEADER);
-        $obj_pdf->SetFooterMargin(PDF_MARGIN_FOOTER);
-        $obj_pdf->SetMargins(PDF_MARGIN_LEFT, PDF_MARGIN_RIGHT);
-        $obj_pdf->SetAutoPageBreak(true, PDF_MARGIN_BOTTOM);
-        $obj_pdf->SetFont('msungstdlight', '', 12);
-
-        $obj_pdf->setFontSubsetting(false);
-        $obj_pdf->AddPage();
+       
         $date = $_GET['date'];
         $data = array(
             'part' => $this->mod_ability_trial->e_3_2_3($part),
@@ -3218,25 +2965,12 @@ class Console extends CI_Controller {
         $this->load->model('mod_ability_trial');
         $this->load->model('subject_ability/mod_trial',"mod_trial");
         $this->load->model('subject_ability/mod_exam_area',"mod_exam_area");
-        // $this->load->model('mod_ability_exam_area');
-        $obj_pdf = new Pdf(PDF_PAGE_ORIENTATION, PDF_UNIT, PDF_PAGE_FORMAT, false, 'UTF-8', false);
-        $obj_pdf->SetCreator(PDF_CREATOR);
+        
         $title = '試場工作人員分配表';
         $date = date('yyyy/m/d');
         $part = $_GET['part'];
         $area = $_GET['area'];
 
-        $obj_pdf->SetTitle($title);
-        $obj_pdf->SetHeaderData('', '', $title, '印表日期：'.$date);
-        $obj_pdf->setPrintHeader(false);
-        // $obj_pdf->SetHeaderMargin(PDF_MARGIN_HEADER);
-        $obj_pdf->SetFooterMargin(PDF_MARGIN_FOOTER);
-        $obj_pdf->SetMargins(PDF_MARGIN_LEFT, PDF_MARGIN_RIGHT);
-        $obj_pdf->SetAutoPageBreak(true, PDF_MARGIN_BOTTOM);
-        $obj_pdf->SetFont('msungstdlight', '', 12);
-
-        $obj_pdf->setFontSubsetting(false);
-        $obj_pdf->AddPage();
         $date = $_GET['date'];
         $data = array(
             'part' => $this->mod_ability_trial->e_3_2_1($part),
@@ -3246,7 +2980,7 @@ class Console extends CI_Controller {
             'school' => $this->mod_exam_area->year_school_name($part),
             'date' => $date,
         );
-        // print_r($data);
+        
         $view =  $this->load->view('subject_ability/e_3_2_3', $data, true);
         if (!is_dir('./html/')) {
             mkdir('./html/');
@@ -3271,25 +3005,12 @@ class Console extends CI_Controller {
         $this->load->model('mod_ability_trial');
         $this->load->model('subject_ability/mod_trial',"mod_trial");
         $this->load->model('subject_ability/mod_exam_area',"mod_exam_area");
-        // $this->load->model('mod_ability_exam_area');
-        $obj_pdf = new Pdf(PDF_PAGE_ORIENTATION, PDF_UNIT, PDF_PAGE_FORMAT, false, 'UTF-8', false);
-        $obj_pdf->SetCreator(PDF_CREATOR);
+        
         $title = '試場工作人員分配表';
         $date = date('yyyy/m/d');
         $part = $_GET['part'];
         $area = $_GET['area'];
 
-        $obj_pdf->SetTitle($title);
-        $obj_pdf->SetHeaderData('', '', $title, '印表日期：'.$date);
-        $obj_pdf->setPrintHeader(false);
-        // $obj_pdf->SetHeaderMargin(PDF_MARGIN_HEADER);
-        $obj_pdf->SetFooterMargin(PDF_MARGIN_FOOTER);
-        $obj_pdf->SetMargins(PDF_MARGIN_LEFT, PDF_MARGIN_RIGHT);
-        $obj_pdf->SetAutoPageBreak(true, PDF_MARGIN_BOTTOM);
-        $obj_pdf->SetFont('msungstdlight', '', 12);
-
-        $obj_pdf->setFontSubsetting(false);
-        $obj_pdf->AddPage();
         $date = $_GET['date'];
         $data = array(
             'part' => $this->mod_ability_trial->e_3_2_2($part),
@@ -3324,25 +3045,12 @@ class Console extends CI_Controller {
         $this->load->model('mod_ability_trial');
         $this->load->model('subject_ability/mod_trial',"mod_trial");
         $this->load->model('subject_ability/mod_exam_area',"mod_exam_area");
-        // $this->load->model('mod_ability_exam_area');
-        $obj_pdf = new Pdf(PDF_PAGE_ORIENTATION, PDF_UNIT, PDF_PAGE_FORMAT, false, 'UTF-8', false);
-        $obj_pdf->SetCreator(PDF_CREATOR);
+        
         $title = '試場工作人員分配表';
         $date = date('yyyy/m/d');
         $part = $_GET['part'];
         $area = $_GET['area'];
 
-        $obj_pdf->SetTitle($title);
-        $obj_pdf->SetHeaderData('', '', $title, '印表日期：'.$date);
-        $obj_pdf->setPrintHeader(false);
-        // $obj_pdf->SetHeaderMargin(PDF_MARGIN_HEADER);
-        $obj_pdf->SetFooterMargin(PDF_MARGIN_FOOTER);
-        $obj_pdf->SetMargins(PDF_MARGIN_LEFT, PDF_MARGIN_RIGHT);
-        $obj_pdf->SetAutoPageBreak(true, PDF_MARGIN_BOTTOM);
-        $obj_pdf->SetFont('msungstdlight', '', 12);
-
-        $obj_pdf->setFontSubsetting(false);
-        $obj_pdf->AddPage();
         $date = $_GET['date'];
         $data = array(
             'part' => $this->mod_ability_trial->e_3_2_3($part),
@@ -3352,7 +3060,7 @@ class Console extends CI_Controller {
             'school' => $this->mod_exam_area->year_school_name($part),
             'date' => $date,
         );
-        // print_r($data);
+        
         $view =  $this->load->view('subject_ability/e_3_2_3', $data, true);
         if (!is_dir('./html/')) {
             mkdir('./html/');
@@ -3379,25 +3087,13 @@ class Console extends CI_Controller {
         $this->load->model('mod_ability_trial');
         $this->load->model('subject_ability/mod_trial',"mod_trial");
         $this->load->model('subject_ability/mod_exam_area',"mod_exam_area");
-        // $this->load->model('mod_ability_exam_area');
-        $obj_pdf = new Pdf(PDF_PAGE_ORIENTATION, PDF_UNIT, PDF_PAGE_FORMAT, false, 'UTF-8', false);
-        $obj_pdf->SetCreator(PDF_CREATOR);
+       
         $title = '試場工作人員分配表';
         $date = date('yyyy/m/d');
         $part = $_GET['part'];
         $area = $_GET['area'];
 
-        $obj_pdf->SetTitle($title);
-        $obj_pdf->SetHeaderData('', '', $title, '印表日期：'.$date);
-        $obj_pdf->setPrintHeader(false);
-        // $obj_pdf->SetHeaderMargin(PDF_MARGIN_HEADER);
-        $obj_pdf->SetFooterMargin(PDF_MARGIN_FOOTER);
-        $obj_pdf->SetMargins(PDF_MARGIN_LEFT, PDF_MARGIN_RIGHT);
-        $obj_pdf->SetAutoPageBreak(true, PDF_MARGIN_BOTTOM);
-        $obj_pdf->SetFont('msungstdlight', '', 12);
-
-        $obj_pdf->setFontSubsetting(false);
-        $obj_pdf->AddPage();
+       
         $date = $_GET['date'];
         $data = array(
             'part' => $this->mod_ability_trial->e_3_2_1($part),
@@ -3432,25 +3128,12 @@ class Console extends CI_Controller {
         $this->load->model('mod_ability_trial');
         $this->load->model('subject_ability/mod_trial',"mod_trial");
         $this->load->model('subject_ability/mod_exam_area',"mod_exam_area");
-        // $this->load->model('mod_ability_exam_area');
-        $obj_pdf = new Pdf(PDF_PAGE_ORIENTATION, PDF_UNIT, PDF_PAGE_FORMAT, false, 'UTF-8', false);
-        $obj_pdf->SetCreator(PDF_CREATOR);
+      
         $title = '試場工作人員分配表';
         $date = date('yyyy/m/d');
         $part = $_GET['part'];
         $area = $_GET['area'];
 
-        $obj_pdf->SetTitle($title);
-        $obj_pdf->SetHeaderData('', '', $title, '印表日期：'.$date);
-        $obj_pdf->setPrintHeader(false);
-        // $obj_pdf->SetHeaderMargin(PDF_MARGIN_HEADER);
-        $obj_pdf->SetFooterMargin(PDF_MARGIN_FOOTER);
-        $obj_pdf->SetMargins(PDF_MARGIN_LEFT, PDF_MARGIN_RIGHT);
-        $obj_pdf->SetAutoPageBreak(true, PDF_MARGIN_BOTTOM);
-        $obj_pdf->SetFont('msungstdlight', '', 12);
-
-        $obj_pdf->setFontSubsetting(false);
-        $obj_pdf->AddPage();
         $date = $_GET['date'];
         $data = array(
             'part' => $this->mod_ability_trial->e_3_2_2($part),
@@ -3485,25 +3168,13 @@ class Console extends CI_Controller {
         $this->load->model('mod_ability_trial');
         $this->load->model('subject_ability/mod_trial',"mod_trial");
         $this->load->model('subject_ability/mod_exam_area',"mod_exam_area");
-        // $this->load->model('mod_ability_exam_area');
-        $obj_pdf = new Pdf(PDF_PAGE_ORIENTATION, PDF_UNIT, PDF_PAGE_FORMAT, false, 'UTF-8', false);
-        $obj_pdf->SetCreator(PDF_CREATOR);
+        
         $title = '試場工作人員分配表';
         $date = date('yyyy/m/d');
         $part = $_GET['part'];
         $area = $_GET['area'];
 
-        $obj_pdf->SetTitle($title);
-        $obj_pdf->SetHeaderData('', '', $title, '印表日期：'.$date);
-        $obj_pdf->setPrintHeader(false);
-        // $obj_pdf->SetHeaderMargin(PDF_MARGIN_HEADER);
-        $obj_pdf->SetFooterMargin(PDF_MARGIN_FOOTER);
-        $obj_pdf->SetMargins(PDF_MARGIN_LEFT, PDF_MARGIN_RIGHT);
-        $obj_pdf->SetAutoPageBreak(true, PDF_MARGIN_BOTTOM);
-        $obj_pdf->SetFont('msungstdlight', '', 12);
-
-        $obj_pdf->setFontSubsetting(false);
-        $obj_pdf->AddPage();
+       
         $date = $_GET['date'];
         $data = array(
             'part' => $this->mod_ability_trial->e_3_2_3($part),
@@ -3546,25 +3217,12 @@ class Console extends CI_Controller {
         $this->load->model('mod_ability_trial');
         $this->load->model('subject_ability/mod_trial',"mod_trial");
         $this->load->model('subject_ability/mod_exam_area',"mod_exam_area");
-        // $this->load->model('mod_ability_exam_area');
-        $obj_pdf = new Pdf(PDF_PAGE_ORIENTATION, PDF_UNIT, PDF_PAGE_FORMAT, false, 'UTF-8', false);
-        $obj_pdf->SetCreator(PDF_CREATOR);
+        
         $title = '試場工作人員分配表';
         $date = date('yyyy/m/d');
         $part = $_GET['part'];
         $area = $_GET['area'];
 
-        $obj_pdf->SetTitle($title);
-        $obj_pdf->SetHeaderData('', '', $title, '印表日期：'.$date);
-        $obj_pdf->setPrintHeader(false);
-        // $obj_pdf->SetHeaderMargin(PDF_MARGIN_HEADER);
-        $obj_pdf->SetFooterMargin(PDF_MARGIN_FOOTER);
-        $obj_pdf->SetMargins(PDF_MARGIN_LEFT, PDF_MARGIN_RIGHT);
-        $obj_pdf->SetAutoPageBreak(true, PDF_MARGIN_BOTTOM);
-        $obj_pdf->SetFont('msungstdlight', '', 12);
-
-        $obj_pdf->setFontSubsetting(false);
-        $obj_pdf->AddPage();
         $date = $_GET['date'];
         $data = array(
             'part' => $this->mod_ability_trial->e_3_2_1($part),
@@ -3599,25 +3257,12 @@ class Console extends CI_Controller {
         $this->load->model('mod_ability_trial');
         $this->load->model('subject_ability/mod_trial',"mod_trial");
         $this->load->model('subject_ability/mod_exam_area',"mod_exam_area");
-        // $this->load->model('mod_ability_exam_area');
-        $obj_pdf = new Pdf(PDF_PAGE_ORIENTATION, PDF_UNIT, PDF_PAGE_FORMAT, false, 'UTF-8', false);
-        $obj_pdf->SetCreator(PDF_CREATOR);
+       
         $title = '試場工作人員分配表';
         $date = date('yyyy/m/d');
         $part = $_GET['part'];
         $area = $_GET['area'];
 
-        $obj_pdf->SetTitle($title);
-        $obj_pdf->SetHeaderData('', '', $title, '印表日期：'.$date);
-        $obj_pdf->setPrintHeader(false);
-        // $obj_pdf->SetHeaderMargin(PDF_MARGIN_HEADER);
-        $obj_pdf->SetFooterMargin(PDF_MARGIN_FOOTER);
-        $obj_pdf->SetMargins(PDF_MARGIN_LEFT, PDF_MARGIN_RIGHT);
-        $obj_pdf->SetAutoPageBreak(true, PDF_MARGIN_BOTTOM);
-        $obj_pdf->SetFont('msungstdlight', '', 12);
-
-        $obj_pdf->setFontSubsetting(false);
-        $obj_pdf->AddPage();
         $date = $_GET['date'];
         $data = array(
             'part' => $this->mod_ability_trial->e_3_2_2($part),
@@ -3652,25 +3297,12 @@ class Console extends CI_Controller {
         $this->load->model('mod_ability_trial');
         $this->load->model('subject_ability/mod_trial',"mod_trial");
         $this->load->model('subject_ability/mod_exam_area',"mod_exam_area");
-        // $this->load->model('mod_ability_exam_area');
-        $obj_pdf = new Pdf(PDF_PAGE_ORIENTATION, PDF_UNIT, PDF_PAGE_FORMAT, false, 'UTF-8', false);
-        $obj_pdf->SetCreator(PDF_CREATOR);
+        
         $title = '試場工作人員分配表';
         $date = date('yyyy/m/d');
         $part = $_GET['part'];
         $area = $_GET['area'];
 
-        $obj_pdf->SetTitle($title);
-        $obj_pdf->SetHeaderData('', '', $title, '印表日期：'.$date);
-        $obj_pdf->setPrintHeader(false);
-        // $obj_pdf->SetHeaderMargin(PDF_MARGIN_HEADER);
-        $obj_pdf->SetFooterMargin(PDF_MARGIN_FOOTER);
-        $obj_pdf->SetMargins(PDF_MARGIN_LEFT, PDF_MARGIN_RIGHT);
-        $obj_pdf->SetAutoPageBreak(true, PDF_MARGIN_BOTTOM);
-        $obj_pdf->SetFont('msungstdlight', '', 12);
-
-        $obj_pdf->setFontSubsetting(false);
-        $obj_pdf->AddPage();
         $date = $_GET['date'];
         $data = array(
             'part' => $this->mod_ability_trial->e_3_2_3($part),
@@ -3680,7 +3312,7 @@ class Console extends CI_Controller {
             'school' => $this->mod_exam_area->year_school_name($part),
             'date' => $date,
         );
-        // print_r($data);
+        
         $view =  $this->load->view('subject_ability/e_3_2_3', $data, true);
         if (!is_dir('./html/')) {
             mkdir('./html/');
@@ -4156,8 +3788,7 @@ class Console extends CI_Controller {
         $this->load->library('pdf');
         $this->load->model('mod_ability_trial');
         $this->load->model('mod_ability_exam_area');
-        $obj_pdf = new Pdf(PDF_PAGE_ORIENTATION, PDF_UNIT, PDF_PAGE_FORMAT, false, 'UTF-8', false);
-        $obj_pdf->SetCreator(PDF_CREATOR);
+       
         $title = '監試人員印領清冊';
         $date = date('yyyy/m/d');
         $part = $_GET['part'];
@@ -4193,8 +3824,7 @@ class Console extends CI_Controller {
         $this->load->library('pdf');
         $this->load->model('mod_ability_trial');
         $this->load->model('mod_ability_exam_area');
-        $obj_pdf = new Pdf(PDF_PAGE_ORIENTATION, PDF_UNIT, PDF_PAGE_FORMAT, false, 'UTF-8', false);
-        $obj_pdf->SetCreator(PDF_CREATOR);
+       
         $title = '監試人員印領清冊';
         $date = date('yyyy/m/d');
         $part = $_GET['part'];
@@ -4236,24 +3866,12 @@ class Console extends CI_Controller {
         $this->load->model('mod_ability_task');
         $this->load->model('subject_ability/mod_task',"mod_task");
         $this->load->model('mod_ability_exam_area');
-        $obj_pdf = new Pdf(PDF_PAGE_ORIENTATION, PDF_UNIT, PDF_PAGE_FORMAT, false, 'UTF-8', false);
-        $obj_pdf->SetCreator(PDF_CREATOR);
+       
         $title = '試務人員印領清冊';
         $date = date('yyyy/m/d');
         $part = $_GET['part'];
         $area = $_GET['area'];
 
-        $obj_pdf->SetTitle($title);
-        $obj_pdf->SetHeaderData('', '', $title, '印表日期：'.$date);
-        $obj_pdf->setPrintHeader(false);
-        // $obj_pdf->SetHeaderMargin(PDF_MARGIN_HEADER);
-        $obj_pdf->SetFooterMargin(PDF_MARGIN_FOOTER);
-        $obj_pdf->SetMargins(3, 3);
-        $obj_pdf->SetAutoPageBreak(true, PDF_MARGIN_BOTTOM);
-        $obj_pdf->SetFont('msungstdlight', '', 10);
-
-        $obj_pdf->setFontSubsetting(false);
-        $obj_pdf->AddPage();
         $data = array(
             'part' => $this->mod_task->get_district_task_money_list($area),
             'area'=> $area,
@@ -4288,24 +3906,12 @@ class Console extends CI_Controller {
         $this->load->library('pdf');
         $this->load->model('mod_ability_trial');
         $this->load->model('mod_ability_exam_area');
-        $obj_pdf = new Pdf(PDF_PAGE_ORIENTATION, PDF_UNIT, PDF_PAGE_FORMAT, false, 'UTF-8', false);
-        $obj_pdf->SetCreator(PDF_CREATOR);
+      
         $title = '管卷人員印領清冊';
         $date = date('yyyy/m/d');
         $part = $_GET['part'];
         $area = $_GET['area'];
 
-        $obj_pdf->SetTitle($title);
-        $obj_pdf->SetHeaderData('', '', $title, '印表日期：'.$date);
-        $obj_pdf->setPrintHeader(false);
-        // $obj_pdf->SetHeaderMargin(PDF_MARGIN_HEADER);
-        $obj_pdf->SetFooterMargin(PDF_MARGIN_FOOTER);
-        $obj_pdf->SetMargins(3, 3);
-        $obj_pdf->SetAutoPageBreak(true, PDF_MARGIN_BOTTOM);
-        $obj_pdf->SetFont('msungstdlight', '', 10);
-
-        $obj_pdf->setFontSubsetting(false);
-        $obj_pdf->AddPage();
         $data = array(
             'part' => $this->mod_ability_trial->get_trial_staff_task_money_list($part),
             'area'=> $area,
@@ -4341,24 +3947,12 @@ class Console extends CI_Controller {
         $this->load->library('pdf');
         $this->load->model('mod_ability_trial');
         $this->load->model('mod_ability_exam_area');
-        $obj_pdf = new Pdf(PDF_PAGE_ORIENTATION, PDF_UNIT, PDF_PAGE_FORMAT, false, 'UTF-8', false);
-        $obj_pdf->SetCreator(PDF_CREATOR);
+   
         $title = '巡場人員印領清冊';
         $date = date('yyyy/m/d');
         $part = $_GET['part'];
         $area = $_GET['area'];
 
-        $obj_pdf->SetTitle($title);
-        $obj_pdf->SetHeaderData('', '', $title, '印表日期：'.$date);
-        $obj_pdf->setPrintHeader(false);
-        // $obj_pdf->SetHeaderMargin(PDF_MARGIN_HEADER);
-        $obj_pdf->SetFooterMargin(PDF_MARGIN_FOOTER);
-        $obj_pdf->SetMargins(3, 3);
-        $obj_pdf->SetAutoPageBreak(true, PDF_MARGIN_BOTTOM);
-        $obj_pdf->SetFont('msungstdlight', '', 10);
-
-        $obj_pdf->setFontSubsetting(false);
-        $obj_pdf->AddPage();
         $data = array(
             'part' => $this->mod_ability_trial->get_patrol_staff_task_money_list($part),
             'area'=> $area,

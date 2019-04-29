@@ -1586,13 +1586,11 @@ class Designated extends CI_Controller
         $this->load->model('mod_exam_area');
         $this->load->model('mod_exam_datetime');
 
-        
         $part = $this->input->get('part');
         $area = $this->input->get('area');
         $year = $this->session->userdata('year');
         $datetime_info = $this->mod_exam_datetime->get_once($year);
 
-        
         $data = array(
             'part' => $this->mod_trial->get_once_date_of_voucher1($part),
             'area' => $area,
@@ -1605,6 +1603,7 @@ class Designated extends CI_Controller
             $view = $this->load->view('designated/e_2_3_1', $data, true);
             $this->pdf->view_to_pdf($view,'e_2_3_1',false);
         } else {
+            // echo 'X';
             return false;
         }
     }
@@ -1616,10 +1615,6 @@ class Designated extends CI_Controller
         $this->load->model('mod_exam_area');
         $this->load->model('mod_exam_datetime');
 
-        // $obj_pdf = new Pdf(PDF_PAGE_ORIENTATION, PDF_UNIT, PDF_PAGE_FORMAT, false, 'UTF-8', false);
-        // $obj_pdf->SetCreator(PDF_CREATOR);
-        $title = '答案卷卡收發記錄單';
-        $date = date('yyyy/m/d');
         $part = $_GET['part'];
         $area = $_GET['area'];
 
@@ -1636,21 +1631,7 @@ class Designated extends CI_Controller
         );
         if ($data['part'] != false) {
             $view = $this->load->view('designated/e_2_3_2', $data, true);
-            if (!is_dir('./html/')) {
-                mkdir('./html/');
-            } else {
-                $path = 'e_2_3_2.html';
-                $fp = fopen('./html/' . $path, 'w');//建檔
-                fwrite($fp, $view);
-                fclose($fp);//關閉開啟的檔案
-            }
-
-            if (!is_dir('./pdf/')) {
-                mkdir('./pdf/');
-            } else {
-                exec('wkhtmltopdf --lowquality  --enable-forms http://uat.fofo.tw/fjuexam/html/e_2_3_2.html  ./pdf/e_2_3_2.pdf');
-            }
-            echo '<script>location.href="http://uat.fofo.tw/fjuexam/pdf/e_2_3_2.pdf"</script>';
+            $this->pdf->view_to_pdf($view,'e_2_3_2',false);
         } else {
             return false;
         }
