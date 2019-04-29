@@ -34,7 +34,7 @@ class Test_form extends CI_Controller
 
     public function form_e1_1()
     {
-        $this->load->library('pdf');
+       
         $this->load->model('mod_school_unit');
 
         $data = array(
@@ -42,23 +42,8 @@ class Test_form extends CI_Controller
         );
         if ($data['list'] != false) {
             $view = $this->load->view('voice/form_e1_1', $data, true);
-            if (!is_dir('./html/')) {
-                mkdir('./html/');
-            } else {
-                $path = 'form_e1_1.html';
-                $fp = fopen('./html/' . $path, 'w');//建檔
-                fwrite($fp, $view);
-                fclose($fp);//關閉開啟的檔案
-                // copy($path, './html/'.$path);
-
-            }
-
-            if (!is_dir('./pdf/')) {
-                mkdir('./pdf/');
-            } else {
-                exec('wkhtmltopdf --lowquality --enable-forms http://uat.fofo.tw/fjuexam/html/form_e1_1.html  ./pdf/form_e1_1.pdf');
-            }
-            echo '<script>location.href="http://uat.fofo.tw/fjuexam/pdf/form_e1_1.pdf"</script>';
+            $this->pdf->view_to_pdf($view,'form_e1_1');
+           
         } else {
             return false;
         }
@@ -66,7 +51,7 @@ class Test_form extends CI_Controller
 
     public function form_e1_2()
     {
-        $this->load->library('pdf');
+       
         $this->load->model('mod_voice_job_list');
 
         $data = array(
@@ -74,23 +59,8 @@ class Test_form extends CI_Controller
         );
         // print_r($data);
         $view = $this->load->view('voice/form_e1_2', $data, true);
-        if (!is_dir('./html/')) {
-            mkdir('./html/');
-        } else {
-            $path = 'form_e1_2.html';
-            $fp = fopen('./html/' . $path, 'w');//建檔
-            fwrite($fp, $view);
-            fclose($fp);//關閉開啟的檔案
-            // copy($path, './html/'.$path);
-
-        }
-
-        if (!is_dir('./pdf/')) {
-            mkdir('./pdf/');
-        } else {
-            exec('wkhtmltopdf --lowquality --enable-forms http://uat.fofo.tw/fjuexam/html/form_e1_2.html  ./pdf/form_e1_2.pdf');
-        }
-        echo '<script>location.href="http://uat.fofo.tw/fjuexam/pdf/form_e1_2.pdf"</script>';
+        $this->pdf->view_to_pdf($view,'form_e1_2');
+       
     }
 
     /**
@@ -98,14 +68,13 @@ class Test_form extends CI_Controller
      */
     public function form_e1_3_1()
     {
-        $this->load->library('pdf');
+       
         $this->load->model('mod_voice_trial');
         $this->load->model('mod_voice_exam_area');
 
         $part = $_GET['part'];
         $area = $_GET['area'];
 
-        // print_r($this->mod_voice_trial->get_list_for_pdf($part));
         $data = array(
             'part' => $this->mod_voice_trial->get_list_for_pdf($part),
             'area' => $area,
@@ -116,23 +85,8 @@ class Test_form extends CI_Controller
 
         if ($data['part'] != false) {
             $view = $this->load->view('voice/form_e1_3', $data, true);
-            if (!is_dir('./html/')) {
-                mkdir('./html/');
-            } else {
-                $path = 'form_e1_3.html';
-                $fp = fopen('./html/' . $path, 'w');//建檔
-                fwrite($fp, $view);
-                fclose($fp);//關閉開啟的檔案
-              // copy($path, './html/'.$path);
-
-            }
-
-            if (!is_dir('./pdf/')) {
-                mkdir('./pdf/');
-            } else {
-                exec('wkhtmltopdf --lowquality --enable-forms http://uat.fofo.tw/fjuexam/html/form_e1_3.html  ./pdf/form_e1_3.pdf');
-            }
-            echo '<script>location.href="http://uat.fofo.tw/fjuexam/pdf/form_e1_3.pdf"</script>';
+            $this->pdf->view_to_pdf($view,'form_e1_3');
+          
         } else {
             return false;
         }
@@ -142,7 +96,7 @@ class Test_form extends CI_Controller
      */
     function form_e1_3_2()
     {
-        $this->load->library('pdf');
+       
         $this->load->model('mod_voice_job_list');
         $this->load->model('mod_voice_exam_area');
         $this->load->model("mod_voice_part_addr");
@@ -174,85 +128,16 @@ class Test_form extends CI_Controller
         );
         if ($data['part'] != false) {
             $view = $this->load->view('voice/form_e1_3_3', $data, true);
-            if (!is_dir('./html/')) {
-                mkdir('./html/');
-            } else {
-                $path = 'form_e1_3_3.html';
-                $fp = fopen('./html/' . $path, 'w');//建檔
-                fwrite($fp, $view);
-                fclose($fp);//關閉開啟的檔案
-              // copy($path, './html/'.$path);
-
-            }
-
-            if (!is_dir('./pdf/')) {
-                mkdir('./pdf/');
-            } else {
-                exec('wkhtmltopdf --lowquality --enable-forms http://uat.fofo.tw/fjuexam/html/form_e1_3_3.html  ./pdf/form_e1_3_3.pdf');
-            }
-            echo '<script>location.href="http://uat.fofo.tw/fjuexam/pdf/form_e1_3_3.pdf"</script>';
+            $this->pdf->view_to_pdf($view,'form_e1_3_3');
+           
         } else {
             return false;
         }
     }
 
-    // public function form_e1_3_3()
-    // {
-    //     $this->load->library('pdf');
-    //     $this->load->model('mod_voice_trial');
-    //     $this->load->model('mod_voice_exam_area');
-
-    //     $part = $_GET['part'];
-    //     $area = $_GET['area'];
-    //     switch ($area) {
-    //         case '0':
-    //           echo '考區';
-    //             break;
-    //         case '1':
-    //             echo '第一分區';
-    //             break;
-    //         case '2':
-    //             echo '第二分區';
-    //             # code...
-    //             break;
-    //         case '3':
-    //             echo '第三分區';
-    //             break;
-         
-    //     }
-        
-    //     $data = array(
-    //         'part' => $this->mod_voice_trial->get_list_for_pdf($part),
-    //         'area' => $area,
-    //         'school' => $this->mod_voice_exam_area->year_school_name($part),
-    //     );
-    //     if($data['part'] != false){
-    //           $this->load->view('voice/form_e_1_3', $data);
-    //       $view =  $this->load->view('voice/form_e_1_3', $data, true);
-    //       if (!is_dir('./html/')) {
-    //           mkdir('./html/');
-    //       } else {
-    //           $path = 'e_1_3.html';
-    //           $fp = fopen('./html/'.$path,'w');//建檔
-    //           fwrite($fp,$view);
-    //           fclose($fp);//關閉開啟的檔案
-    //           // copy($path, './html/'.$path);
-
-    //       }
-
-    //       if (!is_dir('./pdf/')) {
-    //           mkdir('./pdf/');
-    //       } else {
-    //           exec('wkhtmltopdf --lowquality --enable-forms http://uat.fofo.tw/fjuexam/html/e_1_3.html  ./pdf/e_1_3.pdf');
-    //       }
-    //       echo '<script>location.href="http://uat.fofo.tw/fjuexam/pdf/e_1_3.pdf"</script>';
-    //     }else{
-    //       return false;
-    //     }
-    // }
     public function form_e1_3_4()
     {
-        $this->load->library('pdf');
+       
         $this->load->model('mod_voice_job_list');
         $this->load->model('mod_voice_exam_area');
         $this->load->model("mod_voice_part_addr");
@@ -286,23 +171,8 @@ class Test_form extends CI_Controller
         );
         if ($data['part'] != false) {
             $view = $this->load->view('voice/form_e1_3_4', $data, true);
-            if (!is_dir('./html/')) {
-                mkdir('./html/');
-            } else {
-                $path = 'form_e1_3_4.html';
-                $fp = fopen('./html/' . $path, 'w');//建檔
-                fwrite($fp, $view);
-                fclose($fp);//關閉開啟的檔案
-              // copy($path, './html/'.$path);
-
-            }
-
-            if (!is_dir('./pdf/')) {
-                mkdir('./pdf/');
-            } else {
-                exec('wkhtmltopdf --lowquality --enable-forms http://uat.fofo.tw/fjuexam/html/form_e1_3_4.html  ./pdf/form_e1_3_4.pdf');
-            }
-            echo '<script>location.href="http://uat.fofo.tw/fjuexam/pdf/form_e1_3_4.pdf"</script>';
+            $this->pdf->view_to_pdf($view,'form_e1_3_4');
+          
         } else {
             return false;
         }
@@ -310,7 +180,7 @@ class Test_form extends CI_Controller
 
     public function form_e1_3_5()
     {
-        $this->load->library('pdf');
+       
         $this->load->model('mod_voice_job_list');
         $this->load->model('mod_voice_exam_area');
         $this->load->model("mod_voice_part_addr");
@@ -343,23 +213,8 @@ class Test_form extends CI_Controller
         );
         if ($data['part'] != false) {
             $view = $this->load->view('voice/form_e1_3_5', $data, true);
-            if (!is_dir('./html/')) {
-                mkdir('./html/');
-            } else {
-                $path = 'form_e1_3_5.html';
-                $fp = fopen('./html/' . $path, 'w');//建檔
-                fwrite($fp, $view);
-                fclose($fp);//關閉開啟的檔案
-                // copy($path, './html/'.$path);
-
-            }
-
-            if (!is_dir('./pdf/')) {
-                mkdir('./pdf/');
-            } else {
-                exec('wkhtmltopdf --lowquality --enable-forms http://uat.fofo.tw/fjuexam/html/form_e1_3_5.html  ./pdf/form_e1_3_5.pdf');
-            }
-            echo '<script>location.href="http://uat.fofo.tw/fjuexam/pdf/form_e1_3_5.pdf"</script>';
+            $this->pdf->view_to_pdf($view,'form_e1_3_5');
+          
         } else {
             return false;
         }
@@ -383,20 +238,11 @@ class Test_form extends CI_Controller
         $part = $_GET['part'];
         $area = $_GET['area'];
 
-        // if ($this->mod_voice_exam_datetime->chk_course($year,$ladder)) {
-        //     $course = $this->mod_voice_exam_datetime->get_course($year,$ladder);
-        // } else {
-        //     $course = array();
-        //     for ($i = 0; $i <= 12; ++$i) {
-        //         $course[$i]['subject'] = '';
-        //     }
-        // }
-
         $datetime_info = $this->mod_voice_exam_datetime->get_once($year, $ladder);
         
         // 取得所有考場
         $area_list = $this->mod_voice_trial->get_distinct_voice_area($part);
-        // print_r($area_list);
+        
         // 取得考場資料
         foreach ($area_list as $k => $v) {
             // echo '1';
@@ -415,24 +261,8 @@ class Test_form extends CI_Controller
         );
         if ($data['list'] != false) {
             $view = $this->load->view('voice/form_e1_4', $data, true);
-
-            if (!is_dir('./html/')) {
-                mkdir('./html/');
-            } else {
-                $path = 'form_e1_4.html';
-                $fp = fopen('./html/' . $path, 'w');//建檔
-                fwrite($fp, $view);
-                fclose($fp);//關閉開啟的檔案
-                // copy($path, './html/'.$path);
-
-            }
-
-            if (!is_dir('./pdf/')) {
-                mkdir('./pdf/');
-            } else {
-                exec('wkhtmltopdf --lowquality --enable-forms http://uat.fofo.tw/fjuexam/html/form_e1_4.html  ./pdf/form_e1_4.pdf');
-            }
-            echo '<script>location.href="http://uat.fofo.tw/fjuexam/pdf/form_e1_4.pdf"</script>';
+            $this->pdf->view_to_pdf($view,'form_e1_4');
+            
         } else {
             return false;
         }
@@ -459,7 +289,7 @@ class Test_form extends CI_Controller
 
     public function form_e_2_1_1()
     {
-        $this->load->library('pdf');
+       
         $this->load->model('mod_voice_job_list');
         $this->load->model('mod_voice_exam_area');
         $this->load->model('mod_voice_exam_datetime');
@@ -474,9 +304,6 @@ class Test_form extends CI_Controller
         $data = array(
             'part' => $this->mod_voice_job_list->e_2_1($area, $part),
             'area' => $area,
-            // 'own'=> $this->mod_task->get_task_own_count($area),
-            // 'veg'=> $this->mod_task->get_member_veg_count($area),
-            // 'meat'=> $this->mod_task->get_member_meat_count($area),
             'datetime_info' => $this->mod_voice_exam_datetime->get_once($year, $ladder),
             'school' => $this->mod_voice_exam_area->year_school_name($part),
         );
@@ -484,23 +311,7 @@ class Test_form extends CI_Controller
 
         if ($data['part'] != false) {
             $view = $this->load->view('voice/form_e_2_1_1', $data, true);
-            if (!is_dir('./html/')) {
-                mkdir('./html/');
-            } else {
-                $path = 'form_e_2_1_1.html';
-                $fp = fopen('./html/' . $path, 'w');//建檔
-                fwrite($fp, $view);
-                fclose($fp);//關閉開啟的檔案
-                // copy($path, './html/'.$path);
-
-            }
-
-            if (!is_dir('./pdf/')) {
-                mkdir('./pdf/');
-            } else {
-                exec('wkhtmltopdf --lowquality --enable-forms http://uat.fofo.tw/fjuexam/html/form_e_2_1_1.html  ./pdf/form_e_2_1_1.pdf');
-            }
-            echo '<script>location.href="http://uat.fofo.tw/fjuexam/pdf/form_e_2_1_1.pdf"</script>';
+            $this->pdf->view_to_pdf($view,'form_e_2_1_1');
         } else {
             return false;
         }
@@ -509,7 +320,7 @@ class Test_form extends CI_Controller
     public function form_e_2_1_2()
     {
 
-        $this->load->library('pdf');
+       
         $this->load->model('mod_voice_trial');
         $this->load->model('mod_voice_exam_area');
         $this->load->model('mod_voice_exam_datetime');
@@ -531,32 +342,13 @@ class Test_form extends CI_Controller
         $data = array(
             'part' => $this->mod_voice_trial->e_2_1_2($part),
             'area' => $area,
-            // 'own'=> $this->mod_task->get_task_own_count($area),
-            // 'veg'=> $this->mod_task->get_member_veg_count($area),
-            // 'meat'=> $this->mod_task->get_member_meat_count($area),
             'datetime_info' => $this->mod_voice_exam_datetime->get_once($year, $ladder),
             'school' => $school,
         );
-        // print_r($data['part']);
 
         if ($data['part'] != false) {
             $view = $this->load->view('voice/form_e_2_1_2', $data, true);
-            if (!is_dir('./html/')) {
-                mkdir('./html/');
-            } else {
-                $path = 'form_e_2_1_2.html';
-                $fp = fopen('./html/' . $path, 'w');//建檔
-                fwrite($fp, $view);
-                fclose($fp);//關閉開啟的檔案
-                // copy($path, './html/'.$path);
-
-            }
-            if (!is_dir('./pdf/')) {
-                mkdir('./pdf/');
-            } else {
-                exec('wkhtmltopdf --lowquality --enable-forms http://uat.fofo.tw/fjuexam/html/form_e_2_1_2.html  ./pdf/form_e_2_1_2.pdf');
-            }
-            echo '<script>location.href="http://uat.fofo.tw/fjuexam/pdf/form_e_2_1_2.pdf"</script>';
+            $this->pdf->view_to_pdf($view,'form_e_2_1_2');
         } else {
             return false;
         }
@@ -564,7 +356,7 @@ class Test_form extends CI_Controller
 
     public function form_e_2_1_3()
     {
-        $this->load->library('pdf');
+       
         $this->load->model('mod_voice_trial');
         $this->load->model('mod_voice_exam_area');
         $this->load->model('mod_voice_exam_datetime');
@@ -586,30 +378,13 @@ class Test_form extends CI_Controller
         $data = array(
             'part' => $this->mod_voice_trial->e_2_1_3($part),
             'area' => $area,
-            // 'own'=> $this->mod_task->get_task_own_count($area),
-            // 'veg'=> $this->mod_task->get_member_veg_count($area),
-            // 'meat'=> $this->mod_task->get_member_meat_count($area),
             'datetime_info' => $this->mod_voice_exam_datetime->get_once($year, $ladder),
             'school' => $school,
         );
         if ($data['part'] != false) {
             $view = $this->load->view('voice/form_e_2_1_3', $data, true);
-            if (!is_dir('./html/')) {
-                mkdir('./html/');
-            } else {
-                $path = 'form_e_2_1_3.html';
-                $fp = fopen('./html/' . $path, 'w');//建檔
-                fwrite($fp, $view);
-                fclose($fp);//關閉開啟的檔案
-                // copy($path, './html/'.$path);
-
-            }
-            if (!is_dir('./pdf/')) {
-                mkdir('./pdf/');
-            } else {
-                exec('wkhtmltopdf --lowquality --enable-forms http://uat.fofo.tw/fjuexam/html/form_e_2_1_3.html  ./pdf/form_e_2_1_3.pdf');
-            }
-            echo '<script>location.href="http://uat.fofo.tw/fjuexam/pdf/form_e_2_1_3.pdf"</script>';
+            $this->pdf->view_to_pdf($view,'form_e_2_1_3');
+           
         } else {
             return false;
         }
@@ -620,7 +395,7 @@ class Test_form extends CI_Controller
      */
     public function form_e_2_2()
     {
-        $this->load->library('pdf');
+       
         $this->load->model('mod_voice_trial');
         $this->load->model('mod_voice_exam_area');
         $this->load->model('mod_voice_exam_datetime');
@@ -654,21 +429,7 @@ class Test_form extends CI_Controller
 
         if ($data['part'] != false) {
             $view = $this->load->view('voice/form_e_2_2', $data, true);
-            if (!is_dir('./html/')) {
-                mkdir('./html/');
-            } else {
-                $path = 'form_e_2_2.html';
-                $fp = fopen('./html/' . $path, 'w');//建檔
-                fwrite($fp, $view);
-                fclose($fp);//關閉開啟的檔案
-            }
-
-            if (!is_dir('./pdf/')) {
-                mkdir('./pdf/');
-            } else {
-                exec('wkhtmltopdf --lowquality  --enable-forms http://uat.fofo.tw/fjuexam/html/form_e_2_2.html  ./pdf/form_e_2_2.pdf');
-            }
-            echo '<script>location.href="http://uat.fofo.tw/fjuexam/pdf/form_e_2_2.pdf"</script>';
+            $this->pdf->view_to_pdf($view,'form_e_2_2');
         } else {
             return false;
         }
@@ -679,7 +440,7 @@ class Test_form extends CI_Controller
      */
     public function form_e_2_3_1()
     {
-        $this->load->library('pdf');
+       
         $this->load->model('mod_voice_trial');
         $this->load->model('mod_voice_exam_area');
         $this->load->model('mod_voice_exam_datetime');
@@ -693,7 +454,6 @@ class Test_form extends CI_Controller
 
 
         $datetime_info = $this->mod_voice_exam_datetime->get_once($year, $ladder);
-        // print_r($this->mod_voice_trial->get_once_date_of_voucher1($part));
         $data = array(
             'part' => $this->mod_voice_trial->get_once_date_of_voucher1($part),
             'area' => $area,
@@ -701,28 +461,11 @@ class Test_form extends CI_Controller
             'count' => $this->mod_voice_trial->get_patrol_member_count_1($part),
             'school' => $this->mod_voice_exam_area->year_school_name($part),
         );
-        // print_r($data['part']);
-
-        // $view = $this->load->view('voice/form_e_2_3_1', $data);
-
+       
 
         if ($data['part'] != false) {
             $view = $this->load->view('voice/form_e_2_3_1', $data, true);
-            if (!is_dir('./html/')) {
-                mkdir('./html/');
-            } else {
-                $path = 'form_e_2_3_1.html';
-                $fp = fopen('./html/' . $path, 'w');//建檔
-                fwrite($fp, $view);
-                fclose($fp);//關閉開啟的檔案
-            }
-
-            if (!is_dir('./pdf/')) {
-                mkdir('./pdf/');
-            } else {
-                exec('wkhtmltopdf --lowquality  --enable-forms http://uat.fofo.tw/fjuexam/html/form_e_2_3_1.html  ./pdf/form_e_2_3_1.pdf');
-            }
-            echo '<script>location.href="http://uat.fofo.tw/fjuexam/pdf/form_e_2_3_1.pdf"</script>';
+            $this->pdf->view_to_pdf($view,'form_e_2_3_1');
         } else {
             return false;
         }
@@ -730,7 +473,7 @@ class Test_form extends CI_Controller
 
     public function form_e_2_3_2()
     {
-        $this->load->library('pdf');
+       
         $this->load->model('mod_voice_trial');
         $this->load->model('mod_voice_exam_area');
         $this->load->model('mod_voice_exam_datetime');
@@ -753,21 +496,8 @@ class Test_form extends CI_Controller
         );
         if ($data['part'] != false) {
             $view = $this->load->view('voice/form_e_2_3_2', $data, true);
-            if (!is_dir('./html/')) {
-                mkdir('./html/');
-            } else {
-                $path = 'form_e_2_3_2.html';
-                $fp = fopen('./html/' . $path, 'w');//建檔
-                fwrite($fp, $view);
-                fclose($fp);//關閉開啟的檔案
-            }
-
-            if (!is_dir('./pdf/')) {
-                mkdir('./pdf/');
-            } else {
-                exec('wkhtmltopdf --lowquality  --enable-forms http://uat.fofo.tw/fjuexam/html/form_e_2_3_2.html  ./pdf/form_e_2_3_2.pdf');
-            }
-            echo '<script>location.href="http://uat.fofo.tw/fjuexam/pdf/form_e_2_3_2.pdf"</script>';
+            $this->pdf->view_to_pdf($view,'form_e_2_3_2');
+           
         } else {
             return false;
         }
@@ -775,7 +505,7 @@ class Test_form extends CI_Controller
 
     public function form_e_2_3_3()
     {
-        $this->load->library('pdf');
+       
         $this->load->model('mod_voice_trial');
         $this->load->model('mod_voice_exam_area');
         $this->load->model('mod_voice_exam_datetime');
@@ -794,21 +524,7 @@ class Test_form extends CI_Controller
         );
         if ($data['part'] != false) {
             $view = $this->load->view('voice/form_e_2_3_3', $data, true);
-            if (!is_dir('./html/')) {
-                mkdir('./html/');
-            } else {
-                $path = 'form_e_2_3_3.html';
-                $fp = fopen('./html/' . $path, 'w');//建檔
-                fwrite($fp, $view);
-                fclose($fp);//關閉開啟的檔案
-            }
-
-            if (!is_dir('./pdf/')) {
-                mkdir('./pdf/');
-            } else {
-                exec('wkhtmltopdf --lowquality  --enable-forms http://uat.fofo.tw/fjuexam/html/form_e_2_3_3.html  ./pdf/form_e_2_3_3.pdf');
-            }
-            echo '<script>location.href="http://uat.fofo.tw/fjuexam/pdf/form_e_2_3_3.pdf"</script>';
+            $this->pdf->view_to_pdf($view,'form_e_2_3_3');
         } else {
             return false;
         }
@@ -818,7 +534,7 @@ class Test_form extends CI_Controller
      */
     public function form_e_2_4()
     {
-        $this->load->library('pdf');
+       
         $this->load->model('mod_voice_job_list');
         
         // 過濾重複資料
@@ -836,8 +552,6 @@ class Test_form extends CI_Controller
         }
 
 
-        // print_r($data_list);
-
         $data = array(
             'part' => $data_list
         );
@@ -845,21 +559,7 @@ class Test_form extends CI_Controller
 
         if ($data['part'] != false) {
             $view = $this->load->view('voice/form_e_2_4', $data, true);
-            if (!is_dir('./html/')) {
-                mkdir('./html/');
-            } else {
-                $path = 'form_e_2_4.html';
-                $fp = fopen('./html/' . $path, 'w');//建檔
-                fwrite($fp, $view);
-                fclose($fp);//關閉開啟的檔案
-            }
-
-            if (!is_dir('./pdf/')) {
-                mkdir('./pdf/');
-            } else {
-                exec('wkhtmltopdf --lowquality  --enable-forms http://uat.fofo.tw/fjuexam/html/form_e_2_4.html  ./pdf/form_e_2_4.pdf');
-            }
-            echo '<script>location.href="http://uat.fofo.tw/fjuexam/pdf/form_e_2_4.pdf"</script>';
+            $this->pdf->view_to_pdf($view,'form_e_2_4');
         } else {
             return false;
         }
@@ -887,7 +587,7 @@ class Test_form extends CI_Controller
      */
     public function form_e_2_5()
     {
-        $this->load->library('pdf');
+       
         $this->load->model('mod_voice_job_list');
         $this->load->model('mod_voice_exam_area');
 
@@ -911,21 +611,7 @@ class Test_form extends CI_Controller
 
         if ($data['list'] != false) {
             $view = $this->load->view('voice/form_e_2_5', $data, true);
-            if (!is_dir('./html/')) {
-                mkdir('./html/');
-            } else {
-                $path = 'form_e_2_5.html';
-                $fp = fopen('./html/' . $path, 'w');//建檔
-                fwrite($fp, $view);
-                fclose($fp);//關閉開啟的檔案
-            }
-
-            if (!is_dir('./pdf/')) {
-                mkdir('./pdf/');
-            } else {
-                exec('wkhtmltopdf --lowquality  --enable-forms http://uat.fofo.tw/fjuexam/html/form_e_2_5.html  ./pdf/form_e_2_5.pdf');
-            }
-            echo '<script>location.href="http://uat.fofo.tw/fjuexam/pdf/form_e_2_5.pdf"</script>';
+            $this->pdf->view_to_pdf($view,'form_e_2_5');
         } else {
             return false;
         }
@@ -953,7 +639,7 @@ class Test_form extends CI_Controller
 
     public function form_e_3_2_1()
     {
-        $this->load->library('pdf');
+       
         $this->load->model('mod_voice_trial');
         $this->load->model('mod_voice_exam_area');
 
@@ -972,28 +658,15 @@ class Test_form extends CI_Controller
             'date' => $date,
         );
         $view = $this->load->view('voice/form_e_3_2_1', $data, true);
-        if (!is_dir('./html/')) {
-            mkdir('./html/');
-        } else {
-            $path = 'form_e_3_2_1.html';
-            $fp = fopen('./html/' . $path, 'w');//建檔
-            fwrite($fp, $view);
-            fclose($fp);//關閉開啟的檔案
-        }
-
-        if (!is_dir('./pdf/')) {
-            mkdir('./pdf/');
-        } else {
-            exec('wkhtmltopdf --lowquality http://uat.fofo.tw/fjuexam/html/form_e_3_2_1.html  ./pdf/form_e_3_2_1.pdf');
-        }
-        echo '<script>location.href="http://uat.fofo.tw/fjuexam/pdf/form_e_3_2_1.pdf"</script>';
+        $this->pdf->view_to_pdf($view,'form_e_3_2_1');
+       
     }
 
 
 
     public function form_e_3_2_2()
     {
-        $this->load->library('pdf');
+       
         $this->load->model('mod_voice_trial');
         $this->load->model('mod_voice_exam_area');
        
@@ -1015,21 +688,8 @@ class Test_form extends CI_Controller
         );
         // print_r($data);
         $view = $this->load->view('voice/form_e_3_2_2', $data, true);
-        if (!is_dir('./html/')) {
-            mkdir('./html/');
-        } else {
-            $path = 'form_e_3_2_2.html';
-            $fp = fopen('./html/' . $path, 'w');//建檔
-            fwrite($fp, $view);
-            fclose($fp);//關閉開啟的檔案
-        }
-
-        if (!is_dir('./pdf/')) {
-            mkdir('./pdf/');
-        } else {
-            exec('wkhtmltopdf --lowquality http://uat.fofo.tw/fjuexam/html/form_e_3_2_2.html  ./pdf/form_e_3_2_2.pdf');
-        }
-        echo '<script>location.href="http://uat.fofo.tw/fjuexam/pdf/form_e_3_2_2.pdf"</script>';
+        $this->pdf->view_to_pdf($view,'form_e_3_2_2');
+      
     }
 
 
@@ -1038,7 +698,7 @@ class Test_form extends CI_Controller
 
     public function form_e_3_2_3()
     {
-        $this->load->library('pdf');
+       
         $this->load->model('mod_voice_trial');
         $this->load->model('mod_voice_exam_area');
 
@@ -1055,30 +715,16 @@ class Test_form extends CI_Controller
             'school' => $this->mod_voice_exam_area->year_school_name($part),
             'date' => $date,
         );
-        // print_r($data);
         $view = $this->load->view('voice/form_e_3_2_3', $data, true);
-        if (!is_dir('./html/')) {
-            mkdir('./html/');
-        } else {
-            $path = 'form_e_3_2_3.html';
-            $fp = fopen('./html/' . $path, 'w');//建檔
-            fwrite($fp, $view);
-            fclose($fp);//關閉開啟的檔案
-        }
-
-        if (!is_dir('./pdf/')) {
-            mkdir('./pdf/');
-        } else {
-            exec('wkhtmltopdf --lowquality http://uat.fofo.tw/fjuexam/html/form_e_3_2_3.html  ./pdf/form_e_3_2_3.pdf');
-        }
-        echo '<script>location.href="http://uat.fofo.tw/fjuexam/pdf/form_e_3_2_3.pdf"</script>';
+        $this->pdf->view_to_pdf($view,'form_e_3_2_3');
+       
     }
 
     
     // 各考區試場及個考生座位分配表
     public function form_e_3_3()
     {
-        $this->load->library('pdf');
+       
         $this->load->model('mod_voice_trial');
         $this->load->model('mod_voice_exam_area');
         $this->load->model('mod_voice_area');
@@ -1088,31 +734,14 @@ class Test_form extends CI_Controller
         $year = $_SESSION['year'];
         $ladder = $_SESSION['ladder'];
         $date = $this->mod_voice_exam_datetime->get_once($year, $ladder);
-        // print_r($date);
         $data = array(
             'data_list' => $data_list,
             'date' => $date,
             'block_name' => $block_name,
-
-
         );
 
         $view = $this->load->view('voice/form_e_3_3', $data, true);
-        if (!is_dir('./html/')) {
-            mkdir('./html/');
-        } else {
-            $path = 'form_e_3_3.html';
-            $fp = fopen('./html/' . $path, 'w');//建檔
-            fwrite($fp, $view);
-            fclose($fp);//關閉開啟的檔案
-        }
-
-        if (!is_dir('./pdf/')) {
-            mkdir('./pdf/');
-        } else {
-            exec('wkhtmltopdf --lowquality http://uat.fofo.tw/fjuexam/html/form_e_3_3.html  ./pdf/form_e_3_3.pdf');
-        }
-        echo '<script>location.href="http://uat.fofo.tw/fjuexam/pdf/form_e_3_3.pdf"</script>';
+        $this->pdf->view_to_pdf($view,'form_e_3_3',true);
     }
 
 
@@ -1145,8 +774,6 @@ class Test_form extends CI_Controller
 
         $objPHPExcel = new PHPExcel();
         $objPHPExcel->setActiveSheetIndex(0);
-        // $arr = $this->mod_voice_trial->get_list_for_csv();
-        // print_r($arr);
         $member_codes = array();
 
         $i = 0;
@@ -1649,7 +1276,7 @@ class Test_form extends CI_Controller
 
     public function form_e_6_1()
     {
-        $this->load->library('pdf');
+       
         $this->load->model('mod_voice_trial');
         $this->load->model('mod_voice_exam_area');
 
@@ -1683,29 +1310,14 @@ class Test_form extends CI_Controller
         );
     
 
-        // $view = $this->load->view('voice/form_e_6_1', $data);
 
         $view = $this->load->view('voice/form_e_6_1', $data, true);
-        if (!is_dir('./html/')) {
-            mkdir('./html/');
-        } else {
-            $path = 'form_e_6_1.html';
-            $fp = fopen('./html/' . $path, 'w');//建檔
-            fwrite($fp, $view);
-            fclose($fp);//關閉開啟的檔案
-        }
-
-        if (!is_dir('./pdf/')) {
-            mkdir('./pdf/');
-        } else {
-            exec('wkhtmltopdf --lowquality --enable-forms http://uat.fofo.tw/fjuexam/html/form_e_6_1.html  ./pdf/form_e_6_1.pdf');
-        }
-        echo '<script>location.href="http://uat.fofo.tw/fjuexam/pdf/form_e_6_1.pdf"</script>';
+        $this->pdf->view_to_pdf($view,'form_e_6_1');
     }
 
     public function form_e_6_2()
     {
-        $this->load->library('pdf');
+       
         $this->load->model('mod_voice_trial');
         $this->load->model('mod_voice_exam_area');
 
@@ -1738,27 +1350,11 @@ class Test_form extends CI_Controller
             'count' => $this->mod_voice_trial->get_list_for_obs_member_count($part, $obs),
         );
 
-   
-            // $view =  $this->load->view('voice/form_e_6_2', $data);
-
 
         if ($data['part'] != false) {
             $view = $this->load->view('voice/form_e_6_2', $data, true);
-            if (!is_dir('./html/')) {
-                mkdir('./html/');
-            } else {
-                $path = 'form_e_6_2.html';
-                $fp = fopen('./html/' . $path, 'w');//建檔
-                fwrite($fp, $view);
-                fclose($fp);//關閉開啟的檔案
-            }
+            $this->pdf->view_to_pdf($view,'form_e_6_2');
 
-            if (!is_dir('./pdf/')) {
-                mkdir('./pdf/');
-            } else {
-                exec('wkhtmltopdf --lowquality --enable-forms http://uat.fofo.tw/fjuexam/html/form_e_6_2.html  ./pdf/form_e_6_2.pdf');
-            }
-            echo '<script>location.href="http://uat.fofo.tw/fjuexam/pdf/form_e_6_2.pdf"</script>';
         } else {
             return false;
         }
@@ -1766,7 +1362,7 @@ class Test_form extends CI_Controller
 
     public function form_e_6_3()
     {
-        $this->load->library('pdf');
+       
         $this->load->model('mod_voice_job_list');
         $this->load->model('mod_voice_exam_area');
 
@@ -1783,21 +1379,7 @@ class Test_form extends CI_Controller
         );
         if ($data['part'] != false) {
             $view = $this->load->view('voice/form_e_6_3', $data, true);
-            if (!is_dir('./html/')) {
-                mkdir('./html/');
-            } else {
-                $path = 'form_e_6_3.html';
-                $fp = fopen('./html/' . $path, 'w');//建檔
-                fwrite($fp, $view);
-                fclose($fp);//關閉開啟的檔案
-            }
-
-            if (!is_dir('./pdf/')) {
-                mkdir('./pdf/');
-            } else {
-                exec('wkhtmltopdf --lowquality --enable-forms http://uat.fofo.tw/fjuexam/html/form_e_6_3.html  ./pdf/form_e_6_3.pdf');
-            }
-            echo '<script>location.href="http://uat.fofo.tw/fjuexam/pdf/form_e_6_3.pdf"</script>';
+            $this->pdf->view_to_pdf($view,'form_e_6_3');
         } else {
             return false;
         }
@@ -1805,7 +1387,7 @@ class Test_form extends CI_Controller
 
     public function form_e_6_4()
     {
-        $this->load->library('pdf');
+       
         $this->load->model('mod_voice_trial');
         $this->load->model('mod_voice_exam_area');
 
@@ -1822,21 +1404,7 @@ class Test_form extends CI_Controller
         );
         if ($data['part'] != false) {
             $view = $this->load->view('voice/form_e_6_4', $data, true);
-            if (!is_dir('./html/')) {
-                mkdir('./html/');
-            } else {
-                $path = 'form_e_6_4.html';
-                $fp = fopen('./html/' . $path, 'w');//建檔
-                fwrite($fp, $view);
-                fclose($fp);//關閉開啟的檔案
-            }
-
-            if (!is_dir('./pdf/')) {
-                mkdir('./pdf/');
-            } else {
-                exec('wkhtmltopdf --lowquality --enable-forms http://uat.fofo.tw/fjuexam/html/form_e_6_4.html  ./pdf/form_e_6_4.pdf');
-            }
-            echo '<script>location.href="http://uat.fofo.tw/fjuexam/pdf/form_e_6_4.pdf"</script>';
+            $this->pdf->view_to_pdf($view,'form_e_6_4');
         } else {
             return false;
         }
@@ -1844,7 +1412,7 @@ class Test_form extends CI_Controller
 
     public function form_e_6_5()
     {
-        $this->load->library('pdf');
+       
         $this->load->model('mod_voice_trial');
         $this->load->model('mod_voice_exam_area');
 
@@ -1859,21 +1427,7 @@ class Test_form extends CI_Controller
         );
         if ($data['part'] != false) {
             $view = $this->load->view('voice/form_e_6_5', $data, true);
-            if (!is_dir('./html/')) {
-                mkdir('./html/');
-            } else {
-                $path = 'form_e_6_5.html';
-                $fp = fopen('./html/' . $path, 'w');//建檔
-                fwrite($fp, $view);
-                fclose($fp);//關閉開啟的檔案
-            }
-
-            if (!is_dir('./pdf/')) {
-                mkdir('./pdf/');
-            } else {
-                exec('wkhtmltopdf --lowquality --enable-forms http://uat.fofo.tw/fjuexam/html/form_e_6_5.html  ./pdf/form_e_6_5.pdf');
-            }
-            echo '<script>location.href="http://uat.fofo.tw/fjuexam/pdf/form_e_6_5.pdf"</script>';
+            $this->pdf->view_to_pdf($view,'form_e_6_5');
         } else {
             return false;
         }
@@ -1887,8 +1441,7 @@ class Test_form extends CI_Controller
         $objPHPExcel = new PHPExcel();
         $objPHPExcel->setActiveSheetIndex(0);
         $arr = $this->mod_voice_job_list->get_all_assign_member_list();
-        // print_r($arr);
-        // for ($i=0; $i < count($arr); $i++) {
+      
         $i = 0;
         foreach ($arr as $key => $value) {
         
