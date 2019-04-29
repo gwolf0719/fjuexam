@@ -21,7 +21,7 @@
                 year: $("#year").val()
             }, function(data) {
                 alert(data.sys_msg);
-
+                location.reload();
             })
         })
     })
@@ -66,11 +66,6 @@
 
 </div>
 <div class="row" style="">
-<!-- <?=print_r($_SESSION)?> -->
-<!-- <?=print_r($a1_check)?> -->
-<!-- <?=print_r($f_check)?> -->
-<!-- <?=print_r('asdf')?> -->
-
 <!-- A-->
  <?php if(!isset($_SESSION['year'])){?>
     <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4 cube text-center">
@@ -157,32 +152,5 @@
 
 
 
-
-
-    <!-- <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4 cube  text-center">
-        <a href="./subject_ability/b">
-            <img src="assets/images/b.png" alt="">
-        </a>
-    </div> -->
-    <!-- <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4 cube text-center">
-        <a href="./subject_ability/c">
-            <img src="assets/images/c.png" alt="">
-        </a>
-    </div> -->
-    <!-- <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4 cube text-center">
-        <a href="./subject_ability/d">
-            <img src="assets/images/d.png" alt="">
-        </a>
-    </div> -->
-    <!-- <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4 cube text-center">
-        <a href="./subject_ability/e">
-            <img src="assets/images/e.png" alt="">
-        </a>
-    </div> -->
-    <!-- <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4 cube text-center">
-        <a href="./subject_ability/f">
-            <img src="assets/images/f.png" alt="">
-        </a>
-    </div> -->
 
 </div>
