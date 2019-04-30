@@ -173,6 +173,12 @@ $(function() {
         case "#3":
             part = '2503'
             break;
+        case "#4":
+            part = '2504'
+            break;
+        case "#5":
+            part = '2505'
+            break;
     }
     $.ajax({
         url: './subject_ability/api/get_part',
@@ -492,7 +498,7 @@ $(function() {
             }).done(function(data) {
                 alert(data.sys_msg);
                 if (data.sys_code == "200") {
-                    // location.reload();
+                    location.reload();
                     $("tr").each(function() {
                         if ($(this).attr("sn") == $("#sn").val()) {
                             $(this).find("td").eq(1).text(allocation_code);
@@ -625,10 +631,10 @@ $(function() {
         <div class="tab tab3" area="3" part="2503" eng="third">
             <div class="tab_text">第三分區</div>
         </div>
-        <div class="tab tab3" area="4" part="2504" eng="fourth">
+        <div class="tab tab4" area="4" part="2504" eng="fourth">
             <div class="tab_text">第四分區</div>
         </div>
-        <div class="tab tab3" area="5" part="2505" eng="fifth">
+        <div class="tab tab5" area="5" part="2505" eng="fifth">
             <div class="tab_text">第五分區</div>
         </div>
     </div>
