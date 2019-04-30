@@ -204,6 +204,7 @@ class Api extends CI_Controller
             $this->mod_ability_task->update_once($data['sn'], $data);
             $json_arr['sys_code'] = '200';
             $json_arr['sys_msg'] = '資料編輯完成';
+            $json_arr['sql'] = $this->db->last_query();
         }
         echo json_encode($json_arr);
     }
