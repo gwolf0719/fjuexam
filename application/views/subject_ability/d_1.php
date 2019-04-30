@@ -255,9 +255,9 @@ $(function() {
             },
             function(data) {
                 if (data.sys_code != "200") {
+                    alert(data.sys_msg);
                     return callback(false);
                 } else {
-                    alert(data.sys_msg);
                     return callback(true);
                 }
             }
