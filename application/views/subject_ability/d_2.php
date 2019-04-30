@@ -166,18 +166,23 @@ $(function() {
     switch (nowHash) {
         case "#1":
             part = '2501';
+            $('#part').val('2501');
             break;
         case "#2":
             part = '2502';
+            $('#part').val('2502');
             break;
         case "#3":
             part = '2503'
+            $('#part').val('2503');
             break;
         case "#4":
             part = '2504'
+            $('#part').val('2504');
             break;
         case "#5":
             part = '2505'
+            $('#part').val('2505');
             break;
     }
     $.ajax({
