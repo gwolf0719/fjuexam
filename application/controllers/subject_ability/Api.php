@@ -808,8 +808,8 @@ class Api extends CI_Controller
                 'salary' => $fees_info['salary_section'],
                 'salary_total' => $salary_total,
                 'lunch_price' => $lunch_price,
-                'lunch_total' => $lunch_total,
-                'total' => $total,
+                'lunch_total' => 0,
+                'total' => $salary_total,
             );
              // print_r($sql_data);
              // if($this->mod_trial->chk_trial_staff_field($data) == true){

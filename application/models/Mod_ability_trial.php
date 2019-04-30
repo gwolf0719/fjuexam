@@ -2537,8 +2537,19 @@ class Mod_ability_trial extends CI_Model
 
     public function update_trial($sn, $data)
     {
+        $this->load->model('mod_ability_exam_fees');
         $this->db->where('sn', $sn);
         $this->db->update('ability_trial_staff', $data);
+
+        $res = $this->db->where('sn', $sn)->get('ability_trial_staff')->row_array();
+        $fees_info = $this->mod_ability_exam_fees->get_once($_SESSION['year']);
+        $salary_total = ($data['first_section'] + $data['second_section'] + $data['third_section']) * $fees_info['salary_section'];
+        $new = array(
+            'salary_total' => $salary_total,
+            'total' => $salary_total - $res['lunch_total'],
+        );
+        $this->db->where('sn', $sn);
+        $this->db->update('ability_trial_staff', $new);
 
         return true;
     }
