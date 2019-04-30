@@ -187,8 +187,8 @@
             $("#first_member_order_meal").prop("checked",false);
             $("#first_member_day_count").val(0);
             $("#first_member_section_count").val(0);
-            $("#first_member_one_day_salary").val(<?=$fees_info['one_day_salary']; ?>);
-            $("#first_member_salary_section").val(<?=$fees_info['salary_section']; ?>);
+            $("#first_member_one_day_salary").val(<?= $fees_info['one_day_salary']; ?>);
+            $("#first_member_salary_section").val(<?= $fees_info['salary_section']; ?>);
             $("#first_member_lunch_price").val(0);
             $("#first_member_day_lunch_total").val(0);
             $("#first_member_section_lunch_total").val(0);
@@ -202,8 +202,8 @@
             $("#second_member_order_meal").prop("checked",false);
             $("#second_member_day_count").val(0);
             $("#second_member_section_count").val(0);
-            $("#second_member_one_day_salary").val(<?=$fees_info['one_day_salary']; ?>);
-            $("#second_member_salary_section").val(<?=$fees_info['salary_section']; ?>);
+            $("#second_member_one_day_salary").val(<?= $fees_info['one_day_salary']; ?>);
+            $("#second_member_salary_section").val(<?= $fees_info['salary_section']; ?>);
             $("#second_member_lunch_price").val(0);
             $("#second_member_day_lunch_total").val(0);
             $("#second_member_section_lunch_total").val(0);
@@ -235,7 +235,7 @@
             var addr = $("#addr").val();
             // console.log(arr);
             if (addr == "") {
-                alert("目前 C1 考試地址尚未填寫資料，請先填寫資料再進行操作");
+                alert("目前 C6 考試地址尚未填寫資料，請先填寫資料再進行操作");
                 location.href = "./subject_ability/c_4";
             }
         })
@@ -341,8 +341,8 @@
                 $(".field").val(field);
                 $("#sn").val(data.info.sn);
                 //職員一
-                $("#first_member_lunch_price").attr("lunch_price","<?=$fees_info['lunch_fee']; ?>");
-                $("#second_member_lunch_price").attr("lunch_price","<?=$fees_info['lunch_fee']; ?>");
+                $("#first_member_lunch_price").attr("lunch_price","<?= $fees_info['lunch_fee']; ?>");
+                $("#second_member_lunch_price").attr("lunch_price","<?= $fees_info['lunch_fee']; ?>");
                 $("#first_member_day_count").val(data.info.first_member_day_count);
                 $("#first_member_lunch_price").val(data.info.first_member_lunch_price);
                 if(data.info.first_member_order_meal == "Y"){
@@ -516,14 +516,14 @@
                 $("#first_member_lunch_price").attr("readonly", false);
                 $("#first_member_meal").val("葷");
                 //判斷有沒有編輯過便當價格決定要不要帶入預設值
-                if ($("#first_member_lunch_price").attr("lunch_price") == "<?=$fees_info['lunch_fee']; ?>" || $("#first_member_lunch_price").attr("#first_member_lunch_price") == undefined) {
+                if ($("#first_member_lunch_price").attr("lunch_price") == "<?= $fees_info['lunch_fee']; ?>" || $("#first_member_lunch_price").attr("#first_member_lunch_price") == undefined) {
                     $("#first_member_lunch_price").val($("#first_member_lunch_price").attr("lunch_price"));
                     var lunch_total = 0 - $("#first_member_lunch_price").val() * $("#first_member_day_count").val();
                     $("#first_member_section_lunch_total").val(lunch_total);
                     var first_member_section_total = parseInt($("#first_member_section_salary_total").val()) + parseInt($("#first_member_section_lunch_total").val());
                     $("#first_member_section_total").val(first_member_section_total);
                 } else {
-                    $("#first_member_lunch_price").val("<?=$fees_info['lunch_fee']; ?>");
+                    $("#first_member_lunch_price").val("<?= $fees_info['lunch_fee']; ?>");
                 }
             } else {
                 $(this).val("N");
@@ -543,14 +543,14 @@
                 $("#second_member_lunch_price").attr("readonly", false);
                 $("#second_member_meal").val("葷");
                 //判斷有沒有編輯過便當價格決定要不要帶入預設值
-                if ($("#second_member_lunch_price").attr("lunch_price") == "<?=$fees_info['lunch_fee']; ?>" || $("#second_member_lunch_price").attr("#second_member_lunch_price") == undefined) {
+                if ($("#second_member_lunch_price").attr("lunch_price") == "<?= $fees_info['lunch_fee']; ?>" || $("#second_member_lunch_price").attr("#second_member_lunch_price") == undefined) {
                     $("#second_member_lunch_price").val($("#second_member_lunch_price").attr("lunch_price"));
                     var lunch_total = 0 - $("#second_member_lunch_price").val() * $("#second_member_day_count").val();
                     $("#second_member_section_lunch_total").val(lunch_total);
                     var second_member_section_total = parseInt($("#second_member_section_salary_total").val()) + parseInt($("#second_member_section_lunch_total").val());
                     $("#second_member_section_total").val(second_member_section_total);
                 } else {
-                    $("#second_member_lunch_price").val("<?=$fees_info['lunch_fee']; ?>");
+                    $("#second_member_lunch_price").val("<?= $fees_info['lunch_fee']; ?>");
                 }
             } else {
                 $(this).val("N");
@@ -601,7 +601,7 @@
         <div class="input-group-prepend">
             <span class="input-group-text" id="inputGroup-sizing-default">學年度</span>
         </div>
-        <input type="text" class="form-control" aria-label="Default" aria-describedby="inputGroup-sizing-default" value="<?=$this->session->userdata('year'); ?>"
+        <input type="text" class="form-control" aria-label="Default" aria-describedby="inputGroup-sizing-default" value="<?= $this->session->userdata('year'); ?>"
             readonly>
 
     </div>
@@ -650,44 +650,44 @@
                 </tr>
             </thead>
             <tbody>
-                <?php foreach ($part1 as $k => $v): ?>
-                <tr sn="<?=$v['sn']; ?>" part="2501" field="<?=$v['field']; ?>"
-                    section="<?=$v['test_section']; ?>">
+                <?php foreach ($part1 as $k => $v) : ?>
+                <tr sn="<?= $v['sn']; ?>" part="2501" field="<?= $v['field']; ?>"
+                    section="<?= $v['test_section']; ?>">
                     <td>
-                        <?=$k + 1; ?>
+                        <?= $k + 1; ?>
                     </td>
                     <td>
-                        <?=$v['field']; ?>
+                        <?= $v['field']; ?>
                     </td>
                     <td>
-                        <?=$v['test_section']; ?>
+                        <?= $v['test_section']; ?>
                     </td>
                     <td>
-                        <?=$v['start']; ?>
+                        <?= $v['start']; ?>
                     </td>
                     <td>
-                        <?=$v['end']; ?>
+                        <?= $v['end']; ?>
                     </td>
                     <td>
-                        <?=$v['number']; ?>
+                        <?= $v['number']; ?>
                     </td>
                     <td>
-                        <?=$v['floor']; ?>
+                        <?= $v['floor']; ?>
                     </td>
                     <td>
-                        <?=$v['trial_staff_code_1']; ?>
+                        <?= $v['trial_staff_code_1']; ?>
                     </td>
                     <td>
-                        <?=$v['supervisor_1']; ?>
+                        <?= $v['supervisor_1']; ?>
                     </td>
                     <td>
-                        <?=$v['trial_staff_code_2']; ?>
+                        <?= $v['trial_staff_code_2']; ?>
                     </td>
                     <td>
-                        <?=$v['supervisor_2']; ?>
+                        <?= $v['supervisor_2']; ?>
                     </td>
                     <td>
-                        <?=$v['note']; ?>
+                        <?= $v['note']; ?>
                     </td>
                 </tr>
                 <?php endforeach; ?>
@@ -716,43 +716,43 @@
                 </tr>
             </thead>
             <tbody>
-                <?php foreach ($part2 as $k => $v): ?>
-                <tr sn="<?=$v['sn']; ?>" part="2502" field="<?=$v['field']; ?>" section="<?=$v['test_section']; ?>">
+                <?php foreach ($part2 as $k => $v) : ?>
+                <tr sn="<?= $v['sn']; ?>" part="2502" field="<?= $v['field']; ?>" section="<?= $v['test_section']; ?>">
                     <td>
-                        <?=$k + 1; ?>
+                        <?= $k + 1; ?>
                     </td>
                     <td>
-                        <?=$v['field']; ?>
+                        <?= $v['field']; ?>
                     </td>
                     <td>
-                        <?=$v['test_section']; ?>
+                        <?= $v['test_section']; ?>
                     </td>
                     <td>
-                        <?=$v['start']; ?>
+                        <?= $v['start']; ?>
                     </td>
                     <td>
-                        <?=$v['end']; ?>
+                        <?= $v['end']; ?>
                     </td>
                     <td>
-                        <?=$v['number']; ?>
+                        <?= $v['number']; ?>
                     </td>
                     <td>
-                        <?=$v['floor']; ?>
+                        <?= $v['floor']; ?>
                     </td>
                     <td>
-                        <?=$v['trial_staff_code_1']; ?>
+                        <?= $v['trial_staff_code_1']; ?>
                     </td>
                     <td>
-                        <?=$v['supervisor_1']; ?>
+                        <?= $v['supervisor_1']; ?>
                     </td>
                     <td>
-                        <?=$v['trial_staff_code_2']; ?>
+                        <?= $v['trial_staff_code_2']; ?>
                     </td>
                     <td>
-                        <?=$v['supervisor_2']; ?>
+                        <?= $v['supervisor_2']; ?>
                     </td>
                     <td>
-                        <?=$v['note']; ?>
+                        <?= $v['note']; ?>
                     </td>
                 </tr>
                 <?php endforeach; ?>
@@ -781,43 +781,43 @@
                 </tr>
             </thead>
             <tbody>
-                <?php foreach ($part3 as $k => $v): ?>
-                <tr sn="<?=$v['sn']; ?>" part="2503" field="<?=$v['field']; ?>" section="<?=$v['test_section']; ?>">
+                <?php foreach ($part3 as $k => $v) : ?>
+                <tr sn="<?= $v['sn']; ?>" part="2503" field="<?= $v['field']; ?>" section="<?= $v['test_section']; ?>">
                     <td>
-                        <?=$k + 1; ?>
+                        <?= $k + 1; ?>
                     </td>
                     <td>
-                        <?=$v['field']; ?>
+                        <?= $v['field']; ?>
                     </td>
                     <td>
-                        <?=$v['test_section']; ?>
+                        <?= $v['test_section']; ?>
                     </td>
                     <td>
-                        <?=$v['start']; ?>
+                        <?= $v['start']; ?>
                     </td>
                     <td>
-                        <?=$v['end']; ?>
+                        <?= $v['end']; ?>
                     </td>
                     <td>
-                        <?=$v['number']; ?>
+                        <?= $v['number']; ?>
                     </td>
                     <td>
-                        <?=$v['floor']; ?>
+                        <?= $v['floor']; ?>
                     </td>
                     <td>
-                        <?=$v['trial_staff_code_1']; ?>
+                        <?= $v['trial_staff_code_1']; ?>
                     </td>
                     <td>
-                        <?=$v['supervisor_1']; ?>
+                        <?= $v['supervisor_1']; ?>
                     </td>
                     <td>
-                        <?=$v['trial_staff_code_2']; ?>
+                        <?= $v['trial_staff_code_2']; ?>
                     </td>
                     <td>
-                        <?=$v['supervisor_2']; ?>
+                        <?= $v['supervisor_2']; ?>
                     </td>
                     <td>
-                        <?=$v['note']; ?>
+                        <?= $v['note']; ?>
                     </td>
                 </tr>
                 <?php endforeach; ?>
@@ -847,43 +847,43 @@
                 </tr>
             </thead>
             <tbody>
-                <?php foreach ($part4 as $k => $v): ?>
-                <tr sn="<?=$v['sn']; ?>" part="2504" field="<?=$v['field']; ?>" section="<?=$v['test_section']; ?>">
+                <?php foreach ($part4 as $k => $v) : ?>
+                <tr sn="<?= $v['sn']; ?>" part="2504" field="<?= $v['field']; ?>" section="<?= $v['test_section']; ?>">
                     <td>
-                        <?=$k + 1; ?>
+                        <?= $k + 1; ?>
                     </td>
                     <td>
-                        <?=$v['field']; ?>
+                        <?= $v['field']; ?>
                     </td>
                     <td>
-                        <?=$v['test_section']; ?>
+                        <?= $v['test_section']; ?>
                     </td>
                     <td>
-                        <?=$v['start']; ?>
+                        <?= $v['start']; ?>
                     </td>
                     <td>
-                        <?=$v['end']; ?>
+                        <?= $v['end']; ?>
                     </td>
                     <td>
-                        <?=$v['number']; ?>
+                        <?= $v['number']; ?>
                     </td>
                     <td>
-                        <?=$v['floor']; ?>
+                        <?= $v['floor']; ?>
                     </td>
                     <td>
-                        <?=$v['trial_staff_code_1']; ?>
+                        <?= $v['trial_staff_code_1']; ?>
                     </td>
                     <td>
-                        <?=$v['supervisor_1']; ?>
+                        <?= $v['supervisor_1']; ?>
                     </td>
                     <td>
-                        <?=$v['trial_staff_code_2']; ?>
+                        <?= $v['trial_staff_code_2']; ?>
                     </td>
                     <td>
-                        <?=$v['supervisor_2']; ?>
+                        <?= $v['supervisor_2']; ?>
                     </td>
                     <td>
-                        <?=$v['note']; ?>
+                        <?= $v['note']; ?>
                     </td>
                 </tr>
                 <?php endforeach; ?>
@@ -912,43 +912,43 @@
                 </tr>
             </thead>
             <tbody>
-                <?php foreach ($part5 as $k => $v): ?>
-                <tr sn="<?=$v['sn']; ?>" part="2505" field="<?=$v['field']; ?>" section="<?=$v['test_section']; ?>">
+                <?php foreach ($part5 as $k => $v) : ?>
+                <tr sn="<?= $v['sn']; ?>" part="2505" field="<?= $v['field']; ?>" section="<?= $v['test_section']; ?>">
                     <td>
-                        <?=$k + 1; ?>
+                        <?= $k + 1; ?>
                     </td>
                     <td>
-                        <?=$v['field']; ?>
+                        <?= $v['field']; ?>
                     </td>
                     <td>
-                        <?=$v['test_section']; ?>
+                        <?= $v['test_section']; ?>
                     </td>
                     <td>
-                        <?=$v['start']; ?>
+                        <?= $v['start']; ?>
                     </td>
                     <td>
-                        <?=$v['end']; ?>
+                        <?= $v['end']; ?>
                     </td>
                     <td>
-                        <?=$v['number']; ?>
+                        <?= $v['number']; ?>
                     </td>
                     <td>
-                        <?=$v['floor']; ?>
+                        <?= $v['floor']; ?>
                     </td>
                     <td>
-                        <?=$v['trial_staff_code_1']; ?>
+                        <?= $v['trial_staff_code_1']; ?>
                     </td>
                     <td>
-                        <?=$v['supervisor_1']; ?>
+                        <?= $v['supervisor_1']; ?>
                     </td>
                     <td>
-                        <?=$v['trial_staff_code_2']; ?>
+                        <?= $v['trial_staff_code_2']; ?>
                     </td>
                     <td>
-                        <?=$v['supervisor_2']; ?>
+                        <?= $v['supervisor_2']; ?>
                     </td>
                     <td>
-                        <?=$v['note']; ?>
+                        <?= $v['note']; ?>
                     </td>
                 </tr>
                 <?php endforeach; ?>
@@ -993,17 +993,17 @@
                         </div>
                         <div class="form-group">
                             <label for="start_date" class="" style="float:left;">執行日</label>
-                            <input  type="checkbox" class="chbox" id="" name="first_member_day" value="<?=mb_substr($datetime_info['day_1'], 5, 8, 'utf-8'); ?>">
+                            <input  type="checkbox" class="chbox" id="" name="first_member_day" value="<?= mb_substr($datetime_info['day_1'], 5, 8, 'utf-8'); ?>">
                             <span class="chbox">
-                                <?=mb_substr($datetime_info['day_1'], 5, 8, 'utf-8'); ?>
+                                <?= mb_substr($datetime_info['day_1'], 5, 8, 'utf-8'); ?>
                             </span>
-                            <input  type="checkbox" class="chbox" id="" name="first_member_day" value="<?=mb_substr($datetime_info['day_2'], 5, 8, 'utf-8'); ?>">
+                            <input  type="checkbox" class="chbox" id="" name="first_member_day" value="<?= mb_substr($datetime_info['day_2'], 5, 8, 'utf-8'); ?>">
                             <span class="chbox">
-                                <?=mb_substr($datetime_info['day_2'], 5, 8, 'utf-8'); ?>
+                                <?= mb_substr($datetime_info['day_2'], 5, 8, 'utf-8'); ?>
                             </span>
-                            <input  type="checkbox" class="chbox" id="" name="first_member_day" value="<?=mb_substr($datetime_info['day_3'], 5, 8, 'utf-8'); ?>">
+                            <input  type="checkbox" class="chbox" id="" name="first_member_day" value="<?= mb_substr($datetime_info['day_3'], 5, 8, 'utf-8'); ?>">
                             <span class="chbox">
-                                <?=mb_substr($datetime_info['day_3'], 5, 8, 'utf-8'); ?>
+                                <?= mb_substr($datetime_info['day_3'], 5, 8, 'utf-8'); ?>
                             </span>
                         </div>
                         <div class="form-group">
@@ -1028,8 +1028,8 @@
                         <div class="form-group" style="padding: 0% 3%;">
                             <div class="W50">
                                 <label for="trial_start" class="" style="float:left;width: 50%;">薪資單價</label>
-                                <input type="hidden" class="form-control" id="first_member_one_day_salary" value="<?=$fees_info['one_day_salary']; ?>">
-                                <input type="text" class="form-control" id="first_member_salary_section" value="<?=$fees_info['salary_section']; ?>">
+                                <input type="hidden" class="form-control" id="first_member_one_day_salary" value="<?= $fees_info['one_day_salary']; ?>">
+                                <input type="text" class="form-control" id="first_member_salary_section" value="<?= $fees_info['salary_section']; ?>">
                             </div>
                             <div class="W50">
                                 <label for="trial_start" class="" style="float:left;width: 50%;">薪資總計</label>
@@ -1040,7 +1040,7 @@
                         <div class="form-group" style="padding: 0% 3%;">
                             <div class="W50">
                                 <label for="trial_start" class="" style="float:left;width: 50%;">便當費 </label>
-                                <input type="text" class="form-control" id="first_member_lunch_price" value="<?=$fees_info['lunch_fee']; ?>">
+                                <input type="text" class="form-control" id="first_member_lunch_price" value="<?= $fees_info['lunch_fee']; ?>">
                             </div>
                             <div class="W50">
                                 <label for="trial_start" class="" style="float:left;width: 50%;">便當總計</label>
@@ -1095,17 +1095,17 @@
                         </div>
                         <div class="form-group">
                             <label for="start_date" class="" style="float:left;">執行日</label>
-                            <input type="checkbox" class="chbox" id="" name="second_member_day" value="<?=mb_substr($datetime_info['day_1'], 5, 8, 'utf-8'); ?>">
+                            <input type="checkbox" class="chbox" id="" name="second_member_day" value="<?= mb_substr($datetime_info['day_1'], 5, 8, 'utf-8'); ?>">
                             <span class="chbox">
-                                <?=mb_substr($datetime_info['day_1'], 5, 8, 'utf-8'); ?>
+                                <?= mb_substr($datetime_info['day_1'], 5, 8, 'utf-8'); ?>
                             </span>
-                            <input type="checkbox" class="chbox" id="" name="second_member_day" value="<?=mb_substr($datetime_info['day_2'], 5, 8, 'utf-8'); ?>">
+                            <input type="checkbox" class="chbox" id="" name="second_member_day" value="<?= mb_substr($datetime_info['day_2'], 5, 8, 'utf-8'); ?>">
                             <span class="chbox">
-                                <?=mb_substr($datetime_info['day_2'], 5, 8, 'utf-8'); ?>
+                                <?= mb_substr($datetime_info['day_2'], 5, 8, 'utf-8'); ?>
                             </span>
-                            <input type="checkbox" class="chbox" id="" name="second_member_day" value="<?=mb_substr($datetime_info['day_3'], 5, 8, 'utf-8'); ?>">
+                            <input type="checkbox" class="chbox" id="" name="second_member_day" value="<?= mb_substr($datetime_info['day_3'], 5, 8, 'utf-8'); ?>">
                             <span class="chbox">
-                                <?=mb_substr($datetime_info['day_3'], 5, 8, 'utf-8'); ?>
+                                <?= mb_substr($datetime_info['day_3'], 5, 8, 'utf-8'); ?>
                             </span>
                         </div>
                         <div class="form-group">
@@ -1130,8 +1130,8 @@
                         <div class="form-group" style="padding: 0% 3%;">
                             <div class="W50">
                                 <label for="trial_start" class="" style="float:left;width: 50%;">薪資單價</label>
-                                <input type="hidden" class="form-control" id="second_member_one_day_salary" value="<?=$fees_info['one_day_salary']; ?>">
-                                <input type="text" class="form-control" id="second_member_salary_section" value="<?=$fees_info['salary_section']; ?>">
+                                <input type="hidden" class="form-control" id="second_member_one_day_salary" value="<?= $fees_info['one_day_salary']; ?>">
+                                <input type="text" class="form-control" id="second_member_salary_section" value="<?= $fees_info['salary_section']; ?>">
                             </div>
                             <div class="W50">
                                 <label for="trial_start" class="" style="float:left;width: 50%;">薪資總計</label>
@@ -1142,7 +1142,7 @@
                         <div class="form-group" style="padding: 0% 3%;">
                             <div class="W50">
                                 <label for="trial_start" class="" style="float:left;width: 50%;">便當費 </label>
-                                <input type="text" class="form-control" id="second_member_lunch_price" value="<?=$fees_info['lunch_fee']; ?>">
+                                <input type="text" class="form-control" id="second_member_lunch_price" value="<?= $fees_info['lunch_fee']; ?>">
                             </div>
                             <div class="W50">
                                 <label for="trial_start" class="" style="float:left;width: 50%;">便當總計</label>

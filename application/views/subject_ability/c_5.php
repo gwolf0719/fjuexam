@@ -70,7 +70,7 @@ $(function(){
         var addr = $("#addr").val();
         // console.log(arr);
         if(addr == ""){
-            alert("目前 C3 考試地址尚未填寫資料，請先填寫資料再進行操作");
+            alert("目前 C6 考試地址尚未填寫資料，請先填寫資料再進行操作");
             location.href="./subject_ability/c_6";
         }
     })
@@ -135,7 +135,7 @@ $(function(){
         <div class="input-group-prepend">
             <span class="input-group-text" id="inputGroup-sizing-default">學年度</span>
         </div>
-        <input type="text" class="form-control" aria-label="Default" aria-describedby="inputGroup-sizing-default" value="<?=$this->session->userdata('year'); ?>" readonly>
+        <input type="text" class="form-control" aria-label="Default" aria-describedby="inputGroup-sizing-default" value="<?= $this->session->userdata('year'); ?>" readonly>
         
     </div>
 
@@ -165,20 +165,20 @@ $(function(){
                 </tr>
             </thead>
             <tbody>
-            <?php foreach ($datalist as $k => $v): ?>
-                <tr sn="<?=$v['sn']; ?>">
-                    <td><?=$k + 1; ?></td>
-                    <td><?=$v['year']; ?></td>
-                    <td><?=$v['part']; ?></td>
-                    <td><?=$v['part_name']; ?></td>
-                    <td><?=$v['field']; ?></td>
-                    <td><?=$v['test_section']; ?></td>
-                    <td><?=$v['start']; ?></td>
-                    <td><?=$v['end']; ?></td>
-                    <td><?=$v['number']; ?></td>
-                    <!-- <td><?=$addr_info['part_addr_3']; ?></td> -->
-                    <td><?=$v['floor']; ?></td>
-                    <td><?=$v['note']; ?></td>
+            <?php foreach ($datalist as $k => $v) : ?>
+                <tr sn="<?= $v['sn']; ?>">
+                    <td><?= $k + 1; ?></td>
+                    <td><?= $v['year']; ?></td>
+                    <td><?= $v['part']; ?></td>
+                    <td><?= $v['part_name']; ?></td>
+                    <td><?= $v['field']; ?></td>
+                    <td><?= $v['test_section']; ?></td>
+                    <td><?= $v['start']; ?></td>
+                    <td><?= $v['end']; ?></td>
+                    <td><?= $v['number']; ?></td>
+                    <!-- <td><?= $addr_info['part_addr_3']; ?></td> -->
+                    <td><?= $v['floor']; ?></td>
+                    <td><?= $v['note']; ?></td>
                 </tr>                    
             <?php endforeach; ?>
             </tbody>
@@ -205,16 +205,16 @@ $(function(){
                     <div class="form-group">
                         <label for="start" class=""  style="float:left;">試場起號</label>
                         <select name="start" id="start" class="form-control">
-                            <?php foreach ($datalist as $k => $v): ?>
-                                <option value="<?=$v['field']; ?>"><?=$v['field']; ?></option>
+                            <?php foreach ($datalist as $k => $v) : ?>
+                                <option value="<?= $v['field']; ?>"><?= $v['field']; ?></option>
                             <?php endforeach; ?>         
                         </select>
                     </div>                  
                     <div class="form-group">
                         <label for="end" class=""  style="float:left;">試場迄號</label>
                         <select name="start" id="end" class="form-control">
-                            <?php foreach ($datalist as $k => $v): ?>
-                                <option value="<?=$v['field']; ?>"><?=$v['field']; ?></option>
+                            <?php foreach ($datalist as $k => $v) : ?>
+                                <option value="<?= $v['field']; ?>"><?= $v['field']; ?></option>
                             <?php endforeach; ?>        
                         </select>
                     </div>     
@@ -222,7 +222,7 @@ $(function(){
                 <div class="col-md-3 col-sm-3 col-xs-3 cube">   
                     <div class="form-group" style="display:none">
                         <label for="addr" class="" style="float:left;">考試地址</label>
-                        <input type="text" class="form-control" id="addr" value="<?=$addr_info['part_addr_1']; ?>" readonly>
+                        <input type="text" class="form-control" id="addr" value="<?= $addr_info['part_addr_1']; ?>" readonly>
                     </div>  
                     <div class="form-group">
                         <label for="floor" class="" style="float:left;">樓層別</label>

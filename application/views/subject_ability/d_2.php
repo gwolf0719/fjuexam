@@ -140,7 +140,7 @@
             var addr = $("#addr").val();
             // console.log(arr);
             if (addr == "") {
-                alert("目前 C1 考試地址尚未填寫資料，請先填寫資料再進行操作");
+                alert("目前 C6 考試地址尚未填寫資料，請先填寫資料再進行操作");
                 location.href = "./subject_ability/c_4";
             }
 
@@ -567,7 +567,7 @@
         <div class="input-group-prepend">
             <span class="input-group-text" id="inputGroup-sizing-default">學年度</span>
         </div>
-        <input type="text" class="form-control" aria-label="Default" aria-describedby="inputGroup-sizing-default" value="<?=$this->session->userdata('year'); ?>"
+        <input type="text" class="form-control" aria-label="Default" aria-describedby="inputGroup-sizing-default" value="<?= $this->session->userdata('year'); ?>"
             readonly>
 
     </div>
@@ -622,46 +622,46 @@
                 </tr>
             </thead>
             <tbody>
-                <?php foreach ($part1 as $k => $v): ?>
-                <tr sn="<?=$v['sn']; ?>" part="<?=$v['part']; ?>">
+                <?php foreach ($part1 as $k => $v) : ?>
+                <tr sn="<?= $v['sn']; ?>" part="<?= $v['part']; ?>">
                     <td class="bt">
-                        <?=$k + 1; ?>
+                        <?= $k + 1; ?>
                     </td>
                     <td class="bt">
-                        <?=$v['allocation_code']; ?>
+                        <?= $v['allocation_code']; ?>
                     </td>
                     <td class="bt">
-                        <?=$v['trial_staff_name']; ?>
+                        <?= $v['trial_staff_name']; ?>
                     </td>
                     <td class="bt">
-                        <?=$v['first_start']; ?>
+                        <?= $v['first_start']; ?>
                     </td>
                     <td class="bt">
-                        <?=$v['first_end']; ?>
+                        <?= $v['first_end']; ?>
                     </td>
                     <td class="bt">
-                        <?=$v['first_section']; ?>
+                        <?= $v['first_section']; ?>
                     </td>
                     <td class="bt">
-                        <?=$v['second_start']; ?>
+                        <?= $v['second_start']; ?>
                     </td>
                     <td class="bt">
-                        <?=$v['second_end']; ?>
+                        <?= $v['second_end']; ?>
                     </td>
                     <td class="bt">
-                        <?=$v['second_section']; ?>
+                        <?= $v['second_section']; ?>
                     </td>
                     <td class="bt">
-                        <?=$v['third_start']; ?>
+                        <?= $v['third_start']; ?>
                     </td>
                     <td class="bt">
-                        <?=$v['third_end']; ?>
+                        <?= $v['third_end']; ?>
                     </td>
                     <td class="bt">
-                        <?=$v['third_section']; ?>
+                        <?= $v['third_section']; ?>
                     </td>
                     <td class="bt">
-                        <?=$v['note']; ?>
+                        <?= $v['note']; ?>
                     </td>
                 </tr>
                 <?php endforeach; ?>
@@ -695,46 +695,46 @@
                 </tr>
             </thead>
             <tbody>
-                <?php foreach ($part2 as $k => $v): ?>
-                <tr sn="<?=$v['sn']; ?>" part="<?=$v['part']; ?>">
+                <?php foreach ($part2 as $k => $v) : ?>
+                <tr sn="<?= $v['sn']; ?>" part="<?= $v['part']; ?>">
                     <td class="bt">
-                        <?=$k + 1; ?>
+                        <?= $k + 1; ?>
                     </td>
                     <td class="bt">
-                        <?=$v['allocation_code']; ?>
+                        <?= $v['allocation_code']; ?>
                     </td>
                     <td class="bt">
-                        <?=$v['trial_staff_name']; ?>
+                        <?= $v['trial_staff_name']; ?>
                     </td>
                     <td class="bt">
-                        <?=$v['first_start']; ?>
+                        <?= $v['first_start']; ?>
                     </td>
                     <td class="bt">
-                        <?=$v['first_end']; ?>
+                        <?= $v['first_end']; ?>
                     </td>
                     <td class="bt">
-                        <?=$v['first_section']; ?>
+                        <?= $v['first_section']; ?>
                     </td>
                     <td class="bt">
-                        <?=$v['second_start']; ?>
+                        <?= $v['second_start']; ?>
                     </td>
                     <td class="bt">
-                        <?=$v['second_end']; ?>
+                        <?= $v['second_end']; ?>
                     </td>
                     <td class="bt">
-                        <?=$v['second_section']; ?>
+                        <?= $v['second_section']; ?>
                     </td>
                     <td class="bt">
-                        <?=$v['third_start']; ?>
+                        <?= $v['third_start']; ?>
                     </td>
                     <td class="bt">
-                        <?=$v['third_end']; ?>
+                        <?= $v['third_end']; ?>
                     </td>
                     <td class="bt">
-                        <?=$v['third_section']; ?>
+                        <?= $v['third_section']; ?>
                     </td>
                     <td class="bt">
-                        <?=$v['note']; ?>
+                        <?= $v['note']; ?>
                     </td>
                 </tr>
                 <?php endforeach; ?>
@@ -768,46 +768,46 @@
                 </tr>
             </thead>
             <tbody>
-                <?php foreach ($part3 as $k => $v): ?>
-                <tr sn="<?=$v['sn']; ?>" part="<?=$v['part']; ?>">
+                <?php foreach ($part3 as $k => $v) : ?>
+                <tr sn="<?= $v['sn']; ?>" part="<?= $v['part']; ?>">
                     <td class="bt">
-                        <?=$k + 1; ?>
+                        <?= $k + 1; ?>
                     </td>
                     <td class="bt">
-                        <?=$v['allocation_code']; ?>
+                        <?= $v['allocation_code']; ?>
                     </td>
                     <td class="bt">
-                        <?=$v['trial_staff_name']; ?>
+                        <?= $v['trial_staff_name']; ?>
                     </td>
                     <td class="bt">
-                        <?=$v['first_start']; ?>
+                        <?= $v['first_start']; ?>
                     </td>
                     <td class="bt">
-                        <?=$v['first_end']; ?>
+                        <?= $v['first_end']; ?>
                     </td>
                     <td class="bt">
-                        <?=$v['first_section']; ?>
+                        <?= $v['first_section']; ?>
                     </td>
                     <td class="bt">
-                        <?=$v['second_start']; ?>
+                        <?= $v['second_start']; ?>
                     </td>
                     <td class="bt">
-                        <?=$v['second_end']; ?>
+                        <?= $v['second_end']; ?>
                     </td>
                     <td class="bt">
-                        <?=$v['second_section']; ?>
+                        <?= $v['second_section']; ?>
                     </td>
                     <td class="bt">
-                        <?=$v['third_start']; ?>
+                        <?= $v['third_start']; ?>
                     </td>
                     <td class="bt">
-                        <?=$v['third_end']; ?>
+                        <?= $v['third_end']; ?>
                     </td>
                     <td class="bt">
-                        <?=$v['third_section']; ?>
+                        <?= $v['third_section']; ?>
                     </td>
                     <td class="bt">
-                        <?=$v['note']; ?>
+                        <?= $v['note']; ?>
                     </td>
                 </tr>
                 <?php endforeach; ?>
@@ -841,46 +841,46 @@
                 </tr>
             </thead>
             <tbody>
-                <?php foreach ($part4 as $k => $v): ?>
-                <tr sn="<?=$v['sn']; ?>" part="<?=$v['part']; ?>">
+                <?php foreach ($part4 as $k => $v) : ?>
+                <tr sn="<?= $v['sn']; ?>" part="<?= $v['part']; ?>">
                     <td class="bt">
-                        <?=$k + 1; ?>
+                        <?= $k + 1; ?>
                     </td>
                     <td class="bt">
-                        <?=$v['allocation_code']; ?>
+                        <?= $v['allocation_code']; ?>
                     </td>
                     <td class="bt">
-                        <?=$v['trial_staff_name']; ?>
+                        <?= $v['trial_staff_name']; ?>
                     </td>
                     <td class="bt">
-                        <?=$v['first_start']; ?>
+                        <?= $v['first_start']; ?>
                     </td>
                     <td class="bt">
-                        <?=$v['first_end']; ?>
+                        <?= $v['first_end']; ?>
                     </td>
                     <td class="bt">
-                        <?=$v['first_section']; ?>
+                        <?= $v['first_section']; ?>
                     </td>
                     <td class="bt">
-                        <?=$v['second_start']; ?>
+                        <?= $v['second_start']; ?>
                     </td>
                     <td class="bt">
-                        <?=$v['second_end']; ?>
+                        <?= $v['second_end']; ?>
                     </td>
                     <td class="bt">
-                        <?=$v['second_section']; ?>
+                        <?= $v['second_section']; ?>
                     </td>
                     <td class="bt">
-                        <?=$v['third_start']; ?>
+                        <?= $v['third_start']; ?>
                     </td>
                     <td class="bt">
-                        <?=$v['third_end']; ?>
+                        <?= $v['third_end']; ?>
                     </td>
                     <td class="bt">
-                        <?=$v['third_section']; ?>
+                        <?= $v['third_section']; ?>
                     </td>
                     <td class="bt">
-                        <?=$v['note']; ?>
+                        <?= $v['note']; ?>
                     </td>
                 </tr>
                 <?php endforeach; ?>
@@ -914,46 +914,46 @@
                 </tr>
             </thead>
             <tbody>
-                <?php foreach ($part5 as $k => $v): ?>
-                <tr sn="<?=$v['sn']; ?>" part="<?=$v['part']; ?>">
+                <?php foreach ($part5 as $k => $v) : ?>
+                <tr sn="<?= $v['sn']; ?>" part="<?= $v['part']; ?>">
                     <td class="bt">
-                        <?=$k + 1; ?>
+                        <?= $k + 1; ?>
                     </td>
                     <td class="bt">
-                        <?=$v['allocation_code']; ?>
+                        <?= $v['allocation_code']; ?>
                     </td>
                     <td class="bt">
-                        <?=$v['trial_staff_name']; ?>
+                        <?= $v['trial_staff_name']; ?>
                     </td>
                     <td class="bt">
-                        <?=$v['first_start']; ?>
+                        <?= $v['first_start']; ?>
                     </td>
                     <td class="bt">
-                        <?=$v['first_end']; ?>
+                        <?= $v['first_end']; ?>
                     </td>
                     <td class="bt">
-                        <?=$v['first_section']; ?>
+                        <?= $v['first_section']; ?>
                     </td>
                     <td class="bt">
-                        <?=$v['second_start']; ?>
+                        <?= $v['second_start']; ?>
                     </td>
                     <td class="bt">
-                        <?=$v['second_end']; ?>
+                        <?= $v['second_end']; ?>
                     </td>
                     <td class="bt">
-                        <?=$v['second_section']; ?>
+                        <?= $v['second_section']; ?>
                     </td>
                     <td class="bt">
-                        <?=$v['third_start']; ?>
+                        <?= $v['third_start']; ?>
                     </td>
                     <td class="bt">
-                        <?=$v['third_end']; ?>
+                        <?= $v['third_end']; ?>
                     </td>
                     <td class="bt">
-                        <?=$v['third_section']; ?>
+                        <?= $v['third_section']; ?>
                     </td>
                     <td class="bt">
-                        <?=$v['note']; ?>
+                        <?= $v['note']; ?>
                     </td>
                 </tr>
                 <?php endforeach; ?>
@@ -978,15 +978,15 @@
                 </div>
                 <div class="col-md-3 col-sm-3 col-xs-3 cube" style="max-width: 20%;">
                     <p style="text-align:center">第一天
-                        <?=$datetime_info['day_1']; ?>
+                        <?= $datetime_info['day_1']; ?>
                     </p>
                     <div class="form-group">
                         <label for="field" class="" style="float:left;">試場號起</label>
                         <input type="hidden" value="1" id="day1">
                         <select name="start" id="first_start" class="field field_start field1 form-control">
-                            <?php foreach ($part as $k => $v): ?>
-                            <option value="<?=$v['field']; ?>" day="1">
-                                <?=$v['field']; ?>
+                            <?php foreach ($part as $k => $v) : ?>
+                            <option value="<?= $v['field']; ?>" day="1">
+                                <?= $v['field']; ?>
                             </option>
                             <?php endforeach; ?>
                         </select>
@@ -994,29 +994,29 @@
                     <div class="form-group">
                         <label for="section" class="" style="float:left;">試場號迄</label>
                         <select name="end" id="first_end" class="field field1 field_end form-control">
-                            <?php foreach ($part as $k => $v): ?>
-                            <option value="<?=$v['field']; ?>" day="1">
-                                <?=$v['field']; ?>
+                            <?php foreach ($part as $k => $v) : ?>
+                            <option value="<?= $v['field']; ?>" day="1">
+                                <?= $v['field']; ?>
                             </option>
                             <?php endforeach; ?>
                         </select>
                     </div>
                     <div class="form-group">
                         <label for="start" class="" style="float:left;">節數</label>
-                        <input type="text" class="form-control day" id="first_section" value="0" readonly day="<?=mb_substr($datetime_info['day_1'], 5, 8, 'utf-8'); ?>">
+                        <input type="text" class="form-control day" id="first_section" value="0" readonly day="<?= mb_substr($datetime_info['day_1'], 5, 8, 'utf-8'); ?>">
                     </div>
                 </div>
                 <div class="col-md-3 col-sm-3 col-xs-3 cube" style="max-width: 20%;">
                     <p style="text-align:center">第二天
-                        <?=$datetime_info['day_2']; ?>
+                        <?= $datetime_info['day_2']; ?>
                     </p>
                     <div class="form-group">
                         <label for="field" class="" style="float:left;">試場號起</label>
                         <input type="hidden" value="2" id="day2">
                         <select name="start" id="second_start" class="field field_start field2 form-control">
-                            <?php foreach ($part as $k => $v): ?>
-                            <option value="<?=$v['field']; ?>">
-                                <?=$v['field']; ?>
+                            <?php foreach ($part as $k => $v) : ?>
+                            <option value="<?= $v['field']; ?>">
+                                <?= $v['field']; ?>
                             </option>
                             <?php endforeach; ?>
                         </select>
@@ -1024,29 +1024,29 @@
                     <div class="form-group">
                         <label for="section" class="" style="float:left;">試場號迄</label>
                         <select name="end" id="second_end" class="field field2 field_end form-control">
-                            <?php foreach ($part as $k => $v): ?>
-                            <option value="<?=$v['field']; ?>" day="2">
-                                <?=$v['field']; ?>
+                            <?php foreach ($part as $k => $v) : ?>
+                            <option value="<?= $v['field']; ?>" day="2">
+                                <?= $v['field']; ?>
                             </option>
                             <?php endforeach; ?>
                         </select>
                     </div>
                     <div class="form-group">
                         <label for="start" class="" style="float:left;">節數</label>
-                        <input type="text" class="form-control day" id="second_section" value="0" readonly day="<?=mb_substr($datetime_info['day_2'], 5, 8, 'utf-8'); ?>">
+                        <input type="text" class="form-control day" id="second_section" value="0" readonly day="<?= mb_substr($datetime_info['day_2'], 5, 8, 'utf-8'); ?>">
                     </div>
                 </div>
                 <div class="col-md-3 col-sm-3 col-xs-3 cube" style="max-width: 20%;">
                     <p style="text-align:center">第三天
-                        <?=$datetime_info['day_3']; ?>
+                        <?= $datetime_info['day_3']; ?>
                     </p>
                     <div class="form-group">
                         <label for="field" class="" style="float:left;">試場號起</label>
                         <input type="hidden" value="3" id="day3">
                         <select name="start" id="third_start" class="field field_start field3 form-control">
-                            <?php foreach ($part as $k => $v): ?>
-                            <option value="<?=$v['field']; ?>" day="3">
-                                <?=$v['field']; ?>
+                            <?php foreach ($part as $k => $v) : ?>
+                            <option value="<?= $v['field']; ?>" day="3">
+                                <?= $v['field']; ?>
                             </option>
                             <?php endforeach; ?>
                         </select>
@@ -1054,16 +1054,16 @@
                     <div class="form-group">
                         <label for="section" class="" style="float:left;">試場號迄</label>
                         <select name="end" id="third_end" class="field field3 field_end form-control">
-                            <?php foreach ($part as $k => $v): ?>
-                            <option value="<?=$v['field']; ?>" day="3">
-                                <?=$v['field']; ?>
+                            <?php foreach ($part as $k => $v) : ?>
+                            <option value="<?= $v['field']; ?>" day="3">
+                                <?= $v['field']; ?>
                             </option>
                             <?php endforeach; ?>
                         </select>
                     </div>
                     <div class="form-group">
                         <label for="start" class="" style="float:left;">節數</label>
-                        <input type="text" class="form-control day" id="third_section" value="0" readonly day="<?=mb_substr($datetime_info['day_3'], 5, 8, 'utf-8'); ?>">
+                        <input type="text" class="form-control day" id="third_section" value="0" readonly day="<?= mb_substr($datetime_info['day_3'], 5, 8, 'utf-8'); ?>">
                     </div>
                 </div>
                 <div class="col-md-6 col-sm-6 col-xs-6 " style="float:left;margin: 20px auto;">

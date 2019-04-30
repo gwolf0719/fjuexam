@@ -192,7 +192,7 @@ $(function() {
         var addr = $("#addr").val();
         // console.log(arr);
         if (addr == "") {
-            alert("目前 C1 考試地址尚未填寫資料，請先填寫資料再進行操作");
+            alert("目前 C6 考試地址尚未填寫資料，請先填寫資料再進行操作");
             location.href = "./subject_ability/c_4";
         }
     })
