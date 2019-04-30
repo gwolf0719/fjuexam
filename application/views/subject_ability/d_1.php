@@ -232,6 +232,16 @@ $(function() {
                 $("#supervisor_1").val(arr[1]);
                 $("#supervisor_1_code").val(arr[0]);
                 $('#exampleModal1').modal('hide');
+
+                $s1 = $("#supervisor_1").val();
+                $s2 = $("#supervisor_2").val();
+
+                if ($s1 == $s2) {
+                    console.log('aspdskafas');
+                    $("#supervisor_1").val('');
+                    $("#trial_staff_code_1").val('');
+                    alert('重複選取人員');
+                }
             }
         })
     })
@@ -243,6 +253,16 @@ $(function() {
                 $("#supervisor_2").val(arr[1]);
                 $("#supervisor_2_code").val(arr[0]);
                 $('#exampleModal2').modal('hide');
+
+                $s1 = $("#supervisor_1").val();
+                $s2 = $("#supervisor_2").val();
+
+                if ($s1 == $s2) {
+                    console.log('aspdskafas');
+                    $("#supervisor_1").val('');
+                    $("#trial_staff_code_1").val('');
+                    alert('重複選取人員');
+                }
             }
         })
     })
