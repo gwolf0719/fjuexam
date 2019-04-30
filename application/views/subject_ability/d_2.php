@@ -309,7 +309,7 @@ $(function() {
             } else {
                 $("#allocation_code").val('');
                 $("#trial_staff_name").val('');
-                $('#exampleModal').modal('hide');
+                // $('#exampleModal').modal('hide');
             }
         })
     })

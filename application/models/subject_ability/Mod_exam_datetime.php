@@ -3,51 +3,52 @@
 defined('BASEPATH') or exit('No direct script access allowed');
 class Mod_exam_datetime extends CI_Model
 {
-/**
+    /**
      * 由試場起迄號得知使用日期
      * start 開始考場 end 結束考場
      * res 陣列 1=>第一天,2=>第二天,3=>第三天 
      * true 有
      * flase 沒有
      */
-    function room_use_day($start,$end,$part){
-        $year  = $this->session->userdata("year");
+    function room_use_day($start, $end, $part)
+    {
+        $year = $this->session->userdata("year");
         // 取得每日考科
         $day = array();
-        for($i=1;$i<=3;$i++){
-            foreach ($this->db->select('subject')->where('year',$year)->where('day',$i)->get('ability_exam_course')->result_array() as $key => $value) {
+        for ($i = 1; $i <= 3; $i++) {
+            foreach ($this->db->select('subject')->where('year', $year)->where('day', $i)->get('ability_exam_course')->result_array() as $key => $value) {
                 # code...
-                if($value['subject'] != "subject_00"){
+                if ($value['subject'] != "subject_00") {
                     $day[$i][] = $value['subject'];
                 }
             }
         }
         // // 確認每一天
         $res = array();
-         for($i=1;$i<=3;$i++){
+        for ($i = 1; $i <= 3; $i++) {
             $where = array(
-                'part'=>$part,
-                'field <='=>$end,
-                'field >='=>$start
+                'part' => $part,
+                'field <=' => $end,
+                'field >=' => $start
             );
-            foreach($day[$i] as $k=>$v){
+            foreach ($day[$i] as $k => $v) {
                 $where[$v] = 0;
             }
             $section = array(
-                'part'=>$part,
-                'field <='=>$end,
-                'field >='=>$start                
+                'part' => $part,
+                'field <=' => $end,
+                'field >=' => $start
             );
-            
+
             $sub1 = $this->db->where($where)->get('exam_area')->result_array();
             $sub2 = $this->db->where($section)->get('exam_area')->result_array();
-            if(count($sub1) == count($sub2)){
+            if (count($sub1) == count($sub2)) {
                 $res[] = false;
-            }else{
+            } else {
                 $res[] = true;
             }
         }
-        
+
         return $res;
     }
 
@@ -71,12 +72,12 @@ class Mod_exam_datetime extends CI_Model
         foreach ($day[$uses_day] as $k => $v) {
             if ($v != "subject_00") {
                 $where = array(
-                'year' => $year,
-                'field <=' => $end,
-                'field >=' => $start,
-                $v.'!=' => 0,
-            );
-            
+                    'year' => $year,
+                    'field <=' => $end,
+                    'field >=' => $start,
+                    $v . '!=' => 0,
+                );
+
 
                 if ($this->db->where($where)->count_all_results('ability_exam_area') != 0) {
                     $count = $count + 1;
@@ -91,12 +92,12 @@ class Mod_exam_datetime extends CI_Model
     {
         $year = $this->session->userdata('year');
 
-        for ($i=0; $i < count($res); $i++) {
+        for ($i = 0; $i < count($res); $i++) {
             $where = array(
-                    'year' => $year,
-                    'field' => $res[$i]['field'],
-                );
-                
+                'year' => $year,
+                'field' => $res[$i]['field'],
+            );
+
             $data = $this->db->where($where)->get('exam_area')->row_array();
         }
         return $data;
@@ -126,7 +127,7 @@ class Mod_exam_datetime extends CI_Model
                         'year' => $year,
                         'field <=' => $end,
                         'field >=' => $start,
-                        $v.'!=' => 0,
+                        $v . '!=' => 0,
                     );
                     if ($this->db->where($where)->count_all_results('ability_exam_area') != 0) {
                         $count = $count + 1;
@@ -140,7 +141,7 @@ class Mod_exam_datetime extends CI_Model
 
     public function get_once_course($res)
     {
-        for ($i=0; $i < count($res); $i++) {
+        for ($i = 0; $i < count($res); $i++) {
             # code...
             $this->db->where('year', $this->session->userdata('year'));
 
@@ -162,6 +163,7 @@ class Mod_exam_datetime extends CI_Model
 
     public function get_once($year)
     {
+        $this->db->select('day_1,day_2,day_3');
         $this->db->where('year', $year);
 
         return $this->db->get('ability_exam_datetime')->row_array();
