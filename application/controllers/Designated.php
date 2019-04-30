@@ -198,7 +198,7 @@ class Designated extends CI_Controller
         $this->load->model('mod_staff');
         $this->mod_user->chk_status();
         if (isset($_FILES['file'])) { // 如果有接收到上傳檔案資料
-            
+
             $file = $_FILES['file']['tmp_name'];
             $file_name = './tmp/' . time() . '.csv';
             copy($file, $file_name);
@@ -223,7 +223,7 @@ class Designated extends CI_Controller
                         'meal' => $data[7],
                     );
                 }
-                
+
             }
 
             $this->mod_staff->remove_district_task();
@@ -329,7 +329,7 @@ class Designated extends CI_Controller
                 );
 
             }
-            
+
 
             $this->mod_task->import_1($area_1);
             fclose($file);
@@ -369,7 +369,7 @@ class Designated extends CI_Controller
                     'status' => '1',
                 );
             }
-            
+
 
             $this->mod_task->import_2($area_2);
             fclose($file);
@@ -409,7 +409,7 @@ class Designated extends CI_Controller
                     'status' => '1',
                 );
             }
-            
+
 
             $this->mod_task->import_3($area_3);
             fclose($file);
@@ -992,18 +992,18 @@ class Designated extends CI_Controller
 
     public function e_1_1()
     {
-        
+
         $this->load->model('mod_school_unit');
-       
+
         $title = '行政單位';
         $date = date('yyyy/m/d');
-        
+
         $data = array(
             'list' => $this->mod_school_unit->year_get_school_unit_list(),
         );
         if ($data['list'] != false) {
             $view = $this->load->view('designated/e_1_1', $data, true);
-            $this->pdf->view_to_pdf($view,'e_1_1');
+            $this->pdf->view_to_pdf($view, 'e_1_1');
         } else {
             return false;
         }
@@ -1011,32 +1011,32 @@ class Designated extends CI_Controller
 
     public function e_1_2()
     {
-        
+
         $this->load->model('mod_task');
-        
+
         $title = '請公假名單';
         $date = date('yyyy/m/d');
-        
+
         $data = array(
             'list' => $this->mod_task->get_all_assign_member_list(),
         );
-        
+
         $view = $this->load->view('designated/e_1_2', $data, true);
-        $this->pdf->view_to_pdf($view,'e_1_2');
+        $this->pdf->view_to_pdf($view, 'e_1_2');
     }
 
     public function e_1_3()
     {
-        
+
         $this->load->model('mod_trial');
         $this->load->model('mod_exam_area');
 
         $part = $_GET['part'];
         $area = $_GET['area'];
-        
+
         $title = '監試及試務人員一覽表';
         $date = date('yyyy/m/d');
-        
+
         $data = array(
             'part' => $this->mod_trial->get_list_for_pdf($part),
             'area' => $area,
@@ -1044,7 +1044,7 @@ class Designated extends CI_Controller
         );
         if ($data['part'] != false) {
             $view = $this->load->view('designated/e_1_3', $data, true);
-            $this->pdf->view_to_pdf($view,'e_1_3');
+            $this->pdf->view_to_pdf($view, 'e_1_3');
         } else {
             return false;
         }
@@ -1052,7 +1052,7 @@ class Designated extends CI_Controller
 
     public function e_1_3_3()
     {
-        
+
         $this->load->model('mod_task');
         $this->load->model('mod_exam_area');
         $this->load->model("mod_part_addr");
@@ -1064,10 +1064,10 @@ class Designated extends CI_Controller
         } else {
             $school = "";
         }
-        
+
         $title = '監試及試務人員一覽表';
         $date = date('yyyy/m/d');
-       
+
         $year = $_SESSION['year'];
         if ($this->mod_part_addr->chk_once($year)) {
             $addr_info = $this->mod_part_addr->get_once($year);
@@ -1086,7 +1086,7 @@ class Designated extends CI_Controller
         );
         if ($data['part'] != false) {
             $view = $this->load->view('designated/e_1_3_3', $data, true);
-            $this->pdf->view_to_pdf($view,'e_1_3_3');
+            $this->pdf->view_to_pdf($view, 'e_1_3_3');
         } else {
             return false;
         }
@@ -1094,7 +1094,7 @@ class Designated extends CI_Controller
 
     public function e_1_3_4()
     {
-        
+
         $this->load->model('mod_task');
         $this->load->model('mod_exam_area');
         $this->load->model("mod_part_addr");
@@ -1106,10 +1106,10 @@ class Designated extends CI_Controller
         } else {
             $school = "";
         }
-        
+
         $title = '監試及試務人員一覽表';
         $date = date('yyyy/m/d');
-        
+
         $year = $_SESSION['year'];
         if ($this->mod_part_addr->chk_once($year)) {
             $addr_info = $this->mod_part_addr->get_once($year);
@@ -1128,7 +1128,7 @@ class Designated extends CI_Controller
         );
         if ($data['part'] != false) {
             $view = $this->load->view('designated/e_1_3_4', $data, true);
-            $this->pdf->view_to_pdf($view,'e_1_3_4');
+            $this->pdf->view_to_pdf($view, 'e_1_3_4');
         } else {
             return false;
         }
@@ -1136,7 +1136,7 @@ class Designated extends CI_Controller
 
     public function e_1_3_5()
     {
-        
+
         $this->load->model('mod_task');
         $this->load->model('mod_exam_area');
         $this->load->model("mod_part_addr");
@@ -1148,10 +1148,10 @@ class Designated extends CI_Controller
         } else {
             $school = "";
         }
-       
+
         $title = '監試及試務人員一覽表';
         $date = date('yyyy/m/d');
-       
+
         $year = $_SESSION['year'];
         if ($this->mod_part_addr->chk_once($year)) {
             $addr_info = $this->mod_part_addr->get_once($year);
@@ -1170,7 +1170,7 @@ class Designated extends CI_Controller
         );
         if ($data['part'] != false) {
             $view = $this->load->view('designated/e_1_3_5', $data, true);
-            $this->pdf->view_to_pdf($view,'e_1_3_5');
+            $this->pdf->view_to_pdf($view, 'e_1_3_5');
         } else {
             return false;
         }
@@ -1215,7 +1215,7 @@ class Designated extends CI_Controller
         );
         if ($data['list'] != false) {
             $view = $this->load->view('designated/e_1_4', $data, true);
-            $this->pdf->view_to_pdf($view,'e_1_4');
+            $this->pdf->view_to_pdf($view, 'e_1_4');
         } else {
             return false;
         }
@@ -1223,14 +1223,14 @@ class Designated extends CI_Controller
 
     public function e_1_5()
     {
-        
+
         $this->load->model('mod_trial');
-        
+
         $part = $_GET['part'];
         $area = $_GET['area'];
 
         $title = $area . '監試人員午餐一覽表';
-        
+
         $data = array(
             'part' => $this->mod_trial->get_dinner_list_for_pdf($part),
             'area' => $area,
@@ -1241,7 +1241,7 @@ class Designated extends CI_Controller
         );
         if ($data['part'] != false) {
             $view = $this->load->view('designated/e_1_5', $data, true);
-            $this->pdf->view_to_pdf($view,'e_1_5');
+            $this->pdf->view_to_pdf($view, 'e_1_5');
         } else {
             return false;
         }
@@ -1263,10 +1263,10 @@ class Designated extends CI_Controller
 
     public function e_2_1_1()
     {
-        
+
         $this->load->model('mod_task');
         $this->load->model('mod_exam_area');
-       
+
         $title = '試務人員執行任務簽到表';
         $area = $_GET['area'];
         $part = $_GET['part'];
@@ -1277,7 +1277,7 @@ class Designated extends CI_Controller
             $school = "";
         }
         $date = date('yyyy/m/d');
-        
+
 
         $data = array(
             'part' => $this->mod_task->e_2_1($area, $part),
@@ -1286,7 +1286,7 @@ class Designated extends CI_Controller
         );
         if ($data['part'] != false) {
             $view = $this->load->view('designated/e_2_1_1', $data, true);
-            $this->pdf->view_to_pdf($view,'e_2_1_1');
+            $this->pdf->view_to_pdf($view, 'e_2_1_1');
         } else {
             return false;
         }
@@ -1294,11 +1294,11 @@ class Designated extends CI_Controller
 
     public function e_2_1_2()
     {
-        
+
         $this->load->model('mod_task');
         $this->load->model('mod_trial');
         $this->load->model('mod_exam_area');
-       
+
         $title = '試務人員執行任務簽到表';
         $area = $_GET['area'];
         $part = $_GET['part'];
@@ -1309,17 +1309,17 @@ class Designated extends CI_Controller
             $school = "";
         }
         $date = date('yyyy/m/d');
-        
+
 
         $data = array(
             'part' => $this->mod_trial->e_2_1_2($part),
             'area' => $area,
-           
+
             'school' => $school,
         );
         if ($data['part'] != false) {
             $view = $this->load->view('designated/e_2_1_2', $data, true);
-            $this->pdf->view_to_pdf($view,'e_2_1_2');
+            $this->pdf->view_to_pdf($view, 'e_2_1_2');
         } else {
             return false;
         }
@@ -1327,11 +1327,11 @@ class Designated extends CI_Controller
 
     public function e_2_1_3()
     {
-        
+
         $this->load->model('mod_task');
         $this->load->model('mod_trial');
         $this->load->model('mod_exam_area');
-        
+
         $title = '試務人員執行任務簽到表';
         $area = $_GET['area'];
         $part = $_GET['part'];
@@ -1342,17 +1342,17 @@ class Designated extends CI_Controller
             $school = "";
         }
         $date = date('yyyy/m/d');
-        
+
 
         $data = array(
             'part' => $this->mod_trial->e_2_1_3($part),
             'area' => $area,
-          
+
             'school' => $school,
         );
         if ($data['part'] != false) {
             $view = $this->load->view('designated/e_2_1_3', $data, true);
-            $this->pdf->view_to_pdf($view,'e_2_1_3');
+            $this->pdf->view_to_pdf($view, 'e_2_1_3');
         } else {
             return false;
         }
@@ -1360,10 +1360,10 @@ class Designated extends CI_Controller
 
     public function e_2_2()
     {
-        
+
         $this->load->model('mod_trial');
         $this->load->model('mod_exam_area');
-     
+
         $title = '監試人員執行任務簽到表';
         $date = date('yyyy/m/d');
         $part = $_GET['part'];
@@ -1382,7 +1382,7 @@ class Designated extends CI_Controller
 
         if ($data['part'] != false) {
             $view = $this->load->view('designated/e_2_2', $data, true);
-            $this->pdf->view_to_pdf($view,'e_2_2');
+            $this->pdf->view_to_pdf($view, 'e_2_2');
         } else {
             return false;
         }
@@ -1391,7 +1391,7 @@ class Designated extends CI_Controller
 
     public function e_2_3_1()
     {
-        
+
         $this->load->model('mod_trial');
         $this->load->model('mod_exam_area');
         $this->load->model('mod_exam_datetime');
@@ -1408,10 +1408,10 @@ class Designated extends CI_Controller
             'count' => $this->mod_trial->get_patrol_member_count_1($part),
             'school' => $this->mod_exam_area->year_school_name($part),
         );
-        
+
         if ($data['part'] != false) {
             $view = $this->load->view('designated/e_2_3_1', $data, true);
-            $this->pdf->view_to_pdf($view,'e_2_3_1',false);
+            $this->pdf->view_to_pdf($view, 'e_2_3_1', false);
         } else {
             // echo 'X';
             return false;
@@ -1420,7 +1420,7 @@ class Designated extends CI_Controller
 
     public function e_2_3_2()
     {
-        
+
         $this->load->model('mod_trial');
         $this->load->model('mod_exam_area');
         $this->load->model('mod_exam_datetime');
@@ -1441,7 +1441,7 @@ class Designated extends CI_Controller
         );
         if ($data['part'] != false) {
             $view = $this->load->view('designated/e_2_3_2', $data, true);
-            $this->pdf->view_to_pdf($view,'e_2_3_2',false);
+            $this->pdf->view_to_pdf($view, 'e_2_3_2', false);
         } else {
             return false;
         }
@@ -1449,12 +1449,12 @@ class Designated extends CI_Controller
 
     public function e_2_3_3()
     {
-        
+
         $this->load->model('mod_trial');
         $this->load->model('mod_exam_area');
         $this->load->model('mod_exam_datetime');
 
-        
+
         $title = '答案卷卡收發記錄單';
         $date = date('yyyy/m/d');
         $part = $_GET['part'];
@@ -1473,7 +1473,7 @@ class Designated extends CI_Controller
         );
         if ($data['part'] != false) {
             $view = $this->load->view('designated/e_2_3_3', $data, true);
-            $this->pdf->view_to_pdf($view,'e_2_3_3');
+            $this->pdf->view_to_pdf($view, 'e_2_3_3');
         } else {
             return false;
         }
@@ -1481,9 +1481,9 @@ class Designated extends CI_Controller
 
     public function e_2_4()
     {
-        
+
         $this->load->model('mod_task');
-        
+
         $title = '監試說明會簽到表';
         $date = date('yyyy/m/d');
 
@@ -1492,7 +1492,7 @@ class Designated extends CI_Controller
         );
         if ($data['part'] != false) {
             $view = $this->load->view('designated/e_2_4', $data, true);
-            $this->pdf->view_to_pdf($view,'e_2_4');
+            $this->pdf->view_to_pdf($view, 'e_2_4');
         } else {
             return false;
         }
@@ -1517,22 +1517,22 @@ class Designated extends CI_Controller
 
     public function e_2_5()
     {
-        
+
         $this->load->model('mod_task');
         $this->load->model('mod_exam_area');
 
-     
+
         $title = '大學入學考試中心' . $_SESSION['year'] . '學年度指定科目考試新北一考區監試說明會開會通知簽收表';
 
         $date = date('yyyy/m/d');
-      
+
         $data = array(
             'data' => $this->mod_task->member_map(),
             'list' => $this->mod_task->get_member_map_list()
         );
         if ($data['list'] != false) {
             $view = $this->load->view('designated/e_2_5', $data, true);
-            $this->pdf->view_to_pdf($view,'e_2_5');
+            $this->pdf->view_to_pdf($view, 'e_2_5');
         } else {
             return false;
         }
@@ -2174,10 +2174,10 @@ class Designated extends CI_Controller
 
     public function e_3_2_1_1()
     {
-        
+
         $this->load->model('mod_trial');
         $this->load->model('mod_exam_area');
-        
+
         $title = '試場工作人員分配表';
         $date = date('yyyy/m/d');
         $part = $_GET['part'];
@@ -2193,12 +2193,12 @@ class Designated extends CI_Controller
             'date' => $date,
         );
         $view = $this->load->view('designated/e_3_2_1', $data, true);
-        $this->pdf->view_to_pdf($view,'e_3_2_1');
+        $this->pdf->view_to_pdf($view, 'e_3_2_1');
     }
 
     public function e_3_2_1_2()
     {
-        
+
         $this->load->model('mod_trial');
         $this->load->model('mod_exam_area');
         $title = '試場工作人員分配表';
@@ -2216,12 +2216,12 @@ class Designated extends CI_Controller
             'date' => $date,
         );
         $view = $this->load->view('designated/e_3_2_1', $data, true);
-        $this->pdf->view_to_pdf($view,'e_3_2_1');
+        $this->pdf->view_to_pdf($view, 'e_3_2_1');
     }
 
     public function e_3_2_1_3()
     {
-        
+
         $this->load->model('mod_trial');
         $this->load->model('mod_exam_area');
         $title = '試場工作人員分配表';
@@ -2240,15 +2240,15 @@ class Designated extends CI_Controller
         );
         // print_r($data);
         $view = $this->load->view('designated/e_3_2_1', $data, true);
-        $this->pdf->view_to_pdf($view,'e_3_2_1');
+        $this->pdf->view_to_pdf($view, 'e_3_2_1');
     }
 
     public function e_3_2_2_1()
     {
-        
+
         $this->load->model('mod_trial');
         $this->load->model('mod_exam_area');
-        
+
         $title = '試場工作人員分配表';
         $date = date('yyyy/m/d');
         $part = $_GET['part'];
@@ -2264,12 +2264,12 @@ class Designated extends CI_Controller
             'date' => $date,
         );
         $view = $this->load->view('designated/e_3_2_2', $data, true);
-        $this->pdf->view_to_pdf($view,'e_3_2_2');
+        $this->pdf->view_to_pdf($view, 'e_3_2_2');
     }
 
     public function e_3_2_2_2()
     {
-        
+
         $this->load->model('mod_trial');
         $this->load->model('mod_exam_area');
         $title = '試場工作人員分配表';
@@ -2288,12 +2288,12 @@ class Designated extends CI_Controller
         );
         // print_r($data);
         $view = $this->load->view('designated/e_3_2_2', $data, true);
-        $this->pdf->view_to_pdf($view,'e_3_2_2');
+        $this->pdf->view_to_pdf($view, 'e_3_2_2');
     }
 
     public function e_3_2_2_3()
     {
-        
+
         $this->load->model('mod_trial');
         $this->load->model('mod_exam_area');
         $title = '試場工作人員分配表';
@@ -2311,12 +2311,12 @@ class Designated extends CI_Controller
             'date' => $date,
         );
         $view = $this->load->view('designated/e_3_2_2', $data, true);
-        $this->pdf->view_to_pdf($view,'e_3_2_2');
+        $this->pdf->view_to_pdf($view, 'e_3_2_2');
     }
 
     public function e_3_2_3_1()
     {
-        
+
         $this->load->model('mod_trial');
         $this->load->model('mod_exam_area');
         $title = '試場工作人員分配表';
@@ -2332,14 +2332,14 @@ class Designated extends CI_Controller
             'school' => $this->mod_exam_area->year_school_name($part),
             'date' => $date,
         );
-        
+
         $view = $this->load->view('designated/e_3_2_3', $data, true);
-        $this->pdf->view_to_pdf($view,'e_3_2_3');
+        $this->pdf->view_to_pdf($view, 'e_3_2_3');
     }
 
     public function e_3_2_3_2()
     {
-        
+
         $this->load->model('mod_trial');
         $this->load->model('mod_exam_area');
         $title = '試場工作人員分配表';
@@ -2357,12 +2357,12 @@ class Designated extends CI_Controller
             'date' => $date,
         );
         $view = $this->load->view('designated/e_3_2_3', $data, true);
-        $this->pdf->view_to_pdf($view,'e_3_2_3');
+        $this->pdf->view_to_pdf($view, 'e_3_2_3');
     }
 
     public function e_3_2_3_3()
     {
-        
+
         $this->load->model('mod_trial');
         $this->load->model('mod_exam_area');
         $title = '試場工作人員分配表';
@@ -2380,7 +2380,7 @@ class Designated extends CI_Controller
             'date' => $date,
         );
         $view = $this->load->view('designated/e_3_2_3', $data, true);
-        $this->pdf->view_to_pdf($view,'e_3_2_3');
+        $this->pdf->view_to_pdf($view, 'e_3_2_3');
     }
 
     public function e_4()
@@ -2832,10 +2832,10 @@ class Designated extends CI_Controller
 
     public function e_6_1()
     {
-        
+
         $this->load->model('mod_trial');
         $this->load->model('mod_exam_area');
-       
+
         $title = '監試人員印領清冊';
         $date = date('yyyy/m/d');
         $part = $_GET['part'];
@@ -2849,15 +2849,15 @@ class Designated extends CI_Controller
             'count' => $this->mod_trial->e_6_1_member_count($part)
         );
         $view = $this->load->view('designated/e_6_1', $data, true);
-        $this->pdf->view_to_pdf($view,'e_6_1');
+        $this->pdf->view_to_pdf($view, 'e_6_1');
     }
 
     public function e_6_2()
     {
-        
+
         $this->load->model('mod_trial');
         $this->load->model('mod_exam_area');
-       
+
         $title = '監試人員印領清冊';
         $date = date('yyyy/m/d');
         $part = $_GET['part'];
@@ -2874,7 +2874,7 @@ class Designated extends CI_Controller
 
         if ($data['part'] != false) {
             $view = $this->load->view('designated/e_6_2', $data, true);
-            $this->pdf->view_to_pdf($view,'e_6_2');
+            $this->pdf->view_to_pdf($view, 'e_6_2');
         } else {
             return false;
         }
@@ -2882,7 +2882,7 @@ class Designated extends CI_Controller
 
     public function e_6_3()
     {
-        
+
         $this->load->model('mod_task');
         $this->load->model('mod_exam_area');
         $title = '試務人員印領清冊';
@@ -2899,7 +2899,7 @@ class Designated extends CI_Controller
         );
         if ($data['part'] != false) {
             $view = $this->load->view('designated/e_6_3', $data, true);
-            $this->pdf->view_to_pdf($view,'e_6_3');
+            $this->pdf->view_to_pdf($view, 'e_6_3');
         } else {
             return false;
         }
@@ -2907,10 +2907,10 @@ class Designated extends CI_Controller
 
     public function e_6_4()
     {
-        
+
         $this->load->model('mod_trial');
         $this->load->model('mod_exam_area');
-        
+
         $title = '管卷人員印領清冊';
         $date = date('yyyy/m/d');
         $part = $_GET['part'];
@@ -2926,7 +2926,7 @@ class Designated extends CI_Controller
         );
         if ($data['part'] != false) {
             $view = $this->load->view('designated/e_6_4', $data, true);
-            $this->pdf->view_to_pdf($view,'e_6_4');
+            $this->pdf->view_to_pdf($view, 'e_6_4');
         } else {
             return false;
         }
@@ -2934,7 +2934,7 @@ class Designated extends CI_Controller
 
     public function e_6_5()
     {
-        
+
         $this->load->model('mod_trial');
         $this->load->model('mod_exam_area');
         $title = '巡場人員印領清冊';
@@ -2951,7 +2951,7 @@ class Designated extends CI_Controller
         );
         if ($data['part'] != false) {
             $view = $this->load->view('designated/e_6_5', $data, true);
-            $this->pdf->view_to_pdf($view,'e_6_5');
+            $this->pdf->view_to_pdf($view, 'e_6_5');
         } else {
             return false;
         }
@@ -3305,7 +3305,7 @@ class Designated extends CI_Controller
         $this->load->view('layout', $data);
     }
 
-    
+
 
     public function f_3()
     {

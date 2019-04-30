@@ -873,6 +873,7 @@ class Mod_trial extends CI_Model
 
 
         $sub = $this->db->get()->result_array();
+
         if (!empty($sub)) {
             for ($i = 0; $i < count($sub); $i++) {
                     # code...
@@ -881,26 +882,25 @@ class Mod_trial extends CI_Model
                 $voucher = $this->db->where('part', $part)->where('first_start <=', $sub[$i]['field'])->where('first_end >=', $sub[$i]['field'])->get('trial_staff')->result_array();
                 $course = $this->db->where('year', $year)->where('field', $sub[$i]['field'])->get('exam_area')->row_array();
                 $trial = $this->db->get('trial_staff')->result_array();
-                if (!empty($voucher)) {
-                    for ($v = 0; $v < count($voucher); $v++) { 
+
+                for ($v = 0; $v < count($voucher); $v++) { 
                         # code...
-                        $arr[$voucher[$v]['allocation_code'] . ' ' . $voucher[$v]['trial_staff_name']][] = array(
-                            'sn' => $sub[$i]['sn'],
-                            'field' => $sub[$i]['field'],
-                            'test_section' => $sub[$i]['test_section'],
-                            'part' => $sub[$i]['part'],
-                            'supervisor_1' => $sub[$i]['supervisor_1'],
-                            'supervisor_2' => $sub[$i]['supervisor_2'],
-                            'subject_01' => $course['subject_01'],
-                            'subject_02' => $course['subject_02'],
-                            'subject_03' => $course['subject_03'],
-                        );
-                    }
-                } else {
-                    return false;
+                    $arr[$voucher[$v]['allocation_code'] . ' ' . $voucher[$v]['trial_staff_name']][] = array(
+                        'sn' => $sub[$i]['sn'],
+                        'field' => $sub[$i]['field'],
+                        'test_section' => $sub[$i]['test_section'],
+                        'part' => $sub[$i]['part'],
+                        'supervisor_1' => $sub[$i]['supervisor_1'],
+                        'supervisor_2' => $sub[$i]['supervisor_2'],
+                        'subject_01' => $course['subject_01'],
+                        'subject_02' => $course['subject_02'],
+                        'subject_03' => $course['subject_03'],
+                    );
                 }
 
+
             }
+
             return $arr;
         } else {
             return false;
