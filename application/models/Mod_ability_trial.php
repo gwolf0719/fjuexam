@@ -2606,6 +2606,42 @@ class Mod_ability_trial extends CI_Model
         // print_r($r);
     }
 
+    public function chk_all_d($code)
+    {
+
+
+        $code = trim($code);
+        // d1
+        $this->db->where('year', $_SESSION['year']);
+        $this->db->where('supervisor_1_code', $code);
+        $count1 = $this->db->count_all_results('ability_trial_assign');
+        // print_r($count1);
+
+        // d1
+        $this->db->where('year', $_SESSION['year']);
+        $this->db->where('supervisor_2_code', $code);
+        $count2 = $this->db->count_all_results('ability_trial_assign');
+        
+        // d2
+        $this->db->where('year', $_SESSION['year']);
+        $this->db->where('trial_staff_code', $code);
+        $count3 = $this->db->count_all_results('ability_trial_staff');
+
+        // d3
+        $this->db->where('year', $_SESSION['year']);
+        $this->db->where('patrol_staff_code', $code);
+        $count4 = $this->db->count_all_results('ability_patrol_staff');
+
+        $count = $count1 + $count2 + $count3 + $count4;
+        // print_r($count);
+        if ($count == 0) {
+            return false;
+        } else {
+            return true;
+        }
+
+    }
+
 
 
 }
