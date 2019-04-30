@@ -1531,8 +1531,8 @@ class Designated extends CI_Controller
             'list' => $this->mod_task->get_member_map_list()
         );
         if ($data['list'] != false) {
-            echo $view = $this->load->view('designated/e_2_5', $data, true);
-            // $this->pdf->view_to_pdf($view, 'e_2_5');
+            $view = $this->load->view('designated/e_2_5', $data, true);
+            $this->pdf->view_to_pdf($view, 'e_2_5');
         } else {
             return false;
         }
