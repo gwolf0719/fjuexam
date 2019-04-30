@@ -373,7 +373,7 @@ $(function() {
             }).done(function(data) {
                 alert(data.sys_msg);
                 if (data.sys_code == "200") {
-                    // location.reload();
+                    location.reload();
                     console.log(note);
                     $("tr").each(function() {
                         if ($(this).attr("sn") == $("#sn").val()) {
@@ -430,7 +430,7 @@ $(function() {
             }).done(function(data) {
                 alert(data.sys_msg);
                 if (data.sys_code == "200") {
-                    // location.reload();
+                    location.reload();
                     $("tr").each(function() {
                         if ($(this).attr("sn") == $("#sn").val()) {
                             $(this).find("td").eq(7).text("");
