@@ -808,7 +808,7 @@ class Api extends CI_Controller
                 'salary' => $fees_info['salary_section'],
                 'salary_total' => $salary_total,
                 'lunch_price' => $lunch_price,
-                'lunch_total' => 0,
+                'lunch_total' => $lunch_total,
                 'total' => $salary_total,
             );
              // print_r($sql_data);
@@ -951,26 +951,26 @@ class Api extends CI_Controller
             $fees_info = $this->mod_ability_exam_fees->get_once($_SESSION['year']);
             $member = $this->mod_ability_staff->get_staff_member(trim($data['patrol_staff_code']));
             $do_date = array();
-            if ($day[0] != "") {
+            if ($day[0] != " ") {
                 array_push($do_date, mb_substr($datetime_info['day_1'], 5, 8, 'utf-8'));
             }
-            if ($day[1] != "") {
+            if ($day[1] != " ") {
                 array_push($do_date, mb_substr($datetime_info['day_2'], 5, 8, 'utf-8'));
             }
-            if ($day[2] != "") {
+            if ($day[2] != " ") {
                 array_push($do_date, mb_substr($datetime_info['day_3'], 5, 8, 'utf-8'));
             }
             $date = implode(",", $do_date);
-            if ($member['order_meal'] == "N") {
-                $lunch_price = 0;
-                $lunch_total = 0;
-                $salary_total = $fees_info['salary_section'] * $data['section'];
-                $total = $salary_total;
-            } else {
+            if ($member['order_meal'] == "Y") {
                 $lunch_price = $fees_info['lunch_fee'];
                 $lunch_total = $fees_info['lunch_fee'] * count($do_date);
                 $salary_total = $fees_info['salary_section'] * $data['section'];
                 $total = $salary_total - $lunch_total;
+            } else {
+                $lunch_price = 0;
+                $lunch_total = 0;
+                $salary_total = $fees_info['salary_section'] * $data['section'];
+                $total = $salary_total;
             }
             $data = array(
                 'part' => $data['part'],
@@ -987,7 +987,7 @@ class Api extends CI_Controller
                 'count' => count($do_date),
                 'salary' => $fees_info['salary_section'],
                 'salary_total' => $salary_total,
-                'lunch_price' => $lunch_price,
+                'lunch_price' => $fees_info['lunch_fee'],
                 'lunch_total' => $lunch_total,
                 'total' => $total,
                 'order_meal' => $member['order_meal'],
