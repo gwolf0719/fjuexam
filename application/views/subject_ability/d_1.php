@@ -239,7 +239,6 @@ $(function() {
                 if ($s1 == $s2) {
                     console.log('aspdskafas');
                     $("#supervisor_1").val('');
-                    $("#trial_staff_code_1").val('');
                     alert('重複選取人員');
                 }
             }
@@ -259,8 +258,7 @@ $(function() {
 
                 if ($s1 == $s2) {
                     console.log('aspdskafas');
-                    $("#supervisor_1").val('');
-                    $("#trial_staff_code_1").val('');
+                    $("#supervisor_2").val('');
                     alert('重複選取人員');
                 }
             }
