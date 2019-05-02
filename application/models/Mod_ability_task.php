@@ -893,7 +893,7 @@ class Mod_ability_task extends CI_Model
                     'name' => $trial_staff[$i]['trial_staff_name'],
                     'job_title' => $trial_staff_member['member_title'],
                     'member_unit' => $trial_staff_member['member_unit'],
-                    'do_date' => 'aaaa'
+                    'do_date' => $trial_staff[$i]['do_date']
                 );
             }
         }
