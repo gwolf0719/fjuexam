@@ -311,7 +311,7 @@ $(function() {
             }).done(function(data) {
                 alert(data.sys_msg);
                 if (data.sys_code == "200") {
-                    location.reload();
+                    // location.reload();
                 }
             })
         }

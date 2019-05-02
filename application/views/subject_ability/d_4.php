@@ -353,7 +353,7 @@ $(function() {
             } else {
                 $("#first_member_order_meal").prop("checked", false);
                 $(".first_member_meal").hide();
-                $("#first_member_lunch_price").val(0);
+                // $("#first_member_lunch_price").val(0);
             }
             $("#first_member_meal").prop("checked", true);
             $("#first_member_order_meal").val(data.info.first_member_order_meal);
@@ -376,7 +376,7 @@ $(function() {
             } else {
                 $("#second_member_order_meal").prop("checked", false);
                 $(".second_member_meal").hide();
-                $("#second_member_lunch_price").val(0);
+                // $("#second_member_lunch_price").val(0);
             }
             $("#second_member_salary_section").val(data.info.second_member_salary_section);
             $("#second_member_section_lunch_total").val(data.info
@@ -1134,7 +1134,7 @@ $(function() {
                             <input type="text" class="form-control field" readonly>
                         </div>
                         <div class="form-group">
-                            <label for="start_date" class="" style="float:left;">執dd行日</label>
+                            <label for="start_date" class="" style="float:left;">執行日</label>
                             <input type="checkbox" class="chbox" id="" name="second_member_day"
                                 value="<?= mb_substr($datetime_info['day_1'], 5, 8, 'utf-8'); ?>">
                             <span class="chbox">

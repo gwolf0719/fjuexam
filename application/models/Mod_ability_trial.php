@@ -2526,6 +2526,35 @@ class Mod_ability_trial extends CI_Model
     {
         $this->db->where('sn', $sn);
         $this->db->update('ability_trial_assign', $data);
+
+
+        $res = $this->db->where('sn', $sn)->get('ability_trial_assign')->row_array();
+        $person1 = explode(",", $res['first_member_do_date']);
+        $person2 = explode(",", $res['second_member_do_date']);
+
+
+
+
+        if ($res['first_member_order_meal'] == 'Y') {
+            $p1_lunch = count($person1) * $res['first_member_lunch_price'];
+        } else {
+            $p1_lunch = 0;
+        }
+        if ($res['second_member_order_meal'] == 'Y') {
+            $p2_lunch = count($person2) * $res['second_member_lunch_price'];
+        } else {
+            $p2_lunch = 0;
+        }
+
+
+        $update = array(
+            'first_member_day_count' => count($person1),
+            'first_member_section_lunch_total' => $p1_lunch,
+            'second_member_day_count' => count($person2),
+            'second_member_section_lunch_total' => $p2_lunch,
+        );
+        $this->db->update('ability_trial_assign', $update);
+
         return true;
     }
 
