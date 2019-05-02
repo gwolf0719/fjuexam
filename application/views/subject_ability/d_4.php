@@ -1024,17 +1024,17 @@ $(function() {
                         <div class="form-group">
                             <label for="start_date" class="" style="float:left;">執行日</label>
                             <input type="checkbox" class="chbox" id="" name="first_member_day"
-                                value="<?= mb_substr($datetime_info['day_1'], 5, 8, 'utf-8'); ?>" disabled>
+                                value="<?= mb_substr($datetime_info['day_1'], 5, 8, 'utf-8'); ?>">
                             <span class="chbox">
                                 <?= mb_substr($datetime_info['day_1'], 5, 8, 'utf-8'); ?>
                             </span>
                             <input type="checkbox" class="chbox" id="" name="first_member_day"
-                                value="<?= mb_substr($datetime_info['day_2'], 5, 8, 'utf-8'); ?>" disabled>
+                                value="<?= mb_substr($datetime_info['day_2'], 5, 8, 'utf-8'); ?>">
                             <span class="chbox">
                                 <?= mb_substr($datetime_info['day_2'], 5, 8, 'utf-8'); ?>
                             </span>
                             <input type="checkbox" class="chbox" id="" name="first_member_day"
-                                value="<?= mb_substr($datetime_info['day_3'], 5, 8, 'utf-8'); ?>" disabled>
+                                value="<?= mb_substr($datetime_info['day_3'], 5, 8, 'utf-8'); ?>">
                             <span class="chbox">
                                 <?= mb_substr($datetime_info['day_3'], 5, 8, 'utf-8'); ?>
                             </span>
@@ -1134,19 +1134,19 @@ $(function() {
                             <input type="text" class="form-control field" readonly>
                         </div>
                         <div class="form-group">
-                            <label for="start_date" class="" style="float:left;">執行日</label>
+                            <label for="start_date" class="" style="float:left;">執dd行日</label>
                             <input type="checkbox" class="chbox" id="" name="second_member_day"
-                                value="<?= mb_substr($datetime_info['day_1'], 5, 8, 'utf-8'); ?>" disabled>
+                                value="<?= mb_substr($datetime_info['day_1'], 5, 8, 'utf-8'); ?>">
                             <span class="chbox">
                                 <?= mb_substr($datetime_info['day_1'], 5, 8, 'utf-8'); ?>
                             </span>
                             <input type="checkbox" class="chbox" id="" name="second_member_day"
-                                value="<?= mb_substr($datetime_info['day_2'], 5, 8, 'utf-8'); ?>" disabled>
+                                value="<?= mb_substr($datetime_info['day_2'], 5, 8, 'utf-8'); ?>">
                             <span class="chbox">
                                 <?= mb_substr($datetime_info['day_2'], 5, 8, 'utf-8'); ?>
                             </span>
                             <input type="checkbox" class="chbox" id="" name="second_member_day"
-                                value="<?= mb_substr($datetime_info['day_3'], 5, 8, 'utf-8'); ?>" disabled>
+                                value="<?= mb_substr($datetime_info['day_3'], 5, 8, 'utf-8'); ?>">
                             <span class="chbox">
                                 <?= mb_substr($datetime_info['day_3'], 5, 8, 'utf-8'); ?>
                             </span>

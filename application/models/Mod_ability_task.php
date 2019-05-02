@@ -824,7 +824,7 @@ class Mod_ability_task extends CI_Model
 
         //取出監試人員
         $this->db->select('*');
-        $this->db->from('part_info');
+        $this->db->from('ability_part_info');
         $this->db->join('ability_trial_assign', 'ability_part_info.sn = ability_trial_assign.sn');
         $this->db->where("ability_part_info.year", $_SESSION['year']);
         $year = $this->session->userdata('year');
@@ -893,7 +893,7 @@ class Mod_ability_task extends CI_Model
                     'name' => $trial_staff[$i]['trial_staff_name'],
                     'job_title' => $trial_staff_member['member_title'],
                     'member_unit' => $trial_staff_member['member_unit'],
-                    'do_date' => $trial_staff[$i]['do_date']
+                    'do_date' => 'aaaa'
                 );
             }
         }
