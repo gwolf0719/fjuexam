@@ -209,7 +209,7 @@ a:hover {
                         <div class="btn_part btn5" part="2503" area="第三分區"
                             link="./subject_ability/e_6_5?part=2503&area=第三分區">第三分區</div>
                         <div class="btn_part btn5" part="2504" area="第四分區"
-                            link="./subject_ability/e_6_5?part=2504&area=第四分區">第三分區</div>
+                            link="./subject_ability/e_6_5?part=2504&area=第四分區">第四分區</div>
                         <div class="btn_part btn5" part="2505" area="第五分區"
                             link="./subject_ability/e_6_5?part=2505&area=第五分區">第五分區</div>
                     </div>
