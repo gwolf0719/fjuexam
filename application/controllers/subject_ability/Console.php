@@ -3725,6 +3725,7 @@ class Console extends CI_Controller
 
         if ($this->mod_exam_datetime->chk_once($year)) {
             $datetime_info = $this->mod_exam_datetime->get_once($year);
+
         } else {
             $datetime_info = array(
                 'day_1' => '1911' + $this->session->userdata('year') . '年7月1日',

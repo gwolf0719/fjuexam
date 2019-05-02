@@ -2133,26 +2133,27 @@ class Mod_ability_trial extends CI_Model
 
     public function get_list_for_obs($part = '', $obs)
     {
+        // print_r($obs);
         $this->db->select('*');
         if ($part != '') {
             $this->db->where('ability_part_info.part', $part);
         }
-        $this->db->like('ability_part_info.field', $obs, 'after');
+        $this->db->like('ability_part_info.field', 19, 'after');
         $this->db->from('ability_part_info');
         $this->db->join('ability_trial_assign', 'ability_part_info.sn = ability_trial_assign.sn');
         $year = $this->session->userdata('year');
 
-        $res = $this->db->get()->result_array();
+        $sub = $this->db->get()->result_array();
 
-        function even($var)
-        {
-            return ($var['year'] == $_SESSION['year']);
-        }
+        // function even($var)
+        // {
+        //     return ($var['year'] == $_SESSION['year']);
+        // }
 
-        $sub = array_filter($res, "even");
+        // $sub = array_filter($res, "even");
 
         sort($sub);
-
+        // print_r($sub);
         if (!empty($sub)) {
             for ($i = 0; $i < count($sub); $i++) {
                 # code...
@@ -2212,6 +2213,7 @@ class Mod_ability_trial extends CI_Model
                     'subject_10' => $course['subject_10'],
                 );
             }
+
             return $arr;
         } else {
             return false;

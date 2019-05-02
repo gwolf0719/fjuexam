@@ -163,7 +163,7 @@ class Mod_exam_datetime extends CI_Model
 
     public function get_once($year)
     {
-        $this->db->select('day_1,day_2,day_3');
+        // $this->db->select('day_1,day_2,day_3');
         $this->db->where('year', $year);
 
         return $this->db->get('ability_exam_datetime')->row_array();

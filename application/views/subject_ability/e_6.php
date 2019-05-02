@@ -1,44 +1,44 @@
 <style>
-    img {
+img {
+    max-width: 100%;
+}
+
+@media (min-width: 1200px) {
+    .container {
         max-width: 100%;
+        width: 100%;
     }
+}
 
-    @media (min-width: 1200px) {
-        .container {
-            max-width: 100%;
-            width: 100%;
-        }
-    }
+.cube {
+    margin: 20px auto;
+}
 
-    .cube {
-        margin: 20px auto;
-    }
-
-    .cube img {
-        max-width: 65%;
-    }
+.cube img {
+    max-width: 65%;
+}
 
 
-    .btn_part {
-        background: #dc969d;
-        text-align: center;
-        padding: 8px;
-        border-radius: 5px;
-        margin: 10px auto;
-        cursor: pointer;
-        width: 230px;
-        display: inline-block;
-    }
+.btn_part {
+    background: #dc969d;
+    text-align: center;
+    padding: 8px;
+    border-radius: 5px;
+    margin: 10px auto;
+    cursor: pointer;
+    width: 230px;
+    display: inline-block;
+}
 
-    a {
-        text-decoration: none;
-        color: #000;
-    }
+a {
+    text-decoration: none;
+    color: #000;
+}
 
-    a:hover {
-        text-decoration: none;
-        color: #000;
-    }
+a:hover {
+    text-decoration: none;
+    color: #000;
+}
 </style>
 <div class="row">
     <div class="input-group col-sm-3">
@@ -46,8 +46,8 @@
         <div class="input-group-prepend">
             <span class="input-group-text" id="inputGroup-sizing-default">學年度</span>
         </div>
-        <input type="text" class="form-control" aria-label="Default" aria-describedby="inputGroup-sizing-default" value="<?=$this->session->userdata('year'); ?>"
-            readonly>
+        <input type="text" class="form-control" aria-label="Default" aria-describedby="inputGroup-sizing-default"
+            value="<?= $this->session->userdata('year'); ?>" readonly>
 
     </div>
 
@@ -72,10 +72,14 @@
             <div class="modal-body">
                 <div class="row">
                     <div class="col-md-12 col-sm-12 col-xs-12">
-                        <div class="btn_part" style="cursor: pointer;" data-toggle="modal" data-target="#e_6_1">監試人員</div>
-                        <div class="btn_part" style="cursor: pointer;" data-toggle="modal" data-target="#e_6_3">試務人員</div>
-                        <div class="btn_part" style="cursor: pointer;" data-toggle="modal" data-target="#e_6_4">管卷人員</div>
-                        <div class="btn_part" style="cursor: pointer;" data-toggle="modal" data-target="#e_6_5">巡場人員</div>                        
+                        <div class="btn_part" style="cursor: pointer;" data-toggle="modal" data-target="#e_6_1">監試人員
+                        </div>
+                        <div class="btn_part" style="cursor: pointer;" data-toggle="modal" data-target="#e_6_3">試務人員
+                        </div>
+                        <div class="btn_part" style="cursor: pointer;" data-toggle="modal" data-target="#e_6_4">管卷人員
+                        </div>
+                        <div class="btn_part" style="cursor: pointer;" data-toggle="modal" data-target="#e_6_5">巡場人員
+                        </div>
                     </div>
                 </div>
             </div>
@@ -96,16 +100,26 @@
             <div class="modal-body">
                 <div class="row">
                     <div class="col-md-12 col-sm-12 col-xs-12">
-                        <div class="btn_part btn1" link="./subject_ability/e_6_1?part=2501&area=第一分區" part="2501" area="第一分區">第一分區</div>
-                        <div class="btn_part btn2" link="./subject_ability/e_6_2?part=2501&area=第一分區&obs=291" part="2501" area="第一分區" obs="29">第一分區(身障)</div>
-                        <div class="btn_part btn1" link="./subject_ability/e_6_1?part=2502&area=第二分區" part="2502" area="第二分區">第二分區</div>
-                        <div class="btn_part btn2" link="./subject_ability/e_6_2?part=2502&area=第二分區&obs=292" part="2502" area="第二分區" obs="29">第二分區(身障)</div>    
-                        <div class="btn_part btn1" link="./subject_ability/e_6_1?part=2503&area=第三分區" part="2503" area="第三分區">第三分區</div> 
-                        <div class="btn_part btn2" link="./subject_ability/e_6_2?part=2503&area=第三分區&obs=293" part="2503" area="第三分區" obs="29">第三分區(身障)</div> 
-                        <div class="btn_part btn1" link="./subject_ability/e_6_1?part=2504&area=第四分區" part="2504" area="第四分區">第四分區</div> 
-                        <div class="btn_part btn2" link="./subject_ability/e_6_2?part=2504&area=第四分區&obs=294" part="2504" area="第四分區" obs="29">第四分區(身障)</div> 
-                        <div class="btn_part btn1" link="./subject_ability/e_6_1?part=2505&area=第五分區" part="2505" area="第五分區">第五分區</div> 
-                        <div class="btn_part btn2" link="./subject_ability/e_6_2?part=2505&area=第五分區&obs=295" part="2505" area="第五分區" obs="29">第五分區(身障)</div> 
+                        <div class="btn_part btn1" link="./subject_ability/e_6_1?part=2501&area=第一分區" part="2501"
+                            area="第一分區">第一分區</div>
+                        <div class="btn_part btn2" link="./subject_ability/e_6_2?part=2501&area=第一分區&obs=19" part="2501"
+                            area="第一分區" obs="19">第一分區(身障)</div>
+                        <div class="btn_part btn1" link="./subject_ability/e_6_1?part=2502&area=第二分區" part="2502"
+                            area="第二分區">第二分區</div>
+                        <div class="btn_part btn2" link="./subject_ability/e_6_2?part=2502&area=第二分區&obs=192"
+                            part="2502" area="第二分區" obs="19">第二分區(身障)</div>
+                        <div class="btn_part btn1" link="./subject_ability/e_6_1?part=2503&area=第三分區" part="2503"
+                            area="第三分區">第三分區</div>
+                        <div class="btn_part btn2" link="./subject_ability/e_6_2?part=2503&area=第三分區&obs=19" part="2503"
+                            area="第三分區" obs="19">第三分區(身障)</div>
+                        <div class="btn_part btn1" link="./subject_ability/e_6_1?part=2504&area=第四分區" part="2504"
+                            area="第四分區">第四分區</div>
+                        <div class="btn_part btn2" link="./subject_ability/e_6_2?part=2504&area=第四分區&obs=19" part="2504"
+                            area="第四分區" obs="19">第四分區(身障)</div>
+                        <div class="btn_part btn1" link="./subject_ability/e_6_1?part=2505&area=第五分區" part="2505"
+                            area="第五分區">第五分區</div>
+                        <div class="btn_part btn2" link="./subject_ability/e_6_2?part=2505&area=第五分區&obs=19" part="2505"
+                            area="第五分區" obs="19">第五分區(身障)</div>
                     </div>
                 </div>
             </div>
@@ -126,12 +140,18 @@
             <div class="modal-body">
                 <div class="row">
                     <div class="col-md-12 col-sm-12 col-xs-12">
-                        <div class="btn_part btn3" part="2500" area="考區" link="./subject_ability/e_6_3?part=2501&area=考區">考區</div>
-                        <div class="btn_part btn3" part="2501" area="第一分區" link="./subject_ability/e_6_3?part=2501&area=第一分區">第一分區</div>
-                        <div class="btn_part btn3" part="2502" area="第二分區" link="./subject_ability/e_6_3?part=2502&area=第二分區">第二分區</div>
-                        <div class="btn_part btn3" part="2503" area="第三分區" link="./subject_ability/e_6_3?part=2503&area=第三分區">第三分區</div>
-                        <div class="btn_part btn3" part="2504" area="第四分區" link="./subject_ability/e_6_3?part=2504&area=第四分區">第四分區</div>
-                        <div class="btn_part btn3" part="2505" area="第五分區" link="./subject_ability/e_6_3?part=2505&area=第五分區">第五分區</div>
+                        <div class="btn_part btn3" part="2500" area="考區"
+                            link="./subject_ability/e_6_3?part=2501&area=考區">考區</div>
+                        <div class="btn_part btn3" part="2501" area="第一分區"
+                            link="./subject_ability/e_6_3?part=2501&area=第一分區">第一分區</div>
+                        <div class="btn_part btn3" part="2502" area="第二分區"
+                            link="./subject_ability/e_6_3?part=2502&area=第二分區">第二分區</div>
+                        <div class="btn_part btn3" part="2503" area="第三分區"
+                            link="./subject_ability/e_6_3?part=2503&area=第三分區">第三分區</div>
+                        <div class="btn_part btn3" part="2504" area="第四分區"
+                            link="./subject_ability/e_6_3?part=2504&area=第四分區">第四分區</div>
+                        <div class="btn_part btn3" part="2505" area="第五分區"
+                            link="./subject_ability/e_6_3?part=2505&area=第五分區">第五分區</div>
                     </div>
                 </div>
             </div>
@@ -152,11 +172,16 @@
             <div class="modal-body">
                 <div class="row">
                     <div class="col-md-12 col-sm-12 col-xs-12">
-                        <div class="btn_part btn4" part="2501" area="第一分區" link="./subject_ability/e_6_4?part=2501&area=第一分區">第一分區</div>
-                        <div class="btn_part btn4" part="2502" area="第二分區" link="./subject_ability/e_6_4?part=2502&area=第二分區">第二分區</div>
-                        <div class="btn_part btn4" part="2503" area="第三分區" link="./subject_ability/e_6_4?part=2503&area=第三分區">第三分區</div>
-                        <div class="btn_part btn4" part="2504" area="第四分區" link="./subject_ability/e_6_4?part=2504&area=第四分區">第四分區</div>
-                        <div class="btn_part btn4" part="2505" area="第五分區" link="./subject_ability/e_6_4?part=2505&area=第五分區">第五分區</div>
+                        <div class="btn_part btn4" part="2501" area="第一分區"
+                            link="./subject_ability/e_6_4?part=2501&area=第一分區">第一分區</div>
+                        <div class="btn_part btn4" part="2502" area="第二分區"
+                            link="./subject_ability/e_6_4?part=2502&area=第二分區">第二分區</div>
+                        <div class="btn_part btn4" part="2503" area="第三分區"
+                            link="./subject_ability/e_6_4?part=2503&area=第三分區">第三分區</div>
+                        <div class="btn_part btn4" part="2504" area="第四分區"
+                            link="./subject_ability/e_6_4?part=2504&area=第四分區">第四分區</div>
+                        <div class="btn_part btn4" part="2505" area="第五分區"
+                            link="./subject_ability/e_6_4?part=2505&area=第五分區">第五分區</div>
                     </div>
                 </div>
             </div>
@@ -177,11 +202,16 @@
             <div class="modal-body">
                 <div class="row">
                     <div class="col-md-12 col-sm-12 col-xs-12">
-                        <div class="btn_part btn5" part="2501" area="第一分區" link="./subject_ability/e_6_5?part=2501&area=第一分區">第一分區</div>
-                        <div class="btn_part btn5" part="2502" area="第二分區" link="./subject_ability/e_6_5?part=2502&area=第二分區">第二分區</div>
-                        <div class="btn_part btn5" part="2503" area="第三分區" link="./subject_ability/e_6_5?part=2503&area=第三分區">第三分區</div>
-                        <div class="btn_part btn5" part="2504" area="第四分區" link="./subject_ability/e_6_5?part=2504&area=第四分區">第三分區</div>
-                        <div class="btn_part btn5" part="2505" area="第五分區" link="./subject_ability/e_6_5?part=2505&area=第五分區">第五分區</div>
+                        <div class="btn_part btn5" part="2501" area="第一分區"
+                            link="./subject_ability/e_6_5?part=2501&area=第一分區">第一分區</div>
+                        <div class="btn_part btn5" part="2502" area="第二分區"
+                            link="./subject_ability/e_6_5?part=2502&area=第二分區">第二分區</div>
+                        <div class="btn_part btn5" part="2503" area="第三分區"
+                            link="./subject_ability/e_6_5?part=2503&area=第三分區">第三分區</div>
+                        <div class="btn_part btn5" part="2504" area="第四分區"
+                            link="./subject_ability/e_6_5?part=2504&area=第四分區">第三分區</div>
+                        <div class="btn_part btn5" part="2505" area="第五分區"
+                            link="./subject_ability/e_6_5?part=2505&area=第五分區">第五分區</div>
                     </div>
                 </div>
             </div>
@@ -190,8 +220,8 @@
 </div>
 <!-- Modal end-->
 <script>
-$(function(){
-    $("body").on("click",".btn1",function(){
+$(function() {
+    $("body").on("click", ".btn1", function() {
         var part = $(this).attr("part");
         var area = $(this).attr("area");
         var link = $(this).attr("link");
@@ -205,11 +235,11 @@ $(function(){
         }).done(function(data) {
             alert(data.sys_msg);
             if (data.sys_code == "200") {
-                location.href = link;  
+                location.href = link;
             }
-        })        
+        })
     })
-    $("body").on("click",".btn2",function(){
+    $("body").on("click", ".btn2", function() {
         var part = $(this).attr("part");
         var area = $(this).attr("area");
         var obs = $(this).attr("obs")
@@ -220,18 +250,18 @@ $(function(){
             data: {
                 part: part,
                 area: area,
-                obs:obs
+                obs: obs
             },
             dataType: "json"
         }).done(function(data) {
             alert(data.sys_msg);
             if (data.sys_code == "200") {
-                location.href = link;  
+                location.href = link;
             }
-        })        
-    })    
+        })
+    })
 
-    $("body").on("click",".btn3",function(){
+    $("body").on("click", ".btn3", function() {
         var area = $(this).attr("area");
         var link = $(this).attr("link");
         $.ajax({
@@ -243,12 +273,12 @@ $(function(){
         }).done(function(data) {
             alert(data.sys_msg);
             if (data.sys_code == "200") {
-                location.href = link;  
+                location.href = link;
             }
-        })   
-    })        
+        })
+    })
 
-    $("body").on("click",".btn4",function(){
+    $("body").on("click", ".btn4", function() {
         var part = $(this).attr("part");
         var link = $(this).attr("link");
         $.ajax({
@@ -260,12 +290,12 @@ $(function(){
         }).done(function(data) {
             alert(data.sys_msg);
             if (data.sys_code == "200") {
-                location.href = link;  
+                location.href = link;
             }
-        })   
-    })    
+        })
+    })
 
-    $("body").on("click",".btn5",function(){
+    $("body").on("click", ".btn5", function() {
         var part = $(this).attr("part");
         var link = $(this).attr("link");
         $.ajax({
@@ -277,9 +307,9 @@ $(function(){
         }).done(function(data) {
             alert(data.sys_msg);
             if (data.sys_code == "200") {
-                location.href = link;  
+                location.href = link;
             }
-        })   
-    })            
+        })
+    })
 })
 </script>
