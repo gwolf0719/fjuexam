@@ -562,7 +562,7 @@ class Api extends CI_Controller
         //  $this->load->model('mod_trial');
         $this->load->model('subject_ability/mod_trial', "mod_trial");
         $getpost = array('sn', 'part', 'supervisor_1', 'supervisor_1_code', 'supervisor_2', 'supervisor_2_code', 'trial_staff_code_1', 'trial_staff_code_2', 'note', 'field');
-        $requred = array('sn', 'part', 'field');
+        $requred = array('sn', 'part', 'supervisor_1', 'supervisor_2', 'field');
         $data = $this->getpost->getpost_array($getpost, $requred);
         if ($data == false) {
             $json_arr['sys_code'] = '000';
@@ -601,16 +601,16 @@ class Api extends CI_Controller
                     $first_member_salary_total = $part_info['test_section'] * $fees_info['salary_section'];
                     $first_member_total = $first_member_salary_total - $first_lunch_total;
                 }
-                if ($member2['order_meal'] == "N") {
-                    $second_lunch_fee = 0;
-                    $second_lunch_total = 0;
-                    $second_member_salary_total = $part_info['test_section'] * $fees_info['salary_section'];
-                    $second_member_total = $second_member_salary_total;
-                } else {
+                if ($member2['order_meal'] == "Y") {
                     $second_lunch_fee = $fees_info['lunch_fee'];
                     $second_lunch_total = $fees_info['lunch_fee'] * count($do_date);
                     $second_member_salary_total = $part_info['test_section'] * $fees_info['salary_section'];
                     $second_member_total = $second_member_salary_total - $second_lunch_total;
+                } else {
+                    $second_lunch_fee = 0;
+                    $second_lunch_total = 0;
+                    $second_member_salary_total = $part_info['test_section'] * $fees_info['salary_section'];
+                    $second_member_total = $second_member_salary_total;
                 }
                 $sql_data = array(
                     'sn' => $data['sn'],
