@@ -1,29 +1,30 @@
 <?php 
-defined('BASEPATH') OR exit('No direct script access allowed');
+defined('BASEPATH') or exit('No direct script access allowed');
 
-class Console extends CI_Controller {
+class Console extends CI_Controller
+{
 
-    
+
     public function __construct()
     {
         parent::__construct();
-        $this->load->model('subject_ability/mod_area',"mod_area");
+        $this->load->model('subject_ability/mod_area', "mod_area");
     }
-    
+
 
     public function index()
     {
-        $this->load->model('subject_ability/mod_area',"mod_area");
+        $this->load->model('subject_ability/mod_area', "mod_area");
         $this->mod_user->chk_status();
-        $a=$this->mod_area->check_a1();
-        $b=$this->mod_area->check_f();
-        $c=$this->session->userdata('year');
+        $a = $this->mod_area->check_a1();
+        $b = $this->mod_area->check_f();
+        $c = $this->session->userdata('year');
         $data = array(
             'title' => '學測主選單',
             'path' => 'subject_ability/index',
             'path_text' => ' > 學測主選單',
-            'a1_check' =>$this->mod_area->check_a1(),
-            'f_check' =>$this->mod_area->check_f(),
+            'a1_check' => $this->mod_area->check_a1(),
+            'f_check' => $this->mod_area->check_f(),
         );
         $this->load->view('subject_ability_layout', $data);
     }
@@ -43,407 +44,411 @@ class Console extends CI_Controller {
         $this->load->view('subject_ability_layout', $data);
     }
 
-    
+
     /**
      * a資料匯入作業.
      */
-     public function a_1()
-     {
-         $this->load->model('mod_ability_exam_area');
-         $this->load->model('mod_ability_part_info');
-         $this->load->model('mod_ability_trial');
-         $this->load->model('mod_ability_patrol');
-         $this->mod_user->chk_status();
-         if (isset($_FILES['file'])) { // 如果有接收到上傳檔案資料
-             
-             $file = $_FILES['file']['tmp_name'];
-             $file_name = './tmp/'.time().'.csv';
-             copy($file, $file_name);
-             $file = fopen($file_name, 'r');
-             $datas = array();
-             fgetcsv($file);
-             while (!feof($file)) {
-                 $data = fgetcsv($file);
-                 $arr = array();
-                 array_push($arr, $data['6'], $data['7'], $data['8'], $data['9'], $data['10'], $data['11'], $data['12'], $data['13'], $data['14'], $data['15']);
-                 
-                 foreach ($arr as $k => $v) {
-                     if ($v == '0') {
-                         unset($arr[$k]);
-                     }
-                 }
- 
-                 $datas[] = array(
-                     'year' => $this->session->userdata('year'),
-                     'part' => $data[0],
-                     'part_name' => $data[1],
-                     'field' => $data[2],
-                     'start' => $data[3],
-                     'end' => $data[4],
-                     'number' => $data[5],
-                     'subject_01' => $data[6],
-                     'subject_02' => $data[7],
-                     'subject_03' => $data[8],
-                     'subject_04' => $data[9],
-                     'subject_05' => $data[10],
-                     'subject_06' => $data[11],
-                     'subject_07' => $data[12],
-                     'subject_08' => $data[13],
-                     'subject_09' => $data[14],
-                     'subject_10' => $data[15],
-                     'air_test_field' => $data[16],
-                 );
-                 $datas_part[] = array(
-                     'year' => $this->session->userdata('year'),
-                     'part' => $data[0],
-                     'part_name' => $data[1],
-                     'field' => $data[2],
-                     'test_section' => count($arr),
-                     'start' => $data[3],
-                     'end' => $data[4],
-                     'number' => $data[5],
-                 );
- 
-                 $datas_trial[] = array(
-                     'year' => $this->session->userdata('year'),
-                     'supervisor_1' => '',
-                     'supervisor_1_code' => '',
-                     'supervisor_2' => '',
-                     'supervisor_2_code' => '',
-                     'trial_staff_code_1' => '',
-                     'trial_staff_code_2' => '',
-                     'first_member_do_date' => '',
-                     'first_member_day_count' => '',
-                     'first_member_salary_section' => '',
-                     'first_member_section_salary_total' => '',
-                     'first_member_lunch_price' => '',
-                     'first_member_section_lunch_total' => '',
-                     'first_member_section_total' => '',
-                     'second_member_do_date' => '',
-                     'second_member_day_count' => '',
-                     'second_member_salary_section' => '',
-                     'second_member_section_salary_total' => '',
-                     'second_member_lunch_price' => '',
-                     'second_member_section_lunch_total' => '',
-                     'second_member_section_total' => '',
-                     'note' => '',
-                 );
-             }
+    public function a_1()
+    {
+        $this->load->model('mod_ability_exam_area');
+        $this->load->model('mod_ability_part_info');
+        $this->load->model('mod_ability_trial');
+        $this->load->model('mod_ability_patrol');
+        $this->mod_user->chk_status();
+        if (isset($_FILES['file'])) { // 如果有接收到上傳檔案資料
+
+            $file = $_FILES['file']['tmp_name'];
+            $file_name = './tmp/' . time() . '.csv';
+            copy($file, $file_name);
+            $file = fopen($file_name, 'r');
+            $datas = array();
+            fgetcsv($file);
+            while (!feof($file)) {
+                $data = fgetcsv($file);
+                $arr = array();
+                array_push($arr, $data['6'], $data['7'], $data['8'], $data['9'], $data['10'], $data['11'], $data['12'], $data['13'], $data['14'], $data['15']);
+
+                foreach ($arr as $k => $v) {
+                    if ($v == '0') {
+                        unset($arr[$k]);
+                    }
+                }
+
+                $datas[] = array(
+                    'year' => $this->session->userdata('year'),
+                    'part' => $data[0],
+                    'part_name' => $data[1],
+                    'field' => $data[2],
+                    'start' => $data[3],
+                    'end' => $data[4],
+                    'number' => $data[5],
+                    'subject_01' => $data[6],
+                    'subject_02' => $data[7],
+                    'subject_03' => $data[8],
+                    'subject_04' => $data[9],
+                    'subject_05' => $data[10],
+                    'subject_06' => $data[11],
+                    'subject_07' => $data[12],
+                    'subject_08' => $data[13],
+                    'subject_09' => $data[14],
+                    'subject_10' => $data[15],
+                    'air_test_field' => $data[16],
+                );
+                $datas_part[] = array(
+                    'year' => $this->session->userdata('year'),
+                    'part' => $data[0],
+                    'part_name' => $data[1],
+                    'field' => $data[2],
+                    'test_section' => count($arr),
+                    'start' => $data[3],
+                    'end' => $data[4],
+                    'number' => $data[5],
+                );
+
+                $datas_trial[] = array(
+                    'year' => $this->session->userdata('year'),
+                    'supervisor_1' => '',
+                    'supervisor_1_code' => '',
+                    'supervisor_2' => '',
+                    'supervisor_2_code' => '',
+                    'trial_staff_code_1' => '',
+                    'trial_staff_code_2' => '',
+                    'first_member_do_date' => '',
+                    'first_member_day_count' => '',
+                    'first_member_salary_section' => '',
+                    'first_member_section_salary_total' => '',
+                    'first_member_lunch_price' => '',
+                    'first_member_section_lunch_total' => '',
+                    'first_member_section_total' => '',
+                    'second_member_do_date' => '',
+                    'second_member_day_count' => '',
+                    'second_member_salary_section' => '',
+                    'second_member_section_salary_total' => '',
+                    'second_member_lunch_price' => '',
+                    'second_member_section_lunch_total' => '',
+                    'second_member_section_total' => '',
+                    'note' => '',
+                );
+            }
              // echo json_encode($datas);
 
                 //  c
-             $this->mod_ability_exam_area->import($datas);
-             $this->mod_ability_part_info->import($datas_part);
+            $this->mod_ability_exam_area->import($datas);
+            $this->mod_ability_part_info->import($datas_part);
              //d1監試
-             $this->mod_ability_trial->import($datas_trial);
+            $this->mod_ability_trial->import($datas_trial);
 
             // D管卷
             $this->mod_ability_trial->remove_ability_trial_staff();
             // D巡場
             $this->mod_ability_trial->remove_ability_patrol_staff();
- 
- 
-             fclose($file);
-             unlink($file_name);
-             // print_r(fgetcsv($file));
-             redirect('subject_ability/a_1');
-         } else {
-             $data = array(
-                 'title' => '考區試場資料',
-                 'path' => 'subject_ability/a_1',
-                 'path_text' => ' > 學測主選單 > 資料匯入作業 > 考區試場資料',
-                 'datalist' => $this->mod_ability_exam_area->year_get_list(),
-                 
-             );
-             $this->load->view('subject_ability_layout', $data);
-         }
-     }
 
-     public function a_2()
-     {
-         $this->load->model('mod_ability_school_unit');
-         $this->mod_user->chk_status();
-         if (isset($_FILES['file'])) { // 如果有接收到上傳檔案資料
+
+            fclose($file);
+            unlink($file_name);
+             // print_r(fgetcsv($file));
+            redirect('subject_ability/a_1');
+        } else {
+            $data = array(
+                'title' => '考區試場資料',
+                'path' => 'subject_ability/a_1',
+                'path_text' => ' > 學測主選單 > 資料匯入作業 > 考區試場資料',
+                'datalist' => $this->mod_ability_exam_area->year_get_list(),
+
+            );
+            $this->load->view('subject_ability_layout', $data);
+        }
+    }
+
+    public function a_2()
+    {
+        $this->load->model('mod_ability_school_unit');
+        $this->mod_user->chk_status();
+        if (isset($_FILES['file'])) { // 如果有接收到上傳檔案資料
              // print_r($_FILES);
-             $file = $_FILES['file']['tmp_name'];
-             $file_name = './tmp/'.time().'.csv';
-             copy($file, $file_name);
-             $file = fopen($file_name, 'r');
-             $datas = array();
-             fgetcsv($file);
-             while (!feof($file)) {
-                 $data = fgetcsv($file);
+            $file = $_FILES['file']['tmp_name'];
+            $file_name = './tmp/' . time() . '.csv';
+            copy($file, $file_name);
+            $file = fopen($file_name, 'r');
+            $datas = array();
+            fgetcsv($file);
+            while (!feof($file)) {
+                $data = fgetcsv($file);
                 //  print_r($data);
-                 $datas[] = array(
-                      'sn' => uniqid(),
-                      'year' => $this->session->userdata('year'),
-                      'department' => $data[0],
-                      'code' => $data[1],
-                      'company_name_01' => $data[2],
-                      'company_name_02' => $data[3],
-                  );
+                $datas[] = array(
+                    'sn' => uniqid(),
+                    'year' => $this->session->userdata('year'),
+                    'department' => $data[0],
+                    'code' => $data[1],
+                    'company_name_01' => $data[2],
+                    'company_name_02' => $data[3],
+                );
                 //  print_r($datas); 
-             }
+            }
              // echo json_encode($datas);
- 
-             $this->mod_ability_school_unit->import($datas);
-             fclose($file);
-             unlink($file_name);
-             //  print_r(fgetcsv($file));
-             redirect('subject_ability/a_2');
-         } else {
-             $data = array(
-                 'title' => '本校單位資料',
-                 'path' => 'subject_ability/a_2',
-                 'path_text' => ' > 學測主選單 > 資料匯入作業 > 本校單位資料',
-                 'datalist' => $this->mod_ability_school_unit->year_get_list(),
-             );
-             $this->load->view('subject_ability_layout', $data);
-         }
-     }
 
-     public function a_3()
-     {
-         $this->load->model('mod_ability_staff');
-         $this->mod_user->chk_status();
-         if (isset($_FILES['file'])) { // 如果有接收到上傳檔案資料
+            $this->mod_ability_school_unit->import($datas);
+            fclose($file);
+            unlink($file_name);
+             //  print_r(fgetcsv($file));
+            redirect('subject_ability/a_2');
+        } else {
+            $data = array(
+                'title' => '本校單位資料',
+                'path' => 'subject_ability/a_2',
+                'path_text' => ' > 學測主選單 > 資料匯入作業 > 本校單位資料',
+                'datalist' => $this->mod_ability_school_unit->year_get_list(),
+            );
+            $this->load->view('subject_ability_layout', $data);
+        }
+    }
+
+    public function a_3()
+    {
+        $this->load->model('mod_ability_staff');
+        $this->mod_user->chk_status();
+        if (isset($_FILES['file'])) { // 如果有接收到上傳檔案資料
              // print_r($_FILES);
-             $file = $_FILES['file']['tmp_name'];
-             $file_name = './tmp/'.time().'.csv';
-             copy($file, $file_name);
-             $file = fopen($file_name, 'r');
-             $datas = array();
-             fgetcsv($file);
+            $file = $_FILES['file']['tmp_name'];
+            $file_name = './tmp/' . time() . '.csv';
+            copy($file, $file_name);
+            $file = fopen($file_name, 'r');
+            $datas = array();
+            fgetcsv($file);
              // print_r(fgetcsv($file));
-             while (!feof($file)) {
-                 $data = fgetcsv($file);
-                 if ($data[0] != '') {
-                     if(!isset($data[6])){$data[6]='';}
-                     if(!isset($data[7])){$data[7]='';}
-                     $datas[] = array(
-                         'year' => $this->session->userdata('year'),
-                         'member_code' => $data[0],
-                         'member_name' => $data[1],
-                         'unit'=>$data[2],
-                         'member_unit' => $data[3],
-                         'member_title' => $data[4],
-                         'member_phone' => $data[5],
-                         'order_meal' => $data[6],
-                         'meal' => $data[7],
-                     );
-                 }
+            while (!feof($file)) {
+                $data = fgetcsv($file);
+                if ($data[0] != '') {
+                    if (!isset($data[6])) {
+                        $data[6] = '';
+                    }
+                    if (!isset($data[7])) {
+                        $data[7] = '';
+                    }
+                    $datas[] = array(
+                        'year' => $this->session->userdata('year'),
+                        'member_code' => $data[0],
+                        'member_name' => $data[1],
+                        'unit' => $data[2],
+                        'member_unit' => $data[3],
+                        'member_title' => $data[4],
+                        'member_phone' => $data[5],
+                        'order_meal' => $data[6],
+                        'meal' => $data[7],
+                    );
+                }
                  // print_r($datas);
-             }
+            }
              // echo json_encode($datas);
  
 
 
             //  B
-             $this->mod_ability_staff->remove_ability_district_task();
+            $this->mod_ability_staff->remove_ability_district_task();
             //  D1
-             $this->mod_ability_staff->remove_ability_trial_assign();
+            $this->mod_ability_staff->remove_ability_trial_assign();
             //  D2
-             $this->mod_ability_staff->remove_ability_trial_staff();
+            $this->mod_ability_staff->remove_ability_trial_staff();
             //  D3
-             $this->mod_ability_staff->remove_ability_patrol_staff();
+            $this->mod_ability_staff->remove_ability_patrol_staff();
             //  A3
-             $this->mod_ability_staff->import($datas);
+            $this->mod_ability_staff->import($datas);
 
 
 
 
 
 
-             fclose($file);
-             unlink($file_name);
-             redirect('subject_ability/a_3');
-             print_r(fgetcsv($file));
-         } else {
-             $data = array(
-                 'title' => '工作人員資料',
-                 'path' => 'subject_ability/a_3',
-                 'path_text' => ' > 學測主選單 > 資料匯入作業 > 工作人員資料',
-                 'datalist' => $this->mod_ability_staff->year_get_list(),
-             );
-             $this->load->view('subject_ability_layout', $data);
-         }
-     }
+            fclose($file);
+            unlink($file_name);
+            redirect('subject_ability/a_3');
+            print_r(fgetcsv($file));
+        } else {
+            $data = array(
+                'title' => '工作人員資料',
+                'path' => 'subject_ability/a_3',
+                'path_text' => ' > 學測主選單 > 資料匯入作業 > 工作人員資料',
+                'datalist' => $this->mod_ability_staff->year_get_list(),
+            );
+            $this->load->view('subject_ability_layout', $data);
+        }
+    }
 
-     public function a_4()
-     {
-         $this->load->model('mod_ability_task');
-         $this->load->model('mod_ability_exam_area');
-         $this->mod_user->chk_status();
- 
-         if (isset($_FILES['inputGroupFile00'])) { // 如果有接收到上傳檔案資料
-             $file = $_FILES['inputGroupFile00']['tmp_name'];
-             $file_name = './tmp/'.time().'.csv';
-             copy($file, $file_name);
-             $file = fopen($file_name, 'r');
-             $datas = array();
+    public function a_4()
+    {
+        $this->load->model('mod_ability_task');
+        $this->load->model('mod_ability_exam_area');
+        $this->mod_user->chk_status();
+
+        if (isset($_FILES['inputGroupFile00'])) { // 如果有接收到上傳檔案資料
+            $file = $_FILES['inputGroupFile00']['tmp_name'];
+            $file_name = './tmp/' . time() . '.csv';
+            copy($file, $file_name);
+            $file = fopen($file_name, 'r');
+            $datas = array();
             //  fgetcsv($file);
-             $start = $this->mod_ability_exam_area->get_min_start();
-             $end = $this->mod_ability_exam_area->get_max_end();
-             while (!feof($file)) {
-                 $data = fgetcsv($file);
-                 $area[] = array(
-                     'year' => $this->session->userdata('year'),
-                     'area' => '考區',
-                     'job' => $data[0],
-                     'job_code' => '',
-                     'job_title' => '',
-                     'name' => '',
-                     'trial_start' => $start['field'],
-                     'trial_end' => $end['field'],
-                     'number' => '',
-                     'phone' => '',
-                     'note' => '',
-                     'do_date' => '',
-                     'order_meal' => '',
-                     'day_count' => '',
-                     'one_day_salary' => '',
-                     'salary_total' => '',
-                     'lunch_price' => '',
-                     'lunch_total' => '',
-                     'total' => '',
-                     'status' => '1',
-                  );
-             }
-             $this->mod_ability_task->import($area);
-             fclose($file);
-             unlink($file_name);
-             redirect('subject_ability/a_4');
-         } elseif (isset($_FILES['inputGroupFile01'])) {
-             $file = $_FILES['inputGroupFile01']['tmp_name'];
-             $file_name = './tmp/'.time().'.csv';
-             copy($file, $file_name);
-             $file = fopen($file_name, 'r');
-             $datas = array();
+            $start = $this->mod_ability_exam_area->get_min_start();
+            $end = $this->mod_ability_exam_area->get_max_end();
+            while (!feof($file)) {
+                $data = fgetcsv($file);
+                $area[] = array(
+                    'year' => $this->session->userdata('year'),
+                    'area' => '考區',
+                    'job' => $data[0],
+                    'job_code' => '',
+                    'job_title' => '',
+                    'name' => '',
+                    'trial_start' => $start['field'],
+                    'trial_end' => $end['field'],
+                    'number' => '',
+                    'phone' => '',
+                    'note' => '',
+                    'do_date' => '',
+                    'order_meal' => '',
+                    'day_count' => '',
+                    'one_day_salary' => '',
+                    'salary_total' => '',
+                    'lunch_price' => '',
+                    'lunch_total' => '',
+                    'total' => '',
+                    'status' => '1',
+                );
+            }
+            $this->mod_ability_task->import($area);
+            fclose($file);
+            unlink($file_name);
+            redirect('subject_ability/a_4');
+        } elseif (isset($_FILES['inputGroupFile01'])) {
+            $file = $_FILES['inputGroupFile01']['tmp_name'];
+            $file_name = './tmp/' . time() . '.csv';
+            copy($file, $file_name);
+            $file = fopen($file_name, 'r');
+            $datas = array();
             //  fgetcsv($file);
-             $start_1 = $this->mod_ability_exam_area->get_min_start('2501');
-             $end_1 = $this->mod_ability_exam_area->get_max_end('2501');
-             $start_2 = $this->mod_ability_exam_area->get_min_start('2502');
-             $end_2 = $this->mod_ability_exam_area->get_max_end('2502');
-             $start_3 = $this->mod_ability_exam_area->get_min_start('2503');
-             $end_3 = $this->mod_ability_exam_area->get_max_end('2503');
-             while (!feof($file)) {
-                 $data = fgetcsv($file);
+            $start_1 = $this->mod_ability_exam_area->get_min_start('2501');
+            $end_1 = $this->mod_ability_exam_area->get_max_end('2501');
+            $start_2 = $this->mod_ability_exam_area->get_min_start('2502');
+            $end_2 = $this->mod_ability_exam_area->get_max_end('2502');
+            $start_3 = $this->mod_ability_exam_area->get_min_start('2503');
+            $end_3 = $this->mod_ability_exam_area->get_max_end('2503');
+            while (!feof($file)) {
+                $data = fgetcsv($file);
                 //  print_r($data);
-                 $area_1[] = array(
-                     'year' => $this->session->userdata('year'),
-                     'area' => '第一分區',
-                     'job' => $data[0],
-                     'job_code' => '',
-                     'job_title' => '',
-                     'name' => '',
-                     'trial_start' => $start_1['field'],
-                     'trial_end' => $end_1['field'],
-                     'number' => '',
-                     'phone' => '',
-                     'note' => '',
-                     'do_date' => '',
-                     'day_count' => '',
-                     'one_day_salary' => '',
-                     'salary_total' => '',
-                     'lunch_price' => '',
-                     'lunch_total' => '',
-                     'total' => '',
-                     'status' => '1',
-                  );
-              
-             }
-             
- 
-             $this->mod_ability_task->import_1($area_1);
+                $area_1[] = array(
+                    'year' => $this->session->userdata('year'),
+                    'area' => '第一分區',
+                    'job' => $data[0],
+                    'job_code' => '',
+                    'job_title' => '',
+                    'name' => '',
+                    'trial_start' => $start_1['field'],
+                    'trial_end' => $end_1['field'],
+                    'number' => '',
+                    'phone' => '',
+                    'note' => '',
+                    'do_date' => '',
+                    'day_count' => '',
+                    'one_day_salary' => '',
+                    'salary_total' => '',
+                    'lunch_price' => '',
+                    'lunch_total' => '',
+                    'total' => '',
+                    'status' => '1',
+                );
+
+            }
+
+
+            $this->mod_ability_task->import_1($area_1);
              // $this->mod_task->import_2($area_2);
              // $this->mod_task->import_3($area_3);
-             fclose($file);
-             unlink($file_name);
+            fclose($file);
+            unlink($file_name);
             //  print_r(fgetcsv($file));
-             redirect('subject_ability/a_4');
-         } elseif (isset($_FILES['inputGroupFile02'])) {
-             $file = $_FILES['inputGroupFile02']['tmp_name'];
-             $file_name = './tmp/'.time().'.csv';
-             copy($file, $file_name);
-             $file = fopen($file_name, 'r');
-             $datas = array();
+            redirect('subject_ability/a_4');
+        } elseif (isset($_FILES['inputGroupFile02'])) {
+            $file = $_FILES['inputGroupFile02']['tmp_name'];
+            $file_name = './tmp/' . time() . '.csv';
+            copy($file, $file_name);
+            $file = fopen($file_name, 'r');
+            $datas = array();
             //  fgetcsv($file);
-             $start_2 = $this->mod_ability_exam_area->get_min_start('2502');
-             $end_2 = $this->mod_ability_exam_area->get_max_end('2502');
-             while (!feof($file)) {
-                 $data = fgetcsv($file);
-                 $area_2[] = array(
-                     'year' => $this->session->userdata('year'),
-                     'area' => '第二分區',
-                     'job' => $data[0],
-                     'job_code' => '',
-                     'job_title' => '',
-                     'name' => '',
-                     'trial_start' => $start_2['field'],
-                     'trial_end' => $end_2['field'],
-                     'number' => '',
-                     'phone' => '',
-                     'note' => '',
-                     'do_date' => '',
-                     'day_count' => '',
-                     'one_day_salary' => '',
-                     'salary_total' => '',
-                     'lunch_price' => '',
-                     'lunch_total' => '',
-                     'total' => '',
-                     'status' => '1',
-                  );
-             }
+            $start_2 = $this->mod_ability_exam_area->get_min_start('2502');
+            $end_2 = $this->mod_ability_exam_area->get_max_end('2502');
+            while (!feof($file)) {
+                $data = fgetcsv($file);
+                $area_2[] = array(
+                    'year' => $this->session->userdata('year'),
+                    'area' => '第二分區',
+                    'job' => $data[0],
+                    'job_code' => '',
+                    'job_title' => '',
+                    'name' => '',
+                    'trial_start' => $start_2['field'],
+                    'trial_end' => $end_2['field'],
+                    'number' => '',
+                    'phone' => '',
+                    'note' => '',
+                    'do_date' => '',
+                    'day_count' => '',
+                    'one_day_salary' => '',
+                    'salary_total' => '',
+                    'lunch_price' => '',
+                    'lunch_total' => '',
+                    'total' => '',
+                    'status' => '1',
+                );
+            }
              // echo json_encode($datas);
- 
-             $this->mod_ability_task->import_2($area_2);
-             fclose($file);
-             unlink($file_name);
-             print_r(fgetcsv($file));
-             redirect('subject_ability/a_4');
-         } elseif (isset($_FILES['inputGroupFile03'])) {
-             $file = $_FILES['inputGroupFile03']['tmp_name'];
-             $file_name = './tmp/'.time().'.csv';
-             copy($file, $file_name);
-             $file = fopen($file_name, 'r');
-             $datas = array();
+
+            $this->mod_ability_task->import_2($area_2);
+            fclose($file);
+            unlink($file_name);
+            print_r(fgetcsv($file));
+            redirect('subject_ability/a_4');
+        } elseif (isset($_FILES['inputGroupFile03'])) {
+            $file = $_FILES['inputGroupFile03']['tmp_name'];
+            $file_name = './tmp/' . time() . '.csv';
+            copy($file, $file_name);
+            $file = fopen($file_name, 'r');
+            $datas = array();
             //  fgetcsv($file);
-             $start_3 = $this->mod_ability_exam_area->get_min_start('2503');
-             $end_3 = $this->mod_ability_exam_area->get_max_end('2503');
-             while (!feof($file)) {
-                 $data = fgetcsv($file);
-                 $area_3[] = array(
-                     'year' => $this->session->userdata('year'),
-                     'area' => '第三分區',
-                     'job' => $data[0],
-                     'job_code' => '',
-                     'job_title' => '',
-                     'name' => '',
-                     'trial_start' => $start_3['field'],
-                     'trial_end' => $end_3['field'],
-                     'number' => '',
-                     'phone' => '',
-                     'note' => '',
-                     'do_date' => '',
-                     'day_count' => '',
-                     'one_day_salary' => '',
-                     'salary_total' => '',
-                     'lunch_price' => '',
-                     'lunch_total' => '',
-                     'total' => '',
-                     'status' => '1',
-                  );
-             }
+            $start_3 = $this->mod_ability_exam_area->get_min_start('2503');
+            $end_3 = $this->mod_ability_exam_area->get_max_end('2503');
+            while (!feof($file)) {
+                $data = fgetcsv($file);
+                $area_3[] = array(
+                    'year' => $this->session->userdata('year'),
+                    'area' => '第三分區',
+                    'job' => $data[0],
+                    'job_code' => '',
+                    'job_title' => '',
+                    'name' => '',
+                    'trial_start' => $start_3['field'],
+                    'trial_end' => $end_3['field'],
+                    'number' => '',
+                    'phone' => '',
+                    'note' => '',
+                    'do_date' => '',
+                    'day_count' => '',
+                    'one_day_salary' => '',
+                    'salary_total' => '',
+                    'lunch_price' => '',
+                    'lunch_total' => '',
+                    'total' => '',
+                    'status' => '1',
+                );
+            }
              // echo json_encode($datas);
- 
-             $this->mod_ability_task->import_3($area_3);
-             fclose($file);
-             unlink($file_name);
+
+            $this->mod_ability_task->import_3($area_3);
+            fclose($file);
+            unlink($file_name);
             //  print_r(fgetcsv($file));
-             redirect('subject_ability/a_4');
+            redirect('subject_ability/a_4');
         } elseif (isset($_FILES['inputGroupFile04'])) {
             $file = $_FILES['inputGroupFile04']['tmp_name'];
-            $file_name = './tmp/'.time().'.csv';
+            $file_name = './tmp/' . time() . '.csv';
             copy($file, $file_name);
             $file = fopen($file_name, 'r');
             $datas = array();
@@ -472,7 +477,7 @@ class Console extends CI_Controller {
                     'lunch_total' => '',
                     'total' => '',
                     'status' => '1',
-                 );
+                );
             }
             // echo json_encode($datas);
 
@@ -485,7 +490,7 @@ class Console extends CI_Controller {
 
         } elseif (isset($_FILES['inputGroupFile05'])) {
             $file = $_FILES['inputGroupFile05']['tmp_name'];
-            $file_name = './tmp/'.time().'.csv';
+            $file_name = './tmp/' . time() . '.csv';
             copy($file, $file_name);
             $file = fopen($file_name, 'r');
             $datas = array();
@@ -514,7 +519,7 @@ class Console extends CI_Controller {
                     'lunch_total' => '',
                     'total' => '',
                     'status' => '1',
-                 );
+                );
             }
             // echo json_encode($datas);
 
@@ -524,23 +529,23 @@ class Console extends CI_Controller {
             // print_r(fgetcsv($file));
             redirect('subject_ability/a_4');
 
-         } else {
-             $data = array(
-                     'title' => '職務資料',
-                     'path' => 'subject_ability/a_4',
-                     'path_text' => ' > 學測主選單 > 資料匯入作業 > 職務資料',
-                     'all' => $this->mod_ability_task->get_list(),
-                     'b1' => $this->mod_ability_task->get_list('考區'),
-                     'b2' => $this->mod_ability_task->get_list('第一分區'),
-                     'b3' => $this->mod_ability_task->get_list('第二分區'),
-                     'b4' => $this->mod_ability_task->get_list('第三分區'),
-                     'b5' => $this->mod_ability_task->get_list('第四分區'),
-                     'b6' => $this->mod_ability_task->get_list('第五分區'),
-                 );
-             $this->load->view('subject_ability_layout', $data);
-         }
-     }
-       /**
+        } else {
+            $data = array(
+                'title' => '職務資料',
+                'path' => 'subject_ability/a_4',
+                'path_text' => ' > 學測主選單 > 資料匯入作業 > 職務資料',
+                'all' => $this->mod_ability_task->get_list(),
+                'b1' => $this->mod_ability_task->get_list('考區'),
+                'b2' => $this->mod_ability_task->get_list('第一分區'),
+                'b3' => $this->mod_ability_task->get_list('第二分區'),
+                'b4' => $this->mod_ability_task->get_list('第三分區'),
+                'b5' => $this->mod_ability_task->get_list('第四分區'),
+                'b6' => $this->mod_ability_task->get_list('第五分區'),
+            );
+            $this->load->view('subject_ability_layout', $data);
+        }
+    }
+    /**
      * 考區任務編組.
      */
     public function b()
@@ -559,7 +564,7 @@ class Console extends CI_Controller {
         $this->load->model('mod_ability_exam_area');
         $this->load->model('mod_ability_task');
         $this->load->model('mod_ability_exam_fees');
-        $this->load->model('subject_ability/mod_exam_datetime',"mod_exam_datetime");
+        $this->load->model('subject_ability/mod_exam_datetime', "mod_exam_datetime");
         $this->mod_user->chk_status();
         $year = $this->session->userdata('year');
         $jobs = $this->mod_ability_task->get_job_list($year, '考區');
@@ -600,7 +605,7 @@ class Console extends CI_Controller {
         $this->load->model('mod_ability_exam_area');
         $this->load->model('mod_ability_task');
         $this->load->model('mod_ability_exam_fees');
-        $this->load->model('subject_ability/mod_exam_datetime',"mod_exam_datetime");
+        $this->load->model('subject_ability/mod_exam_datetime', "mod_exam_datetime");
         $this->load->model('mod_ability_part');
         $this->mod_user->chk_status();
         $year = $this->session->userdata('year');
@@ -642,7 +647,7 @@ class Console extends CI_Controller {
         $this->load->model('mod_ability_task');
         $this->load->model('mod_ability_exam_fees');
         $this->load->model('mod_ability_part');
-        $this->load->model('subject_ability/mod_exam_datetime',"mod_exam_datetime");
+        $this->load->model('subject_ability/mod_exam_datetime', "mod_exam_datetime");
         $this->mod_user->chk_status();
         $year = $this->session->userdata('year');
         $jobs = $this->mod_ability_task->get_job_list($year, '第二分區');
@@ -682,7 +687,7 @@ class Console extends CI_Controller {
         $this->load->model('mod_ability_task');
         $this->load->model('mod_ability_part');
         $this->load->model('mod_ability_exam_fees');
-        $this->load->model('subject_ability/mod_exam_datetime',"mod_exam_datetime");
+        $this->load->model('subject_ability/mod_exam_datetime', "mod_exam_datetime");
         $this->mod_user->chk_status();
         $year = $this->session->userdata('year');
         $jobs = $this->mod_ability_task->get_job_list($year, '第三分區');
@@ -721,7 +726,7 @@ class Console extends CI_Controller {
         $this->load->model('mod_ability_task');
         $this->load->model('mod_ability_part');
         $this->load->model('mod_ability_exam_fees');
-        $this->load->model('subject_ability/mod_exam_datetime',"mod_exam_datetime");
+        $this->load->model('subject_ability/mod_exam_datetime', "mod_exam_datetime");
         $this->mod_user->chk_status();
         $year = $this->session->userdata('year');
         $jobs = $this->mod_ability_task->get_job_list($year, '第四分區');
@@ -760,7 +765,7 @@ class Console extends CI_Controller {
         $this->load->model('mod_ability_task');
         $this->load->model('mod_ability_part');
         $this->load->model('mod_ability_exam_fees');
-        $this->load->model('subject_ability/mod_exam_datetime',"mod_exam_datetime");
+        $this->load->model('subject_ability/mod_exam_datetime', "mod_exam_datetime");
         $this->mod_user->chk_status();
         $year = $this->session->userdata('year');
         $jobs = $this->mod_ability_task->get_job_list($year, '第五分區');
@@ -814,50 +819,50 @@ class Console extends CI_Controller {
         $this->load->view('subject_ability_layout', $data);
     }
 
-     /**
+    /**
      * C 試場分配.
      */
-     public function c()
-     {
-         $this->load->model('mod_ability_part_info');
-         $this->mod_user->chk_status();
-         $data = array(
-             'title' => '試場分配',
-             'path' => 'subject_ability/c',
-             'path_text' => ' > 學測主選單 > 試場分配',
-             'datalist' => $this->mod_ability_part_info->get_list(),
-         );
-         $this->load->view('subject_ability_layout', $data);
-     }
+    public function c()
+    {
+        $this->load->model('mod_ability_part_info');
+        $this->mod_user->chk_status();
+        $data = array(
+            'title' => '試場分配',
+            'path' => 'subject_ability/c',
+            'path_text' => ' > 學測主選單 > 試場分配',
+            'datalist' => $this->mod_ability_part_info->get_list(),
+        );
+        $this->load->view('subject_ability_layout', $data);
+    }
 
-     public function c_1()
-     {
-         $this->load->model('mod_ability_part_info');
-         $this->load->model('mod_ability_part_addr');
-         $this->mod_user->chk_status();
-         $year = $this->session->userdata('year');
- 
-         if ($this->mod_ability_part_addr->chk_once($year)) {
-             $addr_info = $this->mod_ability_part_addr->get_once($year);
-         } else {
-             $addr_info = array(
-                 'part_addr_1' => '',
-                 'part_addr_2' => '',
-                 'part_addr_3' => '',
-             );
-         }
- 
-         $data = array(
-             'title' => '第一分區',
-             'path' => 'subject_ability/c_1',
-             'path_text' => ' > 學測主選單 > 試場分配 > 第一分區',
-             'datalist' => $this->mod_ability_part_info->get_list('2501'),
-             'addr_info' => $addr_info,
-         );
-         $this->load->view('subject_ability_layout', $data);
-     }
+    public function c_1()
+    {
+        $this->load->model('mod_ability_part_info');
+        $this->load->model('mod_ability_part_addr');
+        $this->mod_user->chk_status();
+        $year = $this->session->userdata('year');
 
-     public function c_2()
+        if ($this->mod_ability_part_addr->chk_once($year)) {
+            $addr_info = $this->mod_ability_part_addr->get_once($year);
+        } else {
+            $addr_info = array(
+                'part_addr_1' => '',
+                'part_addr_2' => '',
+                'part_addr_3' => '',
+            );
+        }
+
+        $data = array(
+            'title' => '第一分區',
+            'path' => 'subject_ability/c_1',
+            'path_text' => ' > 學測主選單 > 試場分配 > 第一分區',
+            'datalist' => $this->mod_ability_part_info->get_list('2501'),
+            'addr_info' => $addr_info,
+        );
+        $this->load->view('subject_ability_layout', $data);
+    }
+
+    public function c_2()
     {
         $this->load->model('mod_ability_part_info');
         $this->load->model('mod_ability_part_addr');
@@ -993,248 +998,248 @@ class Console extends CI_Controller {
     /**
      * d 試場分配.
      */
-     public function d()
-     {
-         $this->load->model('mod_ability_part_info');
-         $this->mod_user->chk_status();
-         $data = array(
-             'title' => '試場人員指派',
-             'path' => 'subject_ability/d',
-             'path_text' => ' > 學測主選單 > 試場人員指派',
-             'datalist' => $this->mod_ability_part_info->get_list(),
-         );
-         $this->load->view('subject_ability_layout', $data);
-     }
+    public function d()
+    {
+        $this->load->model('mod_ability_part_info');
+        $this->mod_user->chk_status();
+        $data = array(
+            'title' => '試場人員指派',
+            'path' => 'subject_ability/d',
+            'path_text' => ' > 學測主選單 > 試場人員指派',
+            'datalist' => $this->mod_ability_part_info->get_list(),
+        );
+        $this->load->view('subject_ability_layout', $data);
+    }
 
-     public function d_1()
-     {
-         $this->load->model('mod_ability_part_info');
-         $this->load->model('mod_ability_trial');
-         $this->mod_user->chk_status();
-         $year = $this->session->userdata('year');
-         $part1 = $this->mod_ability_trial->new_get_list('2501');
-         $part2 = $this->mod_ability_trial->new_get_list('2502');
-         $part3 = $this->mod_ability_trial->new_get_list('2503');
-         $part4 = $this->mod_ability_trial->new_get_list('2504');
-         $part5 = $this->mod_ability_trial->new_get_list('2505');
-         $data = array(
-             'title' => '監試人員指派',
-             'path' => 'subject_ability/d_1',
-             'path_text' => ' > 學測主選單 > 試場人員指派 > 監試人員指派',
-             'part1' => $part1,
-             'part2' => $part2,
-             'part3' => $part3,
-             'part4' => $part4,
-             'part5' => $part5,
-         );
- 
-         $this->load->view('subject_ability_layout', $data);
-     }
-     public function d_2()
-     {
-         $this->load->model('mod_ability_part_info');
-         $this->load->model('mod_ability_trial');
-         $this->load->model('mod_ability_exam_area');
-         $this->load->model('subject_ability/mod_exam_datetime',"mod_exam_datetime");
+    public function d_1()
+    {
+        $this->load->model('mod_ability_part_info');
+        $this->load->model('mod_ability_trial');
+        $this->mod_user->chk_status();
+        $year = $this->session->userdata('year');
+        $part1 = $this->mod_ability_trial->new_get_list('2501');
+        $part2 = $this->mod_ability_trial->new_get_list('2502');
+        $part3 = $this->mod_ability_trial->new_get_list('2503');
+        $part4 = $this->mod_ability_trial->new_get_list('2504');
+        $part5 = $this->mod_ability_trial->new_get_list('2505');
+        $data = array(
+            'title' => '監試人員指派',
+            'path' => 'subject_ability/d_1',
+            'path_text' => ' > 學測主選單 > 試場人員指派 > 監試人員指派',
+            'part1' => $part1,
+            'part2' => $part2,
+            'part3' => $part3,
+            'part4' => $part4,
+            'part5' => $part5,
+        );
+
+        $this->load->view('subject_ability_layout', $data);
+    }
+    public function d_2()
+    {
+        $this->load->model('mod_ability_part_info');
+        $this->load->model('mod_ability_trial');
+        $this->load->model('mod_ability_exam_area');
+        $this->load->model('subject_ability/mod_exam_datetime', "mod_exam_datetime");
         //  $this->load->model('mod_exam_datetime');
-         $this->mod_user->chk_status();
-         $year = $this->session->userdata('year');
-         $part = $this->mod_ability_exam_area->get_part('2501');
-         $part1 = $this->mod_ability_trial->get_trial_list('2501');
-         $part2 = $this->mod_ability_trial->get_trial_list('2502');
-         $part3 = $this->mod_ability_trial->get_trial_list('2503');
-         $part4 = $this->mod_ability_trial->get_trial_list('2504');
-         $part5 = $this->mod_ability_trial->get_trial_list('2505');
-         if ($this->mod_exam_datetime->chk_once($year)) {
-             $datetime_info = $this->mod_exam_datetime->get_once($year);
-         } else {
-             $datetime_info = array(
-                 'day_1' => '07/01',
-                 'day_2' => '07/02',
-                 'day_3' => '07/03',
-             );
-         }
-         $data = array(
-             'title' => '管卷人員指派',
-             'path' => 'subject_ability/d_2',
-             'path_text' => ' > 學測主選單 > 試場人員指派 > 管卷人員指派',
-             'part' => $part,
-             'part1' => $part1,
-             'part2' => $part2,
-             'part3' => $part3,
-             'part4' => $part4,
-             'part5' => $part5,
-             'datetime_info' => $datetime_info,
-         );
-         $this->load->view('subject_ability_layout', $data);
-     }
-     public function d_3()
-     {
-         $this->load->model('mod_ability_patrol');
-         $this->load->model('mod_ability_trial');
-         $this->load->model('mod_ability_exam_area');
-         $this->mod_user->chk_status();
-         $year = $this->session->userdata('year');
-         $part = $this->mod_ability_exam_area->get_part('2501');
-         $part1 = $this->mod_ability_patrol->get_patrol_list('2501');
-         $part2 = $this->mod_ability_patrol->get_patrol_list('2502');
-         $part3 = $this->mod_ability_patrol->get_patrol_list('2503');
-         $part4 = $this->mod_ability_patrol->get_patrol_list('2504');
-         $part5 = $this->mod_ability_patrol->get_patrol_list('2505');
-         $data = array(
-             'title' => '巡場人員指派',
-             'path' => 'subject_ability/d_3',
-             'path_text' => ' > 學測主選單 > 試場人員指派 > 巡場人員指派',
-             'part' => $part,
-             'part1' => $part1,
-             'part2' => $part2,
-             'part3' => $part3,
-             'part4' => $part4,
-             'part5' => $part5,
-         );
-         $this->load->view('subject_ability_layout', $data);
-     }
+        $this->mod_user->chk_status();
+        $year = $this->session->userdata('year');
+        $part = $this->mod_ability_exam_area->get_part('2501');
+        $part1 = $this->mod_ability_trial->get_trial_list('2501');
+        $part2 = $this->mod_ability_trial->get_trial_list('2502');
+        $part3 = $this->mod_ability_trial->get_trial_list('2503');
+        $part4 = $this->mod_ability_trial->get_trial_list('2504');
+        $part5 = $this->mod_ability_trial->get_trial_list('2505');
+        if ($this->mod_exam_datetime->chk_once($year)) {
+            $datetime_info = $this->mod_exam_datetime->get_once($year);
+        } else {
+            $datetime_info = array(
+                'day_1' => '07/01',
+                'day_2' => '07/02',
+                'day_3' => '07/03',
+            );
+        }
+        $data = array(
+            'title' => '管卷人員指派',
+            'path' => 'subject_ability/d_2',
+            'path_text' => ' > 學測主選單 > 試場人員指派 > 管卷人員指派',
+            'part' => $part,
+            'part1' => $part1,
+            'part2' => $part2,
+            'part3' => $part3,
+            'part4' => $part4,
+            'part5' => $part5,
+            'datetime_info' => $datetime_info,
+        );
+        $this->load->view('subject_ability_layout', $data);
+    }
+    public function d_3()
+    {
+        $this->load->model('mod_ability_patrol');
+        $this->load->model('mod_ability_trial');
+        $this->load->model('mod_ability_exam_area');
+        $this->mod_user->chk_status();
+        $year = $this->session->userdata('year');
+        $part = $this->mod_ability_exam_area->get_part('2501');
+        $part1 = $this->mod_ability_patrol->get_patrol_list('2501');
+        $part2 = $this->mod_ability_patrol->get_patrol_list('2502');
+        $part3 = $this->mod_ability_patrol->get_patrol_list('2503');
+        $part4 = $this->mod_ability_patrol->get_patrol_list('2504');
+        $part5 = $this->mod_ability_patrol->get_patrol_list('2505');
+        $data = array(
+            'title' => '巡場人員指派',
+            'path' => 'subject_ability/d_3',
+            'path_text' => ' > 學測主選單 > 試場人員指派 > 巡場人員指派',
+            'part' => $part,
+            'part1' => $part1,
+            'part2' => $part2,
+            'part3' => $part3,
+            'part4' => $part4,
+            'part5' => $part5,
+        );
+        $this->load->view('subject_ability_layout', $data);
+    }
 
-     public function d_4()
-     {
-         $this->load->model('mod_ability_part_info');
-         $this->load->model('mod_ability_trial');
+    public function d_4()
+    {
+        $this->load->model('mod_ability_part_info');
+        $this->load->model('mod_ability_trial');
         //  $this->load->model('mod_exam_datetime');
-         $this->load->model('subject_ability/mod_exam_datetime',"mod_exam_datetime");
-         $this->load->model('mod_ability_exam_fees');
-         $this->mod_user->chk_status();
-         $year = $this->session->userdata('year');
-         $part1 = $this->mod_ability_trial->get_list('2501');
-         $part2 = $this->mod_ability_trial->get_list('2502');
-         $part3 = $this->mod_ability_trial->get_list('2503');
-         $part4 = $this->mod_ability_trial->get_list('2504');
-         $part5 = $this->mod_ability_trial->get_list('2505');
-         if ($this->mod_ability_exam_fees->chk_once($year)) {
-             $fees_info = $this->mod_ability_exam_fees->get_once($year);
-         } else {
-             $fees_info = array(
-                 'one_day_salary' => '0',
-                 'salary_section' => '0',
-                 'lunch_fee' => '0',
-             );
-         }
-         if ($this->mod_exam_datetime->chk_once($year)) {
-             $datetime_info = $this->mod_exam_datetime->get_once($year);
-         } else {
-             $datetime_info = array(
-                 'day_1' => '07/01',
-                 'day_2' => '07/02',
-                 'day_3' => '07/03',
-             );
-         }
-         $data = array(
-             'title' => '監試人員列表',
-             'path' => 'subject_ability/d_4',
-             'path_text' => ' > 學測主選單 > 試場人員指派 > 監試人員列表',
-             'part1' => $part1,
-             'part2' => $part2,
-             'part3' => $part3,
-             'part4' => $part4,
-             'part5' => $part5,
-             'fees_info' => $fees_info,
-             'datetime_info' => $datetime_info,
-         );
-         $this->load->view('subject_ability_layout', $data);
-     }
+        $this->load->model('subject_ability/mod_exam_datetime', "mod_exam_datetime");
+        $this->load->model('mod_ability_exam_fees');
+        $this->mod_user->chk_status();
+        $year = $this->session->userdata('year');
+        $part1 = $this->mod_ability_trial->get_list('2501');
+        $part2 = $this->mod_ability_trial->get_list('2502');
+        $part3 = $this->mod_ability_trial->get_list('2503');
+        $part4 = $this->mod_ability_trial->get_list('2504');
+        $part5 = $this->mod_ability_trial->get_list('2505');
+        if ($this->mod_ability_exam_fees->chk_once($year)) {
+            $fees_info = $this->mod_ability_exam_fees->get_once($year);
+        } else {
+            $fees_info = array(
+                'one_day_salary' => '0',
+                'salary_section' => '0',
+                'lunch_fee' => '0',
+            );
+        }
+        if ($this->mod_exam_datetime->chk_once($year)) {
+            $datetime_info = $this->mod_exam_datetime->get_once($year);
+        } else {
+            $datetime_info = array(
+                'day_1' => '07/01',
+                'day_2' => '07/02',
+                'day_3' => '07/03',
+            );
+        }
+        $data = array(
+            'title' => '監試人員列表',
+            'path' => 'subject_ability/d_4',
+            'path_text' => ' > 學測主選單 > 試場人員指派 > 監試人員列表',
+            'part1' => $part1,
+            'part2' => $part2,
+            'part3' => $part3,
+            'part4' => $part4,
+            'part5' => $part5,
+            'fees_info' => $fees_info,
+            'datetime_info' => $datetime_info,
+        );
+        $this->load->view('subject_ability_layout', $data);
+    }
 
-     public function d_5()
-     {
-         $this->load->model('mod_ability_trial');
+    public function d_5()
+    {
+        $this->load->model('mod_ability_trial');
         //  $this->load->model('mod_exam_datetime');
-         $this->load->model('subject_ability/mod_exam_datetime',"mod_exam_datetime");
-         $this->load->model('mod_ability_exam_fees');
-         $this->mod_user->chk_status();
-         $year = $this->session->userdata('year');
-         $part1 = $this->mod_ability_trial->get_trial_list('2501');
-         $part2 = $this->mod_ability_trial->get_trial_list('2502');
-         $part3 = $this->mod_ability_trial->get_trial_list('2503');
-         $part4 = $this->mod_ability_trial->get_trial_list('2504');
-         $part5 = $this->mod_ability_trial->get_trial_list('2505');
-         if ($this->mod_ability_exam_fees->chk_once($year)) {
-             $fees_info = $this->mod_ability_exam_fees->get_once($year);
-         } else {
-             $fees_info = array(
-                 'one_day_salary' => '0',
-                 'salary_section' => '0',
-                 'lunch_fee' => '0',
-             );
-         }
-         if ($this->mod_exam_datetime->chk_once($year)) {
-             $datetime_info = $this->mod_exam_datetime->get_once($year);
-         } else {
-             $datetime_info = array(
-                 'day_1' => '07/01',
-                 'day_2' => '07/02',
-                 'day_3' => '07/03',
-             );
-         }
-         $data = array(
-             'title' => '管卷人員列表',
-             'path' => 'subject_ability/d_5',
-             'path_text' => ' > 學測主選單 > 試場人員指派 > 管卷人員列表',
-             'part1' => $part1,
-             'part2' => $part2,
-             'part3' => $part3,
-             'part4' => $part4,
-             'part5' => $part5,
-             'fees_info' => $fees_info,
-             'datetime_info' => $datetime_info,
-         );
-         $this->load->view('subject_ability_layout', $data);
-     }
+        $this->load->model('subject_ability/mod_exam_datetime', "mod_exam_datetime");
+        $this->load->model('mod_ability_exam_fees');
+        $this->mod_user->chk_status();
+        $year = $this->session->userdata('year');
+        $part1 = $this->mod_ability_trial->get_trial_list('2501');
+        $part2 = $this->mod_ability_trial->get_trial_list('2502');
+        $part3 = $this->mod_ability_trial->get_trial_list('2503');
+        $part4 = $this->mod_ability_trial->get_trial_list('2504');
+        $part5 = $this->mod_ability_trial->get_trial_list('2505');
+        if ($this->mod_ability_exam_fees->chk_once($year)) {
+            $fees_info = $this->mod_ability_exam_fees->get_once($year);
+        } else {
+            $fees_info = array(
+                'one_day_salary' => '0',
+                'salary_section' => '0',
+                'lunch_fee' => '0',
+            );
+        }
+        if ($this->mod_exam_datetime->chk_once($year)) {
+            $datetime_info = $this->mod_exam_datetime->get_once($year);
+        } else {
+            $datetime_info = array(
+                'day_1' => '07/01',
+                'day_2' => '07/02',
+                'day_3' => '07/03',
+            );
+        }
+        $data = array(
+            'title' => '管卷人員列表',
+            'path' => 'subject_ability/d_5',
+            'path_text' => ' > 學測主選單 > 試場人員指派 > 管卷人員列表',
+            'part1' => $part1,
+            'part2' => $part2,
+            'part3' => $part3,
+            'part4' => $part4,
+            'part5' => $part5,
+            'fees_info' => $fees_info,
+            'datetime_info' => $datetime_info,
+        );
+        $this->load->view('subject_ability_layout', $data);
+    }
 
-     public function d_6()
-     {
-         $this->load->model('mod_ability_patrol');
+    public function d_6()
+    {
+        $this->load->model('mod_ability_patrol');
         //  $this->load->model('mod_exam_datetime');
-         $this->load->model('subject_ability/mod_exam_datetime',"mod_exam_datetime");
-         $this->load->model('mod_ability_exam_fees');
-         $this->mod_user->chk_status();
-         $year = $this->session->userdata('year');
-         $part1 = $this->mod_ability_patrol->get_patrol_list('2501');
-         $part2 = $this->mod_ability_patrol->get_patrol_list('2502');
-         $part3 = $this->mod_ability_patrol->get_patrol_list('2503');
-         $part4 = $this->mod_ability_patrol->get_patrol_list('2504');
-         $part5 = $this->mod_ability_patrol->get_patrol_list('2505');
-         if ($this->mod_ability_exam_fees->chk_once($year)) {
-             $fees_info = $this->mod_ability_exam_fees->get_once($year);
-         } else {
-             $fees_info = array(
-                 'one_day_salary' => '0',
-                 'salary_section' => '0',
-                 'lunch_fee' => '0',
-             );
-         }
-         if ($this->mod_exam_datetime->chk_once($year)) {
-             $datetime_info = $this->mod_exam_datetime->get_once($year);
-         } else {
-             $datetime_info = array(
-                 'day_1' => '07/01',
-                 'day_2' => '07/02',
-                 'day_3' => '07/03',
-             );
-         }
-         $data = array(
-             'title' => '巡場人員列表',
-             'path' => 'subject_ability/d_6',
-             'path_text' => ' > 學測主選單 > 試場人員指派 > 巡場人員列表',
-             'part1' => $part1,
-             'part2' => $part2,
-             'part3' => $part3,
-             'part4' => $part4,
-             'part5' => $part5,
-             'fees_info' => $fees_info,
-             'datetime_info' => $datetime_info,
-         );
-         $this->load->view('subject_ability_layout', $data);
-     }
+        $this->load->model('subject_ability/mod_exam_datetime', "mod_exam_datetime");
+        $this->load->model('mod_ability_exam_fees');
+        $this->mod_user->chk_status();
+        $year = $this->session->userdata('year');
+        $part1 = $this->mod_ability_patrol->get_patrol_list('2501');
+        $part2 = $this->mod_ability_patrol->get_patrol_list('2502');
+        $part3 = $this->mod_ability_patrol->get_patrol_list('2503');
+        $part4 = $this->mod_ability_patrol->get_patrol_list('2504');
+        $part5 = $this->mod_ability_patrol->get_patrol_list('2505');
+        if ($this->mod_ability_exam_fees->chk_once($year)) {
+            $fees_info = $this->mod_ability_exam_fees->get_once($year);
+        } else {
+            $fees_info = array(
+                'one_day_salary' => '0',
+                'salary_section' => '0',
+                'lunch_fee' => '0',
+            );
+        }
+        if ($this->mod_exam_datetime->chk_once($year)) {
+            $datetime_info = $this->mod_exam_datetime->get_once($year);
+        } else {
+            $datetime_info = array(
+                'day_1' => '07/01',
+                'day_2' => '07/02',
+                'day_3' => '07/03',
+            );
+        }
+        $data = array(
+            'title' => '巡場人員列表',
+            'path' => 'subject_ability/d_6',
+            'path_text' => ' > 學測主選單 > 試場人員指派 > 巡場人員列表',
+            'part1' => $part1,
+            'part2' => $part2,
+            'part3' => $part3,
+            'part4' => $part4,
+            'part5' => $part5,
+            'fees_info' => $fees_info,
+            'datetime_info' => $datetime_info,
+        );
+        $this->load->view('subject_ability_layout', $data);
+    }
 
-      /**
+    /**
      * 考區任務編組.
      */
     public function e()
@@ -1247,7 +1252,7 @@ class Console extends CI_Controller {
         );
         $this->load->view('subject_ability_layout', $data);
     }
-    
+
     public function e_1()
     {
         $this->mod_user->chk_status();
@@ -1260,67 +1265,68 @@ class Console extends CI_Controller {
     }
     public function e_1_1()
     {
-        
+
         $this->load->model('mod_ability_school_unit');
-        
+
         $title = '行政單位';
         $date = date('yyyy/m/d');
-        
+
         $data = array(
             'list' => $this->mod_ability_school_unit->year_get_school_unit_list(),
         );
         if ($data['list'] != false) {
-            $view =  $this->load->view('subject_ability/e_1_1', $data, true);
-            $this->pdf->view_to_pdf($view,'e_1_1');
-        }else{
+            $view = $this->load->view('subject_ability/e_1_1', $data, true);
+            $this->pdf->view_to_pdf($view, 'e_1_1');
+        } else {
             return false;
         }
     }
 
     public function e_1_2()
     {
-        
+
         $this->load->model('mod_ability_task');
-        
+
         $title = '請公假名單';
         $date = date('yyyy/m/d');
-        
+
         $data = array(
             'list' => $this->mod_ability_task->get_all_assign_member_list(),
         );
         // print_r($data);
-        $view =  $this->load->view('subject_ability/e_1_2', $data, true);
-        $this->pdf->view_to_pdf($view,'e_1_2');
+        $view = $this->load->view('subject_ability/e_1_2', $data, true);
+        $this->pdf->view_to_pdf($view, 'e_1_2');
     }
 
     public function e_1_3()
     {
-        
+
+
         $this->load->model('mod_ability_trial');
         $this->load->model('mod_ability_exam_area');
 
         $part = $_GET['part'];
         $area = $_GET['area'];
-        
+
         $title = '監試及試務人員一覽表';
         $date = date('yyyy/m/d');
-        
+
         $data = array(
             'part' => $this->mod_ability_trial->get_list_for_pdf($part),
             'area' => $area,
             'school' => $this->mod_ability_exam_area->year_school_name($part),
         );
-        if($data['part'] != false){
-          $view =  $this->load->view('subject_ability/e_1_3', $data, true);
-          $this->pdf->view_to_pdf($view,'e_1_3');
-        }else{
-          return false;
+        if ($data['part'] != false) {
+            $view = $this->load->view('subject_ability/e_1_3', $data, true);
+            $this->pdf->view_to_pdf($view, 'e_1_3');
+        } else {
+            return false;
         }
     }
 
     public function e_1_3_3()
     {
-        
+
         $this->load->model('mod_ability_task');
         $this->load->model('mod_ability_exam_area');
         $this->load->model("mod_ability_part_addr");
@@ -1332,10 +1338,10 @@ class Console extends CI_Controller {
         } else {
             $school = "";
         }
-        
+
         $title = '監試及試務人員一覽表';
         $date = date('yyyy/m/d');
-        
+
         $year = $_SESSION['year'];
         if ($this->mod_ability_part_addr->chk_once($year)) {
             $addr_info = $this->mod_ability_part_addr->get_once($year);
@@ -1347,21 +1353,21 @@ class Console extends CI_Controller {
             );
         }
         $data = array(
-            'part' => $this->mod_ability_task->get_district_task($area,$part),
+            'part' => $this->mod_ability_task->get_district_task($area, $part),
             'area' => $area,
             'school' => $this->mod_ability_exam_area->year_school_name($part),
             'addr_info' => $addr_info,
         );
-        if($data['part'] != false){
-          $view =  $this->load->view('subject_ability/e_1_3_3', $data, true);
-          $this->pdf->view_to_pdf($view,'e_1_3_3');
-        }else{
-          return false;
+        if ($data['part'] != false) {
+            $view = $this->load->view('subject_ability/e_1_3_3', $data, true);
+            $this->pdf->view_to_pdf($view, 'e_1_3_3');
+        } else {
+            return false;
         }
     }
     public function e_1_3_4()
     {
-        
+
         $this->load->model('mod_ability_task');
         $this->load->model('mod_ability_exam_area');
         $this->load->model("mod_ability_part_addr");
@@ -1373,10 +1379,10 @@ class Console extends CI_Controller {
         } else {
             $school = "";
         }
-        
+
         $title = '監試及試務人員一覽表';
         $date = date('yyyy/m/d');
-        
+
         $year = $_SESSION['year'];
         if ($this->mod_ability_part_addr->chk_once($year)) {
             $addr_info = $this->mod_ability_part_addr->get_once($year);
@@ -1388,22 +1394,22 @@ class Console extends CI_Controller {
             );
         }
         $data = array(
-            'part' => $this->mod_ability_task->get_trial_staff_list_for_pdf($area,$part),
+            'part' => $this->mod_ability_task->get_trial_staff_list_for_pdf($area, $part),
             'area' => $area,
             'school' => $this->mod_ability_exam_area->year_school_name($part),
             'addr_info' => $addr_info,
         );
-        if($data['part'] != false){
-          $view =  $this->load->view('subject_ability/e_1_3_4', $data, true);
-          $this->pdf->view_to_pdf($view,'e_1_3_4');
-        }else{
-          return false;
+        if ($data['part'] != false) {
+            $view = $this->load->view('subject_ability/e_1_3_4', $data, true);
+            $this->pdf->view_to_pdf($view, 'e_1_3_4');
+        } else {
+            return false;
         }
     }
 
     public function e_1_3_5()
     {
-        
+
         $this->load->model('mod_ability_task');
         $this->load->model('mod_ability_exam_area');
         $this->load->model("mod_ability_part_addr");
@@ -1415,10 +1421,10 @@ class Console extends CI_Controller {
         } else {
             $school = "";
         }
-        
+
         $title = '監試及試務人員一覽表';
         $date = date('yyyy/m/d');
-        
+
         $year = $_SESSION['year'];
         if ($this->mod_ability_part_addr->chk_once($year)) {
             $addr_info = $this->mod_ability_part_addr->get_once($year);
@@ -1430,23 +1436,23 @@ class Console extends CI_Controller {
             );
         }
         $data = array(
-            'part' => $this->mod_ability_task->get_patrol_staff_list_for_pdf($area,$part),
+            'part' => $this->mod_ability_task->get_patrol_staff_list_for_pdf($area, $part),
             'area' => $area,
             'school' => $this->mod_ability_exam_area->year_school_name($part),
             'addr_info' => $addr_info,
         );
-        if($data['part'] != false){
-            $view =  $this->load->view('subject_ability/e_1_3_5', $data, true);
-            $this->pdf->view_to_pdf($view,'e_1_3_5');
-        }else{
-          return false;
+        if ($data['part'] != false) {
+            $view = $this->load->view('subject_ability/e_1_3_5', $data, true);
+            $this->pdf->view_to_pdf($view, 'e_1_3_5');
+        } else {
+            return false;
         }
     }
 
     public function e_1_4()
     {
         $this->load->model('mod_ability_exam_area');
-        $this->load->model('subject_ability/mod_exam_datetime',"mod_exam_datetime");
+        $this->load->model('subject_ability/mod_exam_datetime', "mod_exam_datetime");
 
         $title = '缺考人數統計';
         $year = $this->session->userdata('year');
@@ -1478,41 +1484,41 @@ class Console extends CI_Controller {
             'count' => $this->mod_ability_exam_area->year_get_member_count_list($part),
             'school' => $this->mod_ability_exam_area->year_school_name($part),
             'course' => $this->mod_exam_datetime->get_course($year),
-            'datetime_info'=>$datetime_info,
-            'area'=>$area
+            'datetime_info' => $datetime_info,
+            'area' => $area
         );
-        if($data['list'] != false){
-            $view = $this->load->view('subject_ability/e_1_4',$data,true);
-            $this->pdf->view_to_pdf($view,'e_1_4');
-        }else{          
-          return false;
+        if ($data['list'] != false) {
+            $view = $this->load->view('subject_ability/e_1_4', $data, true);
+            $this->pdf->view_to_pdf($view, 'e_1_4');
+        } else {
+            return false;
         }
     }
 
     public function e_1_5()
     {
-        
+
         $this->load->model('mod_ability_trial');
-        
+
         $part = $_GET['part'];
         $area = $_GET['area'];
 
-        $title = $area.'監試人員午餐一覽表';
+        $title = $area . '監試人員午餐一覽表';
         $date = date('yyyy/m/d');
-       
+
         $data = array(
             'part' => $this->mod_ability_trial->get_dinner_list_for_pdf($part),
             'area' => $area,
-            'count'=>$this->mod_ability_trial->e_6_1_member_count($part),
+            'count' => $this->mod_ability_trial->e_6_1_member_count($part),
             'own' => $this->mod_ability_trial->get_trial_own_meal_count($part),
             'veg' => $this->mod_ability_trial->get_trial_veg_meal_count($part),
             'meat' => $this->mod_ability_trial->get_trial_meat_meal_count($part),
         );
-        if($data['part'] != false){
-          $view =  $this->load->view('subject_ability/e_1_5', $data, true);
-          $this->pdf->view_to_pdf($view,'e_1_5');
-        }else{
-          return false;
+        if ($data['part'] != false) {
+            $view = $this->load->view('subject_ability/e_1_5', $data, true);
+            $this->pdf->view_to_pdf($view, 'e_1_5');
+        } else {
+            return false;
         }
     }
 
@@ -1520,23 +1526,23 @@ class Console extends CI_Controller {
     {
         $this->mod_user->chk_status();
         // $this->load->model('mod_exam_datetime');
-        $this->load->model('subject_ability/mod_exam_datetime',"mod_exam_datetime");
+        $this->load->model('subject_ability/mod_exam_datetime', "mod_exam_datetime");
         $datetime_info = $this->mod_exam_datetime->get_once($_SESSION['year']);
         $data = array(
             'title' => '簽到表 / 簽收單',
             'path' => 'subject_ability/e_2',
             'path_text' => ' > 製作報表 > 簽到表 / 簽收單',
-            'datetime_info'=>$datetime_info
+            'datetime_info' => $datetime_info
         );
         $this->load->view('subject_ability_layout', $data);
     }
 
     public function e_2_1_1()
     {
-        
+
         $this->load->model('mod_ability_task');
         $this->load->model('mod_ability_exam_area');
-        
+
         $title = '試務人員執行任務簽到表';
         $area = $_GET['area'];
         $part = $_GET['part'];
@@ -1547,28 +1553,28 @@ class Console extends CI_Controller {
             $school = "";
         }
         $date = date('yyyy/m/d');
-        
+
 
         $data = array(
-            'part' => $this->mod_ability_task->e_2_1($area,$part),
+            'part' => $this->mod_ability_task->e_2_1($area, $part),
             'area' => $area,
             'school' => $school,
         );
         if ($data['part'] != false) {
-            $view =  $this->load->view('subject_ability/e_2_1_1', $data, true);
-            $this->pdf->view_to_pdf($view,'e_2_1_1');
-        }else{
+            $view = $this->load->view('subject_ability/e_2_1_1', $data, true);
+            $this->pdf->view_to_pdf($view, 'e_2_1_1');
+        } else {
             return false;
         }
     }
 
     public function e_2_1_2()
     {
-        
+
         $this->load->model('mod_ability_task');
         $this->load->model('mod_ability_trial');
         $this->load->model('mod_ability_exam_area');
-        
+
         $area = $_GET['area'];
         $part = $_GET['part'];
         if ($_GET['part'] != "2500") {
@@ -1578,7 +1584,7 @@ class Console extends CI_Controller {
             $school = "";
         }
         $date = date('yyyy/m/d');
-        
+
 
         $data = array(
             'part' => $this->mod_ability_trial->e_2_1_2($part),
@@ -1586,20 +1592,20 @@ class Console extends CI_Controller {
             'school' => $school,
         );
         if ($data['part'] != false) {
-            $view = $this->load->view('subject_ability/e_2_1_2', $data,true);
-            $this->pdf->view_to_pdf($view,'e_2_1_2');
-        }else{
+            $view = $this->load->view('subject_ability/e_2_1_2', $data, true);
+            $this->pdf->view_to_pdf($view, 'e_2_1_2');
+        } else {
             return false;
         }
     }
 
     public function e_2_1_3()
     {
-        
+
         $this->load->model('mod_ability_task');
         $this->load->model('mod_ability_trial');
         $this->load->model('mod_ability_exam_area');
-        
+
         $title = '試務人員執行任務簽到表';
         $area = $_GET['area'];
         $part = $_GET['part'];
@@ -1610,7 +1616,7 @@ class Console extends CI_Controller {
             $school = "";
         }
         $date = date('yyyy/m/d');
-        
+
 
         $data = array(
             'part' => $this->mod_ability_trial->e_2_1_3($part),
@@ -1618,30 +1624,30 @@ class Console extends CI_Controller {
             'school' => $school,
         );
         if ($data['part'] != false) {
-            $view =  $this->load->view('subject_ability/e_2_1_3', $data, true);
-            $this->pdf->view_to_pdf($view,'e_2_1_3');
-        }else{
+            $view = $this->load->view('subject_ability/e_2_1_3', $data, true);
+            $this->pdf->view_to_pdf($view, 'e_2_1_3');
+        } else {
             return false;
         }
     }
 
     public function e_2_2()
     {
-        
+
         $this->load->model('mod_ability_trial');
         $this->load->model('mod_ability_exam_area');
-        
+
         $title = '監試人員執行任務簽到表';
         $date = date('yyyy/m/d');
         $part = $_GET['part'];
         $area = $_GET['area'];
 
-        
+
 
         $year = $this->session->userdata('year');
         $data = array(
             'part' => $this->mod_ability_trial->get_date_for_trial_list($part),
-            'area' =>$area,
+            'area' => $area,
             'school' => $this->mod_ability_exam_area->year_school_name($part),
             'own' => $this->mod_ability_trial->get_trial_own_meal_count($part),
             'veg' => $this->mod_ability_trial->get_trial_veg_meal_count($part),
@@ -1649,9 +1655,9 @@ class Console extends CI_Controller {
         );
 
         if ($data['part'] != false) {
-            $view = $this->load->view('subject_ability/e_2_2', $data,true);
-            $this->pdf->view_to_pdf($view,'e_2_2');
-        }else{
+            $view = $this->load->view('subject_ability/e_2_2', $data, true);
+            $this->pdf->view_to_pdf($view, 'e_2_2');
+        } else {
             return false;
         }
 
@@ -1659,13 +1665,13 @@ class Console extends CI_Controller {
 
     public function e_2_3_1()
     {
-        
+
         $this->load->model('mod_ability_trial');
         $this->load->model('mod_ability_exam_area');
-        $this->load->model('subject_ability/mod_exam_datetime',"mod_exam_datetime");
-        
+        $this->load->model('subject_ability/mod_exam_datetime', "mod_exam_datetime");
 
-       
+
+
         $title = '答案卷卡收發記錄單';
         $date = date('yyyy/m/d');
         $part = $_GET['part'];
@@ -1679,25 +1685,25 @@ class Console extends CI_Controller {
             'part' => $this->mod_ability_trial->get_once_date_of_voucher1($part),
             'area' => $area,
             'datetime_info' => $datetime_info,
-            'count'=> $this->mod_ability_trial->get_patrol_member_count_1($part),
+            'count' => $this->mod_ability_trial->get_patrol_member_count_1($part),
             'school' => $this->mod_ability_exam_area->year_school_name($part),
         );
         if ($data['part'] != false) {
-            $view = $this->load->view('subject_ability/e_2_3_1', $data,true);
-            $this->pdf->view_to_pdf($view,'e_2_3_1');
-        }else{
+            $view = $this->load->view('subject_ability/e_2_3_1', $data, true);
+            $this->pdf->view_to_pdf($view, 'e_2_3_1');
+        } else {
             return false;
         }
     }
 
     public function e_2_3_2()
     {
-        
+
         $this->load->model('mod_ability_trial');
         $this->load->model('mod_ability_exam_area');
         $this->load->model('mod_exam_datetime');
 
-       
+
         $title = '答案卷卡收發記錄單';
         $date = date('yyyy/m/d');
         $part = $_GET['part'];
@@ -1711,25 +1717,25 @@ class Console extends CI_Controller {
             'part' => $this->mod_ability_trial->get_once_date_of_voucher2($part),
             'area' => $area,
             'datetime_info' => $datetime_info,
-            'count'=> $this->mod_ability_trial->get_patrol_member_count_2($part),
+            'count' => $this->mod_ability_trial->get_patrol_member_count_2($part),
             'school' => $this->mod_ability_exam_area->year_school_name($part),
         );
         if ($data['part'] != false) {
-            $view = $this->load->view('subject_ability/e_2_3_2', $data,true);
-            $this->pdf->view_to_pdf($view,'e_2_3_2');
-        }else{
+            $view = $this->load->view('subject_ability/e_2_3_2', $data, true);
+            $this->pdf->view_to_pdf($view, 'e_2_3_2');
+        } else {
             return false;
         }
     }
 
     public function e_2_3_3()
     {
-        
+
         $this->load->model('mod_ability_trial');
         $this->load->model('mod_ability_exam_area');
         $this->load->model('mod_exam_datetime');
 
-       
+
         $title = '答案卷卡收發記錄單';
         $date = date('yyyy/m/d');
         $part = $_GET['part'];
@@ -1743,22 +1749,22 @@ class Console extends CI_Controller {
             'part' => $this->mod_ability_trial->get_once_date_of_voucher3($part),
             'area' => $area,
             'datetime_info' => $datetime_info,
-            'count'=> $this->mod_ability_trial->get_patrol_member_count_3($part),
+            'count' => $this->mod_ability_trial->get_patrol_member_count_3($part),
             'school' => $this->mod_ability_exam_area->year_school_name($part),
         );
         if ($data['part'] != false) {
-            $view = $this->load->view('subject_ability/e_2_3_3', $data,true);
-            $this->pdf->view_to_pdf($view,'e_2_3_3');
-        }else{
+            $view = $this->load->view('subject_ability/e_2_3_3', $data, true);
+            $this->pdf->view_to_pdf($view, 'e_2_3_3');
+        } else {
             return false;
         }
     }
 
     public function e_2_4()
     {
-        
+
         $this->load->model('mod_ability_task');
-        
+
         $title = '監試說明會簽到表';
         $date = date('yyyy/m/d');
 
@@ -1766,24 +1772,25 @@ class Console extends CI_Controller {
             'part' => $this->mod_ability_task->get_sign_list(),
         );
         if ($data['part'] != false) {
-            $view = $this->load->view('subject_ability/e_2_4',$data,true);
-            $this->pdf->view_to_pdf($view,'e_2_4');
-        }else{
+            $view = $this->load->view('subject_ability/e_2_4', $data, true);
+            $this->pdf->view_to_pdf($view, 'e_2_4');
+        } else {
             return false;
         }
     }
 
 
-    function utf8_array_asort(&$array) {
+    function utf8_array_asort(&$array)
+    {
 
-        if(!isset($array) || !is_array($array)) {
+        if (!isset($array) || !is_array($array)) {
             return false;
         }
-        foreach($array as $k=>$v) {
-            $array[$k] = iconv('UTF-8', 'GBK',$v);
+        foreach ($array as $k => $v) {
+            $array[$k] = iconv('UTF-8', 'GBK', $v);
         }
         asort($array);
-        foreach($array as $k=>$v) {
+        foreach ($array as $k => $v) {
             $array[$k] = iconv('GBK', 'UTF-8', $v);
         }
         return true;
@@ -1791,23 +1798,23 @@ class Console extends CI_Controller {
 
     public function e_2_5()
     {
-        
+
         $this->load->model('mod_ability_task');
         $this->load->model('mod_ability_exam_area');
 
-       
-        $title = '大學入學考試中心'.$_SESSION['year'].'學年度指定科目考試新北一考區監試說明會開會通知簽收表';
+
+        $title = '大學入學考試中心' . $_SESSION['year'] . '學年度指定科目考試新北一考區監試說明會開會通知簽收表';
 
         $date = date('yyyy/m/d');
-        
+
         $data = array(
             'data' => $this->mod_ability_task->member_map(),
             'list' => $this->mod_ability_task->get_member_map_list()
         );
         if ($data['list'] != false) {
-            $view = $this->load->view('subject_ability/e_2_5',$data,true);
-            $this->pdf->view_to_pdf($view,'e_2_5');
-        }else{
+            $view = $this->load->view('subject_ability/e_2_5', $data, true);
+            $this->pdf->view_to_pdf($view, 'e_2_5');
+        } else {
             return false;
         }
     }
@@ -1815,16 +1822,16 @@ class Console extends CI_Controller {
 
     public function e_3()
     {
-      
-        $this->load->model('subject_ability/mod_exam_datetime',"mod_exam_datetime");
+
+        $this->load->model('subject_ability/mod_exam_datetime', "mod_exam_datetime");
         $this->mod_user->chk_status();
         if ($this->mod_exam_datetime->chk_once($_SESSION['year'])) {
             $datetime_info = $this->mod_exam_datetime->get_once($_SESSION['year']);
         } else {
             $datetime_info = array(
-                'day_1' => '1911' + $this->session->userdata('year').'/07/01',
-                'day_2' => '1911' + $this->session->userdata('year').'/07/02',
-                'day_3' => '1911' + $this->session->userdata('year').'/07/03',
+                'day_1' => '1911' + $this->session->userdata('year') . '/07/01',
+                'day_2' => '1911' + $this->session->userdata('year') . '/07/02',
+                'day_3' => '1911' + $this->session->userdata('year') . '/07/03',
                 'course_1_start' => '08:40',
                 'course_1_end' => '10:00',
                 'course_2_start' => '10:50',
@@ -1843,7 +1850,7 @@ class Console extends CI_Controller {
             'title' => '日程表 / 分配表',
             'path' => 'subject_ability/e_3',
             'path_text' => ' > 製作報表 > 日程表 / 分配表',
-            'datetime_info'=> $datetime_info
+            'datetime_info' => $datetime_info
         );
         $this->load->view('subject_ability_layout', $data);
     }
@@ -1852,7 +1859,7 @@ class Console extends CI_Controller {
     {
         $this->load->library('excel');
         // $this->load->model('mod_exam_datetime');
-        $this->load->model('subject_ability/mod_exam_datetime',"mod_exam_datetime");
+        $this->load->model('subject_ability/mod_exam_datetime', "mod_exam_datetime");
         $this->load->model('mod_ability_trial');
 
         $objPHPExcel = new PHPExcel();
@@ -1863,53 +1870,53 @@ class Console extends CI_Controller {
         $datetime_info = $this->mod_exam_datetime->get_once($year);
         $course = $this->mod_exam_datetime->get_course($year);
         $res = $this->mod_ability_trial->get_supervisor_list($part);
-        for ($i=0; $i < count($res); $i++) {
+        for ($i = 0; $i < count($res); $i++) {
             # code...
             switch ($res[$i]['subject_01']) {
                 case '0':
-                    $subject_01 =  '';
+                    $subject_01 = '';
                     break;
                 default:
-                    $subject_01 =  'V';
+                    $subject_01 = 'V';
             }
             switch ($res[$i]['subject_02']) {
                 case '0':
-                    $subject_02 =  '';
+                    $subject_02 = '';
                     break;
                 default:
-                    $subject_02 =  'V';
+                    $subject_02 = 'V';
             }
             switch ($res[$i]['subject_03']) {
                 case '0':
-                    $subject_03 =  '';
+                    $subject_03 = '';
                     break;
                 default:
-                    $subject_03 =  'V';
+                    $subject_03 = 'V';
             }
             switch ($res[$i]['subject_04']) {
                 case '0':
-                    $subject_04 =  '';
+                    $subject_04 = '';
                     break;
                 default:
-                    $subject_04 =  'V';
+                    $subject_04 = 'V';
             }
             switch ($res[$i]['subject_05']) {
                 case '0':
-                    $subject_05 =  '';
+                    $subject_05 = '';
                     break;
                 default:
-                    $subject_05 =  'V';
+                    $subject_05 = 'V';
             }
             switch ($res[$i]['subject_06']) {
                 case '0':
-                    $subject_06 =  '';
+                    $subject_06 = '';
                     break;
                 default:
-                    $subject_06 =  'V';
+                    $subject_06 = 'V';
             }
             switch ($res[$i]['subject_07']) {
                 case '0':
-                    $subject_07 =  '';
+                    $subject_07 = '';
                     break;
                 default:
                     $subject_07 = 'V';
@@ -1972,7 +1979,7 @@ class Console extends CI_Controller {
                     break;
             }
 
-           switch ($course[1]['subject']) {
+            switch ($course[1]['subject']) {
                 case 'subject_00':
                     $course2 = '';
                     break;
@@ -2008,7 +2015,7 @@ class Console extends CI_Controller {
                     break;
             }
 
-           switch ($course[2]['subject']) {
+            switch ($course[2]['subject']) {
                 case 'subject_00':
                     $course3 = '';
                     break;
@@ -2080,7 +2087,7 @@ class Console extends CI_Controller {
                     break;
             }
 
-           switch ($course[4]['subject']) {
+            switch ($course[4]['subject']) {
                 case 'subject_00':
                     $course5 = '';
                     break;
@@ -2116,7 +2123,7 @@ class Console extends CI_Controller {
                     break;
             }
 
-           switch ($course[5]['subject']) {
+            switch ($course[5]['subject']) {
                 case 'subject_00':
                     $course6 = '';
                     break;
@@ -2152,7 +2159,7 @@ class Console extends CI_Controller {
                     break;
             }
 
-           switch ($course[6]['subject']) {
+            switch ($course[6]['subject']) {
                 case 'subject_00':
                     $course7 = '';
                     break;
@@ -2188,7 +2195,7 @@ class Console extends CI_Controller {
                     break;
             }
 
-           switch ($course[7]['subject']) {
+            switch ($course[7]['subject']) {
                 case 'subject_00':
                     $course8 = '';
                     break;
@@ -2224,7 +2231,7 @@ class Console extends CI_Controller {
                     break;
             }
 
-           switch ($course[8]['subject']) {
+            switch ($course[8]['subject']) {
                 case 'subject_00':
                     $course9 = '';
                     break;
@@ -2260,7 +2267,7 @@ class Console extends CI_Controller {
                     break;
             }
 
-           switch ($course[9]['subject']) {
+            switch ($course[9]['subject']) {
                 case 'subject_00':
                     $course10 = '';
                     break;
@@ -2296,7 +2303,7 @@ class Console extends CI_Controller {
                     break;
             }
 
-           switch ($course[10]['subject']) {
+            switch ($course[10]['subject']) {
                 case 'subject_00':
                     $course11 = '';
                     break;
@@ -2403,44 +2410,44 @@ class Console extends CI_Controller {
             $objPHPExcel->getActiveSheet()->setCellValue('AE1', '第12科');
 
 
-            $objPHPExcel->getActiveSheet()->setCellValue('A'.(2+$i), $_SESSION['year']);
-            $objPHPExcel->getActiveSheet()->setCellValue('B'.(2+$i), mb_substr($datetime_info['day_1'], 5, 8, 'utf-8'));
-            $objPHPExcel->getActiveSheet()->setCellValue('C'.(2+$i), mb_substr($datetime_info['day_2'], 5, 8, 'utf-8'));
-            $objPHPExcel->getActiveSheet()->setCellValue('D'.(2+$i), mb_substr($datetime_info['day_3'], 5, 8, 'utf-8'));
-            $objPHPExcel->getActiveSheet()->setCellValue('E'.(2+$i), $res[$i]['supervisor_code']);
-            $objPHPExcel->getActiveSheet()->setCellValue('F'.(2+$i), trim($res[$i]['supervisor']));
-            $objPHPExcel->getActiveSheet()->setCellValue('G'.(2+$i), $_GET['area']);
-            $objPHPExcel->getActiveSheet()->setCellValue('H'.(2+$i), str_replace("、",",",$res[$i]['do_date']));
-            $objPHPExcel->getActiveSheet()->setCellValue('I'.(2+$i), $res[$i]['test_section']);
-            $objPHPExcel->getActiveSheet()->setCellValue('J'.(2+$i), $subject_01);
-            $objPHPExcel->getActiveSheet()->setCellValue('K'.(2+$i), $subject_02);
-            $objPHPExcel->getActiveSheet()->setCellValue('L'.(2+$i), $subject_03);
-            $objPHPExcel->getActiveSheet()->setCellValue('M'.(2+$i), $subject_04);
-            $objPHPExcel->getActiveSheet()->setCellValue('N'.(2+$i), $subject_05);
-            $objPHPExcel->getActiveSheet()->setCellValue('O'.(2+$i), $subject_06);
-            $objPHPExcel->getActiveSheet()->setCellValue('P'.(2+$i), $subject_07);
-            $objPHPExcel->getActiveSheet()->setCellValue('Q'.(2+$i), $subject_08);
-            $objPHPExcel->getActiveSheet()->setCellValue('R'.(2+$i), $subject_09);
-            $objPHPExcel->getActiveSheet()->setCellValue('S'.(2+$i), $subject_10);
-            $objPHPExcel->getActiveSheet()->setCellValue('T'.(2+$i), $course1);
-            $objPHPExcel->getActiveSheet()->setCellValue('U'.(2+$i), $course2);
-            $objPHPExcel->getActiveSheet()->setCellValue('V'.(2+$i), $course3);
-            $objPHPExcel->getActiveSheet()->setCellValue('W'.(2+$i), $course4);
-            $objPHPExcel->getActiveSheet()->setCellValue('X'.(2+$i), $course5);
-            $objPHPExcel->getActiveSheet()->setCellValue('Y'.(2+$i), $course6);
-            $objPHPExcel->getActiveSheet()->setCellValue('Z'.(2+$i), $course7);
-            $objPHPExcel->getActiveSheet()->setCellValue('AA'.(2+$i), $course8);
-            $objPHPExcel->getActiveSheet()->setCellValue('AB'.(2+$i), $course9);
-            $objPHPExcel->getActiveSheet()->setCellValue('AC'.(2+$i), $course10);
-            $objPHPExcel->getActiveSheet()->setCellValue('AD'.(2+$i), $course11);
-            $objPHPExcel->getActiveSheet()->setCellValue('AE'.(2+$i), $course12);
+            $objPHPExcel->getActiveSheet()->setCellValue('A' . (2 + $i), $_SESSION['year']);
+            $objPHPExcel->getActiveSheet()->setCellValue('B' . (2 + $i), mb_substr($datetime_info['day_1'], 5, 8, 'utf-8'));
+            $objPHPExcel->getActiveSheet()->setCellValue('C' . (2 + $i), mb_substr($datetime_info['day_2'], 5, 8, 'utf-8'));
+            $objPHPExcel->getActiveSheet()->setCellValue('D' . (2 + $i), mb_substr($datetime_info['day_3'], 5, 8, 'utf-8'));
+            $objPHPExcel->getActiveSheet()->setCellValue('E' . (2 + $i), $res[$i]['supervisor_code']);
+            $objPHPExcel->getActiveSheet()->setCellValue('F' . (2 + $i), trim($res[$i]['supervisor']));
+            $objPHPExcel->getActiveSheet()->setCellValue('G' . (2 + $i), $_GET['area']);
+            $objPHPExcel->getActiveSheet()->setCellValue('H' . (2 + $i), str_replace("、", ",", $res[$i]['do_date']));
+            $objPHPExcel->getActiveSheet()->setCellValue('I' . (2 + $i), $res[$i]['test_section']);
+            $objPHPExcel->getActiveSheet()->setCellValue('J' . (2 + $i), $subject_01);
+            $objPHPExcel->getActiveSheet()->setCellValue('K' . (2 + $i), $subject_02);
+            $objPHPExcel->getActiveSheet()->setCellValue('L' . (2 + $i), $subject_03);
+            $objPHPExcel->getActiveSheet()->setCellValue('M' . (2 + $i), $subject_04);
+            $objPHPExcel->getActiveSheet()->setCellValue('N' . (2 + $i), $subject_05);
+            $objPHPExcel->getActiveSheet()->setCellValue('O' . (2 + $i), $subject_06);
+            $objPHPExcel->getActiveSheet()->setCellValue('P' . (2 + $i), $subject_07);
+            $objPHPExcel->getActiveSheet()->setCellValue('Q' . (2 + $i), $subject_08);
+            $objPHPExcel->getActiveSheet()->setCellValue('R' . (2 + $i), $subject_09);
+            $objPHPExcel->getActiveSheet()->setCellValue('S' . (2 + $i), $subject_10);
+            $objPHPExcel->getActiveSheet()->setCellValue('T' . (2 + $i), $course1);
+            $objPHPExcel->getActiveSheet()->setCellValue('U' . (2 + $i), $course2);
+            $objPHPExcel->getActiveSheet()->setCellValue('V' . (2 + $i), $course3);
+            $objPHPExcel->getActiveSheet()->setCellValue('W' . (2 + $i), $course4);
+            $objPHPExcel->getActiveSheet()->setCellValue('X' . (2 + $i), $course5);
+            $objPHPExcel->getActiveSheet()->setCellValue('Y' . (2 + $i), $course6);
+            $objPHPExcel->getActiveSheet()->setCellValue('Z' . (2 + $i), $course7);
+            $objPHPExcel->getActiveSheet()->setCellValue('AA' . (2 + $i), $course8);
+            $objPHPExcel->getActiveSheet()->setCellValue('AB' . (2 + $i), $course9);
+            $objPHPExcel->getActiveSheet()->setCellValue('AC' . (2 + $i), $course10);
+            $objPHPExcel->getActiveSheet()->setCellValue('AD' . (2 + $i), $course11);
+            $objPHPExcel->getActiveSheet()->setCellValue('AE' . (2 + $i), $course12);
         }
 
         $objWriter = PHPExcel_IOFactory::createWriter($objPHPExcel, 'CSV');
 
 
         header('Content-Type: application/vnd.ms-excel');
-        header('Content-Disposition: attachment;filename="監試人員監考日程表'.'.csv"');
+        header('Content-Disposition: attachment;filename="監試人員監考日程表' . '.csv"');
         header('Cache-Control: max-age=0');
 
 
@@ -2449,12 +2456,12 @@ class Console extends CI_Controller {
 
     public function e_3_2_1_1()
     {
-        
+
         $this->load->model('mod_ability_trial');
-        $this->load->model('subject_ability/mod_trial',"mod_trial");
-        $this->load->model('subject_ability/mod_exam_area',"mod_exam_area");
+        $this->load->model('subject_ability/mod_trial', "mod_trial");
+        $this->load->model('subject_ability/mod_exam_area', "mod_exam_area");
         // $this->load->model('mod_ability_exam_area');
-        
+
         $title = '試場工作人員分配表';
         $date = date('yyyy/m/d');
         $part = $_GET['part'];
@@ -2463,27 +2470,27 @@ class Console extends CI_Controller {
 
         $date = $_GET['date'];
         $data = array(
-            'part' => $this->mod_ability_trial->e_3_2_1($part,$datee),
+            'part' => $this->mod_ability_trial->e_3_2_1($part, $datee),
             'area' => $area,
-            'patrol_count'=> $this->mod_trial->get_patrol_member_count_1($part),
-            'trial_count'=>$this->mod_trial->get_trial_member_count($part),
+            'patrol_count' => $this->mod_trial->get_patrol_member_count_1($part),
+            'trial_count' => $this->mod_trial->get_trial_member_count($part),
             'school' => $this->mod_exam_area->year_school_name($part),
             'date' => $date,
         );
         $view = $this->load->view('subject_ability/e_3_2_1', $data, true);
-        $this->pdf->view_to_pdf($view,'e_3_2_1');
-        
+        $this->pdf->view_to_pdf($view, 'e_3_2_1');
+
     }
 
     public function e_3_2_1_2()
     {
-        
+
         $this->load->model('mod_ability_trial');
-        $this->load->model('subject_ability/mod_trial',"mod_trial");
-        $this->load->model('subject_ability/mod_exam_area',"mod_exam_area");
+        $this->load->model('subject_ability/mod_trial', "mod_trial");
+        $this->load->model('subject_ability/mod_exam_area', "mod_exam_area");
         // $this->load->model('mod_ability_exam_area');
 
-        
+
         $title = '試場工作人員分配表';
         $date = date('yyyy/m/d');
         $part = $_GET['part'];
@@ -2493,53 +2500,53 @@ class Console extends CI_Controller {
         $data = array(
             'part' => $this->mod_ability_trial->e_3_2_2($part),
             'area' => $area,
-            'patrol_count'=> $this->mod_ability_trial->get_patrol_member_count_2($part),
-            'trial_count'=>$this->mod_trial->get_trial_member_count($part),
+            'patrol_count' => $this->mod_ability_trial->get_patrol_member_count_2($part),
+            'trial_count' => $this->mod_trial->get_trial_member_count($part),
             'school' => $this->mod_exam_area->year_school_name($part),
             'date' => $date,
         );
         // print_r($data);
         $view = $this->load->view('subject_ability/e_3_2_1', $data, true);
-        $this->pdf->view_to_pdf($view,'e_3_2_1');
-        
+        $this->pdf->view_to_pdf($view, 'e_3_2_1');
+
     }
 
     public function e_3_2_1_3()
     {
-        
+
         $this->load->model('mod_ability_trial');
-        $this->load->model('subject_ability/mod_trial',"mod_trial");
-        $this->load->model('subject_ability/mod_exam_area',"mod_exam_area");
+        $this->load->model('subject_ability/mod_trial', "mod_trial");
+        $this->load->model('subject_ability/mod_exam_area', "mod_exam_area");
         // $this->load->model('mod_ability_exam_area');
-       
+
         $title = '試場工作人員分配表';
         $date = date('yyyy/m/d');
         $part = $_GET['part'];
         $area = $_GET['area'];
 
-      
+
         $date = $_GET['date'];
         $data = array(
             'part' => $this->mod_ability_trial->e_3_2_3($part),
             'area' => $area,
-            'patrol_count'=> $this->mod_ability_trial->get_patrol_member_count_3($part),
-            'trial_count'=>$this->mod_trial->get_trial_member_count($part),
+            'patrol_count' => $this->mod_ability_trial->get_patrol_member_count_3($part),
+            'trial_count' => $this->mod_trial->get_trial_member_count($part),
             'school' => $this->mod_exam_area->year_school_name($part),
             'date' => $date,
         );
         // print_r($data);
         $view = $this->load->view('subject_ability/e_3_2_1', $data, true);
-        $this->pdf->view_to_pdf($view,'e_3_2_1');
-        
+        $this->pdf->view_to_pdf($view, 'e_3_2_1');
+
     }
 
     public function e_3_2_2_1()
     {
-        
+
         $this->load->model('mod_ability_trial');
-        $this->load->model('subject_ability/mod_trial',"mod_trial");
-        $this->load->model('subject_ability/mod_exam_area',"mod_exam_area");
-       
+        $this->load->model('subject_ability/mod_trial', "mod_trial");
+        $this->load->model('subject_ability/mod_exam_area', "mod_exam_area");
+
         $title = '試場工作人員分配表';
         $date = date('yyyy/m/d');
         $part = $_GET['part'];
@@ -2549,24 +2556,24 @@ class Console extends CI_Controller {
         $data = array(
             'part' => $this->mod_ability_trial->e_3_2_1($part),
             'area' => $area,
-            'patrol_count'=> $this->mod_ability_trial->get_patrol_member_count_1($part),
-            'trial_count'=>$this->mod_trial->get_trial_member_count($part),
+            'patrol_count' => $this->mod_ability_trial->get_patrol_member_count_1($part),
+            'trial_count' => $this->mod_trial->get_trial_member_count($part),
             'school' => $this->mod_exam_area->year_school_name($part),
             'date' => $date,
         );
         // print_r($data);
-        $view =  $this->load->view('subject_ability/e_3_2_2', $data, true);
-        $this->pdf->view_to_pdf($view,'e_3_2_2');
-        
+        $view = $this->load->view('subject_ability/e_3_2_2', $data, true);
+        $this->pdf->view_to_pdf($view, 'e_3_2_2');
+
     }
 
     public function e_3_2_2_2()
     {
-        
+
         $this->load->model('mod_ability_trial');
-        $this->load->model('subject_ability/mod_trial',"mod_trial");
-        $this->load->model('subject_ability/mod_exam_area',"mod_exam_area");
-       
+        $this->load->model('subject_ability/mod_trial', "mod_trial");
+        $this->load->model('subject_ability/mod_exam_area', "mod_exam_area");
+
         $title = '試場工作人員分配表';
         $date = date('yyyy/m/d');
         $part = $_GET['part'];
@@ -2576,50 +2583,50 @@ class Console extends CI_Controller {
         $data = array(
             'part' => $this->mod_ability_trial->e_3_2_2($part),
             'area' => $area,
-            'patrol_count'=> $this->mod_ability_trial->get_patrol_member_count_2($part),
-            'trial_count'=>$this->mod_trial->get_trial_member_count($part),
+            'patrol_count' => $this->mod_ability_trial->get_patrol_member_count_2($part),
+            'trial_count' => $this->mod_trial->get_trial_member_count($part),
             'school' => $this->mod_exam_area->year_school_name($part),
             'date' => $date,
         );
         // print_r($data);
-        $view =  $this->load->view('subject_ability/e_3_2_2', $data, true);
-        $this->pdf->view_to_pdf($view,'e_3_2_2');
+        $view = $this->load->view('subject_ability/e_3_2_2', $data, true);
+        $this->pdf->view_to_pdf($view, 'e_3_2_2');
     }
 
     public function e_3_2_2_3()
     {
-        
+
         $this->load->model('mod_ability_trial');
-        $this->load->model('subject_ability/mod_trial',"mod_trial");
-        $this->load->model('subject_ability/mod_exam_area',"mod_exam_area");
-        
+        $this->load->model('subject_ability/mod_trial', "mod_trial");
+        $this->load->model('subject_ability/mod_exam_area', "mod_exam_area");
+
         $title = '試場工作人員分配表';
         $date = date('yyyy/m/d');
         $part = $_GET['part'];
         $area = $_GET['area'];
 
-       
+
         $date = $_GET['date'];
         $data = array(
             'part' => $this->mod_ability_trial->e_3_2_3($part),
             'area' => $area,
-            'patrol_count'=> $this->mod_ability_trial->get_patrol_member_count_3($part),
-            'trial_count'=>$this->mod_trial->get_trial_member_count($part),
+            'patrol_count' => $this->mod_ability_trial->get_patrol_member_count_3($part),
+            'trial_count' => $this->mod_trial->get_trial_member_count($part),
             'school' => $this->mod_exam_area->year_school_name($part),
             'date' => $date,
         );
         // print_r($data);
-        $view =  $this->load->view('subject_ability/e_3_2_2', $data, true);
-        $this->pdf->view_to_pdf($view,'e_3_2_2');
+        $view = $this->load->view('subject_ability/e_3_2_2', $data, true);
+        $this->pdf->view_to_pdf($view, 'e_3_2_2');
     }
 
     public function e_3_2_3_1()
     {
-        
+
         $this->load->model('mod_ability_trial');
-        $this->load->model('subject_ability/mod_trial',"mod_trial");
-        $this->load->model('subject_ability/mod_exam_area',"mod_exam_area");
-        
+        $this->load->model('subject_ability/mod_trial', "mod_trial");
+        $this->load->model('subject_ability/mod_exam_area', "mod_exam_area");
+
         $title = '試場工作人員分配表';
         $date = date('yyyy/m/d');
         $part = $_GET['part'];
@@ -2629,23 +2636,23 @@ class Console extends CI_Controller {
         $data = array(
             'part' => $this->mod_ability_trial->e_3_2_1($part),
             'area' => $area,
-            'patrol_count'=> $this->mod_ability_trial->get_patrol_member_count_1($part),
-            'trial_count'=>$this->mod_trial->get_trial_member_count($part),
+            'patrol_count' => $this->mod_ability_trial->get_patrol_member_count_1($part),
+            'trial_count' => $this->mod_trial->get_trial_member_count($part),
             'school' => $this->mod_exam_area->year_school_name($part),
             'date' => $date,
         );
-        
-        $view =  $this->load->view('subject_ability/e_3_2_3', $data, true);
-        $this->pdf->view_to_pdf($view,'e_3_2_3');
+
+        $view = $this->load->view('subject_ability/e_3_2_3', $data, true);
+        $this->pdf->view_to_pdf($view, 'e_3_2_3');
     }
 
-       public function e_3_2_3_2()
+    public function e_3_2_3_2()
     {
-        
+
         $this->load->model('mod_ability_trial');
-        $this->load->model('subject_ability/mod_trial',"mod_trial");
-        $this->load->model('subject_ability/mod_exam_area',"mod_exam_area");
-        
+        $this->load->model('subject_ability/mod_trial', "mod_trial");
+        $this->load->model('subject_ability/mod_exam_area', "mod_exam_area");
+
         $title = '試場工作人員分配表';
         $date = date('yyyy/m/d');
         $part = $_GET['part'];
@@ -2655,22 +2662,22 @@ class Console extends CI_Controller {
         $data = array(
             'part' => $this->mod_ability_trial->e_3_2_2($part),
             'area' => $area,
-            'patrol_count'=> $this->mod_ability_trial->get_patrol_member_count_2($part),
-            'trial_count'=>$this->mod_trial->get_trial_member_count($part),
+            'patrol_count' => $this->mod_ability_trial->get_patrol_member_count_2($part),
+            'trial_count' => $this->mod_trial->get_trial_member_count($part),
             'school' => $this->mod_exam_area->year_school_name($part),
             'date' => $date,
         );
-        $view =  $this->load->view('subject_ability/e_3_2_3', $data, true);
-        $this->pdf->view_to_pdf($view,'e_3_2_3');
+        $view = $this->load->view('subject_ability/e_3_2_3', $data, true);
+        $this->pdf->view_to_pdf($view, 'e_3_2_3');
     }
 
-       public function e_3_2_3_3()
+    public function e_3_2_3_3()
     {
-        
+
         $this->load->model('mod_ability_trial');
-        $this->load->model('subject_ability/mod_trial',"mod_trial");
-        $this->load->model('subject_ability/mod_exam_area',"mod_exam_area");
-        
+        $this->load->model('subject_ability/mod_trial', "mod_trial");
+        $this->load->model('subject_ability/mod_exam_area', "mod_exam_area");
+
         $title = '試場工作人員分配表';
         $date = date('yyyy/m/d');
         $part = $_GET['part'];
@@ -2680,52 +2687,52 @@ class Console extends CI_Controller {
         $data = array(
             'part' => $this->mod_ability_trial->e_3_2_3($part),
             'area' => $area,
-            'patrol_count'=> $this->mod_ability_trial->get_patrol_member_count_3($part),
-            'trial_count'=>$this->mod_trial->get_trial_member_count($part),
+            'patrol_count' => $this->mod_ability_trial->get_patrol_member_count_3($part),
+            'trial_count' => $this->mod_trial->get_trial_member_count($part),
             'school' => $this->mod_exam_area->year_school_name($part),
             'date' => $date,
         );
-        
-        $view =  $this->load->view('subject_ability/e_3_2_3', $data, true);
-        $this->pdf->view_to_pdf($view,'e_3_2_3');
+
+        $view = $this->load->view('subject_ability/e_3_2_3', $data, true);
+        $this->pdf->view_to_pdf($view, 'e_3_2_3');
     }
     /**
      * 
      */
     public function e_3_2_4_1()
     {
-        
+
         $this->load->model('mod_ability_trial');
-        $this->load->model('subject_ability/mod_trial',"mod_trial");
-        $this->load->model('subject_ability/mod_exam_area',"mod_exam_area");
-       
+        $this->load->model('subject_ability/mod_trial', "mod_trial");
+        $this->load->model('subject_ability/mod_exam_area', "mod_exam_area");
+
         $title = '試場工作人員分配表';
         $date = date('yyyy/m/d');
         $part = $_GET['part'];
         $area = $_GET['area'];
 
-       
+
         $date = $_GET['date'];
         $data = array(
             'part' => $this->mod_ability_trial->e_3_2_1($part),
             'area' => $area,
-            'patrol_count'=> $this->mod_ability_trial->get_patrol_member_count_1($part),
-            'trial_count'=>$this->mod_trial->get_trial_member_count($part),
+            'patrol_count' => $this->mod_ability_trial->get_patrol_member_count_1($part),
+            'trial_count' => $this->mod_trial->get_trial_member_count($part),
             'school' => $this->mod_exam_area->year_school_name($part),
             'date' => $date,
         );
         // print_r($data);
-        $view =  $this->load->view('subject_ability/e_3_2_4', $data, true);
-        $this->pdf->view_to_pdf($view,'e_3_2_4');
+        $view = $this->load->view('subject_ability/e_3_2_4', $data, true);
+        $this->pdf->view_to_pdf($view, 'e_3_2_4');
     }
 
-       public function e_3_2_4_2()
+    public function e_3_2_4_2()
     {
-        
+
         $this->load->model('mod_ability_trial');
-        $this->load->model('subject_ability/mod_trial',"mod_trial");
-        $this->load->model('subject_ability/mod_exam_area',"mod_exam_area");
-      
+        $this->load->model('subject_ability/mod_trial', "mod_trial");
+        $this->load->model('subject_ability/mod_exam_area', "mod_exam_area");
+
         $title = '試場工作人員分配表';
         $date = date('yyyy/m/d');
         $part = $_GET['part'];
@@ -2735,51 +2742,51 @@ class Console extends CI_Controller {
         $data = array(
             'part' => $this->mod_ability_trial->e_3_2_2($part),
             'area' => $area,
-            'patrol_count'=> $this->mod_ability_trial->get_patrol_member_count_2($part),
-            'trial_count'=>$this->mod_trial->get_trial_member_count($part),
+            'patrol_count' => $this->mod_ability_trial->get_patrol_member_count_2($part),
+            'trial_count' => $this->mod_trial->get_trial_member_count($part),
             'school' => $this->mod_exam_area->year_school_name($part),
             'date' => $date,
         );
-        $view =  $this->load->view('subject_ability/e_3_2_3', $data, true);
-        $this->pdf->view_to_pdf($view,'e_3_2_3');
+        $view = $this->load->view('subject_ability/e_3_2_3', $data, true);
+        $this->pdf->view_to_pdf($view, 'e_3_2_3');
     }
 
-       public function e_3_2_4_3()
+    public function e_3_2_4_3()
     {
-        
+
         $this->load->model('mod_ability_trial');
-        $this->load->model('subject_ability/mod_trial',"mod_trial");
-        $this->load->model('subject_ability/mod_exam_area',"mod_exam_area");
-        
+        $this->load->model('subject_ability/mod_trial', "mod_trial");
+        $this->load->model('subject_ability/mod_exam_area', "mod_exam_area");
+
         $title = '試場工作人員分配表';
         $date = date('yyyy/m/d');
         $part = $_GET['part'];
         $area = $_GET['area'];
 
-       
+
         $date = $_GET['date'];
         $data = array(
             'part' => $this->mod_ability_trial->e_3_2_3($part),
             'area' => $area,
-            'patrol_count'=> $this->mod_ability_trial->get_patrol_member_count_3($part),
-            'trial_count'=>$this->mod_trial->get_trial_member_count($part),
+            'patrol_count' => $this->mod_ability_trial->get_patrol_member_count_3($part),
+            'trial_count' => $this->mod_trial->get_trial_member_count($part),
             'school' => $this->mod_exam_area->year_school_name($part),
             'date' => $date,
         );
         // print_r($data);
-        $view =  $this->load->view('subject_ability/e_3_2_3', $data, true);
-        $this->pdf->view_to_pdf($view,'e_3_2_3');
+        $view = $this->load->view('subject_ability/e_3_2_3', $data, true);
+        $this->pdf->view_to_pdf($view, 'e_3_2_3');
     }
 
 
 
     public function e_3_2_5_1()
     {
-        
+
         $this->load->model('mod_ability_trial');
-        $this->load->model('subject_ability/mod_trial',"mod_trial");
-        $this->load->model('subject_ability/mod_exam_area',"mod_exam_area");
-        
+        $this->load->model('subject_ability/mod_trial', "mod_trial");
+        $this->load->model('subject_ability/mod_exam_area', "mod_exam_area");
+
         $title = '試場工作人員分配表';
         $date = date('yyyy/m/d');
         $part = $_GET['part'];
@@ -2789,23 +2796,23 @@ class Console extends CI_Controller {
         $data = array(
             'part' => $this->mod_ability_trial->e_3_2_1($part),
             'area' => $area,
-            'patrol_count'=> $this->mod_ability_trial->get_patrol_member_count_1($part),
-            'trial_count'=>$this->mod_trial->get_trial_member_count($part),
+            'patrol_count' => $this->mod_ability_trial->get_patrol_member_count_1($part),
+            'trial_count' => $this->mod_trial->get_trial_member_count($part),
             'school' => $this->mod_exam_area->year_school_name($part),
             'date' => $date,
         );
         // print_r($data);
-        $view =  $this->load->view('subject_ability/e_3_2_4', $data, true);
-        $this->pdf->view_to_pdf($view,'e_3_2_4');
+        $view = $this->load->view('subject_ability/e_3_2_4', $data, true);
+        $this->pdf->view_to_pdf($view, 'e_3_2_4');
     }
 
-       public function e_3_2_5_2()
+    public function e_3_2_5_2()
     {
-        
+
         $this->load->model('mod_ability_trial');
-        $this->load->model('subject_ability/mod_trial',"mod_trial");
-        $this->load->model('subject_ability/mod_exam_area',"mod_exam_area");
-       
+        $this->load->model('subject_ability/mod_trial', "mod_trial");
+        $this->load->model('subject_ability/mod_exam_area', "mod_exam_area");
+
         $title = '試場工作人員分配表';
         $date = date('yyyy/m/d');
         $part = $_GET['part'];
@@ -2815,23 +2822,23 @@ class Console extends CI_Controller {
         $data = array(
             'part' => $this->mod_ability_trial->e_3_2_2($part),
             'area' => $area,
-            'patrol_count'=> $this->mod_ability_trial->get_patrol_member_count_2($part),
-            'trial_count'=>$this->mod_trial->get_trial_member_count($part),
+            'patrol_count' => $this->mod_ability_trial->get_patrol_member_count_2($part),
+            'trial_count' => $this->mod_trial->get_trial_member_count($part),
             'school' => $this->mod_exam_area->year_school_name($part),
             'date' => $date,
         );
         // print_r($data);
-        $view =  $this->load->view('subject_ability/e_3_2_3', $data, true);
-        $this->pdf->view_to_pdf($view,'e_3_2_3');
+        $view = $this->load->view('subject_ability/e_3_2_3', $data, true);
+        $this->pdf->view_to_pdf($view, 'e_3_2_3');
     }
 
-       public function e_3_2_5_3()
+    public function e_3_2_5_3()
     {
-        
+
         $this->load->model('mod_ability_trial');
-        $this->load->model('subject_ability/mod_trial',"mod_trial");
-        $this->load->model('subject_ability/mod_exam_area',"mod_exam_area");
-        
+        $this->load->model('subject_ability/mod_trial', "mod_trial");
+        $this->load->model('subject_ability/mod_exam_area', "mod_exam_area");
+
         $title = '試場工作人員分配表';
         $date = date('yyyy/m/d');
         $part = $_GET['part'];
@@ -2841,21 +2848,21 @@ class Console extends CI_Controller {
         $data = array(
             'part' => $this->mod_ability_trial->e_3_2_3($part),
             'area' => $area,
-            'patrol_count'=> $this->mod_ability_trial->get_patrol_member_count_3($part),
-            'trial_count'=>$this->mod_trial->get_trial_member_count($part),
+            'patrol_count' => $this->mod_ability_trial->get_patrol_member_count_3($part),
+            'trial_count' => $this->mod_trial->get_trial_member_count($part),
             'school' => $this->mod_exam_area->year_school_name($part),
             'date' => $date,
         );
-        
-        $view =  $this->load->view('subject_ability/e_3_2_3', $data, true);
-        $this->pdf->view_to_pdf($view,'e_3_2_3');
+
+        $view = $this->load->view('subject_ability/e_3_2_3', $data, true);
+        $this->pdf->view_to_pdf($view, 'e_3_2_3');
     }
 
 
 
-     /**
-      * 
-      */
+    /**
+     * 
+     */
     public function e_4()
     {
         $this->mod_user->chk_status();
@@ -2887,22 +2894,22 @@ class Console extends CI_Controller {
         $objPHPExcel = new PHPExcel();
         $objPHPExcel->setActiveSheetIndex(0);
         $arr = $this->mod_ability_trial->get_list_for_csv();
-        for ($i=0; $i < count($arr); $i++) {
+        for ($i = 0; $i < count($arr); $i++) {
             # code...
             $objPHPExcel->getActiveSheet()->setCellValue('A1', '學年度');
             $objPHPExcel->getActiveSheet()->setCellValue('B1', '監試人員');
             $objPHPExcel->getActiveSheet()->setCellValue('C1', '監試日期');
 
-            $objPHPExcel->getActiveSheet()->setCellValue('A'.(2+$i), $arr[$i]['year']);
-            $objPHPExcel->getActiveSheet()->setCellValue('B'.(2+$i), $arr[$i]['member_name']);
-            $objPHPExcel->getActiveSheet()->setCellValue('C'.(2+$i), $arr[$i]['do_date']);
+            $objPHPExcel->getActiveSheet()->setCellValue('A' . (2 + $i), $arr[$i]['year']);
+            $objPHPExcel->getActiveSheet()->setCellValue('B' . (2 + $i), $arr[$i]['member_name']);
+            $objPHPExcel->getActiveSheet()->setCellValue('C' . (2 + $i), $arr[$i]['do_date']);
         }
 
         $objWriter = PHPExcel_IOFactory::createWriter($objPHPExcel, 'CSV');
 
 
         header('Content-Type: application/vnd.ms-excel');
-        header('Content-Disposition: attachment;filename="監試人員'.'.csv"');
+        header('Content-Disposition: attachment;filename="監試人員' . '.csv"');
         header('Cache-Control: max-age=0');
 
 
@@ -2919,14 +2926,14 @@ class Console extends CI_Controller {
         $objPHPExcel = new PHPExcel();
         $objPHPExcel->setActiveSheetIndex(0);
         $res = $this->mod_ability_task->get_list_for_csv();
-        for ($i=0; $i < count($res); $i++) {
+        for ($i = 0; $i < count($res); $i++) {
             # code...
             $objPHPExcel->getActiveSheet()->setCellValue('A1', '學年度');
             $objPHPExcel->getActiveSheet()->setCellValue('B1', '試務人員');
             $objPHPExcel->getActiveSheet()->setCellValue('C1', '執行日');
-            $objPHPExcel->getActiveSheet()->setCellValue('A'.(2+$i), $res[$i]['year']);
-            $objPHPExcel->getActiveSheet()->setCellValue('B'.(2+$i), $res[$i]['name']);
-            $objPHPExcel->getActiveSheet()->setCellValue('C'.(2+$i), $res[$i]['do_date']);
+            $objPHPExcel->getActiveSheet()->setCellValue('A' . (2 + $i), $res[$i]['year']);
+            $objPHPExcel->getActiveSheet()->setCellValue('B' . (2 + $i), $res[$i]['name']);
+            $objPHPExcel->getActiveSheet()->setCellValue('C' . (2 + $i), $res[$i]['do_date']);
         }
 
 
@@ -2934,7 +2941,7 @@ class Console extends CI_Controller {
 
 
         header('Content-Type: application/vnd.ms-excel');
-        header('Content-Disposition: attachment;filename="試務人員'. '.csv"');
+        header('Content-Disposition: attachment;filename="試務人員' . '.csv"');
         header('Cache-Control: max-age=0');
 
         $objWriter->save('php://output');
@@ -2948,22 +2955,22 @@ class Console extends CI_Controller {
         $objPHPExcel = new PHPExcel();
         $objPHPExcel->setActiveSheetIndex(0);
         $arr = $this->mod_ability_patrol->get_trial_staff_for_csv();
-        for ($i=0; $i < count($arr); $i++) {
+        for ($i = 0; $i < count($arr); $i++) {
             # code...
             $objPHPExcel->getActiveSheet()->setCellValue('A1', '學年度');
             $objPHPExcel->getActiveSheet()->setCellValue('B1', '試務人員');
             $objPHPExcel->getActiveSheet()->setCellValue('C1', '監試日期');
 
-            $objPHPExcel->getActiveSheet()->setCellValue('A'.(2+$i), $arr[$i]['year']);
-            $objPHPExcel->getActiveSheet()->setCellValue('B'.(2+$i), $arr[$i]['member_name']);
-            $objPHPExcel->getActiveSheet()->setCellValue('C'.(2+$i), $arr[$i]['do_date']);
+            $objPHPExcel->getActiveSheet()->setCellValue('A' . (2 + $i), $arr[$i]['year']);
+            $objPHPExcel->getActiveSheet()->setCellValue('B' . (2 + $i), $arr[$i]['member_name']);
+            $objPHPExcel->getActiveSheet()->setCellValue('C' . (2 + $i), $arr[$i]['do_date']);
         }
 
         $objWriter = PHPExcel_IOFactory::createWriter($objPHPExcel, 'CSV');
 
 
         header('Content-Type: application/vnd.ms-excel');
-        header('Content-Disposition: attachment;filename="管卷人員'.'.csv"');
+        header('Content-Disposition: attachment;filename="管卷人員' . '.csv"');
         header('Cache-Control: max-age=0');
 
 
@@ -2980,22 +2987,22 @@ class Console extends CI_Controller {
         $objPHPExcel = new PHPExcel();
         $objPHPExcel->setActiveSheetIndex(0);
         $arr = $this->mod_ability_patrol->get_patrol_for_csv();
-        for ($i=0; $i < count($arr); $i++) {
+        for ($i = 0; $i < count($arr); $i++) {
             # code...
             $objPHPExcel->getActiveSheet()->setCellValue('A1', '學年度');
             $objPHPExcel->getActiveSheet()->setCellValue('B1', '試務人員');
             $objPHPExcel->getActiveSheet()->setCellValue('C1', '監試日期');
 
-            $objPHPExcel->getActiveSheet()->setCellValue('A'.(2+$i), $arr[$i]['year']);
-            $objPHPExcel->getActiveSheet()->setCellValue('B'.(2+$i), $arr[$i]['member_name']);
-            $objPHPExcel->getActiveSheet()->setCellValue('C'.(2+$i), $arr[$i]['do_date']);
+            $objPHPExcel->getActiveSheet()->setCellValue('A' . (2 + $i), $arr[$i]['year']);
+            $objPHPExcel->getActiveSheet()->setCellValue('B' . (2 + $i), $arr[$i]['member_name']);
+            $objPHPExcel->getActiveSheet()->setCellValue('C' . (2 + $i), $arr[$i]['do_date']);
         }
 
         $objWriter = PHPExcel_IOFactory::createWriter($objPHPExcel, 'CSV');
 
 
         header('Content-Type: application/vnd.ms-excel');
-        header('Content-Disposition: attachment;filename="巡場人員'.'.csv"');
+        header('Content-Disposition: attachment;filename="巡場人員' . '.csv"');
         header('Cache-Control: max-age=0');
 
 
@@ -3045,7 +3052,7 @@ class Console extends CI_Controller {
         $objPHPExcel = new PHPExcel();
         $objPHPExcel->setActiveSheetIndex(0);
         $arr = $this->mod_ability_trial->get_list_for_csv();
-        for ($i=0; $i < count($arr); $i++) {
+        for ($i = 0; $i < count($arr); $i++) {
             # code...
             $objPHPExcel->getActiveSheet()->setCellValue('A1', '分區');
             $objPHPExcel->getActiveSheet()->setCellValue('B1', '職務');
@@ -3053,17 +3060,17 @@ class Console extends CI_Controller {
             $objPHPExcel->getActiveSheet()->setCellValue('D1', '編號');
 
 
-            $objPHPExcel->getActiveSheet()->setCellValue('A'.(2+$i), $arr[$i]['part_name']);
-            $objPHPExcel->getActiveSheet()->setCellValue('B'.(2+$i), '監試人員');
-            $objPHPExcel->getActiveSheet()->setCellValue('C'.(2+$i), $arr[$i]['member_name']);
-            $objPHPExcel->getActiveSheet()->setCellValue('D'.(2+$i), $arr[$i]['trial_staff_code']);
+            $objPHPExcel->getActiveSheet()->setCellValue('A' . (2 + $i), $arr[$i]['part_name']);
+            $objPHPExcel->getActiveSheet()->setCellValue('B' . (2 + $i), '監試人員');
+            $objPHPExcel->getActiveSheet()->setCellValue('C' . (2 + $i), $arr[$i]['member_name']);
+            $objPHPExcel->getActiveSheet()->setCellValue('D' . (2 + $i), $arr[$i]['trial_staff_code']);
         }
 
         $objWriter = PHPExcel_IOFactory::createWriter($objPHPExcel, 'CSV');
 
 
         header('Content-Type: application/vnd.ms-excel');
-        header('Content-Disposition: attachment;filename="監試人員名牌'.'.csv"');
+        header('Content-Disposition: attachment;filename="監試人員名牌' . '.csv"');
         header('Cache-Control: max-age=0');
 
 
@@ -3079,7 +3086,7 @@ class Console extends CI_Controller {
         $objPHPExcel = new PHPExcel();
         $objPHPExcel->setActiveSheetIndex(0);
         $arr = $this->mod_ability_task->get_list_for_csv();
-        for ($i=0; $i < count($arr); $i++) {
+        for ($i = 0; $i < count($arr); $i++) {
             # code...
             $objPHPExcel->getActiveSheet()->setCellValue('A1', '分區');
             $objPHPExcel->getActiveSheet()->setCellValue('B1', '職務');
@@ -3087,17 +3094,17 @@ class Console extends CI_Controller {
             $objPHPExcel->getActiveSheet()->setCellValue('D1', '編號');
 
 
-            $objPHPExcel->getActiveSheet()->setCellValue('A'.(2+$i), $arr[$i]['area']);
-            $objPHPExcel->getActiveSheet()->setCellValue('B'.(2+$i), $arr[$i]['job']);
-            $objPHPExcel->getActiveSheet()->setCellValue('C'.(2+$i), $arr[$i]['name']);
-            $objPHPExcel->getActiveSheet()->setCellValue('D'.(2+$i), $arr[$i]['job_code']);
+            $objPHPExcel->getActiveSheet()->setCellValue('A' . (2 + $i), $arr[$i]['area']);
+            $objPHPExcel->getActiveSheet()->setCellValue('B' . (2 + $i), $arr[$i]['job']);
+            $objPHPExcel->getActiveSheet()->setCellValue('C' . (2 + $i), $arr[$i]['name']);
+            $objPHPExcel->getActiveSheet()->setCellValue('D' . (2 + $i), $arr[$i]['job_code']);
         }
 
         $objWriter = PHPExcel_IOFactory::createWriter($objPHPExcel, 'CSV');
 
 
         header('Content-Type: application/vnd.ms-excel');
-        header('Content-Disposition: attachment;filename="試務人員名牌'.'.csv"');
+        header('Content-Disposition: attachment;filename="試務人員名牌' . '.csv"');
         header('Cache-Control: max-age=0');
 
 
@@ -3113,7 +3120,7 @@ class Console extends CI_Controller {
         $objPHPExcel = new PHPExcel();
         $objPHPExcel->setActiveSheetIndex(0);
         $arr = $this->mod_ability_patrol->get_trial_staff_for_csv();
-        for ($i=0; $i < count($arr); $i++) {
+        for ($i = 0; $i < count($arr); $i++) {
             # code...
             $objPHPExcel->getActiveSheet()->setCellValue('A1', '分區');
             $objPHPExcel->getActiveSheet()->setCellValue('B1', '職務');
@@ -3121,17 +3128,17 @@ class Console extends CI_Controller {
             $objPHPExcel->getActiveSheet()->setCellValue('D1', '編號');
 
 
-            $objPHPExcel->getActiveSheet()->setCellValue('A'.(2+$i), $arr[$i]['area']);
-            $objPHPExcel->getActiveSheet()->setCellValue('B'.(2+$i), $arr[$i]['job']);
-            $objPHPExcel->getActiveSheet()->setCellValue('C'.(2+$i), $arr[$i]['member_name']);
-            $objPHPExcel->getActiveSheet()->setCellValue('D'.(2+$i), $arr[$i]['member_code']);
+            $objPHPExcel->getActiveSheet()->setCellValue('A' . (2 + $i), $arr[$i]['area']);
+            $objPHPExcel->getActiveSheet()->setCellValue('B' . (2 + $i), $arr[$i]['job']);
+            $objPHPExcel->getActiveSheet()->setCellValue('C' . (2 + $i), $arr[$i]['member_name']);
+            $objPHPExcel->getActiveSheet()->setCellValue('D' . (2 + $i), $arr[$i]['member_code']);
         }
 
         $objWriter = PHPExcel_IOFactory::createWriter($objPHPExcel, 'CSV');
 
 
         header('Content-Type: application/vnd.ms-excel');
-        header('Content-Disposition: attachment;filename="管卷人員名牌'.'.csv"');
+        header('Content-Disposition: attachment;filename="管卷人員名牌' . '.csv"');
         header('Cache-Control: max-age=0');
 
 
@@ -3147,7 +3154,7 @@ class Console extends CI_Controller {
         $objPHPExcel = new PHPExcel();
         $objPHPExcel->setActiveSheetIndex(0);
         $arr = $this->mod_ability_patrol->get_patrol_for_csv();
-        for ($i=0; $i < count($arr); $i++) {
+        for ($i = 0; $i < count($arr); $i++) {
             # code...
             $objPHPExcel->getActiveSheet()->setCellValue('A1', '分區');
             $objPHPExcel->getActiveSheet()->setCellValue('B1', '職務');
@@ -3155,17 +3162,17 @@ class Console extends CI_Controller {
             $objPHPExcel->getActiveSheet()->setCellValue('D1', '編號');
 
 
-            $objPHPExcel->getActiveSheet()->setCellValue('A'.(2+$i), $arr[$i]['area']);
-            $objPHPExcel->getActiveSheet()->setCellValue('B'.(2+$i), $arr[$i]['job']);
-            $objPHPExcel->getActiveSheet()->setCellValue('C'.(2+$i), $arr[$i]['member_name']);
-            $objPHPExcel->getActiveSheet()->setCellValue('D'.(2+$i), $arr[$i]['member_code']);
+            $objPHPExcel->getActiveSheet()->setCellValue('A' . (2 + $i), $arr[$i]['area']);
+            $objPHPExcel->getActiveSheet()->setCellValue('B' . (2 + $i), $arr[$i]['job']);
+            $objPHPExcel->getActiveSheet()->setCellValue('C' . (2 + $i), $arr[$i]['member_name']);
+            $objPHPExcel->getActiveSheet()->setCellValue('D' . (2 + $i), $arr[$i]['member_code']);
         }
 
         $objWriter = PHPExcel_IOFactory::createWriter($objPHPExcel, 'CSV');
 
 
         header('Content-Type: application/vnd.ms-excel');
-        header('Content-Disposition: attachment;filename="巡場人員名牌'.'.csv"');
+        header('Content-Disposition: attachment;filename="巡場人員名牌' . '.csv"');
         header('Cache-Control: max-age=0');
 
 
@@ -3182,20 +3189,20 @@ class Console extends CI_Controller {
         $objPHPExcel = new PHPExcel();
         $objPHPExcel->setActiveSheetIndex(0);
         $arr = $this->mod_ability_trial->get_list_for_csv();
-        for ($i=0; $i < count($arr); $i++) {
+        for ($i = 0; $i < count($arr); $i++) {
             # code...
             $objPHPExcel->getActiveSheet()->setCellValue('A1', '單位');
             $objPHPExcel->getActiveSheet()->setCellValue('B1', '監試人員');
 
-            $objPHPExcel->getActiveSheet()->setCellValue('A'.(2+$i), $arr[$i]['member_unit']);
-            $objPHPExcel->getActiveSheet()->setCellValue('B'.(2+$i), $arr[$i]['member_name']);
+            $objPHPExcel->getActiveSheet()->setCellValue('A' . (2 + $i), $arr[$i]['member_unit']);
+            $objPHPExcel->getActiveSheet()->setCellValue('B' . (2 + $i), $arr[$i]['member_name']);
         }
 
         $objWriter = PHPExcel_IOFactory::createWriter($objPHPExcel, 'CSV');
 
 
         header('Content-Type: application/vnd.ms-excel');
-        header('Content-Disposition: attachment;filename="監試人員標籤樣式'.'.csv"');
+        header('Content-Disposition: attachment;filename="監試人員標籤樣式' . '.csv"');
         header('Cache-Control: max-age=0');
 
 
@@ -3211,20 +3218,20 @@ class Console extends CI_Controller {
         $objPHPExcel = new PHPExcel();
         $objPHPExcel->setActiveSheetIndex(0);
         $arr = $this->mod_ability_task->get_district_task_csv();
-        for ($i=0; $i < count($arr); $i++) {
+        for ($i = 0; $i < count($arr); $i++) {
             # code...
             $objPHPExcel->getActiveSheet()->setCellValue('A1', '單位');
             $objPHPExcel->getActiveSheet()->setCellValue('B1', '試務人員');
 
-            $objPHPExcel->getActiveSheet()->setCellValue('A'.(2+$i), $arr[$i]['member_unit']);
-            $objPHPExcel->getActiveSheet()->setCellValue('B'.(2+$i), $arr[$i]['name']);
+            $objPHPExcel->getActiveSheet()->setCellValue('A' . (2 + $i), $arr[$i]['member_unit']);
+            $objPHPExcel->getActiveSheet()->setCellValue('B' . (2 + $i), $arr[$i]['name']);
         }
 
         $objWriter = PHPExcel_IOFactory::createWriter($objPHPExcel, 'CSV');
 
 
         header('Content-Type: application/vnd.ms-excel');
-        header('Content-Disposition: attachment;filename="試務人員標籤樣式'.'.csv"');
+        header('Content-Disposition: attachment;filename="試務人員標籤樣式' . '.csv"');
         header('Cache-Control: max-age=0');
 
 
@@ -3241,20 +3248,20 @@ class Console extends CI_Controller {
         $objPHPExcel = new PHPExcel();
         $objPHPExcel->setActiveSheetIndex(0);
         $arr = $this->mod_ability_patrol->get_trial_staff_for_csv();
-        for ($i=0; $i < count($arr); $i++) {
+        for ($i = 0; $i < count($arr); $i++) {
             # code...
             $objPHPExcel->getActiveSheet()->setCellValue('A1', '單位');
             $objPHPExcel->getActiveSheet()->setCellValue('B1', '試務人員');
 
-            $objPHPExcel->getActiveSheet()->setCellValue('A'.(2+$i), $arr[$i]['member_unit']);
-            $objPHPExcel->getActiveSheet()->setCellValue('B'.(2+$i), $arr[$i]['member_name']);
+            $objPHPExcel->getActiveSheet()->setCellValue('A' . (2 + $i), $arr[$i]['member_unit']);
+            $objPHPExcel->getActiveSheet()->setCellValue('B' . (2 + $i), $arr[$i]['member_name']);
         }
 
         $objWriter = PHPExcel_IOFactory::createWriter($objPHPExcel, 'CSV');
 
 
         header('Content-Type: application/vnd.ms-excel');
-        header('Content-Disposition: attachment;filename="管卷人員標籤樣式'.'.csv"');
+        header('Content-Disposition: attachment;filename="管卷人員標籤樣式' . '.csv"');
         header('Cache-Control: max-age=0');
 
 
@@ -3270,20 +3277,20 @@ class Console extends CI_Controller {
         $objPHPExcel = new PHPExcel();
         $objPHPExcel->setActiveSheetIndex(0);
         $arr = $this->mod_ability_patrol->get_patrol_for_csv();
-        for ($i=0; $i < count($arr); $i++) {
+        for ($i = 0; $i < count($arr); $i++) {
             # code...
             $objPHPExcel->getActiveSheet()->setCellValue('A1', '單位');
             $objPHPExcel->getActiveSheet()->setCellValue('B1', '試務人員');
 
-            $objPHPExcel->getActiveSheet()->setCellValue('A'.(2+$i), $arr[$i]['member_unit']);
-            $objPHPExcel->getActiveSheet()->setCellValue('B'.(2+$i), $arr[$i]['member_name']);
+            $objPHPExcel->getActiveSheet()->setCellValue('A' . (2 + $i), $arr[$i]['member_unit']);
+            $objPHPExcel->getActiveSheet()->setCellValue('B' . (2 + $i), $arr[$i]['member_name']);
         }
 
         $objWriter = PHPExcel_IOFactory::createWriter($objPHPExcel, 'CSV');
 
 
         header('Content-Type: application/vnd.ms-excel');
-        header('Content-Disposition: attachment;filename="試務人員標籤樣式'.'.csv"');
+        header('Content-Disposition: attachment;filename="試務人員標籤樣式' . '.csv"');
         header('Cache-Control: max-age=0');
 
 
@@ -3305,32 +3312,32 @@ class Console extends CI_Controller {
 
     public function e_6_1()
     {
-        
+
         $this->load->model('mod_ability_trial');
         $this->load->model('mod_ability_exam_area');
-       
+
         $title = '監試人員印領清冊';
         $date = date('yyyy/m/d');
         $part = $_GET['part'];
         $area = $_GET['area'];
         $data = array(
             'part' => $this->mod_ability_rial->e_6_1($part),
-            'area'=> $area,
+            'area' => $area,
             'school' => $this->mod_ability_exam_area->year_school_name($part),
-            'salary'=>$this->mod_ability_trial->get_all_salary_trial_total($part),
-            'lunch'=>$this->mod_ability_trial->get_all_trial_lunch_total($part),
-            'count'=>$this->mod_ability_trial->e_6_1_member_count($part)
+            'salary' => $this->mod_ability_trial->get_all_salary_trial_total($part),
+            'lunch' => $this->mod_ability_trial->get_all_trial_lunch_total($part),
+            'count' => $this->mod_ability_trial->e_6_1_member_count($part)
         );
-        $view = $this->load->view('subject_ability/e_6_1', $data,true);
-        $this->pdf->view_to_pdf($view,'e_6_1');
+        $view = $this->load->view('subject_ability/e_6_1', $data, true);
+        $this->pdf->view_to_pdf($view, 'e_6_1');
     }
 
     public function e_6_2()
     {
-        
+
         $this->load->model('mod_ability_trial');
         $this->load->model('mod_ability_exam_area');
-       
+
         $title = '監試人員印領清冊';
         $date = date('yyyy/m/d');
         $part = $_GET['part'];
@@ -3338,27 +3345,27 @@ class Console extends CI_Controller {
         $obs = $_GET['obs'];
         $data = array(
             'part' => $this->mod_ability_trial->get_list_for_obs($part, $obs),
-            'area'=> $area,
+            'area' => $area,
             'school' => $this->mod_ability_exam_area->year_school_name($part),
-            'salary'=>$this->mod_ability_trial->get_all_salary_trial_total_of_obs($part,$obs),
-            'lunch'=>$this->mod_ability_trial->get_all_trial_lunch_total_of_obs($part,$obs),
+            'salary' => $this->mod_ability_trial->get_all_salary_trial_total_of_obs($part, $obs),
+            'lunch' => $this->mod_ability_trial->get_all_trial_lunch_total_of_obs($part, $obs),
             'count' => $this->mod_ability_trial->get_list_for_obs_member_count($part, $obs),
         );
-        if($data['part'] != false){
-            $view =  $this->load->view('subject_ability/e_6_2', $data, true);
-            $this->pdf->view_to_pdf($view,'e_6_2');
-        }else{
-          return false;
+        if ($data['part'] != false) {
+            $view = $this->load->view('subject_ability/e_6_2', $data, true);
+            $this->pdf->view_to_pdf($view, 'e_6_2');
+        } else {
+            return false;
         }
     }
 
     public function e_6_3()
     {
-        
+
         $this->load->model('mod_ability_task');
-        $this->load->model('subject_ability/mod_task',"mod_task");
+        $this->load->model('subject_ability/mod_task', "mod_task");
         $this->load->model('mod_ability_exam_area');
-       
+
         $title = '試務人員印領清冊';
         $date = date('yyyy/m/d');
         $part = $_GET['part'];
@@ -3366,25 +3373,25 @@ class Console extends CI_Controller {
 
         $data = array(
             'part' => $this->mod_task->get_district_task_money_list($area),
-            'area'=> $area,
+            'area' => $area,
             'school' => $this->mod_ability_exam_area->year_school_name($part),
-            'salary'=>$this->mod_ability_task->get_all_salary_trial_total_of_district($area),
-            'lunch'=>$this->mod_ability_task->get_all_lunch_trial_total_of_district($area)
+            'salary' => $this->mod_ability_task->get_all_salary_trial_total_of_district($area),
+            'lunch' => $this->mod_ability_task->get_all_lunch_trial_total_of_district($area)
         );
-        if($data['part'] != false){
-            $view =  $this->load->view('subject_ability/e_6_3', $data,true);
-            $this->pdf->view_to_pdf($view,'e_6_3');
-        }else{
-          return false;
+        if ($data['part'] != false) {
+            $view = $this->load->view('subject_ability/e_6_3', $data, true);
+            $this->pdf->view_to_pdf($view, 'e_6_3');
+        } else {
+            return false;
         }
     }
 
     public function e_6_4()
     {
-        
+
         $this->load->model('mod_ability_trial');
         $this->load->model('mod_ability_exam_area');
-      
+
         $title = '管卷人員印領清冊';
         $date = date('yyyy/m/d');
         $part = $_GET['part'];
@@ -3392,26 +3399,26 @@ class Console extends CI_Controller {
 
         $data = array(
             'part' => $this->mod_ability_trial->get_trial_staff_task_money_list($part),
-            'area'=> $area,
+            'area' => $area,
             'school' => $this->mod_ability_exam_area->year_school_name($part),
-            'salary'=>$this->mod_ability_trial->get_trial_staff_salary_total($part),
-            'lunch'=>$this->mod_ability_trial->get_trial_staff_lunch_total($part),
+            'salary' => $this->mod_ability_trial->get_trial_staff_salary_total($part),
+            'lunch' => $this->mod_ability_trial->get_trial_staff_lunch_total($part),
             'count' => $this->mod_ability_trial->get_trial_staff_task_member_count($part),
         );
-        if($data['part'] != false){
-            $view =  $this->load->view('subject_ability/e_6_4', $data, true);
-            $this->pdf->view_to_pdf($view,'e_6_4');
-        }else{
-          return false;
+        if ($data['part'] != false) {
+            $view = $this->load->view('subject_ability/e_6_4', $data, true);
+            $this->pdf->view_to_pdf($view, 'e_6_4');
+        } else {
+            return false;
         }
     }
 
     public function e_6_5()
     {
-        
+
         $this->load->model('mod_ability_trial');
         $this->load->model('mod_ability_exam_area');
-   
+
         $title = '巡場人員印領清冊';
         $date = date('yyyy/m/d');
         $part = $_GET['part'];
@@ -3419,17 +3426,17 @@ class Console extends CI_Controller {
 
         $data = array(
             'part' => $this->mod_ability_trial->get_patrol_staff_task_money_list($part),
-            'area'=> $area,
+            'area' => $area,
             'school' => $this->mod_ability_exam_area->year_school_name($part),
-            'salary'=>$this->mod_ability_trial->get_patrol_staff_salary_total($part),
-            'lunch'=>$this->mod_ability_trial->get_patrol_staff_lunch_total($part),
+            'salary' => $this->mod_ability_trial->get_patrol_staff_salary_total($part),
+            'lunch' => $this->mod_ability_trial->get_patrol_staff_lunch_total($part),
             'count' => $this->mod_ability_trial->get_patrol_staff_task_member_count($part),
         );
-        if($data['part'] != false){
-            $view =  $this->load->view('subject_ability/e_6_5', $data, true);
-            $this->pdf->view_to_pdf($view,'e_6_5');
-        }else{
-          return false;
+        if ($data['part'] != false) {
+            $view = $this->load->view('subject_ability/e_6_5', $data, true);
+            $this->pdf->view_to_pdf($view, 'e_6_5');
+        } else {
+            return false;
         }
     }
 
@@ -3441,7 +3448,7 @@ class Console extends CI_Controller {
         $objPHPExcel = new PHPExcel();
         $objPHPExcel->setActiveSheetIndex(0);
         $arr = $this->mod_ability_task->get_all_assign_member_list();
-        for ($i=0; $i < count($arr); $i++) {
+        for ($i = 0; $i < count($arr); $i++) {
             # code...
 
             $objPHPExcel->getActiveSheet()->getStyle()->getNumberFormat()->setFormatCode();
@@ -3452,18 +3459,18 @@ class Console extends CI_Controller {
             $objPHPExcel->getActiveSheet()->setCellValue('E1', '執勤日期');
 
 
-            $objPHPExcel->getActiveSheet()->setCellValue('A'.(2+$i), (string)$arr[$i]['job_code'],PHPExcel_Cell_DataType::TYPE_STRING);
-            $objPHPExcel->getActiveSheet()->setCellValue('B'.(2+$i), $arr[$i]['name']);
-            $objPHPExcel->getActiveSheet()->setCellValue('C'.(2+$i), $arr[$i]['member_unit']);
-            $objPHPExcel->getActiveSheet()->setCellValue('D'.(2+$i), $arr[$i]['job']);
-            $objPHPExcel->getActiveSheet()->setCellValue('E'.(2+$i), $arr[$i]['do_date']);
+            $objPHPExcel->getActiveSheet()->setCellValue('A' . (2 + $i), (string)$arr[$i]['job_code'], PHPExcel_Cell_DataType::TYPE_STRING);
+            $objPHPExcel->getActiveSheet()->setCellValue('B' . (2 + $i), $arr[$i]['name']);
+            $objPHPExcel->getActiveSheet()->setCellValue('C' . (2 + $i), $arr[$i]['member_unit']);
+            $objPHPExcel->getActiveSheet()->setCellValue('D' . (2 + $i), $arr[$i]['job']);
+            $objPHPExcel->getActiveSheet()->setCellValue('E' . (2 + $i), $arr[$i]['do_date']);
         }
 
         $objWriter = PHPExcel_IOFactory::createWriter($objPHPExcel, 'CSV');
 
 
         header("content-type:application/csv;charset=UTF-8");
-        header('Content-Disposition: attachment;filename="檔案匯出'.'.csv"');
+        header('Content-Disposition: attachment;filename="檔案匯出' . '.csv"');
         header('Cache-Control: max-age=0');
         header("Expires:0");
 
@@ -3485,7 +3492,7 @@ class Console extends CI_Controller {
 
         $arr = $this->mod_ability_trial->get_trial_moneylist_for_csv($part);
         // print_r($arr);
-        for ($i=0; $i < count($arr); $i++) {
+        for ($i = 0; $i < count($arr); $i++) {
             # code...
 
 
@@ -3497,18 +3504,18 @@ class Console extends CI_Controller {
             $objPHPExcel->getActiveSheet()->setCellValue('C1', '姓名');
             $objPHPExcel->getActiveSheet()->setCellValue('D1', '餐費');
             $objPHPExcel->getActiveSheet()->setCellValue('E1', '應領費用');
-            $objPHPExcel->getActiveSheet()->setCellValue('A'.(2+$i), $arr[$i]['field']);
-            $objPHPExcel->getActiveSheet()->setCellValue('B'.(2+$i), number_format($arr[$i]['salary_section']));
-            $objPHPExcel->getActiveSheet()->setCellValue('C'.(2+$i), $arr[$i]['supervisor']);
-            $objPHPExcel->getActiveSheet()->setCellValue('D'.(2+$i), $arr[$i]['section_lunch_total']);
-            $objPHPExcel->getActiveSheet()->setCellValue('E'.(2+$i), $arr[$i]['section_salary_total']);
+            $objPHPExcel->getActiveSheet()->setCellValue('A' . (2 + $i), $arr[$i]['field']);
+            $objPHPExcel->getActiveSheet()->setCellValue('B' . (2 + $i), number_format($arr[$i]['salary_section']));
+            $objPHPExcel->getActiveSheet()->setCellValue('C' . (2 + $i), $arr[$i]['supervisor']);
+            $objPHPExcel->getActiveSheet()->setCellValue('D' . (2 + $i), $arr[$i]['section_lunch_total']);
+            $objPHPExcel->getActiveSheet()->setCellValue('E' . (2 + $i), $arr[$i]['section_salary_total']);
         }
 
         $objWriter = PHPExcel_IOFactory::createWriter($objPHPExcel, 'CSV');
 
 
         header('Content-Type: application/vnd.ms-excel');
-        header('Content-Disposition: attachment;filename="'.$area.'印領清冊'.'.csv"');
+        header('Content-Disposition: attachment;filename="' . $area . '印領清冊' . '.csv"');
         header('Cache-Control: max-age=0');
 
 
@@ -3529,7 +3536,7 @@ class Console extends CI_Controller {
 
 
         $arr = $this->mod_ability_trial->get_trial_list_of_obs_for_csv($part, $obs);
-        for ($i=0; $i < count($arr); $i++) {
+        for ($i = 0; $i < count($arr); $i++) {
             # code...
 
             $objPHPExcel->getActiveSheet()->setCellValue('A1', '試場');
@@ -3537,18 +3544,18 @@ class Console extends CI_Controller {
             $objPHPExcel->getActiveSheet()->setCellValue('C1', '姓名');
             $objPHPExcel->getActiveSheet()->setCellValue('D1', '餐費');
             $objPHPExcel->getActiveSheet()->setCellValue('E1', '應領費用');
-            $objPHPExcel->getActiveSheet()->setCellValue('A'.(2+$i), $arr[$i]['field']);
-            $objPHPExcel->getActiveSheet()->setCellValue('B'.(2+$i), number_format($arr[$i]['salary_section']));
-            $objPHPExcel->getActiveSheet()->setCellValue('C'.(2+$i), $arr[$i]['supervisor']);
-            $objPHPExcel->getActiveSheet()->setCellValue('D'.(2+$i), $arr[$i]['section_lunch_total']);
-            $objPHPExcel->getActiveSheet()->setCellValue('E'.(2+$i), $arr[$i]['section_salary_total']);
+            $objPHPExcel->getActiveSheet()->setCellValue('A' . (2 + $i), $arr[$i]['field']);
+            $objPHPExcel->getActiveSheet()->setCellValue('B' . (2 + $i), number_format($arr[$i]['salary_section']));
+            $objPHPExcel->getActiveSheet()->setCellValue('C' . (2 + $i), $arr[$i]['supervisor']);
+            $objPHPExcel->getActiveSheet()->setCellValue('D' . (2 + $i), $arr[$i]['section_lunch_total']);
+            $objPHPExcel->getActiveSheet()->setCellValue('E' . (2 + $i), $arr[$i]['section_salary_total']);
         }
 
         $objWriter = PHPExcel_IOFactory::createWriter($objPHPExcel, 'CSV');
 
 
         header('Content-Type: application/vnd.ms-excel');
-        header('Content-Disposition: attachment;filename="'.$area.'印領清冊'.'.csv"');
+        header('Content-Disposition: attachment;filename="' . $area . '印領清冊' . '.csv"');
         header('Cache-Control: max-age=0');
 
 
@@ -3569,7 +3576,7 @@ class Console extends CI_Controller {
 
         $school = $this->mod_ability_exam_area->year_school_name($part);
         $arr = $this->mod_ability_task->get_district_task_money_list($area);
-        for ($i=0; $i < count($arr); $i++) {
+        for ($i = 0; $i < count($arr); $i++) {
             # code...
             $objPHPExcel->getActiveSheet()->setCellValue('A1', '序號');
             $objPHPExcel->getActiveSheet()->setCellValue('B1', '分區');
@@ -3579,14 +3586,14 @@ class Console extends CI_Controller {
             $objPHPExcel->getActiveSheet()->setCellValue('F1', '工作費');
             $objPHPExcel->getActiveSheet()->setCellValue('G1', '餐費費');
             $objPHPExcel->getActiveSheet()->setCellValue('H1', '應領費用');
-            $objPHPExcel->getActiveSheet()->setCellValue('A'.(2+$i), $i+1);
-            $objPHPExcel->getActiveSheet()->setCellValue('B'.(2+$i), $area);
-            $objPHPExcel->getActiveSheet()->setCellValue('C'.(2+$i), $school);
-            $objPHPExcel->getActiveSheet()->setCellValue('D'.(2+$i), $arr[$i]['name']);
-            $objPHPExcel->getActiveSheet()->setCellValue('E'.(2+$i), $arr[$i]['job']);
-            $objPHPExcel->getActiveSheet()->setCellValue('F'.(2+$i), number_format($arr[$i]['one_day_salary']));
-            $objPHPExcel->getActiveSheet()->setCellValue('G'.(2+$i), number_format($arr[$i]['lunch_total']));
-            $objPHPExcel->getActiveSheet()->setCellValue('H'.(2+$i), number_format($arr[$i]['total']));
+            $objPHPExcel->getActiveSheet()->setCellValue('A' . (2 + $i), $i + 1);
+            $objPHPExcel->getActiveSheet()->setCellValue('B' . (2 + $i), $area);
+            $objPHPExcel->getActiveSheet()->setCellValue('C' . (2 + $i), $school);
+            $objPHPExcel->getActiveSheet()->setCellValue('D' . (2 + $i), $arr[$i]['name']);
+            $objPHPExcel->getActiveSheet()->setCellValue('E' . (2 + $i), $arr[$i]['job']);
+            $objPHPExcel->getActiveSheet()->setCellValue('F' . (2 + $i), number_format($arr[$i]['one_day_salary']));
+            $objPHPExcel->getActiveSheet()->setCellValue('G' . (2 + $i), number_format($arr[$i]['lunch_total']));
+            $objPHPExcel->getActiveSheet()->setCellValue('H' . (2 + $i), number_format($arr[$i]['total']));
 
         }
 
@@ -3594,7 +3601,7 @@ class Console extends CI_Controller {
 
 
         header('Content-Type: application/vnd.ms-excel');
-        header('Content-Disposition: attachment;filename="'.$area.'試務人員印領清冊'.'.csv"');
+        header('Content-Disposition: attachment;filename="' . $area . '試務人員印領清冊' . '.csv"');
         header('Cache-Control: max-age=0');
 
 
@@ -3615,7 +3622,7 @@ class Console extends CI_Controller {
 
         $school = $this->mod_ability_exam_area->year_school_name($part);
         $arr = $this->mod_ability_trial->get_trial_staff_task_money_list($part);
-        for ($i=0; $i < count($arr); $i++) {
+        for ($i = 0; $i < count($arr); $i++) {
             # code...
             $objPHPExcel->getActiveSheet()->setCellValue('A1', '序號');
             $objPHPExcel->getActiveSheet()->setCellValue('B1', '分區');
@@ -3625,14 +3632,14 @@ class Console extends CI_Controller {
             $objPHPExcel->getActiveSheet()->setCellValue('F1', '工作費');
             $objPHPExcel->getActiveSheet()->setCellValue('G1', '餐費費');
             $objPHPExcel->getActiveSheet()->setCellValue('H1', '應領費用');
-            $objPHPExcel->getActiveSheet()->setCellValue('A'.(2+$i), $i+1);
-            $objPHPExcel->getActiveSheet()->setCellValue('B'.(2+$i), $area);
-            $objPHPExcel->getActiveSheet()->setCellValue('C'.(2+$i), $school);
-            $objPHPExcel->getActiveSheet()->setCellValue('D'.(2+$i), $arr[$i]['name']);
-            $objPHPExcel->getActiveSheet()->setCellValue('E'.(2+$i), $arr[$i]['job']);
-            $objPHPExcel->getActiveSheet()->setCellValue('F'.(2+$i), number_format($arr[$i]['salary_total']));
-            $objPHPExcel->getActiveSheet()->setCellValue('G'.(2+$i), number_format($arr[$i]['lunch_total']));
-            $objPHPExcel->getActiveSheet()->setCellValue('H'.(2+$i), number_format($arr[$i]['total']));
+            $objPHPExcel->getActiveSheet()->setCellValue('A' . (2 + $i), $i + 1);
+            $objPHPExcel->getActiveSheet()->setCellValue('B' . (2 + $i), $area);
+            $objPHPExcel->getActiveSheet()->setCellValue('C' . (2 + $i), $school);
+            $objPHPExcel->getActiveSheet()->setCellValue('D' . (2 + $i), $arr[$i]['name']);
+            $objPHPExcel->getActiveSheet()->setCellValue('E' . (2 + $i), $arr[$i]['job']);
+            $objPHPExcel->getActiveSheet()->setCellValue('F' . (2 + $i), number_format($arr[$i]['salary_total']));
+            $objPHPExcel->getActiveSheet()->setCellValue('G' . (2 + $i), number_format($arr[$i]['lunch_total']));
+            $objPHPExcel->getActiveSheet()->setCellValue('H' . (2 + $i), number_format($arr[$i]['total']));
 
         }
 
@@ -3640,7 +3647,7 @@ class Console extends CI_Controller {
 
 
         header('Content-Type: application/vnd.ms-excel');
-        header('Content-Disposition: attachment;filename="'.$area.'管卷人員印領清冊'.'.csv"');
+        header('Content-Disposition: attachment;filename="' . $area . '管卷人員印領清冊' . '.csv"');
         header('Cache-Control: max-age=0');
 
 
@@ -3661,7 +3668,7 @@ class Console extends CI_Controller {
 
         $school = $this->mod_ability_exam_area->year_school_name($part);
         $arr = $this->mod_ability_trial->get_patrol_staff_task_money_list($part);
-        for ($i=0; $i < count($arr); $i++) {
+        for ($i = 0; $i < count($arr); $i++) {
             # code...
             $objPHPExcel->getActiveSheet()->setCellValue('A1', '序號');
             $objPHPExcel->getActiveSheet()->setCellValue('B1', '分區');
@@ -3671,14 +3678,14 @@ class Console extends CI_Controller {
             $objPHPExcel->getActiveSheet()->setCellValue('F1', '工作費');
             $objPHPExcel->getActiveSheet()->setCellValue('G1', '餐費費');
             $objPHPExcel->getActiveSheet()->setCellValue('H1', '應領費用');
-            $objPHPExcel->getActiveSheet()->setCellValue('A'.(2+$i), $i+1);
-            $objPHPExcel->getActiveSheet()->setCellValue('B'.(2+$i), $area);
-            $objPHPExcel->getActiveSheet()->setCellValue('C'.(2+$i), $school);
-            $objPHPExcel->getActiveSheet()->setCellValue('D'.(2+$i), $arr[$i]['name']);
-            $objPHPExcel->getActiveSheet()->setCellValue('E'.(2+$i), $arr[$i]['job']);
-            $objPHPExcel->getActiveSheet()->setCellValue('F'.(2+$i), number_format($arr[$i]['salary_total']));
-            $objPHPExcel->getActiveSheet()->setCellValue('G'.(2+$i), number_format($arr[$i]['lunch_total']));
-            $objPHPExcel->getActiveSheet()->setCellValue('H'.(2+$i), number_format($arr[$i]['total']));
+            $objPHPExcel->getActiveSheet()->setCellValue('A' . (2 + $i), $i + 1);
+            $objPHPExcel->getActiveSheet()->setCellValue('B' . (2 + $i), $area);
+            $objPHPExcel->getActiveSheet()->setCellValue('C' . (2 + $i), $school);
+            $objPHPExcel->getActiveSheet()->setCellValue('D' . (2 + $i), $arr[$i]['name']);
+            $objPHPExcel->getActiveSheet()->setCellValue('E' . (2 + $i), $arr[$i]['job']);
+            $objPHPExcel->getActiveSheet()->setCellValue('F' . (2 + $i), number_format($arr[$i]['salary_total']));
+            $objPHPExcel->getActiveSheet()->setCellValue('G' . (2 + $i), number_format($arr[$i]['lunch_total']));
+            $objPHPExcel->getActiveSheet()->setCellValue('H' . (2 + $i), number_format($arr[$i]['total']));
 
         }
 
@@ -3686,7 +3693,7 @@ class Console extends CI_Controller {
 
 
         header('Content-Type: application/vnd.ms-excel');
-        header('Content-Disposition: attachment;filename="'.$area.'巡場人員印領清冊'.'.csv"');
+        header('Content-Disposition: attachment;filename="' . $area . '巡場人員印領清冊' . '.csv"');
         header('Cache-Control: max-age=0');
 
 
@@ -3713,16 +3720,16 @@ class Console extends CI_Controller {
     public function f_1()
     {
         $this->mod_user->chk_status();
-        $this->load->model('subject_ability/mod_exam_datetime',"mod_exam_datetime");
+        $this->load->model('subject_ability/mod_exam_datetime', "mod_exam_datetime");
         $year = $this->session->userdata('year');
 
         if ($this->mod_exam_datetime->chk_once($year)) {
             $datetime_info = $this->mod_exam_datetime->get_once($year);
         } else {
             $datetime_info = array(
-                'day_1' => '1911' + $this->session->userdata('year').'年7月1日',
-                'day_2' => '1911' + $this->session->userdata('year').'年7月2日',
-                'day_3' => '1911' + $this->session->userdata('year').'年7月3日',
+                'day_1' => '1911' + $this->session->userdata('year') . '年7月1日',
+                'day_2' => '1911' + $this->session->userdata('year') . '年7月2日',
+                'day_3' => '1911' + $this->session->userdata('year') . '年7月3日',
                 'course_1_start_1' => '08:40',
                 'course_1_end_1' => '10:00',
                 'course_2_start_1' => '10:50',
@@ -3735,7 +3742,7 @@ class Console extends CI_Controller {
                 'pre_2_1' => '10:45',
                 'pre_3_1' => '13:55',
                 'pre_4_1' => '16:05',
-                
+
                 'course_1_start_2' => '08:40',
                 'course_1_end_2' => '10:00',
                 'course_2_start_2' => '10:50',
@@ -3791,7 +3798,7 @@ class Console extends CI_Controller {
     public function f_2()
     {
         $this->mod_user->chk_status();
-        $this->load->model('subject_ability/mod_exam_datetime',"mod_exam_datetime");
+        $this->load->model('subject_ability/mod_exam_datetime', "mod_exam_datetime");
         $this->load->model('mod_exam_datetime');
         $year = $this->session->userdata('year');
         $datetime_info = $this->mod_exam_datetime->get_once($year);
@@ -3823,59 +3830,59 @@ class Console extends CI_Controller {
     public function f_3()
     {
         $this->mod_user->chk_status();
-        $this->load->model('subject_ability/mod_exam_datetime',"mod_exam_datetime");
+        $this->load->model('subject_ability/mod_exam_datetime', "mod_exam_datetime");
         $this->load->model('mod_exam_datetime');
         $year = $this->session->userdata('year');
 
-        
+
         $datetime_info = $this->mod_exam_datetime->get_once($year);
         $data_list_4_day = array();
-        for($i=1;$i<=3;$i++){
+        for ($i = 1; $i <= 3; $i++) {
             $data_list_4_day[] = array(
-                'day'=>$i,
-                'do_date'=>$datetime_info["day_$i"],
-                'course_1_start'=>$datetime_info["course_1_start_$i"],
-                'course_2_start'=>$datetime_info["course_2_start_$i"],
-                'course_3_start'=>$datetime_info["course_3_start_$i"],
-                'course_4_start'=>$datetime_info["course_4_start_$i"],
-                'course_1_end'=>$datetime_info["course_1_end_$i"],
-                'course_2_end'=>$datetime_info["course_2_end_$i"],
-                'course_3_end'=>$datetime_info["course_3_end_$i"],
-                'course_4_end'=>$datetime_info["course_4_end_$i"],
-                'pre_1'=>$datetime_info["pre_1_$i"],
-                'pre_2'=>$datetime_info["pre_2_$i"],
-                'pre_3'=>$datetime_info["pre_3_$i"],
-                'pre_4'=>$datetime_info["pre_4_$i"],
+                'day' => $i,
+                'do_date' => $datetime_info["day_$i"],
+                'course_1_start' => $datetime_info["course_1_start_$i"],
+                'course_2_start' => $datetime_info["course_2_start_$i"],
+                'course_3_start' => $datetime_info["course_3_start_$i"],
+                'course_4_start' => $datetime_info["course_4_start_$i"],
+                'course_1_end' => $datetime_info["course_1_end_$i"],
+                'course_2_end' => $datetime_info["course_2_end_$i"],
+                'course_3_end' => $datetime_info["course_3_end_$i"],
+                'course_4_end' => $datetime_info["course_4_end_$i"],
+                'pre_1' => $datetime_info["pre_1_$i"],
+                'pre_2' => $datetime_info["pre_2_$i"],
+                'pre_3' => $datetime_info["pre_3_$i"],
+                'pre_4' => $datetime_info["pre_4_$i"],
             );
-            $doday=$datetime_info["day_$i"];
+            $doday = $datetime_info["day_$i"];
         }
         // print_r($doday);
         
 
         // if ($this->mod_exam_datetime->chk_course($year)) {
-            /**
-             * 
-             * 如果沒有設定考試日期&時間
-             *及 考試科目 會導致錯誤
-             */
-            $course_4_day = array();
-            foreach($this->mod_exam_datetime->get_course($year) as $k=>$v){
-                $course_4_day[$v['day']][$v['course']] = $v;
-                $course_4_day[$v['day']][$v['course']]['subject'] = $this->config->item('subject_ability_course')[$v['subject']];
-            }
+        /**
+         * 
+         * 如果沒有設定考試日期&時間
+         *及 考試科目 會導致錯誤
+         */
+        $course_4_day = array();
+        foreach ($this->mod_exam_datetime->get_course($year) as $k => $v) {
+            $course_4_day[$v['day']][$v['course']] = $v;
+            $course_4_day[$v['day']][$v['course']]['subject'] = $this->config->item('subject_ability_course')[$v['subject']];
+        }
         /**
          * FIXME:
          * HACK:
          * HIDDEN ISSUE & COULD BE BETTER
          */
-        if(empty($doday)){
+        if (empty($doday)) {
             echo "<script>alert('考試日期與時間 尚未設定!'); location.href = './f_1';</script>";
         }
-        if(empty($course_4_day)){
+        if (empty($course_4_day)) {
             echo "<script>alert('科目 尚未設定!'); location.href = './f_2';</script>";
         }
-           
-    
+
+
         $data = array(
             'title' => '預覽考程表',
             'path' => 'subject_ability/f_3',
@@ -3919,7 +3926,7 @@ class Console extends CI_Controller {
 
 
 
- 
+
 
 }
 

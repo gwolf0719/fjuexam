@@ -156,30 +156,20 @@ class Mod_ability_trial extends CI_Model
     }
 
     public function chk_part_list($part, $area)
-    {   
-        // print_r($part);
-        // print_r($area);
-        $this->db->select('*');
-        if ($part != '') {
-            $this->db->where('part', $part);
-        }
-        $this->db->from('ability_part_info');
-        $this->db->join('ability_trial_assign', 'ability_part_info.sn = ability_trial_assign.sn');
-
-        $this->db->where('first_member_do_date !=', "");
+    {
         $year = $this->session->userdata('year');
 
-        $res = $this->db->get()->result_array();
+        $this->db->where('year', $year);
+        $this->db->where('part', $part);
+        $res = $this->db->get('ability_part_info')->result_array();
 
-
-        function even($var)
-        {
-            return ($var['year'] == $_SESSION['year']);
+        $sub = array();
+        foreach ($res as $key => $value) {
+            $this->db->where('sn', $value['sn']);
+            // $this->db->where('first_member_do_date !=', "");
+            $sub = $this->db->get('ability_trial_assign')->result_array();
         }
 
-        $sub = array_filter($res, "even");
-
-        sort($sub);
 
 
         if (!empty($sub)) {
@@ -359,7 +349,7 @@ class Mod_ability_trial extends CI_Model
         $this->db->from('ability_part_info');
         $this->db->join('ability_trial_assign', 'ability_part_info.sn = ability_trial_assign.sn');
 
-        $this->db->where('first_member_do_date !=', "");
+        // $this->db->where('first_member_do_date !=', "");
         $year = $this->session->userdata('year');
 
         $res = $this->db->get()->result_array();
