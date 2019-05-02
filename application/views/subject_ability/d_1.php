@@ -343,6 +343,14 @@ $(function() {
     })
 
     $("body").on("click", "#send", function() {
+        if ($("#supervisor_1").val() == '') {
+            alert('未填寫監試人員一');
+            return;
+        }
+        if ($("#supervisor_2").val() == '') {
+            alert('未填寫監試人員二');
+            return;
+        }
         if (confirm("是否要儲存?")) {
             var sn = $("#sn").val();
             var part = $("#part").val();

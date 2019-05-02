@@ -564,7 +564,7 @@ class Api extends CI_Controller
         $getpost = array('sn', 'part', 'supervisor_1', 'supervisor_1_code', 'supervisor_2', 'supervisor_2_code', 'trial_staff_code_1', 'trial_staff_code_2', 'note', 'field');
         $requred = array('sn', 'part', 'supervisor_1', 'supervisor_2', 'field');
         $data = $this->getpost->getpost_array($getpost, $requred);
-        if ($data == false) {
+        if ($data == false || $data['supervisor_1'] == ' ' || $data['supervisor_2'] == ' ') {
             $json_arr['sys_code'] = '000';
             $json_arr['sys_msg'] = '資料不足';
             $json_arr['requred'] = $this->getpost->report_requred($requred);
