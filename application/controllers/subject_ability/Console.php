@@ -1655,7 +1655,7 @@ class Console extends CI_Controller
         );
 
         if ($data['part'] != false) {
-            $view = $this->load->view('subject_ability/e_2_2', $data, true);
+            $view = $this->load->view('subject_ability/e_2_2', $data, false);
             $this->pdf->view_to_pdf($view, 'e_2_2');
         } else {
             return false;

@@ -1466,6 +1466,7 @@ class Mod_ability_trial extends CI_Model
                     );
                 }
             }
+            // print_r($arr);
             return $arr;
         } else {
             return false;
