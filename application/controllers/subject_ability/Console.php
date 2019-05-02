@@ -2803,7 +2803,7 @@ class Console extends CI_Controller
         );
         // print_r($data);
         $view = $this->load->view('subject_ability/e_3_2_4', $data, true);
-        $this->pdf->view_to_pdf($view, 'e_3_2_4');
+        $this->pdf->view_to_pdf($view, 'e_3_2_5');
     }
 
     public function e_3_2_5_2()
@@ -2829,7 +2829,7 @@ class Console extends CI_Controller
         );
         // print_r($data);
         $view = $this->load->view('subject_ability/e_3_2_3', $data, true);
-        $this->pdf->view_to_pdf($view, 'e_3_2_3');
+        $this->pdf->view_to_pdf($view, 'e_3_2_5');
     }
 
     public function e_3_2_5_3()
@@ -2855,7 +2855,7 @@ class Console extends CI_Controller
         );
 
         $view = $this->load->view('subject_ability/e_3_2_3', $data, true);
-        $this->pdf->view_to_pdf($view, 'e_3_2_3');
+        $this->pdf->view_to_pdf($view, 'e_3_2_5');
     }
 
 

@@ -1079,45 +1079,45 @@ class Mod_ability_trial extends CI_Model
 
 
         $sub = $this->db->get()->result_array();
-        for ($i = 0; $i < count($sub); $i++) {
+        // for ($i = 0; $i < count($sub); $i++) {
 
-            $date = $_GET['date'];
-            $dates = $sub[$i]['first_member_do_date'];
-            $long = strlen($sub[$i]['first_member_do_date']);
-            if ($dates == "" && $dates == " " && $long < 1) {
-                unset($sub[$i]['supervisor_1']);
-            } else {
-                $dates = explode(",", $dates);
-                if (in_array($date, $dates)) {
-                    //有找到執行區
+        //     $date = $_GET['date'];
+        //     $dates = $sub[$i]['first_member_do_date'];
+        //     $long = strlen($sub[$i]['first_member_do_date']);
+        //     if ($dates == "" && $dates == " " && $long < 1) {
+        //         unset($sub[$i]['supervisor_1']);
+        //     } else {
+        //         $dates = explode(",", $dates);
+        //         if (in_array($date, $dates)) {
+        //             //有找到執行區
 
-                } else {
-                    //沒找到執行區
-                    unset($sub[$i]['supervisor_1']);
-                }
+        //         } else {
+        //             //沒找到執行區
+        //             unset($sub[$i]['supervisor_1']);
+        //         }
 
-            }
-        }
+        //     }
+        // }
 
-        for ($i = 0; $i < count($sub); $i++) {
+        // for ($i = 0; $i < count($sub); $i++) {
 
-            $date = $_GET['date'];
-            $dates = $sub[$i]['second_member_do_date'];
-            $long = strlen($sub[$i]['first_member_do_date']);
-            if ($dates == "" && $dates == " " && $long < 1) {
-                unset($sub[$i]['supervisor_2']);
-            } else {
-                $dates = explode(",", $dates);
-                if (in_array($date, $dates)) {
-                    //有找到執行區
+        //     $date = $_GET['date'];
+        //     $dates = $sub[$i]['second_member_do_date'];
+        //     $long = strlen($sub[$i]['first_member_do_date']);
+        //     if ($dates == "" && $dates == " " && $long < 1) {
+        //         unset($sub[$i]['supervisor_2']);
+        //     } else {
+        //         $dates = explode(",", $dates);
+        //         if (in_array($date, $dates)) {
+        //             //有找到執行區
 
-                } else {
-                    //沒找到執行區
-                    unset($sub[$i]['supervisor_2']);
-                }
+        //         } else {
+        //             //沒找到執行區
+        //             unset($sub[$i]['supervisor_2']);
+        //         }
 
-            }
-        }
+        //     }
+        // }
         // print_r($sub);
         if (!empty($sub)) {
             for ($i = 0; $i < count($sub); $i++) {
@@ -1136,24 +1136,24 @@ class Mod_ability_trial extends CI_Model
 
 
 
-                $dates = $voucher['do_date'];
-                // print_r($dates);
-                $dates = explode(",", $dates);
-                if (in_array($date, $dates)) {
-                    //有找到執行區
-                } else {
-                    //沒找到執行區
-                    unset($voucher['patrol_staff_name']);
-                    unset($voucher['allocation_code']);
-                }
+                // $dates = $voucher['do_date'];
+                // // print_r($dates);
+                // $dates = explode(",", $dates);
+                // if (in_array($date, $dates)) {
+                //     //有找到執行區
+                // } else {
+                //     //沒找到執行區
+                //     unset($voucher['patrol_staff_name']);
+                //     unset($voucher['allocation_code']);
+                // }
 
 
-                if (!isset($voucher['patrol_staff_name'])) {
-                    $voucher['patrol_staff_name'] = "";
-                };
-                if (!isset($voucher['allocation_code'])) {
-                    $voucher['allocation_code'] = "";
-                };
+                // if (!isset($voucher['patrol_staff_name'])) {
+                //     $voucher['patrol_staff_name'] = "";
+                // };
+                // if (!isset($voucher['allocation_code'])) {
+                //     $voucher['allocation_code'] = "";
+                // };
 
 
                 $arr[] = array(
@@ -1170,6 +1170,7 @@ class Mod_ability_trial extends CI_Model
                     'voucher' => $voucher['patrol_staff_name']
                 );
             }
+            // print_r($arr);
             return $arr;
         } else {
             return false;
