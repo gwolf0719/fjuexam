@@ -186,8 +186,6 @@ class Mod_staff extends CI_Model
             'job_code' => '',
             'job_title' => '',
             'name' => '',
-            'trial_start' => '',
-            'trial_end' => '',
             'number' => '',
             'phone' => '',
             'note' => '',
