@@ -685,7 +685,7 @@ class Mod_ability_trial extends CI_Model
         $this->db->from('ability_part_info');
         $this->db->join('ability_trial_assign', 'ability_part_info.sn = ability_trial_assign.sn');
         if ($part != '') {
-            $this->db->where('part_info.part', $part);
+            $this->db->where('ability_part_info.part', $part);
         }
         $this->db->not_like('ability_part_info.field', '29', 'after');
         $this->db->where("ability_part_info.year", $_SESSION['year']);

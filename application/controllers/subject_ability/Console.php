@@ -3321,7 +3321,7 @@ class Console extends CI_Controller
         $part = $_GET['part'];
         $area = $_GET['area'];
         $data = array(
-            'part' => $this->mod_ability_rial->e_6_1($part),
+            'part' => $this->mod_ability_trial->e_6_1($part),
             'area' => $area,
             'school' => $this->mod_ability_exam_area->year_school_name($part),
             'salary' => $this->mod_ability_trial->get_all_salary_trial_total($part),
