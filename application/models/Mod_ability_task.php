@@ -827,6 +827,8 @@ class Mod_ability_task extends CI_Model
         $this->db->from('ability_part_info');
         $this->db->join('ability_trial_assign', 'ability_part_info.sn = ability_trial_assign.sn');
         $this->db->where("ability_part_info.year", $_SESSION['year']);
+        $this->db->where("ability_trial_assign.supervisor_1!=", '');
+        $this->db->where("ability_trial_assign.supervisor_2!=", '');
         $year = $this->session->userdata('year');
         $sub = $this->db->get()->result_array();
 
@@ -858,7 +860,7 @@ class Mod_ability_task extends CI_Model
             $supervisor_1 = $this->db->where('member_code', $sub[$i]['supervisor_1_code'])->get('ability_staff_member')->row_array();
             if ($sub[$i]['trial_staff_code_1'] != "") {
                 $arr[] = array(
-                    'job_code' => $sub[$i]['trial_staff_code_1'],
+                    'job_code' => $sub[$i]['supervisor_1_code'],
                     'job' => '監試人員',
                     'name' => $sub[$i]['supervisor_1'],
                     'job_title' => $supervisor_1['member_title'],
@@ -873,7 +875,7 @@ class Mod_ability_task extends CI_Model
             $supervisor_2 = $this->db->where('member_code', $sub[$i]['supervisor_2_code'])->get('ability_staff_member')->row_array();
             if ($sub[$i]['trial_staff_code_2'] != "") {
                 $arr[] = array(
-                    'job_code' => $sub[$i]['trial_staff_code_2'],
+                    'job_code' => $sub[$i]['supervisor_2_code'],
                     'job' => '監試人員',
                     'name' => $sub[$i]['supervisor_2'],
                     'job_title' => $supervisor_2['member_title'],

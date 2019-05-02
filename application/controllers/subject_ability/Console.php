@@ -1293,7 +1293,7 @@ class Console extends CI_Controller
         $data = array(
             'list' => $this->mod_ability_task->get_all_assign_member_list(),
         );
-        // print_r($data);
+
         $view = $this->load->view('subject_ability/e_1_2', $data, true);
         $this->pdf->view_to_pdf($view, 'e_1_2');
     }
