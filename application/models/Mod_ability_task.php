@@ -974,9 +974,10 @@ class Mod_ability_task extends CI_Model
     {
         $this->db->distinct();
         $this->db->select('member_code,member_name');
-
+        $this->db->where('year', $this->session->userdata('year'));
         $data = $this->db->get('ability_staff_member')->result_array();
         // echo $this->db->last_query();
+        // print_r($data);。
         return $data;
     }
 
