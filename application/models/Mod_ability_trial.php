@@ -1132,7 +1132,7 @@ class Mod_ability_trial extends CI_Model
                     # code...
                 $supervisor1 = $this->db->where('year', $this->session->userdata('year'))->where('member_code', $sub[$i]['supervisor_1_code'])->get('ability_staff_member')->row_array();
                 $supervisor2 = $this->db->where('year', $this->session->userdata('year'))->where('member_code', $sub[$i]['supervisor_2_code'])->get('ability_staff_member')->row_array();
-                $voucher = $this->db->where('part', $part)->where('start <=', $sub[$i]['field'])->where('end >=', $sub[$i]['field'])->get('ability_patrol_staff')->row_array();
+                $voucher = $this->db->where('year', $year)->where('part', $part)->where('start <=', $sub[$i]['field'])->where('end >=', $sub[$i]['field'])->get('ability_patrol_staff')->row_array();
                 $course = $this->db->where('year', $year)->where('field', $sub[$i]['field'])->get('ability_exam_area')->row_array();
                 $trial = $this->db->get('trial_staff')->result_array();
                 if (!isset($sub[$i]['supervisor_1'])) {
