@@ -1,8 +1,8 @@
 <style>
 .bb {
     border: 1px solid #999999;
-    line-height:1cm;
-    height:1.2cm;
+    line-height: 1cm;
+    height: 1.2cm;
 }
 
 table {
@@ -20,10 +20,17 @@ td {
     overflow: visible !important;
 }
 
-table,tr,td,th,tbody,thead,tfoot {
+table,
+tr,
+td,
+th,
+tbody,
+thead,
+tfoot {
     page-break-before: always;
     page-break-inside: avoid;
 }
+
 .W50 {
     width: 50%;
     float: left;
@@ -175,11 +182,20 @@ table,tr,td,th,tbody,thead,tfoot {
             ?>
         </td>
     </tr>
-        <?php if($kc%7 == 6):?>
-            <tr class="hr">
-                <td colspan="6" ></td>
-            </tr>
-        <?php endif;?>
+    <?php if ($kc % 7 == 6) : ?>
+    <tr class="hr">
+        <td colspan="6"></td>
+    </tr>
+    <tr class="hr">
+        <td colspan="6"></td>
+    </tr>
+    <tr class="hr">
+        <td colspan="6"></td>
+    </tr>
+    <tr class="hr">
+        <td colspan="6"></td>
+    </tr>
+    <?php endif; ?>
     <?php endforeach; ?>
 </table>
 <?php endforeach; ?>
