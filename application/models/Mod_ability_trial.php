@@ -366,8 +366,8 @@ class Mod_ability_trial extends CI_Model
 
             for ($i = 0; $i < count($sub); $i++) {
                 # code...
-                $supervisor1 = $this->db->where('member_code', $sub[$i]['supervisor_1_code'])->get('ability_staff_member')->row_array();
-                $supervisor2 = $this->db->where('member_code', $sub[$i]['supervisor_2_code'])->get('ability_staff_member')->row_array();
+                $supervisor1 = $this->db->where('year', $this->session->userdata('year'))->where('member_code', $sub[$i]['supervisor_1_code'])->get('ability_staff_member')->row_array();
+                $supervisor2 = $this->db->where('year', $this->session->userdata('year'))->where('member_code', $sub[$i]['supervisor_2_code'])->get('ability_staff_member')->row_array();
                 $patrol = $this->db->where('start <=', $sub[$i]['start'])->where('end >=', $sub[$i]['end'])->get('ability_patrol_staff')->row_array();
                 $course = $this->db->where('year', $year)->where('field', $sub[$i]['field'])->get('ability_exam_area')->row_array();
                 $trial = $this->db->get('ability_trial_staff')->result_array();
@@ -455,8 +455,8 @@ class Mod_ability_trial extends CI_Model
 
             for ($i = 0; $i < count($sub); $i++) {
                 # code...
-                $supervisor1 = $this->db->where('member_code', $sub[$i]['supervisor_1_code'])->get('ability_staff_member')->row_array();
-                $supervisor2 = $this->db->where('member_code', $sub[$i]['supervisor_2_code'])->get('ability_staff_member')->row_array();
+                $supervisor1 = $this->db->where('year', $this->session->userdata('year'))->where('member_code', $sub[$i]['supervisor_1_code'])->get('ability_staff_member')->row_array();
+                $supervisor2 = $this->db->where('year', $this->session->userdata('year'))->where('member_code', $sub[$i]['supervisor_2_code'])->get('ability_staff_member')->row_array();
                 $patrol = $this->db->where('start <=', $sub[$i]['start'])->where('end >=', $sub[$i]['end'])->get('ability_patrol_staff')->row_array();
                 $course = $this->db->where('year', $year)->where('field', $sub[$i]['field'])->get('ability_exam_area')->row_array();
                 $trial = $this->db->get('ability_trial_staff')->result_array();
@@ -522,8 +522,8 @@ class Mod_ability_trial extends CI_Model
 
             for ($i = 0; $i < count($sub); $i++) {
                 # code...
-                $supervisor1 = $this->db->where('member_code', $sub[$i]['supervisor_1_code'])->get('ability_ability_staff_member')->row_array();
-                $supervisor2 = $this->db->where('member_code', $sub[$i]['supervisor_2_code'])->get('ability_ability_staff_member')->row_array();
+                $supervisor1 = $this->db->where('year', $this->session->userdata('year'))->where('member_code', $sub[$i]['supervisor_1_code'])->get('ability_staff_member')->row_array();
+                $supervisor2 = $this->db->where('year', $this->session->userdata('year'))->where('member_code', $sub[$i]['supervisor_2_code'])->get('ability_staff_member')->row_array();
                 $patrol = $this->db->where('start <=', $sub[$i]['start'])->where('end >=', $sub[$i]['end'])->get('ability_patrol_staff')->row_array();
                 $course = $this->db->where('year', $year)->where('field', $sub[$i]['field'])->get('ability_exam_area')->row_array();
                 $trial = $this->db->get('ability_trial_staff')->result_array();
@@ -590,8 +590,8 @@ class Mod_ability_trial extends CI_Model
 
             for ($i = 0; $i < count($sub); $i++) {
                 # code...
-                $supervisor1 = $this->db->where('member_code', $sub[$i]['supervisor_1_code'])->get('ability_staff_member')->row_array();
-                $supervisor2 = $this->db->where('member_code', $sub[$i]['supervisor_2_code'])->get('ability_staff_member')->row_array();
+                $supervisor1 = $this->db->where('year', $this->session->userdata('year'))->where('member_code', $sub[$i]['supervisor_1_code'])->get('ability_staff_member')->row_array();
+                $supervisor2 = $this->db->where('year', $this->session->userdata('year'))->where('member_code', $sub[$i]['supervisor_2_code'])->get('ability_staff_member')->row_array();
                 $patrol = $this->db->where('start <=', $sub[$i]['start'])->where('end >=', $sub[$i]['end'])->get('ability_patrol_staff')->row_array();
                 $course = $this->db->where('year', $year)->where('field', $sub[$i]['field'])->get('ability_exam_area')->row_array();
                 $trial = $this->db->get('ability_trial_staff')->result_array();
@@ -653,8 +653,8 @@ class Mod_ability_trial extends CI_Model
             $salary = 0;
             for ($i = 0; $i < count($sub); $i++) {
                 # code...
-                $supervisor1 = $this->db->where('member_code', $sub[$i]['supervisor_1_code'])->get('ability_staff_member')->row_array();
-                $supervisor2 = $this->db->where('member_code', $sub[$i]['supervisor_2_code'])->get('ability_staff_member')->row_array();
+                $supervisor1 = $this->db->where('year', $this->session->userdata('year'))->where('member_code', $sub[$i]['supervisor_1_code'])->get('ability_staff_member')->row_array();
+                $supervisor2 = $this->db->where('year', $this->session->userdata('year'))->where('member_code', $sub[$i]['supervisor_2_code'])->get('ability_staff_member')->row_array();
                 $patrol = $this->db->where('start <=', $sub[$i]['start'])->where('end >=', $sub[$i]['end'])->get('ability_patrol_staff')->row_array();
                 $course = $this->db->where('year', $_SESSION['year'])->where('field', $sub[$i]['field'])->get('ability_exam_area')->row_array();
                 $trial = $this->db->get('ability_trial_staff')->result_array();
@@ -695,8 +695,8 @@ class Mod_ability_trial extends CI_Model
             $lunch = 0;
             for ($i = 0; $i < count($sub); $i++) {
                 # code...
-                $supervisor1 = $this->db->where('member_code', $sub[$i]['supervisor_1_code'])->get('ability_staff_member')->row_array();
-                $supervisor2 = $this->db->where('member_code', $sub[$i]['supervisor_2_code'])->get('ability_staff_member')->row_array();
+                $supervisor1 = $this->db->where('year', $this->session->userdata('year'))->where('member_code', $sub[$i]['supervisor_1_code'])->get('ability_staff_member')->row_array();
+                $supervisor2 = $this->db->where('year', $this->session->userdata('year'))->where('member_code', $sub[$i]['supervisor_2_code'])->get('ability_staff_member')->row_array();
                 $patrol = $this->db->where('start <=', $sub[$i]['start'])->where('end >=', $sub[$i]['end'])->get('ability_patrol_staff')->row_array();
                 $course = $this->db->where('year', $_SESSION['year'])->where('field', $sub[$i]['field'])->get('ability_exam_area')->row_array();
                 $trial = $this->db->get('ability_trial_staff')->result_array();
@@ -737,8 +737,8 @@ class Mod_ability_trial extends CI_Model
             $salary = 0;
             for ($i = 0; $i < count($sub); $i++) {
                 # code...
-                $supervisor1 = $this->db->where('member_code', $sub[$i]['supervisor_1_code'])->get('ability_staff_member')->row_array();
-                $supervisor2 = $this->db->where('member_code', $sub[$i]['supervisor_2_code'])->get('ability_staff_member')->row_array();
+                $supervisor1 = $this->db->where('year', $this->session->userdata('year'))->where('member_code', $sub[$i]['supervisor_1_code'])->get('ability_staff_member')->row_array();
+                $supervisor2 = $this->db->where('year', $this->session->userdata('year'))->where('member_code', $sub[$i]['supervisor_2_code'])->get('ability_staff_member')->row_array();
                 $patrol = $this->db->where('start <=', $sub[$i]['start'])->where('end >=', $sub[$i]['end'])->get('ability_patrol_staff')->row_array();
                 $course = $this->db->where('year', $_SESSION['year'])->where('field', $sub[$i]['field'])->get('ability_exam_area')->row_array();
                 $trial = $this->db->get('ability_trial_staff')->result_array();
@@ -778,8 +778,8 @@ class Mod_ability_trial extends CI_Model
             $lunch = 0;
             for ($i = 0; $i < count($sub); $i++) {
                 # code...
-                $supervisor1 = $this->db->where('member_code', $sub[$i]['supervisor_1_code'])->get('ability_staff_member')->row_array();
-                $supervisor2 = $this->db->where('member_code', $sub[$i]['supervisor_2_code'])->get('ability_staff_member')->row_array();
+                $supervisor1 = $this->db->where('year', $this->session->userdata('year'))->where('member_code', $sub[$i]['supervisor_1_code'])->get('ability_staff_member')->row_array();
+                $supervisor2 = $this->db->where('year', $this->session->userdata('year'))->where('member_code', $sub[$i]['supervisor_2_code'])->get('ability_staff_member')->row_array();
                 $patrol = $this->db->where('start <=', $sub[$i]['start'])->where('end >=', $sub[$i]['end'])->get('ability_patrol_staff')->row_array();
                 $course = $this->db->where('year', $_SESSION['year'])->where('field', $sub[$i]['field'])->get('ability_exam_area')->row_array();
                 $trial = $this->db->get('ability_trial_staff')->result_array();
@@ -820,8 +820,8 @@ class Mod_ability_trial extends CI_Model
 
             for ($i = 0; $i < count($sub); $i++) {
                 # code...
-                $supervisor1 = $this->db->where('member_code', $sub[$i]['supervisor_1_code'])->get('ability_staff_member')->row_array();
-                $supervisor2 = $this->db->where('member_code', $sub[$i]['supervisor_2_code'])->get('ability_staff_member')->row_array();
+                $supervisor1 = $this->db->where('year', $this->session->userdata('year'))->where('member_code', $sub[$i]['supervisor_1_code'])->get('ability_staff_member')->row_array();
+                $supervisor2 = $this->db->where('year', $this->session->userdata('year'))->where('member_code', $sub[$i]['supervisor_2_code'])->get('ability_staff_member')->row_array();
                 $patrol = $this->db->where('start <=', $sub[$i]['start'])->where('end >=', $sub[$i]['end'])->get('ability_patrol_staff')->row_array();
                 $course = $this->db->where('year', $year)->where('field', $sub[$i]['field'])->get('ability_exam_area')->row_array();
                 $trial = $this->db->get('ability_trial_staff')->result_array();
@@ -892,8 +892,8 @@ class Mod_ability_trial extends CI_Model
 
         for ($i = 0; $i < count($sub); $i++) {
                 # code...
-            $supervisor1 = $this->db->where('member_code', $sub[$i]['supervisor_1_code'])->get('ability_staff_member')->row_array();
-            $supervisor2 = $this->db->where('member_code', $sub[$i]['supervisor_2_code'])->get('ability_staff_member')->row_array();
+            $supervisor1 = $this->db->where('year', $this->session->userdata('year'))->where('member_code', $sub[$i]['supervisor_1_code'])->get('ability_staff_member')->row_array();
+            $supervisor2 = $this->db->where('year', $this->session->userdata('year'))->where('member_code', $sub[$i]['supervisor_2_code'])->get('ability_staff_member')->row_array();
             $voucher = $this->db->where('part', $part)->where('first_start <=', $sub[$i]['start'])->where('first_end >=', $sub[$i]['end'])->get('ability_trial_staff')->row_array();
             $course = $this->db->where('year', $year)->where('field', $sub[$i]['field'])->get('ability_exam_area')->row_array();
             $trial = $this->db->get('ability_trial_staff')->result_array();
@@ -937,8 +937,8 @@ class Mod_ability_trial extends CI_Model
         if (!empty($sub)) {
             for ($i = 0; $i < count($sub); $i++) {
                     # code...
-                $supervisor1 = $this->db->where('member_code', $sub[$i]['supervisor_1_code'])->get('ability_staff_member')->row_array();
-                $supervisor2 = $this->db->where('member_code', $sub[$i]['supervisor_2_code'])->get('ability_staff_member')->row_array();
+                $supervisor1 = $this->db->where('year', $this->session->userdata('year'))->where('member_code', $sub[$i]['supervisor_1_code'])->get('ability_staff_member')->row_array();
+                $supervisor2 = $this->db->where('year', $this->session->userdata('year'))->where('member_code', $sub[$i]['supervisor_2_code'])->get('ability_staff_member')->row_array();
                 $voucher = $this->db->where('part', $part)->where('first_start <=', $sub[$i]['field'])->where('first_end >=', $sub[$i]['field'])->get('ability_trial_staff')->result_array();
                 $course = $this->db->where('year', $year)->where('field', $sub[$i]['field'])->get('ability_exam_area')->row_array();
                 $trial = $this->db->get('ability_trial_staff')->result_array();
@@ -985,8 +985,8 @@ class Mod_ability_trial extends CI_Model
         if (!empty($sub)) {
             for ($i = 0; $i < count($sub); $i++) {
                     # code...
-                $supervisor1 = $this->db->where('member_code', $sub[$i]['supervisor_1_code'])->get('ability_staff_member')->row_array();
-                $supervisor2 = $this->db->where('member_code', $sub[$i]['supervisor_2_code'])->get('ability_staff_member')->row_array();
+                $supervisor1 = $this->db->where('year', $this->session->userdata('year'))->where('member_code', $sub[$i]['supervisor_1_code'])->get('ability_staff_member')->row_array();
+                $supervisor2 = $this->db->where('year', $this->session->userdata('year'))->where('member_code', $sub[$i]['supervisor_2_code'])->get('ability_staff_member')->row_array();
                 $voucher = $this->db->where('part', $part)->where('second_start <=', $sub[$i]['field'])->where('second_end >=', $sub[$i]['field'])->get('ability_trial_staff')->result_array();
                 $course = $this->db->where('year', $year)->where('field', $sub[$i]['field'])->get('ability_exam_area')->row_array();
                 $trial = $this->db->get('ability_trial_staff')->result_array();
@@ -1033,8 +1033,8 @@ class Mod_ability_trial extends CI_Model
         if (!empty($sub)) {
             for ($i = 0; $i < count($sub); $i++) {
                     # code...
-                $supervisor1 = $this->db->where('member_code', $sub[$i]['supervisor_1_code'])->get('ability_staff_member')->row_array();
-                $supervisor2 = $this->db->where('member_code', $sub[$i]['supervisor_2_code'])->get('ability_staff_member')->row_array();
+                $supervisor1 = $this->db->where('year', $this->session->userdata('year'))->where('member_code', $sub[$i]['supervisor_1_code'])->get('ability_staff_member')->row_array();
+                $supervisor2 = $this->db->where('year', $this->session->userdata('year'))->where('member_code', $sub[$i]['supervisor_2_code'])->get('ability_staff_member')->row_array();
                 $voucher = $this->db->where('part', $part)->where('third_start <=', $sub[$i]['field'])->where('third_end >=', $sub[$i]['field'])->get('ability_trial_staff')->result_array();
                 $course = $this->db->where('year', $year)->where('field', $sub[$i]['field'])->get('ability_exam_area')->row_array();
                 $trial = $this->db->get('ability_trial_staff')->result_array();
@@ -1122,8 +1122,8 @@ class Mod_ability_trial extends CI_Model
         if (!empty($sub)) {
             for ($i = 0; $i < count($sub); $i++) {
                     # code...
-                $supervisor1 = $this->db->where('member_code', $sub[$i]['supervisor_1_code'])->get('ability_staff_member')->row_array();
-                $supervisor2 = $this->db->where('member_code', $sub[$i]['supervisor_2_code'])->get('ability_staff_member')->row_array();
+                $supervisor1 = $this->db->where('year', $this->session->userdata('year'))->where('member_code', $sub[$i]['supervisor_1_code'])->get('ability_staff_member')->row_array();
+                $supervisor2 = $this->db->where('year', $this->session->userdata('year'))->where('member_code', $sub[$i]['supervisor_2_code'])->get('ability_staff_member')->row_array();
                 $voucher = $this->db->where('part', $part)->where('start <=', $sub[$i]['field'])->where('end >=', $sub[$i]['field'])->get('ability_patrol_staff')->row_array();
                 $course = $this->db->where('year', $year)->where('field', $sub[$i]['field'])->get('ability_exam_area')->row_array();
                 $trial = $this->db->get('trial_staff')->result_array();
@@ -1233,8 +1233,8 @@ class Mod_ability_trial extends CI_Model
         if (!empty($sub)) {
             for ($i = 0; $i < count($sub); $i++) {
                     # code...
-                $supervisor1 = $this->db->where('member_code', $sub[$i]['supervisor_1_code'])->get('ability_staff_member')->row_array();
-                $supervisor2 = $this->db->where('member_code', $sub[$i]['supervisor_2_code'])->get('ability_staff_member')->row_array();
+                $supervisor1 = $this->db->where('year', $this->session->userdata('year'))->where('member_code', $sub[$i]['supervisor_1_code'])->get('ability_staff_member')->row_array();
+                $supervisor2 = $this->db->where('year', $this->session->userdata('year'))->where('member_code', $sub[$i]['supervisor_2_code'])->get('ability_staff_member')->row_array();
                 $voucher = $this->db->where('part', $part)->where('start <=', $sub[$i]['field'])->where('end >=', $sub[$i]['field'])->get('ability_patrol_staff')->row_array();
                 $course = $this->db->where('year', $year)->where('field', $sub[$i]['field'])->get('ability_exam_area')->row_array();
                 $trial = $this->db->get('trial_staff')->result_array();
@@ -1344,8 +1344,8 @@ class Mod_ability_trial extends CI_Model
         if (!empty($sub)) {
             for ($i = 0; $i < count($sub); $i++) {
                     # code...
-                $supervisor1 = $this->db->where('member_code', $sub[$i]['supervisor_1_code'])->get('ability_staff_member')->row_array();
-                $supervisor2 = $this->db->where('member_code', $sub[$i]['supervisor_2_code'])->get('ability_staff_member')->row_array();
+                $supervisor1 = $this->db->where('year', $this->session->userdata('year'))->where('member_code', $sub[$i]['supervisor_1_code'])->get('ability_staff_member')->row_array();
+                $supervisor2 = $this->db->where('year', $this->session->userdata('year'))->where('member_code', $sub[$i]['supervisor_2_code'])->get('ability_staff_member')->row_array();
                 $voucher = $this->db->where('part', $part)->where('start <=', $sub[$i]['field'])->where('end >=', $sub[$i]['field'])->get('ability_patrol_staff')->row_array();
                 $course = $this->db->where('year', $year)->where('field', $sub[$i]['field'])->get('ability_exam_area')->row_array();
                 $trial = $this->db->get('trial_staff')->result_array();
@@ -1427,9 +1427,10 @@ class Mod_ability_trial extends CI_Model
         if (!empty($sub)) {
             for ($i = 0; $i < count($sub); $i++) {
                 # code...
-                $supervisor1 = $this->db->where('member_code', $sub[$i]['supervisor_1_code'])->get('ability_staff_member')->row_array();
-                $supervisor2 = $this->db->where('member_code', $sub[$i]['supervisor_2_code'])->get('ability_staff_member')->row_array();
+                $supervisor1 = $this->db->where('year', $this->session->userdata('year'))->where('member_code', $sub[$i]['supervisor_1_code'])->get('ability_staff_member')->row_array();
+                $supervisor2 = $this->db->where('year', $this->session->userdata('year'))->where('member_code', $sub[$i]['supervisor_2_code'])->get('ability_staff_member')->row_array();
                 $do_date = explode(",", $sub[$i]['first_member_do_date']);
+                print_r($supervisor1);
                 
                 # code...
                 if (strtoupper($sub[$i]['first_member_order_meal']) == "Y") {
@@ -1502,8 +1503,8 @@ class Mod_ability_trial extends CI_Model
         if (!empty($sub)) {
             for ($i = 0; $i < count($sub); $i++) {
                 # code...
-                $supervisor1 = $this->db->where('member_code', $sub[$i]['supervisor_1_code'])->get('ability_staff_member')->row_array();
-                $supervisor2 = $this->db->where('member_code', $sub[$i]['supervisor_2_code'])->get('ability_staff_member')->row_array();
+                $supervisor1 = $this->db->where('year', $this->session->userdata('year'))->where('member_code', $sub[$i]['supervisor_1_code'])->get('ability_staff_member')->row_array();
+                $supervisor2 = $this->db->where('year', $this->session->userdata('year'))->where('member_code', $sub[$i]['supervisor_2_code'])->get('ability_staff_member')->row_array();
                 $do_date = explode(",", $sub[$i]['first_member_do_date']);
                 
                 # code...
