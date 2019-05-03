@@ -93,23 +93,17 @@ class Mod_trial extends CI_Model
         if ($part != '') {
             $this->db->where('part', $part);
         }
+        $this->db->where('part_info.year', $_SESSION['year']);
         $this->db->from('part_info');
         $this->db->join('trial_assign', 'part_info.sn = trial_assign.sn');
 
         $this->db->where('first_member_do_date !=', "");
         $year = $this->session->userdata('year');
 
-        $res = $this->db->get()->result_array();
+        $sub = $this->db->get()->result_array();
 
 
-        function even($var)
-        {
-            return ($var['year'] == $_SESSION['year']);
-        }
 
-        $sub = array_filter($res, "even");
-
-        sort($sub);
 
 
         if (!empty($sub)) {

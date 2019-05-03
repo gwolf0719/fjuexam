@@ -93,7 +93,7 @@ class Mod_trial extends CI_Model
     {
 
         $year = $this->session->userdata('year');
-        $ladder = $this->session->userdata('ladder');
+
 
 
         $this->db->where('year', $year);
@@ -106,8 +106,15 @@ class Mod_trial extends CI_Model
             # code...
             $this->db->where('year', $year);
             $this->db->where('sn', $value['sn']);
-            $res[] = $this->db->get('trial_assign')->row_array();
+            $this->db->where('supervisor_1!=', ' ');
+            $a = $this->db->get('trial_assign')->row_array();
+
+            if ($a != '') {
+                $res[] = $a;
+            }
         }
+
+
 
 
 
@@ -182,31 +189,29 @@ class Mod_trial extends CI_Model
 
     public function chk_part_list_of_obs($part, $area, $obs)
     {
-        $this->db->select('*');
-        if ($part != '') {
-            $this->db->where('part_info.part', $part);
-        }
-        $this->db->like('part_info.field', $obs);
-
-        $this->db->from('part_info');
-        $this->db->join('trial_assign', 'part_info.sn = trial_assign.sn');
         $year = $this->session->userdata('year');
+        $this->db->where('year', $year);
+        if ($part != '') {
+            $this->db->where('part', $part);
+        }
+        $this->db->like('field', $obs);
+        $main = $this->db->get('part_info')->result_array();
+        $res = array();
+        foreach ($main as $key => $value) {
+            # code...
+            $this->db->where('year', $year);
+            $this->db->where('sn', $value['sn']);
+            $this->db->where('supervisor_1!=', ' ');
 
-        $res = $this->db->get()->result_array();
-        // print_r($res);
+            $a = $this->db->get('trial_assign')->row_array();
 
-
-        function even($var)
-        {
-            return ($var['year'] == $_SESSION['year']);
+            if ($a != '') {
+                $res[] = $a;
+            }
         }
 
-        $sub = array_filter($res, "even");
 
-        sort($sub);
-
-
-        if (!empty($sub)) {
+        if (!empty($res)) {
             return true;
         } else {
             return false;
@@ -735,27 +740,22 @@ class Mod_trial extends CI_Model
 
     public function get_trial_moneylist_for_csv($part = '')
     {
+
         $this->db->select('*');
         if ($part != '') {
             $this->db->where('part', $part);
         }
+        $this->db->where('part_info.year', $_SESSION['year']);
         $this->db->from('part_info');
         $this->db->join('trial_assign', 'part_info.sn = trial_assign.sn');
 
         $this->db->where('first_member_do_date !=', "");
         $year = $this->session->userdata('year');
 
-        $res = $this->db->get()->result_array();
-        if (!empty($res)) {
-            function even($var)
-            {
-                return ($var['year'] == $_SESSION['year']);
-            }
+        $sub = $this->db->get()->result_array();
 
-            $sub = array_filter($res, "even");
 
-            sort($sub);
-
+        if (!empty($sub)) {
 
             for ($i = 0; $i < count($sub); $i++) {
                 # code...

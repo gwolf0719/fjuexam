@@ -3008,36 +3008,41 @@ class Designated extends CI_Controller
         $area = $_GET['area'];
 
         $arr = $this->mod_trial->get_trial_moneylist_for_csv($part);
-        // print_r($arr);
-        for ($i = 0; $i < count($arr); $i++) {
-            # code...
+        if ($arr == false) {
+            echo "<script>alert('此分區無資料!');</script>";
+            redirect('./designated/e');
+        } else {
+
+            for ($i = 0; $i < count($arr); $i++) {
+                # code...
 
 
 
-            $objPHPExcel->getActiveSheet()->setCellValue('A0', '');
-            $objPHPExcel->getActiveSheet()->setCellValue('A1', '試場');
+                $objPHPExcel->getActiveSheet()->setCellValue('A0', '');
+                $objPHPExcel->getActiveSheet()->setCellValue('A1', '試場');
 
-            $objPHPExcel->getActiveSheet()->setCellValue('B1', '監考費');
-            $objPHPExcel->getActiveSheet()->setCellValue('C1', '姓名');
-            $objPHPExcel->getActiveSheet()->setCellValue('D1', '餐費');
-            $objPHPExcel->getActiveSheet()->setCellValue('E1', '應領費用');
-            $objPHPExcel->getActiveSheet()->setCellValue('A' . (2 + $i), $arr[$i]['field']);
-            $objPHPExcel->getActiveSheet()->setCellValue('B' . (2 + $i), number_format($arr[$i]['salary_section']));
-            $objPHPExcel->getActiveSheet()->setCellValue('C' . (2 + $i), $arr[$i]['supervisor']);
-            $objPHPExcel->getActiveSheet()->setCellValue('D' . (2 + $i), $arr[$i]['section_lunch_total']);
-            $objPHPExcel->getActiveSheet()->setCellValue('E' . (2 + $i), $arr[$i]['section_salary_total']);
+                $objPHPExcel->getActiveSheet()->setCellValue('B1', '監考費');
+                $objPHPExcel->getActiveSheet()->setCellValue('C1', '姓名');
+                $objPHPExcel->getActiveSheet()->setCellValue('D1', '餐費');
+                $objPHPExcel->getActiveSheet()->setCellValue('E1', '應領費用');
+                $objPHPExcel->getActiveSheet()->setCellValue('A' . (2 + $i), $arr[$i]['field']);
+                $objPHPExcel->getActiveSheet()->setCellValue('B' . (2 + $i), number_format($arr[$i]['salary_section']));
+                $objPHPExcel->getActiveSheet()->setCellValue('C' . (2 + $i), $arr[$i]['supervisor']);
+                $objPHPExcel->getActiveSheet()->setCellValue('D' . (2 + $i), $arr[$i]['section_lunch_total']);
+                $objPHPExcel->getActiveSheet()->setCellValue('E' . (2 + $i), number_format($arr[$i]['salary_section'] - $arr[$i]['section_lunch_total']));
+            }
+
+            $objWriter = PHPExcel_IOFactory::createWriter($objPHPExcel, 'CSV');
+
+
+            header('Content-Type: application/vnd.ms-excel');
+            header('Content-Disposition: attachment;filename="' . $area . '印領清冊' . '.csv"');
+            header('Cache-Control: max-age=0');
+
+
+
+            $objWriter->save('php://output');
         }
-
-        $objWriter = PHPExcel_IOFactory::createWriter($objPHPExcel, 'CSV');
-
-
-        header('Content-Type: application/vnd.ms-excel');
-        header('Content-Disposition: attachment;filename="' . $area . '印領清冊' . '.csv"');
-        header('Cache-Control: max-age=0');
-
-
-
-        $objWriter->save('php://output');
     }
 
     public function e_7_2()
