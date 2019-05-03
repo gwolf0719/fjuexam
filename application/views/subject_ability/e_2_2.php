@@ -41,7 +41,7 @@ tfoot {
 <table class="" id="" style="padding:5px 0px;;text-align:center;">
     <thead>
         <tr>
-            <td style="font-size:26px;lne-height:50px;" colspan="9"><?= $_SESSION['year'] ?>學年度指定科目考試新北一考區監試人員簽到表</td>
+            <td style="font-size:26px;lne-height:50px;" colspan="9"><?= $_SESSION['year'] ?>學年度學科能力測驗新北一考區監試人員簽到表</td>
         </tr>
         <tr>
             <td colspan="3" style="font-size:22px;padding:20px 0px">分區：<?= $area ?></td>
