@@ -460,13 +460,16 @@ class Mod_ability_trial extends CI_Model
                 $patrol = $this->db->where('start <=', $sub[$i]['start'])->where('end >=', $sub[$i]['end'])->get('ability_patrol_staff')->row_array();
                 $course = $this->db->where('year', $year)->where('field', $sub[$i]['field'])->get('ability_exam_area')->row_array();
                 $trial = $this->db->get('ability_trial_staff')->result_array();
-                if ($sub[$i]['first_member_section_salary_total'] == "") {
+
+                if ($sub[$i]['first_member_section_salary_total'] == "" || $sub[$i]['supervisor_1'] == ' ') {
                     $first_member_section_salary_total = 0;
+                    $sub[$i]['first_member_section_lunch_total'] = 0;
                 } else {
                     $first_member_section_salary_total = $sub[$i]['first_member_section_salary_total'];
                 }
-                if ($sub[$i]['second_member_section_salary_total'] == "") {
+                if ($sub[$i]['second_member_section_salary_total'] == "" || $sub[$i]['supervisor_2'] == ' ') {
                     $second_member_section_salary_total = 0;
+                    $sub[$i]['second_member_section_lunch_total'] = 0;
                 } else {
                     $second_member_section_salary_total = $sub[$i]['second_member_section_salary_total'];
                 }
@@ -2214,7 +2217,7 @@ class Mod_ability_trial extends CI_Model
                     'subject_10' => $course['subject_10'],
                 );
             }
-
+            // print_r($arr);
             return $arr;
         } else {
             return false;

@@ -77,13 +77,21 @@ tfoot {
             <td class="bb" style="width: 8%;">實領費用</td>
         </tr>
     </thead>
+    <?php $lunch_cost = 0; ?>
     <?php foreach ($part as $k => $v) : ?>
+    <?php 
+    $lunch_cost = $lunch_cost + $v['first_member_section_lunch_total'] + $v['second_member_section_lunch_total'];
+    ?>
+
+
+
+
     <tr>
         <td class="bb" style="width:8%;font-size:18px;font-weight:bold;">
             <?= trim($v['field']) ?>
         </td>
         <td class="bb" style="width:8%;font-size:18px;font-weight:bold;">
-            <?= trim(number_format($v['first_member_salary_section'])) ?>
+            <?= trim($v['first_member_salary_section']) ?>
         </td>
         <td class="bb" style="width:8%"><?= trim($v['supervisor_1']) ?>
         </td>
@@ -107,7 +115,7 @@ tfoot {
         </td>
         <td class="bb" style="padding: 30px 0px;"></td>
         <td class="bb" style="width:8%;font-size:18px;font-weight:bold;">
-            <?= trim(number_format($v['second_member_salary_section'])) ?>
+            <?= trim($v['second_member_salary_section']) ?>
         </td>
         <td class="bb" style="width:8%"><?= trim($v['supervisor_2']) ?>
         </td>
@@ -141,7 +149,7 @@ tfoot {
         }
         ?>
         <td colspan="11" style="text-align:left;font-size:18px;font-weight:bold">共計:<?= $count_member ?>人
-            實發監考費：<?= number_format($salary) ?> - 餐費： <?= number_format($lunch) ?> =
-            總支出費用<?= number_format($salary - $lunch) ?> </td>
+            實發監考費：<?= number_format($salary) ?> - 餐費： <?= number_format($lunch_cost) ?> =
+            總支出費用<?= number_format($salary - $lunch_cost) ?> </td>
     </tr>
 </table>

@@ -3352,8 +3352,8 @@ class Console extends CI_Controller
             'count' => $this->mod_ability_trial->get_list_for_obs_member_count($part, $obs),
         );
         if ($data['part'] != false) {
-            $view = $this->load->view('subject_ability/e_6_2', $data, true);
-            $this->pdf->view_to_pdf($view, 'e_6_2');
+            echo $view = $this->load->view('subject_ability/e_6_2', $data, true);
+            // $this->pdf->view_to_pdf($view, 'e_6_2');
         } else {
             return false;
         }
