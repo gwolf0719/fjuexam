@@ -432,6 +432,7 @@ class Mod_ability_trial extends CI_Model
     public function e_6_1($part = '')
     {
         $this->db->select('*');
+        $this->db->where('ability_part_info.year', $this->session->userdata('year'));
         if ($part != '') {
             $this->db->where('ability_part_info.part', $part);
         }
@@ -2139,6 +2140,7 @@ class Mod_ability_trial extends CI_Model
     {
         // print_r($obs);
         $this->db->select('*');
+        $this->db->where('ability_part_info.year', $this->session->userdata('year'));
         if ($part != '') {
             $this->db->where('ability_part_info.part', $part);
         }
@@ -2166,16 +2168,21 @@ class Mod_ability_trial extends CI_Model
                 $patrol = $this->db->where('start <=', $sub[$i]['start'])->where('end >=', $sub[$i]['end'])->get('ability_patrol_staff')->row_array();
                 $course = $this->db->where('year', $year)->where('field', $sub[$i]['field'])->get('ability_exam_area')->row_array();
                 $trial = $this->db->get('ability_trial_staff')->result_array();
-                if ($sub[$i]['first_member_section_salary_total'] == "") {
+
+                if ($sub[$i]['first_member_section_salary_total'] == "" || $sub[$i]['supervisor_1'] == ' ') {
                     $first_member_section_salary_total = 0;
+                    $sub[$i]['first_member_section_lunch_total'] = 0;
                 } else {
                     $first_member_section_salary_total = $sub[$i]['first_member_section_salary_total'];
                 }
-                if ($sub[$i]['second_member_section_salary_total'] == "") {
+                if ($sub[$i]['second_member_section_salary_total'] == "" || $sub[$i]['supervisor_2'] == ' ') {
                     $second_member_section_salary_total = 0;
+                    $sub[$i]['second_member_section_lunch_total'] = 0;
                 } else {
                     $second_member_section_salary_total = $sub[$i]['second_member_section_salary_total'];
                 }
+
+
                 $do_date1 = explode(",", $sub[$i]['first_member_do_date']);
                 $do_date2 = explode(",", $sub[$i]['second_member_do_date']);
                 $arr[] = array(
