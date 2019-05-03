@@ -241,13 +241,17 @@ class Mod_ability_trial extends CI_Model
         }
     }
 
-    public function chk_part_list_of_obs($part, $area, $obs)
+    public function chk_part_list_of_obs($part, $area, $obs = '')
     {
         $this->db->select('*');
+        $this->db->where('ability_part_info.year', $_SESSION['year']);
         if ($part != '') {
             $this->db->where('ability_part_info.part', $part);
         }
-        $this->db->like('ability_part_info.field', $obs);
+        if ($obs != '') {
+
+            $this->db->like('ability_part_info.field', $obs, 'after');
+        }
 
         $this->db->from('ability_part_info');
         $this->db->join('ability_trial_assign', 'ability_part_info.sn = ability_trial_assign.sn');
@@ -257,17 +261,17 @@ class Mod_ability_trial extends CI_Model
         // print_r($res);
 
 
-        function even($var)
-        {
-            return ($var['year'] == $_SESSION['year']);
-        }
+        // function even($var)
+        // {
+        //     return ($var['year'] == $_SESSION['year']);
+        // }
 
-        $sub = array_filter($res, "even");
+        // $sub = array_filter($res, "even");
 
-        sort($sub);
+        // sort($sub);
 
 
-        if (!empty($sub)) {
+        if (!empty($res)) {
             return true;
         } else {
             return false;
@@ -2224,7 +2228,7 @@ class Mod_ability_trial extends CI_Model
                     'subject_10' => $course['subject_10'],
                 );
             }
-            // print_r($arr);
+
             return $arr;
         } else {
             return false;
