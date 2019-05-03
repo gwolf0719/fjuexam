@@ -1172,6 +1172,7 @@ class Api extends CI_Controller
             } else {
                 $json_arr['sys_code'] = '404';
                 $json_arr['sys_msg'] = '查無此資料，請確認是否有資料';
+                $json_arr['sys_sql'] = $this->db->last_query();
             }
         }
         echo json_encode($json_arr);

@@ -106,12 +106,9 @@ class Mod_trial extends CI_Model
             # code...
             $this->db->where('year', $year);
             $this->db->where('sn', $value['sn']);
-            $this->db->where('supervisor_1!=', ' ');
-            $a = $this->db->get('trial_assign')->row_array();
+            // $this->db->where('supervisor_1!=', ' ');
+            $res[] = $this->db->get('trial_assign')->row_array();
 
-            if ($a != '') {
-                $res[] = $a;
-            }
         }
 
 
