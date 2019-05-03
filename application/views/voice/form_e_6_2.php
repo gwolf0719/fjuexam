@@ -86,14 +86,14 @@ tfoot {
         <td class="bb" style="width:8%"><?= trim($v['supervisor_1']) ?>
         </td>
         <td class="bb" style="width:8%;font-size:18px;font-weight:bold;">
-            <?= trim($v['first_member_salary_section']) ?>
+            <?= trim($v['first_member_section_salary_total']) ?>
         </td>
 
         <td class="bb" style="padding: 30px 0px;"></td>
         <td class="bb" style="width:8%"><?= trim($v['supervisor_2']) ?>
         </td>
         <td class="bb" style="width:8%;font-size:18px;font-weight:bold;">
-            <?= trim($v['second_member_salary_section']) ?>
+            <?= trim($v['second_member_section_salary_total']) ?>
         </td>
 
         <td class="bb" style="padding: 30px 0px;"></td>
