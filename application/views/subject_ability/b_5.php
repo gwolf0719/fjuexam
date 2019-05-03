@@ -251,7 +251,7 @@ $(function() {
     $("body").on("click", "#send", function() {
         if (confirm("確定儲存修改資料？")) {
             var sn = $("#sn").val();
-            var area = "第一分區";
+            var area = "第四分區";
             var job = $("#member_job_title").val();
             var job_code = $("#job_code").val();
             var job_title = $("#job_title").val();

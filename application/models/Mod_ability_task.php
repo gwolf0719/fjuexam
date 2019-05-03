@@ -144,7 +144,6 @@ class Mod_ability_task extends CI_Model
             $this->db->where('area', $area);
         }
         $this->db->order_by('sn', 'asc');
-
         return $this->db->get('ability_district_task')->result_array();
     }
 
