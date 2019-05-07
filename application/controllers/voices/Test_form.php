@@ -34,7 +34,7 @@ class Test_form extends CI_Controller
 
     public function form_e1_1()
     {
-       
+
         $this->load->model('mod_school_unit');
 
         $data = array(
@@ -42,8 +42,8 @@ class Test_form extends CI_Controller
         );
         if ($data['list'] != false) {
             $view = $this->load->view('voice/form_e1_1', $data, true);
-            $this->pdf->view_to_pdf($view,'form_e1_1');
-           
+            $this->pdf->view_to_pdf($view, 'form_e1_1');
+
         } else {
             return false;
         }
@@ -51,7 +51,7 @@ class Test_form extends CI_Controller
 
     public function form_e1_2()
     {
-       
+
         $this->load->model('mod_voice_job_list');
 
         $data = array(
@@ -59,8 +59,8 @@ class Test_form extends CI_Controller
         );
         // print_r($data);
         $view = $this->load->view('voice/form_e1_2', $data, true);
-        $this->pdf->view_to_pdf($view,'form_e1_2');
-       
+        $this->pdf->view_to_pdf($view, 'form_e1_2');
+
     }
 
     /**
@@ -68,7 +68,7 @@ class Test_form extends CI_Controller
      */
     public function form_e1_3_1()
     {
-       
+
         $this->load->model('mod_voice_trial');
         $this->load->model('mod_voice_exam_area');
 
@@ -85,8 +85,8 @@ class Test_form extends CI_Controller
 
         if ($data['part'] != false) {
             $view = $this->load->view('voice/form_e1_3', $data, true);
-            $this->pdf->view_to_pdf($view,'form_e1_3');
-          
+            $this->pdf->view_to_pdf($view, 'form_e1_3');
+
         } else {
             return false;
         }
@@ -96,7 +96,7 @@ class Test_form extends CI_Controller
      */
     function form_e1_3_2()
     {
-       
+
         $this->load->model('mod_voice_job_list');
         $this->load->model('mod_voice_exam_area');
         $this->load->model("mod_voice_part_addr");
@@ -128,8 +128,8 @@ class Test_form extends CI_Controller
         );
         if ($data['part'] != false) {
             $view = $this->load->view('voice/form_e1_3_3', $data, true);
-            $this->pdf->view_to_pdf($view,'form_e1_3_3');
-           
+            $this->pdf->view_to_pdf($view, 'form_e1_3_3');
+
         } else {
             return false;
         }
@@ -137,7 +137,7 @@ class Test_form extends CI_Controller
 
     public function form_e1_3_4()
     {
-       
+
         $this->load->model('mod_voice_job_list');
         $this->load->model('mod_voice_exam_area');
         $this->load->model("mod_voice_part_addr");
@@ -171,8 +171,8 @@ class Test_form extends CI_Controller
         );
         if ($data['part'] != false) {
             $view = $this->load->view('voice/form_e1_3_4', $data, true);
-            $this->pdf->view_to_pdf($view,'form_e1_3_4');
-          
+            $this->pdf->view_to_pdf($view, 'form_e1_3_4');
+
         } else {
             return false;
         }
@@ -180,7 +180,7 @@ class Test_form extends CI_Controller
 
     public function form_e1_3_5()
     {
-       
+
         $this->load->model('mod_voice_job_list');
         $this->load->model('mod_voice_exam_area');
         $this->load->model("mod_voice_part_addr");
@@ -213,8 +213,8 @@ class Test_form extends CI_Controller
         );
         if ($data['part'] != false) {
             $view = $this->load->view('voice/form_e1_3_5', $data, true);
-            $this->pdf->view_to_pdf($view,'form_e1_3_5');
-          
+            $this->pdf->view_to_pdf($view, 'form_e1_3_5');
+
         } else {
             return false;
         }
@@ -261,8 +261,8 @@ class Test_form extends CI_Controller
         );
         if ($data['list'] != false) {
             $view = $this->load->view('voice/form_e1_4', $data, true);
-            $this->pdf->view_to_pdf($view,'form_e1_4');
-            
+            $this->pdf->view_to_pdf($view, 'form_e1_4');
+
         } else {
             return false;
         }
@@ -289,7 +289,7 @@ class Test_form extends CI_Controller
 
     public function form_e_2_1_1()
     {
-       
+
         $this->load->model('mod_voice_job_list');
         $this->load->model('mod_voice_exam_area');
         $this->load->model('mod_voice_exam_datetime');
@@ -311,7 +311,7 @@ class Test_form extends CI_Controller
 
         if ($data['part'] != false) {
             $view = $this->load->view('voice/form_e_2_1_1', $data, true);
-            $this->pdf->view_to_pdf($view,'form_e_2_1_1');
+            $this->pdf->view_to_pdf($view, 'form_e_2_1_1');
         } else {
             return false;
         }
@@ -320,7 +320,7 @@ class Test_form extends CI_Controller
     public function form_e_2_1_2()
     {
 
-       
+
         $this->load->model('mod_voice_trial');
         $this->load->model('mod_voice_exam_area');
         $this->load->model('mod_voice_exam_datetime');
@@ -348,7 +348,7 @@ class Test_form extends CI_Controller
 
         if ($data['part'] != false) {
             $view = $this->load->view('voice/form_e_2_1_2', $data, true);
-            $this->pdf->view_to_pdf($view,'form_e_2_1_2');
+            $this->pdf->view_to_pdf($view, 'form_e_2_1_2');
         } else {
             return false;
         }
@@ -356,7 +356,7 @@ class Test_form extends CI_Controller
 
     public function form_e_2_1_3()
     {
-       
+
         $this->load->model('mod_voice_trial');
         $this->load->model('mod_voice_exam_area');
         $this->load->model('mod_voice_exam_datetime');
@@ -383,8 +383,8 @@ class Test_form extends CI_Controller
         );
         if ($data['part'] != false) {
             $view = $this->load->view('voice/form_e_2_1_3', $data, true);
-            $this->pdf->view_to_pdf($view,'form_e_2_1_3');
-           
+            $this->pdf->view_to_pdf($view, 'form_e_2_1_3');
+
         } else {
             return false;
         }
@@ -395,7 +395,7 @@ class Test_form extends CI_Controller
      */
     public function form_e_2_2()
     {
-       
+
         $this->load->model('mod_voice_trial');
         $this->load->model('mod_voice_exam_area');
         $this->load->model('mod_voice_exam_datetime');
@@ -429,7 +429,7 @@ class Test_form extends CI_Controller
 
         if ($data['part'] != false) {
             $view = $this->load->view('voice/form_e_2_2', $data, true);
-            $this->pdf->view_to_pdf($view,'form_e_2_2');
+            $this->pdf->view_to_pdf($view, 'form_e_2_2');
         } else {
             return false;
         }
@@ -440,7 +440,7 @@ class Test_form extends CI_Controller
      */
     public function form_e_2_3_1()
     {
-       
+
         $this->load->model('mod_voice_trial');
         $this->load->model('mod_voice_exam_area');
         $this->load->model('mod_voice_exam_datetime');
@@ -461,11 +461,11 @@ class Test_form extends CI_Controller
             'count' => $this->mod_voice_trial->get_patrol_member_count_1($part),
             'school' => $this->mod_voice_exam_area->year_school_name($part),
         );
-       
+
 
         if ($data['part'] != false) {
             $view = $this->load->view('voice/form_e_2_3_1', $data, true);
-            $this->pdf->view_to_pdf($view,'form_e_2_3_1');
+            $this->pdf->view_to_pdf($view, 'form_e_2_3_1');
         } else {
             return false;
         }
@@ -473,7 +473,7 @@ class Test_form extends CI_Controller
 
     public function form_e_2_3_2()
     {
-       
+
         $this->load->model('mod_voice_trial');
         $this->load->model('mod_voice_exam_area');
         $this->load->model('mod_voice_exam_datetime');
@@ -496,8 +496,8 @@ class Test_form extends CI_Controller
         );
         if ($data['part'] != false) {
             $view = $this->load->view('voice/form_e_2_3_2', $data, true);
-            $this->pdf->view_to_pdf($view,'form_e_2_3_2');
-           
+            $this->pdf->view_to_pdf($view, 'form_e_2_3_2');
+
         } else {
             return false;
         }
@@ -505,7 +505,7 @@ class Test_form extends CI_Controller
 
     public function form_e_2_3_3()
     {
-       
+
         $this->load->model('mod_voice_trial');
         $this->load->model('mod_voice_exam_area');
         $this->load->model('mod_voice_exam_datetime');
@@ -524,7 +524,7 @@ class Test_form extends CI_Controller
         );
         if ($data['part'] != false) {
             $view = $this->load->view('voice/form_e_2_3_3', $data, true);
-            $this->pdf->view_to_pdf($view,'form_e_2_3_3');
+            $this->pdf->view_to_pdf($view, 'form_e_2_3_3');
         } else {
             return false;
         }
@@ -534,7 +534,7 @@ class Test_form extends CI_Controller
      */
     public function form_e_2_4()
     {
-       
+
         $this->load->model('mod_voice_job_list');
         
         // 過濾重複資料
@@ -559,7 +559,7 @@ class Test_form extends CI_Controller
 
         if ($data['part'] != false) {
             $view = $this->load->view('voice/form_e_2_4', $data, true);
-            $this->pdf->view_to_pdf($view,'form_e_2_4');
+            $this->pdf->view_to_pdf($view, 'form_e_2_4');
         } else {
             return false;
         }
@@ -587,7 +587,7 @@ class Test_form extends CI_Controller
      */
     public function form_e_2_5()
     {
-       
+
         $this->load->model('mod_voice_job_list');
         $this->load->model('mod_voice_exam_area');
 
@@ -611,7 +611,7 @@ class Test_form extends CI_Controller
 
         if ($data['list'] != false) {
             $view = $this->load->view('voice/form_e_2_5', $data, true);
-            $this->pdf->view_to_pdf($view,'form_e_2_5');
+            $this->pdf->view_to_pdf($view, 'form_e_2_5');
         } else {
             return false;
         }
@@ -639,7 +639,7 @@ class Test_form extends CI_Controller
 
     public function form_e_3_2_1()
     {
-       
+
         $this->load->model('mod_voice_trial');
         $this->load->model('mod_voice_exam_area');
 
@@ -658,18 +658,18 @@ class Test_form extends CI_Controller
             'date' => $date,
         );
         $view = $this->load->view('voice/form_e_3_2_1', $data, true);
-        $this->pdf->view_to_pdf($view,'form_e_3_2_1');
-       
+        $this->pdf->view_to_pdf($view, 'form_e_3_2_1');
+
     }
 
 
 
     public function form_e_3_2_2()
     {
-       
+
         $this->load->model('mod_voice_trial');
         $this->load->model('mod_voice_exam_area');
-       
+
         $title = '試場工作人員分配表';
         $date = date('yyyy/m/d');
         $part = $_GET['part'];
@@ -688,8 +688,8 @@ class Test_form extends CI_Controller
         );
         // print_r($data);
         $view = $this->load->view('voice/form_e_3_2_2', $data, true);
-        $this->pdf->view_to_pdf($view,'form_e_3_2_2');
-      
+        $this->pdf->view_to_pdf($view, 'form_e_3_2_2');
+
     }
 
 
@@ -698,7 +698,7 @@ class Test_form extends CI_Controller
 
     public function form_e_3_2_3()
     {
-       
+
         $this->load->model('mod_voice_trial');
         $this->load->model('mod_voice_exam_area');
 
@@ -716,15 +716,15 @@ class Test_form extends CI_Controller
             'date' => $date,
         );
         $view = $this->load->view('voice/form_e_3_2_3', $data, true);
-        $this->pdf->view_to_pdf($view,'form_e_3_2_3');
-       
+        $this->pdf->view_to_pdf($view, 'form_e_3_2_3');
+
     }
 
     
     // 各考區試場及個考生座位分配表
     public function form_e_3_3()
     {
-       
+
         $this->load->model('mod_voice_trial');
         $this->load->model('mod_voice_exam_area');
         $this->load->model('mod_voice_area');
@@ -741,7 +741,7 @@ class Test_form extends CI_Controller
         );
 
         $view = $this->load->view('voice/form_e_3_3', $data, true);
-        $this->pdf->view_to_pdf($view,'form_e_3_3',true);
+        $this->pdf->view_to_pdf($view, 'form_e_3_3', true);
     }
 
 
@@ -1276,7 +1276,7 @@ class Test_form extends CI_Controller
 
     public function form_e_6_1()
     {
-       
+
         $this->load->model('mod_voice_trial');
         $this->load->model('mod_voice_exam_area');
 
@@ -1308,16 +1308,16 @@ class Test_form extends CI_Controller
             'salary' => $this->mod_voice_trial->get_all_salary_trial_total($part),
             'count' => $this->mod_voice_trial->e_6_1_member_count($part)
         );
-    
+
 
 
         $view = $this->load->view('voice/form_e_6_1', $data, true);
-        $this->pdf->view_to_pdf($view,'form_e_6_1');
+        $this->pdf->view_to_pdf($view, 'form_e_6_1');
     }
 
     public function form_e_6_2()
     {
-       
+
         $this->load->model('mod_voice_trial');
         $this->load->model('mod_voice_exam_area');
 
@@ -1353,7 +1353,7 @@ class Test_form extends CI_Controller
 
         if ($data['part'] != false) {
             $view = $this->load->view('voice/form_e_6_2', $data, true);
-            $this->pdf->view_to_pdf($view,'form_e_6_2');
+            $this->pdf->view_to_pdf($view, 'form_e_6_2');
 
         } else {
             return false;
@@ -1362,7 +1362,7 @@ class Test_form extends CI_Controller
 
     public function form_e_6_3()
     {
-       
+
         $this->load->model('mod_voice_job_list');
         $this->load->model('mod_voice_exam_area');
 
@@ -1379,7 +1379,7 @@ class Test_form extends CI_Controller
         );
         if ($data['part'] != false) {
             $view = $this->load->view('voice/form_e_6_3', $data, true);
-            $this->pdf->view_to_pdf($view,'form_e_6_3');
+            $this->pdf->view_to_pdf($view, 'form_e_6_3');
         } else {
             return false;
         }
@@ -1387,7 +1387,7 @@ class Test_form extends CI_Controller
 
     public function form_e_6_4()
     {
-       
+
         $this->load->model('mod_voice_trial');
         $this->load->model('mod_voice_exam_area');
 
@@ -1404,7 +1404,7 @@ class Test_form extends CI_Controller
         );
         if ($data['part'] != false) {
             $view = $this->load->view('voice/form_e_6_4', $data, true);
-            $this->pdf->view_to_pdf($view,'form_e_6_4');
+            $this->pdf->view_to_pdf($view, 'form_e_6_4');
         } else {
             return false;
         }
@@ -1412,7 +1412,7 @@ class Test_form extends CI_Controller
 
     public function form_e_6_5()
     {
-       
+
         $this->load->model('mod_voice_trial');
         $this->load->model('mod_voice_exam_area');
 
@@ -1427,7 +1427,7 @@ class Test_form extends CI_Controller
         );
         if ($data['part'] != false) {
             $view = $this->load->view('voice/form_e_6_5', $data, true);
-            $this->pdf->view_to_pdf($view,'form_e_6_5');
+            $this->pdf->view_to_pdf($view, 'form_e_6_5');
         } else {
             return false;
         }
@@ -1441,7 +1441,7 @@ class Test_form extends CI_Controller
         $objPHPExcel = new PHPExcel();
         $objPHPExcel->setActiveSheetIndex(0);
         $arr = $this->mod_voice_job_list->get_all_assign_member_list();
-      
+
         $i = 0;
         foreach ($arr as $key => $value) {
         

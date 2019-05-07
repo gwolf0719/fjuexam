@@ -17,27 +17,27 @@ class Mod_voice_job_list extends CI_Model
         // $this->db->delete('voice_job_list');
 
         $this->db->where('year', $this->session->userdata('year'));
-        $this->db->where('ladder',$this->session->userdata('ladder'));
-        $this->db->where('test_partition',$this->input->post('test_partition'));
-        
+        $this->db->where('ladder', $this->session->userdata('ladder'));
+        $this->db->where('test_partition', $this->input->post('test_partition'));
+
 
         $this->db->delete('voice_job_list');
-        
+
         $this->db->insert_batch('voice_job_list', $data);
     }
 
 
     function voice_where_voice_position()
     {
-        $this->db->where('year',$this->session->userdata('year'));
-        $this->db->where('ladder',$this->session->userdata('ladder'));
-        $this->db->order_by('test_partition','asc');
+        $this->db->where('year', $this->session->userdata('year'));
+        $this->db->where('ladder', $this->session->userdata('ladder'));
+        $this->db->order_by('test_partition', 'asc');
         return $this->db->get('voice_job_list')->result_array();
     }
     public function get_job_list($year, $test_partition)
     {
-        $this->db->where('year',$this->session->userdata('year'));
-        $this->db->where('ladder',$this->session->userdata('ladder'));
+        $this->db->where('year', $this->session->userdata('year'));
+        $this->db->where('ladder', $this->session->userdata('ladder'));
         $this->db->where('test_partition', $test_partition);
         $this->db->select('job');
 
@@ -46,9 +46,9 @@ class Mod_voice_job_list extends CI_Model
 
     function voice_where_voice_area($test_partition)
     {
-        $this->db->where('year',$this->session->userdata('year'));
-        $this->db->where('ladder',$this->session->userdata('ladder'));
-        $this->db->where('test_partition',$test_partition);
+        $this->db->where('year', $this->session->userdata('year'));
+        $this->db->where('ladder', $this->session->userdata('ladder'));
+        $this->db->where('test_partition', $test_partition);
         return $this->db->get('voice_job_list')->result_array();
 
     }
@@ -63,90 +63,90 @@ class Mod_voice_job_list extends CI_Model
 
     public function get_part_for_once($test_partition)
     {
-        $this->db->where('year',$this->session->userdata('year'));
-        $this->db->where('ladder',$this->session->userdata('ladder'));
+        $this->db->where('year', $this->session->userdata('year'));
+        $this->db->where('ladder', $this->session->userdata('ladder'));
         return $this->db->where('test_partition', $test_partition)->get('voice_job_list')->row_array();
     }
     /**
      * 建立新職務.
      */
-     public function add_job($test_partition, $job, $trial_start, $trial_end)
-     {
-         $data = array(
-             'year' => $this->session->userdata('year'),
-             'ladder'=>$this->session->userdata('ladder'),
-             'test_partition'=>$test_partition,
-             'job' => $job,
-             'trial_start' => $trial_start,
-             'trial_end' => $trial_end,
-         );
-         $this->db->insert('voice_job_list', $data);
-     }
-     public function add_job_b2($year,$area, $job, $trial_start, $trial_end)
-     {
-         $data = array(
-             'year' => $year,
-             'ladder'=>$this->session->userdata('ladder'),
-             'test_partition'=>'1',
-             'area' => $area,
-             'job' => $job,
-             'trial_start' => $trial_start,
-             'trial_end' => $trial_end,
-         );
-         $this->db->insert('voice_job_list', $data);
-     }
-     public function add_job_b3($year,$area, $job, $trial_start, $trial_end)
-     {
-         $data = array(
-             'year' => $year,
-             'ladder'=>$this->session->userdata('ladder'),
-             'test_partition'=>'2',
-             'area' => $area,
-             'job' => $job,
-             'trial_start' => $trial_start,
-             'trial_end' => $trial_end,
-         );
-         $this->db->insert('voice_job_list', $data);
-     }
-     public function add_job_b4($year,$area, $job, $trial_start, $trial_end)
-     {
-         $data = array(
-             'year' => $year,
-             'ladder'=>$this->session->userdata('ladder'),
-             'test_partition'=>'3',
-             'area' => $area,
-             'job' => $job,
-             'trial_start' => $trial_start,
-             'trial_end' => $trial_end,
-         );
-         $this->db->insert('voice_job_list', $data);
-     }
+    public function add_job($test_partition, $job, $trial_start, $trial_end)
+    {
+        $data = array(
+            'year' => $this->session->userdata('year'),
+            'ladder' => $this->session->userdata('ladder'),
+            'test_partition' => $test_partition,
+            'job' => $job,
+            'trial_start' => $trial_start,
+            'trial_end' => $trial_end,
+        );
+        $this->db->insert('voice_job_list', $data);
+    }
+    public function add_job_b2($year, $area, $job, $trial_start, $trial_end)
+    {
+        $data = array(
+            'year' => $year,
+            'ladder' => $this->session->userdata('ladder'),
+            'test_partition' => '1',
+            'area' => $area,
+            'job' => $job,
+            'trial_start' => $trial_start,
+            'trial_end' => $trial_end,
+        );
+        $this->db->insert('voice_job_list', $data);
+    }
+    public function add_job_b3($year, $area, $job, $trial_start, $trial_end)
+    {
+        $data = array(
+            'year' => $year,
+            'ladder' => $this->session->userdata('ladder'),
+            'test_partition' => '2',
+            'area' => $area,
+            'job' => $job,
+            'trial_start' => $trial_start,
+            'trial_end' => $trial_end,
+        );
+        $this->db->insert('voice_job_list', $data);
+    }
+    public function add_job_b4($year, $area, $job, $trial_start, $trial_end)
+    {
+        $data = array(
+            'year' => $year,
+            'ladder' => $this->session->userdata('ladder'),
+            'test_partition' => '3',
+            'area' => $area,
+            'job' => $job,
+            'trial_start' => $trial_start,
+            'trial_end' => $trial_end,
+        );
+        $this->db->insert('voice_job_list', $data);
+    }
 
-     public function get_once($sn)
-     {
-         return $this->db->where('sn', $sn)->get('voice_job_list')->row_array();
-     }
+    public function get_once($sn)
+    {
+        return $this->db->where('sn', $sn)->get('voice_job_list')->row_array();
+    }
 
     // 用代號取得完整資料
     public function get_once_info($job_code)
     {
         // print_r($job_code);
-        $this->db->where('year',$this->session->userdata('year'));
-        $this->db->where('ladder',$this->session->userdata('ladder'));
+        $this->db->where('year', $this->session->userdata('year'));
+        $this->db->where('ladder', $this->session->userdata('ladder'));
         $this->db->where('member_code', $job_code);
         return $this->db->get('voice_import_member')->row_array();
     }
     // 人員是否被使用
-    public function check_use_member_job($job_code,$area)
+    public function check_use_member_job($job_code, $area)
     {
-        $this->db->where('year',$this->session->userdata('year'));
-        $this->db->where('ladder',$this->session->userdata('ladder'));
+        $this->db->where('year', $this->session->userdata('year'));
+        $this->db->where('ladder', $this->session->userdata('ladder'));
         $this->db->where('job_code', $job_code);
      
         // print_r($area);
         // $this->db->where('test_partition', $area);
 
-        $count=$this->db->count_all_results('voice_job_list');
+        $count = $this->db->count_all_results('voice_job_list');
         // $a=$this->db->last_query();
         // print_r($count);
         // print_r($a);
@@ -160,52 +160,52 @@ class Mod_voice_job_list extends CI_Model
     {
         $this->db->distinct();
         $this->db->select('member_code,member_name');
-        $this->db->where('year',$this->session->userdata('year'));
-        $this->db->where('ladder',$this->session->userdata('ladder'));
+        $this->db->where('year', $this->session->userdata('year'));
+        $this->db->where('ladder', $this->session->userdata('ladder'));
 
         $data = $this->db->get('voice_import_member')->result_array();
         // echo $this->db->last_query();
         return $data;
     }
 
-    
 
 
-     public function update_once($sn,$data)
-     {
 
-        $this->db->where('sn',$sn);
-        $this->db->update('voice_job_list',$data);
+    public function update_once($sn, $data)
+    {
+
+        $this->db->where('sn', $sn);
+        $this->db->update('voice_job_list', $data);
         return true;
-     }
+    }
 
-     public function remove_once($sn)
-     {
-         $this->db->where('sn',$sn);
-         $this->db->delete('voice_job_list');
-         
-         return true;
-     }
-     
+    public function remove_once($sn)
+    {
+        $this->db->where('sn', $sn);
+        $this->db->delete('voice_job_list');
+
+        return true;
+    }
+
     public function get_list($test_partition = '')
     {
-        $this->db->where('year',$this->session->userdata('year'));
-        $this->db->where('ladder',$this->session->userdata('ladder'));
+        $this->db->where('year', $this->session->userdata('year'));
+        $this->db->where('ladder', $this->session->userdata('ladder'));
         if ($test_partition !== '') {
             $this->db->where('test_partition', $test_partition);
         }
         $this->db->order_by('sn', 'asc');
-        
-         $list =  $this->db->get('voice_job_list')->result_array();
-    
-         return $list;
+
+        $list = $this->db->get('voice_job_list')->result_array();
+
+        return $list;
     }
 
     public function get_all_assign_member_list()
     {
         $adate = $this->db->where('year', $this->session->userdata('year'))->where('ladder', $this->session->userdata('ladder'))->get('voice_exam_datetime')->row_array();
-        $day=$adate['day'];
-        $day = explode("年",$adate['day']);
+        $day = $adate['day'];
+        $day = explode("年", $adate['day']);
 
 
         //取出試務人員
@@ -219,24 +219,24 @@ class Mod_voice_job_list extends CI_Model
         $this->db->select('*');
         $this->db->from('voice_exam_area');
         $this->db->join('voice_trial_assign', 'voice_exam_area.sn = voice_trial_assign.sn');
-        $this->db->where("voice_exam_area.year",$_SESSION['year']);
-        $this->db->where("voice_exam_area.ladder",$_SESSION['ladder']);
+        $this->db->where("voice_exam_area.year", $_SESSION['year']);
+        $this->db->where("voice_exam_area.ladder", $_SESSION['ladder']);
         $year = $this->session->userdata('year');
         $sub = $this->db->get()->result_array();
         // print_r($sub);、
 
         //取出管卷人員
-        $this->db->where('year',$this->session->userdata('year'));
-        $this->db->where('ladder',$this->session->userdata('ladder'));
+        $this->db->where('year', $this->session->userdata('year'));
+        $this->db->where('ladder', $this->session->userdata('ladder'));
         $trial_staff = $this->db->get('voice_trial_staff')->result_array();    
         
         //取出巡場人員
-        $this->db->where('year',$this->session->userdata('year'));
-        $this->db->where('ladder',$this->session->userdata('ladder'));
+        $this->db->where('year', $this->session->userdata('year'));
+        $this->db->where('ladder', $this->session->userdata('ladder'));
 
         $patrol = $this->db->get('voice_patrol_staff')->result_array();
 
-        for ($i=0; $i < count($res); $i++) {
+        for ($i = 0; $i < count($res); $i++) {
             # code...
             $member_unit = $this->db->where('member_code', $res[$i]['job_code'])->get('voice_import_member')->row_array();
             // print_r($member_unit);
@@ -246,80 +246,80 @@ class Mod_voice_job_list extends CI_Model
                     'job' => $res[$i]['job'],
                     'name' => $res[$i]['name'],
                     'job_title' => $member_unit['member_title'],
-                    'member_unit'=>$member_unit['member_unit'],
+                    'member_unit' => $member_unit['member_unit'],
                     'do_date' => $day[1],
                 );
             }
         }
-        for ($i=0; $i < count($sub); $i++) {
+        for ($i = 0; $i < count($sub); $i++) {
             # code...
-            $supervisor_1 = $this->db->where('member_name', $sub[$i]['supervisor_1'])->where('year',$this->session->userdata('year'))->get('voice_import_member')->row_array();
-            if($sub[$i]['trial_staff_code_1'] != ""){
+            $supervisor_1 = $this->db->where('member_name', $sub[$i]['supervisor_1'])->where('year', $this->session->userdata('year'))->get('voice_import_member')->row_array();
+            if ($sub[$i]['trial_staff_code_1'] != "") {
                 $arr[] = array(
                     'job_code' => $sub[$i]['supervisor_1_code'],
                     'job' => '監試人員',
                     'name' => $sub[$i]['supervisor_1'],
                     'job_title' => $supervisor_1['member_title'],
-                    'member_unit'=>$supervisor_1['member_unit'],
+                    'member_unit' => $supervisor_1['member_unit'],
                     'do_date' => $sub[$i]['first_member_do_date']
                 );
             }
-        }    
+        }
 
-        for ($i=0; $i < count($sub); $i++) {
+        for ($i = 0; $i < count($sub); $i++) {
             # code...
-            $supervisor_2 = $this->db->where('member_name', $sub[$i]['supervisor_2'])->where('year',$this->session->userdata('year'))->where('ladder',$this->session->userdata('ladder'))->get('voice_import_member')->row_array();
-            if($sub[$i]['trial_staff_code_2'] != ""){
+            $supervisor_2 = $this->db->where('member_name', $sub[$i]['supervisor_2'])->where('year', $this->session->userdata('year'))->where('ladder', $this->session->userdata('ladder'))->get('voice_import_member')->row_array();
+            if ($sub[$i]['trial_staff_code_2'] != "") {
                 $arr[] = array(
                     'job_code' => $sub[$i]['supervisor_2_code'],
                     'job' => '監試人員',
                     'name' => $sub[$i]['supervisor_2'],
                     'job_title' => $supervisor_2['member_title'],
-                    'member_unit'=>$supervisor_2['member_unit'],
+                    'member_unit' => $supervisor_2['member_unit'],
                     'do_date' => $sub[$i]['second_member_do_date']
                 );
             }
-        }      
-        
-        for ($i=0; $i < count($trial_staff); $i++) {
+        }
+
+        for ($i = 0; $i < count($trial_staff); $i++) {
             # code...
-            $trial_staff_member = $this->db->where('member_name', trim($trial_staff[$i]['trial_staff_name']))->where('year',$this->session->userdata('year'))->where('ladder',$this->session->userdata('ladder'))->get('voice_import_member')->row_array();
-            if($trial_staff[$i]['trial_staff_code'] != ""){
-                $date = explode("年",$trial_staff[$i]['do_date']);
+            $trial_staff_member = $this->db->where('member_name', trim($trial_staff[$i]['trial_staff_name']))->where('year', $this->session->userdata('year'))->where('ladder', $this->session->userdata('ladder'))->get('voice_import_member')->row_array();
+            if ($trial_staff[$i]['trial_staff_code'] != "") {
+                $date = explode("年", $trial_staff[$i]['do_date']);
                 $arr[] = array(
                     'job_code' => $trial_staff[$i]['allocation_code'],
                     'job' => '管卷人員',
                     'name' => $trial_staff[$i]['trial_staff_name'],
                     'job_title' => $trial_staff_member['member_title'],
-                    'member_unit'=>$trial_staff_member['member_unit'],
+                    'member_unit' => $trial_staff_member['member_unit'],
                     'do_date' => $date[1],
                 );
             }
-        }    
-        
-        for ($i=0; $i < count($patrol); $i++) {
+        }
+
+        for ($i = 0; $i < count($patrol); $i++) {
             # code...
-            $patrol_member = $this->db->where('member_name', $patrol[$i]['patrol_staff_name'])->where('year',$this->session->userdata('year'))->where('ladder',$this->session->userdata('ladder'))->get('voice_import_member')->row_array();
-            if($patrol[$i]['patrol_staff_code'] != ""){
-                $date = explode("年",$patrol[$i]['do_date']);
-                if(!isset($date[1])){
-                    $date[1]="無";
+            $patrol_member = $this->db->where('member_name', $patrol[$i]['patrol_staff_name'])->where('year', $this->session->userdata('year'))->where('ladder', $this->session->userdata('ladder'))->get('voice_import_member')->row_array();
+            if ($patrol[$i]['patrol_staff_code'] != "") {
+                $date = explode("年", $patrol[$i]['do_date']);
+                if (!isset($date[1])) {
+                    $date[1] = "無";
                 }
                 $arr[] = array(
                     'job_code' => $patrol[$i]['allocation_code'],
                     'job' => '巡場人員',
                     'name' => $patrol[$i]['patrol_staff_name'],
                     'job_title' => $patrol_member['member_title'],
-                    'member_unit'=>$patrol_member['member_unit'],
+                    'member_unit' => $patrol_member['member_unit'],
                     'do_date' => $date[1],
                 );
             }
         }
         $result = array();
- 
-        foreach($arr as $val){
+
+        foreach ($arr as $val) {
             $key = $val['name'];                           //填入要塞選的項目
-            if(!isset($result[$key])){
+            if (!isset($result[$key])) {
                 $result[$key] = $val;
                 // print_r($val);
             }
@@ -329,22 +329,23 @@ class Mod_voice_job_list extends CI_Model
     }
 
     // 確認人員有沒有被指派過
-    function chk_job_code($code){
-        $this->db->where('year',$this->session->userdata('year'));
-        $this->db->where('ladder',$this->session->userdata('ladder'));
-        $this->db->where('job_code',$code);
-        if($this->db->count_all_results('voice_job_list') == 0 ){
+    function chk_job_code($code)
+    {
+        $this->db->where('year', $this->session->userdata('year'));
+        $this->db->where('ladder', $this->session->userdata('ladder'));
+        $this->db->where('job_code', $code);
+        if ($this->db->count_all_results('voice_job_list') == 0) {
             return false;
-        }else{
+        } else {
             return true;
         }
     }
 
 
-    public function e_2_1($area = '',$part)
+    public function e_2_1($area = '', $part)
     {
-        $this->db->where('voice_job_list.year',$this->session->userdata('year'));
-        $this->db->where('voice_job_list.ladder',$this->session->userdata('ladder'));
+        $this->db->where('voice_job_list.year', $this->session->userdata('year'));
+        $this->db->where('voice_job_list.ladder', $this->session->userdata('ladder'));
         if ($area != '') {
             $this->db->where('test_partition', $area);
         }
@@ -352,33 +353,33 @@ class Mod_voice_job_list extends CI_Model
         $this->db->where('job_code !=', "");
         $this->db->from('voice_job_list');
         $this->db->join('voice_import_member', 'voice_import_member.member_name = voice_job_list.name');
-        $this->db->order_by('voice_job_list.sn',"asc"); 
+        $this->db->order_by('voice_job_list.sn', "asc"); 
         // $this->db->order_by('voice_job_list.test_partition','asc');
         $res = $this->db->get()->result_array();
 
         if (!empty($res)) {
-            for ($i=0; $i < count($res); $i++) {
+            for ($i = 0; $i < count($res); $i++) {
                 # code...
-                $member = $this->db->where('member_code', $res[$i]['job_code'])->where('year',$this->session->userdata('year'))->where('ladder',$this->session->userdata('ladder'))->get('voice_import_member')->row_array();
+                $member = $this->db->where('member_code', $res[$i]['job_code'])->where('year', $this->session->userdata('year'))->where('ladder', $this->session->userdata('ladder'))->get('voice_import_member')->row_array();
                 // $trial = $this->db->where('part',$part)->where('year',$_SESSION['year'])->get('trial_staff')->row_array();
                 $do_date = explode(",", $res[$i]['do_date']);
-                for ($d=0; $d < count($do_date); $d++) {
+                for ($d = 0; $d < count($do_date); $d++) {
 
                     $arr[] = array(
                         'job_code' => $res[$i]['job_code'],
                         'job' => $res[$i]['job'],
                         'job_title' => $res[$i]['job_title'],
                         'name' => $res[$i]['name'],
-                        'member_unit'=>$member['member_unit'],
+                        'member_unit' => $member['member_unit'],
                         'note' => $res[$i]['note'],
                     );
                 }
             }
 
             $result = array();
-            foreach($arr as $val){
+            foreach ($arr as $val) {
                 $key = $val['name'];                           //填入要塞選的項目
-                if(!isset($result[$key])){
+                if (!isset($result[$key])) {
                     $result[$key] = $val;
                     // print_r($val);
                 }
@@ -391,10 +392,10 @@ class Mod_voice_job_list extends CI_Model
 
             
             // return $arr;
-        }else{
+        } else {
             return false;
         }
-    }  
+    }
 
     public function get_sign_list($area = '')
     {
@@ -407,8 +408,8 @@ class Mod_voice_job_list extends CI_Model
         $this->db->where('job_code !=', "");
         $this->db->order_by('job');
 
-        
-        
+
+
         $res = $this->db->get('voice_job_list')->result_array();
  
 
@@ -416,238 +417,239 @@ class Mod_voice_job_list extends CI_Model
         $this->db->select('*');
         $this->db->from('voice_job_list');
         $this->db->join('voice_trial_assign', 'voice_job_list.sn = voice_trial_assign.sn');
-        $this->db->where("voice_job_list.year",$_SESSION['year']);
-        $this->db->where('voice_trial_assign.supervisor_1_code !=',"");
-        $this->db->where('voice_trial_assign.supervisor_2_code !=',"");
+        $this->db->where("voice_job_list.year", $_SESSION['year']);
+        $this->db->where('voice_trial_assign.supervisor_1_code !=', "");
+        $this->db->where('voice_trial_assign.supervisor_2_code !=', "");
         $year = $this->session->userdata('year');
         $sub = $this->db->get()->result_array();
         // print_r($sub);
 
         //取出管卷人員
-        $this->db->where('year',$this->session->userdata('year'));
-        $this->db->where('ladder',$this->session->userdata('ladder'));
+        $this->db->where('year', $this->session->userdata('year'));
+        $this->db->where('ladder', $this->session->userdata('ladder'));
         $trial_staff = $this->db->get('voice_trial_staff')->result_array();    
         
         //取出巡場人員
 
-        $this->db->where('year',$this->session->userdata('year'));
-        $this->db->where('ladder',$this->session->userdata('ladder'));
+        $this->db->where('year', $this->session->userdata('year'));
+        $this->db->where('ladder', $this->session->userdata('ladder'));
 
-        $patrol = $this->db->get('voice_patrol_staff')->result_array();        
+        $patrol = $this->db->get('voice_patrol_staff')->result_array();
 
         if (!empty($res)) {
-            for ($i=0; $i < count($res); $i++) {
+            for ($i = 0; $i < count($res); $i++) {
                 # code...$this->db->order_by('name');
-                $member = $this->db->where('year',$this->session->userdata('year'))->where('ladder',$this->session->userdata('ladder'))->where('member_code', $res[$i]['job_code'])->get('voice_import_member')->result_array();
+                $member = $this->db->where('year', $this->session->userdata('year'))->where('ladder', $this->session->userdata('ladder'))->where('member_code', $res[$i]['job_code'])->get('voice_import_member')->result_array();
 
-                for ($m=0; $m < count($member); $m++) { 
+                for ($m = 0; $m < count($member); $m++) { 
                     # code...
-                    $unit = $this->db->where('year',$this->session->userdata('year'))->where('ladder',$this->session->userdata('ladder'))->where('unit', $member[$m]['unit'])->where('member_code',$member[$m]['member_code'])->get('voice_import_member')->row_array();
+                    $unit = $this->db->where('year', $this->session->userdata('year'))->where('ladder', $this->session->userdata('ladder'))->where('unit', $member[$m]['unit'])->where('member_code', $member[$m]['member_code'])->get('voice_import_member')->row_array();
                     $arr[$unit['unit']][] = array(
-                        'member_code'=>$member[$m]['member_code'],
-                        'member_name'=>$member[$m]['member_name'],
-                        'member_unit'=>$member[$m]['member_unit'],
-                        'job'=>$res[$i]['job'],
-                        'note'=>$res[$i]['note'],
+                        'member_code' => $member[$m]['member_code'],
+                        'member_name' => $member[$m]['member_name'],
+                        'member_unit' => $member[$m]['member_unit'],
+                        'job' => $res[$i]['job'],
+                        'note' => $res[$i]['note'],
                     );
                 }
             }
-            
-            for ($i=0; $i < count($sub); $i++) {
-                # code...
-                $member = $this->db->where('year',$this->session->userdata('year'))->where('ladder',$this->session->userdata('ladder'))->where('member_name', $sub[$i]['supervisor_2'])->get('voice_import_member')->row_array();
-                $note1 = $this->db->select('note')->where('year', $this->session->userdata('year'))->where('ladder',$this->session->userdata('ladder'))->where('supervisor_1_code',$member['member_code'])->get('voice_trial_assign')->row_array();
-                $unit = $this->db->where('year',$this->session->userdata('year'))->where('ladder',$this->session->userdata('ladder'))->where('unit', $member['unit'])->where('member_name',$member['member_name'])->get('voice_import_member')->row_array();
 
-                $member1 = $this->db->where('year',$this->session->userdata('year'))->where('ladder',$this->session->userdata('ladder'))->where('member_name', $sub[$i]['supervisor_1'])->get('voice_import_member')->row_array();
-                $note2 = $this->db->select('note')->where('year', $this->session->userdata('year'))->where('ladder',$this->session->userdata('ladder'))->where('supervisor_2_code',$member['member_code'])->get('voice_trial_assign')->row_array();
-                $unit1 = $this->db->where('year',$this->session->userdata('year'))->where('ladder',$this->session->userdata('ladder'))->where('unit', $member1['unit'])->where('member_name',$member1['member_name'])->get('voice_import_member')->row_array();
+            for ($i = 0; $i < count($sub); $i++) {
+                # code...
+                $member = $this->db->where('year', $this->session->userdata('year'))->where('ladder', $this->session->userdata('ladder'))->where('member_name', $sub[$i]['supervisor_2'])->get('voice_import_member')->row_array();
+                $note1 = $this->db->select('note')->where('year', $this->session->userdata('year'))->where('ladder', $this->session->userdata('ladder'))->where('supervisor_1_code', $member['member_code'])->get('voice_trial_assign')->row_array();
+                $unit = $this->db->where('year', $this->session->userdata('year'))->where('ladder', $this->session->userdata('ladder'))->where('unit', $member['unit'])->where('member_name', $member['member_name'])->get('voice_import_member')->row_array();
+
+                $member1 = $this->db->where('year', $this->session->userdata('year'))->where('ladder', $this->session->userdata('ladder'))->where('member_name', $sub[$i]['supervisor_1'])->get('voice_import_member')->row_array();
+                $note2 = $this->db->select('note')->where('year', $this->session->userdata('year'))->where('ladder', $this->session->userdata('ladder'))->where('supervisor_2_code', $member['member_code'])->get('voice_trial_assign')->row_array();
+                $unit1 = $this->db->where('year', $this->session->userdata('year'))->where('ladder', $this->session->userdata('ladder'))->where('unit', $member1['unit'])->where('member_name', $member1['member_name'])->get('voice_import_member')->row_array();
                 $arr[$unit['unit']][] = array(
-                    'member_code'=>$member['member_code'],
-                    'member_name'=>$member['member_name'],
-                    'member_unit'=>$member['member_unit'],
-                    'member_unit'=>$member['member_unit'],
-                    'note'=>$note1['note'],
-                    'job'=>'監試人員',
-                );  
+                    'member_code' => $member['member_code'],
+                    'member_name' => $member['member_name'],
+                    'member_unit' => $member['member_unit'],
+                    'member_unit' => $member['member_unit'],
+                    'note' => $note1['note'],
+                    'job' => '監試人員',
+                );
                 $arr[$unit1['unit']][] = array(
-                    'member_code'=>$member1['member_code'],
-                    'member_name'=>$member1['member_name'],
-                    'member_unit'=>$member1['member_unit'],
-                    'note'=>$note2['note'],
-                    'job'=>'監試人員',
-                );                   
-            }      
-            
-            for ($i=0; $i < count($trial_staff); $i++) {
+                    'member_code' => $member1['member_code'],
+                    'member_name' => $member1['member_name'],
+                    'member_unit' => $member1['member_unit'],
+                    'note' => $note2['note'],
+                    'job' => '監試人員',
+                );
+            }
+
+            for ($i = 0; $i < count($trial_staff); $i++) {
                 # code...
-                $member = $this->db->where('year',$this->session->userdata('year'))->where('ladder',$this->session->userdata('ladder'))->where('member_name', $trial_staff[$i]['trial_staff_name'])->get('voice_import_member')->row_array();
-                $unit = $this->db->where('year',$this->session->userdata('year'))->where('ladder',$this->session->userdata('ladder'))->where('unit', $member['unit'])->where('member_code',$member['member_code'])->get('voice_import_member')->row_array();
-                $note = $this->db->select('note')->where('year', $this->session->userdata('year'))->where('ladder',$this->session->userdata('ladder'))->where('trial_staff_code',$member['member_code'])->get('voice_trial_staff')->row_array();
+                $member = $this->db->where('year', $this->session->userdata('year'))->where('ladder', $this->session->userdata('ladder'))->where('member_name', $trial_staff[$i]['trial_staff_name'])->get('voice_import_member')->row_array();
+                $unit = $this->db->where('year', $this->session->userdata('year'))->where('ladder', $this->session->userdata('ladder'))->where('unit', $member['unit'])->where('member_code', $member['member_code'])->get('voice_import_member')->row_array();
+                $note = $this->db->select('note')->where('year', $this->session->userdata('year'))->where('ladder', $this->session->userdata('ladder'))->where('trial_staff_code', $member['member_code'])->get('voice_trial_staff')->row_array();
                 $arr[$unit['unit']][] = array(
-                    'member_code'=>$member['member_code'],
-                    'member_name'=>$member['member_name'],
-                    'member_unit'=>$member['member_unit'],
-                    'note'=>$note['note'],
-                    'job'=>'管卷人員',
-                );   
-            }        
-            
-            for ($i=0; $i < count($patrol); $i++) {
+                    'member_code' => $member['member_code'],
+                    'member_name' => $member['member_name'],
+                    'member_unit' => $member['member_unit'],
+                    'note' => $note['note'],
+                    'job' => '管卷人員',
+                );
+            }
+
+            for ($i = 0; $i < count($patrol); $i++) {
                 # code...
-                $member = $this->db->where('year',$this->session->userdata('year'))->where('ladder',$this->session->userdata('ladder'))->where('member_name', $patrol[$i]['patrol_staff_name'])->get('voice_import_member')->row_array();
-                $unit = $this->db->where('year',$this->session->userdata('year'))->where('ladder',$this->session->userdata('ladder'))->where('unit', $member['unit'])->where('member_code',$member['member_code'])->get('voice_import_member')->row_array();
-                $note = $this->db->select('note')->where('year', $this->session->userdata('year'))->where('ladder',$this->session->userdata('ladder'))->where('patrol_staff_code',$member['member_code'])->get('voice_patrol_staff')->row_array();
+                $member = $this->db->where('year', $this->session->userdata('year'))->where('ladder', $this->session->userdata('ladder'))->where('member_name', $patrol[$i]['patrol_staff_name'])->get('voice_import_member')->row_array();
+                $unit = $this->db->where('year', $this->session->userdata('year'))->where('ladder', $this->session->userdata('ladder'))->where('unit', $member['unit'])->where('member_code', $member['member_code'])->get('voice_import_member')->row_array();
+                $note = $this->db->select('note')->where('year', $this->session->userdata('year'))->where('ladder', $this->session->userdata('ladder'))->where('patrol_staff_code', $member['member_code'])->get('voice_patrol_staff')->row_array();
                 $arr[$unit['unit']][] = array(
-                    'member_code'=>$member['member_code'],
-                    'member_name'=>$member['member_name'],
-                    'member_unit'=>$member['member_unit'],
-                    'note'=>$note['note'],
-                    'job'=>'巡場人員',
-                );   
+                    'member_code' => $member['member_code'],
+                    'member_name' => $member['member_name'],
+                    'member_unit' => $member['member_unit'],
+                    'note' => $note['note'],
+                    'job' => '巡場人員',
+                );
             }
             // print_r($arr)            
             return $arr;
-            
-        }else{
+
+        } else {
             return false;
         }
-    }    
+    }
 
 
     public function member_map($area = '')
     {
-        $this->db->where('year',$this->session->userdata('year'));
-        $this->db->where('ladder',$this->session->userdata('ladder'));
+        $this->db->where('year', $this->session->userdata('year'));
+        $this->db->where('ladder', $this->session->userdata('ladder'));
         if ($area != '') {
             $this->db->where('area', $area);
         }
 
         $this->db->where('job_code !=', "");
-        
+
         $res = $this->db->get('voice_job_list')->result_array();
 
         //取出監試人員
         $this->db->select('*');
         $this->db->from('voice_area_main');
         $this->db->join('voice_trial_assign', 'voice_area_main.sn = voice_trial_assign.sn');
-        $this->db->where("voice_area_main.year",$_SESSION['year']);
-        $this->db->where('voice_trial_assign.supervisor_1_code !=',"");
-        $this->db->where('voice_trial_assign.supervisor_2_code !=',"");
+        $this->db->where("voice_area_main.year", $_SESSION['year']);
+        $this->db->where('voice_trial_assign.supervisor_1_code !=', "");
+        $this->db->where('voice_trial_assign.supervisor_2_code !=', "");
         $year = $this->session->userdata('year');
         $sub = $this->db->get()->result_array();
 
         //取出管卷人員
-        $this->db->where('year',$this->session->userdata('year'));
-        $this->db->where('ladder',$this->session->userdata('ladder'));
+        $this->db->where('year', $this->session->userdata('year'));
+        $this->db->where('ladder', $this->session->userdata('ladder'));
         $trial_staff = $this->db->get('voice_trial_staff')->result_array();    
         
         //取出巡場人員
 
-        $this->db->where('year',$this->session->userdata('year'));
-        $this->db->where('ladder',$this->session->userdata('ladder'));;
+        $this->db->where('year', $this->session->userdata('year'));
+        $this->db->where('ladder', $this->session->userdata('ladder'));;
 
-        $patrol = $this->db->get('voice_patrol_staff')->result_array();        
+        $patrol = $this->db->get('voice_patrol_staff')->result_array();
 
         if (!empty($res)) {
-            for ($i=0; $i < count($res); $i++) {
+            for ($i = 0; $i < count($res); $i++) {
                 # code...
-                $member = $this->db->where('year',$this->session->userdata('year'))->where('ladder',$this->session->userdata('ladder'))->where('member_code', $res[$i]['job_code'])->get('voice_import_member')->result_array();
+                $member = $this->db->where('year', $this->session->userdata('year'))->where('ladder', $this->session->userdata('ladder'))->where('member_code', $res[$i]['job_code'])->get('voice_import_member')->result_array();
 
-                for ($m=0; $m < count($member); $m++) { 
+                for ($m = 0; $m < count($member); $m++) { 
                     # code...
-                    $unit = $this->db->where('year',$this->session->userdata('year'))->where('ladder',$this->session->userdata('ladder'))->where('unit', $member[$m]['unit'])->where('member_code',$member[$m]['member_code'])->get('voice_import_member')->row_array();
+                    $unit = $this->db->where('year', $this->session->userdata('year'))->where('ladder', $this->session->userdata('ladder'))->where('unit', $member[$m]['unit'])->where('member_code', $member[$m]['member_code'])->get('voice_import_member')->row_array();
                     $arr[] = array(
-                        'year'=>$this->session->userdata('year'),
-                        'ladder'=>$this->session->userdata('ladder'),
+                        'year' => $this->session->userdata('year'),
+                        'ladder' => $this->session->userdata('ladder'),
 
-                        'member_code'=>$member[$m]['member_code'],
-                        'member_name'=>$member[$m]['member_name'],
-                        'unit'=>$member[$m]['unit'],
-                        'member_unit'=>$member[$m]['member_unit'],
-                        'job'=>$res[$i]['job'],
+                        'member_code' => $member[$m]['member_code'],
+                        'member_name' => $member[$m]['member_name'],
+                        'unit' => $member[$m]['unit'],
+                        'member_unit' => $member[$m]['member_unit'],
+                        'job' => $res[$i]['job'],
                     );
                 }
             }
-            
-            for ($i=0; $i < count($sub); $i++) {
-                # code...
-                $member = $this->db->where('year',$this->session->userdata('year'))->where('ladder',$this->session->userdata('ladder'))->where('member_code', $sub[$i]['supervisor_2_code'])->get('voice_import_member')->row_array();
 
-                $unit = $this->db->where('year',$this->session->userdata('year'))->where('ladder',$this->session->userdata('ladder'))->where('unit', $member['unit'])->where('member_code',$member['member_code'])->get('voice_import_member')->row_array();
+            for ($i = 0; $i < count($sub); $i++) {
+                # code...
+                $member = $this->db->where('year', $this->session->userdata('year'))->where('ladder', $this->session->userdata('ladder'))->where('member_code', $sub[$i]['supervisor_2_code'])->get('voice_import_member')->row_array();
 
-                $member1 = $this->db->where('year',$this->session->userdata('year'))->where('ladder',$this->session->userdata('ladder'))->where('member_code', $sub[$i]['supervisor_1_code'])->get('voice_import_member')->row_array();
-                $unit1 = $this->db->where('year',$this->session->userdata('year'))->where('ladder',$this->session->userdata('ladder'))->where('unit', $member1['unit'])->where('member_code',$member1['member_code'])->get('voice_import_member')->row_array();
+                $unit = $this->db->where('year', $this->session->userdata('year'))->where('ladder', $this->session->userdata('ladder'))->where('unit', $member['unit'])->where('member_code', $member['member_code'])->get('voice_import_member')->row_array();
+
+                $member1 = $this->db->where('year', $this->session->userdata('year'))->where('ladder', $this->session->userdata('ladder'))->where('member_code', $sub[$i]['supervisor_1_code'])->get('voice_import_member')->row_array();
+                $unit1 = $this->db->where('year', $this->session->userdata('year'))->where('ladder', $this->session->userdata('ladder'))->where('unit', $member1['unit'])->where('member_code', $member1['member_code'])->get('voice_import_member')->row_array();
                 $arr[] = array(
-                    'year'=>$this->session->userdata('year'),
-                    'ladder'=>$this->session->userdata('ladder'),
-                    'member_code'=>$member['member_code'],
-                    'member_name'=>$member['member_name'],
-                    'unit'=>$member['unit'],
-                    'member_unit'=>$member['member_unit'],
-                    'job'=>'監試人員',
-                );  
+                    'year' => $this->session->userdata('year'),
+                    'ladder' => $this->session->userdata('ladder'),
+                    'member_code' => $member['member_code'],
+                    'member_name' => $member['member_name'],
+                    'unit' => $member['unit'],
+                    'member_unit' => $member['member_unit'],
+                    'job' => '監試人員',
+                );
                 $arr[] = array(
-                    'year'=>$this->session->userdata('year'),
-                    'ladder'=>$this->session->userdata('ladder'),
-                    'member_code'=>$member1['member_code'],
-                    'member_name'=>$member1['member_name'],
-                    'unit'=>$member1['unit'],
-                    'member_unit'=>$member1['member_unit'],
-                    'job'=>'監試人員',
-                );                   
-            }      
-            
-            for ($i=0; $i < count($trial_staff); $i++) {
+                    'year' => $this->session->userdata('year'),
+                    'ladder' => $this->session->userdata('ladder'),
+                    'member_code' => $member1['member_code'],
+                    'member_name' => $member1['member_name'],
+                    'unit' => $member1['unit'],
+                    'member_unit' => $member1['member_unit'],
+                    'job' => '監試人員',
+                );
+            }
+
+            for ($i = 0; $i < count($trial_staff); $i++) {
                 # code...
-                $member = $this->db->where('year',$this->session->userdata('year'))->where('ladder',$this->session->userdata('ladder'))->where('member_code', $trial_staff[$i]['trial_staff_code'])->get('voice_import_member')->row_array();
-                $unit = $this->db->where('year',$this->session->userdata('year'))->where('ladder',$this->session->userdata('ladder'))->where('unit', $member['unit'])->where('member_code',$member['member_code'])->get('voice_import_member')->row_array();
+                $member = $this->db->where('year', $this->session->userdata('year'))->where('ladder', $this->session->userdata('ladder'))->where('member_code', $trial_staff[$i]['trial_staff_code'])->get('voice_import_member')->row_array();
+                $unit = $this->db->where('year', $this->session->userdata('year'))->where('ladder', $this->session->userdata('ladder'))->where('unit', $member['unit'])->where('member_code', $member['member_code'])->get('voice_import_member')->row_array();
                 $arr[] = array(
-                    'year'=>$this->session->userdata('year'),
-                    'ladder'=>$this->session->userdata('ladder'),
-                    'member_code'=>$member['member_code'],
-                    'member_name'=>$member['member_name'],
-                    'unit'=>$member['unit'],
-                    'member_unit'=>$member['member_unit'],
-                    'job'=>'管卷人員',
-                );   
-            }        
-            
-            for ($i=0; $i < count($patrol); $i++) {
+                    'year' => $this->session->userdata('year'),
+                    'ladder' => $this->session->userdata('ladder'),
+                    'member_code' => $member['member_code'],
+                    'member_name' => $member['member_name'],
+                    'unit' => $member['unit'],
+                    'member_unit' => $member['member_unit'],
+                    'job' => '管卷人員',
+                );
+            }
+
+            for ($i = 0; $i < count($patrol); $i++) {
                 # code...
-                $member = $this->db->where('year',$this->session->userdata('year'))->where('ladder',$this->session->userdata('ladder'))->where('member_code', $patrol[$i]['patrol_staff_code'])->get('voice_import_member')->row_array();
-                $unit = $this->db->where('year',$this->session->userdata('year'))->where('ladder',$this->session->userdata('ladder'))->where('unit', $member['unit'])->where('member_code',$member['member_code'])->get('voice_import_member')->row_array();
+                $member = $this->db->where('year', $this->session->userdata('year'))->where('ladder', $this->session->userdata('ladder'))->where('member_code', $patrol[$i]['patrol_staff_code'])->get('voice_import_member')->row_array();
+                $unit = $this->db->where('year', $this->session->userdata('year'))->where('ladder', $this->session->userdata('ladder'))->where('unit', $member['unit'])->where('member_code', $member['member_code'])->get('voice_import_member')->row_array();
                 $arr[] = array(
-                    'year'=>$this->session->userdata('year'),
-                    'ladder'=>$this->session->userdata('ladder'),
-                    'member_code'=>$member['member_code'],
-                    'member_name'=>$member['member_name'],
-                    'unit'=>$member['unit'],
-                    'member_unit'=>$member['member_unit'],
-                    'job'=>'巡場人員',
-                );   
-            }            
-            $this->db->where('year',$this->session->userdata('year'))->where('ladder',$this->session->userdata('ladder'))->delete('voice_member_map');
+                    'year' => $this->session->userdata('year'),
+                    'ladder' => $this->session->userdata('ladder'),
+                    'member_code' => $member['member_code'],
+                    'member_name' => $member['member_name'],
+                    'unit' => $member['unit'],
+                    'member_unit' => $member['member_unit'],
+                    'job' => '巡場人員',
+                );
+            }
+            $this->db->where('year', $this->session->userdata('year'))->where('ladder', $this->session->userdata('ladder'))->delete('voice_member_map');
             $this->db->insert_batch('voice_member_map', $arr);
-            
-        }else{
+
+        } else {
             return false;
         }
-    }    
+    }
 
     public function get_member_map_list()
     {
+        $this->member_map();
         $this->db->where('year', $this->session->userdata('year'));
         $this->db->where('ladder', $this->session->userdata('ladder'));
-        $this->db->order_by('member_unit','asc');
+        $this->db->order_by('member_unit', 'asc');
         $res = $this->db->get('voice_member_map')->result_array();
-        for ($i=0; $i < count($res); $i++) { 
+        for ($i = 0; $i < count($res); $i++) { 
             # code...
             $arr[$res[$i]['unit']][] = array(
-                'member_code'=>$res[$i]['member_code'],
-                'member_name'=>$res[$i]['member_name'],
-                'member_unit'=>$res[$i]['member_unit'],
-                'job'=>$res[$i]['job'],                
+                'member_code' => $res[$i]['member_code'],
+                'member_name' => $res[$i]['member_name'],
+                'member_unit' => $res[$i]['member_unit'],
+                'job' => $res[$i]['job'],
             );
         }
         return $arr;
@@ -655,99 +657,100 @@ class Mod_voice_job_list extends CI_Model
 
     public function get_list_for_csv()
     {
-        $this->db->where('year',$this->session->userdata('year'));
-        $this->db->where('ladder',$this->session->userdata('ladder'));
+        $this->db->where('year', $this->session->userdata('year'));
+        $this->db->where('ladder', $this->session->userdata('ladder'));
         $this->db->where('job_code !=', "");
 
         $res = $this->db->get('voice_job_list')->result_array();
-        if(empty($res)){
+        if (empty($res)) {
             return;
         }
         if (!empty($res)) {
-            for ($i=0; $i < count($res); $i++) {
+            for ($i = 0; $i < count($res); $i++) {
                 # code...
-                $member_unit = $this->db->where('member_code', $res[$i]['job_code'])->get('voice_import_member')->row_array();
+                $member_unit = $this->db->where('year', $this->session->userdata('year'))->where('ladder', $this->session->userdata('ladder'))->where('member_code', $res[$i]['job_code'])->get('voice_import_member')->row_array();
                 $arr[] = array(
-                        'year'=>$res[$i]['year'],
-                        'ladder'=>$res[$i]['ladder'],
-                        'area' =>$res[$i]['test_partition'],
-                        'job_code' => $res[$i]['job_code'],
-                        'job' => $res[$i]['job'],
-                        'job_title' => $res[$i]['job_title'],
-                        'name' => $res[$i]['name'],
-                        'member_unit'=>$member_unit['member_unit'],
-                        'member_code'=>$member_unit['member_code'],
-                        'do_date'=>$res[$i]['do_date']
-                    );
+                    'year' => $res[$i]['year'],
+                    'ladder' => $res[$i]['ladder'],
+                    'area' => $res[$i]['test_partition'],
+                    'job_code' => $res[$i]['job_code'],
+                    'job' => $res[$i]['job'],
+                    'job_title' => $res[$i]['job_title'],
+                    'name' => $res[$i]['name'],
+                    'member_unit' => $member_unit['member_unit'],
+                    'member_code' => $member_unit['member_code'],
+                    'do_date' => $res[$i]['do_date']
+                );
             }
             return $arr;
         }
-    }    
+    }
 
-   
+
 
 
     public function get_district_task_csv()
     {
         $this->db->where('year', $this->session->userdata('year'));
         $this->db->where('ladder', $this->session->userdata('ladder'));
-        
+
 
         $this->db->where('job_code !=', "");
 
         $res = $this->db->get('voice_job_list')->result_array();
 
 
-        for ($i=0; $i < count($res); $i++) {
+        for ($i = 0; $i < count($res); $i++) {
                 # code...
-            $member = $this->db->where('member_code', $res[$i]['job_code'])->where('year',$this->session->userdata('year'))->where('ladder',$this->session->userdata('ladder'))->get('voice_import_member')->row_array();
+            $member = $this->db->where('member_code', $res[$i]['job_code'])->where('year', $this->session->userdata('year'))->where('ladder', $this->session->userdata('ladder'))->get('voice_import_member')->row_array();
             $arr[] = array(
                 'job_code' => $res[$i]['job_code'],
                 'job' => $res[$i]['job'],
                 'job_title' => $res[$i]['job_title'],
                 'name' => $res[$i]['name'],
-                'member_unit'=>$member['member_unit'],
+                'member_unit' => $member['member_unit'],
                 'note' => $res[$i]['note'],
             );
         }
 
         return $arr;
 
-    
-    
+
+
     }
-    
-    public function get_trial_staff_list_for_pdf($area = '',$part = ''){
+
+    public function get_trial_staff_list_for_pdf($area = '', $part = '')
+    {
         //取出管卷人員
         $this->db->where('year', $this->session->userdata('year'));
         $this->db->where('ladder', $this->session->userdata('ladder'));
 
-        
-        if($part != ''){
-            $this->db->where('part',$part);
+
+        if ($part != '') {
+            $this->db->where('part', $part);
         }
-        $res = $this->db->get('voice_trial_staff')->result_array();  
+        $res = $this->db->get('voice_trial_staff')->result_array();
         if (!empty($res)) {
-            for ($i=0; $i < count($res); $i++) {
+            for ($i = 0; $i < count($res); $i++) {
                 # code...
-                $member = $this->db->where('member_code', $res[$i]['trial_staff_code'])->where('year',$this->session->userdata('year'))->where('ladder',$this->session->userdata('ladder'))->get('voice_import_member')->row_array();
-                    $arr[] = array(
-                        'job_code' => $res[$i]['trial_staff_code'],
-                        'job' => '分區管卷人員',
-                        'job_title' => $member['member_title'],
-                        'name' => $res[$i]['trial_staff_name'],
-                        'member_unit'=>$member['member_unit'],
-                        'note' => $res[$i]['note'],
-                    );
+                $member = $this->db->where('member_code', $res[$i]['trial_staff_code'])->where('year', $this->session->userdata('year'))->where('ladder', $this->session->userdata('ladder'))->get('voice_import_member')->row_array();
+                $arr[] = array(
+                    'job_code' => $res[$i]['trial_staff_code'],
+                    'job' => '分區管卷人員',
+                    'job_title' => $member['member_title'],
+                    'name' => $res[$i]['trial_staff_name'],
+                    'member_unit' => $member['member_unit'],
+                    'note' => $res[$i]['note'],
+                );
             }
 
             return $arr;
-        }else{
+        } else {
             return false;
-        }        
+        }
     }
 
-    public function get_district_task($area = '',$part)
+    public function get_district_task($area = '', $part)
     {
         $this->db->where('year', $this->session->userdata('year'));
         $this->db->where('ladder', $this->session->userdata('ladder'));
@@ -760,60 +763,61 @@ class Mod_voice_job_list extends CI_Model
 
         $res = $this->db->get('voice_job_list')->result_array();
         if (!empty($res)) {
-            for ($i=0; $i < count($res); $i++) {
+            for ($i = 0; $i < count($res); $i++) {
                 # code...
-                $member = $this->db->where('member_code', $res[$i]['job_code'])->where('year',$this->session->userdata('year'))->where('ladder',$this->session->userdata('ladder'))->get('voice_import_member')->row_array();
-                    $arr[] = array(
-                        'job_code' => $res[$i]['job_code'],
-                        'job' => $res[$i]['job'],
-                        'job_title' => $res[$i]['job_title'],
-                        'name' => $res[$i]['name'],
-                        'member_unit'=>$member['member_unit'],
-                        'member_phone'=>$member['member_phone'],
-                        'note' => $res[$i]['note'],
-                    );
+                $member = $this->db->where('member_code', $res[$i]['job_code'])->where('year', $this->session->userdata('year'))->where('ladder', $this->session->userdata('ladder'))->get('voice_import_member')->row_array();
+                $arr[] = array(
+                    'job_code' => $res[$i]['job_code'],
+                    'job' => $res[$i]['job'],
+                    'job_title' => $res[$i]['job_title'],
+                    'name' => $res[$i]['name'],
+                    'member_unit' => $member['member_unit'],
+                    'member_phone' => $member['member_phone'],
+                    'note' => $res[$i]['note'],
+                );
             }
 
             return $arr;
-        }else{
+        } else {
             return false;
         }
-    }      
+    }
 
-    public function get_patrol_staff_list_for_pdf($area = '',$part = ''){
+    public function get_patrol_staff_list_for_pdf($area = '', $part = '')
+    {
         //取出巡場人員
         $this->db->where('year', $this->session->userdata('year'));
         $this->db->where('ladder', $this->session->userdata('ladder'));
-        
-        if($part != ''){
-            $this->db->where('voice_patrol_staff.part',$part);
+
+        if ($part != '') {
+            $this->db->where('voice_patrol_staff.part', $part);
         }
-        $res = $this->db->get('voice_patrol_staff')->result_array();  
+        $res = $this->db->get('voice_patrol_staff')->result_array();
         if (!empty($res)) {
-            for ($i=0; $i < count($res); $i++) {
+            for ($i = 0; $i < count($res); $i++) {
                 # code...
-                $member = $this->db->where('member_code', $res[$i]['patrol_staff_code'])->where('year',$this->session->userdata('year'))->where('ladder',$this->session->userdata('ladder'))->get('voice_import_member')->row_array();
-                    $arr[] = array(
-                        'job_code' => $res[$i]['patrol_staff_code'],
-                        'job' => '分區巡場人員',
-                        'job_title' => $member['member_title'],
-                        'name' => $res[$i]['patrol_staff_name'],
-                        'member_unit'=>$member['member_unit'],
-                        'note' => $res[$i]['note'],
-                    );
+                $member = $this->db->where('member_code', $res[$i]['patrol_staff_code'])->where('year', $this->session->userdata('year'))->where('ladder', $this->session->userdata('ladder'))->get('voice_import_member')->row_array();
+                $arr[] = array(
+                    'job_code' => $res[$i]['patrol_staff_code'],
+                    'job' => '分區巡場人員',
+                    'job_title' => $member['member_title'],
+                    'name' => $res[$i]['patrol_staff_name'],
+                    'member_unit' => $member['member_unit'],
+                    'note' => $res[$i]['note'],
+                );
             }
 
             return $arr;
-        }else{
+        } else {
             return false;
-        }        
-    }    
+        }
+    }
 
 
     public function get_district_task_money_list($test_partition = '')
     {
-        $this->db->where('year',$this->session->userdata('year'));
-        $this->db->where('ladder',$this->session->userdata('ladder'));
+        $this->db->where('year', $this->session->userdata('year'));
+        $this->db->where('ladder', $this->session->userdata('ladder'));
         if ($test_partition != '') {
             $this->db->where('test_partition', $test_partition);
         }
@@ -822,29 +826,30 @@ class Mod_voice_job_list extends CI_Model
 
         $res = $this->db->get('voice_job_list')->result_array();
         if (!empty($res)) {
-            for ($i=0; $i < count($res); $i++) {
+            for ($i = 0; $i < count($res); $i++) {
                 # code...
-                $do_date = explode(",",$res[$i]['do_date']);
+                $do_date = explode(",", $res[$i]['do_date']);
                 $arr[] = array(
-                    'job'=>$res[$i]['job'],
-                    'name'=>$res[$i]['name'],
-                    'one_day_salary'=>$res[$i]['one_day_salary'] * count($do_date),
-                    'salary_total'=>$res[$i]['salary_total'],
-                    'total'=>$res[$i]['total'],
-                    'note'=>$res[$i]['note'],
+                    'job' => $res[$i]['job'],
+                    'name' => $res[$i]['name'],
+                    'one_day_salary' => $res[$i]['one_day_salary'] * count($do_date),
+                    'salary_total' => $res[$i]['salary_total'],
+                    'total' => $res[$i]['total'],
+                    'note' => $res[$i]['note'],
                 );
 
             }
             return $arr;
-        }else{
+        } else {
             return false;
         }
-    }    
-    
-    
-    public function get_all_salary_trial_total_of_district($test_partition){
-        $this->db->where('year',$this->session->userdata('year'));
-        $this->db->where('ladder',$this->session->userdata('ladder'));
+    }
+
+
+    public function get_all_salary_trial_total_of_district($test_partition)
+    {
+        $this->db->where('year', $this->session->userdata('year'));
+        $this->db->where('ladder', $this->session->userdata('ladder'));
         if ($test_partition != '') {
             $this->db->where('test_partition', $test_partition);
         }
@@ -855,13 +860,13 @@ class Mod_voice_job_list extends CI_Model
 
         if (!empty($res)) {
             $salary = 0;
-            for ($i=0; $i < count($res); $i++) {
+            for ($i = 0; $i < count($res); $i++) {
                 # code...
                 $salary += $res[$i]['salary_total'];
 
             }
             return $salary;
-        }else{
+        } else {
             return false;
         }
     }
@@ -869,7 +874,7 @@ class Mod_voice_job_list extends CI_Model
     public function chk_task_list($area = '')
     {
         $this->db->where('year', $this->session->userdata('year'));
-        $this->db->where('ladder',$this->session->userdata('ladder'));
+        $this->db->where('ladder', $this->session->userdata('ladder'));
         if ($area != '') {
             $this->db->where('test_partition', $area);
         }
