@@ -598,10 +598,12 @@ class Mod_voice_job_list extends CI_Model
                     'job' => '監試人員',
                 );
             }
+            $this->db->where('year', $this->session->userdata('year'))->where('ladder', $this->session->userdata('ladder'))->delete('voice_member_map');
+            $this->db->insert_batch('voice_member_map', $arr);
 
             for ($i = 0; $i < count($trial_staff); $i++) {
                 # code...
-                $member = $this->db->where('year', $this->session->userdata('year'))->where('ladder', $this->session->userdata('ladder'))->where('member_code', $trial_staff[$i]['trial_staff_code'])->get('voice_import_member')->row_array();
+                $member = $this->db->where('year', $this->session->userdata('year'))->where('ladder', $this->session->userdata('ladder'))->where('member_code', $trial_staff[$i]['allocation_code'])->get('voice_import_member')->row_array();
                 $unit = $this->db->where('year', $this->session->userdata('year'))->where('ladder', $this->session->userdata('ladder'))->where('unit', $member['unit'])->where('member_code', $member['member_code'])->get('voice_import_member')->row_array();
                 $arr[] = array(
                     'year' => $this->session->userdata('year'),
@@ -613,10 +615,12 @@ class Mod_voice_job_list extends CI_Model
                     'job' => '管卷人員',
                 );
             }
+            $this->db->where('year', $this->session->userdata('year'))->where('ladder', $this->session->userdata('ladder'))->delete('voice_member_map');
+            $this->db->insert_batch('voice_member_map', $arr);
 
             for ($i = 0; $i < count($patrol); $i++) {
                 # code...
-                $member = $this->db->where('year', $this->session->userdata('year'))->where('ladder', $this->session->userdata('ladder'))->where('member_code', $patrol[$i]['patrol_staff_code'])->get('voice_import_member')->row_array();
+                $member = $this->db->where('year', $this->session->userdata('year'))->where('ladder', $this->session->userdata('ladder'))->where('member_code', $patrol[$i]['allocation_code'])->get('voice_import_member')->row_array();
                 $unit = $this->db->where('year', $this->session->userdata('year'))->where('ladder', $this->session->userdata('ladder'))->where('unit', $member['unit'])->where('member_code', $member['member_code'])->get('voice_import_member')->row_array();
                 $arr[] = array(
                     'year' => $this->session->userdata('year'),
