@@ -151,7 +151,7 @@ tfoot {
         }
         ?>
         <td colspan="11" style="text-align:left;font-size:18px;font-weight:bold;">共計:<?= $count_member ?>人
-            實發監考費：<?= number_format($total) ?> - 餐費： <?= number_format($lunch_cost) ?> =
-            總支出費用<?= number_format($total - $lunch_cost) ?> </td>
+            實發監考費：<?= number_format($total - $lunch_cost) ?> + 餐費： <?= number_format($lunch_cost) ?> =
+            總支出費用<?= number_format($total) ?> </td>
     </tr>
 </table>
