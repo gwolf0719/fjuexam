@@ -2848,6 +2848,7 @@ class Designated extends CI_Controller
             'lunch' => $this->mod_trial->get_all_trial_lunch_total($part),
             'count' => $this->mod_trial->e_6_1_member_count($part)
         );
+        // print_r($data['part']);
         $view = $this->load->view('designated/e_6_1', $data, true);
         $this->pdf->view_to_pdf($view, 'e_6_1');
     }
