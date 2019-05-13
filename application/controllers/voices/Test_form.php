@@ -381,6 +381,7 @@ class Test_form extends CI_Controller
             'datetime_info' => $this->mod_voice_exam_datetime->get_once($year, $ladder),
             'school' => $school,
         );
+        // print_r($data['part']);
         if ($data['part'] != false) {
             $view = $this->load->view('voice/form_e_2_1_3', $data, true);
             $this->pdf->view_to_pdf($view, 'form_e_2_1_3');

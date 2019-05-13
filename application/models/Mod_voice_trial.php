@@ -455,11 +455,13 @@ class Mod_voice_trial extends CI_Model
     public function e_2_1_3($part = '')
     {
         $this->db->where('year', $this->session->userdata('year'));
+        $this->db->where('ladder', $this->session->userdata('ladder'));
         if ($part != '') {
             $this->db->where('part', $part);
         }
 
         $res = $this->db->get('voice_patrol_staff')->result_array();
+        // print_r($res);
         if (!empty($res)) {
             for ($i = 0; $i < count($res); $i++) {
                 # code...

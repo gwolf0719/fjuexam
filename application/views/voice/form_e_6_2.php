@@ -77,7 +77,7 @@ tfoot {
     if ($v['supervisor_2'] != "") {
         $member_count = $member_count + 1;
     }
-    $money_count = $money_count + $v['first_member_salary_section'] + $v['second_member_salary_section']
+    $money_count = $money_count + $v['first_member_section_salary_total'] + $v['second_member_section_salary_total']
     ?>
     <tr style="height: 100px;">
         <td class="bb" style="width:8%;font-size:18px;font-weight:bold;">
