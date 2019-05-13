@@ -251,7 +251,7 @@ $(function() {
     $("body").on("click", "#send", function() {
         if (confirm("確定儲存修改資料？")) {
             var sn = $("#sn").val();
-            var area = "第二分區";
+            var area = "考區";
             var job = $("#member_job_title").val();
             var job_code = $("#job_code").val();
             var job_title = $("#job_title").val();
@@ -625,17 +625,17 @@ $(function() {
                     <div class="form-group">
                         <label for="start_date" class="" style="float:left;">執行日</label>
                         <input type="checkbox" class="chbox" id="" name="day"
-                            value="<?= mb_substr($datetime_info['day_1'], 5, 8, 'utf-8'); ?>">
+                            value="<?= mb_substr($datetime_info['day_1'], 5, 8, 'utf-8'); ?>" checked>
                         <span class="chbox">
                             <?= mb_substr($datetime_info['day_1'], 5, 8, 'utf-8'); ?>
                         </span>
                         <input type="checkbox" class="chbox" id="" name="day"
-                            value="<?= mb_substr($datetime_info['day_2'], 5, 8, 'utf-8'); ?>">
+                            value="<?= mb_substr($datetime_info['day_2'], 5, 8, 'utf-8'); ?>" checked>
                         <span class="chbox">
                             <?= mb_substr($datetime_info['day_2'], 5, 8, 'utf-8'); ?>
                         </span><br>
                         <input type="checkbox" class="chbox" id="" name="day"
-                            value="<?= mb_substr($datetime_info['day_3'], 5, 8, 'utf-8'); ?>">
+                            value="<?= mb_substr($datetime_info['day_3'], 5, 8, 'utf-8'); ?>" checked>
                         <span class="chbox">
                             <?= mb_substr($datetime_info['day_3'], 5, 8, 'utf-8'); ?>
                         </span>

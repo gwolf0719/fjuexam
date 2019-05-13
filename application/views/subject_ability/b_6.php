@@ -251,7 +251,7 @@ $(function() {
     $("body").on("click", "#send", function() {
         if (confirm("確定儲存修改資料？")) {
             var sn = $("#sn").val();
-            var area = "第五分區";
+            var area = "考區";
             var job = $("#member_job_title").val();
             var job_code = $("#job_code").val();
             var job_title = $("#job_title").val();
@@ -260,7 +260,7 @@ $(function() {
             var trial_end = $("#trial_end").val();
             var phone = $("#phone").val();
             var note = $("textarea[name='note']").val();
-            var cla = "第五分區";
+            var cla = "第一分區";
             var arr = $('input:checkbox:checked[name="day"]').map(function() {
                 return $(this).val();
             }).get();
@@ -351,7 +351,7 @@ $(function() {
             } else {
                 $.getJSON("./subject_ability/api/job_add", {
                     job: job,
-                    area: "第五分區"
+                    area: "第一分區"
                 }, function(data) {
                     alert(data.sys_msg);
                     location.reload();
@@ -392,7 +392,7 @@ $(function() {
         $.post("./subject_ability/api/assignment", {
             job_code: code[0],
             job: $("#search_job").text(),
-            area: "第三分區",
+            area: "第一分區",
         }, function(data) {
             alert(data.sys_msg);
             if (data.sys_code == "200") {
@@ -457,7 +457,7 @@ $(function() {
     $("body").on("keyup", "#one_day_salary", function() {
         var day_total = $(this).val() * $("#day_count").val();
         $("#salary_total").val(day_total);
-        var total = parseInt($("#lunch_total").val()) + day_total;
+        var total = day_total - parseInt($("#lunch_total").val());
         $("#total").val(total)
     })
 
@@ -503,7 +503,7 @@ $(function() {
     </div>
 
     <div class="col-sm-8" style="text-align: center;">
-        <img src="assets/images/b6_title.jpg" alt="" style="width: 15%;">
+        <img src="assets/images/b2_title.png" alt="" style="width: 15%;">
     </div>
 
 </div>
@@ -514,11 +514,15 @@ $(function() {
             <thead>
                 <tr>
                     <th>序號</th>
+                    <!-- <th>年度</th> -->
                     <th>考區</th>
                     <th>職務</th>
+                    <!-- <th>職員代碼</th> -->
                     <th>職稱</th>
                     <th>姓名</th>
                     <th>執行日</th>
+                    <!-- <th>試場起號</th>
+                    <th>試場迄號</th> -->
                     <th>聯絡電話</th>
                     <th>備註</th>
                 </tr>
@@ -621,17 +625,17 @@ $(function() {
                     <div class="form-group">
                         <label for="start_date" class="" style="float:left;">執行日</label>
                         <input type="checkbox" class="chbox" id="" name="day"
-                            value="<?= mb_substr($datetime_info['day_1'], 5, 8, 'utf-8'); ?>">
+                            value="<?= mb_substr($datetime_info['day_1'], 5, 8, 'utf-8'); ?>" checked>
                         <span class="chbox">
                             <?= mb_substr($datetime_info['day_1'], 5, 8, 'utf-8'); ?>
                         </span>
                         <input type="checkbox" class="chbox" id="" name="day"
-                            value="<?= mb_substr($datetime_info['day_2'], 5, 8, 'utf-8'); ?>">
+                            value="<?= mb_substr($datetime_info['day_2'], 5, 8, 'utf-8'); ?>" checked>
                         <span class="chbox">
                             <?= mb_substr($datetime_info['day_2'], 5, 8, 'utf-8'); ?>
-                        </span>
+                        </span><br>
                         <input type="checkbox" class="chbox" id="" name="day"
-                            value="<?= mb_substr($datetime_info['day_3'], 5, 8, 'utf-8'); ?>">
+                            value="<?= mb_substr($datetime_info['day_3'], 5, 8, 'utf-8'); ?>" checked>
                         <span class="chbox">
                             <?= mb_substr($datetime_info['day_3'], 5, 8, 'utf-8'); ?>
                         </span>
@@ -648,12 +652,12 @@ $(function() {
                 <div class="col-md-3 col-sm-3 col-xs-3 cube" style="height:150px;">
                     <div class="form-group">
                         <label for="order_meal">訂餐需求</label>
-                        <input type="checkbox" class="" name="need" id="order_meal">
+                        <input type="checkbox" class="" name="need" id="order_meal" disabled>
                         <span>需訂餐</span>
                     </div>
                     <div class="form-group meal" style="display:none;">
                         <label for="meal" class="" style="float:left;">餐別</label>
-                        <select class="form-control" id="meal">
+                        <select class="form-control" id="meal" disabled>
                             <option value="葷">葷食</option>
                             <option value="素">素食</option>
                         </select>
@@ -698,11 +702,11 @@ $(function() {
                     <div class="form-group" style="padding: 0% 3%;">
                         <div class="W50">
                             <label for="trial_start" class="" style="float:left;width: 50%;">便當費 </label>
-                            <input type="text" class="form-control" id="lunch_price" value="0">
+                            <input type="text" class="form-control" id="lunch_price" value="0" disabled>
                         </div>
                         <div class="W50">
                             <label for="trial_start" class="" style="float:left;width: 50%;">便當總計</label>
-                            <input type="text" class="form-control" id="lunch_total" value="0" readonly>
+                            <input type="text" class="form-control" id="lunch_total" value="0" disabled>
                         </div>
                     </div>
                     <div class="form-group">
