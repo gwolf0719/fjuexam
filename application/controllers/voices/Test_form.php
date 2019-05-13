@@ -35,10 +35,10 @@ class Test_form extends CI_Controller
     public function form_e1_1()
     {
 
-        $this->load->model('mod_school_unit');
+        $this->load->model('mod_voice_school_unit');
 
         $data = array(
-            'list' => $this->mod_school_unit->year_get_school_unit_list(),
+            'list' => $this->mod_voice_school_unit->year_get_school_unit_list(),
         );
         if ($data['list'] != false) {
             $view = $this->load->view('voice/form_e1_1', $data, true);
