@@ -2100,8 +2100,8 @@ class Mod_trial extends CI_Model
 
         for ($i = 0; $i < count($res); $i++) {
             # code...
-            $supervisor1 = $this->db->where('member_code', $res[$i]['supervisor_1_code'])->get('staff_member')->row_array();
-            $supervisor2 = $this->db->where('member_code', $res[$i]['supervisor_2_code'])->get('staff_member')->row_array();
+            $supervisor1 = $this->db->where('year', $_SESSION['year'])->where('member_code', $res[$i]['supervisor_1_code'])->get('staff_member')->row_array();
+            $supervisor2 = $this->db->where('year', $_SESSION['year'])->where('member_code', $res[$i]['supervisor_2_code'])->get('staff_member')->row_array();
 
             // $own1 = array_count_values($supervisor1);
             // $own2 = array_count_values($supervisor2);
@@ -2118,7 +2118,7 @@ class Mod_trial extends CI_Model
             );
 
         }
-        // print_r($own);
+        // print_r($arr);
         return $arr;
     }
 
