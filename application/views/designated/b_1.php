@@ -674,7 +674,7 @@ $(function() {
                     <div class="form-group" style="padding: 0% 3%;">
                         <div class="W50">
                             <label for="trial_start" class="" style="float:left;width: 50%;">便當費 </label>
-                            <input type="text" class="form-control" id="lunch_price" value="0" readonly>
+                            <input type="text" class="form-control" id="lunch_price" value="0" readonly disabled>
                         </div>
                         <div class="W50">
                             <label for="trial_start" class="" style="float:left;width: 50%;">便當總計</label>

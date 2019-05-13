@@ -283,11 +283,9 @@ $(function() {
                     "trial_start": trial_start,
                     "trial_end": trial_end,
                     "phone": phone,
-                    "meal": meal,
                     "note": note,
                     "class": cla,
                     "do_date": do_date,
-                    "order_meal": order_meal,
                     "day_count": day_count,
                     "one_day_salary": one_day_salary,
                     "salary_total": salary_total,
@@ -296,6 +294,7 @@ $(function() {
                     "total": total,
                 },
                 dataType: "json"
+
             }).done(function(data) {
                 alert(data.sys_msg);
                 if (data.sys_code == "200") {
@@ -675,7 +674,7 @@ $(function() {
                     <div class="form-group" style="padding: 0% 3%;">
                         <div class="W50">
                             <label for="trial_start" class="" style="float:left;width: 50%;">便當費 </label>
-                            <input type="text" class="form-control" id="lunch_price" value="0" readonly>
+                            <input type="text" class="form-control" id="lunch_price" value="0" readonly disabled>
                         </div>
                         <div class="W50">
                             <label for="trial_start" class="" style="float:left;width: 50%;">便當總計</label>
