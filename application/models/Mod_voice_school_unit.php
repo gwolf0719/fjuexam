@@ -10,7 +10,7 @@ class Mod_voice_school_unit extends CI_Model
         // $this->db->where('year', $this->session->userdata('year'))->delete('school_unit');
         $this->db->where('year', $this->session->userdata('year'));
         $this->db->where('ladder', $this->session->userdata('ladder'));
-        $this->db->delete('school_unit');
+        $this->db->delete('voice_school_unit');
         $this->db->insert_batch('voice_school_unit', $datas);
     }
 
