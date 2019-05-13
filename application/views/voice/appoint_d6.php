@@ -669,7 +669,7 @@ $(function() {
                         <div class="W50">
                             <label for="trial_start" class="" style="float:left;width: 50%;">薪資單價</label>
                             <input type="text" class="form-control" id="one_day_salary" style="display:none">
-                            <input type="text" class="form-control" id="salary_section">
+                            <input type="text" class="form-control" id="salary_section" disabled>
                         </div>
                         <div class="W50">
                             <label for="trial_start" class="" style="float:left;width: 50%;">薪資總計</label>

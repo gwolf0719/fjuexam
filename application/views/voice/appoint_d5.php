@@ -656,7 +656,7 @@ $(function() {
                             <input type="text" class="form-control" id="one_day_salary" style="display:none"
                                 value="<?= $fees_info['pay_2']; ?>">
                             <input type="text" class="form-control" id="salary_section"
-                                value="<?= $fees_info['pay_2']; ?>">
+                                value="<?= $fees_info['pay_2']; ?>" disabled>
                         </div>
                         <div class="W50">
                             <label for="trial_start" class="" style="float:left;width: 50%;">薪資總計</label>

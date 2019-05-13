@@ -764,7 +764,8 @@ $("body").on("keyup", "#second_member_salary_section", function() {
                             <div class="W50">
                                 <label for="trial_start" class="" style="float:left;width: 50%;">薪資單價</label>
                                 <input type="hidden" class="form-control" id="first_member_one_day_salary" value="">
-                                <input type="text" class="form-control" id="first_member_salary_section" value="">
+                                <input type="text" class="form-control" id="first_member_salary_section" value=""
+                                    disabled>
                             </div>
                             <div class="W50">
                                 <label for="trial_start" class="" style="float:left;width: 50%;">薪資總計</label>
@@ -848,7 +849,8 @@ $("body").on("keyup", "#second_member_salary_section", function() {
                             <div class="W50">
                                 <label for="trial_start" class="" style="float:left;width: 50%;">薪資單價</label>
                                 <input type="hidden" class="form-control" id="second_member_one_day_salary" value="">
-                                <input type="text" class="form-control" id="second_member_salary_section" value="">
+                                <input type="text" class="form-control" id="second_member_salary_section" value=""
+                                    disabled>
                             </div>
                             <div class="W50">
                                 <label for="trial_start" class="" style="float:left;width: 50%;">薪資總計</label>
