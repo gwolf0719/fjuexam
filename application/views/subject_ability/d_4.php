@@ -346,14 +346,15 @@ $(function() {
             $("#second_member_lunch_price").attr("lunch_price",
                 "<?= $fees_info['lunch_fee']; ?>");
             $("#first_member_day_count").val(data.info.first_member_day_count);
-            $("#first_member_lunch_price").val(data.info.first_member_lunch_price);
+
             if (data.info.first_member_order_meal == "Y") {
                 $("#first_member_order_meal").prop("checked", true);
                 $(".first_member_meal").show();
+                $("#first_member_lunch_price").val(data.info.first_member_lunch_price);
             } else {
                 $("#first_member_order_meal").prop("checked", false);
                 $(".first_member_meal").hide();
-                // $("#first_member_lunch_price").val(0);
+                $("#first_member_lunch_price").val(0);
             }
             $("#first_member_meal").prop("checked", true);
             $("#first_member_order_meal").val(data.info.first_member_order_meal);
@@ -368,15 +369,16 @@ $(function() {
             $("#trial_staff_code_1").val(data.info.trial_staff_code_1);
             //職員二
             $("#second_member_day_count").val(data.info.second_member_day_count);
-            $("#second_member_lunch_price").val(data.info.second_member_lunch_price);
+
             $("#second_member_meal").val(data.info.second_member_meal);
             if (data.info.second_member_order_meal == "Y") {
                 $("#second_member_order_meal").prop("checked", true);
                 $(".second_member_meal").show();
+                $("#second_member_lunch_price").val(data.info.second_member_lunch_price);
             } else {
                 $("#second_member_order_meal").prop("checked", false);
                 $(".second_member_meal").hide();
-                // $("#second_member_lunch_price").val(0);
+                $("#second_member_lunch_price").val(0);
             }
             $("#second_member_salary_section").val(data.info.second_member_salary_section);
             $("#second_member_section_lunch_total").val(data.info

@@ -23,6 +23,9 @@ class Mod_exam_datetime extends CI_Model
                 }
             }
         }
+
+  
+
         // // 確認每一天
         $res = array();
         for ($i = 1; $i <= 3; $i++) {
@@ -40,15 +43,16 @@ class Mod_exam_datetime extends CI_Model
                 'field >=' => $start
             );
 
-            $sub1 = $this->db->where($where)->get('exam_area')->result_array();
-            $sub2 = $this->db->where($section)->get('exam_area')->result_array();
+            $sub1 = $this->db->where($where)->get('ability_exam_area')->result_array();
+            $sub2 = $this->db->where($section)->get('ability_exam_area')->result_array();
+
             if (count($sub1) == count($sub2)) {
                 $res[] = false;
             } else {
                 $res[] = true;
             }
         }
-
+        // print_r($res);
         return $res;
     }
 
