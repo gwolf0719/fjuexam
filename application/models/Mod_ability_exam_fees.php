@@ -34,17 +34,21 @@ class Mod_ability_exam_fees extends CI_Model
         $assign = $this->db->where('year', $year)->where('supervisor_1!=', '')->get('ability_trial_assign')->result_array();
         foreach ($assign as $key => $value) {
 
+            $a = explode(",", $value['first_member_do_date']);
+            $a = count($a);
+            $b = explode(",", $value['second_member_do_date']);
+            $b = count($b);
+
             if ($value['first_member_order_meal'] == 'Y') {
-                $lunch_total1 = $value['first_member_day_count'] * $fee['lunch_fee'];
+                $lunch_total1 = $a * $fee['lunch_fee'];
             } else {
                 $lunch_total1 = 0;
             }
             if ($value['second_member_order_meal'] == 'Y') {
-                $lunch_total2 = $value['second_member_day_count'] * $fee['lunch_fee'];
+                $lunch_total2 = $b * $fee['lunch_fee'];
             } else {
                 $lunch_total2 = 0;
             }
-
             $data = array(
                 // 第一人
                 'first_member_salary_section' => $fee['salary_section'],
