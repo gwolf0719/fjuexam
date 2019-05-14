@@ -152,7 +152,18 @@ $(function() {
         case "#3":
             part = '2503'
             break;
+        case "#4":
+            part = '2504'
+            break;
+        case "#5":
+            part = '2505'
+            break;
+        default:
+            part = '2501'
+            break;
     }
+
+    $("#part").val(part);
     $.ajax({
         url: './subject_ability/api/get_part',
         data: {
@@ -262,18 +273,18 @@ $(function() {
     })
 
 
-    $("body").on("click", "#sure3", function() {
-        var code = $(".typeahead").val().split("-");
-        $("#allocation_code").val(code[0]);
-        $("#patrol_staff_name").val(code[1]);
-        $('#exampleModal').modal('hide');
-    })
+    // $("body").on("click", "#sure3", function() {
+    //     var code = $(".typeahead").val().split("-");
+    //     $("#allocation_code").val(code[0]);
+    //     $("#patrol_staff_name").val(code[1]);
+    //     $('#exampleModal').modal('hide');
+    // })
 
     $("body").on("click", "#sure3", function() {
         var arr = $(".typeahead").val().split("-");
         chk_code_use(arr[0], function(params) {
             if (params) {
-                $("#allocation_code").val(arr[0]);
+                $("#patrol_staff_code").val(arr[0]);
                 $("#patrol_staff_name").val(arr[1]);
                 $('#exampleModal').modal('hide');
             } else {
@@ -399,8 +410,8 @@ $(function() {
         if (confirm("是否要儲存?")) {
             var sn = $("#sn").val();
             var part = $("#part").val();
-            var allocation_code = $("#allocation_code").val();
-            var patrol_staff_code = $("#patrol_staff_code").val();
+            var allocation_code = $("#patrol_staff_code").val();
+            var patrol_staff_code = $("#allocation_code").val();
             var patrol_staff_name = $("#patrol_staff_name").val();
             var start = $("#start").val();
             var end = $("#end").val();
@@ -476,7 +487,7 @@ $(function() {
         } else {
             var part = $("#part").val();
             console.log(part);
-            var allocation_code = $("#allocation_code").val();
+            var allocation_code = $("#patrol_staff_code").val();
             var patrol_staff_code = $("#allocation_code").val();
             var patrol_staff_name = $("#patrol_staff_name").val();
             var start = $("#start").val();

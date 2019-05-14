@@ -959,7 +959,8 @@ class Api extends CI_Controller
             $day = $this->mod_exam_datetime->room_use_day($data['start'], $data['end'], $data['part']);
             $datetime_info = $this->mod_exam_datetime->get_once($_SESSION['year']);
             $fees_info = $this->mod_ability_exam_fees->get_once($_SESSION['year']);
-            $member = $this->mod_ability_staff->get_staff_member(trim($data['patrol_staff_code']));
+            $member = $this->mod_ability_staff->get_staff_member(trim($data['allocation_code']));
+
             $do_date = array();
             if ($day[0] != " ") {
                 array_push($do_date, mb_substr($datetime_info['day_1'], 5, 8, 'utf-8'));
