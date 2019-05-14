@@ -44,8 +44,11 @@ class Mod_exam_datetime extends CI_Model
             );
 
             $sub1 = $this->db->where($where)->get('ability_exam_area')->result_array();
+            // echo $this->db->last_query();
+            // echo '|||||||||||||';
             $sub2 = $this->db->where($section)->get('ability_exam_area')->result_array();
-
+            // echo $this->db->last_query();
+            // echo '|||||||||||||';
             if (count($sub1) == count($sub2)) {
                 $res[] = false;
             } else {

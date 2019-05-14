@@ -152,9 +152,54 @@ $(function() {
         }
     }
 
+    switch (nowHash) {
+        case "#1":
+            part = '2501';
+            $('#part').val('2501');
+            break;
+        case "#2":
+            part = '2502';
+            $('#part').val('2502');
+            break;
+        case "#3":
+            part = '2503'
+            $('#part').val('2503');
+            break;
+        case "#4":
+            part = '2504'
+            $('#part').val('2504');
+            break;
+        case "#5":
+            part = '2505'
+            $('#part').val('2505');
+            break;
+    }
+
     $("body").on("click", ".tab", function(e) {
         e.preventDefault();
         var newHash = $(this).attr("area"); //點到的id
+        switch (newHash) {
+            case "1":
+                part = '2501';
+                $('#part').val('2501');
+                break;
+            case "2":
+                part = '2502';
+                $('#part').val('2502');
+                break;
+            case "3":
+                part = '2503'
+                $('#part').val('2503');
+                break;
+            case "4":
+                part = '2504'
+                $('#part').val('2504');
+                break;
+            case "5":
+                part = '2505'
+                $('#part').val('2505');
+                break;
+        }
         $("#sn").val("");
         $("#field").val("");
         $("#section").val("");
@@ -286,7 +331,7 @@ $(function() {
     $("body").on("click", "tr", function() {
         var sn = $(this).attr("sn");
         var part = $(this).attr("part");
-        $("#part").val(part);
+        // $("#part").val(part);
         $("html, body").animate({
             scrollTop: $("body").height()
         }, 1000);
@@ -712,7 +757,7 @@ $(function() {
             </thead>
             <tbody>
                 <?php foreach ($part4 as $k => $v) : ?>
-                <tr sn="<?= $v['sn']; ?>" part="2503" field="<?= $v['field'] ?>">
+                <tr sn="<?= $v['sn']; ?>" part="2504" field="<?= $v['field'] ?>">
                     <td>
                         <?= $k + 1; ?>
                     </td>
@@ -777,7 +822,7 @@ $(function() {
             </thead>
             <tbody>
                 <?php foreach ($part5 as $k => $v) : ?>
-                <tr sn="<?= $v['sn']; ?>" part="2503" field="<?= $v['field'] ?>">
+                <tr sn="<?= $v['sn']; ?>" part="2505" field="<?= $v['field'] ?>">
                     <td>
                         <?= $k + 1; ?>
                     </td>
@@ -832,7 +877,7 @@ $(function() {
                             <label for="field" class="" style="float:left;">試場</label>
                             <input type="text" class="form-control" id="field" readonly>
                             <input type="hidden" class="form-control" id="sn">
-                            <input type="hidden" class="form-control" id="part">
+                            <input type="text" class="form-control" id="part">
                         </div>
                         <div class="form-group">
                             <label for="section" class="" style="float:left;">考試節數</label>

@@ -598,6 +598,7 @@ class Api extends CI_Controller
                 }
                 $date = implode(",", $do_date);
                 // print_r($day);
+                // print_r('|||');
 
 
                 if ($member1['order_meal'] == "Y") {
