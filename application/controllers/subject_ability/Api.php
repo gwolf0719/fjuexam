@@ -569,7 +569,7 @@ class Api extends CI_Controller
         $this->load->model('mod_ability_part_info');
         //  $this->load->model('mod_trial');
         $this->load->model('subject_ability/mod_trial', "mod_trial");
-        $getpost = array('sn', 'part', 'supervisor_1', 'supervisor_1_code', 'supervisor_2', 'supervisor_2_code', 'trial_staff_code_1', 'trial_staff_code_2', 'note', 'field');
+        $getpost = array('sn', 'part', 'supervisor_1', 'supervisor_1_code', 'supervisor_2', 'supervisor_2_code', 'trial_staff_code_1', 'trial_staff_code_2', 'note', 'field', 'count');
         $requred = array('sn', 'part', 'supervisor_1', 'supervisor_2', 'field');
         $data = $this->getpost->getpost_array($getpost, $requred);
         if ($data == false || $data['supervisor_1'] == ' ' || $data['supervisor_2'] == ' ') {
@@ -586,13 +586,14 @@ class Api extends CI_Controller
                 $fees_info = $this->mod_ability_exam_fees->get_once($_SESSION['year']);
                 $part_info = $this->mod_ability_part_info->get_once($data['sn']);
                 $do_date = array();
-                if ($day[0] != " ") {
+
+                if ($day[0] != "") {
                     array_push($do_date, mb_substr($datetime_info['day_1'], 5, 8, 'utf-8'));
                 }
-                if ($day[1] != " ") {
+                if ($day[1] != "") {
                     array_push($do_date, mb_substr($datetime_info['day_2'], 5, 8, 'utf-8'));
                 }
-                if ($day[2] != " ") {
+                if ($day[2] != "") {
                     array_push($do_date, mb_substr($datetime_info['day_3'], 5, 8, 'utf-8'));
                 }
                 $date = implode(",", $do_date);
@@ -634,8 +635,8 @@ class Api extends CI_Controller
                     'second_member_meal' => $member2['meal'],
                     'first_member_do_date' => $date,
                     'second_member_do_date' => $date,
-                    'first_member_day_count' => count($do_date),
-                    'second_member_day_count' => count($do_date),
+                    'first_member_day_count' => $data['count'],
+                    'second_member_day_count' => $data['count'],
                     'first_member_salary_section' => $fees_info['salary_section'],
                     'second_member_salary_section' => $fees_info['salary_section'],
                     'first_member_lunch_price' => $fees_info['lunch_fee'],

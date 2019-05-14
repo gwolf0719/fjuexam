@@ -355,6 +355,7 @@ $(function() {
             var sn = $("#sn").val();
             var part = $("#part").val();
             var field = $("#field").val();
+            var count = $("#section").val();
             var supervisor_1 = $("#supervisor_1").val();
             var supervisor_1_code = $("#supervisor_1_code").val();
             var supervisor_2 = $("#supervisor_2").val();
@@ -368,6 +369,7 @@ $(function() {
                 data: {
                     "sn": sn,
                     "part": part,
+                    "count": count,
                     "field": field,
                     "supervisor_1": supervisor_1,
                     "supervisor_1_code": supervisor_1_code,
