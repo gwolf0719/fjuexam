@@ -318,6 +318,11 @@ $(function() {
                         parseInt($(
                             "#lunch").val());
                     $("#section_lunch_total").val(data.info.lunch_total);
+                    if (data.info.lunch_total == 0) {
+                        $("#lunch_price").val(0);
+
+                    }
+
                     var section_total = section_salary_total + section_lunch_total;
                     $("#section_total").val(data.info.total);
                     break;

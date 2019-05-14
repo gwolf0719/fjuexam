@@ -43,7 +43,7 @@ class Mod_patrol extends CI_Model
         $res = $this->db->get('trial_staff')->result_array();
         for ($i = 0; $i < count($res); $i++) { 
             # code...
-            $patrol = $this->db->where('member_code', $res[$i]['trial_staff_code'])->get('staff_member')->row_array();
+            $patrol = $this->db->where('year', $this->session->userdata('year'))->where('member_code', $res[$i]['trial_staff_code'])->get('staff_member')->row_array();
             switch ($res[$i]['part']) {
                 case '2501':
                     $part = '第一分區';
@@ -77,7 +77,7 @@ class Mod_patrol extends CI_Model
         $res = $this->db->get('patrol_staff')->result_array();
         for ($i = 0; $i < count($res); $i++) { 
             # code...
-            $patrol = $this->db->where('member_code', $res[$i]['patrol_staff_code'])->get('staff_member')->row_array();
+            $patrol = $this->db->where('year', $this->session->userdata('year'))->where('member_code', $res[$i]['patrol_staff_code'])->get('staff_member')->row_array();
             switch ($res[$i]['part']) {
                 case '2501':
                     $part = '第一分區';
@@ -115,7 +115,14 @@ class Mod_patrol extends CI_Model
         $this->db->update('patrol_staff', $data);
 
         $res = $this->db->where('sn', $sn)->get('patrol_staff')->row_array();
-        $lunch = $res['lunch_price'] * $res['count'];
+        $patrol = $this->db->where('year', $this->session->userdata('year'))->where('member_code', $res['patrol_staff_code'])->get('staff_member')->row_array();
+        if ($patrol['order_meal'] == 'Y') {
+
+            $lunch = $res['lunch_price'] * $res['count'];
+        } else {
+            $lunch = 0;
+        }
+
         $new = array(
             'lunch_total' => $lunch,
             'total' => $res['salary_total'] - $lunch,
