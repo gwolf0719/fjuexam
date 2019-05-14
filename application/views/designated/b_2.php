@@ -472,7 +472,7 @@ $(function() {
     </div>
 
     <div class="col-sm-8" style="text-align: center;">
-        <img src="assets/images/b1_title.png" alt="" style="width: 15%;">
+        <img src="assets/images/b2_title.png" alt="" style="width: 15%;">
     </div>
 
 </div>
