@@ -363,7 +363,7 @@ $(function() {
         }).done(function(data) {
             console.log(data.info);
             $("#sn").val(sn);
-            $("#part").val(part);
+            // $("#part").val(part);
             $("#allocation_code").val(data.info.allocation_code);
             $("#trial_staff_code").val(data.info.trial_staff_code);
             $("#trial_staff_name").val(data.info.trial_staff_name);
