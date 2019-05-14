@@ -303,11 +303,11 @@ $(function() {
         var arr = $(".typeahead").val().split("-");
         chk_code_use(arr[0], function(params) {
             if (params) {
-                $("#allocation_code").val(arr[0]);
+                $("#trial_staff_code").val(arr[0]);
                 $("#trial_staff_name").val(arr[1]);
                 $('#exampleModal').modal('hide');
             } else {
-                $("#allocation_code").val('');
+                $("#trial_staff_code").val('');
                 $("#trial_staff_name").val('');
                 // $('#exampleModal').modal('hide');
             }
@@ -558,7 +558,7 @@ $(function() {
         } else {
             var part = $("#part").val();
             var allocation_code = $("#allocation_code").val();
-            var trial_staff_code = $("#allocation_code").val();
+            var trial_staff_code = $("#trial_staff_code").val();
             var trial_staff_name = $("#trial_staff_name").val();
             var first_start = $("#first_start").val();
             var first_end = $("#first_end").val();
