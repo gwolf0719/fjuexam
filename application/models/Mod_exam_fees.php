@@ -108,6 +108,32 @@ class Mod_exam_fees extends CI_Model
             $this->db->update('patrol_staff', $data);
         }
 
+        // B區便當改變
+        $task = $this->db->where('year', $year)->get('district_task')->result_array();
+        foreach ($task as $key => $value) {
+
+
+
+
+
+
+            if ($value['order_meal'] == 'Y') {
+                $lunch = $fee['lunch_fee'];
+                $lunch_total = $value['day_count'] * $fee['lunch_fee'];
+            } else {
+                $lunch = 0;
+                $lunch_total = 0;
+            }
+
+
+            $data = array(
+                'lunch_price' => $lunch,
+                'lunch_total' => $lunch_total,
+                'total' => $value['salary_total'] - $lunch_total,
+            );
+            $this->db->where('sn', $value['sn']);
+            $this->db->update('district_task', $data);
+        }
 
 
 
