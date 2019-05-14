@@ -1000,6 +1000,21 @@ class Mod_task extends CI_Model
 
         return $this->db->get('staff_member')->row_array();
     }
+    
+       // 人員是否被使用
+    public function check_use_member_job($job_code, $area)
+    {
+        $this->db->where('year', $this->session->userdata('year'));
+        $this->db->where('job_code', $job_code);
+
+
+
+        $count = $this->db->count_all_results('district_task');
+
+
+        return $count;
+    }
+
 }
 
 /* End of file Mod_exam_area.php */
