@@ -1323,5 +1323,29 @@ class Api extends CI_Controller
         }
         echo json_encode($json_arr);
     }
+
+    function chk_job_code_can_use()
+    {
+
+        $this->load->model('mod_trial');
+        $getpost = array('job_code');
+        $requred = array('job_code');
+        $data = $this->getpost->getpost_array($getpost, $requred);
+        if ($data == false) {
+            $json_arr['sys_code'] = '000';
+            $json_arr['sys_msg'] = '資料不足';
+            $json_arr['requred'] = $this->getpost->report_requred($requred);
+        } else {
+            if ($this->mod_trial->chk_all_d($data['job_code']) == 'yes') {
+                $json_arr['sys_code'] = '500';
+                $json_arr['sys_msg'] = '該人員已經被指派過，請選擇其他人員';
+            } else {
+                $json_arr['sys_code'] = '200';
+                $json_arr['sys_msg'] = 'data can use';
+            }
+            $json_arr['sql'] = $this->db->last_query();
+        }
+        echo json_encode($json_arr);
+    }
 }
 /* End of file Api.php */

@@ -2348,6 +2348,40 @@ class Mod_trial extends CI_Model
         $this->db->delete('patrol_staff');
         // $this->db->where('year', $this->session->userdata('year'))->where('ladder', $this->session->userdata('ladder'))->truncate('voice_patrol_staff');
     }
+    public function chk_all_d($trial_staff_code)
+    {
+
+
+        $trial_staff_code = trim($trial_staff_code);
+        // d1
+        $this->db->where('year', $_SESSION['year']);
+        $this->db->where('supervisor_1_code', $trial_staff_code);
+        $count1 = $this->db->count_all_results('trial_assign');
+
+        // d1
+        $this->db->where('year', $_SESSION['year']);
+        $this->db->where('supervisor_2_code', $trial_staff_code);
+        $count2 = $this->db->count_all_results('trial_assign');
+        
+        // d2
+        $this->db->where('year', $_SESSION['year']);
+        $this->db->where('trial_staff_code', $trial_staff_code);
+        $count3 = $this->db->count_all_results('trial_staff');
+
+        // d3
+        $this->db->where('year', $_SESSION['year']);
+        $this->db->where('patrol_staff_code', $trial_staff_code);
+        $count4 = $this->db->count_all_results('patrol_staff');
+
+        $count = $count1 + $count2 + $count3 + $count4;
+        // print_r($count);
+        if ($count == 0) {
+            return 'no';
+        } else {
+            return 'yes';
+        }
+
+    }
 }
 
 /* End of file Mod_exam_area.php */
