@@ -173,6 +173,10 @@ $(function() {
             part = '2505'
             $('#part').val('2505');
             break;
+        default:
+            part = '2501'
+            $('#part').val('2501');
+            break;
     }
 
     $("body").on("click", ".tab", function(e) {
@@ -361,6 +365,12 @@ $(function() {
                     break;
                 case "2503":
                     var c1 = "3";
+                    break;
+                case "2504":
+                    var c1 = "4";
+                    break;
+                case "2505":
+                    var c1 = "5";
                     break;
             }
             //監試人員編號第二碼產生
@@ -877,7 +887,7 @@ $(function() {
                             <label for="field" class="" style="float:left;">試場</label>
                             <input type="text" class="form-control" id="field" readonly>
                             <input type="hidden" class="form-control" id="sn">
-                            <input type="text" class="form-control" id="part">
+                            <input type="hidden" class="form-control" id="part">
                         </div>
                         <div class="form-group">
                             <label for="section" class="" style="float:left;">考試節數</label>
