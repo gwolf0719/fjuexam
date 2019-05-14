@@ -397,6 +397,8 @@ $(function() {
 
                     $("#number_1").val("");
                     $("#number_2").val("");
+                    $("#supervisor_1").val("");
+                    $("#supervisor_2").val("");
                 }
             })
         }
