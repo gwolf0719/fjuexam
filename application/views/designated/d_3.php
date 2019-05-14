@@ -625,7 +625,7 @@ $(function() {
                     <div class="form-group" style="width: 100%;float: left;">
                         <label for="floor" class="" style="float:left;">巡場人員</label>
                         <input type="hidden" class="form-control" id="sn">
-                        <input type="text" class="form-control" id="part" value="2501">
+                        <input type="hidden" class="form-control" id="part" value="2501">
                         <input type="text" class="form-control" id="allocation_code" style="width: 25%;float: left;"
                             placeholder="巡場人員編號">
                         <input type="hidden" class="form-control" id="patrol_staff_code" style="width: 20%;float: left;"

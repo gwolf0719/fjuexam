@@ -94,14 +94,14 @@ class Mod_exam_fees extends CI_Model
             if ($value['lunch_total'] == 0) {
                 $lunch_total = 0;
             } else {
-                $lunch_total = $value['count'] * $fee['salary_section'];
+                $lunch_total = $value['count'] * $fee['lunch_fee'];
             }
 
             $data = array(
                 'salary' => $fee['salary_section'],
                 'salary_total' => $value['section'] * $fee['salary_section'],
                 'lunch_price' => $fee['lunch_fee'],
-                'salary_total' => $lunch_total,
+                'lunch_total' => $lunch_total,
                 'total' => $value['section'] * $fee['salary_section'] - $lunch_total,
             );
             $this->db->where('sn', $value['sn']);

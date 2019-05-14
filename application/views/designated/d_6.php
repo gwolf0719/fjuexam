@@ -240,8 +240,10 @@ $(function() {
             }
             if (data.info.meal == "自備") {
                 $("#meal").val("");
+                $('#order_meal').prop('checked', false);
             } else {
                 $("#meal").val(data.info.meal);
+                $('#order_meal').prop('checked', true);
             }
             //取得節數
             $.ajax({
