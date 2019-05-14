@@ -149,7 +149,7 @@ $(function() {
     <!-- e end -->
 
 
-    <?php if (!isset($_SESSION['year']) || !isset($_SESSION['ladder'])) { ?>
+    <?php if (!isset($_SESSION['year'])) { ?>
     <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4 cube text-center">
         <img src="assets/images/f.png" class='stop' alt="" style="filter: grayscale(100%);">
     </div>

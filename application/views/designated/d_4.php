@@ -863,8 +863,8 @@ $(function() {
                                 <label for="trial_start" class="" style="float:left;width: 50%;">薪資單價</label>
                                 <input type="hidden" class="form-control" id="first_member_one_day_salary"
                                     value="<?= $fees_info['one_day_salary']; ?>">
-                                <input type="text" class="form-control" id="first_member_salary_section"
-                                    value="<?= $fees_info['salary_section']; ?>" disabled>
+                                <input type="text" class="form-control" id="first_member_salary_section" value=0
+                                    disabled>
                             </div>
                             <div class="W50">
                                 <label for="trial_start" class="" style="float:left;width: 50%;">薪資總計</label>
@@ -877,8 +877,7 @@ $(function() {
                         <div class="form-group" style="padding: 0% 3%;">
                             <div class="W50">
                                 <label for="trial_start" class="" style="float:left;width: 50%;">便當費 </label>
-                                <input type="text" class="form-control" id="first_member_lunch_price"
-                                    value="<?= $fees_info['lunch_fee']; ?>" readonly>
+                                <input type="text" class="form-control" id="first_member_lunch_price" value=0 readonly>
                             </div>
                             <div class="W50">
                                 <label for="trial_start" class="" style="float:left;width: 50%;">便當總計</label>
@@ -976,8 +975,8 @@ $(function() {
                                 <label for="trial_start" class="" style="float:left;width: 50%;">薪資單價</label>
                                 <input type="hidden" class="form-control" id="second_member_one_day_salary"
                                     value="<?= $fees_info['one_day_salary']; ?>">
-                                <input type="text" class="form-control" id="second_member_salary_section"
-                                    value="<?= $fees_info['salary_section']; ?>" disabled>
+                                <input type="text" class="form-control" id="second_member_salary_section" value=0
+                                    disabled>
                             </div>
                             <div class="W50">
                                 <label for="trial_start" class="" style="float:left;width: 50%;">薪資總計</label>
@@ -990,8 +989,7 @@ $(function() {
                         <div class="form-group" style="padding: 0% 3%;">
                             <div class="W50">
                                 <label for="trial_start" class="" style="float:left;width: 50%;">便當費 </label>
-                                <input type="text" class="form-control" id="second_member_lunch_price"
-                                    value="<?= $fees_info['lunch_fee']; ?>" readonly>
+                                <input type="text" class="form-control" id="second_member_lunch_price" value=0 readonly>
                             </div>
                             <div class="W50">
                                 <label for="trial_start" class="" style="float:left;width: 50%;">便當總計</label>
