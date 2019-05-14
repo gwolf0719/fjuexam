@@ -2585,6 +2585,7 @@ class Mod_ability_trial extends CI_Model
         $new = array(
             'salary_total' => $salary_total,
             'total' => $salary_total - $res['lunch_total'],
+            'count' => $data['first_section'] + $data['second_section'] + $data['third_section'],
         );
         $this->db->where('sn', $sn);
         $this->db->update('ability_trial_staff', $new);

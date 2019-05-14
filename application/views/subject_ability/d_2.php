@@ -185,6 +185,7 @@ $(function() {
             $('#part').val('2505');
             break;
     }
+    $("#part").val(part);
     $.ajax({
         url: './subject_ability/api/get_part',
         data: {

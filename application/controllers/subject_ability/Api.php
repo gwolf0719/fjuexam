@@ -814,7 +814,7 @@ class Api extends CI_Controller
                 'meal' => $member['meal'],
                 'calculation' => 'by_section',
                 'do_date' => $data['do_date'],
-                'count' => count($do_date),
+                'count' => $data['first_section'] + $data['second_section'] + $data['third_section'],
                 'salary' => $fees_info['salary_section'],
                 'salary_total' => $salary_total,
                 'lunch_price' => $lunch_price,
