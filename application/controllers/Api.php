@@ -598,27 +598,29 @@ class Api extends CI_Controller
                     array_push($do_date, mb_substr($datetime_info['day_3'], 5, 8, 'utf-8'));
                 }
                 $date = implode(",", $do_date);
-                if ($member1['order_meal'] == "N") {
-                    $first_lunch_fee = 0;
-                    $first_lunch_total = 0;
-                    $first_member_salary_total = $part_info['test_section'] * $fees_info['salary_section'];
-                    $first_member_total = $first_member_salary_total;
-                } else {
+                if ($member1['order_meal'] == "Y") {
                     $first_lunch_fee = $fees_info['lunch_fee'];
                     $first_lunch_total = $fees_info['lunch_fee'] * count($do_date);
                     $first_member_salary_total = $part_info['test_section'] * $fees_info['salary_section'];
                     $first_member_total = $first_member_salary_total - $first_lunch_total;
-                }
-                if ($member2['order_meal'] == "N") {
-                    $second_lunch_fee = 0;
-                    $second_lunch_total = 0;
-                    $second_member_salary_total = $part_info['test_section'] * $fees_info['salary_section'];
-                    $second_member_total = $second_member_salary_total;
                 } else {
+                    $first_lunch_fee = 0;
+                    $first_lunch_total = 0;
+                    $first_member_salary_total = $part_info['test_section'] * $fees_info['salary_section'];
+                    $first_member_total = $first_member_salary_total;
+
+                }
+                if ($member2['order_meal'] == "Y") {
+
                     $second_lunch_fee = $fees_info['lunch_fee'];
                     $second_lunch_total = $fees_info['lunch_fee'] * count($do_date);
                     $second_member_salary_total = $part_info['test_section'] * $fees_info['salary_section'];
                     $second_member_total = $second_member_salary_total - $second_lunch_total;
+                } else {
+                    $second_lunch_fee = 0;
+                    $second_lunch_total = 0;
+                    $second_member_salary_total = $part_info['test_section'] * $fees_info['salary_section'];
+                    $second_member_total = $second_member_salary_total;
                 }
                 $sql_data = array(
                     'sn' => $data['sn'],

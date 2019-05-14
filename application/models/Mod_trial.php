@@ -2260,6 +2260,7 @@ class Mod_trial extends CI_Model
             'first_member_section_total' => $total,
             'second_member_section_total' => $total2,
         );
+        $this->db->where('sn', $sn);
         $this->db->update('trial_assign', $new_total);
         return true;
     }
