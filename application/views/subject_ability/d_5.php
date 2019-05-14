@@ -266,15 +266,15 @@ $(function() {
             $("#third_end").val(data.info.third_end);
             $("#third_section").val(data.info.third_section);
             $("#note").val(data.info.note);
-            $("#lunch_price").attr("lunch_price",
-                "<?= $fees_info['lunch_fee']; ?>"
-            );
+
             if (data.info.order_meal.toUpperCase() == "N") {
                 $("#order_meal").prop("checked", false);
                 $(".meal").hide();
+                $("#lunch_price").val(0);
             } else {
                 $("#order_meal").prop("checked", true);
                 $(".meal").show();
+                $("#lunch_price").val(data.info.lunch_price);
 
             }
             if (data.info.meal == "自備") {
@@ -316,7 +316,12 @@ $(function() {
                     $("#section_lunch_total").show();
                     $("#section_total").show();
                     $("#section_count").val(section_count);
-                    $("#lunch_price").val(data.info.lunch_price);
+                    if (data.info.order_meal == 'Y') {
+                        $("#lunch_price").val(data.info.lunch_price);
+                    } else {
+                        $("#lunch_price").val(0);
+                    }
+
                     $("#salary_section").val(data.info.salary);
                     var section_salary_total = parseInt($("#salary_section").val()) *
                         parseInt($(

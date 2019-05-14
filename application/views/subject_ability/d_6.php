@@ -258,24 +258,26 @@ $(function() {
             $("#trial_start").val(data.info.start);
             $("#trial_end").val(data.info.end);
             $("#note").val(data.info.note);
-            $("#lunch_price").val(data.info.lunch_price);
+
             if (data.info.order_meal.toUpperCase() == "N" || data.info.order_meal == "") {
                 // $("#order_meal").prop("checked", false);
                 $("#lunch_price").val("0");
                 $("#lunch_price").attr("readonly", true);
                 $(".meal").hide();
+                $("#lunch_price").val(0);
             } else {
                 $("#order_meal").prop("checked", true);
                 // $("#lunch_price").attr("readonly", false);
                 $(".meal").show();
-                $("#lunch_price").val("<?= $fees_info['lunch_fee']; ?>");
+
+                $("#lunch_price").val(data.info.lunch_price);
             }
             if (data.info.meal == "自備") {
                 $("#meal").val("");
             } else {
                 $("#meal").val(data.info.meal);
             }
-            $("#lunch_price").val(data.info.lunch_price);
+
             //取得節數
             $.ajax({
                 url: './subject_ability/api/get_day_section',
@@ -942,17 +944,17 @@ $(function() {
                     <div class="form-group">
                         <label for="start_date" class="" style="float:left;">執行日</label>
                         <input type="checkbox" class="chbox as" id="" name="day"
-                            value="<?= mb_substr($datetime_info['day_1'], 5, 8, 'utf-8'); ?>">
+                            value="<?= mb_substr($datetime_info['day_1'], 5, 8, 'utf-8'); ?>" disabled>
                         <span class="chbox">
                             <?= mb_substr($datetime_info['day_1'], 5, 8, 'utf-8'); ?>
                         </span>
                         <input type="checkbox" class="chbox as" id="" name="day"
-                            value="<?= mb_substr($datetime_info['day_2'], 5, 8, 'utf-8'); ?>">
+                            value="<?= mb_substr($datetime_info['day_2'], 5, 8, 'utf-8'); ?>" disabled>
                         <span class="chbox">
                             <?= mb_substr($datetime_info['day_2'], 5, 8, 'utf-8'); ?>
                         </span>
                         <input type="checkbox" class="chbox as" id="" name="day"
-                            value="<?= mb_substr($datetime_info['day_3'], 5, 8, 'utf-8'); ?>">
+                            value="<?= mb_substr($datetime_info['day_3'], 5, 8, 'utf-8'); ?>" disabled>
                         <span class="chbox">
                             <?= mb_substr($datetime_info['day_3'], 5, 8, 'utf-8'); ?>
                         </span>

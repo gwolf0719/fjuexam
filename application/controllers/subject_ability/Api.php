@@ -965,16 +965,18 @@ class Api extends CI_Controller
             $member = $this->mod_ability_staff->get_staff_member(trim($data['allocation_code']));
 
             $do_date = array();
-            if ($day[0] != " ") {
+            if ($day[0] != "") {
                 array_push($do_date, mb_substr($datetime_info['day_1'], 5, 8, 'utf-8'));
             }
-            if ($day[1] != " ") {
+            if ($day[1] != "") {
                 array_push($do_date, mb_substr($datetime_info['day_2'], 5, 8, 'utf-8'));
             }
-            if ($day[2] != " ") {
+            if ($day[2] != "") {
                 array_push($do_date, mb_substr($datetime_info['day_3'], 5, 8, 'utf-8'));
             }
             $date = implode(",", $do_date);
+            // print_r($date);
+            // print_r('|||||||||||');
             if ($member['order_meal'] == "Y") {
                 $lunch_price = $fees_info['lunch_fee'];
                 $lunch_total = $fees_info['lunch_fee'] * count($do_date);
