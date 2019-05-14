@@ -162,6 +162,7 @@ $(function() {
             part = '2503'
             break;
     }
+    $('#part').val(part);
     $.ajax({
         url: 'api/get_part',
         data: {
