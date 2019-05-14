@@ -987,6 +987,24 @@ class Mod_ability_task extends CI_Model
 
         return $this->db->get('ability_staff_member')->row_array();
     }
+
+
+        // 人員是否被使用
+    public function check_use_member_job($job_code, $area)
+    {
+        $this->db->where('year', $this->session->userdata('year'));
+        $this->db->where('job_code', $job_code);
+         
+            // print_r($area);
+            // $this->db->where('test_partition', $area);
+
+        $count = $this->db->count_all_results('ability_district_task');
+            // $a=$this->db->last_query();
+            // print_r($count);
+            // print_r($a);
+
+        return $count;
+    }
 }
 
 /* End of file Mod_exam_area.php */

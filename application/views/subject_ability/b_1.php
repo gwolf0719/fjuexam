@@ -260,7 +260,7 @@ $(function() {
             var trial_end = $("#trial_end").val();
             var phone = $("#phone").val();
             var note = $("textarea[name='note']").val();
-            var cla = "第一分區";
+            var cla = "考區";
             var arr = $('input:checkbox:checked[name="day"]').map(function() {
                 return $(this).val();
             }).get();

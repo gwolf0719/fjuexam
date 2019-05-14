@@ -251,7 +251,7 @@ $(function() {
     $("body").on("click", "#send", function() {
         if (confirm("確定儲存修改資料？")) {
             var sn = $("#sn").val();
-            var area = "考區";
+            var area = "第五分區";
             var job = $("#member_job_title").val();
             var job_code = $("#job_code").val();
             var job_title = $("#job_title").val();
@@ -260,7 +260,7 @@ $(function() {
             var trial_end = $("#trial_end").val();
             var phone = $("#phone").val();
             var note = $("textarea[name='note']").val();
-            var cla = "第一分區";
+            var cla = "第五分區";
             var arr = $('input:checkbox:checked[name="day"]').map(function() {
                 return $(this).val();
             }).get();
