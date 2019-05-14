@@ -768,7 +768,7 @@ class Api extends CI_Controller
         $this->load->model('mod_trial');
         $this->load->model('mod_exam_fees');
         $getpost = array('part', 'allocation_code', 'trial_staff_code', 'trial_staff_name', 'first_start', 'first_end', 'first_section', 'second_start', 'second_end', 'second_section', 'third_start', 'third_end', 'third_section', 'note', 'do_date');
-        $requred = array('part', 'allocation_code', 'trial_staff_code', 'trial_staff_name', 'first_start', 'first_end', 'first_section', 'second_start', 'second_end', 'second_section', 'third_start', 'third_end', 'third_section', 'do_date');
+        $requred = array('part', 'trial_staff_code', 'trial_staff_name', 'first_start', 'first_end', 'first_section', 'second_start', 'second_end', 'second_section', 'third_start', 'third_end', 'third_section', 'do_date');
         $data = $this->getpost->getpost_array($getpost, $requred);
         if ($data == false) {
             $json_arr['sys_code'] = '000';
@@ -835,7 +835,7 @@ class Api extends CI_Controller
 
         $this->load->model('mod_trial');
         $getpost = array('sn', 'part', 'allocation_code', 'trial_staff_code', 'trial_staff_name', 'first_start', 'first_end', 'first_section', 'second_start', 'second_end', 'second_section', 'third_start', 'third_end', 'third_section', 'note', 'count');
-        $requred = array('sn', 'part', 'allocation_code', 'trial_staff_code', 'trial_staff_name', 'first_start', 'first_end', 'first_section', 'second_start', 'second_end', 'second_section', 'third_start', 'third_end', 'third_section', 'count');
+        $requred = array('sn', 'part', 'trial_staff_code', 'trial_staff_name', 'first_start', 'first_end', 'first_section', 'second_start', 'second_end', 'second_section', 'third_start', 'third_end', 'third_section', 'count');
         $data = $this->getpost->getpost_array($getpost, $requred);
         if ($data == false) {
             $json_arr['sys_code'] = '000';
