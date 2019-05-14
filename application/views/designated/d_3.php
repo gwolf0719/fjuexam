@@ -141,6 +141,9 @@ $(function() {
         case "#3":
             part = '2503'
             break;
+        default:
+            part = '2501'
+            break;
     }
     $('#part').val(part);
     $.ajax({
