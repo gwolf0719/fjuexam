@@ -1024,17 +1024,17 @@ $(function() {
                         <div class="form-group">
                             <label for="start_date" class="" style="float:left;">執行日</label>
                             <input type="checkbox" class="chbox" id="" name="first_member_day"
-                                value="<?= mb_substr($datetime_info['day_1'], 5, 8, 'utf-8'); ?>">
+                                value="<?= mb_substr($datetime_info['day_1'], 5, 8, 'utf-8'); ?>" disabled>
                             <span class="chbox">
                                 <?= mb_substr($datetime_info['day_1'], 5, 8, 'utf-8'); ?>
                             </span>
                             <input type="checkbox" class="chbox" id="" name="first_member_day"
-                                value="<?= mb_substr($datetime_info['day_2'], 5, 8, 'utf-8'); ?>">
+                                value="<?= mb_substr($datetime_info['day_2'], 5, 8, 'utf-8'); ?>" disabled>
                             <span class="chbox">
                                 <?= mb_substr($datetime_info['day_2'], 5, 8, 'utf-8'); ?>
                             </span>
                             <input type="checkbox" class="chbox" id="" name="first_member_day"
-                                value="<?= mb_substr($datetime_info['day_3'], 5, 8, 'utf-8'); ?>">
+                                value="<?= mb_substr($datetime_info['day_3'], 5, 8, 'utf-8'); ?>" disabled>
                             <span class="chbox">
                                 <?= mb_substr($datetime_info['day_3'], 5, 8, 'utf-8'); ?>
                             </span>
@@ -1063,8 +1063,8 @@ $(function() {
                                 <label for="trial_start" class="" style="float:left;width: 50%;">薪資單價</label>
                                 <input type="hidden" class="form-control" id="first_member_one_day_salary"
                                     value="<?= $fees_info['one_day_salary']; ?>">
-                                <input type="text" class="form-control" id="first_member_salary_section"
-                                    value="<?= $fees_info['salary_section']; ?>" disabled>
+                                <input type="text" class="form-control" id="first_member_salary_section" value=0
+                                    disabled>
                             </div>
                             <div class="W50">
                                 <label for="trial_start" class="" style="float:left;width: 50%;">薪資總計</label>
@@ -1077,8 +1077,7 @@ $(function() {
                         <div class="form-group" style="padding: 0% 3%;">
                             <div class="W50">
                                 <label for="trial_start" class="" style="float:left;width: 50%;">便當費 </label>
-                                <input type="text" class="form-control" id="first_member_lunch_price"
-                                    value="<?= $fees_info['lunch_fee']; ?>" disabled>
+                                <input type="text" class="form-control" id="first_member_lunch_price" value=0 disabled>
                             </div>
                             <div class="W50">
                                 <label for="trial_start" class="" style="float:left;width: 50%;">便當總計</label>
@@ -1136,19 +1135,19 @@ $(function() {
                         <div class="form-group">
                             <label for="start_date" class="" style="float:left;">執行日</label>
                             <input type="checkbox" class="chbox" id="" name="second_member_day"
-                                value="<?= mb_substr($datetime_info['day_1'], 5, 8, 'utf-8'); ?>">
+                                value="<?= mb_substr($datetime_info['day_1'], 5, 8, 'utf-8'); ?>" disabled>
                             <span class="chbox">
                                 <?= mb_substr($datetime_info['day_1'], 5, 8, 'utf-8'); ?>
                             </span>
                             <input type="checkbox" class="chbox" id="" name="second_member_day"
-                                value="<?= mb_substr($datetime_info['day_2'], 5, 8, 'utf-8'); ?>">
-                            <span class="chbox">
-                                <?= mb_substr($datetime_info['day_2'], 5, 8, 'utf-8'); ?>
+                                value="<?= mb_substr($datetime_info['day_2'], 5, 8, 'utf-8'); ?>" disabled>
+                            <span class="chbox"></span>
+                            <?= mb_substr($datetime_info['day_2'], 5, 8, 'utf-8'); ?>
                             </span>
                             <input type="checkbox" class="chbox" id="" name="second_member_day"
-                                value="<?= mb_substr($datetime_info['day_3'], 5, 8, 'utf-8'); ?>">
-                            <span class="chbox">
-                                <?= mb_substr($datetime_info['day_3'], 5, 8, 'utf-8'); ?>
+                                value="<?= mb_substr($datetime_info['day_3'], 5, 8, 'utf-8'); ?>" disabled>
+                            <span class="chbox"></span>
+                            <?= mb_substr($datetime_info['day_3'], 5, 8, 'utf-8'); ?>
                             </span>
                         </div>
                         <div class="form-group">

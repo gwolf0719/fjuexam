@@ -278,7 +278,7 @@ class Api extends CI_Controller
                 $json_arr['sys_code'] = '000';
                 $json_arr['sys_msg'] = '人員已重複指派';
             } else {
-                $json_arr['info'] = $this->mod_voice_job_list->get_once_info($data['job_code']);
+                $json_arr['info'] = $this->mod_ability_task->get_once_info($data['job_code']);
                 $json_arr['sys_code'] = '200';
                 $json_arr['sys_msg'] = '資料處理完成';
 
