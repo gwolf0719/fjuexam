@@ -1155,7 +1155,7 @@ $(function() {
                     </div>
                     <div class="form-group">
                         <label for="trial_end" class="" style="float:left;font-size: 12px">計算方式</label>
-                        <select class="form-control" id="calculation" style='width: 100%;'>
+                        <select class="form-control" id="calculation" style='width: 100%;' disabled>
                             <option value="by_section">以節計算</option>
                             <option value="by_day">以天計算</option>
                         </select>
@@ -1181,7 +1181,7 @@ $(function() {
                             <input type="text" class="form-control" id="one_day_salary" style="display:none;width: 50%;"
                                 value="<?= $fees_info['one_day_salary']; ?>">
                             <input type="text" class="form-control" id="salary_section"
-                                value="<?= $fees_info['salary_section']; ?>">
+                                value="<?= $fees_info['salary_section']; ?>" disabled>
                         </div>
                         <div class="W50">
                             <label for="trial_start" class="" style="float:left;width: 50%;font-size: 10px">薪資總計</label>
