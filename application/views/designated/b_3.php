@@ -411,6 +411,7 @@ $(function() {
         }, "json")
     })
 
+
     $('input:checkbox[name="day"]').click(function() {
         var arr_lenght = $('input:checkbox:checked[name="day"]').map(function() {
             return $(this).val();
@@ -419,9 +420,9 @@ $(function() {
         var day_total = $("#one_day_salary").val() * arr_lenght;
         $("#salary_total").val(day_total);
         if ($("#order_meal").prop("checked") == true) {
-            var lunch_total = 0 - parseInt($("#lunch_price").val()) * parseInt(arr_lenght);
+            var lunch_total = parseInt($("#lunch_price").val()) * parseInt(arr_lenght);
             $("#lunch_total").val(lunch_total);
-            var total = parseInt($("#salary_total").val()) + parseInt($("#lunch_total").val());
+            var total = parseInt($("#salary_total").val()) - parseInt($("#lunch_total").val());
             $("#total").val(total);
         } else {
             $("#total").val($("#salary_total").val());
