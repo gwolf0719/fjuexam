@@ -136,10 +136,11 @@ class Mod_staff extends CI_Model
 
         // 更新巡場人員資料
         $res5 = $this->db->where('year', $this->session->userdata('year'))->where('patrol_staff_code', $data['member_code'])->get('patrol_staff')->row_array();
-
+        $c = explode(",", $res5['do_date']);
+        $c = count($c);
         switch ($data['order_meal']) {
             case 'Y':
-                $lunch_total = $res5['count'] * $res5['lunch_price'];
+                $lunch_total = $c * $res5['lunch_price'];
                 break;
             default:
                 $lunch_total = 0;
