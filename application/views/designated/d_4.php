@@ -279,6 +279,8 @@ $(function() {
             dataType: "json"
         }).done(function(data) {
             console.log(data.info);
+            $("#first_member_meal").val(data.info.first_member_meal);
+            $("#second_member_meal").val(data.info.second_member_meal);
             $(".field").val(field);
             $("#sn").val(data.info.sn);
             //職員一
@@ -952,8 +954,7 @@ $(function() {
                         </div>
                         <div class="form-group">
                             <label for="order_meal">訂餐需求</label>
-                            <input type="checkbox" class="" name="need" id="second_member_order_meal"
-                                onclick="return false;" />
+                            <input type="checkbox" class="" name="need" id="second_member_order_meal" disabled>
                             <span>需訂餐</span>
                         </div>
                         <div class="form-group second_member_meal">

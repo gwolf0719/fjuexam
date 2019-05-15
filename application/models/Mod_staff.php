@@ -54,15 +54,20 @@ class Mod_staff extends CI_Model
         // 1
         $res2 = $this->db->where('year', $this->session->userdata('year'))->where('supervisor_1_code', $data['member_code'])->get('trial_assign')->row_array();
 
+        $a = explode(",", $res2['first_member_do_date']);
+        $a = count($a);
+
+
         switch ($data['order_meal']) {
             case 'Y':
-                $lunch_total = $res2['first_member_day_count'] * $res2['first_member_lunch_price'];
+                $lunch_total = $a * $res2['first_member_lunch_price'];
                 break;
             default:
                 $lunch_total = 0;
                 break;
         }
         $assign = array(
+            'first_member_meal' => $data['meal'],
             'first_member_order_meal' => $data['order_meal'],
             'first_member_meal' => $data['meal'],
             'first_member_section_lunch_total' => $lunch_total,
@@ -75,15 +80,19 @@ class Mod_staff extends CI_Model
         // 2
         $res3 = $this->db->where('year', $this->session->userdata('year'))->where('supervisor_2_code', $data['member_code'])->get('trial_assign')->row_array();
 
+        $b = explode(",", $res3['second_member_do_date']);
+        $b = count($b);
+
         switch ($data['order_meal']) {
             case 'Y':
-                $lunch_total = $res3['second_member_day_count'] * $res3['second_member_lunch_price'];
+                $lunch_total = $b * $res3['second_member_lunch_price'];
                 break;
             default:
                 $lunch_total = 0;
                 break;
         }
         $assign = array(
+            'second_member_meal' => $data['meal'],
             'second_member_order_meal' => $data['order_meal'],
             'second_member_meal' => $data['meal'],
             'second_member_section_lunch_total' => $lunch_total,
@@ -114,6 +123,7 @@ class Mod_staff extends CI_Model
                 break;
         }
         $trail = array(
+            'meal' => $data['meal'],
             'order_meal' => $data['order_meal'],
             'meal' => $data['meal'],
             'lunch_total' => $lunch_total,
@@ -159,6 +169,7 @@ class Mod_staff extends CI_Model
                 break;
         }
         $b = array(
+            'meal' => $data['meal'],
             'order_meal' => $data['order_meal'],
             'meal' => $data['meal'],
             'lunch_total' => $lunch_total,
