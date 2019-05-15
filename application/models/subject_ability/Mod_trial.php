@@ -9,6 +9,7 @@ class Mod_trial extends CI_Model
      */
     function chk_trial_assigned($trial_staff_code)
     {
+        $this->db->where('year', $_SESSION['year']);
         $this->db->where('supervisor_1_code', $trial_staff_code);
         $this->db->or_where('supervisor_2_code', $trial_staff_code);
         if ($this->db->count_all_results('trial_assign') == 0) {
@@ -23,6 +24,7 @@ class Mod_trial extends CI_Model
      */
     function chk_trial_staff_field($data)
     {
+        $this->db->where('year', $_SESSION['year']);
         $this->db->where('part', $data['part']);
         $this->db->where('first_start', $data['first_start']);
         $this->db->where('first_end', $data['first_end']);
