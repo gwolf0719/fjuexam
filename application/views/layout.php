@@ -39,7 +39,7 @@
             history.go(-1);
         })
         $("body").on("click", "#home", function() {
-            history.go(-2);
+            location.href = "./subject_ability";
         })
         $("body").on("click", "#index", function() {
             location.href = "./";
