@@ -1,53 +1,53 @@
 <style>
-    img {
+img {
+    max-width: 100%;
+}
+
+@media (min-width: 1200px) {
+    .container {
         max-width: 100%;
+        width: 100%;
     }
+}
 
-    @media (min-width: 1200px) {
-        .container {
-            max-width: 100%;
-            width: 100%;
-        }
-    }
+.cube {
+    margin: 20px auto;
+}
 
-    .cube {
-        margin: 20px auto;
-    }
+.cube img {
+    max-width: 65%;
+}
 
-    .cube img {
-        max-width: 65%;
-    }
+.W20 {
+    width: 20%;
+    float: left;
+}
 
-    .W20 {
-        width: 20%;
-        float: left;
-    }
-
-    .W80 {
-        width: 80%;
-        float: left;
-    }
+.W80 {
+    width: 80%;
+    float: left;
+}
 
 
-    .btn_part {
-        background: #dc969d;
-        text-align: center;
-        padding: 8px;
-        border-radius: 5px;
-        margin: 10px auto;
-        cursor: pointer;
-        width: 150px;
-    }
+.btn_part {
+    background: #dc969d;
+    text-align: center;
+    padding: 8px;
+    border-radius: 5px;
+    margin: 10px auto;
+    cursor: pointer;
+    width: 150px;
+}
 
-    a {
-        text-decoration: none;
-        color: #000;
-    }
+a {
+    text-decoration: none;
+    color: #000;
+}
 
-    a:hover {
-        text-decoration: none;
-        color: #000;
-    }    
+a:hover {
+    text-decoration: none;
+    color: #000;
+}
 </style>
 
 <div class="input-group W20">
@@ -55,8 +55,8 @@
     <div class="input-group-prepend">
         <span class="input-group-text" id="inputGroup-sizing-default">學年度</span>
     </div>
-    <input type="text" class="form-control" aria-label="Default" aria-describedby="inputGroup-sizing-default" value="<?=$this->session->userdata('year'); ?>"
-        readonly>
+    <input type="text" class="form-control" aria-label="Default" aria-describedby="inputGroup-sizing-default"
+        value="<?= $this->session->userdata('year'); ?>" readonly>
 </div>
 
 <div class="W80" style="text-align: left;padding-left: 6%;">
@@ -68,23 +68,24 @@
 
 <div class="row">
     <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6 cube text-center">
-        <img src="assets/images/download.png" alt="" style="cursor: pointer;" data-toggle="modal" data-target="#download">
+        <img src="assets/images/download.png" alt="" style="cursor: pointer;" data-toggle="modal"
+            data-target="#download">
     </div>
 
     <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6 cube text-center">
-        <a href="assets/zip/試務人員識別證.docx" target="_blank" download> 
+        <a href="assets/zip/試務人員識別證.docx?132435" target="_blank" download>
             <img src="assets/images/E5101.png" alt="">
-        </a>              
+        </a>
     </div>
 
     <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6 cube text-center">
-    </div>    
+    </div>
 
     <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6 cube text-center">
-        <a href="assets/zip/監試人員識別證.docx" target="_blank" download> 
+        <a href="assets/zip/監試人員識別證.docx?132435" target="_blank" download>
             <img src="assets/images/E5102.png" alt="">
-        </a>              
-    </div>    
+        </a>
+    </div>
 </div>
 
 <!-- Modal start-->
@@ -108,10 +109,10 @@
                         </a>
                         <a href="./designated/e_5_1_3" target="_blank">
                             <div class="btn_part">管卷人員</div>
-                        </a>        
+                        </a>
                         <a href="./designated/e_5_1_4" target="_blank">
                             <div class="btn_part">巡場人員</div>
-                        </a>                                                
+                        </a>
                     </div>
                 </div>
             </div>
@@ -137,7 +138,7 @@
                         </a>
                         <a href="assets/zip/試務人員名牌.docx" target="_blank" download>
                             <div class="btn_part">試務人員</div>
-                        </a>                                         
+                        </a>
                     </div>
                 </div>
             </div>
