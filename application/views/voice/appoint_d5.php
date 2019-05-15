@@ -674,15 +674,15 @@ $(function() {
                 </div>
                 <div class=" " style="float:left;margin: 20px auto;">
                     <div class="">
-                        <div class="">
+                        <!-- <div class="">
                             <label for="note" class=""
                                 style="float:left;text-align:left;width: 15%;text-align:center;">備註</label>
                             <textarea name="note" id="note" class="" style="width:300px"></textarea>
-                        </div>
+                        </div> -->
 
 
                         <div class=" " style="float:left;margin: 20px auto;">
-                            <button type="button" class="btn btn-primary" id="send">修改</button>
+                            <!-- <button type="button" class="btn btn-primary" id="send">修改</button> -->
                         </div>
 
                     </div>
