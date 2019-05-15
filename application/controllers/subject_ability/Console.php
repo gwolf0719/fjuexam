@@ -3726,57 +3726,58 @@ class Console extends CI_Controller
 
         if ($this->mod_exam_datetime->chk_once($year)) {
             $datetime_info = $this->mod_exam_datetime->get_once($year);
-
         } else {
-            $datetime_info = array(
-                'day_1' => '1911' + $this->session->userdata('year') . '年7月1日',
-                'day_2' => '1911' + $this->session->userdata('year') . '年7月2日',
-                'day_3' => '1911' + $this->session->userdata('year') . '年7月3日',
-                'course_1_start_1' => '08:40',
-                'course_1_end_1' => '10:00',
-                'course_2_start_1' => '10:50',
-                'course_2_end_1' => '12:00',
-                'course_3_start_1' => '14:00',
-                'course_3_end_1' => '15:20',
-                'course_4_start_1' => '16:01',
-                'course_4_end_1' => '17:30',
-                'pre_1_1' => '08:25',
-                'pre_2_1' => '10:45',
-                'pre_3_1' => '13:55',
-                'pre_4_1' => '16:05',
-
-                'course_1_start_2' => '08:40',
-                'course_1_end_2' => '10:00',
-                'course_2_start_2' => '10:50',
-                'course_2_end_2' => '12:00',
-                'course_3_start_2' => '14:00',
-                'course_3_end_2' => '15:20',
-                'course_4_start_2' => '16:01',
-                'course_4_end_2' => '17:30',
-                'pre_1_2' => '08:25',
-                'pre_2_2' => '10:45',
-                'pre_3_2' => '13:55',
-                'pre_4_2' => '16:05',
-
-                'course_1_start_3' => '08:40',
-                'course_1_end_3' => '10:00',
-                'course_2_start_3' => '10:50',
-                'course_2_end_3' => '12:00',
-                'course_3_start_3' => '14:00',
-                'course_3_end_3' => '15:20',
-                'course_4_start_3' => '16:01',
-                'course_4_end_3' => '17:30',
-                'pre_1_3' => '08:25',
-                'pre_2_3' => '10:45',
-                'pre_3_3' => '13:55',
-                'pre_4_3' => '16:05',
-            );
+            $datetime_info = 0;
         }
+        $placeholder = array(
+            'day_1' => '1911' + $this->session->userdata('year') . '年7月1日',
+            'day_2' => '1911' + $this->session->userdata('year') . '年7月2日',
+            'day_3' => '1911' + $this->session->userdata('year') . '年7月3日',
+            'course_1_start_1' => '08:40',
+            'course_1_end_1' => '10:00',
+            'course_2_start_1' => '10:50',
+            'course_2_end_1' => '12:00',
+            'course_3_start_1' => '14:00',
+            'course_3_end_1' => '15:20',
+            'course_4_start_1' => '16:01',
+            'course_4_end_1' => '17:30',
+            'pre_1_1' => '08:25',
+            'pre_2_1' => '10:45',
+            'pre_3_1' => '13:55',
+            'pre_4_1' => '16:05',
+
+            'course_1_start_2' => '08:40',
+            'course_1_end_2' => '10:00',
+            'course_2_start_2' => '10:50',
+            'course_2_end_2' => '12:00',
+            'course_3_start_2' => '14:00',
+            'course_3_end_2' => '15:20',
+            'course_4_start_2' => '16:01',
+            'course_4_end_2' => '17:30',
+            'pre_1_2' => '08:25',
+            'pre_2_2' => '10:45',
+            'pre_3_2' => '13:55',
+            'pre_4_2' => '16:05',
+
+            'course_1_start_3' => '08:40',
+            'course_1_end_3' => '10:00',
+            'course_2_start_3' => '10:50',
+            'course_2_end_3' => '12:00',
+            'course_3_start_3' => '14:00',
+            'course_3_end_3' => '15:20',
+            'course_4_start_3' => '16:01',
+            'course_4_end_3' => '17:30',
+            'pre_1_3' => '08:25',
+            'pre_2_3' => '10:45',
+            'pre_3_3' => '13:55',
+            'pre_4_3' => '16:05',
+        );
         $data = array(
             'title' => '考試日期與時間',
             'path' => 'subject_ability/f_1',
             'path_text' => ' > 學測主選單 > 考程設定 > 考試日期與時間',
             'datetime_info' => $datetime_info,
+            'placeholder' => $placeholder,
         );
         $this->load->view('subject_ability_layout', $data);
     }

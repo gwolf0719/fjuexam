@@ -74,32 +74,32 @@ $(function() {
             <div class="row table-form" class="">
                 <div class="col-4 text-right">第 <?= $i ?> 天</div>
                 <input type="text" class="col-7" id="day_<?= $i ?>" name="day_<?= $i ?>"
-                    value="<?= $datetime_info['day_' . $i]; ?>">
+                    placeholder="<?= $placeholder['day_' . $i]; ?>" value="<?= $datetime_info['day_' . $i]; ?>">
 
             </div>
             <div class="row table-form" class="">
                 <div class="col-4 text-right">上午預備鈴1</div>
                 <input type="text" class="col-7" id="pre_1_<?= $i ?>" name="pre_1"
-                    value="<?= $datetime_info['pre_1_' . $i]; ?>">
+                    placeholder="<?= $placeholder['pre_1_' . $i]; ?>" value="<?= $datetime_info['pre_1_' . $i]; ?>">
 
             </div>
             <div class="row table-form" class="">
                 <div class="col-4 text-right">上午預備鈴2</div>
                 <input type="text" class="col-7" id="pre_2_<?= $i ?>" name="pre_2"
-                    value="<?= $datetime_info['pre_2_' . $i]; ?>">
+                    placeholder="<?= $placeholder['pre_2_' . $i]; ?>" value="<?= $datetime_info['pre_2_' . $i]; ?>">
 
             </div>
             <hr>
             <div class="row table-form" class="">
                 <div class="col-4 text-right">下午預備鈴1</div>
                 <input type="text" class="col-7" id="pre_3_<?= $i ?>" name="pre_3"
-                    value="<?= $datetime_info['pre_3_' . $i]; ?>">
+                    placeholder="<?= $placeholder['pre_3_' . $i]; ?>" value="<?= $datetime_info['pre_3_' . $i]; ?>">
 
             </div>
             <div class="row table-form" class="">
                 <div class="col-4 text-right">下午預備鈴2</div>
                 <input type="text" class="col-7" id="pre_4_<?= $i ?>" name="pre_4"
-                    value="<?= $datetime_info['pre_4_' . $i]; ?>">
+                    placeholder="<?= $placeholder['pre_4_' . $i]; ?>" value="<?= $datetime_info['pre_4_' . $i]; ?>">
             </div>
 
             <hr>
@@ -109,8 +109,10 @@ $(function() {
                 <div class="col-8">
                     <div class="row form-inline">
                         <input type="text" class="form-control col-6" id="course_1_start_<?= $i ?>"
-                            name="course_1_start" value="<?= $datetime_info['course_1_start_' . $i]; ?>">
+                            name="course_1_start" placeholder="<?= $placeholder['course_1_start_' . $i]; ?>"
+                            value="<?= $datetime_info['course_1_start_' . $i]; ?>">
                         <input type="text" class="form-control col-6" id="course_1_end_<?= $i ?>" name="course_1_end"
+                            placeholder="<?= $placeholder['course_1_end_' . $i]; ?>"
                             value="<?= $datetime_info['course_1_end_' . $i]; ?>">
                     </div>
                 </div>
@@ -122,8 +124,10 @@ $(function() {
                 <div class="col-8">
                     <div class="row form-inline">
                         <input type="text" class="form-control col-6" id="course_2_start_<?= $i ?>"
-                            name="course_2_start" value="<?= $datetime_info['course_2_start_' . $i]; ?>">
+                            name="course_2_start" placeholder="<?= $placeholder['course_2_start_' . $i]; ?>"
+                            value="<?= $datetime_info['course_2_start_' . $i]; ?>">
                         <input type="text" class="form-control col-6" id="course_2_end_<?= $i ?>" name="course_2_end"
+                            placeholder="<?= $placeholder['course_2_end_' . $i]; ?>"
                             value="<?= $datetime_info['course_2_end_' . $i]; ?>">
                     </div>
                 </div>
@@ -134,8 +138,10 @@ $(function() {
                 <div class="col-8">
                     <div class="row form-inline">
                         <input type="text" class="form-control col-6" id="course_3_start_<?= $i ?>"
-                            name="course_3_start" value="<?= $datetime_info['course_3_start_' . $i]; ?>">
+                            name="course_3_start" placeholder="<?= $placeholder['course_3_start_' . $i]; ?>"
+                            value="<?= $datetime_info['course_3_start_' . $i]; ?>">
                         <input type="text" class="form-control col-6" id="course_3_end_<?= $i ?>" name="course_3_end"
+                            placeholder="<?= $placeholder['course_3_end_' . $i]; ?>"
                             value="<?= $datetime_info['course_3_end_' . $i]; ?>">
                     </div>
                 </div>
@@ -145,8 +151,10 @@ $(function() {
                 <div class="col-8">
                     <div class="row form-inline">
                         <input type="text" class="form-control col-6" id="course_4_start_<?= $i ?>"
-                            name="course_4_start" value="<?= $datetime_info['course_4_start_' . $i]; ?>">
+                            name="course_4_start" placeholder="<?= $placeholder['course_4_start_' . $i]; ?>"
+                            value="<?= $datetime_info['course_4_start_' . $i]; ?>">
                         <input type="text" class="form-control col-6" id="course_4_end_<?= $i ?>" name="course_4_end"
+                            placeholder="<?= $placeholder['course_4_end_' . $i]; ?>"
                             value="<?= $datetime_info['course_4_end_' . $i]; ?>">
                     </div>
                 </div>
