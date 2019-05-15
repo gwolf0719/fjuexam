@@ -840,10 +840,10 @@ class Mod_task extends CI_Model
         }
         for ($i = 0; $i < count($sub); $i++) {
             # code...
-            $supervisor_1 = $this->db->where('member_code', $sub[$i]['supervisor_1_code'])->get('staff_member')->row_array();
+            $supervisor_1 = $this->db->where('year', $this->session->userdata('year'))->where('member_code', $sub[$i]['supervisor_1_code'])->get('staff_member')->row_array();
             if ($sub[$i]['trial_staff_code_1'] != "") {
                 $arr[] = array(
-                    'job_code' => $sub[$i]['trial_staff_code_1'],
+                    'job_code' => $sub[$i]['supervisor_1_code'],
                     'job' => '監試人員',
                     'name' => $sub[$i]['supervisor_1'],
                     'job_title' => $supervisor_1['member_title'],
@@ -855,10 +855,10 @@ class Mod_task extends CI_Model
 
         for ($i = 0; $i < count($sub); $i++) {
             # code...
-            $supervisor_2 = $this->db->where('member_code', $sub[$i]['supervisor_2_code'])->get('staff_member')->row_array();
+            $supervisor_2 = $this->db->where('year', $this->session->userdata('year'))->where('member_code', $sub[$i]['supervisor_2_code'])->get('staff_member')->row_array();
             if ($sub[$i]['trial_staff_code_2'] != "") {
                 $arr[] = array(
-                    'job_code' => $sub[$i]['trial_staff_code_2'],
+                    'job_code' => $sub[$i]['supervisor_2_code'],
                     'job' => '監試人員',
                     'name' => $sub[$i]['supervisor_2'],
                     'job_title' => $supervisor_2['member_title'],
@@ -870,7 +870,7 @@ class Mod_task extends CI_Model
 
         for ($i = 0; $i < count($trial_staff); $i++) {
             # code...
-            $trial_staff_member = $this->db->where('member_code', $trial_staff[$i]['trial_staff_code'])->get('staff_member')->row_array();
+            $trial_staff_member = $this->db->where('year', $this->session->userdata('year'))->where('member_code', $trial_staff[$i]['trial_staff_code'])->get('staff_member')->row_array();
             if ($trial_staff[$i]['trial_staff_code'] != "") {
                 $arr[] = array(
                     'job_code' => $trial_staff[$i]['trial_staff_code'],
@@ -885,7 +885,7 @@ class Mod_task extends CI_Model
 
         for ($i = 0; $i < count($patrol); $i++) {
             # code...
-            $patrol_member = $this->db->where('member_code', $patrol[$i]['patrol_staff_code'])->get('staff_member')->row_array();
+            $patrol_member = $this->db->where('year', $this->session->userdata('year'))->where('member_code', $patrol[$i]['patrol_staff_code'])->get('staff_member')->row_array();
             if ($patrol[$i]['patrol_staff_code'] != "") {
                 $arr[] = array(
                     'job_code' => $patrol[$i]['patrol_staff_code'],
