@@ -23,6 +23,26 @@ class Mod_part_addr extends CI_Model
         return $this->db->get('part_addr')->row_array();
     }
 
+    public function get_aonce($year, $part)
+    {
+        $this->db->where('year', $year);
+        $res = $this->db->get('part_addr')->row_array();
+        switch ($part) {
+            case '2501':
+                return $res['part_addr_1'];
+                break;
+            case '2502':
+                return $res['part_addr_2'];
+                break;
+            case '2503':
+                return $res['part_addr_3'];
+                break;
+            default:
+                return $res['part_addr_1'];
+                break;
+        }
+    }
+
     public function update_once($year, $data)
     {
         $this->db->where('year', $year);

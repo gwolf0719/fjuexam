@@ -1071,7 +1071,7 @@ class Designated extends CI_Controller
 
         $year = $_SESSION['year'];
         if ($this->mod_part_addr->chk_once($year)) {
-            $addr_info = $this->mod_part_addr->get_once($year);
+            $addr_info = $this->mod_part_addr->get_aonce($year, $part);
         } else {
             $addr_info = array(
                 'part_addr_1' => '',
@@ -1113,7 +1113,7 @@ class Designated extends CI_Controller
 
         $year = $_SESSION['year'];
         if ($this->mod_part_addr->chk_once($year)) {
-            $addr_info = $this->mod_part_addr->get_once($year);
+            $addr_info = $this->mod_part_addr->get_aonce($year, $part);
         } else {
             $addr_info = array(
                 'part_addr_1' => '',
@@ -1155,7 +1155,7 @@ class Designated extends CI_Controller
 
         $year = $_SESSION['year'];
         if ($this->mod_part_addr->chk_once($year)) {
-            $addr_info = $this->mod_part_addr->get_once($year);
+            $addr_info = $this->mod_part_addr->get_aonce($year, $part);
         } else {
             $addr_info = array(
                 'part_addr_1' => '',
