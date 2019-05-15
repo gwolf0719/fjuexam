@@ -1044,8 +1044,8 @@ class Designated extends CI_Controller
             'school' => $this->mod_exam_area->year_school_name($part),
         );
         if ($data['part'] != false) {
-            echo $view = $this->load->view('designated/e_1_3', $data, true);
-            // $this->pdf->view_to_pdf($view, 'e_1_3');
+            $view = $this->load->view('designated/e_1_3', $data, true);
+            $this->pdf->view_to_pdf($view, 'e_1_3');
         } else {
             return false;
         }
