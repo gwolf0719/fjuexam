@@ -50,8 +50,9 @@ tfoot {
         </tr>
         <tr>
             <td colspan="1" style="font-size:22px;text-align:left"><?= $_GET['area'] ?>試務辦公室</td>
-            <td colspan="1" style="font-size:22px;text-align:left"></td>
-            <td colspan="1" style="font-size:22px;text-align:left"><?= $addr_info ?></td>
+            <td colspan="1" style="font-size:22px;text-align:center">
+                </th>
+            <td colspan="1" style="font-size:22px;text-align:right"><?= $addr_info ?></td>
         </tr>
         <tr>
             <td class="bb">職別</td>

@@ -43,15 +43,16 @@ tfoot {
 <table class="" id="" style="padding:4px;text-align:center;">
     <thead>
         <tr>
-            <td colspan="3" style="font-size:26px;padding:20px 0px"><?= $_SESSION['year'] ?>學年度指定科目考試新北一考區</td>
+            <td colspan="3" style="font-size:26px;"><?= $_SESSION['year'] ?>學年度指定科目考試新北一考區</td>
         </tr>
         <tr>
-            <td colspan="3" style="font-size:22px;padding:20px 0px"><?= $_GET['area'] ?><?= $school ?>試務人員一覽表</td>
+            <td colspan="3" style="font-size:22px;"><?= $_GET['area'] ?><?= $school ?>試務人員一覽表</td>
         </tr>
         <tr>
             <td colspan="1" style="font-size:22px;text-align:left"><?= $_GET['area'] ?>試務辦公室</td>
-            <td colspan="1" style="font-size:22px;text-align:left"></td>
-            <td colspan="1" style="font-size:22px;text-align:left"><?= $addr_info ?></td>
+            <td colspan="1" style="font-size:22px;text-align:center">
+                </th>
+            <td colspan="1" style="font-size:22px;text-align:right"><?= $addr_info ?></td>
         </tr>
         <tr>
             <td class="bb">職別</td>
