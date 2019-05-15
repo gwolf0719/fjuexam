@@ -300,8 +300,8 @@ class Mod_trial extends CI_Model
 
             for ($i = 0; $i < count($sub); $i++) {
                 # code...
-                $supervisor1 = $this->db->where('member_code', $sub[$i]['supervisor_1_code'])->get('staff_member')->row_array();
-                $supervisor2 = $this->db->where('member_code', $sub[$i]['supervisor_2_code'])->get('staff_member')->row_array();
+                $supervisor1 = $this->db->where('year', $_SESSION['year'])->where('member_code', $sub[$i]['supervisor_1_code'])->get('staff_member')->row_array();
+                $supervisor2 = $this->db->where('year', $_SESSION['year'])->where('member_code', $sub[$i]['supervisor_2_code'])->get('staff_member')->row_array();
                 $patrol = $this->db->where('start <=', $sub[$i]['start'])->where('end >=', $sub[$i]['end'])->get('patrol_staff')->row_array();
                 $course = $this->db->where('year', $year)->where('field', $sub[$i]['field'])->get('exam_area')->row_array();
                 $trial = $this->db->get('trial_staff')->result_array();
