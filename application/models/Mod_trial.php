@@ -525,56 +525,58 @@ class Mod_trial extends CI_Model
         $year = $this->session->userdata('year');
 
         $sub = $this->db->get()->result_array();
-        if (!empty($sub)) {
+        $sub = count($sub);
+        return $sub;
+        // if (!empty($sub)) {
 
-            // print_r($sub);
+        //     // print_r($sub);
 
-            for ($i = 0; $i < count($sub); $i++) {
-                # code...
-                $supervisor1 = $this->db->where('year', $_SESSION['year'])->where('member_code', $sub[$i]['supervisor_1_code'])->get('staff_member')->row_array();
-                $supervisor2 = $this->db->where('year', $_SESSION['year'])->where('member_code', $sub[$i]['supervisor_2_code'])->get('staff_member')->row_array();
-                $patrol = $this->db->where('start <=', $sub[$i]['start'])->where('end >=', $sub[$i]['end'])->get('patrol_staff')->row_array();
-                $course = $this->db->where('year', $year)->where('field', $sub[$i]['field'])->get('exam_area')->row_array();
-                $trial = $this->db->get('trial_staff')->result_array();
-                if ($sub[$i]['first_member_salary_section'] == "") {
-                    $first_member_salary_section = 0;
-                } else {
-                    $first_member_salary_section = $sub[$i]['first_member_salary_section'];
-                }
-                if ($sub[$i]['second_member_salary_section'] == "") {
-                    $second_member_salary_section = 0;
-                } else {
-                    $second_member_salary_section = $sub[$i]['second_member_salary_section'];
-                }
-                $do_date1 = explode(",", $sub[$i]['first_member_do_date']);
-                $do_date2 = explode(",", $sub[$i]['second_member_do_date']);
-                $arr[] = array(
-                    'sn' => $sub[$i]['sn'],
-                    'field' => $sub[$i]['field'],
-                    'test_section' => $sub[$i]['test_section'],
-                    'part' => $sub[$i]['part'],
-                    'do_date' => $sub[$i]['first_member_do_date'],
-                    'first_member_salary_section' => $sub[$i]['first_member_section_salary_total'] * count($do_date1),
-                    'first_member_section_lunch_total' => $sub[$i]['first_member_section_lunch_total'] * count($do_date1),
-                    'first_member_section_salary_total' => $sub[$i]['first_member_section_salary_total'] * count($do_date1),
-                    'order_meal1' => $sub[$i]['first_member_order_meal'],
-                    'supervisor_1' => $sub[$i]['supervisor_1'],
-                    'supervisor_1_unit' => $supervisor1['member_unit'],
-                    'supervisor_1_phone' => $supervisor1['member_phone'],
-                    'second_member_salary_section' => $sub[$i]['second_member_section_salary_total'] * count($do_date2),
-                    'second_member_section_lunch_total' => $sub[$i]['second_member_section_lunch_total'] * count($do_date2),
-                    'second_member_section_salary_total' => $sub[$i]['second_member_section_salary_total'] * count($do_date2),
-                    'supervisor_2' => $sub[$i]['supervisor_2'],
-                    'supervisor_2_unit' => $supervisor2['member_unit'],
-                    'supervisor_2_phone' => $supervisor2['member_phone'],
-                    'order_meal2' => $sub[$i]['second_member_order_meal'],
-                );
-            }
-            // print_r($arr);
-            return $arr;
-        } else {
-            return false;
-        }
+        //     for ($i = 0; $i < count($sub); $i++) {
+        //         # code...
+        //         $supervisor1 = $this->db->where('year', $_SESSION['year'])->where('member_code', $sub[$i]['supervisor_1_code'])->get('staff_member')->row_array();
+        //         $supervisor2 = $this->db->where('year', $_SESSION['year'])->where('member_code', $sub[$i]['supervisor_2_code'])->get('staff_member')->row_array();
+        //         $patrol = $this->db->where('start <=', $sub[$i]['start'])->where('end >=', $sub[$i]['end'])->get('patrol_staff')->row_array();
+        //         $course = $this->db->where('year', $year)->where('field', $sub[$i]['field'])->get('exam_area')->row_array();
+        //         $trial = $this->db->get('trial_staff')->result_array();
+        //         if ($sub[$i]['first_member_salary_section'] == "") {
+        //             $first_member_salary_section = 0;
+        //         } else {
+        //             $first_member_salary_section = $sub[$i]['first_member_salary_section'];
+        //         }
+        //         if ($sub[$i]['second_member_salary_section'] == "") {
+        //             $second_member_salary_section = 0;
+        //         } else {
+        //             $second_member_salary_section = $sub[$i]['second_member_salary_section'];
+        //         }
+        //         $do_date1 = explode(",", $sub[$i]['first_member_do_date']);
+        //         $do_date2 = explode(",", $sub[$i]['second_member_do_date']);
+        //         $arr[] = array(
+        //             'sn' => $sub[$i]['sn'],
+        //             'field' => $sub[$i]['field'],
+        //             'test_section' => $sub[$i]['test_section'],
+        //             'part' => $sub[$i]['part'],
+        //             'do_date' => $sub[$i]['first_member_do_date'],
+        //             'first_member_salary_section' => $sub[$i]['first_member_section_salary_total'] * count($do_date1),
+        //             'first_member_section_lunch_total' => $sub[$i]['first_member_section_lunch_total'] * count($do_date1),
+        //             'first_member_section_salary_total' => $sub[$i]['first_member_section_salary_total'] * count($do_date1),
+        //             'order_meal1' => $sub[$i]['first_member_order_meal'],
+        //             'supervisor_1' => $sub[$i]['supervisor_1'],
+        //             'supervisor_1_unit' => $supervisor1['member_unit'],
+        //             'supervisor_1_phone' => $supervisor1['member_phone'],
+        //             'second_member_salary_section' => $sub[$i]['second_member_section_salary_total'] * count($do_date2),
+        //             'second_member_section_lunch_total' => $sub[$i]['second_member_section_lunch_total'] * count($do_date2),
+        //             'second_member_section_salary_total' => $sub[$i]['second_member_section_salary_total'] * count($do_date2),
+        //             'supervisor_2' => $sub[$i]['supervisor_2'],
+        //             'supervisor_2_unit' => $supervisor2['member_unit'],
+        //             'supervisor_2_phone' => $supervisor2['member_phone'],
+        //             'order_meal2' => $sub[$i]['second_member_order_meal'],
+        //         );
+        //     }
+        //     // print_r($arr);
+        //     return $arr;
+        // } else {
+        //     return false;
+        // }
     }
 
     public function get_all_salary_trial_total($part = '')
