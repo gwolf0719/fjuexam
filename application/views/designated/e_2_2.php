@@ -65,11 +65,36 @@ tfoot {
     </thead>
     <?php 
     $people = 0;
+    $o = 0;
+    $vv = 0;
+    $m = 0;
     ?>
     <?php foreach ($v as $kc => $vc) : ?>
     <?php 
     if ($vc['supervisor_1'] != '') {
         $people = $people + 2;
+    }
+    switch ($vc['meal1']) {
+        case '素':
+            $vv = $vv + 1;
+            break;
+        case '葷':
+            $m = $m + 1;
+            break;
+        default:
+            $o = $o + 1;
+            break;
+    }
+    switch ($vc['meal2']) {
+        case '素':
+            $vv = $vv + 1;
+            break;
+        case '葷':
+            $m = $m + 1;
+            break;
+        default:
+            $o = $o + 1;
+            break;
     }
 
     ?>
@@ -87,7 +112,7 @@ tfoot {
     <?php endforeach; ?>
     <tr>
         <td colspan="9" style="font-size:16px;text-align:left;">
-            共計：<?= $people ?>人、自備:<?= $own ?>人、素食：<?= $veg ?>人、葷食：<?= $meat ?>人</td>
+            共計：<?= $people ?>人、自備:<?= $o ?>人、素食：<?= $vv ?>人、葷食：<?= $m ?>人</td>
     </tr>
 </table>
 <?php endforeach; ?>

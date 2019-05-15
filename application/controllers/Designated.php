@@ -1376,9 +1376,7 @@ class Designated extends CI_Controller
             'part' => $this->mod_trial->get_date_for_trial_list($part),
             'area' => $area,
             'school' => $this->mod_exam_area->year_school_name($part),
-            'own' => $this->mod_trial->get_trial_own_meal_count($part),
-            'veg' => $this->mod_trial->get_trial_veg_meal_count($part),
-            'meat' => $this->mod_trial->get_trial_meat_meal_count($part),
+
         );
 
         if ($data['part'] != false) {

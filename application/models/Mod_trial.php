@@ -1197,6 +1197,7 @@ class Mod_trial extends CI_Model
                     );
                 }
             }
+            // print_r($arr);
             return $arr;
         } else {
             return false;
@@ -2127,7 +2128,7 @@ class Mod_trial extends CI_Model
     public function get_trial_own_meal_count($part = '')
     {
         $this->db->select('*');
-        $this->db->where('year', $_SESSION['year']);
+
         if ($part != '') {
             $this->db->where('part', $part);
         }
@@ -2155,7 +2156,7 @@ class Mod_trial extends CI_Model
     public function get_trial_veg_meal_count($part = '')
     {
         $this->db->select('*');
-        $this->db->where('year', $_SESSION['year']);
+
         if ($part != '') {
             $this->db->where('part', $part);
         }
@@ -2182,14 +2183,16 @@ class Mod_trial extends CI_Model
     public function get_trial_meat_meal_count($part = '')
     {
         $this->db->select('*');
-        $this->db->where('year', $_SESSION['year']);
+
         if ($part != '') {
+            $this->db->where('part', $part);
             $this->db->where('part', $part);
         }
         $this->db->from('part_info');
         $this->db->join('trial_assign', 'part_info.sn = trial_assign.sn');
 
         $res = $this->db->get()->result_array();
+        // print_r($res);
         $meat1 = 0;
         $meat2 = 0;
         for ($i = 0; $i < count($res); $i++) {
