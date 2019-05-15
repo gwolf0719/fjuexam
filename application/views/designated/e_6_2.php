@@ -75,6 +75,8 @@ tfoot {
     <?php foreach ($part as $k => $v) : ?>
     <?php 
 
+
+
     $a1 = $a1 + $v['first_member_salary_section'];
     $a1 = $a1 + $v['second_member_salary_section'];
 
@@ -87,7 +89,6 @@ tfoot {
     if ($v['supervisor_2'] != '') {
         $a3 = $a3 + 1;
     }
-
 
 
 
@@ -106,7 +107,7 @@ tfoot {
             if ($v['order_meal1'] == "N") {
                 echo 0;
             } else {
-                echo 0 - number_format(abs($v['first_member_section_lunch_total']));
+                echo abs($v['first_member_section_lunch_total']);
             }
             ?>
         </td>
@@ -130,11 +131,12 @@ tfoot {
             if ($v['order_meal2'] == "N") {
                 echo 0;
             } else {
-                echo 0 - trim(number_format(abs($v['second_member_section_lunch_total'])));
+                echo $v['second_member_section_lunch_total'];
             }
             ?>
         </td>
         <td class="bb" style="width:8%;font-size:18px;font-weight:bold;">
+            <!-- 監事二時領 -->
             <?php
             if ($v['order_meal2'] == "N") {
                 echo number_format($v['second_member_section_salary_total'] - 0);

@@ -59,16 +59,31 @@
             <td colspan="2"  class="bb">備註</th>
         </tr>
     </thead>
+
+    <?php 
+        // 計算統計值
+        
+        $lunch_total = 0;
+        $salary = 0;
+        
+    ?>
     <?php foreach ($part as $k => $v): ?>
+
+    <?php 
+        
+        $lunch_total = $lunch_total + $v['lunch_total'];
+        $salary = $salary + $v['one_day_salary'];
+        
+    ?>
     <tr>
         <td class="bb"><?=$v['name']?>
         </td>
         <td colspan="2" class="bb"><?=$v['job']?>
         </td>
-        <td class="bb" style="font-size:18px;font-weight:bold;"><?=number_format($v['one_day_salary'])?>
+        <td class="bb" style="font-size:18px;font-weight:bold;"><?=$v['one_day_salary']?>
         </td>
-        <td class="bb" style="font-size:18px;font-weight:bold;"><?=number_format($v['lunch_total'])?></td>
-        <td class="bb" style="font-size:18px;font-weight:bold;"><?=number_format($v['total'])?></td>
+        <td class="bb" style="font-size:18px;font-weight:bold;"><?=$v['lunch_total']?></td>
+        <td class="bb" style="font-size:18px;font-weight:bold;"><?=$v['one_day_salary']-$v['lunch_total']?></td>
         <td colspan="2" class="bb"></td>
         <td colspan="2" class="bb"></td>
     </tr>
@@ -81,6 +96,10 @@
                 $count = 0;
             }
         ?>
-        <td colspan="12" style="text-align:left;font-size:18px;font-weight:bold;">共計:<?=$count?>人 實發監考費：<?=number_format($salary)?> + 餐費： <?=number_format($lunch)?> = 總支出費用<?=number_format($salary+$lunch)?> </td>
+        
+        
+        <td colspan="12" style="text-align:left;font-size:18px;font-weight:bold;">共計:<?= $count ?>人
+            實發監考費：<?= $salary - $lunch_total?> + 餐費： <?= $lunch_total ?> =
+            總支出費用：<?= $salary ?></td>
     </tr>
 </table>

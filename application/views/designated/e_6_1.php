@@ -38,7 +38,7 @@ tfoot {
 </style>
 
 
-<!-- <h3 style="text-align:center;">監試人員印領清冊</h3>
+<!-- <h3 style="text-align:center;">監試人員'subject_ability_layout'</h3>
 <h3>
 </h3> -->
 
@@ -87,13 +87,6 @@ tfoot {
     $a1 = $a1 + $v['first_member_salary_section'];
     $a1 = $a1 + $v['second_member_salary_section'];
 
-
-    // if ($v['order_meal1'] == "Y") {
-    //     $a2 = $a2 + $v['first_member_section_lunch_total'];
-    // }
-    // if ($v['order_meal2'] == "Y") {
-    //     $a2 = $a2 + $v['second_member_section_lunch_total'];
-    // }
     $a2 = $a2 + $v['first_member_section_lunch_total'];
     $a2 = $a2 + $v['second_member_section_lunch_total'];
 
@@ -128,7 +121,7 @@ tfoot {
             if ($v['order_meal1'] == "N") {
                 echo 0;
             } else {
-                echo number_format(abs($v['first_member_section_lunch_total']));
+                echo abs($v['first_member_section_lunch_total']);
             }
             ?>
         </td>
@@ -179,5 +172,6 @@ tfoot {
         <td colspan="11" style="text-align:left;font-size:18px;font-weight:bold">共計:<?= $a3 ?>人
             實發監考費：<?= number_format($a1 - $a2) ?> + 餐費： <?= number_format($a2) ?> =
             總支出費用<?= number_format($a1) ?> </td>
+        
     </tr>
 </table>
