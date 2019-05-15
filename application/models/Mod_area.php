@@ -124,6 +124,7 @@ class Mod_area extends CI_Model
             $count3 = 1;
         }
 
+
         $count = $count1 + $count2 + $count3;
 
         if ($count < 3) {

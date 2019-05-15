@@ -21,6 +21,7 @@ $(function() {
             year: $("#year").val()
         }, function(data) {
             alert(data.sys_msg);
+            location.reload();
 
         })
     })

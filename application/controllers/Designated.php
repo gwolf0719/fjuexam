@@ -15,7 +15,7 @@ class Designated extends CI_Controller
             'a1_check' => $this->mod_area->check_a1(),
             'f_check' => $this->mod_area->check_f(),
         );
-
+        // print_r($data);
         $this->load->view('layout', $data);
     }
 
