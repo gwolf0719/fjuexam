@@ -38,7 +38,7 @@ class Mod_part_addr extends CI_Model
                 return $res['part_addr_3'];
                 break;
             default:
-                return $res['part_addr_1'];
+                return ' ';
                 break;
         }
     }

@@ -2123,6 +2123,7 @@ class Mod_trial extends CI_Model
     public function get_trial_own_meal_count($part = '')
     {
         $this->db->select('*');
+        $this->db->where('year', $_SESSION['year']);
         if ($part != '') {
             $this->db->where('part', $part);
         }
@@ -2150,6 +2151,7 @@ class Mod_trial extends CI_Model
     public function get_trial_veg_meal_count($part = '')
     {
         $this->db->select('*');
+        $this->db->where('year', $_SESSION['year']);
         if ($part != '') {
             $this->db->where('part', $part);
         }
@@ -2176,6 +2178,7 @@ class Mod_trial extends CI_Model
     public function get_trial_meat_meal_count($part = '')
     {
         $this->db->select('*');
+        $this->db->where('year', $_SESSION['year']);
         if ($part != '') {
             $this->db->where('part', $part);
         }

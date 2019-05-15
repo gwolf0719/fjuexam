@@ -146,7 +146,7 @@ class Mod_task extends CI_Model
         if (!empty($res)) {
             for ($i = 0; $i < count($res); $i++) {
                 # code...
-                $member_unit = $this->db->where('member_code', $res[$i]['job_code'])->get('staff_member')->row_array();
+                $member_unit = $this->db->where('year', $_SESSION['year'])->where('member_code', $res[$i]['job_code'])->get('staff_member')->row_array();
                 $arr[] = array(
                     'job_code' => $res[$i]['job_code'],
                     'job' => $res[$i]['job'],
@@ -173,7 +173,7 @@ class Mod_task extends CI_Model
         if (!empty($res)) {
             for ($i = 0; $i < count($res); $i++) {
                 # code...
-                $member = $this->db->where('member_code', $res[$i]['job_code'])->get('staff_member')->row_array();
+                $member = $this->db->where('year', $_SESSION['year'])->where('member_code', $res[$i]['job_code'])->get('staff_member')->row_array();
                 // $trial = $this->db->where('part',$part)->where('year',$_SESSION['year'])->get('trial_staff')->row_array();
                 $do_date = explode(",", $res[$i]['do_date']);
                 for ($d = 0; $d < count($do_date); $d++) {
@@ -241,7 +241,7 @@ class Mod_task extends CI_Model
         if (!empty($res)) {
             for ($i = 0; $i < count($res); $i++) {
                 # code...
-                $member = $this->db->where('member_code', $res[$i]['job_code'])->get('staff_member')->row_array();
+                $member = $this->db->where('year', $_SESSION['year'])->where('member_code', $res[$i]['job_code'])->get('staff_member')->row_array();
                 $arr[] = array(
                     'job_code' => $res[$i]['job_code'],
                     'job' => $res[$i]['job'],
@@ -270,7 +270,7 @@ class Mod_task extends CI_Model
 
         for ($i = 0; $i < count($res); $i++) {
                 # code...
-            $member = $this->db->where('member_code', $res[$i]['job_code'])->get('staff_member')->row_array();
+            $member = $this->db->where('year', $_SESSION['year'])->where('member_code', $res[$i]['job_code'])->get('staff_member')->row_array();
             $arr[] = array(
                 'job_code' => $res[$i]['job_code'],
                 'job' => $res[$i]['job'],
@@ -312,7 +312,7 @@ class Mod_task extends CI_Model
         if (!empty($res)) {
             for ($i = 0; $i < count($res); $i++) {
                 # code...
-                $member = $this->db->where('member_code', $res[$i]['trial_staff_code'])->get('staff_member')->row_array();
+                $member = $this->db->where('year', $_SESSION['year'])->where('member_code', $res[$i]['trial_staff_code'])->get('staff_member')->row_array();
                 $arr[] = array(
                     'job_code' => $res[$i]['trial_staff_code'],
                     'job' => '分區管卷人員',
@@ -341,7 +341,7 @@ class Mod_task extends CI_Model
         if (!empty($res)) {
             for ($i = 0; $i < count($res); $i++) {
                 # code...
-                $member = $this->db->where('member_code', $res[$i]['patrol_staff_code'])->get('staff_member')->row_array();
+                $member = $this->db->where('year', $_SESSION['year'])->where('member_code', $res[$i]['patrol_staff_code'])->get('staff_member')->row_array();
                 $arr[] = array(
                     'job_code' => $res[$i]['patrol_staff_code'],
                     'job' => '分區巡場人員',
@@ -373,13 +373,13 @@ class Mod_task extends CI_Model
             $own_count = 0;
             for ($i = 0; $i < count($res); $i++) {
                 # code...
-                $member = $this->db->where('member_code', $res[$i]['job_code'])->get('staff_member')->row_array();
+                $member = $this->db->where('year', $_SESSION['year'])->where('member_code', $res[$i]['job_code'])->get('staff_member')->row_array();
                 $do_date = explode(",", $res[$i]['do_date']);
                     # code...
                 for ($d = 0; $d < count($do_date); $d++) { 
                     # code...
                     $this->db->where('meal', '自備');
-                    $member = $this->db->where('job_code', $res[$i]['job_code'])->get('district_task')->row_array();
+                    $member = $this->db->where('year', $_SESSION['year'])->where('job_code', $res[$i]['job_code'])->get('district_task')->row_array();
                     $own_count += count($member['meal']);
                 }
             }
@@ -403,7 +403,7 @@ class Mod_task extends CI_Model
             $veg_count = 0;
             for ($i = 0; $i < count($res); $i++) {
                 # code...
-                $member = $this->db->where('member_code', $res[$i]['job_code'])->get('staff_member')->row_array();
+                $member = $this->db->where('year', $_SESSION['year'])->where('member_code', $res[$i]['job_code'])->get('staff_member')->row_array();
                 $this->db->where('member_code', $res[$i]['job_code']);
                 $this->db->where('meal', '素');
                 $veg = $this->db->get('staff_member')->row_array();
@@ -430,9 +430,10 @@ class Mod_task extends CI_Model
             $meat_count = 0;
             for ($i = 0; $i < count($res); $i++) {
                 # code...
-                $member = $this->db->where('member_code', $res[$i]['job_code'])->get('staff_member')->row_array();
+                $member = $this->db->where('year', $_SESSION['year'])->where('member_code', $res[$i]['job_code'])->get('staff_member')->row_array();
                 $this->db->where('member_code', $res[$i]['job_code']);
                 $this->db->where('meal', '葷');
+                $this->db->where('year', $_SESSION['year']);
                 $meat = $this->db->get('staff_member')->row_array();
                 $meat_count += count($meat['meal']);
 

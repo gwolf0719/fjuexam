@@ -226,7 +226,7 @@ class Mod_trial extends CI_Model
         if (!empty($res)) {
             for ($i = 0; $i < count($res); $i++) {
                 # code...
-                $member = $this->db->where('member_code', $res[$i]['trial_staff_code'])->get('staff_member')->row_array();
+                $member = $this->db->where('year', $_SESSION['year'])->where('member_code', $res[$i]['trial_staff_code'])->get('staff_member')->row_array();
                 // $trial = $this->db->where('part',$part)->where('year',$_SESSION['year'])->get('trial_staff')->row_array();
                 $do_date = explode(",", $res[$i]['do_date']);
                 for ($d = 0; $d < count($do_date); $d++) {
@@ -259,7 +259,7 @@ class Mod_trial extends CI_Model
         if (!empty($res)) {
             for ($i = 0; $i < count($res); $i++) {
                 # code...
-                $member = $this->db->where('member_code', $res[$i]['patrol_staff_code'])->get('staff_member')->row_array();
+                $member = $this->db->where('year', $_SESSION['year'])->where('member_code', $res[$i]['patrol_staff_code'])->get('staff_member')->row_array();
                 // $trial = $this->db->where('part',$part)->where('year',$_SESSION['year'])->get('trial_staff')->row_array();
                 $do_date = explode(",", $res[$i]['do_date']);
                 for ($d = 0; $d < count($do_date); $d++) {
@@ -2127,6 +2127,7 @@ class Mod_trial extends CI_Model
     public function get_trial_own_meal_count($part = '')
     {
         $this->db->select('*');
+        $this->db->where('year', $_SESSION['year']);
         if ($part != '') {
             $this->db->where('part', $part);
         }
@@ -2154,6 +2155,7 @@ class Mod_trial extends CI_Model
     public function get_trial_veg_meal_count($part = '')
     {
         $this->db->select('*');
+        $this->db->where('year', $_SESSION['year']);
         if ($part != '') {
             $this->db->where('part', $part);
         }
@@ -2180,6 +2182,7 @@ class Mod_trial extends CI_Model
     public function get_trial_meat_meal_count($part = '')
     {
         $this->db->select('*');
+        $this->db->where('year', $_SESSION['year']);
         if ($part != '') {
             $this->db->where('part', $part);
         }
