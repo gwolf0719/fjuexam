@@ -351,7 +351,7 @@ $(function() {
             } else {
                 $.getJSON("./subject_ability/api/job_add", {
                     job: job,
-                    area: "第一分區"
+                    area: "考區"
                 }, function(data) {
                     alert(data.sys_msg);
                     location.reload();

@@ -338,7 +338,7 @@ $(function() {
             } else {
                 $.getJSON("./api/job_add", {
                     job: job,
-                    area: "考區"
+                    area: "第二分區"
                 }, function(data) {
                     alert(data.sys_msg);
                     location.reload();

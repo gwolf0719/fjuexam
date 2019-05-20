@@ -338,7 +338,7 @@ $(function() {
             } else {
                 $.getJSON("./api/job_add", {
                     job: job,
-                    area: "考區"
+                    area: "第三分區"
                 }, function(data) {
                     alert(data.sys_msg);
                     location.reload();
@@ -411,7 +411,7 @@ $(function() {
         }, "json")
     })
 
- 
+
     $('input:checkbox[name="day"]').click(function() {
         var arr_lenght = $('input:checkbox:checked[name="day"]').map(function() {
             return $(this).val();
