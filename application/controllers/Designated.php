@@ -298,7 +298,7 @@ class Designated extends CI_Controller
             copy($file, $file_name);
             $file = fopen($file_name, 'r');
             $datas = array();
-            fgetcsv($file);
+            // fgetcsv($file);
             $start_1 = $this->mod_exam_area->get_min_start('2501');
             $end_1 = $this->mod_exam_area->get_max_end('2501');
             $start_2 = $this->mod_exam_area->get_min_start('2502');
@@ -343,7 +343,7 @@ class Designated extends CI_Controller
             copy($file, $file_name);
             $file = fopen($file_name, 'r');
             $datas = array();
-            fgetcsv($file);
+            // fgetcsv($file);
             $start_2 = $this->mod_exam_area->get_min_start('2502');
             $end_2 = $this->mod_exam_area->get_max_end('2502');
             while (!feof($file)) {
@@ -383,7 +383,7 @@ class Designated extends CI_Controller
             copy($file, $file_name);
             $file = fopen($file_name, 'r');
             $datas = array();
-            fgetcsv($file);
+            // fgetcsv($file);
             $start_3 = $this->mod_exam_area->get_min_start('2503');
             $end_3 = $this->mod_exam_area->get_max_end('2503');
             while (!feof($file)) {
