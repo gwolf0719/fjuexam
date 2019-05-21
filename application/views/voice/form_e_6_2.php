@@ -77,6 +77,13 @@ tfoot {
     if ($v['supervisor_2'] != "") {
         $member_count = $member_count + 1;
     }
+
+    if ($v['first_member_section_salary_total'] == '') {
+        $v['first_member_section_salary_total'] = 0;
+    }
+    if ($v['second_member_section_salary_total'] == '') {
+        $v['second_member_section_salary_total'] = 0;
+    }
     $money_count = $money_count + $v['first_member_section_salary_total'] + $v['second_member_section_salary_total']
     ?>
     <tr style="height: 100px;">
@@ -86,14 +93,14 @@ tfoot {
         <td class="bb" style="width:8%"><?= trim($v['supervisor_1']) ?>
         </td>
         <td class="bb" style="width:8%;font-size:18px;font-weight:bold;">
-            <?= trim($v['first_member_section_salary_total']) ?>
+            <?= number_format($v['first_member_section_salary_total']) ?>
         </td>
 
         <td class="bb" style="padding: 30px 0px;"></td>
         <td class="bb" style="width:8%"><?= trim($v['supervisor_2']) ?>
         </td>
         <td class="bb" style="width:8%;font-size:18px;font-weight:bold;">
-            <?= trim($v['second_member_section_salary_total']) ?>
+            <?= number_format($v['second_member_section_salary_total']) ?>
         </td>
 
         <td class="bb" style="padding: 30px 0px;"></td>
