@@ -112,7 +112,7 @@ tfoot {
             <?= trim($v['field']) ?>
         </td>
         <td class="bb" style="width:8%;font-size:18px;font-weight:bold;">
-            <?= $v['first_member_salary_section'] ?>
+            <?= number_format($v['first_member_salary_section']) ?>
         </td>
         <td class="bb" style="width:8%"><?= trim($v['supervisor_1']) ?>
         </td>
@@ -136,7 +136,7 @@ tfoot {
         </td>
         <td class="bb" style="padding: 30px 0px;"></td>
         <td class="bb" style="width:8%;font-size:18px;font-weight:bold;">
-            <?= $v['second_member_salary_section'] ?>
+            <?= number_format($v['second_member_salary_section']) ?>
         </td>
         <td class="bb" style="width:8%"><?= trim($v['supervisor_2']) ?>
         </td>
@@ -172,6 +172,6 @@ tfoot {
         <td colspan="11" style="text-align:left;font-size:18px;font-weight:bold">共計:<?= $a3 ?>人
             實發監考費：<?= number_format($a1 - $a2) ?> + 餐費： <?= number_format($a2) ?> =
             總支出費用<?= number_format($a1) ?> </td>
-        
+
     </tr>
 </table>
