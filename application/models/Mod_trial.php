@@ -2098,6 +2098,7 @@ class Mod_trial extends CI_Model
         if ($part != '') {
             $this->db->where('part', $part);
         }
+        $this->db->where('part_info.year', $_SESSION['year']);
         $this->db->from('part_info');
         $this->db->join('trial_assign', 'part_info.sn = trial_assign.sn');
 
