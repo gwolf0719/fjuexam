@@ -1438,10 +1438,9 @@ class Designated extends CI_Controller
             'count' => $this->mod_trial->get_patrol_member_count_2($part),
             'school' => $this->mod_exam_area->year_school_name($part),
         );
-        print_r($part);
         if ($data['part'] != false) {
-            echo $view = $this->load->view('designated/e_2_3_2', $data, true);
-            // $this->pdf->view_to_pdf($view, 'e_2_3_2', false);
+            $view = $this->load->view('designated/e_2_3_2', $data, true);
+            $this->pdf->view_to_pdf($view, 'e_2_3_2', false);
         } else {
             return false;
         }
