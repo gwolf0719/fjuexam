@@ -922,6 +922,7 @@ class Mod_trial extends CI_Model
 
 
         $sub = $this->db->get()->result_array();
+        // print_r($sub);
         if (!empty($sub)) {
             for ($i = 0; $i < count($sub); $i++) {
                     # code...
@@ -930,26 +931,25 @@ class Mod_trial extends CI_Model
                 $voucher = $this->db->where('part', $part)->where('second_start <=', $sub[$i]['field'])->where('second_end >=', $sub[$i]['field'])->get('trial_staff')->result_array();
                 $course = $this->db->where('year', $year)->where('field', $sub[$i]['field'])->get('exam_area')->row_array();
                 $trial = $this->db->get('trial_staff')->result_array();
-                if (!empty($voucher)) {
-                    for ($v = 0; $v < count($voucher); $v++) { 
+
+                for ($v = 0; $v < count($voucher); $v++) { 
                         # code...
-                        $arr[$voucher[$v]['allocation_code'] . ' ' . $voucher[$v]['trial_staff_name']][] = array(
-                            'sn' => $sub[$i]['sn'],
-                            'field' => $sub[$i]['field'],
-                            'test_section' => $sub[$i]['test_section'],
-                            'part' => $sub[$i]['part'],
-                            'supervisor_1' => $sub[$i]['supervisor_1'],
-                            'supervisor_2' => $sub[$i]['supervisor_2'],
-                            'subject_04' => $course['subject_04'],
-                            'subject_05' => $course['subject_05'],
-                            'subject_06' => $course['subject_06'],
-                            'subject_07' => $course['subject_07'],
-                        );
-                    }
-                } else {
-                    return false;
+                    $arr[$voucher[$v]['allocation_code'] . ' ' . $voucher[$v]['trial_staff_name']][] = array(
+                        'sn' => $sub[$i]['sn'],
+                        'field' => $sub[$i]['field'],
+                        'test_section' => $sub[$i]['test_section'],
+                        'part' => $sub[$i]['part'],
+                        'supervisor_1' => $sub[$i]['supervisor_1'],
+                        'supervisor_2' => $sub[$i]['supervisor_2'],
+                        'subject_04' => $course['subject_04'],
+                        'subject_05' => $course['subject_05'],
+                        'subject_06' => $course['subject_06'],
+                        'subject_07' => $course['subject_07'],
+                    );
                 }
+
             }
+            // print_r($arr);
             return $arr;
         } else {
             return false;
@@ -978,24 +978,22 @@ class Mod_trial extends CI_Model
                 $voucher = $this->db->where('part', $part)->where('third_start <=', $sub[$i]['field'])->where('third_end >=', $sub[$i]['field'])->get('trial_staff')->result_array();
                 $course = $this->db->where('year', $year)->where('field', $sub[$i]['field'])->get('exam_area')->row_array();
                 $trial = $this->db->get('trial_staff')->result_array();
-                if (!empty($voucher)) {
-                    for ($v = 0; $v < count($voucher); $v++) { 
+
+                for ($v = 0; $v < count($voucher); $v++) { 
                         # code...
-                        $arr[$voucher[$v]['allocation_code'] . ' ' . $voucher[$v]['trial_staff_name']][] = array(
-                            'sn' => $sub[$i]['sn'],
-                            'field' => $sub[$i]['field'],
-                            'test_section' => $sub[$i]['test_section'],
-                            'part' => $sub[$i]['part'],
-                            'supervisor_1' => $sub[$i]['supervisor_1'],
-                            'supervisor_2' => $sub[$i]['supervisor_2'],
-                            'subject_08' => $course['subject_08'],
-                            'subject_09' => $course['subject_09'],
-                            'subject_010' => $course['subject_10'],
-                        );
-                    }
-                } else {
-                    return false;
+                    $arr[$voucher[$v]['allocation_code'] . ' ' . $voucher[$v]['trial_staff_name']][] = array(
+                        'sn' => $sub[$i]['sn'],
+                        'field' => $sub[$i]['field'],
+                        'test_section' => $sub[$i]['test_section'],
+                        'part' => $sub[$i]['part'],
+                        'supervisor_1' => $sub[$i]['supervisor_1'],
+                        'supervisor_2' => $sub[$i]['supervisor_2'],
+                        'subject_08' => $course['subject_08'],
+                        'subject_09' => $course['subject_09'],
+                        'subject_010' => $course['subject_10'],
+                    );
                 }
+
 
             }
             // print_r($arr);
