@@ -2770,7 +2770,7 @@ class Designated extends CI_Controller
         for ($i = 0; $i < count($arr); $i++) {
             # code...
             $objPHPExcel->getActiveSheet()->setCellValue('A1', '單位');
-            $objPHPExcel->getActiveSheet()->setCellValue('B1', '試務人員');
+            $objPHPExcel->getActiveSheet()->setCellValue('B1', '管卷人員');
 
             $objPHPExcel->getActiveSheet()->setCellValue('A' . (2 + $i), $arr[$i]['member_unit']);
             $objPHPExcel->getActiveSheet()->setCellValue('B' . (2 + $i), $arr[$i]['member_name']);
@@ -2799,7 +2799,7 @@ class Designated extends CI_Controller
         for ($i = 0; $i < count($arr); $i++) {
             # code...
             $objPHPExcel->getActiveSheet()->setCellValue('A1', '單位');
-            $objPHPExcel->getActiveSheet()->setCellValue('B1', '試務人員');
+            $objPHPExcel->getActiveSheet()->setCellValue('B1', '巡場人員');
 
             $objPHPExcel->getActiveSheet()->setCellValue('A' . (2 + $i), $arr[$i]['member_unit']);
             $objPHPExcel->getActiveSheet()->setCellValue('B' . (2 + $i), $arr[$i]['member_name']);
@@ -2809,7 +2809,7 @@ class Designated extends CI_Controller
 
 
         header('Content-Type: application/vnd.ms-excel');
-        header('Content-Disposition: attachment;filename="試務人員標籤樣式' . '.csv"');
+        header('Content-Disposition: attachment;filename="巡場人員標籤樣式' . '.csv"');
         header('Cache-Control: max-age=0');
 
 
