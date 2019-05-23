@@ -23,13 +23,15 @@ class Mod_exam_datetime extends CI_Model
                 }
             }
         }
+        // print_r($day);
         // 確認每一天
         $res = array();
         for ($i = 1; $i <= 3; $i++) {
             $where = array(
                 'part' => $part,
                 'field <=' => $end,
-                'field >=' => $start
+                'field >=' => $start,
+                'year' => $_SESSION['year']
             );
             foreach ($day[$i] as $k => $v) {
                 $where[$v] = 0;
@@ -37,18 +39,22 @@ class Mod_exam_datetime extends CI_Model
             $section = array(
                 'part' => $part,
                 'field <=' => $end,
-                'field >=' => $start
+                'field >=' => $start,
+                'year' => $_SESSION['year']
             );
 
             $sub1 = $this->db->where($where)->get('exam_area')->result_array();
+            // echo $this->db->last_query();
+            // print_r($sub1);
             $sub2 = $this->db->where($section)->get('exam_area')->result_array();
+            // print_r($sub2);
             if (count($sub1) == count($sub2)) {
                 $res[] = false;
             } else {
                 $res[] = true;
             }
         }
-
+        print_r($res);
         return $res;
     }
 

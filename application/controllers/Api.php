@@ -588,13 +588,13 @@ class Api extends CI_Controller
                 $fees_info = $this->mod_exam_fees->get_once($_SESSION['year']);
                 $part_info = $this->mod_part_info->get_once($data['sn']);
                 $do_date = array();
-                if ($day[0] != "") {
+                if ($day[0] == 1) {
                     array_push($do_date, mb_substr($datetime_info['day_1'], 5, 8, 'utf-8'));
                 }
-                if ($day[1] != "") {
+                if ($day[1] == 1) {
                     array_push($do_date, mb_substr($datetime_info['day_2'], 5, 8, 'utf-8'));
                 }
-                if ($day[2] != "") {
+                if ($day[2] == 1) {
                     array_push($do_date, mb_substr($datetime_info['day_3'], 5, 8, 'utf-8'));
                 }
                 $date = implode(",", $do_date);
@@ -958,13 +958,13 @@ class Api extends CI_Controller
             $fees_info = $this->mod_exam_fees->get_once($_SESSION['year']);
             $member = $this->mod_staff->get_staff_member(trim($data['patrol_staff_code']));
             $do_date = array();
-            if ($day[0] != "") {
+            if ($day[0] == 1) {
                 array_push($do_date, mb_substr($datetime_info['day_1'], 5, 8, 'utf-8'));
             }
-            if ($day[1] != "") {
+            if ($day[1] == 1) {
                 array_push($do_date, mb_substr($datetime_info['day_2'], 5, 8, 'utf-8'));
             }
-            if ($day[2] != "") {
+            if ($day[2] == 1) {
                 array_push($do_date, mb_substr($datetime_info['day_3'], 5, 8, 'utf-8'));
             }
             $date = implode(",", $do_date);

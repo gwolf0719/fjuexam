@@ -3385,6 +3385,12 @@ class Designated extends CI_Controller
         );
         $this->load->view('layout1', $data);
     }
+    // public function test()
+    // {
+    //     $this->load->model('mod_exam_datetime');
+    //     $day = $this->mod_exam_datetime->room_use_day('230022', '230022', '2502');
+    //     // print_r($day);
+    // }
 }
 
 /* End of file Designated.php */
