@@ -71,6 +71,9 @@ class Mod_exam_area extends CI_Model
 
     public function year_school_name($part = '')
     {
+        if ($part == '2500') {
+            return '新北一考區辦公室 ';
+        }
         $this->db->where('year', $this->session->userdata('year'));
         if ($part != '') {
             $this->db->where('part', $part);
@@ -88,7 +91,7 @@ class Mod_exam_area extends CI_Model
         }
 
         $addr = $this->db->get('part_info')->row_array();
-        print_r($addr);
+
         return $addr['addr'];
     }
 

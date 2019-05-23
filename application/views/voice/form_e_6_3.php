@@ -61,7 +61,7 @@ tfoot {
             <td colspan="2" style="font-size:26px;text-align:left;padding:20px 0px">
                 分區：<?= $this->config->item('partition')[$test_partition] ?></td>
             <td colspan="4" style="font-size:26px;text-align:center;padding:20px 0px;position: relative;">
-                考場：<?= $school['area_name'] ?></td>
+                考場：<?= $school ?></td>
             <td colspan="3" style="font-size:26px;text-align:right;padding:20px 0px"> 印表日期：<?= date('Y/m/d') ?></td>
         </tr>
         <tr>

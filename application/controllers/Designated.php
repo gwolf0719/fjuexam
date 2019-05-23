@@ -2890,6 +2890,7 @@ class Designated extends CI_Controller
         $part = $_GET['part'];
         $area = $_GET['area'];
 
+        print_r($part);
         $data = array(
             'part' => $this->mod_task->get_district_task_money_list($area),
             'area' => $area,

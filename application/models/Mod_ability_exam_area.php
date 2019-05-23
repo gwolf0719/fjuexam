@@ -14,20 +14,20 @@ class Mod_ability_exam_area extends CI_Model
         $this->db->insert_batch('ability_exam_area', $datas);
     }
 
-    public function year_get_list($part='')
+    public function year_get_list($part = '')
     {
         $this->db->where('year', $this->session->userdata('year'));
-        if($part != ''){
+        if ($part != '') {
             $this->db->where('part', $part);
         }
 
         return $this->db->get('ability_exam_area')->result_array();
     }
 
-    public function year_get_member_count_list($part='')
+    public function year_get_member_count_list($part = '')
     {
         $this->db->where('year', $this->session->userdata('year'));
-        if($part != ''){
+        if ($part != '') {
             $this->db->where('part', $part);
         }
 
@@ -42,7 +42,7 @@ class Mod_ability_exam_area extends CI_Model
         $number8 = 0;
         $number9 = 0;
         $number10 = 0;
-        for ($i=0; $i < count($res); $i++) { 
+        for ($i = 0; $i < count($res); $i++) { 
             # code...
             $number1 += $res[$i]['subject_01'];
             $number2 += $res[$i]['subject_02'];
@@ -55,43 +55,46 @@ class Mod_ability_exam_area extends CI_Model
             $number9 += $res[$i]['subject_09'];
             $number10 += $res[$i]['subject_10'];
             $arr = array(
-                'number1'=> $number1,
-                'number2'=> $number2,
-                'number3'=> $number3,
-                'number4'=> $number4,
-                'number5'=> $number5,
-                'number6'=> $number6,
-                'number7'=> $number7,
-                'number8'=> $number8,
-                'number9'=> $number9,
-                'number10'=> $number10,
+                'number1' => $number1,
+                'number2' => $number2,
+                'number3' => $number3,
+                'number4' => $number4,
+                'number5' => $number5,
+                'number6' => $number6,
+                'number7' => $number7,
+                'number8' => $number8,
+                'number9' => $number9,
+                'number10' => $number10,
             );
         }
         return $arr;
     }
 
-    public function year_school_name($part='')
+    public function year_school_name($part = '')
     {
+        if ($part == '2500') {
+            return '新北一考區辦公室 ';
+        }
         $this->db->where('year', $this->session->userdata('year'));
-        if($part != ''){
+        if ($part != '') {
             $this->db->where('part', $part);
         }
 
         $school = $this->db->get('ability_exam_area')->row_array();
         return $school['part_name'];
-    }   
-    
-    public function year_addr_name($part='')
+    }
+
+    public function year_addr_name($part = '')
     {
         $this->db->where('year', $this->session->userdata('year'));
-        if($part != ''){
+        if ($part != '') {
             $this->db->where('part', $part);
         }
 
         $addr = $this->db->get('ability_part_info')->row_array();
         print_r($addr);
         return $addr['addr'];
-    }       
+    }
 
     public function get_min_start($part = '')
     {

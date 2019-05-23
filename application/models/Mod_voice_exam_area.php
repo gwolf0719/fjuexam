@@ -8,73 +8,76 @@ class Mod_voice_exam_area extends CI_Model
     {
         // 先清除當年資料
         $this->db->where('year', $this->session->userdata('year'));
-        $this->db->where('ladder',$this->session->userdata('ladder'));
+        $this->db->where('ladder', $this->session->userdata('ladder'));
         $this->db->delete('voice_exam_area');
         $this->db->insert_batch('voice_exam_area', $data_1);
     }
 
-    public function year_get_list($part='')
+    public function year_get_list($part = '')
     {
         $this->db->where('year', $this->session->userdata('year'));
         $this->db->where('ladder', $this->session->userdata('ladder'));
-        if($part != ''){
+        if ($part != '') {
             $this->db->where('part', $part);
         }
 
         return $this->db->get('voice_exam_area')->result_array();
     }
 
-    public function year_get_member_count_list($part='')
+    public function year_get_member_count_list($part = '')
     {
         $this->db->where('year', $this->session->userdata('year'));
         $this->db->where('ladder', $this->session->userdata('ladder'));
-        if($part != ''){
+        if ($part != '') {
             $this->db->where('part', $part);
         }
 
         $res = $this->db->get('voice_exam_area')->result_array();
         $number1 = 0;
- 
-            for ($i=0; $i < count($res); $i++) { 
+
+        for ($i = 0; $i < count($res); $i++) { 
             # code...
             $number1 += $res[$i]['count_num'];
-      
+
             $arr = array(
-                'number1'=> $number1,
-               
+                'number1' => $number1,
+
             );
 
         }
-        
+
         return $arr;
     }
 
-    public function year_school_name($part='')
+    public function year_school_name($part = '')
     {
         // print_r($part);
         $this->db->where('year', $this->session->userdata('year'));
         $this->db->where('ladder', $this->session->userdata('ladder'));
-        if($part != ''){
+        if ($part != '') {
             $this->db->where('part', $part);
         }
 
         $school = $this->db->get('voice_exam_area')->row_array();
-     
-        return $school;
-    }   
-    
-    public function year_addr_name($part='')
+        if ($part == '2500') {
+            return '新北一考區辦公室 ';
+        }
+
+        return $school['area_name'];
+    }
+
+    public function year_addr_name($part = '')
     {
         $this->db->where('year', $this->session->userdata('year'));
         $this->db->where('ladder', $this->session->userdata('ladder'));
-        if($part != ''){
+        if ($part != '') {
             $this->db->where('part', $part);
         }
 
         $addr = $this->db->get('vocice_part_info')->row_array();
-        
+
         return $addr['addr'];
-    }       
+    }
 
     public function get_min_start($part = '')
     {
@@ -128,13 +131,13 @@ class Mod_voice_exam_area extends CI_Model
         return $this->db->get('voice_exam_area')->result_array();
     }
 
-    public function get_part_block($part = '',$time)
+    public function get_part_block($part = '', $time)
     {
         $this->db->where('year', $this->session->userdata('year'));
         $this->db->where('ladder', $this->session->userdata('ladder'));
-        if ($part != ''&& $time != '') {
+        if ($part != '' && $time != '') {
             $this->db->where('part', $part);
-            $this->db->where('block_name',$time);
+            $this->db->where('block_name', $time);
         }
         $this->db->select('part,block_name,field');
 

@@ -132,7 +132,7 @@ a:hover {
             <div class="modal-body">
                 <div class="row">
                     <div class="col-md-12 col-sm-12 col-xs-12">
-                        <div class="btn_part btn3" part="2500" area="考區" link="./designated/e_6_3?part=2501&area=考區">考區
+                        <div class="btn_part btn3" part="2500" area="考區" link="./designated/e_6_3?part=2500&area=考區">考區
                         </div>
                         <div class="btn_part btn3" part="2501" area="第一分區"
                             link="./designated/e_6_3?part=2501&area=第一分區">第一分區</div>
