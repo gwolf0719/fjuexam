@@ -957,6 +957,7 @@ class Mod_task extends CI_Model
     {
         $this->db->distinct();
         $this->db->select('member_code,member_name');
+        $this->db->where('year', $_SESSION['year']);
 
         $data = $this->db->get('staff_member')->result_array();
         // echo $this->db->last_query();

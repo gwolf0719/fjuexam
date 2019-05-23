@@ -2100,31 +2100,33 @@ class Designated extends CI_Controller
             $objPHPExcel->getActiveSheet()->setCellValue('D1', '考試日期三');
             $objPHPExcel->getActiveSheet()->setCellValue('E1', '編號');
             $objPHPExcel->getActiveSheet()->setCellValue('F1', '監試人員姓名');
-            $objPHPExcel->getActiveSheet()->setCellValue('G1', '監試分區');
-            $objPHPExcel->getActiveSheet()->setCellValue('H1', '監試日期');
-            $objPHPExcel->getActiveSheet()->setCellValue('I1', '監試節次');
-            $objPHPExcel->getActiveSheet()->setCellValue('J1', '物理');
-            $objPHPExcel->getActiveSheet()->setCellValue('K1', '化學');
-            $objPHPExcel->getActiveSheet()->setCellValue('L1', '生物');
-            $objPHPExcel->getActiveSheet()->setCellValue('M1', '數學乙');
-            $objPHPExcel->getActiveSheet()->setCellValue('N1', '國文');
-            $objPHPExcel->getActiveSheet()->setCellValue('O1', '英文');
-            $objPHPExcel->getActiveSheet()->setCellValue('P1', '數學甲');
-            $objPHPExcel->getActiveSheet()->setCellValue('Q1', '歷史');
-            $objPHPExcel->getActiveSheet()->setCellValue('R1', '地理');
-            $objPHPExcel->getActiveSheet()->setCellValue('S1', '公民與社會');
-            $objPHPExcel->getActiveSheet()->setCellValue('T1', '第1科');
-            $objPHPExcel->getActiveSheet()->setCellValue('U1', '第2科');
-            $objPHPExcel->getActiveSheet()->setCellValue('V1', '第3科');
-            $objPHPExcel->getActiveSheet()->setCellValue('W1', '第4科');
-            $objPHPExcel->getActiveSheet()->setCellValue('X1', '第5科');
-            $objPHPExcel->getActiveSheet()->setCellValue('Y1', '第6科');
-            $objPHPExcel->getActiveSheet()->setCellValue('Z1', '第7科');
-            $objPHPExcel->getActiveSheet()->setCellValue('AA1', '第8科');
-            $objPHPExcel->getActiveSheet()->setCellValue('AB1', '第9科');
-            $objPHPExcel->getActiveSheet()->setCellValue('AC1', '第10科');
-            $objPHPExcel->getActiveSheet()->setCellValue('AD1', '第11科');
-            $objPHPExcel->getActiveSheet()->setCellValue('AE1', '第12科');
+            $objPHPExcel->getActiveSheet()->setCellValue('G1', '單位');
+            $objPHPExcel->getActiveSheet()->setCellValue('H1', '電話');
+            $objPHPExcel->getActiveSheet()->setCellValue('I1', '監試分區');
+            $objPHPExcel->getActiveSheet()->setCellValue('J1', '監試日期');
+            $objPHPExcel->getActiveSheet()->setCellValue('K1', '監試節次');
+            $objPHPExcel->getActiveSheet()->setCellValue('L1', '物理');
+            $objPHPExcel->getActiveSheet()->setCellValue('M1', '化學');
+            $objPHPExcel->getActiveSheet()->setCellValue('N1', '生物');
+            $objPHPExcel->getActiveSheet()->setCellValue('O1', '數學乙');
+            $objPHPExcel->getActiveSheet()->setCellValue('P1', '國文');
+            $objPHPExcel->getActiveSheet()->setCellValue('Q1', '英文');
+            $objPHPExcel->getActiveSheet()->setCellValue('R1', '數學甲');
+            $objPHPExcel->getActiveSheet()->setCellValue('S1', '歷史');
+            $objPHPExcel->getActiveSheet()->setCellValue('T1', '地理');
+            $objPHPExcel->getActiveSheet()->setCellValue('U1', '公民與社會');
+            $objPHPExcel->getActiveSheet()->setCellValue('V1', '第1科');
+            $objPHPExcel->getActiveSheet()->setCellValue('W1', '第2科');
+            $objPHPExcel->getActiveSheet()->setCellValue('X1', '第3科');
+            $objPHPExcel->getActiveSheet()->setCellValue('Y1', '第4科');
+            $objPHPExcel->getActiveSheet()->setCellValue('Z1', '第5科');
+            $objPHPExcel->getActiveSheet()->setCellValue('AA1', '第6科');
+            $objPHPExcel->getActiveSheet()->setCellValue('AB1', '第7科');
+            $objPHPExcel->getActiveSheet()->setCellValue('AC1', '第8科');
+            $objPHPExcel->getActiveSheet()->setCellValue('AD1', '第9科');
+            $objPHPExcel->getActiveSheet()->setCellValue('AE1', '第10科');
+            $objPHPExcel->getActiveSheet()->setCellValue('AF1', '第11科');
+            $objPHPExcel->getActiveSheet()->setCellValue('AG1', '第12科');
 
 
             $objPHPExcel->getActiveSheet()->setCellValue('A' . (2 + $i), $_SESSION['year']);
@@ -2133,31 +2135,33 @@ class Designated extends CI_Controller
             $objPHPExcel->getActiveSheet()->setCellValue('D' . (2 + $i), mb_substr($datetime_info['day_3'], 5, 8, 'utf-8'));
             $objPHPExcel->getActiveSheet()->setCellValue('E' . (2 + $i), $res[$i]['supervisor_code']);
             $objPHPExcel->getActiveSheet()->setCellValue('F' . (2 + $i), trim($res[$i]['supervisor']));
-            $objPHPExcel->getActiveSheet()->setCellValue('G' . (2 + $i), $_GET['area']);
-            $objPHPExcel->getActiveSheet()->setCellValue('H' . (2 + $i), str_replace("、", ",", $res[$i]['do_date']));
-            $objPHPExcel->getActiveSheet()->setCellValue('I' . (2 + $i), $res[$i]['test_section']);
-            $objPHPExcel->getActiveSheet()->setCellValue('J' . (2 + $i), $subject_01);
-            $objPHPExcel->getActiveSheet()->setCellValue('K' . (2 + $i), $subject_02);
-            $objPHPExcel->getActiveSheet()->setCellValue('L' . (2 + $i), $subject_03);
-            $objPHPExcel->getActiveSheet()->setCellValue('M' . (2 + $i), $subject_04);
-            $objPHPExcel->getActiveSheet()->setCellValue('N' . (2 + $i), $subject_05);
-            $objPHPExcel->getActiveSheet()->setCellValue('O' . (2 + $i), $subject_06);
-            $objPHPExcel->getActiveSheet()->setCellValue('P' . (2 + $i), $subject_07);
-            $objPHPExcel->getActiveSheet()->setCellValue('Q' . (2 + $i), $subject_08);
-            $objPHPExcel->getActiveSheet()->setCellValue('R' . (2 + $i), $subject_09);
-            $objPHPExcel->getActiveSheet()->setCellValue('S' . (2 + $i), $subject_10);
-            $objPHPExcel->getActiveSheet()->setCellValue('T' . (2 + $i), $course1);
-            $objPHPExcel->getActiveSheet()->setCellValue('U' . (2 + $i), $course2);
-            $objPHPExcel->getActiveSheet()->setCellValue('V' . (2 + $i), $course3);
-            $objPHPExcel->getActiveSheet()->setCellValue('W' . (2 + $i), $course4);
-            $objPHPExcel->getActiveSheet()->setCellValue('X' . (2 + $i), $course5);
-            $objPHPExcel->getActiveSheet()->setCellValue('Y' . (2 + $i), $course6);
-            $objPHPExcel->getActiveSheet()->setCellValue('Z' . (2 + $i), $course7);
-            $objPHPExcel->getActiveSheet()->setCellValue('AA' . (2 + $i), $course8);
-            $objPHPExcel->getActiveSheet()->setCellValue('AB' . (2 + $i), $course9);
-            $objPHPExcel->getActiveSheet()->setCellValue('AC' . (2 + $i), $course10);
-            $objPHPExcel->getActiveSheet()->setCellValue('AD' . (2 + $i), $course11);
-            $objPHPExcel->getActiveSheet()->setCellValue('AE' . (2 + $i), $course12);
+            $objPHPExcel->getActiveSheet()->setCellValue('G' . (2 + $i), trim($res[$i]['unit']));
+            $objPHPExcel->getActiveSheet()->setCellValue('H' . (2 + $i), trim($res[$i]['phone']));
+            $objPHPExcel->getActiveSheet()->setCellValue('I' . (2 + $i), $_GET['area']);
+            $objPHPExcel->getActiveSheet()->setCellValue('J' . (2 + $i), str_replace("、", ",", $res[$i]['do_date']));
+            $objPHPExcel->getActiveSheet()->setCellValue('K' . (2 + $i), $res[$i]['test_section']);
+            $objPHPExcel->getActiveSheet()->setCellValue('L' . (2 + $i), $subject_01);
+            $objPHPExcel->getActiveSheet()->setCellValue('M' . (2 + $i), $subject_02);
+            $objPHPExcel->getActiveSheet()->setCellValue('N' . (2 + $i), $subject_03);
+            $objPHPExcel->getActiveSheet()->setCellValue('O' . (2 + $i), $subject_04);
+            $objPHPExcel->getActiveSheet()->setCellValue('P' . (2 + $i), $subject_05);
+            $objPHPExcel->getActiveSheet()->setCellValue('Q' . (2 + $i), $subject_06);
+            $objPHPExcel->getActiveSheet()->setCellValue('R' . (2 + $i), $subject_07);
+            $objPHPExcel->getActiveSheet()->setCellValue('S' . (2 + $i), $subject_08);
+            $objPHPExcel->getActiveSheet()->setCellValue('T' . (2 + $i), $subject_09);
+            $objPHPExcel->getActiveSheet()->setCellValue('U' . (2 + $i), $subject_10);
+            $objPHPExcel->getActiveSheet()->setCellValue('V' . (2 + $i), $course1);
+            $objPHPExcel->getActiveSheet()->setCellValue('W' . (2 + $i), $course2);
+            $objPHPExcel->getActiveSheet()->setCellValue('X' . (2 + $i), $course3);
+            $objPHPExcel->getActiveSheet()->setCellValue('Y' . (2 + $i), $course4);
+            $objPHPExcel->getActiveSheet()->setCellValue('Z' . (2 + $i), $course5);
+            $objPHPExcel->getActiveSheet()->setCellValue('AA' . (2 + $i), $course6);
+            $objPHPExcel->getActiveSheet()->setCellValue('AB' . (2 + $i), $course7);
+            $objPHPExcel->getActiveSheet()->setCellValue('AC' . (2 + $i), $course8);
+            $objPHPExcel->getActiveSheet()->setCellValue('AD' . (2 + $i), $course9);
+            $objPHPExcel->getActiveSheet()->setCellValue('AE' . (2 + $i), $course10);
+            $objPHPExcel->getActiveSheet()->setCellValue('AF' . (2 + $i), $course11);
+            $objPHPExcel->getActiveSheet()->setCellValue('AG' . (2 + $i), $course12);
         }
 
         $objWriter = PHPExcel_IOFactory::createWriter($objPHPExcel, 'CSV');
@@ -3385,12 +3389,41 @@ class Designated extends CI_Controller
         );
         $this->load->view('layout1', $data);
     }
-    // public function test()
-    // {
-    //     $this->load->model('mod_exam_datetime');
-    //     $day = $this->mod_exam_datetime->room_use_day('230022', '230022', '2502');
-    //     // print_r($day);
-    // }
+    public function test()
+    {
+        $this->load->model('mod_exam_datetime');
+
+        $this->db->where('year', $_SESSION['year']);
+        $res = $this->db->get('exam_area')->result_array();
+
+        foreach ($res as $k => $v) {
+
+
+
+            $day = $this->mod_exam_datetime->room_use_day($v['field'], $v['field'], $v['part']);
+            $datetime_info = $this->mod_exam_datetime->get_once($_SESSION['year']);
+            $do_date = array();
+            if ($day[0] == 1) {
+                array_push($do_date, mb_substr($datetime_info['day_1'], 5, 8, 'utf-8'));
+            }
+            if ($day[1] == 1) {
+                array_push($do_date, mb_substr($datetime_info['day_2'], 5, 8, 'utf-8'));
+            }
+            if ($day[2] == 1) {
+                array_push($do_date, mb_substr($datetime_info['day_3'], 5, 8, 'utf-8'));
+            }
+            $date = implode(",", $do_date);
+
+            $data = array(
+                'first_member_do_date' => $date,
+                'second_member_do_date' => $date,
+            );
+            $this->db->where('sn', $v['sn']);
+            $this->db->update('trial_assign', $data);
+
+        }
+        echo 'yessssss';
+    }
 }
 
 /* End of file Designated.php */

@@ -54,7 +54,7 @@ class Mod_exam_datetime extends CI_Model
                 $res[] = true;
             }
         }
-        print_r($res);
+        // print_r($res);
         return $res;
     }
 

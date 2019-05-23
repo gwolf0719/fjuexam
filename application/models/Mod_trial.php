@@ -1813,6 +1813,8 @@ class Mod_trial extends CI_Model
 
         for ($i = 0; $i < count($res); $i++) {
             # code...
+            $p1 = $this->db->where('year', $_SESSION['year'])->like('member_name', trim($res[$i]['supervisor_1']))->get('staff_member')->row_array();
+            $p2 = $this->db->where('year', $_SESSION['year'])->like('member_name', trim($res[$i]['supervisor_2']))->get('staff_member')->row_array();
             $course = $this->db->where('year', $_SESSION['year'])->where('field', $res[$i]['field'])->get('exam_area')->row_array();
             $arr[] = array(
                 'sn' => $res[$i]['sn'],
@@ -1821,6 +1823,9 @@ class Mod_trial extends CI_Model
                 'part' => $res[$i]['part'],
                 'supervisor_code' => $res[$i]['trial_staff_code_1'],
                 'supervisor' => $res[$i]['supervisor_1'],
+                'unit' => $p1['unit'],
+                'member_unit' => $p1['member_unit'],
+                'phone' => $p1['member_phone'],
                 'do_date' => $res[$i]['first_member_do_date'],
                 'floor' => $res[$i]['floor'],
                 'subject_01' => $course['subject_01'],
@@ -1842,6 +1847,9 @@ class Mod_trial extends CI_Model
                 'part' => $res[$i]['part'],
                 'supervisor_code' => $res[$i]['trial_staff_code_2'],
                 'supervisor' => $res[$i]['supervisor_2'],
+                'unit' => $p2['unit'],
+                'member_unit' => $p2['member_unit'],
+                'phone' => $p2['member_phone'],
                 'do_date' => $res[$i]['second_member_do_date'],
                 'floor' => $res[$i]['floor'],
                 'subject_01' => $course['subject_01'],
