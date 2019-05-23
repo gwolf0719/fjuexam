@@ -247,7 +247,8 @@ class Mod_task extends CI_Model
                     'job' => $res[$i]['job'],
                     'job_title' => $res[$i]['job_title'],
                     'name' => $res[$i]['name'],
-                    'member_unit' => $member['member_unit'],
+                    'unit' => $member['unit'],
+                    'phone' => $member['member_phone'],
                     'meal' => $res[$i]['meal'],
                     'note' => $res[$i]['note'],
                 );
@@ -319,6 +320,8 @@ class Mod_task extends CI_Model
                     'job_title' => $member['member_title'],
                     'name' => $res[$i]['trial_staff_name'],
                     'member_unit' => $member['member_unit'],
+                    'unit' => $member['unit'],
+                    'phone' => $member['member_phone'],
                     'meal' => $res[$i]['meal'],
                     'note' => $res[$i]['note'],
                 );
@@ -348,6 +351,8 @@ class Mod_task extends CI_Model
                     'job_title' => $member['member_title'],
                     'name' => $res[$i]['patrol_staff_name'],
                     'member_unit' => $member['member_unit'],
+                    'unit' => $member['unit'],
+                    'phone' => $member['member_phone'],
                     'meal' => $res[$i]['meal'],
                     'note' => $res[$i]['note'],
                 );

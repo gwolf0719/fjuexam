@@ -43,10 +43,10 @@ tfoot {
 <table class="" id="" style="padding:4px;text-align:center;">
     <thead>
         <tr>
-            <td colspan="3" style="font-size:26px;"><?= $_SESSION['year'] ?>學年度指定科目考試新北一考區</td>
+            <td colspan="5" style="font-size:26px;"><?= $_SESSION['year'] ?>學年度指定科目考試新北一考區</td>
         </tr>
         <tr>
-            <td colspan="3" style="font-size:22px;"><?= $_GET['area'] ?><?= $school ?>試務人員一覽表</td>
+            <td colspan="5" style="font-size:22px;"><?= $_GET['area'] ?><?= $school ?>試務人員一覽表</td>
         </tr>
         <tr>
             <td colspan="1" style="font-size:22px;text-align:left"><?= $_GET['area'] ?>試務辦公室</td>
@@ -57,6 +57,8 @@ tfoot {
         <tr>
             <td class="bb">職別</td>
             <td class="bb">姓名</td>
+            <td class="bb">職位</td>
+            <td class="bb">手機</td>
             <td class="bb" colspan="2">備註(工作分配)</td>
         </tr>
     </thead>
@@ -67,6 +69,12 @@ tfoot {
         </td>
         <td class="bb">
             <?= $v['name']; ?>
+        </td>
+        <td class="bb">
+            <?= $v['unit']; ?>
+        </td>
+        <td class="bb">
+            <?= $v['phone']; ?>
         </td>
         <td class="bb">
         </td>
