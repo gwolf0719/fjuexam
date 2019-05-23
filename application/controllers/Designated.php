@@ -1490,8 +1490,8 @@ class Designated extends CI_Controller
             'part' => $this->mod_task->get_sign_list(),
         );
         if ($data['part'] != false) {
-            $view = $this->load->view('designated/e_2_4', $data, true);
-            $this->pdf->view_to_pdf($view, 'e_2_4');
+            echo $view = $this->load->view('designated/e_2_4', $data, true);
+            // $this->pdf->view_to_pdf($view, 'e_2_4');
         } else {
             return false;
         }

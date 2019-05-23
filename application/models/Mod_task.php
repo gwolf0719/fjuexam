@@ -617,6 +617,32 @@ class Mod_task extends CI_Model
                 'job' => '巡場人員',
             );
         }
+        if (isset($arr['行政單位'])) {
+
+            $res = [];
+            foreach ($arr['行政單位'] as $key => $value) {
+                $res[$value['member_unit']][] = $value;
+            }
+            $res1 = [];
+            foreach ($res as $key => $value) {
+                $res1[] = $value;
+            }
+            $best = [];
+            $p = 0;
+            for ($i = 0; $i < count($res1); $i++) {
+                for ($j = 0; $j < count($res1[$i]); $j++) {
+                    $best[$p] = $res1[$i][$j];
+                    $p = $p + 1;
+                }
+
+            }
+            $arr['行政單位'] = $best;
+        }
+
+
+
+
+
 
         if (!empty($arr)) {
             return $arr;
