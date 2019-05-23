@@ -71,7 +71,7 @@ tfoot {
             <?= $v['name']; ?>
         </td>
         <td class="bb">
-            <?= $v['unit']; ?>
+            <?= $v['member_unit']; ?>
         </td>
         <td class="bb">
             <?= $v['phone']; ?>

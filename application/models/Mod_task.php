@@ -248,6 +248,7 @@ class Mod_task extends CI_Model
                     'job_title' => $res[$i]['job_title'],
                     'name' => $res[$i]['name'],
                     'unit' => $member['unit'],
+                    'member_unit' => $member['member_unit'],
                     'phone' => $member['member_phone'],
                     'meal' => $res[$i]['meal'],
                     'note' => $res[$i]['note'],
